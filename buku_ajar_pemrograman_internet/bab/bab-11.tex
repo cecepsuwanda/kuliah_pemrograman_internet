@@ -1,0 +1,34 @@
+\documentclass[../main]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{10}}{}
+\begin{document}
+
+\chapter{Session, Cookie, dan Autentikasi}
+
+\begin{subcpmk}
+  \item Sub-CPMK 4.2: Session, cookie, autentikasi dasar
+\end{subcpmk}
+
+\input{bab-11/section-11-1}
+\input{bab-11/section-11-2}
+
+\begin{aktivitas}
+  \item Implementasikan login dengan session.
+  \item Lindungi halaman tertentu agar hanya bisa diakses setelah login.
+\end{aktivitas}
+
+\begin{checklist}
+  \item Memahami perbedaan cookie dan session
+  \item Dapat mengimplementasikan autentikasi
+  \item Memahami hash password
+\end{checklist}
+
+\begin{rangkuman}
+Session dan cookie menyimpan state; autentikasi memverifikasi identitas pengguna. Password harus di-hash; praktik keamanan session harus diikuti \cite{owasp-auth}, \cite{owasp-session}.
+\end{rangkuman}
+
+\ifSubfilesClassLoaded{
+  \renewcommand{\bibname}{Daftar Pustaka}
+  \bibliographystyle{plain}
+  \bibliography{../references}
+}{}
+\end{document}

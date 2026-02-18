@@ -1,0 +1,75 @@
+\documentclass[../main]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{1}}{}
+\begin{document}
+
+\chapter{Landasan Teori: Arsitektur Web dan Protokol HTTP}
+
+\begin{subcpmk}
+  \item Sub-CPMK 1.1: Menjelaskan arsitektur client-server dan alur komunikasi HTTP request-response
+  \item Sub-CPMK 1.2: Membedakan peran dan teknologi client-side (browser) dan server-side
+\end{subcpmk}
+
+\input{bab-02/section-2-1}
+\input{bab-02/section-2-2}
+\input{bab-02/section-2-3}
+\input{bab-02/section-2-4}
+\input{bab-02/section-2-5}
+
+\begin{aktivitas}
+  \item Buat diagram sederhana (gambar atau TikZ) yang menggambarkan alur HTTP request dari browser ke server dan respons kembali.
+  \item Jelaskan dengan kata-kata Anda sendiri perbedaan client-side dan server-side. Berikan 2 contoh fitur web yang dijalankan di client dan 2 contoh yang dijalankan di server.
+  \item Gunakan alat pengembang browser (F12) untuk memeriksa tab Network. Buka sebuah situs web dan identifikasi request HTTP (metode, status code, URL).
+\end{aktivitas}
+
+\begin{latihan}
+  \item Jelaskan arsitektur client-server dan mengapa model ini digunakan untuk aplikasi web!
+  \item Sebutkan minimal 4 metode HTTP dan kegunaannya!
+  \item Apa perbedaan antara kode yang dijalankan di client dan di server? Mengapa data sensitif harus diproses di server?
+  \item \textbf{Refleksi}: Bagaimana pemahaman Anda tentang arsitektur web sebelum dan sesudah mempelajari bab ini?
+\end{latihan}
+
+\begin{asesmen}
+\textbf{Instrumen untuk Sub-CPMK 1.1 dan 1.2}
+
+\textbf{A. Pilihan Ganda}
+\begin{enumerate}
+  \item Dalam model client-server, browser bertindak sebagai:
+  \begin{enumerate}
+    \item Server
+    \item Client
+    \item Gateway
+    \item Proxy
+  \end{enumerate}
+  \item Metode HTTP yang digunakan untuk mengirim data form ke server adalah:
+  \begin{enumerate}
+    \item GET
+    \item POST
+    \item FETCH
+    \item SEND
+  \end{enumerate}
+\end{enumerate}
+
+\textbf{B. Essay:} Jelaskan alur lengkap ketika pengguna mengakses halaman web dari browser (dari ketik URL hingga halaman tampil). Sebutkan peran client dan server dalam proses tersebut.
+
+\textbf{Rubrik}: Lihat Lampiran.
+\end{asesmen}
+
+\begin{checklist}
+  \item Saya dapat menjelaskan arsitektur client-server
+  \item Saya dapat menjelaskan alur HTTP request-response
+  \item Saya dapat membedakan client-side dan server-side
+  \item Saya dapat menyebutkan teknologi untuk client dan server
+\end{checklist}
+
+\begin{rangkuman}
+Bab ini membahas landasan teori pemrograman internet: arsitektur client-server, protokol HTTP, serta peran dan teknologi client-side serta server-side. Pemahaman ini menjadi fondasi untuk bab-bab berikutnya.
+
+\textbf{Poin Kunci:} Arsitektur client-server; HTTP request-response; metode GET, POST, PUT, DELETE; status code; client-side (HTML, CSS, JS); server-side (PHP, Node.js, dll.).
+\end{rangkuman}
+
+\ifSubfilesClassLoaded{
+  \renewcommand{\bibname}{Daftar Pustaka}
+  \bibliographystyle{plain}
+  \bibliography{references}
+}{}
+\end{document}

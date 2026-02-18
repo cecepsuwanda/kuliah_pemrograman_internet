@@ -1,0 +1,34 @@
+\documentclass[../main]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{11}}{}
+\begin{document}
+
+\chapter{REST API dan Konsumsi dari Client}
+
+\begin{subcpmk}
+  \item Sub-CPMK 4.1: Membangun endpoint REST dan mengonsumsi API (Fetch/AJAX)
+\end{subcpmk}
+
+\input{bab-12/section-12-1}
+\input{bab-12/section-12-2}
+
+\begin{aktivitas}
+  \item Buat endpoint REST yang mengembalikan daftar data (JSON).
+  \item Konsumsi endpoint tersebut dari halaman HTML menggunakan Fetch API.
+\end{aktivitas}
+
+\begin{checklist}
+  \item Memahami konsep REST dan JSON
+  \item Dapat membuat endpoint REST
+  \item Dapat mengonsumsi API dengan Fetch
+\end{checklist}
+
+\begin{rangkuman}
+REST API memungkinkan pertukaran data terstruktur; Fetch API di JavaScript mengonsumsi API dari client \cite{mdn-fetch}, \cite{rest-tutorial}.
+\end{rangkuman}
+
+\ifSubfilesClassLoaded{
+  \renewcommand{\bibname}{Daftar Pustaka}
+  \bibliographystyle{plain}
+  \bibliography{../references}
+}{}
+\end{document}

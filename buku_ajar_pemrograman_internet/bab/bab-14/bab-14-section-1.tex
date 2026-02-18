@@ -1,0 +1,82 @@
+\section{Asesmen Akhir Komprehensif}
+
+Asesmen ini dirancang untuk mengukur pencapaian CPMK-1 sampai CPMK-4 Pemrograman Internet secara menyeluruh \cite{mdn-learn}. Kerjakan dengan jujur dan mandiri.
+
+\textbf{Alokasi Waktu}:
+\begin{itemize}
+  \item Bagian A (Pilihan Ganda): 25 menit
+  \item Bagian B (Essay): 40 menit
+  \item Bagian C (Analisis Kode): 35 menit
+  \item Bagian D (Proyek Aplikasi Web): sesuai jadwal
+\end{itemize}
+
+\subsection{Bagian A: Pilihan Ganda (CPMK-1, CPMK-2)}
+
+\begin{enumerate}
+  \item Dalam arsitektur client-server, browser bertindak sebagai:
+  \begin{enumerate}
+    \item Server \item Client \item Gateway \item Proxy
+  \end{enumerate}
+  \item Metode HTTP untuk mengirim data form ke server adalah:
+  \begin{enumerate}
+    \item GET \item POST \item FETCH \item SEND
+  \end{enumerate}
+  \item Elemen HTML5 untuk navigasi utama adalah:
+  \begin{enumerate}
+    \item \texttt{<header>} \item \texttt{<nav>} \item \texttt{<menu>} \item \texttt{<link>}
+  \end{enumerate}
+  \item Untuk layout responsif, properti CSS yang umum digunakan adalah:
+  \begin{enumerate}
+    \item \texttt{@media} \item \texttt{@import} \item \texttt{@keyframes} \item \texttt{@font}
+  \end{enumerate}
+  \item API DOM untuk memilih elemen berdasarkan ID adalah:
+  \begin{enumerate}
+    \item \texttt{querySelector()} \item \texttt{getElementById()} \item \texttt{selectById()} \item \texttt{find()}
+  \end{enumerate}
+  \item Serangan yang menyuntikkan script berbahaya ke halaman disebut:
+  \begin{enumerate}
+    \item SQL Injection \item XSS \item CSRF \item DDoS
+  \end{enumerate}
+  \item Format pertukaran data yang ringan dan umum untuk REST API adalah:
+  \begin{enumerate}
+    \item XML \item JSON \item CSV \item HTML
+  \end{enumerate}
+  \item Untuk mencegah SQL injection, yang harus digunakan adalah:
+  \begin{enumerate}
+    \item String concatenation \item Prepared statement \item Escape manual \item Validasi client saja
+  \end{enumerate}
+\end{enumerate}
+
+\subsection{Bagian B: Essay (CPMK-1, CPMK-2, CPMK-3, CPMK-4)}
+
+\begin{enumerate}
+  \item Jelaskan arsitektur client-server dan alur HTTP request-response!
+  \item Jelaskan perbedaan client-side dan server-side beserta contoh teknologinya!
+  \item Mengapa validasi di server wajib meskipun sudah ada validasi di client?
+  \item Jelaskan pencegahan XSS dan CSRF!
+  \item Jelaskan cara kerja session dan cookie dalam autentikasi web!
+\end{enumerate}
+
+\subsection{Bagian C: Analisis Kode}
+
+Analisis kode PHP/HTML berikut terkait keamanan dan best practices:
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single]
+<?php
+$id = $_GET['id'];
+$sql = "SELECT * FROM users WHERE id = " . $id;
+$result = mysqli_query($conn, $sql);
+echo "<div>" . $_POST['nama'] . "</div>";
+?>
+\end{lstlisting}
+
+Pertanyaan: Identifikasi minimal 3 masalah keamanan. Perbaiki kode tersebut!
+
+\subsection{Bagian D: Proyek Aplikasi Web (CPMK-2, CPMK-3, CPMK-4)}
+
+Implementasikan aplikasi web sederhana (mis. daftar tugas, buku tamu) dengan:
+\begin{itemize}
+  \item Front-end: HTML5, CSS3, JavaScript (layout responsif)
+  \item Back-end: PHP atau Node.js
+  \item Basis data: MySQL
+  \item CRUD lengkap, form validasi, pencegahan XSS/SQL injection
+\end{itemize}

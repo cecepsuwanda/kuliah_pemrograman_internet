@@ -1,0 +1,35 @@
+\documentclass[../main]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{5}}{}
+\begin{document}
+
+\chapter{CSS3: Flexbox, Grid, dan Desain Responsif}
+
+\begin{subcpmk}
+  \item Sub-CPMK 2.2: Menerapkan Flexbox, Grid, dan desain responsif
+\end{subcpmk}
+
+\input{bab-06/section-6-1}
+\input{bab-06/section-6-2}
+
+\begin{aktivitas}
+  \item Buat layout dengan Flexbox untuk baris navigasi.
+  \item Buat layout grid untuk galeri gambar.
+  \item Terapkan media query agar layout berubah di layar kecil.
+\end{aktivitas}
+
+\begin{checklist}
+  \item Dapat menggunakan Flexbox
+  \item Dapat menggunakan CSS Grid
+  \item Dapat membuat desain responsif dengan media query
+\end{checklist}
+
+\begin{rangkuman}
+Flexbox dan Grid adalah alat layout CSS modern. Desain responsif dengan media query dan unit relatif memastikan halaman tampil baik di semua perangkat \cite{mdn-learn-css}.
+\end{rangkuman}
+
+\ifSubfilesClassLoaded{
+  \renewcommand{\bibname}{Daftar Pustaka}
+  \bibliographystyle{plain}
+  \bibliography{../references}
+}{}
+\end{document}

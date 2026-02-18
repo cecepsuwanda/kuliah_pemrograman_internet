@@ -1,0 +1,34 @@
+\documentclass[../main]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{4}}{}
+\begin{document}
+
+\chapter{CSS3: Dasar dan Box Model}
+
+\begin{subcpmk}
+  \item Sub-CPMK 2.2: Menerapkan CSS3 untuk selector, box model, layout dasar
+\end{subcpmk}
+
+\input{bab-05/section-5-1}
+\input{bab-05/section-5-2}
+
+\begin{aktivitas}
+  \item Terapkan CSS eksternal ke halaman HTML dari Bab III.
+  \item Gunakan box model (padding, border, margin) untuk mengatur jarak elemen.
+\end{aktivitas}
+
+\begin{checklist}
+  \item Dapat menggunakan selector CSS
+  \item Memahami box model
+  \item Dapat mengatur warna dan typography
+\end{checklist}
+
+\begin{rangkuman}
+CSS mengontrol tampilan halaman web melalui selector, box model, warna, typography, dan properti layout. Pemisahan struktur (HTML) dan presentasi (CSS) adalah prinsip dasar desain web \cite{mdn-learn-css}.
+\end{rangkuman}
+
+\ifSubfilesClassLoaded{
+  \renewcommand{\bibname}{Daftar Pustaka}
+  \bibliographystyle{plain}
+  \bibliography{references}
+}{}
+\end{document}

@@ -1,0 +1,3 @@
+\section{Validasi Form dengan JavaScript}
+
+Validasi form dengan JavaScript memberikan umpan balik instan tanpa reload halaman \cite{mdn-learn-js}. Langkah umum: ambil nilai input dengan \texttt{value}, periksa kondisi (kosong, format, panjang), tampilkan pesan error di elemen yang sesuai, dan panggil \texttt{preventDefault()} pada event submit jika validasi gagal \cite{owasp-input}. Validasi client meningkatkan UX tetapi tidak menggantikan validasi server; data yang dikirim ke server harus selalu divalidasi kembali \cite{owasp-series}. Praktik baik: gunakan \texttt{constraint validation API} (checkValidity, setCustomValidity) bila memungkinkan, dan tampilkan pesan yang jelas bagi pengguna \cite{webdev}.

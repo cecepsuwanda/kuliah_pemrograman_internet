@@ -1,0 +1,34 @@
+\documentclass[../main]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{3}}{}
+\begin{document}
+
+\chapter{HTML5: Form dan Elemen Input}
+
+\begin{subcpmk}
+  \item Sub-CPMK 2.1, 2.3: Membuat form HTML5; pengenalan validasi dasar
+\end{subcpmk}
+
+\input{bab-04/section-4-1}
+\input{bab-04/section-4-2}
+
+\begin{aktivitas}
+  \item Buat form login dengan field username dan password.
+  \item Buat form pendaftaran dengan validasi \texttt{required} dan tipe \texttt{email}.
+\end{aktivitas}
+
+\begin{checklist}
+  \item Dapat membuat form dengan action dan method
+  \item Dapat menggunakan berbagai tipe input
+  \item Memahami validasi dasar HTML5
+\end{checklist}
+
+\begin{rangkuman}
+Form HTML5 dan elemen input memungkinkan pengumpulan data dari pengguna. Validasi bawaan HTML5 meningkatkan UX, tetapi validasi server tetap wajib untuk keamanan \cite{owasp-input}.
+\end{rangkuman}
+
+\ifSubfilesClassLoaded{
+  \renewcommand{\bibname}{Daftar Pustaka}
+  \bibliographystyle{plain}
+  \bibliography{references}
+}{}
+\end{document}

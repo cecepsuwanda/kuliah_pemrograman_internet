@@ -1,0 +1,34 @@
+\documentclass[../main]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{9}}{}
+\begin{document}
+
+\chapter{Integrasi Basis Data dan CRUD}
+
+\begin{subcpmk}
+  \item Sub-CPMK 3.1, 3.2: Koneksi basis data; operasi CRUD berbasis web
+\end{subcpmk}
+
+\input{bab-10/section-10-1}
+\input{bab-10/section-10-2}
+
+\begin{aktivitas}
+  \item Buat tabel di MySQL dan koneksi dari PHP/Node.js.
+  \item Implementasikan CRUD lengkap untuk satu entitas (mis. daftar tugas).
+\end{aktivitas}
+
+\begin{checklist}
+  \item Dapat menghubungkan aplikasi ke basis data
+  \item Dapat menjalankan query dengan aman (prepared statement)
+  \item Dapat mengimplementasikan CRUD
+\end{checklist}
+
+\begin{rangkuman}
+Integrasi basis data memungkinkan aplikasi web menyimpan dan mengelola data. CRUD adalah operasi dasar; keamanan (prepared statement, validasi) wajib diperhatikan \cite{owasp-sql}.
+\end{rangkuman}
+
+\ifSubfilesClassLoaded{
+  \renewcommand{\bibname}{Daftar Pustaka}
+  \bibliographystyle{plain}
+  \bibliography{../references}
+}{}
+\end{document}

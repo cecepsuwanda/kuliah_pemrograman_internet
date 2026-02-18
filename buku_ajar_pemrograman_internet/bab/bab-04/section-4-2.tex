@@ -1,0 +1,5 @@
+\section{Validasi Dasar Form di HTML5}
+
+HTML5 menyediakan validasi bawaan melalui atribut seperti \texttt{required}, \texttt{pattern}, \texttt{min}, \texttt{max}, dan \texttt{minlength} \cite{mdn-html}. Atribut \texttt{required} mencegah pengiriman form jika field kosong. Atribut \texttt{pattern} menerima ekspresi reguler untuk memvalidasi format input. Validasi ini dijalankan di browser sebelum form dikirim, memberikan umpan balik cepat kepada pengguna \cite{webdev}.
+
+Namun, validasi di client saja tidak cukup untuk keamanan \cite{owasp-input}. Data harus selalu divalidasi kembali di server karena pengguna dapat menonaktifkan validasi JavaScript/HTML5 atau mengirim request langsung. Kombinasi validasi client (untuk UX) dan server (untuk keamanan) merupakan praktik yang disarankan \cite{owasp-series}. Bab VIII akan membahas validasi form dengan JavaScript untuk kontrol yang lebih halus.

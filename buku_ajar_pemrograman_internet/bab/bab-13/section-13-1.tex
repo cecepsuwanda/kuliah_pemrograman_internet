@@ -1,0 +1,3 @@
+\section{Validasi Input dan Sanitasi}
+
+Validasi input memastikan data memenuhi format dan aturan yang diharapkan \cite{owasp-input}. Validasi di server wajib karena client dapat di-bypass; validasi di client untuk UX \cite{owasp-series}. Sanitasi membersihkan input dari karakter berbahaya (mis. escape HTML untuk mencegah XSS) \cite{owasp-xss}. Whitelist (hanya menerima nilai yang diizinkan) lebih aman daripada blacklist \cite{owasp-input}. Untuk SQL, selalu gunakan prepared statement; jangan menyusun query dengan string concatenation \cite{owasp-sql}.

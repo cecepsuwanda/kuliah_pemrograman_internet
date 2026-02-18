@@ -1,0 +1,35 @@
+\section{Arsitektur Web dan Model Client-Server}
+
+Aplikasi web modern didasarkan pada arsitektur client-server, di mana peran dibagi antara klien (browser) yang meminta sumber daya dan server yang menyediakan serta memproses permintaan tersebut \cite{mdn-learn}. Pemahaman mendalam tentang arsitektur ini sangat penting karena seluruh komunikasi di web dibangun di atas model ini. Klien mengirim permintaan HTTP ke server, server memproses permintaan dan mengembalikan respons, lalu klien menampilkan hasil kepada pengguna.
+
+Model client-server memungkinkan pemisahan tanggung jawab yang jelas: klien menangani tampilan dan interaksi pengguna, sementara server menangani logika bisnis, akses data, dan keamanan \cite{mdn-http}. Pemisahan ini memudahkan pengembangan, pemeliharaan, dan skalabilitas aplikasi. Selain itu, banyak klien dapat mengakses server yang sama secara bersamaan, yang merupakan dasar dari web yang kita kenal saat ini.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[node distance=3cm, >=stealth]
+  \node[client] (client) {Browser\\\small(Client)};
+  \node[server, right=of client] (server) {Web Server\\\small(Server)};
+  \draw[arrow] (client) -- node[above, align=center] {1. HTTP Request\\(GET, POST, dll.)} (server);
+  \draw[arrow] (server) -- node[below, align=center] {2. HTTP Response\\(HTML, JSON, dll.)} (client);
+\end{tikzpicture}
+\caption{Arsitektur Client-Server dalam Aplikasi Web}
+\end{figure}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{|l|p{5cm}|p{5cm}|}
+\hline
+\textbf{Aspek} & \textbf{Client (Browser)} & \textbf{Server} \\
+\hline
+Lokasi eksekusi & Komputer pengguna & Komputer hosting \\
+\hline
+Teknologi & HTML, CSS, JavaScript & PHP, Node.js, Python, Java \\
+\hline
+Peran utama & Menampilkan, berinteraksi & Memproses, menyimpan data \\
+\hline
+Akses data & Melalui API/request & Langsung ke basis data \\
+\hline
+\end{tabular}
+\caption{Perbandingan Peran Client dan Server}
+\end{table}

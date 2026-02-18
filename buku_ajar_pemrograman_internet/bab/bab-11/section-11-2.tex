@@ -1,0 +1,3 @@
+\section{Autentikasi Dasar}
+
+Autentikasi memverifikasi identitas pengguna (biasanya username/password) \cite{owasp-auth}. Alur dasar: form login mengirim kredensial ke server; server memverifikasi terhadap basis data; jika valid, buat session dan redirect ke halaman terproteksi \cite{php-manual}. Password harus di-hash (bcrypt, Argon2) sebelum disimpan; jangan pernah menyimpan password plain text \cite{owasp-auth}. Halaman yang memerlukan login harus memeriksa session di setiap request \cite{owasp-session}. Logout dengan menghapus session dan cookie \cite{owasp-series}.

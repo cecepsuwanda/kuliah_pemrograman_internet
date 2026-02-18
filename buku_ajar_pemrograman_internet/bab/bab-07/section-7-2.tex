@@ -1,0 +1,13 @@
+\section{DOM dan Manipulasi Elemen}
+
+DOM (Document Object Model) adalah representasi terstruktur dari dokumen HTML yang dapat dimanipulasi oleh JavaScript \cite{mdn-api}. Browser membuat pohon DOM dari HTML; JavaScript mengakses dan memodifikasi elemen melalui API DOM \cite{mdn-learn-js}.
+
+Metode utama: \texttt{document.getElementById()}, \texttt{document.querySelector()}, \texttt{document.querySelectorAll()} untuk memilih elemen; \texttt{element.textContent}, \texttt{element.innerHTML} untuk konten; \texttt{element.style} untuk gaya; \texttt{element.addEventListener()} untuk event \cite{eloquent-js}. Memahami DOM penting untuk membuat halaman dinamis dan responsif terhadap interaksi pengguna \cite{js-info}.
+
+\begin{lstlisting}[caption={Contoh Manipulasi DOM}, basicstyle=\ttfamily\small, frame=single]
+const btn = document.querySelector('#tombol');
+btn.addEventListener('click', function() {
+  const paragraf = document.getElementById('teks');
+  paragraf.textContent = 'Teks diubah!';
+});
+\end{lstlisting}

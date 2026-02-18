@@ -1,0 +1,31 @@
+\section{Peta Konsep Pemrograman Internet}
+
+Gambar \ref{fig:peta-konsep} memperlihatkan peta konsep utama dalam pemrograman internet. Alur pembelajaran dimulai dari fondasi (arsitektur, HTTP), kemudian membangun antarmuka (HTML, CSS, JavaScript), lalu logika server dan basis data, serta diakhiri dengan API dan keamanan.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+  node distance=0.8cm,
+  box/.style={rectangle, draw, fill=blue!10, minimum width=2.2cm, minimum height=0.6cm, font=\small, align=center}
+]
+  \node[box] (arch) {Arsitektur\\Web \& HTTP};
+  \node[box, below=of arch] (html) {HTML};
+  \node[box, left=1.5cm of html] (css) {CSS};
+  \node[box, right=1.5cm of html] (js) {JavaScript};
+  \node[box, below=of html] (server) {Server-Side};
+  \node[box, below=of server] (db) {Basis Data};
+  \node[box, below=of db] (api) {API \& Keamanan};
+  \draw[->] (arch) -- (html);
+  \draw[->] (arch) -- (css);
+  \draw[->] (arch) -- (js);
+  \draw[->] (html) -- (server);
+  \draw[->] (css) -- (server);
+  \draw[->] (js) -- (server);
+  \draw[->] (server) -- (db);
+  \draw[->] (db) -- (api);
+\end{tikzpicture}
+\caption{Peta Konsep Materi Pemrograman Internet}
+\label{fig:peta-konsep}
+\end{figure}
+
+Memahami hubungan antar komponen ini membantu mahasiswa melihat gambaran besar sebelum masuk ke detail teknis setiap topik \cite{webdev}. Setiap lapisan dibangun di atas lapisan sebelumnya, sehingga penguasaan bertahap dari fondasi ke tingkat lanjut akan memudahkan pemahaman keseluruhan.

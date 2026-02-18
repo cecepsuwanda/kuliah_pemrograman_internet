@@ -1,0 +1,3 @@
+\section{Session dan Cookie}
+
+HTTP bersifat stateless: server tidak mengingat request sebelumnya \cite{mdn-http}. Cookie dan session mengatasi hal ini untuk menyimpan state pengguna \cite{owasp-session}. Cookie disimpan di browser dan dikirim otomatis dengan setiap request; cocok untuk preferensi atau token \cite{owasp-auth}. Session disimpan di server; klien hanya menyimpan session ID (biasanya dalam cookie). Session digunakan untuk autentikasi dan data sementara \cite{owasp-session}. Praktik keamanan: gunakan \texttt{HttpOnly} dan \texttt{Secure} pada cookie sensitif, regenerasi session ID setelah login, dan batasi umur session \cite{owasp-series}.

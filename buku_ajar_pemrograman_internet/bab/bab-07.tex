@@ -1,0 +1,34 @@
+\documentclass[../main]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{6}}{}
+\begin{document}
+
+\chapter{JavaScript: Sintaks dan DOM}
+
+\begin{subcpmk}
+  \item Sub-CPMK 2.3: Menggunakan JavaScript untuk manipulasi DOM
+\end{subcpmk}
+
+\input{bab-07/section-7-1}
+\input{bab-07/section-7-2}
+
+\begin{aktivitas}
+  \item Buat skrip JavaScript yang mengubah teks saat tombol diklik.
+  \item Gunakan \texttt{querySelector} dan \texttt{addEventListener} untuk interaksi.
+\end{aktivitas}
+
+\begin{checklist}
+  \item Memahami sintaks dasar JavaScript
+  \item Dapat memanipulasi DOM
+  \item Dapat menambahkan event listener
+\end{checklist}
+
+\begin{rangkuman}
+JavaScript menambahkan interaktivitas ke halaman web. DOM API memungkinkan akses dan modifikasi elemen HTML secara dinamis \cite{mdn-learn-js}.
+\end{rangkuman}
+
+\ifSubfilesClassLoaded{
+  \renewcommand{\bibname}{Daftar Pustaka}
+  \bibliographystyle{plain}
+  \bibliography{../references}
+}{}
+\end{document}

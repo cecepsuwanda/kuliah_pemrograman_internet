@@ -1,0 +1,34 @@
+\documentclass[../main]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{7}}{}
+\begin{document}
+
+\chapter{JavaScript: Event Handling dan Validasi Form}
+
+\begin{subcpmk}
+  \item Sub-CPMK 2.3: Event handling dan validasi form dengan JavaScript
+\end{subcpmk}
+
+\input{bab-08/section-8-1}
+\input{bab-08/section-8-2}
+
+\begin{aktivitas}
+  \item Implementasikan validasi form dengan JavaScript (email, panjang password).
+  \item Tampilkan pesan error di bawah field yang tidak valid.
+\end{aktivitas}
+
+\begin{checklist}
+  \item Dapat menangani event form (submit, input)
+  \item Dapat memvalidasi input dengan JavaScript
+  \item Memahami bahwa validasi server tetap wajib
+\end{checklist}
+
+\begin{rangkuman}
+Event handling memungkinkan JavaScript merespons interaksi pengguna. Validasi form di client meningkatkan UX; validasi server wajib untuk keamanan \cite{owasp-input}.
+\end{rangkuman}
+
+\ifSubfilesClassLoaded{
+  \renewcommand{\bibname}{Daftar Pustaka}
+  \bibliographystyle{plain}
+  \bibliography{../references}
+}{}
+\end{document}

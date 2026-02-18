@@ -1,0 +1,34 @@
+\documentclass[../main]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{8}}{}
+\begin{document}
+
+\chapter{Pemrograman Server-Side (PHP/Node.js)}
+
+\begin{subcpmk}
+  \item Sub-CPMK 3.1: Mengimplementasikan script server-side untuk pemrosesan form
+\end{subcpmk}
+
+\input{bab-09/section-9-1}
+\input{bab-09/section-9-2}
+
+\begin{aktivitas}
+  \item Setup environment PHP atau Node.js lokal.
+  \item Buat endpoint yang menerima form POST dan mengembalikan respons.
+\end{aktivitas}
+
+\begin{checklist}
+  \item Memahami peran server-side
+  \item Dapat memproses request (GET/POST)
+  \item Dapat mengembalikan respons
+\end{checklist}
+
+\begin{rangkuman}
+Pemrograman server-side menangani logika di server. PHP dan Node.js adalah pilihan populer; keduanya memproses request dan mengembalikan respons \cite{php-manual}, \cite{nodejs}.
+\end{rangkuman}
+
+\ifSubfilesClassLoaded{
+  \renewcommand{\bibname}{Daftar Pustaka}
+  \bibliographystyle{plain}
+  \bibliography{../references}
+}{}
+\end{document}

@@ -1,0 +1,26 @@
+\section{Protokol HTTP dan Alur Request-Response}
+
+HTTP (HyperText Transfer Protocol) adalah protokol lapisan aplikasi yang menjadi fondasi komunikasi data di World Wide Web \cite{mdn-http}. HTTP mendefinisikan bagaimana pesan diformat dan ditransmisikan, serta bagaimana server dan browser merespons berbagai perintah. Setiap kali pengguna membuka halaman web, mengirim form, atau memuat sumber daya, serangkaian pertukaran HTTP terjadi di balik layar.
+
+Siklus HTTP bersifat request-response: klien mengirim permintaan, server mengembalikan respons. Permintaan HTTP mengandung metode (GET, POST, PUT, DELETE, dll.), URL tujuan, header (metadata), dan kadang body data \cite{http-status}. Respons HTTP mengandung status code (200 OK, 404 Not Found, 500 Server Error), header, dan body yang berisi konten yang diminta.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{|l|p{9cm}|}
+\hline
+\textbf{Metode HTTP} & \textbf{Keterangan} \\
+\hline
+GET & Mengambil sumber daya; tidak mengubah data di server \\
+\hline
+POST & Mengirim data untuk diproses; sering untuk form, membuat sumber baru \\
+\hline
+PUT & Mengganti sumber daya yang ada \\
+\hline
+DELETE & Menghapus sumber daya \\
+\hline
+\end{tabular}
+\caption{Metode HTTP Utama}
+\end{table}
+
+Status code HTTP mengindikasikan hasil permintaan \cite{http-status}. Kode 2xx menandakan sukses; 3xx untuk pengalihan; 4xx untuk kesalahan klien (misalnya 404 Not Found); 5xx untuk kesalahan server. Memahami status code penting untuk debugging dan menangani error dengan benar dalam aplikasi web.

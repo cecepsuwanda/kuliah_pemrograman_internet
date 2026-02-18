@@ -1,0 +1,23 @@
+\section{Struktur Dasar Dokumen HTML5}
+
+HTML (HyperText Markup Language) adalah bahasa markup standar untuk membuat halaman web \cite{mdn-html}. HTML5 adalah versi terbaru dari spesifikasi HTML yang dikembangkan oleh WHATWG dan W3C, menyediakan elemen semantik baru, dukungan media, dan API yang lebih kaya \cite{whatwg}. Setiap halaman web dibangun dari dokumen HTML yang mendefinisikan struktur dan konten yang akan ditampilkan browser.
+
+Dokumen HTML5 minimal terdiri dari deklarasi tipe dokumen \texttt{<!DOCTYPE html>}, elemen \texttt{<html>} sebagai akar, \texttt{<head>} untuk metadata, dan \texttt{<body>} untuk konten yang terlihat \cite{mdn-learn-html}. Bagian \texttt{<head>} biasanya berisi judul halaman, meta charset untuk encoding UTF-8, dan referensi ke file CSS atau script eksternal. Bagian \texttt{<body>} berisi semua konten yang akan ditampilkan kepada pengguna.
+
+\begin{contoh}
+Contoh struktur dasar dokumen HTML5 \cite{w3schools}:
+\end{contoh}
+
+\begin{lstlisting}[caption={Struktur Dasar HTML5}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Halaman Pertama</title>
+</head>
+<body>
+  <h1>Selamat Datang</h1>
+  <p>Ini adalah paragraf pertama.</p>
+</body>
+</html>
+\end{lstlisting}
