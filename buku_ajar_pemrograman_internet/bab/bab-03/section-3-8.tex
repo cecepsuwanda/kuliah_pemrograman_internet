@@ -1,124 +1,595 @@
-\section{Contoh Lengkap: Class Buku}
+\section{Tables dan Lists}
 
-\begin{javacode}[caption={Class Buku - Contoh Lengkap}]
-public class Buku {
-    // Attributes
-    private String isbn;
-    private String judul;
-    private String penulis;
-    private int tahunTerbit;
-    private double harga;
-    private boolean tersedia;
-    
-    // Static variable
-    private static int jumlahBuku = 0;
-    
-    // Constructor
-    public Buku(String isbn, String judul, String penulis, 
-                int tahunTerbit, double harga) {
-        this.isbn = isbn;
-        this.judul = judul;
-        this.penulis = penulis;
-        this.tahunTerbit = tahunTerbit;
-        this.harga = harga;
-        this.tersedia = true;
-        jumlahBuku++;
-    }
-    
-    // Getter methods
-    public String getISBN() {
-        return isbn;
-    }
-    
-    public String getJudul() {
-        return judul;
-    }
-    
-    public String getPenulis() {
-        return penulis;
-    }
-    
-    public int getTahunTerbit() {
-        return tahunTerbit;
-    }
-    
-    public double getHarga() {
-        return harga;
-    }
-    
-    public boolean isTersedia() {
-        return tersedia;
-    }
-    
-    // Setter methods
-    public void setHarga(double harga) {
-        if (harga > 0) {
-            this.harga = harga;
-        }
-    }
-    
-    public void setTersedia(boolean tersedia) {
-        this.tersedia = tersedia;
-    }
-    
-    // Utility methods
-    public void pinjam() {
-        if (tersedia) {
-            tersedia = false;
-            System.out.println("Buku '" + judul + "' berhasil dipinjam");
-        } else {
-            System.out.println("Buku tidak tersedia");
-        }
-    }
-    
-    public void kembalikan() {
-        tersedia = true;
-        System.out.println("Buku '" + judul + "' berhasil dikembalikan");
-    }
-    
-    public void tampilkanInfo() {
-        System.out.println("=== Informasi Buku ===");
-        System.out.println("ISBN: " + isbn);
-        System.out.println("Judul: " + judul);
-        System.out.println("Penulis: " + penulis);
-        System.out.println("Tahun: " + tahunTerbit);
-        System.out.println("Harga: Rp " + harga);
-        System.out.println("Status: " + (tersedia ? "Tersedia" : "Dipinjam"));
-    }
-    
-    // Static method
-    public static int getJumlahBuku() {
-        return jumlahBuku;
-    }
-}
-\end{javacode}
+Tables dan lists adalah elemen fundamental HTML untuk mengorganisir data dan informasi secara terstruktur. Tables digunakan untuk data tabular, sedangkan lists untuk item-item yang berurutan \cite{w3schools-html}. Pemahaman yang baik tentang tables dan lists adalah kunci untuk presentasi data yang efektif \cite{mdn-html}.
 
-\begin{javacode}[caption={Penggunaan Class Buku}]
-public class TestBuku {
-    public static void main(String[] args) {
-        // Membuat object buku
-        Buku buku1 = new Buku("978-0134685991", "Effective Java", 
-                              "Joshua Bloch", 2018, 450000);
-        
-        Buku buku2 = new Buku("978-0596009205", "Head First Java", 
-                              "Kathy Sierra", 2005, 350000);
-        
-        // Menampilkan informasi
-        buku1.tampilkanInfo();
-        System.out.println();
-        
-        // Meminjam buku
-        buku1.pinjam();
-        buku1.pinjam();  // Coba pinjam lagi
-        
-        // Mengembalikan buku
-        buku1.kembalikan();
-        
-        // Mengubah harga
-        buku2.setHarga(300000);
-        
-        // Menampilkan jumlah buku
-        System.out.println("\nTotal buku: " + Buku.getJumlahBuku());
+\subsection{HTML Tables}
+
+Tables dibangun menggunakan tag-tag yang mendefinisikan struktur baris dan kolom:
+
+\begin{itemize}
+  \item \texttt{<table>} - Container utama untuk table
+  \item \texttt{<tr>} - Table row (baris)
+  \item \texttt{<th>} - Table header cell (sel header)
+  \item \texttt{<td>} - Table data cell (sel data)
+  \item \texttt{<thead>} - Group header rows
+  \item \texttt{<tbody>} - Group body rows
+  \item \texttt{<tfoot>} - Group footer rows
+  \item \texttt{<caption>} - Caption/judul table
+\end{itemize}
+
+\begin{lstlisting}[caption={Contoh Basic Table}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contoh Table Dasar</title>
+</head>
+<body>
+  <h1>Demonstrasi HTML Tables</h1>
+  
+  <!-- Table sederhana -->
+  <h3>Table Sederhana</h3>
+  <table border="1">
+    <tr>
+      <th>Nama</th>
+      <th>Umur</th>
+      <th>Kota</th>
+    </tr>
+    <tr>
+      <td>Andi</td>
+      <td>25</td>
+      <td>Jakarta</td>
+    </tr>
+    <tr>
+      <td>Budi</td>
+      <td>30</td>
+      <td>Bandung</td>
+    </tr>
+    <tr>
+      <td>Cici</td>
+      <td>28</td>
+      <td>Surabaya</td>
+    </tr>
+  </table>
+  
+  <!-- Table dengan caption dan styling -->
+  <h3>Table dengan Caption dan Styling</h3>
+  <table border="1" cellpadding="5" cellspacing="0" width="100%">
+    <caption>Data Karyawan Perusahaan</caption>
+    <tr style="background-color: #f0f0f0;">
+      <th style="padding: 10px;">ID</th>
+      <th style="padding: 10px;">Nama</th>
+      <th style="padding: 10px;">Departemen</th>
+      <th style="padding: 10px;">Gaji</th>
+    </tr>
+    <tr>
+      <td style="padding: 8px; text-align: center;">001</td>
+      <td style="padding: 8px;">John Doe</td>
+      <td style="padding: 8px;">IT</td>
+      <td style="padding: 8px; text-align: right;">Rp 10.000.000</td>
+    </tr>
+    <tr style="background-color: #f9f9f9;">
+      <td style="padding: 8px; text-align: center;">002</td>
+      <td style="padding: 8px;">Jane Smith</td>
+      <td style="padding: 8px;">Marketing</td>
+      <td style="padding: 8px; text-align: right;">Rp 8.500.000</td>
+    </tr>
+  </table>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Table dengan border dan struktur baris-kolom yang jelas
+- Header row dengan background warna berbeda
+- Caption di atas table
+- Cell padding untuk spacing yang lebih baik
+- Data alignment yang sesuai (center untuk ID, right untuk gaji)
+
+\subsection{Advanced Table Features}
+
+Tables memiliki fitur lanjutan untuk struktur yang lebih kompleks:
+
+\begin{itemize}
+  \item \textbf{Colspan}: Menggabungkan multiple kolom
+  \item \textbf{Rowspan}: Menggabungkan multiple baris
+  \item \textbf{Table Sections}: Thead, tbody, tfoot
+  \item \textbf{Table Attributes}: Border, cellpadding, cellspacing, width
+\end{itemize}
+
+\begin{lstlisting}[caption={Advanced Table Features}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Advanced Table Features</title>
+</head>
+<body>
+  <h1>Advanced Table Demonstrations</h1>
+  
+  <!-- Table dengan colspan dan rowspan -->
+  <h3>Colspan dan Rowspan</h3>
+  <table border="1" cellpadding="5" width="100%">
+    <tr>
+      <th rowspan="2">No</th>
+      <th colspan="2">Informasi Mahasiswa</th>
+    </tr>
+    <tr>
+      <th>Nama</th>
+      <th>Nilai</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Andi</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Budi</td>
+      <td>B</td>
+    </tr>
+  </table>
+  
+  <!-- Table dengan thead, tbody, tfoot -->
+  <h3>Table Sections</h3>
+  <table border="1" cellpadding="5" width="100%">
+    <thead>
+      <tr style="background-color: #e0e0e0;">
+        <th>Produk</th>
+        <th>Q1</th>
+        <th>Q2</th>
+        <th>Q3</th>
+        <th>Q4</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Laptop</strong></td>
+        <td>100</td>
+        <td>120</td>
+        <td>90</td>
+        <td>110</td>
+        <td><strong>420</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Smartphone</strong></td>
+        <td>80</td>
+        <td>95</td>
+        <td>110</td>
+        <td>125</td>
+        <td><strong>410</strong></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr style="background-color: #f0f0f0; font-weight: bold;">
+        <td>Total</td>
+        <td>180</td>
+        <td>215</td>
+        <td>200</td>
+        <td>235</td>
+        <td>830</td>
+      </tr>
+    </tfoot>
+  </table>
+  
+  <!-- Complex table dengan multiple features -->
+  <h3>Complex Table Example</h3>
+  <table border="1" cellpadding="8" cellspacing="2" width="100%">
+    <caption>Jadwal Kuliah Semester Ganjil</caption>
+    <thead>
+      <tr style="background-color: #4CAF50; color: white;">
+        <th rowspan="2">Hari</th>
+        <th colspan="2">Pagi</th>
+        <th colspan="2">Sore</th>
+      </tr>
+      <tr style="background-color: #4CAF50; color: white;">
+        <th>08:00</th>
+        <th>10:00</th>
+        <th>13:00</th>
+        <th>15:00</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td rowspan="2"><strong>Senin</strong></td>
+        <td>Matematika</td>
+        <td>Fisika</td>
+        <td>Kimia</td>
+        <td>Biologi</td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: center; font-style: italic;">
+          Lab Fisika
+        </td>
+        <td colspan="2" style="text-align: center; font-style: italic;">
+          Lab Kimia
+        </td>
+      </tr>
+      <tr>
+        <td rowspan="2"><strong>Selasa</strong></td>
+        <td>Bahasa Indonesia</td>
+        <td>Bahasa Inggris</td>
+        <td>Sejarah</td>
+        <td>Geografi</td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: center; font-style: italic;">
+          Debat Bahasa
+        </td>
+        <td colspan="2" style="text-align: center; font-style: italic;">
+          Presentasi Sejarah
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Colspan menggabungkan 2 kolom menjadi 1
+- Rowspan menggabungkan 2 baris menjadi 1
+- Thead dengan background hijau untuk header
+- Tbody dengan data utama
+- Tfoot dengan total dan background abu-abu
+- Complex table structure dengan multiple rowspan/colspan
+
+\subsection{HTML Lists}
+
+Lists digunakan untuk menampilkan item-item yang berurutan atau tidak berurutan:
+
+\begin{itemize}
+  \item \textbf{Unordered List}: `<ul>` dengan `<li>` (bullet points)
+  \item \textbf{Ordered List}: `<ol>` dengan `<li>` (numbered)
+  \item \textbf{Definition List}: `<dl>`, `<dt>`, `<dd>` (term dan definition)
+  \item \textbf{Nested Lists}: Lists di dalam lists
+\end{itemize}
+
+\begin{lstlisting}[caption={Berbagai Jenis Lists}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contoh HTML Lists</title>
+</head>
+<body>
+  <h1>Demonstrasi HTML Lists</h1>
+  
+  <!-- Unordered List -->
+  <h3>Unordered List (UL)</h3>
+  <p>Fitur HTML5:</p>
+  <ul>
+    <li>Semantic elements</li>
+    <li>Multimedia support</li>
+    <li>Form validation</li>
+    <li>Local storage</li>
+    <li>Geolocation API</li>
+  </ul>
+  
+  <!-- Ordered List -->
+  <h3>Ordered List (OL)</h3>
+  <p>Langkah belajar web development:</p>
+  <ol>
+    <li>Learn HTML fundamentals</li>
+    <li>Master CSS styling</li>
+    <li>Understand JavaScript basics</li>
+    <li>Practice with projects</li>
+    <li>Build portfolio</li>
+  </ol>
+  
+  <!-- Ordered List dengan type berbeda -->
+  <h3>Ordered List Types</h3>
+  <p>Popular programming languages:</p>
+  <ol type="A">
+    <li>JavaScript</li>
+    <li>Python</li>
+    <li>Java</li>
+  </ol>
+  
+  <ol type="I">
+    <li>First place</li>
+    <li>Second place</li>
+    <li>Third place</li>
+  </ol>
+  
+  <ol type="a">
+    <li>Installation guide</li>
+    <li>Configuration steps</li>
+    <li>Troubleshooting tips</li>
+  </ol>
+  
+  <!-- Definition List -->
+  <h3>Definition List (DL)</h3>
+  <p>Web development terms:</p>
+  <dl>
+    <dt>HTML</dt>
+    <dd>HyperText Markup Language - bahasa markup untuk membuat halaman web</dd>
+    
+    <dt>CSS</dt>
+    <dd>Cascading Style Sheets - bahasa styling untuk tampilan web</dd>
+    
+    <dt>JavaScript</dt>
+    <dd>Bahasa scripting untuk interaktivitas web</dd>
+    
+    <dt>API</dt>
+    <dd>Application Programming Interface - antarmuka untuk komunikasi antar software</dd>
+  </dl>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Unordered list dengan bullet points (•)
+- Ordered list dengan numbering (1, 2, 3)
+- Ordered list dengan letters (A, B, C)
+- Ordered list dengan roman numbers (I, II, III)
+- Definition list dengan term bold dan definition indented
+
+\subsection{Nested Lists}
+
+Lists dapat disusun secara hierarkis dengan nested lists:
+
+\begin{lstlisting}[caption={Nested Lists}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nested Lists</title>
+</head>
+<body>
+  <h1>Nested Lists Demonstrations</h1>
+  
+  <!-- Nested unordered lists -->
+  <h3>Teknologi Web Development</h3>
+  <ul>
+    <li>
+      <strong>Frontend Technologies</strong>
+      <ul>
+        <li>HTML5</li>
+        <li>CSS3</li>
+        <li>JavaScript ES6+</li>
+        <li>
+          Frameworks
+          <ul>
+            <li>React</li>
+            <li>Vue.js</li>
+            <li>Angular</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <strong>Backend Technologies</strong>
+      <ul>
+        <li>Node.js</li>
+        <li>PHP</li>
+        <li>Python</li>
+        <li>
+          Databases
+          <ul>
+            <li>MySQL</li>
+            <li>MongoDB</li>
+            <li>PostgreSQL</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <strong>DevOps Tools</strong>
+      <ul>
+        <li>Git</li>
+        <li>Docker</li>
+        <li>CI/CD Pipelines</li>
+      </ul>
+    </li>
+  </ul>
+  
+  <!-- Mixed nested lists -->
+  <h3>Curriculum Web Development</h3>
+  <ol>
+    <li>
+      Semester 1: Fundamentals
+      <ul>
+        <li>HTML & CSS Basics</li>
+        <li>JavaScript Fundamentals</li>
+        <li>Responsive Design Principles</li>
+      </ul>
+    </li>
+    <li>
+      Semester 2: Intermediate
+      <ul>
+        <li>Advanced CSS & Frameworks</li>
+        <li>DOM Manipulation</li>
+        <li>Async JavaScript</li>
+      </ul>
+    </li>
+    <li>
+      Semester 3: Advanced
+      <ul>
+        <li>Full-Stack Development</li>
+        <li>Performance Optimization</li>
+        <li>Security Best Practices</li>
+      </ul>
+    </li>
+  </ol>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Hierarki lists dengan multiple levels
+- Berbagai bullet styles untuk setiap level
+- Mixed ordered dan unordered lists
+- Struktur yang jelas untuk informasi kompleks
+
+\subsection{Contoh Lengkap: Data Dashboard}
+
+Berikut contoh dashboard yang menggabungkan tables dan lists:
+
+\begin{lstlisting}[caption={Dashboard dengan Tables dan Lists}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Dashboard</title>
+  <style>
+    .dashboard {
+      font-family: Arial, sans-serif;
+      margin: 20px;
     }
-}
-\end{javacode}
+    .section {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+    .status-active { color: green; }
+    .status-pending { color: orange; }
+    .status-inactive { color: red; }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <h1>Project Management Dashboard</h1>
+    
+    <!-- Summary Table -->
+    <div class="section">
+      <h2>Project Summary</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Project Name</th>
+            <th>Status</th>
+            <th>Progress</th>
+            <th>Deadline</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Website Redesign</td>
+            <td><span class="status-active">Active</span></td>
+            <td>75%</td>
+            <td>2024-12-31</td>
+          </tr>
+          <tr>
+            <td>Mobile App</td>
+            <td><span class="status-pending">Pending</span></td>
+            <td>30%</td>
+            <td>2025-01-15</td>
+          </tr>
+          <tr>
+            <td>API Integration</td>
+            <td><span class="status-inactive">Inactive</span></td>
+            <td>100%</td>
+            <td>2024-11-30</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <!-- Task Lists -->
+    <div class="section">
+      <h2>Active Tasks</h2>
+      <ul>
+        <li>
+          <strong>Website Redesign Tasks:</strong>
+          <ul>
+            <li>Homepage mockup approval</li>
+            <li>Database optimization</li>
+            <li>Performance testing</li>
+            <li>User acceptance testing</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Mobile App Development:</strong>
+          <ul>
+            <li>UI/UX design finalization</li>
+            <li>Backend API integration</li>
+            <li>Testing on multiple devices</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    
+    <!-- Team Information -->
+    <div class="section">
+      <h2>Team Members</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Current Tasks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>John Doe</td>
+            <td>Frontend Developer</td>
+            <td>Website Redesign</td>
+          </tr>
+          <tr>
+            <td>Jane Smith</td>
+            <td>Backend Developer</td>
+            <td>API Integration</td>
+          </tr>
+          <tr>
+            <td>Bob Johnson</td>
+            <td>UI/UX Designer</td>
+            <td>Mobile App Design</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <!-- Priority Lists -->
+    <div class="section">
+      <h2>Priority Action Items</h2>
+      <ol>
+        <li>
+          <strong>Critical Priority:</strong>
+          <ul>
+            <li>Fix production bugs</li>
+            <li>Security audit completion</li>
+          </ul>
+        </li>
+        <li>
+          <strong>High Priority:</strong>
+          <ul>
+            <li>Complete website redesign</li>
+            <li>Deploy mobile app beta</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Medium Priority:</strong>
+          <ul>
+            <li>Documentation update</li>
+            <li>Team training sessions</li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+  </div>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Dashboard dengan 3 sections terorganisir
+- Summary table dengan status berwarna
+- Task lists dengan hierarki yang jelas
+- Team member table dengan informasi lengkap
+- Priority action items dengan ordered list
+- Kombinasi tables dan lists untuk data management
+
+Tables dan lists yang baik memungkinkan presentasi data yang terstruktur dan mudah dibaca \cite{w3schools-html}. Penggunaan yang tepat akan meningkatkan user experience dan kemudahan dalam mengakses informasi \cite{mdn-html}.

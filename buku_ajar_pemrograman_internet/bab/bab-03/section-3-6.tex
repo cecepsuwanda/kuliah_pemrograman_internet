@@ -1,42 +1,442 @@
-\section{Object Creation dan Instantiation}
+\section{Images dan Media}
 
-\subsection{Membuat Object}
+Images dan media adalah elemen penting dalam web development yang membuat konten lebih menarik dan informatif. HTML menyediakan tag `<img>` untuk menampilkan gambar dengan berbagai format dan pengaturan \cite{w3schools-html}. Pemahaman yang baik tentang image handling adalah fundamental untuk web development modern \cite{mdn-html}.
 
-Proses membuat object disebut \oop{instantiation}. Dalam Java, gunakan keyword \keyword{new}:
+\subsection{Basic Image Tag}
 
-\begin{javacode}[caption={Membuat dan Menggunakan Object}]
-public class Main {
-    public static void main(String[] args) {
-        // Membuat object dengan default constructor
-        Mahasiswa mhs1 = new Mahasiswa();
-        
-        // Membuat object dengan parameterized constructor
-        Mahasiswa mhs2 = new Mahasiswa("123456", "Budi Santoso");
-        
-        // Mengakses attributes (jika public)
-        mhs2.ipk = 3.75;
-        
-        // Memanggil methods
-        mhs2.tampilkanInfo();
-        System.out.println("Predikat: " + mhs2.getPredikat());
-        
-        // Cek kelulusan
-        if (mhs2.lulus()) {
-            System.out.println(mhs2.nama + " dinyatakan LULUS");
-        }
+Tag `<img>` memiliki atribut penting untuk menampilkan gambar:
+
+\begin{itemize}
+  \item \texttt{src} - Source/path file gambar (wajib)
+  \item \texttt{alt} - Alternative text (wajib untuk accessibility)
+  \item \texttt{width} - Lebar gambar dalam pixels atau persentase
+  \item \texttt{height} - Tinggi gambar dalam pixels atau persentase
+  \item \texttt{title} - Tooltip saat hover
+  \item \texttt{border} - Border gambar
+  \item \texttt{align} - Alignment (left, right, center, top, bottom)
+\end{itemize}
+
+\begin{lstlisting}[caption={Contoh Basic Image}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contoh Image Dasar</title>
+</head>
+<body>
+  <h1>Demonstrasi Image HTML</h1>
+  
+  <!-- Image dengan semua atribut penting -->
+  <img src="sunset.jpg" alt="Sunset di pantai" width="400" height="300" 
+       title="Pemandangan sunset yang indah">
+  
+  <!-- Image dengan ukuran berbeda -->
+  <h3>Image dengan Ukuran Berbeda:</h3>
+  <p>Image kecil:</p>
+  <img src="logo.png" alt="Company Logo" width="100" height="50">
+  
+  <p>Image sedang:</p>
+  <img src="product.jpg" alt="Product Image" width="200" height="150">
+  
+  <p>Image besar:</p>
+  <img src="banner.jpg" alt="Website Banner" width="600" height="200">
+  
+  <!-- Image dengan alignment -->
+  <h3>Image Alignment:</h3>
+  <p>
+    <img src="icon-left.png" alt="Icon" width="50" height="50" align="left">
+    Teks ini mengalir di sebelah kanan image. Image di sebelah kiri dengan alignment left.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.
+  </p>
+  
+  <p>
+    <img src="icon-right.png" alt="Icon" width="50" height="50" align="right">
+    Teks ini mengalir di sebelah kiri image. Image di sebelah kanan dengan alignment right.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.
+  </p>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Gambar ditampilkan dengan ukuran sesuai atribut width/height
+- Text mengalir di sekitar gambar sesuai alignment
+- Tooltip muncul saat hover pada gambar
+- Alt text tidak terlihat tapi penting untuk accessibility dan SEO
+
+\subsection{Image Formats dan Optimization}
+
+HTML mendukung berbagai format gambar dengan karakteristik berbeda:
+
+\begin{itemize}
+  \item \textbf{JPEG/JPG}: Cocok untuk foto, ukuran kecil, lossy compression
+  \item \textbf{PNG}: Cocok untuk grafis, transparansi, lossless compression
+  \item \textbf{GIF}: Animasi, 256 colors, ukuran kecil
+  \item \textbf{SVG}: Vector graphics, scalable, tanpa pixelation
+  \item \textbf{WebP}: Modern format, ukuran kecil, kualitas baik
+\end{itemize}
+
+\begin{lstlisting}[caption={Berbagai Format Image}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Format Image</title>
+</head>
+<body>
+  <h1>Demonstrasi Format Image</h1>
+  
+  <!-- JPEG untuk foto -->
+  <h3>JPEG - Untuk Foto</h3>
+  <img src="photo.jpg" alt="Foto landscape" width="300" height="200">
+  <p><small>Format: JPEG | Ukuran: 45KB | Cocok untuk foto kompleks</small></p>
+  
+  <!-- PNG untuk grafis -->
+  <h3>PNG - Untuk Grafis</h3>
+  <img src="logo.png" alt="Logo transparan" width="200" height="100">
+  <p><small>Format: PNG | Ukuran: 12KB | Mendukung transparansi</small></p>
+  
+  <!-- GIF untuk animasi -->
+  <h3>GIF - Untuk Animasi</h3>
+  <img src="loading.gif" alt="Loading animation" width="100" height="100">
+  <p><small>Format: GIF | Ukuran: 8KB | Mendukung animasi</small></p>
+  
+  <!-- SVG untuk vector -->
+  <h3>SVG - Vector Graphics</h3>
+  <img src="icon.svg" alt="SVG Icon" width="100" height="100">
+  <p><small>Format: SVG | Ukuran: 2KB | Vector, tidak pecah saat diperbesar</small></p>
+  
+  <!-- WebP modern format -->
+  <h3>WebP - Modern Format</h3>
+  <img src="banner.webp" alt="WebP Banner" width="400" height="200">
+  <p><small>Format: WebP | Ukuran: 25KB | Format modern, kompresi baik</small></p>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- JPEG menampilkan foto dengan kualitas baik namun ukuran lebih besar
+- PNG menampilkan grafis dengan transparansi (jika ada)
+- GIF menampilkan animasi bergerak
+- SVG tetap tajam saat diperbesar (vector)
+- WebP menampilkan kualitas baik dengan ukuran lebih kecil
+
+\subsection{Responsive Images}
+
+Responsive images memastikan gambar tampil optimal di berbagai ukuran layar:
+
+\begin{itemize}
+  \item \textbf{Fluid Images}: Width dalam persentase
+  \item \textbf{Srcset}: Multiple sources untuk berbagai resolusi
+  \item \textbf{Picture Element}: Art direction untuk berbagai kondisi
+\end{itemize}
+
+\begin{lstlisting}[caption={Responsive Images}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Responsive Images</title>
+  <style>
+    .responsive-img {
+      max-width: 100%;
+      height: auto;
     }
-}
-\end{javacode}
+  </style>
+</head>
+<body>
+  <h1>Responsive Image Techniques</h1>
+  
+  <!-- Fluid Image dengan CSS -->
+  <h3>Fluid Image (CSS)</h3>
+  <img src="landscape.jpg" alt="Landscape" class="responsive-img">
+  
+  <!-- Srcset untuk berbagai resolusi -->
+  <h3>Srcset untuk Multiple Resolutions</h3>
+  <img src="photo-small.jpg" 
+       srcset="photo-small.jpg 480w,
+               photo-medium.jpg 800w,
+               photo-large.jpg 1200w"
+       sizes="(max-width: 600px) 480px,
+              (max-width: 900px) 800px,
+              1200px"
+       alt="Foto responsif">
+  
+  <!-- Picture Element untuk art direction -->
+  <h3>Picture Element untuk Art Direction</h3>
+  <picture>
+    <source media="(min-width: 900px)" srcset="banner-large.jpg">
+    <source media="(min-width: 600px)" srcset="banner-medium.jpg">
+    <img src="banner-small.jpg" alt="Banner responsif">
+  </picture>
+  
+  <!-- Picture untuk format berbeda -->
+  <h3>Picture untuk Format Support</h3>
+  <picture>
+    <source srcset="photo.webp" type="image/webp">
+    <source srcset="photo.jpg" type="image/jpeg">
+    <img src="photo.jpg" alt="Foto dengan fallback">
+  </picture>
+</body>
+</html>
+\end{lstlisting}
 
-\subsection{Memory Allocation}
+\textbf{Hasil di Browser:}
+- Fluid images menyesuaikan lebar container
+- Srcset memilih gambar yang sesuai berdasarkan ukuran layar
+- Picture element memilih source berdasarkan media query atau format support
+- Gambar optimal untuk setiap device dan kondisi
 
-Ketika object dibuat:
-\begin{enumerate}
-  \item Memory dialokasikan di \textbf{heap}
-  \item Reference variable disimpan di \textbf{stack}
-  \item Constructor dipanggil untuk inisialisasi
-\end{enumerate}
+\subsection{Background Images}
 
-\begin{catatan}
-Jika tidak ada constructor yang didefinisikan, Java otomatis menyediakan \textbf{default constructor} tanpa parameter yang menginisialisasi attributes dengan nilai default (0, null, false).
-\end{catatan}
+Background images dapat ditambahkan melalui HTML attributes atau CSS:
+
+\begin{itemize}
+  \item \textbf{HTML Background}: Atribut background pada body atau table
+  \item \textbf{CSS Background}: Lebih fleksibel dan powerful
+\end{itemize}
+
+\begin{lstlisting}[caption={Background Images}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Background Images</title>
+  <style>
+    /* CSS Background untuk body */
+    body {
+      background-image: url('pattern.jpg');
+      background-repeat: repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+    
+    /* Background untuk div */
+    .hero-section {
+      background-image: url('hero-bg.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 400px;
+      color: white;
+      text-align: center;
+      padding: 50px;
+    }
+    
+    .pattern-box {
+      background-image: url('small-pattern.png');
+      background-repeat: repeat;
+      border: 2px solid #333;
+      padding: 20px;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background dengan CSS (recommended) -->
+  <div class="hero-section">
+    <h1>Hero Section dengan Background</h1>
+    <p>Background image yang menutupi seluruh area</p>
+  </div>
+  
+  <!-- Pattern background -->
+  <h3>Pattern Background:</h3>
+  <div class="pattern-box">
+    <h4>Box dengan Pattern</h4>
+    <p>Pattern diulang untuk mengisi background</p>
+  </div>
+  
+  <!-- HTML Background (deprecated) -->
+  <h3>HTML Background Attribute:</h3>
+  <table background="table-bg.jpg" border="1">
+    <tr>
+      <td style="color: white; padding: 10px;">Cell 1</td>
+      <td style="color: white; padding: 10px;">Cell 2</td>
+    </tr>
+  </table>
+  
+  <p><small>Catatan: HTML background attribute deprecated, gunakan CSS</small></p>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Body dengan background pattern yang fixed
+- Hero section dengan background image full width
+- Box dengan pattern background yang diulang
+- Table dengan background (deprecated method)
+- CSS background lebih fleksibel dan recommended
+
+\subsection{Image Maps Revisited}
+
+Image maps untuk navigasi interaktif dengan gambar:
+
+\begin{lstlisting}[caption={Interactive Image Map}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Interactive Image Map</title>
+</head>
+<body>
+  <h1>Interactive Campus Map</h1>
+  
+  <!-- Campus map dengan multiple clickable areas -->
+  <img src="campus-map.png" alt="Campus Map" usemap="#campusmap" 
+       width="600" height="400" style="border: 1px solid #ccc;">
+  
+  <map name="campusmap">
+    <!-- Gedung Rektorat -->
+    <area shape="rect" coords="100,100,200,180" 
+          href="rektorat.html" alt="Gedung Rektorat"
+          title="Gedung Rektorat">
+    
+    <!-- Perpustakaan -->
+    <area shape="rect" coords="250,150,350,230" 
+          href="perpustakaan.html" alt="Perpustakaan"
+          title="Perpustakaan">
+    
+    <!-- Laboratorium -->
+    <area shape="circle" coords="450,200,40" 
+          href="lab.html" alt="Laboratorium"
+          title="Laboratorium Komputer">
+    
+    <!-- Lapangan Olahraga -->
+    <area shape="poly" coords="50,300,150,320,200,280,250,100,280" 
+          href="olahraga.html" alt="Lapangan Olahraga"
+          title="Lapangan Olahraga">
+    
+    <!-- Area default -->
+    <area shape="default" href="campus-info.html" 
+          alt="Informasi Kampus" title="Informasi Umum Kampus">
+  </map>
+  
+  <h3>Legenda Peta:</h3>
+  <ul>
+    <li><b>Gedung Rektorat:</b> Administrasi utama</li>
+    <li><b>Perpustakaan:</b> Sumber belajar dan referensi</li>
+    <li><b>Laboratorium:</b> Praktikum dan riset</li>
+    <li><b>Lapangan Olahraga:</b> Fasilitas olahraga</li>
+  </ul>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Peta kampus dengan multiple area yang bisa diklik
+- Setiap area memiliki tooltip saat hover
+- Cursor berubah pointer saat di area clickable
+- Link ke halaman informasi yang relevan
+
+\subsection{Best Practices untuk Images}
+
+Praktik terbaik dalam menggunakan images di website:
+
+\begin{itemize}
+  \item \textbf{Alt Text}: Selalu gunakan alt text yang deskriptif
+  \item \textbf{File Size}: Optimasi ukuran file untuk loading cepat
+  \item \textbf{Responsive}: Gunakan images yang responsif
+  \item \textbf{Format}: Pilih format yang sesuai dengan kebutuhan
+  \item \textbf{Lazy Loading}: Load images saat dibutuhkan
+  \item \textbf{Compression}: Compress images tanpa mengurangi kualitas
+\end{itemize}
+
+\begin{lstlisting}[caption={Best Practices Implementation}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Best Practices</title>
+  <style>
+    .image-container {
+      margin: 20px 0;
+    }
+    
+    .optimized-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .optimized-image:hover {
+      transform: scale(1.05);
+    }
+    
+    .image-caption {
+      text-align: center;
+      font-style: italic;
+      color: #666;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Image Best Practices Demo</h1>
+  
+  <!-- Image dengan alt text deskriptif -->
+  <div class="image-container">
+    <img src="mountain-landscape.jpg" 
+         alt="Pemandangan gunung dengan danau biru di pagi hari, 
+               terlihat kabut tipis di puncak gunung dan cahaya matahari 
+               yang bersinar melalui awan" 
+         class="optimized-image"
+         width="600" height="400"
+         loading="lazy">
+    <p class="image-caption">Gambar 1: Pemandangan alam yang indah</p>
+  </div>
+  
+  <!-- Image dengan figure dan figcaption -->
+  <figure class="image-container">
+    <img src="city-skyline.jpg" 
+         alt="Skyline kota modern di malam hari dengan lampu-lampu gedung 
+               yang menerangi jalan-jalan utama" 
+         class="optimized-image"
+         width="600" height="400"
+         loading="lazy">
+    <figcaption>Gambar 2: Pemandangan kota di malam hari</figcaption>
+  </figure>
+  
+  <!-- Multiple images gallery -->
+  <h3>Image Gallery:</h3>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+    <div class="image-container">
+      <img src="gallery1.jpg" 
+           alt="Close-up bunga merah dengan tetesan air" 
+           class="optimized-image"
+           loading="lazy">
+      <p class="image-caption">Bunga Merah</p>
+    </div>
+    
+    <div class="image-container">
+      <img src="gallery2.jpg" 
+           alt="Jembatan kayu di tengah hutan hijau" 
+           class="optimized-image"
+           loading="lazy">
+      <p class="image-caption">Jembatan Hutan</p>
+    </div>
+    
+    <div class="image-container">
+      <img src="gallery3.jpg" 
+           alt="Pantai dengan pasir putih dan ombak biru" 
+           class="optimized-image"
+           loading="lazy">
+      <p class="image-caption">Pantai Indah</p>
+    </div>
+  </div>
+  
+  <h3>Optimization Notes:</h3>
+  <ul>
+    <li>✅ Semua images memiliki alt text yang deskriptif</li>
+    <li>✅ Menggunakan loading="lazy" untuk performance</li>
+    <li>✅ Responsive dengan max-width: 100%</li>
+    <li>✅ Optimized untuk web (compressed)</li>
+    <li>✅ Semantic dengan figure dan figcaption</li>
+  </ul>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Images dengan hover effects dan transitions
+- Alt text yang deskriptif untuk accessibility
+- Lazy loading untuk performance
+- Responsive gallery dengan CSS Grid
+- Semantic markup dengan figure dan figcaption
+- Caption yang informatif untuk setiap gambar
+
+Pemahaman images dan media yang baik memungkinkan penciptaan website yang visual menarik, cepat, dan accessible \cite{w3schools-html}. Kombinasi teknik-teknik ini akan menghasilkan pengalaman visual yang optimal untuk pengguna \cite{mdn-html}.

@@ -1,28 +1,198 @@
-\section{Elemen Semantik, Link, Gambar, dan Tabel}
+\section{Tag-Tag Fundamental HTML}
 
-HTML5 memperkenalkan elemen semantik yang memberikan makna pada struktur konten \cite{mdn-html}. Elemen seperti \texttt{<header>}, \texttt{<nav>}, \texttt{<main>}, \texttt{<article>}, \texttt{<section>}, dan \texttt{<footer>} membantu mesin pencari dan teknologi asistif memahami struktur halaman. Penggunaan elemen semantik juga memperbaiki aksesibilitas sesuai panduan W3C WAI \cite{w3c-wai}.
+HTML (HyperText Markup Language) menggunakan tag-tag untuk mendefinisikan struktur dan format konten web. Tag HTML ditulis dalam kurung sudut `<tag>` dan biasanya berpasangan dengan tag penutup `</tag>` \cite{w3schools-html}. Pemahaman tag-tag fundamental ini adalah dasar untuk semua pengembangan web \cite{mdn-html}.
 
-Link dibuat dengan elemen \texttt{<a>} dan atribut \texttt{href} yang menyatakan URL tujuan \cite{w3c-html}. Gambar dimasukkan dengan \texttt{<img src="..." alt="...">}; atribut \texttt{alt} wajib untuk aksesibilitas. Tabel dibangun dengan \texttt{<table>}, \texttt{<tr>}, \texttt{<th>}, dan \texttt{<td>} untuk menampilkan data tabuler. Setiap elemen memiliki atribut dan perilaku yang dijelaskan dalam dokumentasi WHATWG \cite{whatwg}.
+\subsection{Heading Tags}
 
-\begin{table}[h]
-\centering
-\small
-\begin{tabular}{|l|p{8cm}|}
-\hline
-\textbf{Elemen} & \textbf{Fungsi} \\
-\hline
-\texttt{<header>} & Kepala halaman atau bagian \\
-\hline
-\texttt{<nav>} & Navigasi utama \\
-\hline
-\texttt{<main>} & Konten utama halaman \\
-\hline
-\texttt{<article>} & Konten mandiri (artikel, posting) \\
-\hline
-\texttt{<section>} & Pengelompokan konten tematik \\
-\hline
-\texttt{<footer>} & Bagian kaki halaman \\
-\hline
-\end{tabular}
-\caption{Elemen Semantik HTML5}
-\end{table}
+Heading tags digunakan untuk membuat hierarki konten dari yang paling penting hingga yang kurang penting:
+
+\begin{itemize}
+  \item \texttt{<h1>} - Heading paling penting (biasanya judul utama)
+  \item \texttt{<h2>} - Subheading penting
+  \item \texttt{<h3>} - Subheading level 3
+  \item \texttt{<h4>} - Subheading level 4
+  \item \texttt{<h5>} - Subheading level 5
+  \item \texttt{<h6>} - Subheading paling kecil
+\end{itemize}
+
+\begin{lstlisting}[caption={Contoh Heading Tags}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contoh Heading</title>
+</head>
+<body>
+  <h1>Judul Utama Halaman</h1>
+  <h2>Bab 1: Pengenalan HTML</h2>
+  <h3>1.1 Sejarah HTML</h3>
+  <h4>1.1.1 HTML 1.0</h4>
+  <h5>1.1.1.1 Fitur Awal</h5>
+  <h6>1.1.1.1.1 Detail Teknis</h6>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+Browser akan menampilkan teks dengan ukuran font yang berbeda-beda:
+- `<h1>`: Font terbesar dan tebal
+- `<h6>`: Font terkecil dan kurang tebal
+- Setiap heading otomatis memiliki line break sebelum dan sesudahnya
+
+\subsection{Paragraph dan Line Break}
+
+Tag paragraph dan line break mengatur alur teks dalam dokumen:
+
+\begin{itemize}
+  \item \texttt{<p>} - Membuat paragraf baru (dengan jarak spasi)
+  \item \texttt{<br>} - Line break (pindah baris tanpa spasi)
+  \item \texttt{<hr>} - Horizontal rule (garis horizontal pembatas)
+\end{itemize}
+
+\begin{lstlisting}[caption={Contoh Paragraph dan Line Break}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contoh Paragraph</title>
+</head>
+<body>
+  <p>Ini adalah paragraf pertama. 
+  Paragraf akan otomatis wrap text dan memiliki jarak dengan paragraf lain.</p>
+  
+  <p>Ini paragraf kedua.<br>
+  Teks ini pindah ke baris baru dengan tag br.<br>
+  Dan ini baris ketiga.</p>
+  
+  <hr>
+  
+  <p>Garis horizontal di atas memisahkan konten.</p>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Setiap `<p>` memiliki jarak vertikal antar paragraf
+- `<br>` membuat teks pindah baris tanpa jarak tambahan
+- `<hr>` menampilkan garis horizontal pembatas konten
+
+\subsection{Divisions dan Spans}
+
+Tag `<div>` dan `<span>` adalah container untuk mengelompokkan elemen:
+
+\begin{itemize}
+  \item \texttt{<div>} - Block-level container (mengambil full width)
+  \item \texttt{<span>} - Inline container (mengambil width sesuai konten)
+\end{itemize}
+
+\begin{lstlisting}[caption={Contoh Div dan Span}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contoh Div dan Span</title>
+</head>
+<body>
+  <div style="background-color: lightblue; padding: 10px;">
+    <h3>Container Div</h3>
+    <p>Div adalah block-level element yang mengambil full width.</p>
+  </div>
+  
+  <p>Teks normal dengan <span style="color: red; font-weight: bold;">span merah tebal</span> di dalamnya.</p>
+  
+  <div style="border: 1px solid black; margin: 10px;">
+    <span style="background-color: yellow;">Span 1</span>
+    <span style="background-color: lightgreen;">Span 2</span>
+    <span style="background-color: orange;">Span 3</span>
+  </div>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- `<div>` menampilkan kotak dengan background biru muda
+- Teks dalam `<span>` memiliki warna dan style berbeda
+- `<div>` kedua menampilkan 3 span dengan background berbeda dalam satu baris
+
+\subsection{HTML Comments}
+
+Comments digunakan untuk dokumentasi dan tidak akan ditampilkan di browser:
+
+\begin{lstlisting}[caption={Contoh HTML Comments}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contoh Comments</title>
+</head>
+<body>
+  <!-- Ini adalah comment yang tidak akan ditampilkan -->
+  <h1>Judul Halaman</h1>
+  
+  <!-- 
+    Comment bisa 
+    multiple lines
+    untuk dokumentasi
+  -->
+  
+  <p>Ini paragraf yang akan ditampilkan.</p>
+  <!-- <p>Paragraf ini di-comment, tidak akan muncul</p> -->
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Hanya `<h1>` dan `<p>` pertama yang ditampilkan
+- Semua comments tidak terlihat di browser
+- Berguna untuk debugging dan dokumentasi kode
+
+\subsection{Contoh Lengkap: Halaman Web Sederhana}
+
+Berikut contoh lengkap halaman web menggunakan tag-tag fundamental HTML:
+
+\begin{lstlisting}[caption={Halaman Web Lengkap dengan Tag Fundamental}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Toko Buku Online</title>
+</head>
+<body>
+  <!-- Header Section -->
+  <div style="text-align: center; background-color: #f0f0f0; padding: 20px;">
+    <h1>Toko Buku "ilmu"</h1>
+    <hr>
+    <p>Koleksi buku berkualitas untuk semua usia</p>
+  </div>
+  
+  <!-- Main Content -->
+  <div style="padding: 20px;">
+    <h2>Buku Terlaris Minggu Ini</h2>
+    
+    <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
+      <h3>JavaScript untuk Pemula</h3>
+      <p>Penulis: <span style="font-style: italic;">John Doe</span></p>
+      <p>Harga: <span style="color: red; font-weight: bold;">Rp 150.000</span></p>
+      <p>Deskripsi: Buku ini cocok untuk pemula yang ingin belajar JavaScript dari dasar.</p>
+    </div>
+    
+    <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
+      <h3>HTML5 dan CSS3 Modern</h3>
+      <p>Penulis: <span style="font-style: italic;">Jane Smith</span></p>
+      <p>Harga: <span style="color: red; font-weight: bold;">Rp 200.000</span></p>
+      <p>Deskripsi: Panduan lengkap membuat website modern dengan HTML5 dan CSS3.</p>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <div style="background-color: #333; color: white; text-align: center; padding: 10px;">
+    <p>&copy; 2024 Toko Buku "ilmu". All rights reserved.</p>
+    <br>
+    <p>Contact: info@tokoilmu.com | Phone: 021-12345678</p>
+  </div>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Header dengan background abu-abu dan judul toko
+- Konten utama dengan 2 card buku terlaris
+- Footer dengan background gelap dan informasi kontak
+- Layout terstruktur dengan penggunaan `<div>` dan styling inline
+
+Pemahaman tag-tag fundamental ini adalah fondasi untuk membangun halaman web yang kompleks dan terstruktur \cite{w3schools-html}.

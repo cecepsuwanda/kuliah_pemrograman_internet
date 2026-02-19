@@ -1,41 +1,77 @@
-\section{Methods (Behavior)}
+\section{HTML5 Semantic Elements Lengkap}
 
-\subsection{Definisi Methods}
+HTML5 memperkenalkan elemen-elemen semantik yang memberikan makna struktur pada dokumen web. Elemen semantik tidak hanya mengatur tampilan, tetapi juga memberikan konteks pada konten untuk browser, search engine, dan teknologi assistif \cite{mdn-html}. Penggunaan elemen semantik yang tepat adalah fondasi web modern yang accessible dan SEO-friendly \cite{w3schools-html}.
 
-\textbf{Methods} adalah fungsi yang didefinisikan di dalam class untuk menentukan behavior dari object.
+\subsection{Semantic Structural Elements}
 
-\begin{javacode}[caption={Contoh Methods}]
-public class Mahasiswa {
-    String nim;
-    String nama;
-    double ipk;
-    
-    // Method untuk menampilkan info
-    public void tampilkanInfo() {
-        System.out.println("NIM: " + nim);
-        System.out.println("Nama: " + nama);
-        System.out.println("IPK: " + ipk);
-    }
-    
-    // Method untuk mengecek kelulusan
-    public boolean lulus() {
-        return ipk >= 2.0;
-    }
-    
-    // Method untuk mendapatkan predikat
-    public String getPredikat() {
-        if (ipk >= 3.5) return "Cum Laude";
-        else if (ipk >= 3.0) return "Sangat Memuaskan";
-        else if (ipk >= 2.5) return "Memuaskan";
-        else return "Cukup";
-    }
-}
-\end{javacode}
+Elemen struktural semantik mendefinisikan bagian-bagian utama halaman:
 
-\subsection{Jenis Methods}
+\begin{itemize}
+  \item \texttt{<header>} - Kepala halaman atau section
+  \item \texttt{<nav>} - Navigasi utama website
+  \item \texttt{<main>} - Konten utama dan unik halaman
+  \item \texttt{<article>} - Konten mandiri yang berdiri sendiri
+  \item \texttt{<section>} - Pengelompokan konten tematik
+  \item \texttt{<aside>} - Konten samping/tambahan
+  \item \texttt{<footer>} - Kaki halaman atau section
+\end{itemize}
 
-\begin{enumerate}
-  \item \textbf{Accessor Methods (Getter)}: Mengambil nilai attribute
-  \item \textbf{Mutator Methods (Setter)}: Mengubah nilai attribute
-  \item \textbf{Utility Methods}: Melakukan operasi tertentu
-\end{enumerate}
+\begin{lstlisting}[caption={Contoh Semantic Structure}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Modern dengan Semantic HTML5</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; }
+    header { background-color: #2c3e50; color: white; padding: 1rem; text-align: center; }
+    nav { background-color: #333; padding: 1rem; }
+    nav ul { list-style-type: none; margin: 0; padding: 0; display: flex; justify-content: center; }
+    nav li { margin: 0 1rem; }
+    nav a { color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; }
+    main { padding: 2rem; max-width: 1200px; margin: 0 auto; }
+    article { background-color: white; margin-bottom: 2rem; padding: 2rem; border-radius: 8px; }
+    section { margin-bottom: 2rem; }
+    aside { background-color: #e1f5fe; padding: 2rem; border-radius: 8px; margin-bottom: 2rem; }
+    footer { background-color: #333; color: white; text-align: center; padding: 2rem; margin-top: 2rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>TechBlog Indonesia</h1>
+  </header>
+  <nav>
+    <ul>
+      <li><a href="#beranda">Beranda</a></li>
+      <li><a href="#tutorial">Tutorial</a></li>
+      <li><a href="#review">Review</a></li>
+      <li><a href="#tentang">Tentang</a></li>
+    </ul>
+  </nav>
+  <main>
+    <article id="beranda">
+      <header><h2>Artikel Terbaru: HTML5 Semantic Elements</h2></header>
+      <section>
+        <h3>Pengenalan Semantic HTML5</h3>
+        <p>HTML5 membawa revolusi dalam cara kita menulis dan memahami struktur dokumen web.</p>
+      </section>
+    </article>
+    <aside>
+      <h3>Artikel Terkait</h3>
+      <ul><li><a href="#article2">CSS Grid vs Flexbox</a></li></ul>
+    </aside>
+  </main>
+  <footer>
+    <p>&copy; 2024 TechBlog Indonesia</p>
+  </footer>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Header dengan branding dan navigasi
+- Main content dengan featured article
+- Aside dengan related articles
+- Footer dengan copyright
+- Semantic structure yang jelas dan accessible

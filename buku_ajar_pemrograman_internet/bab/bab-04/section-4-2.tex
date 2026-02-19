@@ -1,5 +1,94 @@
-\section{Validasi Dasar Form di HTML5}
+\section{Tipe Input HTML5 yang Lengkap}
 
-HTML5 menyediakan validasi bawaan melalui atribut seperti \texttt{required}, \texttt{pattern}, \texttt{min}, \texttt{max}, dan \texttt{minlength} \cite{mdn-html}. Atribut \texttt{required} mencegah pengiriman form jika field kosong. Atribut \texttt{pattern} menerima ekspresi reguler untuk memvalidasi format input. Validasi ini dijalankan di browser sebelum form dikirim, memberikan umpan balik cepat kepada pengguna \cite{webdev}.
+HTML5 memperkenalkan berbagai tipe input baru yang memungkinkan validasi otomatis di browser dan meningkatkan user experience, terutama pada perangkat mobile \cite{mdn-input-types}. Tipe-tipe input ini memberikan keyboard virtual yang sesuai dan validasi built-in.
 
-Namun, validasi di client saja tidak cukup untuk keamanan \cite{owasp-input}. Data harus selalu divalidasi kembali di server karena pengguna dapat menonaktifkan validasi JavaScript/HTML5 atau mengirim request langsung. Kombinasi validasi client (untuk UX) dan server (untuk keamanan) merupakan praktik yang disarankan \cite{owasp-series}. Bab VIII akan membahas validasi form dengan JavaScript untuk kontrol yang lebih halus.
+\subsection{Tipe Input untuk Kontak dan Identitas}
+
+\begin{itemize}
+  \item \texttt{type="email"}: Validasi format email otomatis. Pada mobile, menampilkan keyboard dengan tombol @.
+  \item \texttt{type="tel"}: Input nomor telepon. Menampilkan numeric keypad pada mobile.
+  \item \texttt{type="url"}: Validasi format URL. Menampilkan tombol .com dan / pada mobile keyboard.
+\end{itemize}
+
+\begin{lstlisting}[caption={Contoh Input Kontak}, basicstyle=\ttfamily\small, frame=single]
+<form>
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" 
+         placeholder="nama@email.com" required>
+  
+  <label for="telepon">Telepon:</label>
+  <input type="tel" id="telepon" name="telepon" 
+         pattern="[0-9]{10,13}" 
+         placeholder="081234567890">
+  
+  <label for="website">Website:</label>
+  <input type="url" id="website" name="website" 
+         placeholder="https://www.example.com">
+</form>
+\end{lstlisting}
+
+\subsection{Tipe Input untuk Data Numerik dan Rentang}
+
+\begin{itemize}
+  \item \texttt{type="number"}: Input angka dengan spinner control. Dapat menggunakan atribut \texttt{min}, \texttt{max}, dan \texttt{step}.
+  \item \texttt{type="range"}: Slider control untuk memilih nilai dalam rentang.
+\end{itemize}
+
+\begin{lstlisting}[caption={Contoh Input Numerik}, basicstyle=\ttfamily\small, frame=single]
+<label for="kuantitas">Jumlah:</label>
+<input type="number" id="kuantitas" name="kuantitas" 
+       min="1" max="100" step="1" value="1">
+
+<label for="rating">Rating (1-10):</label>
+<input type="range" id="rating" name="rating" 
+       min="1" max="10" value="5">
+\end{lstlisting}
+
+\subsection{Tipe Input untuk Waktu dan Tanggal}
+
+HTML5 menyediakan beberapa tipe input untuk data temporal:
+
+\begin{itemize}
+  \item \texttt{type="date"}: Pemilih tanggal (tahun, bulan, hari)
+  \item \texttt{type="time"}: Pemilih waktu (jam, menit)
+  \item \texttt{type="datetime-local"}: Kombinasi tanggal dan waktu
+  \item \texttt{type="month"}: Pemilih bulan dan tahun
+  \item \texttt{type="week"}: Pemilih minggu dalam tahun
+\end{itemize}
+
+\begin{lstlisting}[caption={Contoh Input Waktu dan Tanggal}, basicstyle=\ttfamily\small, frame=single]
+<label for="tanggal-lahir">Tanggal Lahir:</label>
+<input type="date" id="tanggal-lahir" name="tanggal-lahir"
+       min="1990-01-01" max="2024-12-31">
+
+<label for="waktu-meeting">Waktu Meeting:</label>
+<input type="time" id="waktu-meeting" name="waktu-meeting">
+
+<label for="deadline">Deadline Proyek:</label>
+<input type="datetime-local" id="deadline" name="deadline">
+\end{lstlisting}
+
+\subsection{Tipe Input Lainnya}
+
+\begin{itemize}
+  \item \texttt{type="search"}: Field pencarian dengan styling khusus (clear button)
+  \item \texttt{type="color"}: Pemilih warna dengan color picker
+  \item \texttt{type="file"}: Upload file dengan atribut \texttt{accept} untuk membatasi tipe file
+\end{itemize}
+
+\begin{lstlisting}[caption={Contoh Input Tambahan}, basicstyle=\ttfamily\small, frame=single]
+<label for="pencarian">Cari Artikel:</label>
+<input type="search" id="pencarian" name="pencarian" 
+       placeholder="Masukkan kata kunci...">
+
+<label for="warna-favorit">Warna Favorit:</label>
+<input type="color" id="warna-favorit" name="warna-favorit" 
+       value="#ff0000">
+
+<label for="dokumen">Upload Dokumen:</label>
+<input type="file" id="dokumen" name="dokumen" 
+       accept=".pdf,.doc,.docx" multiple>
+\end{lstlisting}
+
+Penggunaan tipe input yang tepat tidak hanya meningkatkan user experience tetapi juga membantu validasi data di sisi client sebelum dikirim ke server \cite{mdn-html5-forms}.
+

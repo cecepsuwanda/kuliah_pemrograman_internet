@@ -1,47 +1,300 @@
-\section{Constructor}
+\section{Text Formatting dan Typography}
 
-\subsection{Apa itu Constructor?}
+HTML menyediakan berbagai tag untuk memformat teks dan mengatur tampilan typography. Tag-tag ini memungkinkan penekanan, gaya, dan struktur teks yang lebih terorganisir \cite{w3schools-html}. Meskipun sebagian besar formatting sekarang menggunakan CSS, tag HTML formatting tetap penting untuk dipahami sebagai fondasi web development \cite{mdn-html}.
 
-\begin{konsep}
-\textbf{Constructor} adalah method khusus yang dipanggil saat object dibuat. Constructor digunakan untuk menginisialisasi attributes object.
+\subsection{Text Formatting Tags}
 
-Ciri-ciri constructor:
+Tag formatting digunakan untuk memberikan penekanan atau gaya tertentu pada teks:
+
 \begin{itemize}
-  \item Nama sama dengan nama class
-  \item Tidak memiliki return type (bahkan bukan \code{void})
-  \item Dipanggil otomatis saat object dibuat dengan \keyword{new}
+  \item \texttt{<b>} - Bold text (teks tebal)
+  \item \texttt{<strong>} - Strong importance (semantik, teks tebal)
+  \item \texttt{<i>} - Italic text (teks miring)
+  \item \texttt{<em>} - Emphasis (semantik, teks miring)
+  \item \texttt{<u>} - Underlined text (teks bergaris bawah)
+  \item \texttt{<s>} - Strikethrough text (teks dicoret)
+  \item \texttt{<mark>} - Marked/highlighted text (teks disorot)
 \end{itemize}
-\end{konsep}
 
-\begin{javacode}[caption={Contoh Constructor}]
-public class Mahasiswa {
-    String nim;
-    String nama;
-    double ipk;
-    
-    // Constructor tanpa parameter (default constructor)
-    public Mahasiswa() {
-        nim = "0000";
-        nama = "Unknown";
-        ipk = 0.0;
-    }
-    
-    // Constructor dengan parameter
-    public Mahasiswa(String nim, String nama) {
-        this.nim = nim;
-        this.nama = nama;
-        this.ipk = 0.0;
-    }
-    
-    // Constructor dengan semua parameter
-    public Mahasiswa(String nim, String nama, double ipk) {
-        this.nim = nim;
-        this.nama = nama;
-        this.ipk = ipk;
-    }
+\begin{lstlisting}[caption={Contoh Text Formatting}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contoh Text Formatting</title>
+</head>
+<body>
+  <h1>Demonstrasi Text Formatting</h1>
+  
+  <p>Ini adalah teks <b>bold</b> menggunakan tag b.</p>
+  <p>Ini adalah teks <strong>strong</strong> menggunakan tag strong.</p>
+  
+  <p>Ini adalah teks <i>italic</i> menggunakan tag i.</p>
+  <p>Ini adalah teks <em>emphasized</em> menggunakan tag em.</p>
+  
+  <p>Ini adalah teks <u>underlined</u> menggunakan tag u.</p>
+  <p>Ini adalah teks <s>strikethrough</s> menggunakan tag s.</p>
+  
+  <p>Ini adalah teks <mark>highlighted</mark> menggunakan tag mark.</p>
+  
+  <p><b>Kombinasi:</b> <i><u>Teks miring dan bergaris bawah</u></i></p>
+  <p><strong><mark>Teks penting dan disorot</mark></strong></p>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- `<b>` dan `<strong>` menampilkan teks tebal (visually sama)
+- `<i>` dan `<em>` menampilkan teks miring (visually sama)
+- `<u>` menambahkan garis bawah pada teks
+- `<s>` menambahkan garis coret pada teks
+- `<mark>` menyorot teks dengan background kuning
+- **Best Practice**: Gunakan `<strong>` dan `<em>` untuk semantic meaning, bukan `<b>` dan `<i>`
+
+\subsection{Font Tags dan Typography}
+
+HTML menyediakan tag untuk mengatur font dan ukuran teks:
+
+\begin{itemize}
+  \item \texttt{<font>} - Mengatur font family, size, dan color
+  \item \texttt{<basefont>} - Font default untuk seluruh dokumen
+  \item \texttt{<big>} - Membesarkan teks
+  \item \texttt{<small>} - Mengecilkan teks
+  \item \texttt{<sup>} - Superscript (teks di atas garis)
+  \item \texttt{<sub>} - Subscript (teks di bawah garis)
+\end{itemize}
+
+\begin{lstlisting}[caption={Contoh Font dan Typography}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contoh Font Tags</title>
+</head>
+<body>
+  <h1>Demonstrasi Font dan Typography</h1>
+  
+  <p><font face="Arial" size="5" color="blue">Teks dengan Arial, size 5, warna biru</font></p>
+  <p><font face="Times New Roman" size="4" color="red">Teks dengan Times New Roman, size 4, warna merah</font></p>
+  <p><font face="Courier New" size="3" color="green">Teks dengan Courier New, size 3, warna hijau</font></p>
+  
+  <p>Teks normal <big>lebih besar</big> dan <small>lebih kecil</small>.</p>
+  
+  <p>Rumus kimia: H<sub>2</sub>O (air)</p>
+  <p>Pangkat: 10<sup>2</sup> = 100</p>
+  <p>Tanggal: 25<sup>th</sup> Desember 2024</p>
+  
+  <p><font face="Verdana" size="6" color="purple">
+    <b><u>Teks kombinasi:</u></b><br>
+    Font Verdana, size 6, warna ungu,<br>
+    <i>miring</i> dan <s>dicoret</s>
+  </font></p>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Tag `<font>` dengan atribut `face`, `size`, `color` mengubah tampilan teks
+- `<big>` menampilkan teks lebih besar dari normal
+- `<small>` menampilkan teks lebih kecil dari normal
+- `<sub>` menampilkan teks subscript (bawah)
+- `<sup>` menampilkan teks superscript (atas)
+- **Catatan**: Tag `<font>` deprecated di HTML5, gunakan CSS sebagai gantinya
+
+\subsection{Preformatted Text dan Code}
+
+Tag untuk menampilkan teks dengan format asli (tanpa formatting otomatis):
+
+\begin{itemize}
+  \item \texttt{<pre>} - Preformatted text (mempertahankan spasi dan line break)
+  \item \texttt{<code>} - Code snippet (monospace font)
+  \item \texttt{<kbd>} - Keyboard input (teks yang diketik user)
+  \item \texttt{<samp>} - Sample output (output program)
+  \item \texttt{<var>} - Variable (nama variabel)
+\end{itemize}
+
+\begin{lstlisting}[caption={Contoh Preformatted Text dan Code}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contoh Preformatted Text</title>
+</head>
+<body>
+  <h1>Preformatted Text dan Code</h1>
+  
+  <h3>Normal Paragraph:</h3>
+  <p>    Spasi di awal
+    dan indentasi
+    akan diabaikan
+    oleh browser</p>
+  
+  <h3>Preformatted Text:</h3>
+  <pre>    Spasi di awal
+    dan indentasi
+    akan dipertahankan
+    sesuai aslinya</pre>
+  
+  <h3>Code Examples:</h3>
+  <p>Gunakan fungsi <code>console.log()</code> untuk debugging JavaScript.</p>
+  
+  <p>Tekan tombol <kbd>Ctrl</kbd> + <kbd>C</kbd> untuk copy.</p>
+  
+  <p>Output program: <samp>Hello, World!</samp></p>
+  
+  <p>Nilai variabel <var>x</var> adalah 10.</p>
+  
+  <pre><code>
+function calculateArea(radius) {
+    const pi = 3.14159;
+    return pi * radius * radius;
 }
-\end{javacode}
+  </code></pre>
+</body>
+</html>
+\end{lstlisting}
 
-\subsection{Constructor Overloading}
+\textbf{Hasil di Browser:}
+- `<pre>` menampilkan teks dengan spasi dan indentasi asli
+- `<code>` menampilkan teks dengan font monospace
+- `<kbd>` menampilkan teks dengan border (seperti tombol keyboard)
+- `<samp>` menampilkan output program dengan font monospace
+- `<var>` menampilkan nama variabel dengan italic
+- Kombinasi `<pre><code>` ideal untuk menampilkan source code
 
-Class dapat memiliki multiple constructors dengan parameter yang berbeda. Ini disebut \oop{constructor overloading}.
+\subsection{Quotations dan Citations}
+
+Tag untuk menampilkan kutipan dan referensi:
+
+\begin{itemize}
+  \item \texttt{<blockquote>} - Block quotation (kutipan panjang)
+  \item \texttt{<q>} - Inline quotation (kutipan pendek)
+  \item \texttt{<cite>} - Citation (sumber kutipan)
+  \item \texttt{<abbr>} - Abbreviation (singkatan)
+  \item \texttt{<dfn>} - Definition (definisi istilah)
+\end{itemize}
+
+\begin{lstlisting}[caption={Contoh Quotations dan Citations}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contoh Quotations</title>
+</head>
+<body>
+  <h1>Quotations dan Citations</h1>
+  
+  <h3>Block Quotation:</h3>
+  <blockquote>
+    "The best way to predict the future is to invent it."
+    <br>
+    <cite>- Alan Kay</cite>
+  </blockquote>
+  
+  <h3>Inline Quotation:</h3>
+  <p>Steve Jobs pernah berkata, <q>Stay hungry, stay foolish.</q> dalam pidato terkenalnya.</p>
+  
+  <h3>Abbreviations:</h3>
+  <p><abbr title="World Wide Web">WWW</abbr> adalah singkatan dari World Wide Web.</p>
+  <p><abbr title="HyperText Markup Language">HTML</abbr> adalah bahasa markup untuk web.</p>
+  
+  <h3>Definitions:</h3>
+  <p><dfn>HTML</dfn> adalah singkatan dari HyperText Markup Language, 
+  yaitu bahasa standar untuk membuat halaman web.</p>
+  
+  <h3>Kombinasi:</h3>
+  <blockquote>
+    <q>Learning HTML is the first step to become a web developer.</q>
+    <br>
+    <cite>- Web Development Expert</cite>
+    <br>
+    <small><dfn>HTML</dfn> adalah fondasi dari semua website.</small>
+  </blockquote>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- `<blockquote>` menampilkan kutipan dengan indentasi (biasanya italic)
+- `<q>` menampilkan kutipan dengan tanda kutip otomatis
+- `<abbr>` menampilkan singkatan dengan tooltip saat hover
+- `<dfn>` menampilkan definisi dengan italic
+- `<cite>` menampilkan sumber dengan italic
+- Browser otomatis menambahkan tanda kutip pada `<q>` dan indentasi pada `<blockquote>`
+
+\subsection{Contoh Lengkap: Artikel dengan Typography}
+
+Berikut contoh artikel blog yang menggunakan berbagai text formatting tags:
+
+\begin{lstlisting}[caption={Artikel Blog Lengkap dengan Text Formatting}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tutorial HTML untuk Pemula</title>
+</head>
+<body>
+  <!-- Header -->
+  <h1><u>Tutorial HTML Lengkap</u></h1>
+  <p><strong>Published:</strong> <em>25 Desember 2024</em> | <strong>Author:</strong> <cite>Web Developer Team</cite></p>
+  <hr>
+  
+  <!-- Introduction -->
+  <h2>Pengenalan HTML</h2>
+  <p>HTML atau <abbr title="HyperText Markup Language">HTML</abbr> adalah <mark>bahasa fundamental</mark> untuk membuat halaman web. 
+  Setiap <dfn>developer web</dfn> harus menguasai HTML sebelum belajar teknologi lain.</p>
+  
+  <!-- Why Learn HTML -->
+  <h2>Mengapa Harus Belajar HTML?</h2>
+  <blockquote>
+    "HTML is the foundation of web development. Without HTML, there would be no web pages as we know them today."
+    <br>
+    <cite>- MDN Web Docs</cite>
+  </blockquote>
+  
+  <h3>Alasan Utama:</h3>
+  <ol>
+    <li><b>Universality:</b> HTML bekerja di semua browser</li>
+    <li><b>Simplicity:</b> Mudah dipelajari pemula</li>
+    <li><b>Flexibility:</b> Dapat dikombinasi dengan CSS dan JavaScript</li>
+  </ol>
+  
+  <!-- Code Example -->
+  <h2>Contoh Kode Dasar</h2>
+  <p>Berikut struktur <big>HTML paling sederhana</big>:</p>
+  
+  <pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Halaman Pertama&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hello, World!&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+  </code></pre>
+  
+  <p><small><em>Catatan:</em> Gunakan <kbd>Save</kbd> untuk menyimpan file dengan ekstensi <samp>.html</samp></small></p>
+  
+  <!-- Mathematical Example -->
+  <h2>Contoh Matematika</h2>
+  <p>Rumus luas lingkaran: L = &pi; &times; r<sup>2</sup></p>
+  <p>Dimana &pi; &asymp; 3.14159 dan r adalah jari-jari.</p>
+  <p>Contoh: Jika r = 5cm, maka L = 3.14159 &times; 5<sup>2</sup> = 78.54 cm<sup>2</sup></p>
+  
+  <!-- Conclusion -->
+  <h2>Kesimpulan</h2>
+  <p>HTML adalah <mark>skill esensial</mark> yang harus dikuasai. 
+  Dengan <strong>pemahaman yang baik</strong> tentang text formatting, 
+  Anda dapat membuat <i>konten yang menarik dan terstruktur</i>.</p>
+  
+  <p><s>Jangan takut untuk bereksperimen!</s> <u>Terus belajar dan praktik!</u></p>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Header dengan underline dan informasi publikasi
+- Kutipan dengan indentasi dan sumber
+- Singkatan dengan tooltip saat hover
+- Code dalam preformatted block dengan monospace font
+- Rumus matematika dengan superscript
+- Kombinasi formatting yang beragam untuk artikel yang menarik
+
+Pemahaman text formatting tags ini memungkinkan penciptaan konten yang kaya dan terstruktur tanpa bergantung pada CSS \cite{w3schools-html}. Namun, untuk proyek modern, disarankan menggunakan CSS untuk styling dan mempertahankan HTML untuk struktur semantik \cite{mdn-html}.

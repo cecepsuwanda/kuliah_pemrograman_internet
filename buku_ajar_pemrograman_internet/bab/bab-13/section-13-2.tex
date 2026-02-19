@@ -1,5 +1,5 @@
 \section{XSS, CSRF, dan HTTPS}
 
-XSS (Cross-Site Scripting) terjadi ketika input pengguna dieksekusi sebagai script di browser korban \cite{owasp-xss}. Pencegahan: escape output (encode HTML entities), gunakan \texttt{Content-Security-Policy}, validasi input \cite{owasp-xss}.
+XSS (Cross-Site Scripting) terjadi ketika input pengguna dieksekusi sebagai script di browser korban \cite{owasp-xss}. Pencegahan: escape output (encode HTML entities), gunakan header \texttt{Content-Security-Policy}, validasi input \cite{owasp-xss}.
 
 CSRF (Cross-Site Request Forgery) memanfaatkan session pengguna untuk memicu request tidak sah dari situs lain \cite{owasp-csrf}. Pencegahan: token CSRF di form, atribut \texttt{SameSite} pada cookie, verifikasi Origin/Referer \cite{owasp-csrf}. HTTPS mengenkripsi komunikasi client-server; wajib untuk data sensitif dan login \cite{owasp-rest}. OWASP Top Ten merangkum risiko keamanan web paling kritis \cite{owasp-top10}.

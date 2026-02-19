@@ -30,12 +30,13 @@
 \begin{tabular}{ll}
 Nama Program Studi & : Teknik Informatika \\
 Nama Mata Kuliah & : Pemrograman Internet \\
-Kode Mata Kuliah & : [Diisi oleh Program Studi] \\
-Semester & : [Diisi sesuai kurikulum] \\
+Kode Mata Kuliah & : \lbrack Diisi oleh Program Studi\rbrack \\
+Semester & : \lbrack Diisi sesuai kurikulum\rbrack \\
 SKS / Bobot Kredit & : 2 SKS \\
 Jumlah Pertemuan & : 16 pertemuan \\
-Dosen Pengampu & : [Nama Dosen, Gelar] \\
-Tanggal Penyusunan & : [Tanggal] \\
+Komposisi & : 70\% Praktek, 30\% Teori \\
+Dosen Pengampu & : \lbrack Nama Dosen, Gelar\rbrack \\
+Tanggal Penyusunan & : \lbrack Tanggal\rbrack \\
 \end{tabular}
 
 \vspace{0.5cm}
@@ -48,11 +49,11 @@ Tanggal Penyusunan & : [Tanggal] \\
 CPL yang dibebankan pada mata kuliah ini mencakup kompetensi lulusan dalam aspek pengetahuan, keterampilan, dan sikap:
 
 \begin{itemize}[leftmargin=*]
-  \item \textbf{CPL-1 (Pengetahuan):} Menguasai konsep teoretis arsitektur web, protokol HTTP, serta pemrograman client-side dan server-side secara mendalam, serta mampu memformulasikan penyelesaian masalah dalam pengembangan aplikasi berbasis web.
+  \item \textbf{CPL-1 (Pengetahuan):} Menguasai konsep teoretis arsitektur web, protokol HTTP, pemrograman client-side (HTML, CSS, JavaScript) dan server-side (PHP, MySQL) secara mendalam, serta mampu memformulasikan penyelesaian masalah dalam pengembangan aplikasi berbasis web.
   
   \item \textbf{CPL-2 (Keterampilan Umum):} Mampu menerapkan pemikiran logis, kritis, sistematis, dan inovatif dalam konteks pengembangan aplikasi internet yang memperhatikan dan menerapkan nilai humaniora.
   
-  \item \textbf{CPL-3 (Keterampilan Khusus):} Mampu merancang, mengimplementasikan, dan mengevaluasi aplikasi web dengan memanfaatkan teknologi front-end (HTML, CSS, JavaScript) dan back-end (server-side, basis data, API) serta prinsip keamanan dasar.
+  \item \textbf{CPL-3 (Keterampilan Khusus):} Mampu merancang, mengimplementasikan, dan mengevaluasi aplikasi web dengan memanfaatkan teknologi HTML, CSS, JavaScript, PHP, MySQL serta prinsip keamanan dasar.
   
   \item \textbf{CPL-4 (Sikap):} Menunjukkan sikap bertanggung jawab atas pekerjaan di bidang keahliannya secara mandiri dan mampu bekerja sama dalam tim.
 \end{itemize}
@@ -71,9 +72,9 @@ Kemampuan atau kompetensi spesifik yang diharapkan mahasiswa kuasai setelah meny
   
   \item \textbf{CPMK-2:} Mahasiswa mampu merancang dan membangun antarmuka web dengan HTML, CSS, dan JavaScript yang responsif dan memenuhi prinsip aksesibilitas dasar.
   
-  \item \textbf{CPMK-3:} Mahasiswa mampu mengimplementasikan logika server-side dan integrasi basis data (misalnya PHP/Node.js dengan MySQL) serta menghubungkannya dengan front-end.
+  \item \textbf{CPMK-3:} Mahasiswa mampu mengimplementasikan logika server-side (PHP) dan integrasi basis data (MySQL) serta menghubungkannya dengan front-end.
   
-  \item \textbf{CPMK-4:} Mahasiswa mampu membangun dan mengonsumsi API (REST), serta menerapkan prinsip keamanan dasar (autentikasi, validasi input, HTTPS).
+  \item \textbf{CPMK-4:} Mahasiswa mampu menerapkan prinsip keamanan web (validasi input, prepared statement, session) dalam aplikasi berbasis web.
 \end{itemize}
 
 \vspace{0.5cm}
@@ -91,10 +92,10 @@ Penjabaran CPMK menjadi indikator yang lebih terukur dan dapat diuji:
   \item \textbf{Sub-CPMK 2.1:} Membuat halaman web dengan HTML5 (struktur, form, semantic elements)
   \item \textbf{Sub-CPMK 2.2:} Menerapkan CSS3 untuk layout (Flexbox/Grid) dan desain responsif
   \item \textbf{Sub-CPMK 2.3:} Menggunakan JavaScript untuk manipulasi DOM, event handling, dan validasi form
-  \item \textbf{Sub-CPMK 3.1:} Mengimplementasikan script server-side untuk pemrosesan form dan koneksi basis data
-  \item \textbf{Sub-CPMK 3.2:} Membuat operasi CRUD berbasis web dengan integrasi basis data
-  \item \textbf{Sub-CPMK 4.1:} Membangun endpoint REST dan mengonsumsi API dari front-end (AJAX/Fetch)
-  \item \textbf{Sub-CPMK 4.2:} Menerapkan validasi input, session, dan prinsip keamanan web dasar (XSS, CSRF)
+  \item \textbf{Sub-CPMK 3.1:} Mengimplementasikan script PHP untuk pemrosesan form dan koneksi basis data MySQL
+  \item \textbf{Sub-CPMK 3.2:} Membuat operasi CRUD berbasis web dengan integrasi PHP dan MySQL
+  \item \textbf{Sub-CPMK 4.1:} Menerapkan validasi input dan session dalam aplikasi web
+  \item \textbf{Sub-CPMK 4.2:} Menerapkan prepared statement, sanitasi, dan prinsip keamanan web dasar (XSS, CSRF)
 \end{itemize}
 
 \vspace{0.5cm}
@@ -104,32 +105,33 @@ Penjabaran CPMK menjadi indikator yang lebih terukur dan dapat diuji:
 % ============================================================
 \section*{5. Materi Pembelajaran (Bahan Kajian)}
 
-Daftar topik materi yang relevan dengan Sub-CPMK dan CPMK:
+Daftar topik materi yang relevan dengan Sub-CPMK dan CPMK. \textbf{Fokus teknologi:} HTML, CSS, JavaScript, MySQL, PHP. \textbf{Alat yang digunakan:} XAMPP, VS Code (dengan addon untuk HTML/CSS/JS/PHP), GitHub Copilot.
 
 \begin{enumerate}[leftmargin=*]
-  \item Pengenalan pemrograman internet dan arsitektur web (client-server, HTTP)
+  \item Pengenalan pemrograman internet, arsitektur client-server, alat (XAMPP, VS Code)
   \item Protokol HTTP dan interaksi browser--server
   \item HTML5: struktur dokumen, elemen semantik, link, gambar, tabel
   \item HTML5: form dan elemen input
-  \item CSS3: dasar, selector, box model, warna, typography
-  \item CSS3: layout dengan Flexbox dan Grid; desain responsif
-  \item JavaScript dasar: sintaks, tipe data, kontrol alur, fungsi
+  \item CSS3: selector, box model, warna, typography
+  \item CSS3: Flexbox, Grid, desain responsif
+  \item JavaScript: sintaks, tipe data, kontrol alur, fungsi
   \item JavaScript: DOM, event handling, validasi form
-  \item Pemrograman server-side: pengenalan (PHP atau Node.js), environment, request-response
-  \item Integrasi server-side dengan basis data (koneksi, query, CRUD)
-  \item Session, cookie, dan autentikasi dasar
-  \item REST API: konsep, metode HTTP, format JSON; pembuatan endpoint
-  \item Konsumsi API dari client: AJAX, Fetch API, menampilkan data dinamis
-  \item Keamanan web: validasi input, XSS, CSRF, sanitasi, HTTPS
-  \item Pengenalan framework/library (front-end atau back-end) dan deployment dasar
-  \item Review dan praktik integrasi: proyek aplikasi web sederhana
+  \item UTS / Review materi pertemuan 1--8
+  \item PHP: pengenalan, environment XAMPP, request-response
+  \item PHP + MySQL: koneksi, query, CRUD
+  \item Session, cookie, autentikasi dasar
+  \item Pembuatan aplikasi web integratif (HTML/CSS/JS/PHP/MySQL)
+  \item Keamanan web: validasi input, prepared statement, sanitasi
+  \item Proyek kelompok: aplikasi web CRUD
+  \item Presentasi proyek, review semester, UAS
 \end{enumerate}
 
 \vspace{0.5cm}
 
 \textbf{Rencana Perkuliahan (16 Pertemuan):}
 
-\begin{longtable}{|c|>{\raggedright\arraybackslash}p{4.8cm}|>{\raggedright\arraybackslash}p{3.2cm}|>{\raggedright\arraybackslash}p{2.5cm}|}
+\small
+\begin{longtable}{|c|>{\raggedright\arraybackslash}p{4.5cm}|>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{2.5cm}|}
 \hline
 \textbf{Pert.} & \textbf{Materi} & \textbf{Sub-CPMK} & \textbf{Metode} \\
 \hline
@@ -140,39 +142,40 @@ Daftar topik materi yang relevan dengan Sub-CPMK dan CPMK:
 \endhead
 \hline
 \endfoot
-1 & Pengenalan pemrograman internet, arsitektur web, HTTP & 1.1, 1.2 & Ceramah, diskusi \\
+1 & Pengenalan pemrograman internet, arsitektur web, alat (XAMPP, VS Code) & 1.1, 1.2 & Ceramah, praktikum \\
 \hline
-2 & HTTP request-response, peran client dan server & 1.1, 1.2 & Ceramah, demo \\
+2 & Protokol HTTP, interaksi browser--server & 1.1, 1.2 & Ceramah, praktikum \\
 \hline
-3 & HTML5: struktur, elemen semantik, link, gambar, tabel & 2.1 & Ceramah, praktikum \\
+3 & HTML5: struktur, elemen semantik, link, gambar, tabel & 2.1 & Praktikum, live coding \\
 \hline
-4 & HTML5: form dan elemen input & 2.1, 2.3 & Praktikum, live coding \\
+4 & HTML5: form dan elemen input & 2.1 & Praktikum, live coding \\
 \hline
-5 & CSS3: dasar, selector, box model, layout dasar & 2.2 & Praktikum \\
+5 & CSS3: selector, box model, warna, typography & 2.2 & Praktikum \\
 \hline
-6 & CSS3: Flexbox, Grid, desain responsif & 2.2 & Praktikum, tugas \\
+6 & CSS3: Flexbox, Grid, desain responsif & 2.2 & Praktikum \\
 \hline
 7 & JavaScript: sintaks, DOM, event handling & 2.3 & Praktikum \\
 \hline
-8 & JavaScript: validasi form, integrasi dengan HTML/CSS & 2.3 & Praktikum, kuis \\
+8 & JavaScript: validasi form, integrasi HTML/CSS & 2.3 & Praktikum, kuis \\
 \hline
 9 & UTS / Review materi pertemuan 1--8 & CPMK-1, CPMK-2 & Ujian, diskusi \\
 \hline
-10 & Pemrograman server-side: pengenalan, request-response & 3.1 & Ceramah, praktikum \\
+10 & PHP: pengenalan, environment XAMPP, request-response & 3.1 & Ceramah, praktikum \\
 \hline
-11 & Integrasi server-side dengan basis data, CRUD & 3.1, 3.2 & Praktikum \\
+11 & PHP + MySQL: koneksi, query, CRUD & 3.1, 3.2 & Praktikum \\
 \hline
-12 & Session, cookie, autentikasi dasar & 4.2 & Praktikum \\
+12 & Session, cookie, autentikasi dasar & 4.1 & Praktikum \\
 \hline
-13 & REST API: konsep, endpoint, JSON; Fetch/AJAX dari client & 4.1 & Praktikum \\
+13 & Integrasi web (HTML/CSS/JS/PHP/MySQL) & 3.2, 4.1 & Praktikum \\
 \hline
-14 & Keamanan web: validasi, XSS, CSRF, sanitasi & 4.2 & Ceramah, studi kasus \\
+14 & Keamanan web: validasi, prepared statement, sanitasi & 4.2 & Ceramah, praktikum \\
 \hline
-15 & Pengenalan framework dan deployment; proyek kelompok & 3.2, 4.1 & Project-based \\
+15 & Proyek kelompok: aplikasi web CRUD & 3.2, 4.1, 4.2 & Project-based \\
 \hline
 16 & Presentasi proyek, review semester, UAS & Semua CPMK & Presentasi, ujian \\
 \hline
 \end{longtable}
+\normalsize
 
 \vspace{0.5cm}
 
@@ -181,16 +184,16 @@ Daftar topik materi yang relevan dengan Sub-CPMK dan CPMK:
 % ============================================================
 \section*{6. Metode Pembelajaran}
 
-Strategi atau pendekatan pembelajaran yang dipilih sesuai OBE yang menekankan aktivitas mahasiswa:
+Strategi atau pendekatan pembelajaran yang dipilih sesuai OBE dengan komposisi 70\% praktek dan 30\% teori:
 
 \begin{itemize}[leftmargin=*]
-  \item \textbf{Ceramah Interaktif:} Penjelasan konsep arsitektur web, HTTP, dan keamanan dengan diskusi tanya jawab
-  \item \textbf{Demonstrasi dan Live Coding:} Memperagakan pembuatan halaman web, form, koneksi database, dan API
-  \item \textbf{Praktikum Terbimbing:} Latihan HTML/CSS/JavaScript, server-side, dan basis data dengan bimbingan asisten/dosen
-  \item \textbf{Problem-Based Learning (PBL):} Mahasiswa menyelesaikan permasalahan nyata (membuat situs, CRUD, konsumsi API)
+  \item \textbf{Ceramah Interaktif (30\% teori):} Penjelasan konsep arsitektur web, HTTP, dan keamanan dengan diskusi tanya jawab
+  \item \textbf{Praktikum Terbimbing (70\% praktek):} Latihan HTML/CSS/JavaScript, PHP, MySQL dengan XAMPP dan VS Code
+  \item \textbf{Live Coding dan Demonstrasi:} Memperagakan pembuatan halaman web, form, koneksi database dengan alat XAMPP dan VS Code
+  \item \textbf{Problem-Based Learning (PBL):} Mahasiswa menyelesaikan permasalahan nyata (membuat situs, CRUD) menggunakan teknologi HTML, CSS, JS, PHP, MySQL
   \item \textbf{Project-Based Learning:} Pengembangan aplikasi web mini sebagai proyek kelompok
   \item \textbf{Peer Review:} Mahasiswa melakukan review kode atau tampilan web terhadap pekerjaan rekan
-  \item \textbf{Studi Kasus:} Analisis situs atau API existing dari segi struktur, keamanan, dan kegunaan
+  \item \textbf{Penggunaan GitHub Copilot:} Alat bantu coding (dengan etika akademik dan panduan kejujuran)
 \end{itemize}
 
 \vspace{0.5cm}
@@ -203,14 +206,14 @@ Strategi atau pendekatan pembelajaran yang dipilih sesuai OBE yang menekankan ak
 Deskripsi tugas, aktivitas, atau pengalaman belajar yang mendukung pencapaian Sub-CPMK:
 
 \begin{itemize}[leftmargin=*]
-  \item Membuat halaman web statis dengan HTML, CSS, dan JavaScript (layout responsif, form, validasi)
-  \item Merancang dan mengimplementasikan antarmuka untuk aplikasi web sederhana (landing page, form registrasi/login)
-  \item Mengimplementasikan pemrosesan form di sisi server dan penyimpanan ke basis data
-  \item Membangun modul CRUD (Create, Read, Update, Delete) berbasis web dengan integrasi database
-  \item Membuat endpoint REST sederhana dan mengonsumsi API tersebut dari front-end menggunakan Fetch/AJAX
-  \item Menerapkan validasi input, session, dan prinsip pencegahan XSS/CSRF dalam tugas atau proyek
-  \item Berkolaborasi dalam tim untuk mengembangkan proyek aplikasi web (front-end dan back-end)
+  \item Membuat halaman web statis (HTML, CSS, JavaScript) dengan VS Code
+  \item Merancang dan mengimplementasikan antarmuka web (landing page, form registrasi/login) dengan VS Code
+  \item Praktik koneksi PHP--MySQL dengan XAMPP
+  \item Membangun modul CRUD berbasis web dengan integrasi PHP dan MySQL
+  \item Menerapkan validasi input, session, dan prinsip keamanan (prepared statement, sanitasi) dalam tugas atau proyek
+  \item Berkolaborasi dalam tim untuk mengembangkan proyek aplikasi web
   \item Mempresentasikan hasil proyek atau melakukan peer review terhadap kode/tampilan web rekan
+  \item Menggunakan GitHub Copilot untuk asistensi coding (sesuai panduan kejujuran akademik)
 \end{itemize}
 
 \vspace{0.5cm}
@@ -220,7 +223,7 @@ Deskripsi tugas, aktivitas, atau pengalaman belajar yang mendukung pencapaian Su
 % ============================================================
 \section*{8. Kriteria, Indikator, dan Bobot Penilaian}
 
-Teknik/alat asesmen dipetakan ke Sub-CPMK/CPMK dengan bobot yang jelas:
+Teknik/alat asesmen dipetakan ke Sub-CPMK/CPMK dengan bobot yang jelas (sesuai komposisi 70\% praktek):
 
 \begin{longtable}{|>{\raggedright\arraybackslash}p{2.4cm}|>{\raggedright\arraybackslash}p{3.4cm}|>{\raggedright\arraybackslash}p{4.9cm}|>{\raggedright\arraybackslash}p{1.4cm}|}
 \hline
@@ -238,13 +241,13 @@ Tugas Individu & Tugas coding web (HTML/CSS/JS, form, layout) & Sub-CPMK 2.1, 2.
 \hline
 Kuis & Multiple Choice \& Essay & Sub-CPMK 1.1, 1.2, 2.1, 2.2 & 10 \\
 \hline
-Praktikum & Lab exercise (server-side, database, API) & Sub-CPMK 3.1, 3.2, 4.1 & 15 \\
+Praktikum & Lab exercise (PHP, MySQL, CRUD) & Sub-CPMK 3.1, 3.2, 4.1, 4.2 & 20 \\
 \hline
 UTS & Written exam \& praktik coding & CPMK-1, CPMK-2 & 20 \\
 \hline
-Proyek Kelompok & Aplikasi web (front-end + back-end/API) & CPMK-2, CPMK-3, CPMK-4 & 20 \\
+Proyek Kelompok & Aplikasi web (front-end + back-end) & CPMK-2, CPMK-3, CPMK-4 & 20 \\
 \hline
-UAS & Ujian komprehensif & CPMK-1, CPMK-2, CPMK-3, CPMK-4 & 20 \\
+UAS & Ujian komprehensif & CPMK-1, CPMK-2, CPMK-3, CPMK-4 & 15 \\
 \hline
 \textbf{Total} & & & \textbf{100} \\
 \hline
@@ -269,9 +272,9 @@ UAS & Ujian komprehensif & CPMK-1, CPMK-2, CPMK-3, CPMK-4 & 20 \\
 Penilaian sumatif/formatif untuk memantau ketercapaian outcome secara menyeluruh:
 
 \begin{itemize}[leftmargin=*]
-  \item \textbf{Evaluasi Formatif:} Kuis, latihan coding web, dan peer review untuk memberikan feedback berkelanjutan
+  \item \textbf{Evaluasi Formatif:} Kuis, latihan coding web (HTML/CSS/JS/PHP/MySQL), dan peer review untuk memberikan feedback berkelanjutan
   \item \textbf{Evaluasi Sumatif:} UTS dan UAS untuk mengukur pencapaian CPMK Pemrograman Internet secara komprehensif
-  \item \textbf{Refleksi Mahasiswa:} Jurnal belajar atau refleksi singkat terhadap pemahaman materi (arsitektur web, front-end, back-end, API, keamanan)
+  \item \textbf{Refleksi Mahasiswa:} Jurnal belajar atau refleksi singkat terhadap pemahaman materi (arsitektur web, HTML, CSS, JavaScript, PHP, MySQL, keamanan)
   \item \textbf{Evaluasi Dosen:} Survey kepuasan mahasiswa di tengah dan akhir semester
   \item \textbf{Continuous Improvement:} Analisis hasil penilaian untuk perbaikan RPS di semester berikutnya
 \end{itemize}
@@ -288,106 +291,57 @@ Sumber belajar utama (sumber terbuka dari internet) yang digunakan dalam penyusu
 \sloppy
 \begin{enumerate}[leftmargin=*]
   \item MDN Web Docs. \textit{Learn Web Development}. \url{https://developer.mozilla.org/en-US/docs/Learn}
-  
   \item MDN Web Docs. \textit{HTML: HyperText Markup Language}. \url{https://developer.mozilla.org/en-US/docs/Web/HTML}
-  
   \item MDN Web Docs. \textit{CSS: Cascading Style Sheets}. \url{https://developer.mozilla.org/en-US/docs/Web/CSS}
-  
   \item MDN Web Docs. \textit{JavaScript}. \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript}
-  
   \item MDN Web Docs. \textit{Using the Fetch API}. \url{https://developer.mozilla.org/en-US/docs/Web/API/Fetch\_API/Using\_Fetch}
-  
   \item MDN Web Docs. \textit{Web APIs}. \url{https://developer.mozilla.org/en-US/docs/Web/API}
-  
-  \item MDN Web Docs. \textit{Express/Node.js Tutorial}. \url{https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express\_Nodejs}
-  
-  \item Haverbeke, M. \textit{Eloquent JavaScript} (edisi daring gratis). \url{https://eloquentjavascript.net}
-  
-  \item JavaScript.info. \textit{The Modern JavaScript Tutorial}. \url{https://javascript.info}
-  
-  \item W3Schools. \textit{Web Development Tutorials}. \url{https://www.w3schools.com}
-  
-  \item web.dev. \textit{Learn Web Development}. \url{https://web.dev/learn}
-  
-  \item PHP. \textit{PHP Manual}. \url{https://www.php.net/manual/en}
-  
-  \item PHP The Right Way. \textit{Reference for PHP Best Practices}. \url{https://phptherightway.com}
-  
-  \item Node.js. \textit{Node.js Documentation}. \url{https://nodejs.org/docs}
-  
-  \item Express. \textit{Express Web Framework}. \url{https://expressjs.com}
-  
-  \item Vue.js. \textit{Vue.js Documentation}. \url{https://vuejs.org}
-  
-  \item React. \textit{React Documentation}. \url{https://react.dev}
-  
-  \item Bootstrap. \textit{Bootstrap Documentation}. \url{https://getbootstrap.com/docs}
-  
-  \item WHATWG. \textit{HTML Living Standard}. \url{https://html.spec.whatwg.org}
-  
-  \item W3C. \textit{HTML Standards}. \url{https://www.w3.org/html}
-  
-  \item W3C. \textit{CSS Specifications}. \url{https://www.w3.org/Style/CSS}
-  
-  \item OWASP. \textit{Cheat Sheet Series}. \url{https://cheatsheetseries.owasp.org}
-  
-  \item OWASP. \textit{REST Security Cheat Sheet}. \url{https://cheatsheetseries.owasp.org/cheatsheets/REST\_Security\_Cheat\_Sheet.html}
-  
-  \item OWASP. \textit{Cross-Site Scripting (XSS) Prevention Cheat Sheet}. \url{https://cheatsheetseries.owasp.org/cheatsheets/Cross\_Site\_Scripting\_Prevention\_Cheat\_Sheet.html}
-  
-  \item OWASP. \textit{SQL Injection Prevention Cheat Sheet}. \url{https://cheatsheetseries.owasp.org/cheatsheets/SQL\_Injection\_Prevention\_Cheat\_Sheet.html}
-  
-  \item OWASP. \textit{OWASP Top Ten}. \url{https://owasp.org/www-project-top-ten}
-  
-  \item OWASP. \textit{Authentication Cheat Sheet}. \url{https://cheatsheetseries.owasp.org/cheatsheets/Authentication\_Cheat\_Sheet.html}
-  
-  \item OWASP. \textit{Session Management Cheat Sheet}. \url{https://cheatsheetseries.owasp.org/cheatsheets/Session\_Management\_Cheat\_Sheet.html}
-  
-  \item MySQL. \textit{MySQL Documentation}. \url{https://dev.mysql.com/doc}
-  
-  \item FreeCodeCamp. \textit{Learn to Code}. \url{https://www.freecodecamp.org/learn}
-  
-  \item CSS-Tricks. \textit{CSS-Tricks Guides}. \url{https://css-tricks.com/guides}
-  
-  \item JSON. \textit{Introducing JSON}. \url{https://www.json.org}
-  
-  \item REST API Tutorial. \textit{REST API Tutorial}. \url{https://www.restapitutorial.com}
-  
-  \item W3C WAI. \textit{Web Accessibility Initiative}. \url{https://www.w3.org/WAI}
-  
-  \item W3C. \textit{Web Content Accessibility Guidelines (WCAG) 2.1}. \url{https://www.w3.org/TR/WCAG21}
-  
-  \item W3C WAI. \textit{Accessibility Tutorials}. \url{https://www.w3.org/WAI/tutorials}
-  
-  \item Can I Use. \textit{Can I use\ldots}. \url{https://caniuse.com}
-  
-  \item npm. \textit{npm Documentation}. \url{https://docs.npmjs.com}
-  
-  \item HTTP Status Codes. \textit{HTTP Status Codes}. \url{https://httpstatuses.com}
-  
-  \item DevDocs. \textit{API Documentation Browser}. \url{https://devdocs.io}
-  
-  \item Mozilla. \textit{HTTP}. \url{https://developer.mozilla.org/en-US/docs/Web/HTTP}
-  
-  \item GitHub. \textit{GitHub Docs}. \url{https://docs.github.com}
-  
-  \item Git. \textit{Git Documentation}. \url{https://git-scm.com/doc}
-  
-  \item Postman. \textit{Postman Learning Center}. \url{https://learning.postman.com}
-  
-  \item OWASP. \textit{Input Validation Cheat Sheet}. \url{https://cheatsheetseries.owasp.org/cheatsheets/Input\_Validation\_Cheat\_Sheet.html}
-  
-  \item OWASP. \textit{Cross-Site Request Forgery Prevention Cheat Sheet}. \url{https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site\_Request\_Forgery\_Prevention\_Cheat\_Sheet.html}
-  
+  \item MDN Web Docs. \textit{HTTP}. \url{https://developer.mozilla.org/en-US/docs/Web/HTTP}
   \item MDN Web Docs. \textit{Structuring the Web with HTML}. \url{https://developer.mozilla.org/en-US/docs/Learn/HTML}
-  
   \item MDN Web Docs. \textit{Styling the Web with CSS}. \url{https://developer.mozilla.org/en-US/docs/Learn/CSS}
-  
   \item MDN Web Docs. \textit{JavaScript---Dynamic Client-Side Scripting}. \url{https://developer.mozilla.org/en-US/docs/Learn/JavaScript}
-  
+  \item Haverbeke, M. \textit{Eloquent JavaScript} (edisi daring gratis). \url{https://eloquentjavascript.net}
+  \item JavaScript.info. \textit{The Modern JavaScript Tutorial}. \url{https://javascript.info}
+  \item W3Schools. \textit{Web Development Tutorials}. \url{https://www.w3schools.com}
   \item W3Schools. \textit{PHP Tutorial}. \url{https://www.w3schools.com/php}
-  
   \item W3Schools. \textit{SQL Tutorial}. \url{https://www.w3schools.com/sql}
+  \item web.dev. \textit{Learn Web Development}. \url{https://web.dev/learn}
+  \item PHP. \textit{PHP Manual}. \url{https://www.php.net/manual/en}
+  \item PHP The Right Way. \textit{Reference for PHP Best Practices}. \url{https://phptherightway.com}
+  \item MySQL. \textit{MySQL Documentation}. \url{https://dev.mysql.com/doc}
+  \item WHATWG. \textit{HTML Living Standard}. \url{https://html.spec.whatwg.org}
+  \item W3C. \textit{HTML Standards}. \url{https://www.w3.org/html}
+  \item W3C. \textit{CSS Specifications}. \url{https://www.w3.org/Style/CSS}
+  \item OWASP. \textit{Cheat Sheet Series}. \url{https://cheatsheetseries.owasp.org}
+  \item OWASP. \textit{Cross-Site Scripting (XSS) Prevention Cheat Sheet}. \url{https://cheatsheetseries.owasp.org/cheatsheets/Cross\_Site\_Scripting\_Prevention\_Cheat\_Sheet.html}
+  \item OWASP. \textit{SQL Injection Prevention Cheat Sheet}. \url{https://cheatsheetseries.owasp.org/cheatsheets/SQL\_Injection\_Prevention\_Cheat\_Sheet.html}
+  \item OWASP. \textit{OWASP Top Ten}. \url{https://owasp.org/www-project-top-ten}
+  \item OWASP. \textit{Authentication Cheat Sheet}. \url{https://cheatsheetseries.owasp.org/cheatsheets/Authentication\_Cheat\_Sheet.html}
+  \item OWASP. \textit{Session Management Cheat Sheet}. \url{https://cheatsheetseries.owasp.org/cheatsheets/Session\_Management\_Cheat\_Sheet.html}
+  \item OWASP. \textit{Input Validation Cheat Sheet}. \url{https://cheatsheetseries.owasp.org/cheatsheets/Input\_Validation\_Cheat\_Sheet.html}
+  \item OWASP. \textit{Cross-Site Request Forgery Prevention Cheat Sheet}. \url{https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site\_Request\_Forgery\_Prevention\_Cheat\_Sheet.html}
+  \item OWASP. \textit{REST Security Cheat Sheet}. \url{https://cheatsheetseries.owasp.org/cheatsheets/REST\_Security\_Cheat\_Sheet.html}
+  \item FreeCodeCamp. \textit{Learn to Code}. \url{https://www.freecodecamp.org/learn}
+  \item CSS-Tricks. \textit{CSS-Tricks Guides}. \url{https://css-tricks.com/guides}
+  \item JSON. \textit{Introducing JSON}. \url{https://www.json.org}
+  \item REST API Tutorial. \textit{REST API Tutorial}. \url{https://www.restapitutorial.com}
+  \item W3C WAI. \textit{Web Accessibility Initiative}. \url{https://www.w3.org/WAI}
+  \item W3C. \textit{Web Content Accessibility Guidelines (WCAG) 2.1}. \url{https://www.w3.org/TR/WCAG21}
+  \item W3C WAI. \textit{Accessibility Tutorials}. \url{https://www.w3.org/WAI/tutorials}
+  \item Can I Use. \textit{Can I use\ldots}. \url{https://caniuse.com}
+  \item HTTP Status Codes. \textit{HTTP Status Codes}. \url{https://httpstatuses.com}
+  \item DevDocs. \textit{API Documentation Browser}. \url{https://devdocs.io}
+  \item GitHub. \textit{GitHub Docs}. \url{https://docs.github.com}
+  \item Git. \textit{Git Documentation}. \url{https://git-scm.com/doc}
+  \item Postman. \textit{Postman Learning Center}. \url{https://learning.postman.com}
+  \item Bootstrap. \textit{Bootstrap Documentation}. \url{https://getbootstrap.com/docs}
+  \item npm. \textit{npm Documentation}. \url{https://docs.npmjs.com}
+  \item Visual Studio Code. \textit{VS Code Documentation}. \url{https://code.visualstudio.com/docs}
+  \item Apache Friends. \textit{XAMPP}. \url{https://www.apachefriends.org}
+  \item GitHub. \textit{GitHub Copilot Documentation}. \url{https://docs.github.com/copilot}
+  \item PHP. \textit{PHP: Getting Started}. \url{https://www.php.net/manual/en/getting-started.php}
+  \item MySQL. \textit{MySQL Getting Started}. \url{https://dev.mysql.com/doc/mysql-getting-started/en}
+  \item MDN Web Docs. \textit{Server-side website programming}. \url{https://developer.mozilla.org/en-US/docs/Learn/Server-side}
 \end{enumerate}
 
 \vspace{1cm}
@@ -395,8 +349,8 @@ Sumber belajar utama (sumber terbuka dari internet) yang digunakan dalam penyusu
 \begin{flushright}
 \begin{tabular}{c}
 Disusun oleh,\\[2cm]
-\textbf{[Nama Dosen, Gelar]}\\
-NIP. [Nomor Induk Pegawai]
+\textbf{\lbrack Nama Dosen, Gelar\rbrack}\\
+NIP. \lbrack Nomor Induk Pegawai\rbrack
 \end{tabular}
 \end{flushright}
 

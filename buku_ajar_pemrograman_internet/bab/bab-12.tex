@@ -2,28 +2,30 @@
 \ifSubfilesClassLoaded{\setcounter{chapter}{11}}{}
 \begin{document}
 
-\chapter{REST API dan Konsumsi dari Client}
+\chapter{Integrasi Aplikasi Web (PHP + MySQL)}
 
 \begin{subcpmk}
-  \item Sub-CPMK 4.1: Membangun endpoint REST dan mengonsumsi API (Fetch/AJAX)
+  \item Sub-CPMK 3.2: Membuat integrasi front-end dan back-end berbasis PHP dan MySQL
+  \item Sub-CPMK 4.1: Menerapkan validasi input dan session pada aplikasi web
 \end{subcpmk}
 
 \input{bab-12/section-12-1}
 \input{bab-12/section-12-2}
 
 \begin{aktivitas}
-  \item Buat endpoint REST yang mengembalikan daftar data (JSON).
-  \item Konsumsi endpoint tersebut dari halaman HTML menggunakan Fetch API.
+  \item Buat halaman CRUD sederhana (HTML + PHP + MySQL) untuk satu entitas.
+  \item Tambahkan validasi input di sisi server dan client.
+  \item Implementasikan session login sederhana untuk membatasi akses.
 \end{aktivitas}
 
 \begin{checklist}
-  \item Memahami konsep REST dan JSON
-  \item Dapat membuat endpoint REST
-  \item Dapat mengonsumsi API dengan Fetch
+  \item Dapat mengintegrasikan form HTML dengan PHP dan MySQL
+  \item Dapat menerapkan validasi input dan session
+  \item Dapat menampilkan data dinamis dari basis data
 \end{checklist}
 
 \begin{rangkuman}
-REST API memungkinkan pertukaran data terstruktur; Fetch API di JavaScript mengonsumsi API dari client \cite{mdn-fetch}, \cite{rest-tutorial}.
+Integrasi aplikasi web menghubungkan front-end dengan back-end berbasis PHP dan MySQL. Validasi input dan session membantu menjaga keamanan dan konsistensi data \cite{php-manual}, \cite{mysql}.
 \end{rangkuman}
 
 \ifSubfilesClassLoaded{

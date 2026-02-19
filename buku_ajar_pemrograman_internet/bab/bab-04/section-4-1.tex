@@ -1,15 +1,725 @@
-\section{Form dan Elemen Input HTML5}
+\section{Forms Dasar HTML}
 
-Form HTML memungkinkan pengguna mengirim data ke server \cite{mdn-html}. Elemen \texttt{<form>} membungkus berbagai kontrol input dan mendefinisikan atribut \texttt{action} (URL tujuan) dan \texttt{method} (GET atau POST). Setiap input harus memiliki atribut \texttt{name} agar nilainya dapat dikirim bersama request \cite{mdn-learn-html}. Metode GET menampilkan data di URL dan cocok untuk pencarian; metode POST mengirim data di body request dan cocok untuk data sensitif atau besar \cite{mdn-http}.
+Forms adalah elemen fundamental HTML untuk mengumpulkan data dari pengguna. Forms memungkinkan interaksi antara user dan website, mulai dari login form hingga survey kompleks \cite{w3schools-html}. Pemahaman forms adalah kunci untuk web development yang interaktif \cite{mdn-html}.
 
-HTML5 menyediakan berbagai tipe input melalui atribut \texttt{type}: \texttt{text}, \texttt{email}, \texttt{password}, \texttt{number}, \texttt{date}, \texttt{checkbox}, \texttt{radio}, \texttt{submit}, dan lainnya \cite{whatwg}. Tipe baru seperti \texttt{email}, \texttt{url}, \texttt{number} memberikan validasi dasar di browser. Elemen \texttt{<label>} menghubungkan teks dengan input untuk aksesibilitas; atribut \texttt{for} pada label harus sesuai dengan \texttt{id} pada input \cite{w3c-wai}.
+\subsection{Basic Form Structure}
 
-\begin{lstlisting}[caption={Contoh Form Registrasi}, basicstyle=\ttfamily\small, frame=single]
-<form action="/register" method="post">
-  <label for="nama">Nama:</label>
-  <input type="text" id="nama" name="nama" required>
-  <label for="email">Email:</label>
-  <input type="email" id="email" name="email" required>
-  <button type="submit">Daftar</button>
-</form>
+Form HTML dibangun menggunakan tag-tag berikut:
+
+\begin{itemize}
+  \item \texttt{<form>} - Container utama untuk form
+  \item \texttt{<input>} - Elemen input untuk berbagai tipe data
+  \item \texttt{<label>} - Label untuk accessibility dan user experience
+  \item \texttt{<button>} - Tombol untuk submit atau aksi lain
+  \item \texttt{<textarea>} - Input teks multi-line
+  \item \texttt{<select>} dan \texttt{<option>} - Dropdown/select box
+  \item \texttt{<fieldset>} dan \texttt{<legend>} - Grouping related fields
+\end{itemize}
+
+\begin{lstlisting}[caption={Contoh Form Dasar}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contoh Form Dasar</title>
+</head>
+<body>
+  <h1>Demonstrasi HTML Forms</h1>
+  
+  <!-- Form sederhana -->
+  <h3>Form Kontak Sederhana</h3>
+  <form action="/submit-contact" method="post">
+    <!-- Text Input dengan Label -->
+    <p>
+      <label for="nama">Nama Lengkap:</label><br>
+      <input type="text" id="nama" name="nama" size="30">
+    </p>
+    
+    <p>
+      <label for="email">Email:</label><br>
+      <input type="text" id="email" name="email" size="30">
+    </p>
+    
+    <!-- Password Input -->
+    <p>
+      <label for="password">Password:</label><br>
+      <input type="password" id="password" name="password" size="30">
+    </p>
+    
+    <!-- Submit Button -->
+    <p>
+      <input type="submit" value="Kirim">
+      <input type="reset" value="Reset">
+    </p>
+  </form>
+  
+  <!-- Form dengan berbagai input types -->
+  <h3>Form dengan Berbagai Input Types</h3>
+  <form action="/register" method="post">
+    <fieldset>
+      <legend>Informasi Pribadi</legend>
+      
+      <p>
+        <label for="fullname">Nama Lengkap:</label><br>
+        <input type="text" id="fullname" name="fullname" maxlength="50">
+      </p>
+      
+      <p>
+        <label for="age">Umur:</label><br>
+        <input type="text" id="age" name="age" size="5" maxlength="3">
+      </p>
+      
+      <p>
+        <label for="gender">Jenis Kelamin:</label><br>
+        <input type="radio" id="male" name="gender" value="L">
+        <label for="male">Laki-laki</label>
+        <input type="radio" id="female" name="gender" value="P">
+        <label for="female">Perempuan</label>
+      </p>
+    </fieldset>
+    
+    <fieldset>
+      <legend>Preferensi</legend>
+      
+      <p>
+        <label for="newsletter">Subscribe Newsletter:</label><br>
+        <input type="checkbox" id="newsletter" name="newsletter" value="yes">
+        <label for="newsletter">Ya, saya ingin menerima newsletter</label>
+      </p>
+      
+      <p>
+        <label for="country">Negara:</label><br>
+        <select id="country" name="country">
+          <option value="">-- Pilih Negara --</option>
+          <option value="ID">Indonesia</option>
+          <option value="MY">Malaysia</option>
+          <option value="SG">Singapore</option>
+          <option value="US">United States</option>
+        </select>
+      </p>
+    </fieldset>
+    
+    <p>
+      <label for="comments">Komentar:</label><br>
+      <textarea id="comments" name="comments" rows="4" cols="40">
+        Tulis komentar Anda di sini...
+      </textarea>
+    </p>
+    
+    <p>
+      <input type="submit" value="Daftar">
+      <input type="button" value="Batal" onclick="alert('Form dibatalkan!')">
+    </p>
+  </form>
+</body>
+</html>
 \end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Form dengan fieldset untuk grouping related fields
+- Label yang terhubung dengan input untuk accessibility
+- Berbagai input types: text, password, radio, checkbox, select, textarea
+- Submit dan reset button dengan fungsi berbeda
+- Legend untuk fieldset description
+
+\subsection{Input Types Detail}
+
+HTML menyediakan berbagai tipe input untuk keperluan spesifik:
+
+\begin{itemize}
+  \item \textbf{Text Inputs}: text, password, hidden
+  \item \textbf{Choice Inputs}: radio, checkbox
+  \item \textbf{Date/Time}: date, time, datetime-local
+  \item \textbf{Numeric}: number, range, tel
+  \item \textbf{File Inputs}: file, image
+  \item \textbf{Action Inputs}: submit, reset, button
+\end{itemize}
+
+\begin{lstlisting}[caption={Berbagai Input Types}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Berbagai Input Types</title>
+</head>
+<body>
+  <h1>Demonstrasi Input Types</h1>
+  
+  <form action="/process" method="post">
+    <!-- Text Inputs -->
+    <fieldset>
+      <legend>Text Inputs</legend>
+      
+      <p><label for="username">Username:</label><br>
+         <input type="text" id="username" name="username" 
+                placeholder="Masukkan username" maxlength="20" required>
+      </p>
+      
+      <p><label for="search">Pencarian:</label><br>
+         <input type="search" id="search" name="search" 
+                placeholder="Cari..." results="5">
+      </p>
+      
+      <p><label for="url">Website:</label><br>
+         <input type="url" id="url" name="url" 
+                placeholder="https://www.example.com">
+      </p>
+      
+      <p><label for="email">Email:</label><br>
+         <input type="email" id="email" name="email" 
+                placeholder="nama@email.com" required>
+      </p>
+      
+      <p><label for="password">Password:</label><br>
+         <input type="password" id="password" name="password" 
+                placeholder="Minimal 8 karakter" minlength="8" required>
+      </p>
+      
+      <p><label for="hidden">Hidden Field:</label><br>
+         <input type="hidden" id="hidden" name="csrf_token" value="abc123">
+      </p>
+    </fieldset>
+    
+    <!-- Numeric Inputs -->
+    <fieldset>
+      <legend>Numeric Inputs</legend>
+      
+      <p><label for="age">Umur:</label><br>
+         <input type="number" id="age" name="age" 
+                min="1" max="120" step="1" value="25">
+      </p>
+      
+      <p><label for="range">Rating:</label><br>
+         <input type="range" id="range" name="rating" 
+                min="1" max="10" value="5" oninput="showValue(this.value)">
+         <span id="rangeValue">5</span>
+      </p>
+      
+      <p><label for="phone">Telepon:</label><br>
+         <input type="tel" id="phone" name="phone" 
+                placeholder="0812-3456-789" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}">
+      </p>
+    </fieldset>
+    
+    <!-- Date/Time Inputs -->
+    <fieldset>
+      <legend>Date and Time Inputs</legend>
+      
+      <p><label for="birthdate">Tanggal Lahir:</label><br>
+         <input type="date" id="birthdate" name="birthdate" 
+                min="1900-01-01" max="2024-12-31">
+      </p>
+      
+      <p><label for="meeting-time">Waktu Meeting:</label><br>
+         <input type="time" id="meeting-time" name="meeting_time" 
+                min="09:00" max="17:00">
+      </p>
+      
+      <p><label for="event-datetime">Acara:</label><br>
+         <input type="datetime-local" id="event-datetime" name="event_datetime">
+      </p>
+      
+      <p><label for="month">Bulan:</label><br>
+         <input type="month" id="month" name="month" value="2024-12">
+      </p>
+      
+      <p><label for="week">Minggu:</label><br>
+         <input type="week" id="week" name="week" value="2024-W52">
+      </p>
+    </fieldset>
+    
+    <!-- Choice Inputs -->
+    <fieldset>
+      <legend>Choice Inputs</legend>
+      
+      <p><label for="hobbies">Hobi:</label><br>
+         <input type="checkbox" id="reading" name="hobbies[]" value="membaca">
+         <label for="reading">Membaca</label><br>
+         
+         <input type="checkbox" id="sports" name="hobbies[]" value="olahraga">
+         <label for="sports">Olahraga</label><br>
+         
+         <input type="checkbox" id="music" name="hobbies[]" value="musik">
+         <label for="music">Musik</label>
+      </p>
+      
+      <p><label for="education">Pendidikan Terakhir:</label><br>
+         <input type="radio" id="sma" name="education" value="SMA">
+         <label for="sma">SMA</label><br>
+         
+         <input type="radio" id="s1" name="education" value="S1">
+         <label for="s1">S1/Diploma</label><br>
+         
+         <input type="radio" id="s2" name="education" value="S2">
+         <label for="s2">S2/Sarjana</label>
+      </p>
+    </fieldset>
+    
+    <!-- File Inputs -->
+    <fieldset>
+      <legend>File Inputs</legend>
+      
+      <p><label for="avatar">Avatar:</label><br>
+         <input type="file" id="avatar" name="avatar" 
+                accept="image/*" capture="user">
+      </p>
+      
+      <p><label for="documents">Upload Dokumen:</label><br>
+         <input type="file" id="documents" name="documents[]" 
+                accept=".pdf,.doc,.docx" multiple>
+      </p>
+      
+      <p><label for="photo">Ambil Foto:</label><br>
+         <input type="image" id="photo" name="photo" 
+                accept="image/*" alt="Camera input">
+      </p>
+    </fieldset>
+    
+    <!-- Action Buttons -->
+    <fieldset>
+      <legend>Form Actions</legend>
+      
+      <p>
+         <input type="submit" value="Submit Form" style="background-color: #4CAF50; color: white;">
+         <input type="reset" value="Reset Form" style="background-color: #f44336; color: white;">
+         <input type="button" value="Batal" onclick="alert('Dibatalkan!')" 
+                style="background-color: #ff9800; color: white;">
+      </p>
+    </fieldset>
+  </form>
+  
+  <script>
+    function showValue(value) {
+      document.getElementById('rangeValue').textContent = value;
+    }
+  </script>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Text inputs dengan placeholder dan validation
+- Numeric inputs dengan min/max/step controls
+- Date/time inputs dengan native calendar picker
+- Radio buttons untuk single choice
+- Checkboxes untuk multiple choices
+- File inputs dengan drag-and-drop support
+- Styled action buttons dengan different behaviors
+
+\subsection{Form Attributes dan Validation}
+
+HTML5 menyediakan atribut untuk validasi dan user experience:
+
+\begin{itemize}
+  \item \textbf{Validation}: required, pattern, min, max, minlength, maxlength
+  \item \textbf{User Experience}: placeholder, autofocus, autocomplete, readonly, disabled
+  \item \textbf{Form Attributes}: action, method, enctype, target, novalidate
+\end{itemize}
+
+\begin{lstlisting}[caption={Form Attributes dan Validation}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form Validation dan Attributes</title>
+  <style>
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #4CAF50;
+      outline: none;
+    }
+    .error {
+      border-color: #f44336;
+    }
+    .success {
+      border-color: #4CAF50;
+    }
+  </style>
+</head>
+<body>
+  <h1>Form dengan Validation dan UX Attributes</h1>
+  
+  <form action="/register" method="post" novalidate>
+    <!-- Required Fields -->
+    <fieldset>
+      <legend>Informasi Wajib</legend>
+      
+      <div class="form-group">
+        <label for="fullname">Nama Lengkap:</label>
+        <input type="text" id="fullname" name="fullname" 
+               required minlength="3" maxlength="50"
+               placeholder="Wajib diisi (3-50 karakter)">
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" 
+               required placeholder="email@domain.com">
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" 
+               required minlength="8" maxlength="20"
+               placeholder="Minimal 8 karakter">
+      </div>
+      
+      <div class="form-group">
+        <label for="confirm-password">Konfirmasi Password:</label>
+        <input type="password" id="confirm-password" name="confirm_password" 
+               required minlength="8" maxlength="20"
+               placeholder="Ketik ulang password">
+      </div>
+    </fieldset>
+    
+    <!-- Optional Fields -->
+    <fieldset>
+      <legend>Informasi Opsional</legend>
+      
+      <div class="form-group">
+        <label for="phone">Telepon:</label>
+        <input type="tel" id="phone" name="phone" 
+               pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+               placeholder="0812-3456-789">
+      </div>
+      
+      <div class="form-group">
+        <label for="website">Website:</label>
+        <input type="url" id="website" name="website" 
+               placeholder="https://www.example.com">
+      </div>
+      
+      <div class="form-group">
+        <label for="age">Umur:</label>
+        <input type="number" id="age" name="age" 
+               min="17" max="100" step="1" value="25">
+      </div>
+    </fieldset>
+    
+    <!-- Special Attributes -->
+    <fieldset>
+      <legend>Form Attributes</legend>
+      
+      <div class="form-group">
+        <label for="search">Pencarian:</label>
+        <input type="search" id="search" name="search" 
+               autofocus autocomplete="on"
+               placeholder="Cari produk..." results="10">
+      </div>
+      
+      <div class="form-group">
+        <label for="comments">Komentar Tambahan:</label>
+        <textarea id="comments" name="comments" rows="4" 
+                  placeholder="Tulis komentar opsional di sini..."></textarea>
+      </div>
+      
+      <div class="form-group">
+        <label for="newsletter">
+          <input type="checkbox" id="newsletter" name="newsletter" value="yes" checked>
+          Saya ingin menerima newsletter dan promo
+        </label>
+      </div>
+    </fieldset>
+    
+    <!-- Form Actions -->
+    <div class="form-group">
+      <input type="submit" value="Daftar Sekarang" 
+             style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">
+      
+      <input type="reset" value="Reset Form" 
+             style="background-color: #f44336; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-left: 10px;">
+    </div>
+  </form>
+  
+  <script>
+    // Client-side validation example
+    document.querySelector('form').addEventListener('submit', function(e) {
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+      
+      if (password !== confirmPassword) {
+        e.preventDefault();
+        alert('Password tidak cocok!');
+        document.getElementById('confirm-password').classList.add('error');
+      } else {
+        document.getElementById('confirm-password').classList.add('success');
+      }
+    });
+  </script>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Required fields dengan browser validation
+- Pattern validation untuk phone format
+- Min/max validation untuk numeric input
+- Autofocus pada search field
+- Checked state untuk newsletter checkbox
+- Client-side validation dengan JavaScript
+- Styled submit dan reset buttons
+
+\subsection{Contoh Lengkap: Multi-Step Registration Form}
+
+Berikut contoh registration form yang kompleks dengan multiple sections:
+
+\begin{lstlisting}[caption={Multi-Step Registration Form}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Multi-Step Registration</title>
+  <style>
+    .form-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    .step {
+      display: none;
+    }
+    .step.active {
+      display: block;
+    }
+    .step-indicator {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .step-dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #ccc;
+      margin: 0 5px;
+    }
+    .step-dot.active {
+      background-color: #4CAF50;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .btn-secondary {
+      background-color: #6c757d;
+    }
+  </style>
+</head>
+<body>
+  <h1>Form Registrasi Multi-Step</h1>
+  
+  <div class="form-container">
+    <!-- Step Indicators -->
+    <div class="step-indicator">
+      <span class="step-dot active" id="step1-dot"></span>
+      <span class="step-dot" id="step2-dot"></span>
+      <span class="step-dot" id="step3-dot"></span>
+    </div>
+    
+    <form action="/register" method="post" id="registrationForm">
+      <!-- Step 1: Personal Information -->
+      <div class="step active" id="step1">
+        <h2>Langkah 1: Informasi Pribadi</h2>
+        
+        <div class="form-group">
+          <label for="firstName">Nama Depan:</label>
+          <input type="text" id="firstName" name="firstName" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="lastName">Nama Belakang:</label>
+          <input type="text" id="lastName" name="lastName" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">Telepon:</label>
+          <input type="tel" id="phone" name="phone">
+        </div>
+        
+        <button type="button" class="btn" onclick="nextStep(2)">Selanjutnya</button>
+      </div>
+      
+      <!-- Step 2: Account Information -->
+      <div class="step" id="step2">
+        <h2>Langkah 2: Informasi Akun</h2>
+        
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required minlength="4">
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required minlength="8">
+        </div>
+        
+        <div class="form-group">
+          <label for="confirmPassword">Konfirmasi Password:</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="securityQuestion">Pertanyaan Keamanan:</label>
+          <select id="securityQuestion" name="securityQuestion" required>
+            <option value="">-- Pilih Pertanyaan --</option>
+            <option value="pet">Nama hewan peliharaan pertama?</option>
+            <option value="school">Nama sekolah dasar?</option>
+            <option value="city">Kota kelahiran?</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="securityAnswer">Jawaban:</label>
+          <input type="text" id="securityAnswer" name="securityAnswer" required>
+        </div>
+        
+        <button type="button" class="btn btn-secondary" onclick="previousStep(1)">Sebelumnya</button>
+        <button type="button" class="btn" onclick="nextStep(3)">Selanjutnya</button>
+      </div>
+      
+      <!-- Step 3: Preferences -->
+      <div class="step" id="step3">
+        <h2>Langkah 3: Preferensi</h2>
+        
+        <div class="form-group">
+          <label for="newsletter">
+            <input type="checkbox" id="newsletter" name="newsletter" value="yes" checked>
+            Saya ingin menerima newsletter
+          </label>
+        </div>
+        
+        <div class="form-group">
+          <label for="notifications">
+            <input type="checkbox" id="notifications" name="notifications" value="yes">
+            Aktifkan notifikasi email
+          </label>
+        </div>
+        
+        <div class="form-group">
+          <label for="language">Bahasa Preferensi:</label>
+          <select id="language" name="language">
+            <option value="id">Bahasa Indonesia</option>
+            <option value="en">English</option>
+            <option value="zh">中文</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="timezone">Timezone:</label>
+          <select id="timezone" name="timezone">
+            <option value="WIB">WIB (GMT+7)</option>
+            <option value="WITA">WITA (GMT+8)</option>
+            <option value="WIT">WIT (GMT+9)</option>
+          </select>
+        </div>
+        
+        <button type="button" class="btn btn-secondary" onclick="previousStep(2)">Sebelumnya</button>
+        <button type="submit" class="btn">Daftar Sekarang</button>
+      </div>
+    </form>
+  </div>
+  
+  <script>
+    let currentStep = 1;
+    
+    function showStep(stepNumber) {
+      // Hide all steps
+      document.querySelectorAll('.step').forEach(step => {
+        step.classList.remove('active');
+      });
+      
+      // Show current step
+      document.getElementById('step' + stepNumber).classList.add('active');
+      
+      // Update indicators
+      document.querySelectorAll('.step-dot').forEach(dot => {
+        dot.classList.remove('active');
+      });
+      document.getElementById('step' + stepNumber + '-dot').classList.add('active');
+      
+      currentStep = stepNumber;
+    }
+    
+    function nextStep(step) {
+      if (validateStep(currentStep)) {
+        showStep(step);
+      }
+    }
+    
+    function previousStep(step) {
+      showStep(step);
+    }
+    
+    function validateStep(step) {
+      let isValid = true;
+      
+      if (step === 1) {
+        const firstName = document.getElementById('firstName').value;
+        const email = document.getElementById('email').value;
+        
+        if (!firstName || !email) {
+          alert('Nama dan email wajib diisi!');
+          isValid = false;
+        }
+      } else if (step === 2) {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        
+        if (!username || !password || password !== confirmPassword) {
+          alert('Username dan password harus diisi dan cocok!');
+          isValid = false;
+        }
+      }
+      
+      return isValid;
+    }
+  </script>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Multi-step form dengan step indicators
+- Validasi antar step sebelum lanjut
+- Smooth transitions antar sections
+- Progress indicators dengan dots
+- Form validation yang komprehensif
+- User-friendly navigation dengan previous/next buttons
+
+Forms yang baik memungkinkan pengumpulan data yang efektif dan user-friendly \cite{w3schools-html}. Kombinasi berbagai input types, validation attributes, dan user experience features akan menciptakan forms yang optimal untuk berbagai keperluan \cite{mdn-html}.

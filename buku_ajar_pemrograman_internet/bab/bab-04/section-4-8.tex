@@ -1,0 +1,585 @@
+\section{Validasi dan Aksesibilitas HTML5}
+
+Validasi dan aksesibilitas adalah dua pilar fundamental dalam pengembangan web modern. Validasi memastikan markup HTML mengikuti standar, sementara aksesibilitas memastikan konten dapat diakses oleh semua pengguna, termasuk yang menggunakan teknologi assistif \cite{wcag-guide}. HTML5 menyediakan berbagai tools dan atribut untuk meningkatkan kedua aspek ini \cite{mdn-accessibility}.
+
+\subsection{HTML5 Validation}
+
+Validasi HTML memastikan dokumen mengikuti spesifikasi HTML5 dan bebas dari errors:
+
+\begin{itemize}
+  \item \textbf{W3C Validator}: Online tool untuk memeriksa markup validity
+  \item \textbf{Browser DevTools}: Built-in validators di browser modern
+  \item \textbf{Linting Tools}: HTMLHint, HTML-validate untuk development workflow
+  \item \textbf{Common Errors}: Missing alt attributes, invalid nesting, deprecated tags
+  \item \textbf{Semantic Validation}: Proper use of semantic elements
+\end{itemize}
+
+\begin{lstlisting}[caption={HTML5 Validation Best Practices}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valid HTML5 Document Example</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 20px; background-color: #f8f9fa; }
+    .validation-demo { background-color: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .valid-example { border-left: 4px solid #28a745; background-color: #f8fff8; padding: 15px; margin: 10px 0; }
+    .invalid-example { border-left: 4px solid #dc3545; background-color: #fff8f8; padding: 15px; margin: 10px 0; }
+    .warning-example { border-left: 4px solid #ffc107; background-color: #fffbf0; padding: 15px; margin: 10px 0; }
+    .code-block { background-color: #f8f9fa; border: 1px solid #e9ecef; border-radius: 4px; padding: 15px; font-family: monospace; font-size: 14px; overflow-x: auto; }
+    .btn { background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
+    .btn:hover { background-color: #0056b3; }
+  </style>
+</head>
+<body>
+  <h1>✅ HTML5 Validation & Best Practices</h1>
+  
+  <div class="validation-demo">
+    <h2>📝 Valid HTML5 Structure</h2>
+    
+    <div class="valid-example">
+      <h4>✅ Correct DOCTYPE and Basic Structure</h4>
+      <div class="code-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="id"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Page Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- Content goes here --&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+      </div>
+    </div>
+    
+    <div class="valid-example">
+      <h4>✅ Proper Semantic Structure</h4>
+      <div class="code-block">
+&lt;header&gt;
+  &lt;h1&gt;Website Title&lt;/h1&gt;
+  &lt;nav&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="/about"&gt;About&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;main&gt;
+  &lt;article&gt;
+    &lt;h2&gt;Article Title&lt;/h2&gt;
+    &lt;p&gt;Article content...&lt;/p&gt;
+  &lt;/article&gt;
+&lt;/main&gt;
+
+&lt;footer&gt;
+  &lt;p&gt;&amp;copy; 2024 Website Name&lt;/p&gt;
+&lt;/footer&gt;
+      </div>
+    </div>
+    
+    <div class="valid-example">
+      <h4>✅ Accessible Images dengan Alt Text</h4>
+      <div class="code-block">
+&lt;!-- Good: Descriptive alt text --&gt;
+&lt;img src="chart-sales.png" alt="Bar chart showing sales increased by 25% in Q4 2024"&gt;
+
+&lt;!-- Good: Empty alt untuk decorative images --&gt;
+&lt;img src="decorative-border.png" alt=""&gt;
+
+&lt;!-- Bad: Missing alt attribute --&gt;
+&lt;!-- &lt;img src="important-chart.png"&gt; --&gt;
+      </div>
+    </div>
+    
+    <div class="valid-example">
+      <h4>✅ Proper Form Structure</h4>
+      <div class="code-block">
+&lt;form action="/submit" method="post" novalidate&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;Personal Information&lt;/legend&gt;
+    
+    &lt;label for="name"&gt;Full Name:&lt;/label&gt;
+    &lt;input type="text" id="name" name="name" required 
+           aria-describedby="name-help"&gt;
+    &lt;span id="name-help"&gt;Enter your full legal name&lt;/span&gt;
+    
+    &lt;label for="email"&gt;Email:&lt;/label&gt;
+    &lt;input type="email" id="email" name="email" required&gt;
+    
+    &lt;button type="submit"&gt;Submit&lt;/button&gt;
+  &lt;/fieldset&gt;
+&lt;/form&gt;
+      </div>
+    </div>
+  </div>
+  
+  <div class="validation-demo">
+    <h2>⚠️ Common Validation Errors</h2>
+    
+    <div class="invalid-example">
+      <h4>❌ Missing Required Attributes</h4>
+      <div class="code-block">
+&lt;!-- Error: img without alt --&gt;
+&lt;img src="photo.jpg"&gt;
+
+&lt;!-- Error: input without associated label --&gt;
+&lt;input type="text" name="username"&gt;
+
+&lt;!-- Error: Missing lang attribute on html --&gt;
+&lt;html&gt;
+      </div>
+    </div>
+    
+    <div class="invalid-example">
+      <h4>❌ Invalid Nesting</h4>
+      <div class="code-block">
+&lt;!-- Error: block element inside inline element --&gt;
+&lt;span&gt;
+  &lt;div&gt;This is invalid nesting&lt;/div&gt;
+&lt;/span&gt;
+
+&lt;!-- Error: p inside p --&gt;
+&lt;p&gt;
+  First paragraph
+  &lt;p&gt;Nested paragraph (invalid)&lt;/p&gt;
+&lt;/p&gt;
+      </div>
+    </div>
+    
+    <div class="warning-example">
+      <h4>⚠️ Deprecated Elements (Still valid but not recommended)</h4>
+      <div class="code-block">
+&lt;!-- Avoid using these deprecated elements --&gt;
+&lt;font color="red"&gt;Red text&lt;/font&gt;
+&lt;center&gt;Centered text&lt;/center&gt;
+&lt;b&gt;Bold text (use &lt;strong&gt; instead)&lt;/b&gt;
+&lt;i&gt;Italic text (use &lt;em&gt; instead)&lt;/i&gt;
+
+&lt;!-- Recommended alternatives --&gt;
+&lt;span style="color: red;"&gt;Red text&lt;/span&gt;
+&lt;div style="text-align: center;"&gt;Centered text&lt;/div&gt;
+&lt;strong&gt;Important text&lt;/strong&gt;
+&lt;em&gt;Emphasized text&lt;/em&gt;
+      </div>
+    </div>
+  </div>
+  
+  <div class="validation-demo">
+    <h2>🔧 Validation Tools</h2>
+    
+    <h3>Online Validators</h3>
+    <ul>
+      <li><strong>W3C Markup Validator:</strong> https://validator.w3.org/</li>
+      <li><strong>HTML5 Validator:</strong> https://html5.validator.nu/</li>
+      <li><strong>Validator.nu:</strong> Comprehensive HTML5 validation</li>
+    </ul>
+    
+    <h3>Development Tools</h3>
+    <ul>
+      <li><strong>Browser DevTools:</strong> Built-in validation dan accessibility auditing</li>
+      <li><strong>VS Code Extensions:</strong> HTMLHint, auto-close-tag, bracket-pair-colorizer</li>
+      <li><strong>Linters:</strong> HTML-validate, htmllint untuk CI/CD integration</li>
+    </ul>
+    
+    <button class="btn" onclick="window.open('https://validator.w3.org/', '_blank')">
+      🔍 Open W3C Validator
+    </button>
+  </div>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Contoh struktur HTML5 yang valid dengan semantic elements
+- Perbandingan valid vs invalid markup
+- Common validation errors dengan penjelasan
+- Tools untuk validasi HTML online dan development
+- Best practices untuk clean dan valid markup
+
+\subsection{Web Accessibility (WCAG 2.1)}
+
+Web Content Accessibility Guidelines (WCAG) 2.1 menyediakan standar untuk membuat konten web yang accessible:
+
+\begin{itemize}
+  \item \textbf{Perceivable}: Informasi harus dapat dipersepsikan oleh semua users
+  \item \textbf{Operable}: Interface components harus dapat dioperasikan
+  \item \textbf{Understandable}: Informasi dan operation harus dapat dipahami
+  \item \textbf{Robust}: Konten harus cukup robust untuk berbagai technologies
+  \item \textbf{Level Compliance}: A, AA, AAA levels of accessibility conformance
+\end{itemize}
+
+\begin{lstlisting}[caption={WCAG 2.1 Implementation}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessible Web Design - WCAG 2.1</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 20px; background-color: #f8f9fa; }
+    .accessibility-demo { background-color: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .wcag-principle { background-color: #e7f3ff; border: 1px solid #b3d9ff; border-radius: 8px; padding: 20px; margin: 15px 0; }
+    .example-good { border-left: 4px solid #28a745; background-color: #f8fff8; padding: 15px; margin: 10px 0; }
+    .example-bad { border-left: 4px solid #dc3545; background-color: #fff8f8; padding: 15px; margin: 10px 0; }
+    .skip-link { position: absolute; top: -40px; left: 0; background: #007bff; color: white; padding: 8px; text-decoration: none; z-index: 100; }
+    .skip-link:focus { top: 0; }
+    .btn { background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
+    .btn:hover { background-color: #0056b3; }
+    .btn:focus { outline: 3px solid #0056b3; outline-offset: 2px; }
+    .high-contrast { background-color: #000; color: #fff; padding: 15px; border-radius: 4px; }
+    .aria-demo { background-color: #f8f9fa; border: 1px solid #e9ecef; padding: 15px; border-radius: 4px; margin: 10px 0; }
+  </style>
+</head>
+<body>
+  <!-- Skip to main content link untuk screen reader users -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+  <h1>♿ Accessible Web Design (WCAG 2.1)</h1>
+  
+  <!-- Principle 1: Perceivable -->
+  <div class="accessibility-demo">
+    <h2>👁️ Principle 1: Perceivable</h2>
+    
+    <div class="wcag-principle">
+      <h3>1.1 Text Alternatives (Level A)</h3>
+      
+      <div class="example-good">
+        <h4>✅ Good: Images dengan Descriptive Alt Text</h4>
+        <img src="chart-example.png" alt="Bar chart showing website traffic increased 50% from January to June 2024, with peak in March" style="max-width: 100%; height: auto;">
+        <p><small>This image has descriptive alt text that conveys the same information as the visual content.</small></p>
+      </div>
+      
+      <div class="example-good">
+        <h4>✅ Good: Decorative Images dengan Empty Alt</h4>
+        <img src="decorative-icon.png" alt="" style="width: 50px; height: 50px;">
+        <p><small>Decorative images should have empty alt attribute (alt="") so screen readers ignore them.</small></p>
+      </div>
+      
+      <div class="example-bad">
+        <h4>❌ Bad: Missing atau Non-descriptive Alt Text</h4>
+        <!-- Don't do this -->
+        <img src="important-chart.png" alt="Chart">
+        <img src="logo.png">
+        <p><small>Avoid vague alt text like "chart" or missing alt attributes entirely.</small></p>
+      </div>
+    </div>
+    
+    <div class="wcag-principle">
+      <h3>1.4 Distinguishable (Level AA)</h3>
+      
+      <div class="example-good">
+        <h4>✅ Good: Sufficient Color Contrast</h4>
+        <p style="color: #000000; background-color: #ffffff; padding: 10px;">
+          This text has a contrast ratio of 21:1 (exceeds WCAG AAA requirement of 7:1)
+        </p>
+        <p style="color: #333333; background-color: #ffffff; padding: 10px;">
+          This text has a contrast ratio of 12.6:1 (exceeds WCAG AA requirement of 4.5:1)
+        </p>
+      </div>
+      
+      <div class="example-bad">
+        <h4>❌ Bad: Insufficient Color Contrast</h4>
+        <p style="color: #cccccc; background-color: #ffffff; padding: 10px;">
+          This light gray text on white background fails WCAG AA (contrast ratio: 1.6:1)
+        </p>
+        <p style="color: #ffff00; background-color: #ffffff; padding: 10px;">
+          This yellow text on white background fails WCAG AA (contrast ratio: 1.2:1)
+        </p>
+      </div>
+      
+      <div class="example-good">
+        <h4>✅ Good: High Contrast Mode Support</h4>
+        <div class="high-contrast">
+          <p>This content supports high contrast mode with:</p>
+          <ul>
+            <li>Solid borders (not just color changes)</li>
+            <li>Text labels (not just icons)</li>
+            <li>Underlined links (not just color)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Principle 2: Operable -->
+  <div class="accessibility-demo">
+    <h2>⌨️ Principle 2: Operable</h2>
+    
+    <div class="wcag-principle">
+      <h3>2.1 Keyboard Accessible (Level A)</h3>
+      
+      <div class="example-good">
+        <h4>✅ Good: Fully Keyboard Accessible Interface</h4>
+        
+        <nav aria-label="Main Navigation">
+          <ul style="list-style: none; padding: 0; display: flex; gap: 10px;">
+            <li><a href="#home" class="btn" style="text-decoration: none;">Home</a></li>
+            <li><a href="#about" class="btn" style="text-decoration: none;">About</a></li>
+            <li><a href="#contact" class="btn" style="text-decoration: none;">Contact</a></li>
+          </ul>
+        </nav>
+        
+        <form style="margin-top: 20px;">
+          <label for="search">Search:</label>
+          <input type="text" id="search" name="search" style="padding: 8px; margin-right: 10px;">
+          <button type="submit" class="btn">Search</button>
+        </form>
+        
+        <p><small>All interactive elements are accessible via keyboard (Tab, Enter, Space)</small></p>
+      </div>
+      
+      <div class="example-good">
+        <h4>✅ Good: Visible Focus Indicators</h4>
+        <button class="btn" style="margin-right: 10px;">Button 1</button>
+        <button class="btn">Button 2</button>
+        <p><small>Focus indicators are clearly visible (blue outline) when navigating with keyboard.</small></p>
+      </div>
+    </div>
+    
+    <div class="wcag-principle">
+      <h3>2.4 Navigable (Level AA)</h3>
+      
+      <div class="example-good">
+        <h4>✅ Good: Descriptive Page Title dan Headings</h4>
+        
+        <h1>Main Page Title (H1)</h1>
+        <h2>Section Heading (H2)</h2>
+        <h3>Subsection Heading (H3)</h3>
+        <p>Proper heading hierarchy helps screen reader users navigate content.</p>
+        
+        <h2>Another Section (H2)</h2>
+        <p>Headings should describe the content that follows them.</p>
+        
+        <nav aria-label="Breadcrumb">
+          <ol style="list-style: none; padding: 0;">
+            <li style="display: inline;"><a href="/">Home</a> &gt; </li>
+            <li style="display: inline;"><a href="/products">Products</a> &gt; </li>
+            <li style="display: inline;" aria-current="page">Product Name</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Principle 3: Understandable -->
+  <div class="accessibility-demo">
+    <h2>🧠 Principle 3: Understandable</h2>
+    
+    <div class="wcag-principle">
+      <h3>3.1 Readable (Level AA)</h3>
+      
+      <div class="example-good">
+        <h4>✅ Good: Language Declaration</h4>
+        <div class="aria-demo">
+          <p lang="id">Ini adalah teks dalam Bahasa Indonesia.</p>
+          <p lang="en">This is text in English.</p>
+          <p lang="fr">Ceci est du texte en français.</p>
+          <p><small>Language attributes help screen readers pronounce text correctly.</small></p>
+        </div>
+      </div>
+      
+      <div class="example-good">
+        <h4>✅ Good: Unusual Words dan Abbreviations</h4>
+        <p>
+          The <abbr title="Web Content Accessibility Guidelines">WCAG</abbr> 
+          is a technical standard developed by the 
+          <abbr title="World Wide Web Consortium">W3C</abbr>.
+        </p>
+        <p>
+          We use <dfn>progressive enhancement</dfn> (building basic functionality first, then adding enhancements) 
+          to ensure accessibility.
+        </p>
+      </div>
+    </div>
+    
+    <div class="wcag-principle">
+      <h3>3.3 Input Assistance (Level AA)</h3>
+      
+      <div class="example-good">
+        <h4>✅ Good: Form Labels, Instructions, dan Error Prevention</h4>
+        
+        <form>
+          <div style="margin-bottom: 15px;">
+            <label for="email-accessible">Email Address <span aria-label="required">*</span>:</label>
+            <input type="email" id="email-accessible" name="email" required aria-describedby="email-error email-instructions">
+            <div id="email-instructions" style="font-size: 14px; color: #666; margin-top: 5px;">
+              Format: name@example.com
+            </div>
+            <div id="email-error" role="alert" style="color: #dc3545; margin-top: 5px; display: none;">
+              Please enter a valid email address.
+            </div>
+          </div>
+          
+          <div style="margin-bottom: 15px;">
+            <label for="phone-accessible">Phone Number:</label>
+            <input type="tel" id="phone-accessible" name="phone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" 
+                   placeholder="0812-3456-7890" aria-describedby="phone-instructions">
+            <div id="phone-instructions" style="font-size: 14px; color: #666; margin-top: 5px;">
+              Format: 0812-3456-7890
+            </div>
+          </div>
+          
+          <button type="submit" class="btn">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- ARIA Attributes -->
+  <div class="accessibility-demo">
+    <h2>🏷️ ARIA (Accessible Rich Internet Applications)</h2>
+    
+    <div class="wcag-principle">
+      <h3>Common ARIA Attributes</h3>
+      
+      <div class="example-good">
+        <h4>✅ Good: ARIA untuk Dynamic Content</h4>
+        
+        <!-- Live region untuk announcements -->
+        <div role="status" aria-live="polite" aria-atomic="true" id="status-message" style="padding: 10px; background-color: #d4edda; border-radius: 4px; margin: 10px 0;">
+          Form submitted successfully!
+        </div>
+        
+        <!-- Modal dengan proper ARIA -->
+        <div role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-desc" 
+             style="border: 1px solid #ccc; padding: 20px; border-radius: 8px; background: white; max-width: 400px;">
+          <h2 id="modal-title">Confirm Action</h2>
+          <p id="modal-desc">Are you sure you want to delete this item?</p>
+          <div style="display: flex; gap: 10px; margin-top: 15px;">
+            <button class="btn" style="background-color: #dc3545;">Delete</button>
+            <button class="btn" style="background-color: #6c757d;">Cancel</button>
+          </div>
+        </div>
+        
+        <!-- Custom components dengan ARIA -->
+        <div role="tablist" aria-label="Product Information" style="margin-top: 20px;">
+          <button role="tab" aria-selected="true" aria-controls="tab-description" id="tab-desc" class="btn">
+            Description
+          </button>
+          <button role="tab" aria-selected="false" aria-controls="tab-specs" id="tab-specs-btn" class="btn">
+            Specifications
+          </button>
+          <button role="tab" aria-selected="false" aria-controls="tab-reviews" id="tab-reviews-btn" class="btn">
+            Reviews
+          </button>
+        </div>
+        
+        <div role="tabpanel" id="tab-description" aria-labelledby="tab-desc" style="padding: 15px; border: 1px solid #ccc; border-radius: 4px; margin-top: 10px;">
+          <p>Product description content goes here.</p>
+        </div>
+      </div>
+      
+      <div class="example-good">
+        <h4>✅ Good: Landmark Roles</h4>
+        <div class="code-block" style="background-color: #f8f9fa; padding: 15px; border-radius: 4px;">
+&lt;header role="banner"&gt;
+  &lt;nav role="navigation" aria-label="Main"&gt;...&lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;main role="main" id="main-content"&gt;
+  &lt;article role="article"&gt;...&lt;/article&gt;
+&lt;/main&gt;
+
+&lt;aside role="complementary"&gt;...&lt;/aside&gt;
+
+&lt;footer role="contentinfo"&gt;...&lt;/footer&gt;
+        </div>
+        <p><small>ARIA landmark roles help screen reader users navigate page structure.</small></p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Testing Tools -->
+  <div class="accessibility-demo">
+    <h2>🧪 Accessibility Testing Tools</h2>
+    
+    <h3>Automated Testing</h3>
+    <ul>
+      <li><strong>WAVE (Web Accessibility Evaluator):</strong> Browser extension untuk visual feedback</li>
+      <li><strong>axe DevTools:</strong> Automated accessibility testing untuk developers</li>
+      <li><strong>Lighthouse:</strong> Built-in Chrome DevTools untuk accessibility auditing</li>
+      <li><strong>Pa11y:</strong> Command-line accessibility testing tool</li>
+    </ul>
+    
+    <h3>Screen Readers</h3>
+    <ul>
+      <li><strong>NVDA (NonVisual Desktop Access):</strong> Free screen reader untuk Windows</li>
+      <li><strong>JAWS (Job Access With Speech):</strong> Commercial screen reader</li>
+      <li><strong>VoiceOver:</strong> Built-in screen reader untuk macOS dan iOS</li>
+      <li><strong>TalkBack:</strong> Built-in screen reader untuk Android</li>
+    </ul>
+    
+    <h3>Manual Testing Checklist</h3>
+    <ul>
+      <li>✅ Navigate entire page menggunakan keyboard only (Tab, Shift+Tab, Enter, Space, Arrow keys)</li>
+      <li>✅ Test dengan screen reader (NVDA, VoiceOver, atau TalkBack)</li>
+      <li>✅ Periksa color contrast dengan tools seperti WebAIM Contrast Checker</li>
+      <li>✅ Zoom page ke 200% dan pastikan content masih readable</li>
+      <li>✅ Test dengan various assistive technologies</li>
+      <li>✅ Periksa semua images memiliki alt text yang appropriate</li>
+      <li>✅ Pastikan form labels terhubung dengan benar ke input fields</li>
+    </ul>
+    
+    <button class="btn" onclick="window.open('https://wave.webaim.org/', '_blank')">
+      🔍 Open WAVE Accessibility Tool
+    </button>
+  </div>
+  
+  <main id="main-content" class="accessibility-demo">
+    <h2>📋 WCAG 2.1 Compliance Checklist</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+      <div style="background-color: #d4edda; padding: 15px; border-radius: 8px;">
+        <h3>Level A (Minimum)</h3>
+        <ul>
+          <li>✓ Text alternatives untuk images</li>
+          <li>✓ Keyboard accessible</li>
+          <li>✓ Captions/transcripts untuk multimedia</li>
+          <li>✓ Color not sole method untuk conveying information</li>
+          <li>✓ Form labels present</li>
+        </ul>
+      </div>
+      
+      <div style="background-color: #fff3cd; padding: 15px; border-radius: 8px;">
+        <h3>Level AA (Recommended)</h3>
+        <ul>
+          <li>✓ Color contrast ratio minimum 4.5:1</li>
+          <li>✓ Text resizing up to 200%</li>
+          <li>✓ Consistent navigation</li>
+          <li>✓ Error identification and suggestions</li>
+          <li>✓ Accessible forms dengan error prevention</li>
+        </ul>
+      </div>
+      
+      <div style="background-color: #f8d7da; padding: 15px; border-radius: 8px;">
+        <h3>Level AAA (Enhanced)</h3>
+        <ul>
+          <li>✓ Color contrast ratio 7:1</li>
+          <li>✓ Sign language interpretation untuk video</li>
+          <li>✓ Extended audio description</li>
+          <li>✓ Reading level at lower secondary education</li>
+          <li>✓ Context-sensitive help</li>
+        </ul>
+      </div>
+    </div>
+    
+    <p style="margin-top: 20px; padding: 15px; background-color: #e7f3ff; border-radius: 8px;">
+      <strong>💡 Recommendation:</strong> Aim untuk WCAG 2.1 Level AA compliance sebagai minimum standard untuk semua web content.
+    </p>
+  </main>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- WCAG 2.1 principles dengan contoh implementasi
+- Perbandingan accessible vs inaccessible design patterns
+- ARIA attributes untuk dynamic content dan custom components
+- Testing tools dan manual testing checklist
+- WCAG compliance levels (A, AA, AAA) dengan requirements
+
+Validasi dan aksesibilitas adalah fondasi untuk web yang inklusif dan profesional \cite{wcag-guide}. Dengan mengikuti standar WCAG 2.1 dan menggunakan semantic HTML5, developers dapat menciptakan aplikasi web yang accessible untuk semua pengguna, regardless of their abilities atau teknologi yang mereka gunakan \cite{mdn-accessibility}.

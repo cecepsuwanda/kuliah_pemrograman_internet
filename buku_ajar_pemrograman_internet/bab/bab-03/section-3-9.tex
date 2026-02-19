@@ -1,0 +1,581 @@
+\section{Frames dan Iframes}
+
+Frames dan iframes adalah elemen HTML untuk menampilkan multiple dokumen dalam satu halaman browser. Frames memungkinkan pembagian halaman menjadi beberapa bagian independen, sedangkan iframes menyematkan halaman lain dalam konteks halaman saat ini \cite{w3schools-html}. Meskipun frames sudah deprecated, pemahaman konsep ini penting untuk legacy web development \cite{mdn-html}.
+
+\subsection{HTML Frames}
+
+Frames membagi browser window menjadi multiple panel dengan dokumen terpisah:
+
+\begin{itemize}
+  \item \texttt{<frameset>} - Mendefinisikan layout frames
+  \item \texttt{<frame>} - Individual frame panel
+  \item \texttt{<noframes>} - Fallback untuk browser yang tidak support frames
+  \item \texttt{<base>} - Base URL untuk semua links dalam frameset
+\end{itemize}
+
+\begin{lstlisting}[caption={Contoh Frames Layout}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contoh Frames Layout</title>
+</head>
+<frameset rows="80,*" border="1">
+  <!-- Header Frame -->
+  <frame src="header.html" name="header" scrolling="no" noresize>
+  
+  <!-- Main Content Area dengan Columns -->
+  <frameset cols="200,*" border="1">
+    <!-- Navigation Frame -->
+    <frame src="navigation.html" name="navigation" scrolling="auto">
+    
+    <!-- Content Frame -->
+    <frame src="content.html" name="content" scrolling="auto">
+  </frameset>
+  
+  <!-- Fallback untuk browser tanpa support frames -->
+  <noframes>
+    <body>
+      <h1>Browser Anda tidak mendukung frames</h1>
+      <p>Silakan gunakan browser modern atau <a href="no-frames.html">versi tanpa frames</a></p>
+    </body>
+  </noframes>
+</frameset>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Layout dengan header di atas (80px height)
+- Navigation di kiri (200px width)
+- Content area di kanan (remaining space)
+- Setiap frame dapat di-scroll independently
+- Noframes message untuk browser yang tidak support frames
+
+\subsection{Frame Attributes dan Targeting}
+
+Frames memiliki atribut untuk mengontrol behavior dan navigation:
+
+\begin{itemize}
+  \item \textbf{Layout}: rows, cols, border, frameborder
+  \item \textbf{Behavior}: scrolling, noresize, marginwidth, marginheight
+  \item \textbf{Targeting}: name, target untuk link navigation
+\end{itemize}
+
+\begin{lstlisting}[caption={Frame Attributes dan Targeting}, basicstyle=\ttfamily\small, frame=single]
+<!-- header.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Header Frame</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 10px;
+      background-color: #333;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      margin: 0;
+      font-size: 18px;
+    }
+    .nav-link {
+      color: white;
+      text-decoration: none;
+      margin-right: 15px;
+    }
+    .nav-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>Website Navigation</h1>
+  <nav>
+    <a href="content.html" target="content" class="nav-link">Beranda</a>
+    <a href="about.html" target="content" class="nav-link">Tentang</a>
+    <a href="contact.html" target="content" class="nav-link">Kontak</a>
+  </nav>
+</body>
+</html>
+
+<!-- navigation.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Navigation Frame</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 10px;
+      background-color: #f4f4f4;
+      font-family: Arial, sans-serif;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+    a {
+      display: block;
+      padding: 8px;
+      text-decoration: none;
+      color: #333;
+      border-radius: 4px;
+    }
+    a:hover {
+      background-color: #e0e0e0;
+    }
+    .active {
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h3>Main Menu</h3>
+  <ul>
+    <li><a href="page1.html" target="content">Halaman 1</a></li>
+    <li><a href="page2.html" target="content" class="active">Halaman 2</a></li>
+    <li><a href="page3.html" target="content">Halaman 3</a></li>
+    <li><a href="page4.html" target="content">Halaman 4</a></li>
+  </ul>
+  
+  <h3>Sub Menu</h3>
+  <ul>
+    <li><a href="sub1.html" target="content">Sub Halaman 1</a></li>
+    <li><a href="sub2.html" target="content">Sub Halaman 2</a></li>
+    <li><a href="sub3.html" target="content">Sub Halaman 3</a></li>
+  </ul>
+</body>
+</html>
+
+<!-- content.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Main Content Frame</title>
+  <style>
+    body {
+      margin: 20px;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+    .content-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    h2 {
+      color: #333;
+      border-bottom: 2px solid #4CAF50;
+      padding-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="content-section">
+    <h2>Selamat Datang di Halaman Utama</h2>
+    <p>Ini adalah konten utama yang dimuat dalam frame. 
+       Navigation dari frame kiri dapat mengubah konten di area ini.</p>
+    <p>Frame technology memungkinkan pembagian halaman menjadi 
+       beberapa bagian yang independen namun tetap dalam satu window.</p>
+  </div>
+  
+  <div class="content-section">
+    <h2>Keuntungan Frame Layout</h2>
+    <ul>
+      <li><strong>Independent Scrolling:</strong> Setiap frame dapat di-scroll sendiri</li>
+      <li><strong>Persistent Navigation:</strong> Navigation tetap visible saat konten berubah</li>
+      <li><strong>Modular Design:</strong> Setiap bagian dapat dikelola terpisah</li>
+      <li><strong>Targeted Loading:</strong> Hanya bagian yang berubah yang perlu di-load ulang</li>
+    </ul>
+  </div>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Header frame dengan navigation links
+- Navigation frame dengan menu yang clickable
+- Content frame dengan informasi utama
+- Links dengan target="content" mengubah content frame
+- Setiap frame dapat di-scroll independently
+- Layout yang terstruktur dengan 3 panel
+
+\subsection{HTML Iframes}
+
+Iframes (inline frames) menyematkan dokumen HTML lain dalam halaman saat ini:
+
+\begin{itemize}
+  \item \texttt{<iframe>} - Inline frame element
+  \item \textbf{Atribut Utama}: src, width, height, name, frameborder, scrolling
+  \item \textbf{Security}: sandbox, allow, allowfullscreen, allowpaymentrequest
+  \item \textbf{Responsive}: seamless, loading, referrerpolicy
+\end{itemize}
+
+\begin{lstlisting}[caption={Contoh Iframe Implementations}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contoh Iframe Implementations</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      line-height: 1.6;
+    }
+    .iframe-container {
+      margin: 20px 0;
+    }
+    .iframe-wrapper {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .responsive-iframe {
+      width: 100%;
+      height: 400px;
+      border: none;
+    }
+    .iframe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .iframe-card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .iframe-card h3 {
+      margin: 0;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <h1>Demonstrasi HTML Iframes</h1>
+  
+  <!-- Basic Iframe -->
+  <div class="iframe-container">
+    <h3>Basic Iframe</h3>
+    <div class="iframe-wrapper">
+      <iframe src="https://www.example.com" 
+              width="600" height="400" 
+              frameborder="0" 
+              scrolling="auto"
+              title="External Website">
+      </iframe>
+    </div>
+    <p><small>Iframe menampilkan website eksternal dalam halaman ini.</small></p>
+  </div>
+  
+  <!-- Iframe dengan Security Sandbox -->
+  <div class="iframe-container">
+    <h3>Iframe dengan Security Sandbox</h3>
+    <div class="iframe-wrapper">
+      <iframe src="trusted-content.html" 
+              width="100%" height="300" 
+              sandbox="allow-same-origin allow-scripts allow-forms"
+              title="Trusted Content">
+      </iframe>
+    </div>
+    <p><small>Sandbox membatasi kemampuan iframe untuk keamanan.</small></p>
+  </div>
+  
+  <!-- Responsive Iframe -->
+  <div class="iframe-container">
+    <h3>Responsive Iframe</h3>
+    <div class="iframe-wrapper">
+      <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+              class="responsive-iframe"
+              allowfullscreen
+              title="Video Player">
+      </iframe>
+    </div>
+    <p><small>Iframe video yang responsif dengan aspect ratio.</small></p>
+  </div>
+  
+  <!-- Multiple Iframes Grid -->
+  <div class="iframe-container">
+    <h3>Multiple Iframes Grid Layout</h3>
+    <div class="iframe-grid">
+      <div class="iframe-card">
+        <h3>Google Maps</h3>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!2d-2.9203175,106.8468725!3d15.8420928!2m3!1f0x1f0x1f0x1f0x1f0" 
+                width="100%" height="200" 
+                frameborder="0" 
+                allowfullscreen
+                title="Location Map">
+        </iframe>
+      </div>
+      
+      <div class="iframe-card">
+        <h3>Weather Widget</h3>
+        <iframe src="https://www.weatherwidget.com/wv.php?cid=12345" 
+                width="100%" height="200" 
+                frameborder="0" 
+                scrolling="no"
+                title="Weather Information">
+        </iframe>
+      </div>
+      
+      <div class="iframe-card">
+        <h3>Social Media Feed</h3>
+        <iframe src="https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/yourpage&amp;tabs=timeline" 
+                width="100%" height="200" 
+                frameborder="0" 
+                scrolling="no"
+                title="Facebook Timeline">
+        </iframe>
+      </div>
+    </div>
+    <p><small>Grid layout dengan multiple iframes untuk dashboard.</small></p>
+  </div>
+  
+  <!-- Iframe dengan JavaScript Control -->
+  <div class="iframe-container">
+    <h3>Iframe dengan JavaScript Control</h3>
+    <div class="iframe-wrapper">
+      <iframe id="controlled-iframe" 
+              src="about:blank" 
+              width="100%" height="300" 
+              frameborder="0"
+              title="Controlled Iframe">
+      </iframe>
+    </div>
+    
+    <p>
+      <button onclick="loadContent('https://www.example.com')">Load Example.com</button>
+      <button onclick="loadContent('https://www.wikipedia.org')">Load Wikipedia</button>
+      <button onclick="reloadIframe()">Reload Iframe</button>
+      <button onclick="clearIframe()">Clear Iframe</button>
+    </p>
+  </div>
+  
+  <script>
+    function loadContent(url) {
+      document.getElementById('controlled-iframe').src = url;
+    }
+    
+    function reloadIframe() {
+      const iframe = document.getElementById('controlled-iframe');
+      iframe.src = iframe.src;
+    }
+    
+    function clearIframe() {
+      document.getElementById('controlled-iframe').src = 'about:blank';
+    }
+  </script>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Basic iframe dengan external website
+- Sandboxed iframe dengan security restrictions
+- Responsive iframe yang menyesuaikan lebar container
+- Grid layout dengan multiple iframes
+- JavaScript-controlled iframe dengan dynamic content loading
+- Video iframe dengan fullscreen capability
+
+\subsection{Iframe Security dan Best Practices}
+
+Iframes memiliki pertimbangan keamanan dan best practices penting:
+
+\begin{itemize}
+  \item \textbf{Security}: Gunakan sandbox untuk membatasi kemampuan iframe
+  \item \textbf{Same-Origin Policy}: Iframe dari domain sama memiliki akses penuh
+  \item \textbf{Responsive}: Gunakan responsive design untuk mobile compatibility
+  \item \textbf{Performance}: Lazy loading dan optimization
+  \item \textbf{Accessibility}: Title dan fallback content
+  \item \textbf{SEO}: Iframe content tidak di-index oleh search engines
+\end{itemize}
+
+\begin{lstlisting}[caption={Secure Iframe Implementation}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Secure Iframe Best Practices</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .iframe-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .secure-iframe {
+      width: 100%;
+      height: 500px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    .iframe-info {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+    .warning {
+      background-color: #fff3cd;
+      border: 1px solid #ffeaa7;
+      padding: 10px;
+      border-radius: 4px;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Secure Iframe Implementation</h1>
+  
+  <div class="iframe-container">
+    <h3>Trusted Content Iframe</h3>
+    <div class="iframe-info">
+      <p><strong>Source:</strong> trusted-content.html</p>
+      <p><strong>Sandbox:</strong> allow-same-origin allow-scripts allow-forms</p>
+      <p><strong>Security:</strong> Dibatasi untuk domain yang sama</p>
+    </div>
+    
+    <iframe src="trusted-content.html" 
+            class="secure-iframe"
+            sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Trusted Content">
+    </iframe>
+    
+    <div class="warning">
+      <h4>⚠️ Security Considerations:</h4>
+      <ul>
+        <li><strong>XSS Protection:</strong> Gunakan sandbox untuk mencegah XSS</li>
+        <li><strong>Clickjacking:</strong> Gunakan X-Frame-Options header</li>
+        <li><strong>Data Privacy:</strong> Hindari sensitive data dalam iframe</li>
+        <li><strong>Performance:</strong> Gunakan loading="lazy" untuk optimasi</li>
+      </ul>
+    </div>
+  </div>
+  
+  <!-- Fallback untuk browser tanpa iframe support -->
+  <noscript>
+    <div class="warning">
+      <h4>JavaScript Disabled</h4>
+      <p>Iframe memerlukan JavaScript untuk fungsi optimal. 
+         Silakan <a href="enable-javascript.html">aktifkan JavaScript</a> 
+         untuk pengalaman penuh.</p>
+    </div>
+  </noscript>
+  
+  <!-- Iframe dengan Communication Example -->
+  <div class="iframe-container">
+    <h3>Iframe Communication</h3>
+    <div class="iframe-info">
+      <p><strong>PostMessage API:</strong> Komunikasi antar window</p>
+    </div>
+    
+    <iframe id="communication-iframe" 
+            class="secure-iframe"
+            src="iframe-content.html"
+            sandbox="allow-same-origin allow-scripts">
+    </iframe>
+    
+    <p>
+      <button onclick="sendMessageToIframe()">Kirim Pesan ke Iframe</button>
+      <button onclick="resizeIframe()">Resize Iframe</button>
+    </p>
+  </div>
+  
+  <script>
+    // Kirim pesan ke iframe
+    function sendMessageToIframe() {
+      const iframe = document.getElementById('communication-iframe');
+      const message = {
+        type: 'resize',
+        width: 600,
+        height: 400
+      };
+      
+      iframe.contentWindow.postMessage(message, '*');
+    }
+    
+    // Resize iframe
+    function resizeIframe() {
+      const iframe = document.getElementById('communication-iframe');
+      iframe.style.width = '100%';
+      iframe.style.height = '600px';
+    }
+    
+    // Terima pesan dari iframe
+    window.addEventListener('message', function(event) {
+      if (event.origin !== window.location.origin) {
+        return; // Security check
+      }
+      
+      console.log('Pesan diterima dari iframe:', event.data);
+      
+      if (event.data.type === 'ready') {
+        console.log('Iframe siap menerima pesan');
+      }
+    });
+  </script>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Secure iframe dengan sandbox restrictions
+- Security considerations dan warnings
+- PostMessage communication antar window
+- Lazy loading untuk performance
+- Fallback content untuk JavaScript disabled
+- Responsive design dengan proper sizing
+
+\subsection{Frames vs Iframes - Perbandingan}
+
+Perbandingan antara frames dan iframes:
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{|l|p{6cm}|p{6cm}|}
+\hline
+\textbf{Aspek} & \textbf{Frames} & \textbf{Iframes} \\
+\hline
+\textbf{Status} & Deprecated (HTML5) & Supported (HTML5) \\
+\hline
+\textbf{Syntax} & Terpisah (frameset) & Inline (dalam body) \\
+\hline
+\textbf{Layout} & Window division & Embedded content \\
+\hline
+\textbf{Navigation} & Target attribute & PostMessage API \\
+\hline
+\textbf{SEO} & Buruk (multiple documents) & Buruk (embedded content) \\
+\hline
+\textbf{Mobile} & Tidak support & Support dengan responsive \\
+\hline
+\textbf{Use Case} & Legacy applications & Modern embedding \\
+\hline
+\end{tabular}
+\caption{Perbandingan Frames dan Iframes}
+\end{table}
+
+\subsection{Modern Alternatives}
+
+Frames sudah deprecated, gunakan alternatif modern:
+
+\begin{itemize}
+  \item \textbf{CSS Grid/Flexbox}: Untuk layout multi-column
+  \item \textbf{AJAX/SPA}: Single Page Applications dengan dynamic content
+  \item \textbf{Web Components}: Custom reusable elements
+  \item \textbf{Server-Side Includes}: SSI atau template engines
+  \item \textbf{JavaScript Frameworks}: React, Vue, Angular untuk complex UI
+\end{itemize}
+
+Frames dan iframes adalah teknologi legacy yang penting untuk dipahami dalam konteks web development historis dan maintenance aplikasi lama \cite{w3schools-html}. Namun, untuk pengembangan modern, disarankan menggunakan alternatif yang lebih aman dan SEO-friendly \cite{mdn-html}.

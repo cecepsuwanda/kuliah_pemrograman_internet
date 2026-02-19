@@ -1,3 +1,5 @@
-\section{Membuat Endpoint dan Konsumsi dengan Fetch/AJAX}
+\section{Validasi Input dan Session}
 
-Endpoint REST dapat dibuat di PHP atau Node.js: route menerima request, memproses, mengembalikan JSON dengan header \texttt{Content-Type: application/json} \cite{rest-tutorial}, \cite{express}. Dari client, Fetch API digunakan untuk mengirim request HTTP dan menerima respons \cite{mdn-fetch}. Contoh: \texttt{fetch(url).then(r => r.json()).then(data => ...)} \cite{mdn-learn-js}. Fetch mendukung method, header, dan body; cocok untuk GET, POST, PUT, DELETE \cite{mdn-fetch}. Konsumsi API dari client memungkinkan pembaruan konten tanpa reload halaman ( pendekatan SPA-like) \cite{js-info}.
+Validasi input wajib dilakukan di sisi server untuk mencegah data tidak valid atau berbahaya \cite{owasp-input}. Praktik umum meliputi pengecekan format, panjang string, serta sanitasi sebelum data disimpan ke basis data. Di PHP, fungsi seperti \texttt{filter\_var} dan prepared statement membantu mengurangi risiko injeksi SQL \cite{php-manual}, \cite{owasp-sql}.
+
+Session digunakan untuk menyimpan state pengguna setelah login, misalnya menyimpan ID pengguna agar akses ke halaman tertentu dapat dibatasi \cite{owasp-session}. Implementasi dasar menggunakan \texttt{session\_start()}, penyimpanan data ke \texttt{\$\_SESSION}, serta proses logout untuk menghapus session. Dengan menggabungkan validasi input dan session, aplikasi web menjadi lebih aman dan terstruktur \cite{owasp-auth}.

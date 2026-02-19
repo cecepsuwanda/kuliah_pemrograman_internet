@@ -1,3 +1,5 @@
-\section{Konsep REST API dan Format JSON}
+\section{Integrasi Front-End dan Back-End}
 
-REST (Representational State Transfer) adalah gaya arsitektur untuk API web \cite{rest-tutorial}. Endpoint REST menggunakan URL dan metode HTTP (GET, POST, PUT, DELETE) untuk operasi; respons biasanya dalam format JSON \cite{owasp-rest}. JSON (JavaScript Object Notation) adalah format pertukaran data yang ringan dan mudah dibaca \cite{json-org}. Struktur JSON terdiri dari object (\texttt{\{\}}) dan array (\texttt{[]}); nilai dapat berupa string, number, boolean, null, object, atau array \cite{mdn-api}. Standar REST menggunakan status code HTTP untuk mengomunikasikan hasil \cite{http-status}.
+Integrasi front-end dan back-end menghubungkan form HTML, logika PHP, dan basis data MySQL dalam satu alur kerja yang konsisten \cite{php-manual}. Data dari pengguna dikirim melalui HTTP POST, diproses oleh PHP, lalu disimpan atau diambil dari MySQL menggunakan PDO atau mysqli \cite{mysql}. Dengan XAMPP, seluruh komponen (Apache, PHP, MySQL) dapat dijalankan secara lokal sehingga mahasiswa bisa menguji alur input hingga output secara end-to-end \cite{xampp}.
+
+Alur umum integrasi: (1) pengguna mengisi form, (2) PHP memvalidasi data, (3) data disimpan ke tabel, (4) data ditampilkan kembali pada halaman dinamis. Integrasi ini menjadi dasar pembuatan aplikasi web sederhana seperti buku tamu, daftar tugas, atau sistem inventori \cite{w3schools-php}.

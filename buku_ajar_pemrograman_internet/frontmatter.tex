@@ -72,7 +72,7 @@ Menyajikan fondasi arsitektur web dan protokol HTTP yang menjadi basis pembelaja
 HTML5, CSS3, dan JavaScript untuk membangun antarmuka web.
 
 \textbf{Bab IX--XIV: Unit Materi Inti (Back-End dan Integrasi)}\\
-Server-side, basis data, REST API, keamanan web, dan deployment.
+Server-side, basis data, PHP, MySQL, keamanan web, dan integrasi proyek.
 
 \textbf{Bab XIV: Evaluasi dan Integrasi}\\
 Berisi asesmen komprehensif dan panduan refleksi untuk mengukur pencapaian kompetensi.
@@ -94,7 +94,9 @@ Menyediakan rubrik penilaian, glosarium istilah pemrograman web, dan referensi t
 \section*{Tips Belajar Efektif}
 
 \begin{itemize}
-  \item Gunakan browser dan editor teks (VS Code, Sublime) untuk praktik
+  \item Gunakan browser dan VS Code (dengan addon HTML/CSS/JS/PHP) untuk praktik \cite{vscode}
+  \item Siapkan XAMPP untuk menjalankan PHP dan MySQL secara lokal \cite{xampp}
+  \item Manfaatkan GitHub Copilot sebagai asisten coding sesuai etika akademik \cite{copilot}
   \item Jalankan contoh kode di setiap bab dan modifikasi untuk eksperimen
   \item Manfaatkan dokumentasi MDN, W3Schools, dan sumber daring di daftar referensi
   \item Kerjakan proyek mini untuk mengintegrasikan HTML, CSS, JavaScript, dan server-side
@@ -117,6 +119,7 @@ Menyediakan rubrik penilaian, glosarium istilah pemrograman web, dan referensi t
   Semester & : \lbrack Diisi sesuai kurikulum\rbrack \\
   SKS / Bobot Kredit & : 2 SKS \\
   Jumlah Pertemuan & : 16 pertemuan \\
+  Komposisi & : 70\% Praktek, 30\% Teori \\
   Dosen Pengampu & : \lbrack Nama Dosen, Gelar\rbrack \\
   Tanggal Penyusunan & : \lbrack Tanggal\rbrack \\
 \end{tabular}
@@ -128,11 +131,11 @@ Menyediakan rubrik penilaian, glosarium istilah pemrograman web, dan referensi t
 CPL yang dibebankan pada mata kuliah ini mencakup kompetensi lulusan dalam aspek pengetahuan, keterampilan, dan sikap:
 
 \begin{enumerate}
-  \item \textbf{CPL-1 (Pengetahuan):} Menguasai konsep teoretis arsitektur web, protokol HTTP, serta pemrograman client-side dan server-side secara mendalam.
+  \item \textbf{CPL-1 (Pengetahuan):} Menguasai konsep teoretis arsitektur web, protokol HTTP, serta pemrograman client-side dan server-side (PHP, MySQL) secara mendalam.
   
   \item \textbf{CPL-2 (Keterampilan Umum):} Mampu menerapkan pemikiran logis, kritis, sistematis, dan inovatif dalam konteks pengembangan aplikasi internet.
   
-  \item \textbf{CPL-3 (Keterampilan Khusus):} Mampu merancang, mengimplementasikan, dan mengevaluasi aplikasi web dengan teknologi front-end dan back-end serta prinsip keamanan dasar.
+  \item \textbf{CPL-3 (Keterampilan Khusus):} Mampu merancang, mengimplementasikan, dan mengevaluasi aplikasi web dengan teknologi HTML, CSS, JavaScript, PHP, MySQL serta prinsip keamanan dasar.
   
   \item \textbf{CPL-4 (Sikap):} Menunjukkan sikap bertanggung jawab atas pekerjaan di bidang keahliannya secara mandiri dan mampu bekerja sama dalam tim.
 \end{enumerate}
@@ -146,9 +149,9 @@ Kemampuan atau kompetensi spesifik yang diharapkan mahasiswa kuasai setelah meny
   
   \item \textbf{CPMK-2:} Mahasiswa mampu merancang dan membangun antarmuka web dengan HTML, CSS, dan JavaScript yang responsif dan aksesibel.
   
-  \item \textbf{CPMK-3:} Mahasiswa mampu mengimplementasikan logika server-side dan integrasi basis data serta menghubungkannya dengan front-end.
+  \item \textbf{CPMK-3:} Mahasiswa mampu mengimplementasikan logika server-side (PHP) dan integrasi basis data (MySQL) serta menghubungkannya dengan front-end.
   
-  \item \textbf{CPMK-4:} Mahasiswa mampu membangun dan mengonsumsi API (REST), serta menerapkan prinsip keamanan dasar (autentikasi, validasi input, HTTPS).
+  \item \textbf{CPMK-4:} Mahasiswa mampu menerapkan prinsip keamanan web (validasi input, prepared statement, session) pada aplikasi berbasis web.
 \end{enumerate}
 
 \section*{Matriks Keterkaitan CPL dan CPMK}
@@ -170,7 +173,7 @@ Kemampuan atau kompetensi spesifik yang diharapkan mahasiswa kuasai setelah meny
   \hline
   CPL-3 & CPMK-3 & Tinggi & Implementasi server-side dan basis data \\
   \hline
-  CPL-3 & CPMK-4 & Tinggi & Implementasi API dan keamanan web \\
+  CPL-3 & CPMK-4 & Tinggi & Implementasi keamanan web dan integrasi aplikasi \\
   \hline
   CPL-4 & CPMK-2, CPMK-3, CPMK-4 & Sedang & Tanggung jawab dan kerja sama dalam proyek web \\
   \hline

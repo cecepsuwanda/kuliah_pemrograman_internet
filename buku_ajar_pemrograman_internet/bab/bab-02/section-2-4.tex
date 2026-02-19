@@ -1,6 +1,6 @@
 \section{Peta Konsep Pemrograman Internet}
 
-Gambar \ref{fig:peta-konsep} memperlihatkan peta konsep utama dalam pemrograman internet. Alur pembelajaran dimulai dari fondasi (arsitektur, HTTP), kemudian membangun antarmuka (HTML, CSS, JavaScript), lalu logika server dan basis data, serta diakhiri dengan API dan keamanan.
+Gambar \ref{fig:peta-konsep} memperlihatkan peta konsep utama dalam pemrograman internet. Alur pembelajaran dimulai dari fondasi (arsitektur, HTTP), kemudian membangun antarmuka (HTML, CSS, JavaScript), lalu logika server dan basis data, serta diakhiri dengan integrasi aplikasi dan keamanan.
 
 \begin{figure}[h]
 \centering
@@ -14,7 +14,7 @@ Gambar \ref{fig:peta-konsep} memperlihatkan peta konsep utama dalam pemrograman 
   \node[box, right=1.5cm of html] (js) {JavaScript};
   \node[box, below=of html] (server) {Server-Side};
   \node[box, below=of server] (db) {Basis Data};
-  \node[box, below=of db] (api) {API \& Keamanan};
+  \node[box, below=of db] (api) {Integrasi \& Keamanan};
   \draw[->] (arch) -- (html);
   \draw[->] (arch) -- (css);
   \draw[->] (arch) -- (js);

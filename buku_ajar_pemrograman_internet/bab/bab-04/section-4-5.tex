@@ -1,0 +1,740 @@
+\section{Storage dan APIs HTML5}
+
+HTML5 memperkenalkan berbagai APIs untuk menyimpan data di client-side dan mengakses fitur device. Web Storage API menyediakan cara yang lebih efisien dan aman untuk menyimpan data dibandingkan cookies \cite{mdn-web-storage}. IndexedDB dan File API memungkinkan penyimpanan data yang lebih kompleks dan struktur \cite{w3schools-html}.
+
+\subsection{LocalStorage dan SessionStorage}
+
+Web Storage API menyediakan dua mekanisme penyimpanan key-value di browser:
+
+\begin{itemize}
+  \item \textbf{localStorage}: Data persisten, tidak hilang saat browser ditutup
+  \item \textbf{sessionStorage}: Data hanya untuk satu session, hilang saat tab ditutup
+  \item \textbf{Storage Limit}: Biasanya 5-10MB per domain
+  \item \textbf{Synchronous API}: Operasi storage bersifat synchronous
+\end{itemize}
+
+\begin{lstlisting}[caption={Web Storage API}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Storage API</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f8f9fa; }
+    .storage-demo { background-color: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .form-group { margin-bottom: 15px; }
+    label { display: block; margin-bottom: 5px; font-weight: bold; }
+    input { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+    .btn { background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin-right: 10px; }
+    .btn:hover { background-color: #0056b3; }
+    .storage-info { background-color: #e7f3ff; border: 1px solid #b3d9ff; border-radius: 4px; padding: 15px; margin-top: 20px; }
+    .data-display { background-color: #f8f9fa; border: 1px solid #e9ecef; border-radius: 4px; padding: 15px; margin-top: 15px; max-height: 200px; overflow-y: auto; }
+  </style>
+</head>
+<body>
+  <h1>Web Storage API Demo</h1>
+  
+  <!-- LocalStorage Demo -->
+  <div class="storage-demo">
+    <h2>💾 LocalStorage (Persistent)</h2>
+    
+    <div class="form-group">
+      <label for="localKey">Key:</label>
+      <input type="text" id="localKey" placeholder="Masukkan key (contoh: username)">
+    </div>
+    
+    <div class="form-group">
+      <label for="localValue">Value:</label>
+      <input type="text" id="localValue" placeholder="Masukkan value (contoh: JohnDoe)">
+    </div>
+    
+    <div>
+      <button class="btn" onclick="saveToLocal()">Simpan ke LocalStorage</button>
+      <button class="btn" onclick="loadFromLocal()">Load dari LocalStorage</button>
+      <button class="btn" onclick="clearLocal()">Clear LocalStorage</button>
+    </div>
+    
+    <div class="storage-info">
+      <h4>Data LocalStorage:</h4>
+      <div id="localData" class="data-display">Belum ada data</div>
+    </div>
+  </div>
+  
+  <!-- SessionStorage Demo -->
+  <div class="storage-demo">
+    <h2>⏱️ SessionStorage (Session Only)</h2>
+    
+    <div class="form-group">
+      <label for="sessionKey">Key:</label>
+      <input type="text" id="sessionKey" placeholder="Masukkan key">
+    </div>
+    
+    <div class="form-group">
+      <label for="sessionValue">Value:</label>
+      <input type="text" id="sessionValue" placeholder="Masukkan value">
+    </div>
+    
+    <div>
+      <button class="btn" onclick="saveToSession()">Simpan ke SessionStorage</button>
+      <button class="btn" onclick="loadFromSession()">Load dari SessionStorage</button>
+      <button class="btn" onclick="clearSession()">Clear SessionStorage</button>
+    </div>
+    
+    <div class="storage-info">
+      <h4>Data SessionStorage:</h4>
+      <div id="sessionData" class="data-display">Belum ada data</div>
+    </div>
+  </div>
+  
+  <!-- Storage Info -->
+  <div class="storage-demo">
+    <h2>📊 Storage Information</h2>
+    <div class="storage-info">
+      <p><strong>LocalStorage Size:</strong> <span id="localSize">0</span> items</p>
+      <p><strong>SessionStorage Size:</strong> <span id="sessionSize">0</span> items</p>
+      <p><strong>Remaining Space:</strong> ~5-10MB (browser dependent)</p>
+    </div>
+    <button class="btn" onclick="updateStorageInfo()">Update Info</button>
+  </div>
+  
+  <script>
+    // LocalStorage Functions
+    function saveToLocal() {
+      const key = document.getElementById('localKey').value;
+      const value = document.getElementById('localValue').value;
+      
+      if (key && value) {
+        localStorage.setItem(key, value);
+        displayLocalData();
+        updateStorageInfo();
+        alert('Data disimpan ke LocalStorage!');
+      } else {
+        alert('Key dan value harus diisi!');
+      }
+    }
+    
+    function loadFromLocal() {
+      const key = document.getElementById('localKey').value;
+      const value = localStorage.getItem(key);
+      
+      if (value) {
+        document.getElementById('localValue').value = value;
+        alert('Data ditemukan: ' + value);
+      } else {
+        alert('Data tidak ditemukan!');
+      }
+    }
+    
+    function clearLocal() {
+      localStorage.clear();
+      displayLocalData();
+      updateStorageInfo();
+      alert('LocalStorage dibersihkan!');
+    }
+    
+    function displayLocalData() {
+      const dataDiv = document.getElementById('localData');
+      let html = '';
+      
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        const value = localStorage.getItem(key);
+        html += `<p><strong>${key}:</strong> ${value}</p>`;
+      }
+      
+      dataDiv.innerHTML = html || 'Belum ada data';
+    }
+    
+    // SessionStorage Functions
+    function saveToSession() {
+      const key = document.getElementById('sessionKey').value;
+      const value = document.getElementById('sessionValue').value;
+      
+      if (key && value) {
+        sessionStorage.setItem(key, value);
+        displaySessionData();
+        updateStorageInfo();
+        alert('Data disimpan ke SessionStorage!');
+      } else {
+        alert('Key dan value harus diisi!');
+      }
+    }
+    
+    function loadFromSession() {
+      const key = document.getElementById('sessionKey').value;
+      const value = sessionStorage.getItem(key);
+      
+      if (value) {
+        document.getElementById('sessionValue').value = value;
+        alert('Data ditemukan: ' + value);
+      } else {
+        alert('Data tidak ditemukan!');
+      }
+    }
+    
+    function clearSession() {
+      sessionStorage.clear();
+      displaySessionData();
+      updateStorageInfo();
+      alert('SessionStorage dibersihkan!');
+    }
+    
+    function displaySessionData() {
+      const dataDiv = document.getElementById('sessionData');
+      let html = '';
+      
+      for (let i = 0; i < sessionStorage.length; i++) {
+        const key = sessionStorage.key(i);
+        const value = sessionStorage.getItem(key);
+        html += `<p><strong>${key}:</strong> ${value}</p>`;
+      }
+      
+      dataDiv.innerHTML = html || 'Belum ada data';
+    }
+    
+    function updateStorageInfo() {
+      document.getElementById('localSize').textContent = localStorage.length;
+      document.getElementById('sessionSize').textContent = sessionStorage.length;
+    }
+    
+    // Initialize
+    displayLocalData();
+    displaySessionData();
+    updateStorageInfo();
+  </script>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Form untuk menyimpan key-value pairs ke LocalStorage dan SessionStorage
+- Display data yang tersimpan secara real-time
+- Tombol untuk save, load, dan clear storage
+- Storage information showing jumlah items
+- Demo interaktif dengan JavaScript API
+
+\subsection{IndexedDB}
+
+IndexedDB adalah database NoSQL di browser untuk penyimpanan data struktur yang kompleks:
+
+\begin{itemize}
+  \item \textbf{Object Store}: Penyimpanan data seperti tabel dalam database
+  \item \textbf{Index}: Untuk pencarian data yang efisien
+  \item \textbf{Transactions}: Operasi database dalam transaksi
+  \item \textbf{Async API}: Operasi bersifat asynchronous dengan promises
+  \item \textbf{Large Storage}: Dapat menyimpan data dalam jumlah besar (hundreds of MB)
+\end{itemize}
+
+\begin{lstlisting}[caption={IndexedDB Implementation}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IndexedDB Demo</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 20px; background-color: #f8f9fa; }
+    .db-demo { background-color: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .form-group { margin-bottom: 15px; }
+    label { display: block; margin-bottom: 5px; font-weight: bold; }
+    input { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+    .btn { background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin-right: 10px; }
+    .btn:hover { background-color: #0056b3; }
+    .data-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    .data-table th, .data-table td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+    .data-table th { background-color: #f2f2f2; }
+    .status { padding: 10px; border-radius: 4px; margin-top: 10px; }
+    .status.success { background-color: #d4edda; color: #155724; }
+    .status.error { background-color: #f8d7da; color: #721c24; }
+  </style>
+</head>
+<body>
+  <h1>🗄️ IndexedDB Demo</h1>
+  
+  <div class="db-demo">
+    <h2>Tambah Data Mahasiswa</h2>
+    
+    <div class="form-group">
+      <label for="studentId">ID Mahasiswa:</label>
+      <input type="number" id="studentId" placeholder="Contoh: 12345">
+    </div>
+    
+    <div class="form-group">
+      <label for="studentName">Nama:</label>
+      <input type="text" id="studentName" placeholder="Contoh: John Doe">
+    </div>
+    
+    <div class="form-group">
+      <label for="studentEmail">Email:</label>
+      <input type="email" id="studentEmail" placeholder="Contoh: john@email.com">
+    </div>
+    
+    <div class="form-group">
+      <label for="studentMajor">Jurusan:</label>
+      <input type="text" id="studentMajor" placeholder="Contoh: Teknik Informatika">
+    </div>
+    
+    <div>
+      <button class="btn" onclick="addStudent()">Tambah Mahasiswa</button>
+      <button class="btn" onclick="loadAllStudents()">Load Semua Data</button>
+      <button class="btn" onclick="clearAllData()">Hapus Semua Data</button>
+    </div>
+    
+    <div id="status" class="status" style="display: none;"></div>
+  </div>
+  
+  <div class="db-demo">
+    <h2>Data Mahasiswa</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nama</th>
+          <th>Email</th>
+          <th>Jurusan</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="studentsTable">
+        <tr>
+          <td colspan="5" style="text-align: center; color: #666;">Belum ada data</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <script>
+    let db;
+    const DB_NAME = 'StudentDB';
+    const STORE_NAME = 'students';
+    const DB_VERSION = 1;
+    
+    // Initialize IndexedDB
+    function initDB() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open(DB_NAME, DB_VERSION);
+        
+        request.onerror = () => reject(request.error);
+        request.onsuccess = () => {
+          db = request.result;
+          resolve(db);
+        };
+        
+        request.onupgradeneeded = (event) => {
+          const database = event.target.result;
+          
+          // Create object store dengan keyPath 'id'
+          if (!database.objectStoreNames.contains(STORE_NAME)) {
+            const store = database.createObjectStore(STORE_NAME, { keyPath: 'id' });
+            
+            // Create indexes untuk pencarian
+            store.createIndex('name', 'name', { unique: false });
+            store.createIndex('email', 'email', { unique: true });
+            store.createIndex('major', 'major', { unique: false });
+          }
+        };
+      });
+    }
+    
+    // Add student to IndexedDB
+    async function addStudent() {
+      try {
+        const id = parseInt(document.getElementById('studentId').value);
+        const name = document.getElementById('studentName').value;
+        const email = document.getElementById('studentEmail').value;
+        const major = document.getElementById('studentMajor').value;
+        
+        if (!id || !name || !email || !major) {
+          showStatus('Semua field harus diisi!', 'error');
+          return;
+        }
+        
+        const student = { id, name, email, major, createdAt: new Date().toISOString() };
+        
+        const transaction = db.transaction([STORE_NAME], 'readwrite');
+        const store = transaction.objectStore(STORE_NAME);
+        
+        await new Promise((resolve, reject) => {
+          const request = store.add(student);
+          request.onsuccess = () => resolve();
+          request.onerror = () => reject(request.error);
+        });
+        
+        showStatus('Mahasiswa berhasil ditambahkan!', 'success');
+        clearForm();
+        loadAllStudents();
+        
+      } catch (error) {
+        showStatus('Error: ' + error.message, 'error');
+      }
+    }
+    
+    // Load all students from IndexedDB
+    async function loadAllStudents() {
+      try {
+        const transaction = db.transaction([STORE_NAME], 'readonly');
+        const store = transaction.objectStore(STORE_NAME);
+        
+        const students = await new Promise((resolve, reject) => {
+          const request = store.getAll();
+          request.onsuccess = () => resolve(request.result);
+          request.onerror = () => reject(request.error);
+        });
+        
+        displayStudents(students);
+        
+      } catch (error) {
+        showStatus('Error loading data: ' + error.message, 'error');
+      }
+    }
+    
+    // Display students in table
+    function displayStudents(students) {
+      const tbody = document.getElementById('studentsTable');
+      
+      if (students.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #666;">Belum ada data</td></tr>';
+        return;
+      }
+      
+      tbody.innerHTML = students.map(student => `
+        <tr>
+          <td>${student.id}</td>
+          <td>${student.name}</td>
+          <td>${student.email}</td>
+          <td>${student.major}</td>
+          <td>
+            <button class="btn" style="padding: 5px 10px; font-size: 12px;" 
+                    onclick="deleteStudent(${student.id})">Hapus</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+    
+    // Delete student from IndexedDB
+    async function deleteStudent(id) {
+      try {
+        const transaction = db.transaction([STORE_NAME], 'readwrite');
+        const store = transaction.objectStore(STORE_NAME);
+        
+        await new Promise((resolve, reject) => {
+          const request = store.delete(id);
+          request.onsuccess = () => resolve();
+          request.onerror = () => reject(request.error);
+        });
+        
+        showStatus('Mahasiswa berhasil dihapus!', 'success');
+        loadAllStudents();
+        
+      } catch (error) {
+        showStatus('Error deleting student: ' + error.message, 'error');
+      }
+    }
+    
+    // Clear all data from IndexedDB
+    async function clearAllData() {
+      try {
+        const transaction = db.transaction([STORE_NAME], 'readwrite');
+        const store = transaction.objectStore(STORE_NAME);
+        
+        await new Promise((resolve, reject) => {
+          const request = store.clear();
+          request.onsuccess = () => resolve();
+          request.onerror = () => reject(request.error);
+        });
+        
+        showStatus('Semua data berhasil dihapus!', 'success');
+        loadAllStudents();
+        
+      } catch (error) {
+        showStatus('Error clearing data: ' + error.message, 'error');
+      }
+    }
+    
+    // Clear form
+    function clearForm() {
+      document.getElementById('studentId').value = '';
+      document.getElementById('studentName').value = '';
+      document.getElementById('studentEmail').value = '';
+      document.getElementById('studentMajor').value = '';
+    }
+    
+    // Show status message
+    function showStatus(message, type) {
+      const statusDiv = document.getElementById('status');
+      statusDiv.textContent = message;
+      statusDiv.className = 'status ' + type;
+      statusDiv.style.display = 'block';
+      
+      setTimeout(() => {
+        statusDiv.style.display = 'none';
+      }, 3000);
+    }
+    
+    // Initialize database when page loads
+    initDB().then(() => {
+      console.log('IndexedDB initialized successfully');
+      loadAllStudents();
+    }).catch(error => {
+      console.error('Error initializing IndexedDB:', error);
+      showStatus('Error initializing database: ' + error.message, 'error');
+    });
+  </script>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Form untuk menambah data mahasiswa dengan ID, nama, email, dan jurusan
+- Data disimpan dalam IndexedDB dengan object store dan indexes
+- Tabel menampilkan semua data mahasiswa yang tersimpan
+- Fitur CRUD (Create, Read, Update, Delete) operations
+- Status notifications untuk feedback user
+
+\subsection{File API}
+
+File API memungkinkan web applications untuk berinteraksi dengan file di device user:
+
+\begin{itemize}
+  \item \textbf{File Input}: Mengakses file melalui file input atau drag-and-drop
+  \item \textbf{FileReader}: Membaca konten file (text, data URL, binary)
+  \item \textbf{FileWriter}: Menulis file (dengan File System Access API)
+  \item \textbf{Blob}: Mengolah binary large objects
+  \item \textbf{FileList}: Koleksi file dari input atau drag-and-drop
+\end{itemize}
+
+\begin{lstlisting}[caption={File API Implementation}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File API Demo</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 20px; background-color: #f8f9fa; }
+    .file-demo { background-color: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .drop-zone { border: 2px dashed #ccc; border-radius: 8px; padding: 40px; text-align: center; transition: border-color 0.3s; }
+    .drop-zone:hover, .drop-zone.dragover { border-color: #007bff; background-color: #f0f8ff; }
+    .file-info { background-color: #e7f3ff; border: 1px solid #b3d9ff; border-radius: 4px; padding: 15px; margin-top: 15px; }
+    .preview { margin-top: 15px; max-width: 100%; max-height: 300px; }
+    .btn { background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin-right: 10px; }
+    .btn:hover { background-color: #0056b3; }
+    .progress-bar { width: 100%; height: 20px; background-color: #e9ecef; border-radius: 10px; overflow: hidden; margin-top: 10px; }
+    .progress-fill { height: 100%; background-color: #28a745; width: 0; transition: width 0.3s; }
+  </style>
+</head>
+<body>
+  <h1>📁 File API Demo</h1>
+  
+  <!-- File Input Demo -->
+  <div class="file-demo">
+    <h2>Upload File dengan File Input</h2>
+    
+    <input type="file" id="fileInput" accept=".txt,.jpg,.png,.pdf" multiple>
+    <button class="btn" onclick="processFiles()">Proses Files</button>
+    <button class="btn" onclick="clearFiles()">Clear</button>
+    
+    <div id="fileInfo" class="file-info" style="display: none;">
+      <h4>File Information:</h4>
+      <div id="fileDetails"></div>
+    </div>
+  </div>
+  
+  <!-- Drag and Drop Demo -->
+  <div class="file-demo">
+    <h2>Drag and Drop Zone</h2>
+    
+    <div id="dropZone" class="drop-zone">
+      <p>📂 Drop files here atau klik untuk browse</p>
+      <input type="file" id="dropInput" style="display: none;" multiple>
+    </div>
+    
+    <div id="dropFileInfo" class="file-info" style="display: none;">
+      <h4>Dropped Files:</h4>
+      <div id="dropFileDetails"></div>
+    </div>
+  </div>
+  
+  <!-- File Preview Demo -->
+  <div class="file-demo">
+    <h2>File Preview</h2>
+    
+    <input type="file" id="previewInput" accept="image/*" onchange="previewFile()">
+    
+    <div id="previewContainer" style="display: none;">
+      <h4>Preview:</h4>
+      <img id="filePreview" class="preview" alt="File preview">
+      <div id="imageInfo" class="file-info" style="margin-top: 10px;"></div>
+    </div>
+  </div>
+  
+  <!-- File Reader Demo -->
+  <div class="file-demo">
+    <h2>File Reader (Text Files)</h2>
+    
+    <input type="file" id="textInput" accept=".txt,.csv,.json,.js,.html,.css">
+    <button class="btn" onclick="readTextFile()">Read File</button>
+    
+    <div id="textContent" class="file-info" style="display: none; margin-top: 15px;">
+      <h4>File Content:</h4>
+      <pre id="fileContent" style="background-color: #f8f9fa; padding: 15px; border-radius: 4px; overflow-x: auto;"></pre>
+    </div>
+  </div>
+  
+  <script>
+    // Process files from file input
+    function processFiles() {
+      const input = document.getElementById('fileInput');
+      const files = input.files;
+      
+      if (files.length === 0) {
+        alert('Pilih file terlebih dahulu!');
+        return;
+      }
+      
+      let fileDetails = '';
+      
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        fileDetails += `
+          <div style="border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; border-radius: 4px;">
+            <strong>Nama:</strong> ${file.name}<br>
+            <strong>Tipe:</strong> ${file.type || 'Unknown'}<br>
+            <strong>Ukuran:</strong> ${formatFileSize(file.size)}<br>
+            <strong>Terakhir diubah:</strong> ${new Date(file.lastModified).toLocaleString()}
+          </div>
+        `;
+      }
+      
+      document.getElementById('fileDetails').innerHTML = fileDetails;
+      document.getElementById('fileInfo').style.display = 'block';
+    }
+    
+    function clearFiles() {
+      document.getElementById('fileInput').value = '';
+      document.getElementById('fileInfo').style.display = 'none';
+      document.getElementById('fileDetails').innerHTML = '';
+    }
+    
+    // Format file size
+    function formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+    
+    // Drag and Drop functionality
+    const dropZone = document.getElementById('dropZone');
+    const dropInput = document.getElementById('dropInput');
+    
+    dropZone.addEventListener('click', () => dropInput.click());
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('dragover');
+    });
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('dragover');
+    });
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      handleDroppedFiles(e.dataTransfer.files);
+    });
+    dropInput.addEventListener('change', (e) => {
+      handleDroppedFiles(e.target.files);
+    });
+    
+    function handleDroppedFiles(files) {
+      if (files.length === 0) return;
+      
+      let fileDetails = '';
+      
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        fileDetails += `
+          <div style="border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; border-radius: 4px;">
+            <strong>Nama:</strong> ${file.name}<br>
+            <strong>Tipe:</strong> ${file.type || 'Unknown'}<br>
+            <strong>Ukuran:</strong> ${formatFileSize(file.size)}
+          </div>
+        `;
+      }
+      
+      document.getElementById('dropFileDetails').innerHTML = fileDetails;
+      document.getElementById('dropFileInfo').style.display = 'block';
+    }
+    
+    // Preview image file
+    function previewFile() {
+      const input = document.getElementById('previewInput');
+      const file = input.files[0];
+      
+      if (!file) return;
+      
+      if (!file.type.startsWith('image/')) {
+        alert('File harus berupa gambar!');
+        return;
+      }
+      
+      const reader = new FileReader();
+      
+      reader.onload = (e) => {
+        const img = document.getElementById('filePreview');
+        img.src = e.target.result;
+        img.style.display = 'block';
+        
+        // Get image dimensions
+        img.onload = () => {
+          document.getElementById('imageInfo').innerHTML = `
+            <strong>Dimensi:</strong> ${img.naturalWidth} x ${img.naturalHeight}px<br>
+            <strong>Ukuran File:</strong> ${formatFileSize(file.size)}<br>
+            <strong>Tipe:</strong> ${file.type}
+          `;
+        };
+        
+        document.getElementById('previewContainer').style.display = 'block';
+      };
+      
+      reader.readAsDataURL(file);
+    }
+    
+    // Read text file content
+    function readTextFile() {
+      const input = document.getElementById('textInput');
+      const file = input.files[0];
+      
+      if (!file) {
+        alert('Pilih file teks terlebih dahulu!');
+        return;
+      }
+      
+      const reader = new FileReader();
+      
+      reader.onload = (e) => {
+        const content = e.target.result;
+        document.getElementById('fileContent').textContent = content;
+        document.getElementById('textContent').style.display = 'block';
+      };
+      
+      reader.onerror = () => {
+        alert('Error reading file!');
+      };
+      
+      reader.readAsText(file);
+    }
+  </script>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- File input dengan multiple file selection dan filtering
+- Drag-and-drop zone untuk upload files
+- File preview untuk image files dengan dimensions
+- File reader untuk text files dengan content display
+- File information showing name, type, size, dan last modified
+
+Storage dan APIs HTML5 memungkinkan aplikasi web modern untuk menyimpan data secara lokal dan berinteraksi dengan file system \cite{w3schools-html}. Kombinasi LocalStorage, SessionStorage, IndexedDB, dan File API menyediakan fondasi kuat untuk aplikasi web yang rich dan offline-capable \cite{mdn-web-storage}.

@@ -1,35 +1,352 @@
-\section{Keyword \texttt{this}}
+\section{Link dan Navigasi}
 
-\subsection{Penggunaan \texttt{this}}
+Link (hyperlink) adalah elemen fundamental HTML yang memungkinkan pengguna berpindah antar halaman atau website. Link dibuat menggunakan tag `<a>` (anchor) dengan atribut `href` yang menentukan URL tujuan \cite{w3schools-html}. Pemahaman link yang baik adalah kunci untuk navigasi website yang intuitif \cite{mdn-html}.
 
-Keyword \keyword{this} merujuk pada object saat ini. Digunakan untuk:
+\subsection{Basic Link Syntax}
 
-\begin{enumerate}
-  \item Membedakan instance variable dengan parameter yang namanya sama
-  \item Memanggil constructor lain dalam class yang sama
-  \item Mengembalikan instance saat ini
-\end{enumerate}
+Sintaks dasar link menggunakan tag `<a>` dengan atribut penting:
 
-\begin{javacode}[caption={Penggunaan this}]
-public class Mahasiswa {
-    private String nama;
-    private double ipk;
+\begin{itemize}
+  \item \texttt{href} - Hypertext reference (URL tujuan)
+  \item \texttt{target} - Cara membuka link (\_self, \_blank, \_parent, \_top)
+  \item \texttt{title} - Tooltip yang muncul saat hover
+  \item \texttt{rel} - Relationship antar dokumen (nofollow, noopener, noreferrer)
+\end{itemize}
+
+\begin{lstlisting}[caption={Contoh Basic Link}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contoh Link Dasar</title>
+</head>
+<body>
+  <h1>Demonstrasi Link HTML</h1>
+  
+  <!-- Link ke halaman lain di website yang sama -->
+  <p>Kunjungi <a href="about.html">halaman about</a> untuk informasi lebih lanjut.</p>
+  
+  <!-- Link ke website eksternal -->
+  <p>Kunjungi <a href="https://www.google.com">Google</a> untuk pencarian.</p>
+  
+  <!-- Link yang membuka di tab baru -->
+  <p>Buka <a href="https://www.github.com" target="_blank">GitHub</a> di tab baru.</p>
+  
+  <!-- Link dengan tooltip -->
+  <p><a href="https://www.wikipedia.org" title="Ensiklopedia online">Wikipedia</a> adalah sumber informasi.</p>
+  
+  <!-- Link dengan rel="nofollow" -->
+  <p><a href="https://example.com" rel="nofollow">External Link</a> (nofollow untuk SEO).</p>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Teks yang di-link akan berwarna biru dan bergaris bawah
+- Saat hover, cursor berubah menjadi pointer
+- `target="_blank"` membuka link di tab/jendela baru
+- `title` menampilkan tooltip saat mouse hover
+- Link yang sudah dikunjungi akan berwarna ungu
+
+\subsection{Jenis-Jenis Link}
+
+HTML mendukung berbagai jenis link untuk keperluan berbeda:
+
+\begin{itemize}
+  \item \textbf{Internal Links}: Link ke halaman dalam website yang sama
+  \item \textbf{External Links}: Link ke website lain
+  \item \textbf{Email Links}: Membuka email client
+  \item \textbf{Phone Links}: Membuka phone dialer
+  \item \textbf{Anchor Links}: Link ke bagian dalam halaman yang sama
+  \item \textbf{Download Links}: Link untuk download file
+\end{itemize}
+
+\begin{lstlisting}[caption={Berbagai Jenis Link}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jenis-Jenis Link</title>
+</head>
+<body>
+  <h1>Demonstrasi Berbagai Link</h1>
+  
+  <!-- Internal Link -->
+  <h2>Internal Navigation</h2>
+  <ul>
+    <li><a href="index.html">Beranda</a></li>
+    <li><a href="about.html">Tentang Kami</a></li>
+    <li><a href="services.html">Layanan</a></li>
+    <li><a href="contact.html">Kontak</a></li>
+  </ul>
+  
+  <!-- External Links -->
+  <h2>External Resources</h2>
+  <ul>
+    <li><a href="https://www.facebook.com" target="_blank">Facebook</a></li>
+    <li><a href="https://www.twitter.com" target="_blank">Twitter</a></li>
+    <li><a href="https://www.linkedin.com" target="_blank">LinkedIn</a></li>
+  </ul>
+  
+  <!-- Email dan Phone Links -->
+  <h2>Contact Information</h2>
+  <p>Email: <a href="mailto:info@company.com">info@company.com</a></p>
+  <p>Phone: <a href="tel:+628123456789">+62 812-3456-789</a></p>
+  
+  <!-- Anchor Links -->
+  <h2>Quick Navigation</h2>
+  <p>Langsung ke: 
+    <a href="#section1">Section 1</a> | 
+    <a href="#section2">Section 2</a> | 
+    <a href="#section3">Section 3</a>
+  </p>
+  
+  <!-- Download Links -->
+  <h2>Downloads</h2>
+  <ul>
+    <li><a href="documents/brochure.pdf" download>Company Brochure (PDF)</a></li>
+    <li><a href="software/setup.exe" download>Software Setup</a></li>
+    <li><a href="images/logo.png" download>Company Logo</a></li>
+  </ul>
+  
+  <!-- Target Sections untuk Anchor Links -->
+  <hr>
+  <h2 id="section1">Section 1: Pengenalan</h2>
+  <p>Ini adalah konten section 1...</p>
+  
+  <h2 id="section2">Section 2: Produk</h2>
+  <p>Ini adalah konten section 2...</p>
+  
+  <h2 id="section3">Section 3: Kontak</h2>
+  <p>Ini adalah konten section 3...</p>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Internal links navigasi antar halaman website
+- External links membuka website lain (bisa di tab baru)
+- Email links membuka default email client
+- Phone links membuka phone dialer di mobile
+- Anchor links scroll ke bagian tertentu dalam halaman
+- Download links memulai download file
+
+\subsection{Image Links dan Link Buttons}
+
+Link tidak hanya berupa teks, tetapi juga bisa berupa gambar atau tombol:
+
+\begin{itemize}
+  \item \textbf{Image Links}: Gambar yang bisa diklik
+  \item \textbf{Button Links}: Tombol yang berfungsi sebagai link
+  \item \textbf{Icon Links}: Ikon kecil yang bisa diklik
+\end{itemize}
+
+\begin{lstlisting}[caption={Image Links dan Button Links}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image dan Button Links</title>
+</head>
+<body>
+  <h1>Link dengan Gambar dan Tombol</h1>
+  
+  <!-- Image Link -->
+  <h2>Image Links</h2>
+  <p>Klik logo untuk menuju homepage:</p>
+  <a href="https://www.example.com" target="_blank">
+    <img src="logo.png" alt="Company Logo" width="200" height="100">
+  </a>
+  
+  <!-- Multiple Image Links -->
+  <p>Social Media:</p>
+  <a href="https://www.facebook.com" target="_blank">
+    <img src="facebook-icon.png" alt="Facebook" width="32" height="32">
+  </a>
+  <a href="https://www.twitter.com" target="_blank">
+    <img src="twitter-icon.png" alt="Twitter" width="32" height="32">
+  </a>
+  <a href="https://www.instagram.com" target="_blank">
+    <img src="instagram-icon.png" alt="Instagram" width="32" height="32">
+  </a>
+  
+  <!-- Button Links -->
+  <h2>Button Links</h2>
+  <a href="register.html" style="background-color: #4CAF50; color: white; 
+     padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+    Daftar Sekarang
+  </a>
+  
+  <a href="login.html" style="background-color: #008CBA; color: white; 
+     padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+    Login
+  </a>
+  
+  <!-- Icon dengan Text Links -->
+  <h2>Icon dengan Text</h2>
+  <a href="download.html">
+    <img src="download-icon.png" alt="Download" width="16" height="16">
+    Download Software
+  </a>
+  
+  <a href="help.html">
+    <img src="help-icon.png" alt="Help" width="16" height="16">
+    Bantuan
+  </a>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Gambar yang bisa diklik (ada border biru saat belum dikunjungi)
+- Social media icons yang bisa diklik
+- Tombol dengan background warna yang bisa diklik
+- Kombinasi icon dan teks untuk navigasi yang lebih intuitif
+
+\subsection{Image Maps}
+
+Image maps memungkinkan satu gambar memiliki multiple area yang bisa diklik dengan link berbeda:
+
+\begin{itemize}
+  \item \texttt{<map>} - Mendefinisikan image map
+  \item \texttt{<area>} - Mendefinisikan area yang bisa diklik
+  \item Atribut area: \texttt{shape} (rect, circle, poly), \texttt{coords}, \texttt{href}
+\end{itemize}
+
+\begin{lstlisting}[caption={Contoh Image Map}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contoh Image Map</title>
+</head>
+<body>
+  <h1>Image Map Demo</h1>
+  
+  <!-- Image dengan Map -->
+  <p>Klik pada bagian gambar:</p>
+  <img src="office-map.png" alt="Office Layout" usemap="#officemap" 
+       width="400" height="300">
+  
+  <!-- Definisi Map -->
+  <map name="officemap">
+    <!-- Area persegi panjang untuk ruangan 1 -->
+    <area shape="rect" coords="50,50,150,150" 
+          href="room1.html" alt="Ruangan 1">
     
-    // this untuk membedakan parameter dan instance variable
-    public Mahasiswa(String nama, double ipk) {
-        this.nama = nama;  // this.nama = instance variable
-        this.ipk = ipk;    // nama = parameter
+    <!-- Area lingkaran untuk ruangan 2 -->
+    <area shape="circle" coords="250,100,30" 
+          href="room2.html" alt="Ruangan 2">
+    
+    <!-- Area polygon untuk ruangan 3 -->
+    <area shape="poly" coords="100,200,200,200,150,250,50,250" 
+          href="room3.html" alt="Ruangan 3">
+    
+    <!-- Area default untuk bagian lain -->
+    <area shape="default" href="office-info.html" alt="Informasi Kantor">
+  </map>
+  
+  <h3>Keterangan Area:</h3>
+  <ul>
+    <li><b>Ruangan 1:</b> Area persegi (50,50) hingga (150,150)</li>
+    <li><b>Ruangan 2:</b> Area lingkaran pusat (250,100) radius 30</li>
+    <li><b>Ruangan 3:</b> Area polygon dengan 5 titik</li>
+    <li><b>Default:</b> Area lain yang tidak didefinisikan</li>
+  </ul>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Satu gambar dengan multiple area yang bisa diklik
+- Cursor berubah pointer saat hover di area yang bisa diklik
+- Setiap area memiliki link tujuan yang berbeda
+- Berguna untuk peta denah, diagram, atau gambar interaktif
+
+\subsection{Best Practices untuk Link dan Navigasi}
+
+Praktik terbaik dalam membuat link dan navigasi yang user-friendly:
+
+\begin{itemize}
+  \item \textbf{Descriptive Text}: Gunakan teks yang jelas menggambarkan tujuan link
+  \item \textbf{Accessibility}: Tambahkan `title` attribute untuk screen readers
+  \item \textbf{Target Blank}: Gunakan `target="_blank"` untuk external links
+  \item \textbf{Security}: Tambahkan `rel="noopener noreferrer"` untuk external links
+  \item \textbf{Visual Feedback}: Berikan indikator visual untuk hover dan active states
+  \item \textbf{Consistent Navigation}: Menu navigasi yang konsisten di semua halaman
+\end{itemize}
+
+\begin{lstlisting}[caption={Best Practices Example}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Best Practices Navigation</title>
+  <style>
+    /* CSS untuk navigasi yang baik */
+    .nav-link {
+      display: inline-block;
+      padding: 10px 15px;
+      text-decoration: none;
+      color: #333;
+      border-radius: 5px;
+      transition: all 0.3s ease;
     }
     
-    // this untuk memanggil constructor lain
-    public Mahasiswa(String nama) {
-        this(nama, 0.0);  // Memanggil constructor di atas
+    .nav-link:hover {
+      background-color: #f0f0f0;
+      color: #0066cc;
     }
     
-    // this untuk mengembalikan object saat ini
-    public Mahasiswa setNama(String nama) {
-        this.nama = nama;
-        return this;  // Method chaining
+    .nav-link:active {
+      background-color: #e0e0e0;
     }
-}
-\end{javacode}
+    
+    .external-link::after {
+      content: " ↗";
+      font-size: 0.8em;
+    }
+  </style>
+</head>
+<body>
+  <h1>Navigation Best Practices</h1>
+  
+  <!-- Navigasi Utama -->
+  <nav>
+    <a href="home.html" class="nav-link">Beranda</a>
+    <a href="products.html" class="nav-link">Produk</a>
+    <a href="services.html" class="nav-link">Layanan</a>
+    <a href="about.html" class="nav-link">Tentang</a>
+    <a href="contact.html" class="nav-link">Kontak</a>
+  </nav>
+  
+  <!-- External Links dengan indikator -->
+  <h2>External Resources</h2>
+  <p>
+    Kunjungi <a href="https://www.w3schools.com" target="_blank" 
+                rel="noopener noreferrer" class="external-link" 
+                title="Tutorial Web Development">W3Schools</a> 
+    untuk belajar web development.
+  </p>
+  
+  <p>
+    Download <a href="software.zip" download 
+                title="Download software terbaru">software kami</a> 
+    gratis.
+  </p>
+  
+  <!-- Breadcrumb Navigation -->
+  <h2>Breadcrumb Navigation</h2>
+  <p>
+    <a href="home.html">Beranda</a> &gt; 
+    <a href="products.html">Produk</a> &gt; 
+    <a href="laptops.html">Laptop</a> &gt; 
+    Gaming Laptop
+  </p>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Navigasi dengan hover effects dan transitions
+- External links dengan indikator panah
+- Breadcrumb untuk navigasi hierarkis
+- Tooltip untuk accessibility
+- Visual feedback untuk interaksi user
+
+Link dan navigasi yang baik memungkinkan pengguna berpindah antar halaman dengan intuitif dan efisien \cite{w3schools-html}. Kombinasi berbagai jenis link dan best practices akan menciptakan pengalaman navigasi yang optimal untuk pengguna \cite{mdn-html}.

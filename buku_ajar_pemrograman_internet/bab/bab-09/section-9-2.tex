@@ -1,6 +1,6 @@
-\section{PHP dan Node.js: Request-Response}
+\section{PHP: Request-Response}
 
-PHP adalah bahasa server-side yang tertanam dalam HTML dan dijalankan oleh web server \cite{php-manual}. Variabel \texttt{\$\_GET} dan \texttt{\$\_POST} menyimpan data dari request; \texttt{\$\_SERVER} berisi informasi server dan request \cite{w3schools-php}. Node.js menjalankan JavaScript di server; framework Express menyederhanakan penanganan route dan middleware \cite{express}, \cite{mdn-express}. Baik PHP maupun Node.js dapat membaca body request, mengembalikan HTML atau JSON, dan mengatur header respons \cite{nodejs}. Pemilihan teknologi bergantung pada kebutuhan proyek, tim, dan ekosistem yang tersedia \cite{php-right-way}.
+PHP adalah bahasa server-side yang tertanam dalam HTML dan dijalankan oleh web server \cite{php-manual}. Variabel \texttt{\$\_GET} dan \texttt{\$\_POST} menyimpan data dari request; \texttt{\$\_SERVER} berisi informasi server dan request \cite{w3schools-php}. PHP dapat membaca body request, mengembalikan HTML atau JSON, dan mengatur header respons \cite{php-right-way}. Penggunaan XAMPP memudahkan pengujian request-response secara lokal sebelum deployment.
 
 \begin{lstlisting}[caption={Contoh PHP Memproses Form}, basicstyle=\ttfamily\small, frame=single]
 <?php
