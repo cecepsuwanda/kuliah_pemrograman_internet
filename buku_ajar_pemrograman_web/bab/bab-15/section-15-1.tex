@@ -1,5 +1,0 @@
-\section{Pengenalan Deployment dan Lingkungan Produksi}
-
-Deployment adalah proses menempatkan aplikasi web ke lingkungan produksi sehingga dapat diakses oleh pengguna \cite{mdn-learn}. Lingkungan development (lokal, XAMPP) berbeda dengan produksi: di produksi, error reporting biasanya dimatikan, \texttt{expose\_php} dinonaktifkan, dan konfigurasi keamanan (session, cookie, HTTPS) diperketat \cite{php-right-way}.
-
-Server web (Apache, Nginx) menjalankan PHP dan menyajikan file statis; basis data MySQL dikonfigurasi untuk produksi (user dengan privilege minimal, backup rutin) \cite{mysql}. Variabel lingkungan (\texttt{.env}) sering digunakan untuk menyimpan konfigurasi sensitif (kredensial DB) tanpa memasukkannya ke kode \cite{php-right-way}.

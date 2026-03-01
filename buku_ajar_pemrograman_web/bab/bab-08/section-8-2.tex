@@ -1,5 +1,0 @@
-\section{DOM (Document Object Model)}
-
-DOM adalah representasi terstruktur dari dokumen HTML yang memungkinkan JavaScript mengakses dan memodifikasi elemen halaman \cite{mdn-learn-js}. Objek \texttt{document} adalah pintu masuk ke DOM. Metode penting: \texttt{document.getElementById(id)}, \texttt{document.querySelector(selector)}, \texttt{document.querySelectorAll(selector)} untuk memilih elemen; \texttt{elemen.textContent}, \texttt{elemen.innerHTML} untuk membaca/mengubah konten; \texttt{elemen.setAttribute}, \texttt{elemen.style} untuk atribut dan gaya \cite{w3schools-js}.
-
-Membuat dan menambah elemen: \texttt{document.createElement(tagName)}, \texttt{parent.appendChild(child)}, \texttt{parent.removeChild(child)} \cite{mdn-learn-js}. Memanipulasi DOM dengan aman (menghindari \texttt{innerHTML} dengan data tidak tepercaya) mengurangi risiko XSS \cite{owasp-xss}.

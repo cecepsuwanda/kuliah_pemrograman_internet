@@ -1,5 +1,0 @@
-\section{Validasi Input dan Sanitasi}
-
-Validasi input memastikan data memenuhi format dan aturan yang diharapkan \cite{php-manual}. Validasi di server wajib karena client dapat di-bypass; validasi di client untuk UX \cite{php-right-way}. Sanitasi membersihkan input dari karakter berbahaya (mis. escape HTML untuk mencegah XSS) \cite{php-manual}. Whitelist (hanya menerima nilai yang diizinkan) lebih aman daripada blacklist \cite{php-right-way}. Untuk SQL, selalu gunakan prepared statement; jangan menyusun query dengan string concatenation \cite{php-manual}.
-
-Session dan cookie digunakan untuk menyimpan state pengguna (mis. login). Praktik aman: regenerasi session ID setelah login, cookie \texttt{HttpOnly}, \texttt{Secure}, \texttt{SameSite}; hash password dengan \texttt{password\_hash()} \cite{php-manual}, \cite{owasp-session}.

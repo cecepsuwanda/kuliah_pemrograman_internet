@@ -1,9 +1,0 @@
-\section{Client-Side vs Server-Side}
-
-Pemrograman web dibagi menjadi dua ranah utama: client-side dan server-side \cite{mdn-learn}. Client-side merujuk pada kode yang dijalankan di browser pengguna, sedangkan server-side merujuk pada kode yang dijalankan di server. Keduanya memiliki peran yang saling melengkapi dan sering bekerja bersama dalam satu aplikasi web yang lengkap.
-
-Teknologi client-side meliputi HTML (struktur konten), CSS (tampilan dan layout), dan JavaScript (perilaku dan interaktivitas) \cite{mdn-html}, \cite{mdn-css}, \cite{mdn-js}. Kode client-side bersifat terbuka—pengguna dapat melihat dan memeriksa kode melalui alat pengembang browser. Oleh karena itu, logika sensitif dan data rahasia tidak boleh disimpan atau diproses di client-side.
-
-Teknologi server-side pada mata kuliah ini berfokus pada PHP yang berjalan di server dan terintegrasi dengan MySQL \cite{php-manual}, \cite{mysql}. Kode server-side bersifat tertutup dari pengguna; server memproses permintaan, mengakses basis data, menerapkan logika bisnis, dan mengembalikan hasil. Data sensitif dan validasi penting harus dilakukan di server untuk keamanan \cite{php-right-way}.
-
-Sebagai contoh, saat pengguna mengirim form login, browser menjalankan JavaScript untuk validasi format (client-side) dan mengirim data ke server. Server menjalankan PHP untuk memeriksa kredensial di basis data MySQL (server-side). Server mengembalikan respons (berhasil atau gagal) dan browser menampilkan hasilnya. Memahami peran masing-masing lapisan membantu pengembang merancang aplikasi yang aman dan efisien \cite{webdev}.
