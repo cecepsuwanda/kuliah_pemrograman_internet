@@ -1,0 +1,27 @@
+cari sumber terbuka di internet mengenai materi-materi di bawah ini :
+1. silabus OBE mengenai pemrograman internet, dapatkan minimal 2 sumber
+2. cari materi mengenai pemrograman internet, dapatkan minimal 10 sumber
+3. cari materi mengenai tutorial html untuk pemula, dapatkan minimal 10 sumber
+4. cari materi mengenai tutorial css untuk pemula, dapatkan minimal 10 sumber
+5. cari materi mengenai tutorial java script untuk pemula, dapatkan minimal 10 sumber
+6. cari materi mengenai tutorial php untuk pemula, dapatkan minimal 10 sumber
+7. cari materi mengenai tutorial mysql untuk pemula, dapatkan minimal 10 sumber
+8. cari materi mengenai tutorial oop php untuk pemula, dapatkan minimal 10 sumber
+9. cari materi mengenai tutorial framework php untuk pemula, dapatkan minimal 10 sumber
+10. cari materi mengenai tutorial framework javascript untuk pemula, dapatkan minimal 10 sumber
+11. cari materi mengenai tutorial xampp untuk pemula, dapatkan minimal 10 sumber
+12. cari materi mengenai tutorial windsurf untuk pemula, dapatkan minimal 10 sumber
+13. cari materi mengenai tutorial jquery untuk pemula, dapatkan minimal 10 sumber
+14. cari materi mengenai tutorial adminLTE untuk pemula, dapatkan minimal 10 sumber
+15. cari materi KKNI dari APTIKOM
+16. cari materi mengenai tutorial sistem informasi akademik perguruan tinggi sederhana, dapatkan minimal 10 sumber
+tuliskan sumber-sumber yang ditemukan ke sumber_materi.md
+
+menggunakan sumber-sumber yang tercatat di sumber_materi.md, 
+tulis ulang silabus_pemrograman_internet.tex mengikuti aturan di bawah ini :
+1. silabus mata kuliah pemrograman internet
+2. Untuk S1 Teknik Informatika, Fakultas Teknologi Informasi, Universitas Bale Bandung
+3. terdiri dari 16 pertemuan
+4. komposisi materi 70% praktek, 30% teori
+5. untuk struktur mengikuti struktur_silabus_OBE.txt
+6. untuk format mengikuti silabus.tex

@@ -1,0 +1,12 @@
+dengan menggunakan referensi yang ada di sumber_materi.md 
+dan silabus_pemrograman_internet.tex tulis ulang buku yang ada
+di folder buku_ajar_pemrograman_internet, ikuti ketentuan ini :
+1. struktur buku harus mengikuti struktur_bab_buku_ajar_OBE.txt
+2. format mengikuti format buku yang ada di folder buku_ajar
+3. boleh merubah struktur dari buku selama ketentuan 1 dan 2 diikuti
+4. ini buku tutorial untuk pemula jadi banyak contoh
+5. perdalam penjelasan per-sectionnya, setiap section minimal terdiri dari 
+   2 paragraph maximal 10 paragraph, setiap paragraph terdiri dari minimal 
+   3 kalimat
+6. jika diperlukan per-section tambahkan gambar,grafik,tabel, contoh, contoh coding, contoh studi kasus, 
+   boleh download gambar pakai python   

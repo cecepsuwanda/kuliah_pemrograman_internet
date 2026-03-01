@@ -1,5 +1,0 @@
-\section{Validasi Input dan Session}
-
-Validasi input wajib dilakukan di sisi server untuk mencegah data tidak valid atau berbahaya \cite{owasp-input}. Praktik umum meliputi pengecekan format, panjang string, serta sanitasi sebelum data disimpan ke basis data. Di PHP, fungsi seperti \texttt{filter\_var} dan prepared statement membantu mengurangi risiko injeksi SQL \cite{php-manual}, \cite{owasp-sql}.
-
-Session digunakan untuk menyimpan state pengguna setelah login, misalnya menyimpan ID pengguna agar akses ke halaman tertentu dapat dibatasi \cite{owasp-session}. Implementasi dasar menggunakan \texttt{session\_start()}, penyimpanan data ke \texttt{\$\_SESSION}, serta proses logout untuk menghapus session. Dengan menggabungkan validasi input dan session, aplikasi web menjadi lebih aman dan terstruktur \cite{owasp-auth}.

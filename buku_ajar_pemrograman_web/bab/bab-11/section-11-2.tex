@@ -1,0 +1,3 @@
+\section{Autentikasi Dasar}
+
+Autentikasi memverifikasi identitas pengguna (biasanya username/password) \cite{php-manual}. Alur dasar: form login mengirim kredensial ke server; server memverifikasi terhadap basis data; jika valid, buat session dan redirect ke halaman terproteksi \cite{php-manual}. Password harus di-hash (bcrypt, Argon2) sebelum disimpan; jangan pernah menyimpan password plain text \cite{php-right-way}. Halaman yang memerlukan login harus memeriksa session di setiap request \cite{php-manual}. Logout dengan menghapus session dan cookie \cite{php-right-way}.

@@ -1,0 +1,36 @@
+\documentclass[../main]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{12}}{}
+\begin{document}
+
+\chapter{Keamanan Web}
+
+\begin{subcpmk}
+  \item Sub-CPMK 4.2: Validasi input, XSS, CSRF, sanitasi, HTTPS
+\end{subcpmk}
+
+\input{bab-13/section-13-1}
+\input{bab-13/section-13-2}
+
+\begin{aktivitas}
+  \item Terapkan escape output pada aplikasi Anda.
+  \item Implementasikan token CSRF pada form.
+  \item Pelajari praktik keamanan web di PHP The Right Way dan PHP Manual.
+\end{aktivitas}
+
+\begin{checklist}
+  \item Memahami validasi dan sanitasi
+  \item Memahami XSS dan pencegahannya
+  \item Memahami CSRF dan pencegahannya
+  \item Mengetahui pentingnya HTTPS
+\end{checklist}
+
+\begin{rangkuman}
+Keamanan web meliputi validasi input, sanitasi, pencegahan XSS dan CSRF, serta penggunaan HTTPS. Referensi praktis tersedia di PHP Manual dan PHP The Right Way \cite{php-manual}, \cite{php-right-way}.
+\end{rangkuman}
+
+\ifSubfilesClassLoaded{
+  \renewcommand{\bibname}{Daftar Pustaka}
+  \bibliographystyle{plain}
+  \bibliography{../references}
+}{}
+\end{document}
