@@ -1,3 +1,22 @@
-\section{Desain Responsif}
+\section{Box Model: Margin, Padding, dan Border}
 
-Desain responsif membuat halaman web tampil baik di berbagai ukuran layar (desktop, tablet, ponsel) \cite{mdn-learn-css}. Teknik utama: viewport meta tag (\texttt{<meta name="viewport" content="width=device-width">}), media queries (\texttt{@media (max-width: 768px) \{ ... \}}), unit relatif (\texttt{rem}, \texttt{\%}, \texttt{vw}), dan layout yang fleksibel (Flexbox, Grid) \cite{webdev}. Media query memungkinkan penerapan aturan CSS berbeda berdasarkan lebar layar \cite{csstricks}. Pendekatan mobile-first berarti merancang untuk layar kecil terlebih dahulu, lalu menambahkan aturan untuk layar lebih besar \cite{bootstrap}.
+Setiap elemen HTML direpresentasikan sebagai kotak (box) yang terdiri dari: \textbf{content} (konten), \textbf{padding} (jarak dalam antara border dan content), \textbf{border} (garis batas), dan \textbf{margin} (jarak luar antara elemen dengan elemen lain) \cite{mdn-learn-css}.
+
+Properti yang sering digunakan:
+\begin{itemize}
+  \item \texttt{margin}, \texttt{padding}: dapat diberi 1--4 nilai (top, right, bottom, left) atau shorthand \texttt{margin: 10px 20px;}
+  \item \texttt{border}: \texttt{border: 1px solid black;} (width style color)
+  \item \texttt{width}, \texttt{height}: lebar dan tinggi (px, em, rem, \%)
+\end{itemize}
+
+\textbf{box-sizing} mengontrol cara lebar dan tinggi dihitung. \texttt{box-sizing: content-box} (default): width/height hanya berlaku untuk content; padding dan border menambah total ukuran. \texttt{box-sizing: border-box}: width/height mencakup padding dan border, sehingga ukuran total elemen lebih mudah diprediksi \cite{mdn-learn-css}.
+
+\begin{lstlisting}[caption={Contoh box model}, basicstyle=\ttfamily\small, frame=single]
+.kotak {
+  width: 200px;
+  padding: 20px;
+  border: 2px solid #333;
+  margin: 10px;
+  box-sizing: border-box;
+}
+\end{lstlisting}

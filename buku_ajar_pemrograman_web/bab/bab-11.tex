@@ -2,28 +2,28 @@
 \ifSubfilesClassLoaded{\setcounter{chapter}{10}}{}
 \begin{document}
 
-\chapter{Session, Cookie, dan Autentikasi}
+\chapter{MySQL: Koneksi dari PHP dan Operasi CRUD}
 
 \begin{subcpmk}
-  \item Sub-CPMK 4.2: Session, cookie, autentikasi dasar
+  \item Sub-CPMK 3.2: Mengelola basis data dan mengimplementasikan operasi CRUD dengan MySQL serta koneksi dari PHP
 \end{subcpmk}
 
 \input{bab-11/section-11-1}
 \input{bab-11/section-11-2}
 
 \begin{aktivitas}
-  \item Implementasikan login dengan session.
-  \item Lindungi halaman tertentu agar hanya bisa diakses setelah login.
+  \item Buat tabel di MySQL dan koneksi dari PHP (XAMPP).
+  \item Implementasikan CRUD lengkap untuk satu entitas (mis. daftar tugas).
 \end{aktivitas}
 
 \begin{checklist}
-  \item Memahami perbedaan cookie dan session
-  \item Dapat mengimplementasikan autentikasi
-  \item Memahami hash password
+  \item Dapat menghubungkan PHP ke MySQL
+  \item Dapat menjalankan query dengan aman (prepared statement)
+  \item Dapat mengimplementasikan CRUD
 \end{checklist}
 
 \begin{rangkuman}
-Session dan cookie menyimpan state; autentikasi memverifikasi identitas pengguna. Password harus di-hash; praktik keamanan session harus diikuti \cite{owasp-auth}, \cite{owasp-session}.
+Integrasi PHP--MySQL memungkinkan aplikasi web menyimpan dan mengelola data. CRUD adalah operasi dasar; keamanan (prepared statement, validasi) wajib \cite{php-manual}, \cite{mysql}.
 \end{rangkuman}
 
 \ifSubfilesClassLoaded{

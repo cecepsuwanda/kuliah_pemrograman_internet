@@ -3,7 +3,7 @@ setlocal
 
 set "ROOT_DIR=%~dp0"
 set "OUTPUT_DIR=%ROOT_DIR%output"
-set "SOURCE_DIR=%ROOT_DIR%buku_ajar_pemrograman_internet"
+set "SOURCE_DIR=%ROOT_DIR%buku_ajar_pemrograman_web"
 
 if not exist "%OUTPUT_DIR%" mkdir "%OUTPUT_DIR%"
 if not exist "%OUTPUT_DIR%" mkdir "%OUTPUT_DIR%" 2>nul

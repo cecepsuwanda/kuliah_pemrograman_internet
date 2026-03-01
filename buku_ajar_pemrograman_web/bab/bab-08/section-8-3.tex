@@ -1,0 +1,5 @@
+\section{Event Handling}
+
+Event handling memungkinkan JavaScript merespons interaksi pengguna (klik, submit form, input, keydown, dll.) \cite{mdn-learn-js}. Metode \texttt{elemen.addEventListener(eventType, handler)} mendaftarkan listener; lebih disarankan daripada atribut inline \texttt{onclick} karena memisahkan perilaku dari markup \cite{js-info}.
+
+Untuk form, event \texttt{submit} terpicu saat form dikirim; \texttt{event.preventDefault()} mencegah pengiriman default sehingga kita dapat validasi atau kirim data via AJAX. Event \texttt{input} atau \texttt{change} berguna untuk validasi real-time \cite{mdn-learn-js}. Objek \texttt{event} menyediakan properti seperti \texttt{target}, \texttt{type}, dan metode \texttt{preventDefault()}, \texttt{stopPropagation()} \cite{eloquent-js}.

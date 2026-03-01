@@ -1,3 +1,3 @@
-\section{Autentikasi Dasar}
+\section{Operasi CRUD Berbasis Web}
 
-Autentikasi memverifikasi identitas pengguna (biasanya username/password) \cite{php-manual}. Alur dasar: form login mengirim kredensial ke server; server memverifikasi terhadap basis data; jika valid, buat session dan redirect ke halaman terproteksi \cite{php-manual}. Password harus di-hash (bcrypt, Argon2) sebelum disimpan; jangan pernah menyimpan password plain text \cite{php-right-way}. Halaman yang memerlukan login harus memeriksa session di setiap request \cite{php-manual}. Logout dengan menghapus session dan cookie \cite{php-right-way}.
+CRUD (Create, Read, Update, Delete) adalah operasi dasar untuk data. Create: form POST mengirim data, server INSERT ke tabel. Read: GET request, server SELECT dan menampilkan data. Update: form POST dengan ID, server UPDATE. Delete: link atau tombol dengan konfirmasi, server DELETE \cite{php-manual}. Implementasi CRUD menghubungkan front-end (form, tabel) dengan back-end (script PHP yang menjalankan query) \cite{mysql}. Setiap operasi harus memvalidasi input dan menggunakan prepared statement \cite{php-right-way}.

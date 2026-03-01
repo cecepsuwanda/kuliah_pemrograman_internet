@@ -2,28 +2,29 @@
 \ifSubfilesClassLoaded{\setcounter{chapter}{8}}{}
 \begin{document}
 
-\chapter{Pemrograman Server-Side (PHP)}
+\chapter{JavaScript: Validasi Form dan Library/Framework}
 
 \begin{subcpmk}
-  \item Sub-CPMK 3.1: Mengimplementasikan script PHP untuk pemrosesan form
+  \item Sub-CPMK 2.3: Mengimplementasikan validasi form dengan JavaScript
+  \item Sub-CPMK 2.4: Menggunakan library atau framework front-end (Bootstrap, jQuery) untuk antarmuka dinamis
 \end{subcpmk}
 
 \input{bab-09/section-9-1}
 \input{bab-09/section-9-2}
 
 \begin{aktivitas}
-  \item Setup environment PHP lokal menggunakan XAMPP.
-  \item Buat form HTML dan proses data POST dengan PHP.
+  \item Implementasikan validasi form (email, panjang password) dengan JavaScript; tampilkan pesan error di bawah field.
+  \item Buat halaman sederhana menggunakan komponen Bootstrap (navbar, form, tombol) atau gunakan jQuery untuk manipulasi DOM.
 \end{aktivitas}
 
 \begin{checklist}
-  \item Memahami peran server-side
-  \item Dapat memproses request (GET/POST)
-  \item Dapat mengembalikan respons
+  \item Dapat memvalidasi form di client dengan JavaScript
+  \item Mengenal penggunaan Bootstrap atau jQuery untuk antarmuka dinamis
+  \item Memahami bahwa validasi server tetap wajib
 \end{checklist}
 
 \begin{rangkuman}
-Pemrograman server-side menangani logika di server. PHP memproses request, mengelola data, dan mengembalikan respons dinamis; praktik ini umum digunakan pada lingkungan XAMPP \cite{php-manual}.
+Validasi form meningkatkan UX; library/framework seperti Bootstrap dan jQuery mempercepat pembangunan antarmuka dinamis dan responsif \cite{mdn-learn}, \cite{bootstrap}.
 \end{rangkuman}
 
 \ifSubfilesClassLoaded{

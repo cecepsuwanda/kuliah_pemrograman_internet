@@ -2,17 +2,30 @@
 \ifSubfilesClassLoaded{\setcounter{chapter}{13}}{}
 \begin{document}
 
-\chapter{Evaluasi, Refleksi, dan Integrasi Kompetensi}
+\chapter{Keamanan Web}
 
-Bab ini berisi asesmen komprehensif untuk mengukur pencapaian seluruh CPMK mata kuliah Pemrograman Internet, serta pengenalan framework, deployment, dan rekomendasi tindak lanjut.
+\begin{subcpmk}
+  \item Sub-CPMK 4.2: Menerapkan prinsip keamanan web: validasi input, prepared statement, session, mitigasi XSS dan CSRF
+\end{subcpmk}
 
-\input{bab-14/bab-14-section-1}
-\input{bab-14/bab-14-section-2}
-\input{bab-14/bab-14-section-3}
-\input{bab-14/bab-14-section-4}
+\input{bab-14/section-14-1}
+\input{bab-14/section-14-2}
+
+\begin{aktivitas}
+  \item Terapkan escape output pada aplikasi Anda.
+  \item Implementasikan token CSRF pada form.
+  \item Pelajari praktik keamanan di PHP The Right Way dan OWASP Cheat Sheets.
+\end{aktivitas}
+
+\begin{checklist}
+  \item Memahami validasi dan sanitasi
+  \item Memahami XSS dan pencegahannya
+  \item Memahami CSRF dan pencegahannya
+  \item Mengetahui pentingnya HTTPS dan session aman
+\end{checklist}
 
 \begin{rangkuman}
-Anda telah menyelesaikan perjalanan pembelajaran Pemrograman Internet. Dari arsitektur web, HTML, CSS, JavaScript, server-side, basis data, hingga keamanan---fondasi aplikasi web modern telah dibangun. Terus praktik dan eksplorasi teknologi lanjutan \cite{mdn-learn}, \cite{webdev}.
+Keamanan web meliputi validasi input, sanitasi, prepared statement, session/cookie aman, pencegahan XSS dan CSRF, serta HTTPS \cite{php-manual}, \cite{php-right-way}, \cite{owasp-top10}.
 \end{rangkuman}
 
 \ifSubfilesClassLoaded{

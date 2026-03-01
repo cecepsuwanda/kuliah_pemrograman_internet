@@ -1,5 +1,18 @@
-\section{Flexbox dan CSS Grid}
+\section{Pengenalan CSS dan Sintaks Dasar}
 
-Flexbox dan CSS Grid adalah sistem layout modern untuk CSS \cite{mdn-css}. Flexbox dirancang untuk layout satu dimensi (baris atau kolom) dan sangat cocok untuk komponen seperti navigasi, card, atau baris tombol \cite{csstricks}. Properti utama Flexbox: \texttt{display: flex}, \texttt{flex-direction}, \texttt{justify-content}, \texttt{align-items}, \texttt{flex-wrap} \cite{webdev}. Flexbox memudahkan perataan dan distribusi ruang antar item tanpa float atau positioning yang rumit.
+CSS (Cascading Style Sheets) adalah bahasa yang digunakan untuk mengatur tampilan dan format halaman web \cite{mdn-learn-css}. CSS memisahkan presentasi dari struktur (HTML), sehingga halaman dapat di-styling secara terpusat dan konsisten.
 
-CSS Grid dirancang untuk layout dua dimensi (baris dan kolom sekaligus) \cite{mdn-css}. Properti \texttt{display: grid}, \texttt{grid-template-columns}, \texttt{grid-template-rows}, dan \texttt{gap} memungkinkan pembuatan layout kompleks dengan kode yang ringkas \cite{w3c-css}. Grid ideal untuk halaman dengan area header, sidebar, main content, dan footer. Browser modern mendukung Flexbox dan Grid; kompatibilitas dapat dicek di Can I Use (\cite{w3c-css}).
+CSS dapat disisipkan dengan tiga cara: \textbf{inline} (atribut \texttt{style} pada elemen), \textbf{internal} (tag \texttt{<style>} di dalam \texttt{<head>}), dan \textbf{eksternal} (file \texttt{.css} terpisah yang di-link dengan \texttt{<link rel="stylesheet" href="file.css">}). Untuk proyek yang terorganisir, CSS eksternal lebih dipilih \cite{w3schools-css}.
+
+Sintaks dasar CSS: \texttt{selector \{ properti: nilai; \}}. Selector menentukan elemen mana yang di-styling. Selector dasar meliputi: \textbf{elemen} (nama tag, misalnya \texttt{p}, \texttt{h1}), \textbf{class} (diawali titik, misalnya \texttt{.nama-class}), dan \textbf{id} (diawali \#, misalnya \texttt{\#nama-id}). Satu selector dapat memiliki banyak properti \cite{mdn-learn-css}.
+
+\begin{lstlisting}[caption={Contoh CSS dasar}, basicstyle=\ttfamily\small, frame=single]
+/* Selector elemen */
+p { color: #333; font-size: 16px; }
+
+/* Selector class */
+.menu { background: #eee; padding: 10px; }
+
+/* Selector id */
+#header { border-bottom: 1px solid #ccc; }
+\end{lstlisting}

@@ -1,17 +1,29 @@
-# Sumber Materi Pemrograman Internet
+# Sumber Materi Pemrograman Web
 
-Dokumen ini berisi sumber belajar terbuka (gratis) dari internet untuk mata kuliah Pemrograman Internet, Program Studi S1 Teknik Informatika, FTI Universitas Bale Bandung.
+Dokumen ini berisi sumber belajar terbuka (gratis) dari internet untuk mata kuliah Pemrograman Web, Program Studi S1 Teknik Informatika, FTI Universitas Bale Bandung.
 
 ---
 
-## 1. Silabus OBE – Pemrograman Internet
+## 1. Silabus OBE – Pemrograman Web
 
-- [Development of a Semester Learning Plans System based on OBE (Outcome-Based Education)](https://www.atlantis-press.com/article/126003284.pdf) — Artikel tentang pengembangan sistem RPS berbasis OBE untuk pembelajaran semester.
+- [Development of a Semester Learning Plans System based on OBE (Outcome-Based Education)](https://www.atlantis-press.com/article/126003284.pdf) — Artikel PDF tentang pengembangan sistem RPS berbasis OBE untuk pembelajaran semester.
 - [RPS Pemrograman Web (Scribd)](https://www.scribd.com/document/557337526/RPS-Pemrograman-Web) — Contoh RPS mata kuliah pemrograman web yang dapat dijadikan acuan silabus OBE.
+- [OBE dan RPS Pembelajaran Berbasis OBE (Scribd)](https://www.scribd.com/document/802403560/OBE-dan-RPS-Pembelajaran-Berbasis-OBE) — Materi tentang OBE dan penyusunan RPS berbasis outcome-based education.
+- [RPS Pemrograman Web – Universitas Mulawarman](https://si.ft.unmul.ac.id/kurikulum_rps/1753877341_28.%20RPS-Pemrograman%20Web.pdf) — RPS Perancangan dan Pemrograman Web (PDF) Program Studi Sistem Informasi FT Unmul, 3 SKS.
+- [RPS Pemrograman Web – UIN Ar-Raniry](https://cdn.ar-raniry.ac.id/aps-test/teknologi_informasi/Pemograman_Web.pdf) — RPS Pemrograman Web (PDF) Prodi Teknologi Informasi UIN Ar-Raniry Banda Aceh, mencakup HTML, CSS, PHP, MySQL, framework, CMS.
+- [RPS OBE Teknologi Informasi – Undip](https://tekkom.ft.undip.ac.id/wp-content/uploads/2023/01/RPS_OBE-Teknologi-Informasi.pdf) — Contoh RPS berbasis OBE (PDF) Program Studi Teknologi Informasi Universitas Diponegoro.
+- [Panduan Kurikulum OBE/KKNI/SKKNI APTIKOM – Prodi Sarjana TI](https://aptikom-journal.id/home/index.php/2024/05/31/panduan-kurikulum-berbasis-obe-kkni-skkni-aptikom-program-studi-sarjana-teknologi-infomasi-2/) — Panduan resmi APTIKOM untuk kurikulum berbasis OBE/KKNI/SKKNI Program Studi Sarjana Teknologi Informasi.
+- [Apa Itu RPS Berbasis OBE? – P2DPT UMA](https://p2dpt.uma.ac.id/2024/09/13/apa-itu-rps-berbasis-obe/) — Penjelasan konsep RPS berbasis Outcome-Based Education dan komponen-komponennya.
+- [Implementasi Workshop Desain RPS Berbasis OBE – LPMPP UNHAS](https://lpmpp.unhas.ac.id/?lang=en&p=8439) — Laporan kegiatan workshop penyusunan RPS berbasis OBE di Universitas Hasanuddin.
+- [Penyusunan RPS Berbasis OBE – Magister Elektro UNEJ](https://magister-elektro.teknik.unej.ac.id/penyusunan-rps-berbasis-obe/) — Sharing session dan panduan penyusunan RPS berbasis OBE, Fakultas Teknik Universitas Jember.
+- [Rencana Proses Pembelajaran Pemrograman Web (SlideShare)](https://www.slideshare.net/slideshow/rencana-proses-pembelajaran-pemrograman-web-pdf/275533622) — Presentasi Rencana Proses Pembelajaran (RPP/RPS) mata kuliah Pemrograman Web.
+- [CSE 154: Web Programming – University of Washington](https://courses.cs.washington.edu/courses/cse154/19sp/syllabus/syllabus.html) — Silabus mata kuliah Web Programming dengan learning outcomes terstruktur (HTML, CSS, JavaScript, server-side).
+- [Web Programming – Syllabus (web-programming.org)](https://web-programming.org/syllabus.html) — Silabus terbuka pemrograman web dengan capaian pembelajaran dan topik lengkap.
+- [CS Web Programming – NYU](https://cs.nyu.edu/~odeh/webprog/) — Silabus mata kuliah Web Programming NYU, referensi learning outcomes dan materi.
 
 ---
 
-## 2. Pemrograman Internet (Umum)
+## 2. Pemrograman Web (Umum)
 
 - [MDN Learn Web Development](https://developer.mozilla.org/en-US/docs/Learn) — Tutorial terstruktur pemrograman web dari pemula hingga lanjut (HTML, CSS, JS, server-side).
 - [W3Schools Tutorials](https://www.w3schools.com/tutorials/) — Tutorial gratis berbagai teknologi web: HTML, CSS, JavaScript, PHP, MySQL, dan lainnya.
@@ -231,4 +243,61 @@ Dokumen ini berisi sumber belajar terbuka (gratis) dari internet untuk mata kuli
 
 ---
 
-*Dokumen ini disusun untuk mendukung penyusunan RPS/Silabus Mata Kuliah Pemrograman Internet, FTI Universitas Bale Bandung. Semua sumber di atas bersifat terbuka dan dapat diakses untuk keperluan pendidikan.*
+## 17. Referensi CPMK1 – Analisis Kebutuhan dan Perancangan Antarmuka (UI/UX)
+
+Referensi berikut mendukung capaian CPMK1 dan Sub-CPMK 1.1, 1.2, 1.3 (sumber terbuka dari internet).
+
+### Sub-CPMK 1.1 – Kebutuhan Fungsional dan Non-Fungsional
+
+- [AltexSoft – Functional and Non-functional Requirements](https://www.altexsoft.com/blog/business/functional-and-non-functional-requirements-specification-and-types/) — Artikel tentang spesifikasi dan tipe kebutuhan fungsional vs non-fungsional untuk solusi perangkat lunak.
+- [Baeldung – Functional vs Non-functional Requirements](https://www.baeldung.com/cs/requirements-functional-vs-non-functional) — Penjelasan ringkas perbedaan kebutuhan fungsional dan non-fungsional beserta contoh (sumber terbuka).
+
+### Sub-CPMK 1.2 – Wireframe, Mockup, dan User Flow
+
+- [FreeCodeCamp – UI/UX Design Tutorial (Figma)](https://www.freecodecamp.org/news/ui-ux-design-tutorial-from-zero-to-hero-with-wireframe-prototype-figma/) — Tutorial wireframe, prototype, dan desain antarmuka dengan Figma dari dasar (gratis).
+- [Lucidchart – How to Make a Wireframe](https://www.lucidchart.com/pages/how-to-make-a-wireframe) — Panduan langkah membuat wireframe; tool gratis tersedia daring.
+- [Interaction Design Foundation – Create Wireframes](https://www.interaction-design.org/literature/article/create-wireframes) — Artikel tentang pembuatan wireframe dan prinsipnya dalam desain UX.
+- [Figma](https://www.figma.com) — Alat desain UI/UX gratis untuk wireframe dan mockup (berbasis web).
+
+### Sub-CPMK 1.3 – Aksesibilitas (a11y) dan Pengalaman Pengguna (UX)
+
+- [MDN – Accessibility (Learn web development)](https://developer.mozilla.org/en-US/docs/Learn/Accessibility) — Modul belajar aksesibilitas web: HTML semantik, CSS, JavaScript, dan ARIA.
+- [web.dev – Learn Accessibility](https://web.dev/learn/accessibility) — Kursus aksesibilitas daring oleh Google untuk pengembang web.
+- [W3C WAI – Web Accessibility Initiative](https://www.w3.org/WAI/) — Standar dan panduan aksesibilitas W3C (WCAG, WAI-ARIA).
+- [web.dev – Design and user experience](https://web.dev/learn/accessibility/design-ux) — Prinsip desain dan pengalaman pengguna (UX) untuk aksesibilitas web.
+
+---
+
+## 18. Referensi CPMK4 – Evaluasi, Deployment dan Administrasi Web
+
+Referensi berikut mendukung capaian CPMK4 dan Sub-CPMK 4.1, 4.2, 4.3 (sumber terbuka dari internet).
+
+### Sub-CPMK 4.1 – Pengujian (Testing) dan Evaluasi Performa Aplikasi Web
+
+- [MDN – Tools and testing (Learn web development)](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing) — Modul belajar pengujian untuk aplikasi web: strategi testing, functional testing, compatibility testing, performance testing.
+- [MDN – Measuring performance](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Performance/Measuring_performance) — Pengukuran performa web dengan alat seperti PageSpeed Insights, Network Monitor, Performance Monitor.
+- [web.dev – Performance](https://web.dev/learn/performance) — Materi belajar performa aplikasi web oleh Google (metrik, optimasi, alat).
+- [Locust – A modern load testing framework](https://locust.io/) — Framework open source untuk load testing dan evaluasi performa (Python, gratis).
+- [Apache JMeter](https://jmeter.apache.org/) — Aplikasi open source untuk load testing dan pengujian performa (Java, 100% gratis).
+- [Baeldung – Load Testing with k6](https://www.baeldung.com/k6-framework-load-testing) — Tutorial load testing dengan framework k6 (sumber terbuka).
+
+### Sub-CPMK 4.2 – Keamanan Web (Validasi Input, Prepared Statement, Session, XSS, CSRF)
+
+- [PHP The Right Way – Security](https://phptherightway.com/#security) — Praktik keamanan PHP: validasi input, prepared statement, session, sanitasi.
+- [OWASP – Cross Site Scripting Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html) — Panduan pencegahan XSS (output encoding, validasi).
+- [OWASP – Cross-Site Request Forgery Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html) — Panduan pencegahan CSRF (token, SameSite cookie).
+- [OWASP – Session Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html) — Praktik aman pengelolaan session.
+- [OWASP – PHP Configuration Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/PHP_Configuration_Cheat_Sheet.html) — Konfigurasi PHP yang aman untuk produksi.
+- [MDN – Server-side website programming (security)](https://developer.mozilla.org/en-US/docs/Learn/Server-side/First_steps/Website_security) — Konsep keamanan website sisi server (autentikasi, injeksi, XSS, CSRF).
+
+### Sub-CPMK 4.3 – Deployment dan Administrasi (Lingkungan Produksi, Server, Basis Data)
+
+- [MDN – Deploying to production](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/deployment) — Panduan deployment ke produksi: infrastruktur, hosting, environment (konsep berlaku umum).
+- [DigitalOcean – Set Up Application Server (Ubuntu)](https://www.digitalocean.com/community/tutorials/set-up-configure-application-server-ubuntu-24-04) — Konfigurasi server aplikasi, reverse proxy, SSL, process management (gratis, komunitas).
+- [FreeCodeCamp – Deploy Node.js App to Production](https://www.freecodecamp.org/news/deploy-nodejs-app-server-to-production) — Langkah deployment aplikasi ke server produksi.
+- [Apache Friends – XAMPP](https://www.apachefriends.org) — Lingkungan development lokal (Apache, MySQL, PHP); referensi untuk transisi ke produksi.
+- [PHP – Runtime Configuration](https://www.php.net/manual/en/configuration.php) — Konfigurasi PHP untuk lingkungan produksi (dokumentasi resmi).
+
+---
+
+*Dokumen ini disusun untuk mendukung penyusunan RPS/Silabus Mata Kuliah Pemrograman Web, FTI Universitas Bale Bandung. Semua sumber di atas bersifat terbuka dan dapat diakses untuk keperluan pendidikan.*

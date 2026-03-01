@@ -1,3 +1,5 @@
-\section{Validasi Input dan Sanitasi}
+\section{Pengenalan Pengujian Aplikasi Web}
 
-Validasi input memastikan data memenuhi format dan aturan yang diharapkan \cite{php-manual}. Validasi di server wajib karena client dapat di-bypass; validasi di client untuk UX \cite{php-right-way}. Sanitasi membersihkan input dari karakter berbahaya (mis. escape HTML untuk mencegah XSS) \cite{php-manual}. Whitelist (hanya menerima nilai yang diizinkan) lebih aman daripada blacklist \cite{php-right-way}. Untuk SQL, selalu gunakan prepared statement; jangan menyusun query dengan string concatenation \cite{php-manual}.
+Pengujian (testing) aplikasi web bertujuan memastikan fungsionalitas, kompatibilitas, dan performa sesuai harapan \cite{mdn-learn}. Jenis pengujian meliputi: \textbf{fungsional} (apakah fitur berjalan benar), \textbf{kompatibilitas} (berbagai browser dan perangkat), dan \textbf{performa} (waktu muat, responsivitas) \cite{mdn-learn}. Pengujian dapat dilakukan secara manual (menggunakan browser dan alat pengembang) atau otomatis (skrip, framework testing) \cite{webdev}.
+
+Alat dasar: DevTools browser (tab Network, Console, Performance), validator HTML/CSS, dan untuk performa: PageSpeed Insights, Lighthouse \cite{mdn-learn}. Sub-CPMK 4.1 menuntut mahasiswa mampu melakukan pengujian dan evaluasi performa aplikasi web.

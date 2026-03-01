@@ -1,735 +1,442 @@
-\section{Geolocation dan Device APIs}
+\section{Images dan Media}
 
-HTML5 menyediakan APIs untuk mengakses fitur device dan informasi lokasi pengguna. Geolocation API memungkinkan aplikasi web untuk mendapatkan lokasi fisik user, sementara Device APIs memberikan akses ke hardware seperti kamera, microphone, dan sensors \cite{mdn-api}. APIs ini membuka kemungkinan untuk aplikasi web yang lebih interaktif dan personal \cite{w3schools-html}.
+Images dan media adalah elemen penting dalam web development yang membuat konten lebih menarik dan informatif. HTML menyediakan tag `<img>` untuk menampilkan gambar dengan berbagai format dan pengaturan \cite{w3schools-html}. Pemahaman yang baik tentang image handling adalah fundamental untuk web development modern \cite{mdn-html}.
 
-\subsection{Geolocation API}
+\subsection{Basic Image Tag}
 
-Geolocation API menyediakan cara untuk mendapatkan lokasi geografis user:
+Tag `<img>` memiliki atribut penting untuk menampilkan gambar:
 
 \begin{itemize}
-  \item \textbf{getCurrentPosition()}: Mendapatkan lokasi sekali
-  \item \textbf{watchPosition()}: Monitoring lokasi secara continuous
-  \item \textbf{Accuracy}: High accuracy dengan GPS atau low accuracy dengan network
-  \item \textbf{Privacy}: User consent diperlukan untuk akses lokasi
-  \item \textbf{Fallback}: IP-based geolocation untuk browser tanpa support
+  \item \texttt{src} - Source/path file gambar (wajib)
+  \item \texttt{alt} - Alternative text (wajib untuk accessibility)
+  \item \texttt{width} - Lebar gambar dalam pixels atau persentase
+  \item \texttt{height} - Tinggi gambar dalam pixels atau persentase
+  \item \texttt{title} - Tooltip saat hover
+  \item \texttt{border} - Border gambar
+  \item \texttt{align} - Alignment (left, right, center, top, bottom)
 \end{itemize}
 
-\begin{lstlisting}[caption={Geolocation API Implementation}, basicstyle=\ttfamily\small, frame=single]
+\begin{lstlisting}[caption={Contoh Basic Image}, basicstyle=\ttfamily\small, frame=single]
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Geolocation API Demo</title>
-  <style>
-    body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f8f9fa; }
-    .geo-demo { background-color: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    .btn { background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin-right: 10px; }
-    .btn:hover { background-color: #0056b3; }
-    .btn:disabled { background-color: #6c757d; cursor: not-allowed; }
-    .location-info { background-color: #e7f3ff; border: 1px solid #b3d9ff; border-radius: 4px; padding: 15px; margin-top: 15px; }
-    .map-container { width: 100%; height: 300px; background-color: #e9ecef; border-radius: 8px; margin-top: 15px; display: flex; align-items: center; justify-content: center; }
-    .coordinates { font-family: monospace; background-color: #f8f9fa; padding: 10px; border-radius: 4px; margin: 10px 0; }
-    .accuracy-badge { display: inline-block; padding: 5px 10px; border-radius: 12px; font-size: 12px; font-weight: bold; }
-    .accuracy-high { background-color: #d4edda; color: #155724; }
-    .accuracy-medium { background-color: #fff3cd; color: #856404; }
-    .accuracy-low { background-color: #f8d7da; color: #721c24; }
-  </style>
+  <title>Contoh Image Dasar</title>
 </head>
 <body>
-  <h1>Geolocation API Demo</h1>
+  <h1>Demonstrasi Image HTML</h1>
   
-  <div class="geo-demo">
-    <h2>Dapatkan Lokasi Saat Ini</h2>
-    
-    <div>
-      <button class="btn" onclick="getCurrentLocation()">[Loc] Dapatkan Lokasi</button>
-      <button class="btn" onclick="startWatching()">[Play] Mulai Tracking</button>
-      <button class="btn" onclick="stopWatching()">[Stop] Stop Tracking</button>
-      <button class="btn" onclick="clearLocation()">[X] Clear</button>
-    </div>
-    
-    <div id="locationInfo" class="location-info" style="display: none;">
-      <h4>Informasi Lokasi:</h4>
-      <div class="coordinates">
-        <strong>Latitude:</strong> <span id="latitude">-</span><br>
-        <strong>Longitude:</strong> <span id="longitude">-</span><br>
-        <strong>Altitude:</strong> <span id="altitude">-</span><br>
-        <strong>Accuracy:</strong> <span id="accuracy">-</span> 
-        <span id="accuracyBadge" class="accuracy-badge">-</span>
-      </div>
-      
-      <div style="margin-top: 15px;">
-        <strong>Kecepatan:</strong> <span id="speed">-</span><br>
-        <strong>Heading:</strong> <span id="heading">-</span><br>
-        <strong>Timestamp:</strong> <span id="timestamp">-</span>
-      </div>
-    </div>
-    
-    <div id="mapContainer" class="map-container" style="display: none;">
-      <div>
-        <h3>[Map] Map Preview</h3>
-        <p>Lokasi Anda ditampilkan pada koordinat di atas</p>
-        <p><small>(Integrasi dengan Google Maps atau OpenStreetMap dapat ditambahkan)</small></p>
-      </div>
-    </div>
-    
-    <div id="trackingInfo" class="location-info" style="display: none; margin-top: 15px;">
-      <h4>[Stats] Tracking Status:</h4>
-      <p><strong>Status:</strong> <span id="trackingStatus">Stopped</span></p>
-      <p><strong>Update Count:</strong> <span id="updateCount">0</span></p>
-    </div>
-  </div>
+  <!-- Image dengan semua atribut penting -->
+  <img src="sunset.jpg" alt="Sunset di pantai" width="400" height="300" 
+       title="Pemandangan sunset yang indah">
   
-  <div class="geo-demo">
-    <h2>[Map] Reverse Geocoding (Simulasi)</h2>
-    
-    <button class="btn" onclick="getAddress()">[Home] Dapatkan Alamat</button>
-    
-    <div id="addressInfo" class="location-info" style="display: none; margin-top: 15px;">
-      <h4>Alamat:</h4>
-      <p id="addressText">-</p>
-    </div>
-  </div>
+  <!-- Image dengan ukuran berbeda -->
+  <h3>Image dengan Ukuran Berbeda:</h3>
+  <p>Image kecil:</p>
+  <img src="logo.png" alt="Company Logo" width="100" height="50">
   
-  <div class="geo-demo">
-    <h2>[!] Privacy & Security</h2>
-    
-    <div class="location-info" style="background-color: #fff3cd; border-color: #ffeaa7;">
-      <h4>[!] Catatan Penting:</h4>
-      <ul>
-        <li><strong>User Consent:</strong> Browser akan meminta izin user sebelum mengakses lokasi</li>
-        <li><strong>HTTPS Required:</strong> Geolocation API hanya bekerja pada secure contexts (HTTPS)</li>
-        <li><strong>Privacy:</strong> Lokasi user adalah data sensitif, gunakan dengan bertanggung jawab</li>
-        <li><strong>Fallback:</strong> Selalu sediakan fallback untuk browser yang tidak support atau user menolak</li>
-      </ul>
-    </div>
-  </div>
+  <p>Image sedang:</p>
+  <img src="product.jpg" alt="Product Image" width="200" height="150">
   
-  <script>
-    let watchId = null;
-    let updateCount = 0;
-    
-    // Get current location
-    function getCurrentLocation() {
-      if (!navigator.geolocation) {
-        alert('Browser Anda tidak mendukung Geolocation API');
-        return;
-      }
-      
-      const options = {
-        enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 0
-      };
-      
-      navigator.geolocation.getCurrentPosition(
-        showPosition,
-        showError,
-        options
-      );
-    }
-    
-    // Show position information
-    function showPosition(position) {
-      const coords = position.coords;
-      
-      document.getElementById('latitude').textContent = coords.latitude.toFixed(6);
-      document.getElementById('longitude').textContent = coords.longitude.toFixed(6);
-      document.getElementById('altitude').textContent = coords.altitude ? coords.altitude.toFixed(2) + ' m' : 'Not available';
-      document.getElementById('accuracy').textContent = coords.accuracy.toFixed(0) + ' m';
-      document.getElementById('speed').textContent = coords.speed ? coords.speed.toFixed(2) + ' m/s' : 'Not available';
-      document.getElementById('heading').textContent = coords.heading ? coords.heading.toFixed(0) + ' deg' : 'Not available';
-      document.getElementById('timestamp').textContent = new Date(position.timestamp).toLocaleString();
-      
-      // Update accuracy badge
-      const badge = document.getElementById('accuracyBadge');
-      if (coords.accuracy < 20) {
-        badge.className = 'accuracy-badge accuracy-high';
-        badge.textContent = 'High Accuracy';
-      } else if (coords.accuracy < 100) {
-        badge.className = 'accuracy-badge accuracy-medium';
-        badge.textContent = 'Medium Accuracy';
-      } else {
-        badge.className = 'accuracy-badge accuracy-low';
-        badge.textContent = 'Low Accuracy';
-      }
-      
-      document.getElementById('locationInfo').style.display = 'block';
-      document.getElementById('mapContainer').style.display = 'flex';
-      
-      updateCount++;
-      document.getElementById('updateCount').textContent = updateCount;
-    }
-    
-    // Start watching position
-    function startWatching() {
-      if (!navigator.geolocation) {
-        alert('Browser Anda tidak mendukung Geolocation API');
-        return;
-      }
-      
-      if (watchId) {
-        alert('Tracking sudah berjalan!');
-        return;
-      }
-      
-      const options = {
-        enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 0
-      };
-      
-      watchId = navigator.geolocation.watchPosition(
-        showPosition,
-        showError,
-        options
-      );
-      
-      document.getElementById('trackingStatus').textContent = 'Running';
-      document.getElementById('trackingInfo').style.display = 'block';
-      
-      alert('Location tracking dimulai!');
-    }
-    
-    // Stop watching position
-    function stopWatching() {
-      if (watchId) {
-        navigator.geolocation.clearWatch(watchId);
-        watchId = null;
-        document.getElementById('trackingStatus').textContent = 'Stopped';
-        alert('Location tracking dihentikan!');
-      }
-    }
-    
-    // Clear location information
-    function clearLocation() {
-      document.getElementById('locationInfo').style.display = 'none';
-      document.getElementById('mapContainer').style.display = 'none';
-      document.getElementById('trackingInfo').style.display = 'none';
-      updateCount = 0;
-      document.getElementById('updateCount').textContent = updateCount;
-      
-      if (watchId) {
-        navigator.geolocation.clearWatch(watchId);
-        watchId = null;
-      }
-    }
-    
-    // Handle errors
-    function showError(error) {
-      let message = '';
-      
-      switch(error.code) {
-        case error.PERMISSION_DENIED:
-          message = 'User menolak permintaan geolocation.';
-          break;
-        case error.POSITION_UNAVAILABLE:
-          message = 'Informasi lokasi tidak tersedia.';
-          break;
-        case error.TIMEOUT:
-          message = 'Request timeout.';
-          break;
-        default:
-          message = 'Error tidak diketahui.';
-          break;
-      }
-      
-      alert('Error: ' + message);
-    }
-    
-    // Simulate reverse geocoding
-    function getAddress() {
-      const latitude = parseFloat(document.getElementById('latitude').textContent);
-      const longitude = parseFloat(document.getElementById('longitude').textContent);
-      
-      if (isNaN(latitude) || isNaN(longitude)) {
-        alert('Dapatkan lokasi terlebih dahulu!');
-        return;
-      }
-      
-      // Simulasi reverse geocoding (dalam aplikasi nyata, gunakan Google Geocoding API atau OpenCage)
-      const mockAddresses = [
-        'Jl. Sudirman No. 123, Jakarta Pusat, DKI Jakarta',
-        'Jl. Malioboro No. 45, Yogyakarta, DIY',
-        'Jl. Diponegoro No. 78, Surabaya, Jawa Timur',
-        'Jl. Asia Afrika No. 90, Bandung, Jawa Barat'
-      ];
-      
-      const randomAddress = mockAddresses[Math.floor(Math.random() * mockAddresses.length)];
-      
-      document.getElementById('addressText').textContent = 
-        `${randomAddress}\nKoordinat: ${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;
-      document.getElementById('addressInfo').style.display = 'block';
-    }
-  </script>
+  <p>Image besar:</p>
+  <img src="banner.jpg" alt="Website Banner" width="600" height="200">
+  
+  <!-- Image dengan alignment -->
+  <h3>Image Alignment:</h3>
+  <p>
+    <img src="icon-left.png" alt="Icon" width="50" height="50" align="left">
+    Teks ini mengalir di sebelah kanan image. Image di sebelah kiri dengan alignment left.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.
+  </p>
+  
+  <p>
+    <img src="icon-right.png" alt="Icon" width="50" height="50" align="right">
+    Teks ini mengalir di sebelah kiri image. Image di sebelah kanan dengan alignment right.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.
+  </p>
 </body>
 </html>
 \end{lstlisting}
 
 \textbf{Hasil di Browser:}
-- Tombol untuk mendapatkan lokasi sekali atau continuous tracking
-- Display koordinat (latitude, longitude, altitude)
-- Accuracy badge (High/Medium/Low) berdasarkan nilai accuracy
-- Simulasi reverse geocoding untuk mendapatkan alamat
-- Privacy and security notes untuk user awareness
+- Gambar ditampilkan dengan ukuran sesuai atribut width/height
+- Text mengalir di sekitar gambar sesuai alignment
+- Tooltip muncul saat hover pada gambar
+- Alt text tidak terlihat tapi penting untuk accessibility dan SEO
 
-\subsection{Device Orientation dan Motion}
+\subsection{Image Formats dan Optimization}
 
-Device Orientation dan Motion APIs memberikan akses ke accelerometer dan gyroscope:
+HTML mendukung berbagai format gambar dengan karakteristik berbeda:
 
 \begin{itemize}
-  \item \textbf{DeviceOrientationEvent}: Rotasi device dalam 3D space (alpha, beta, gamma)
-  \item \textbf{DeviceMotionEvent}: Acceleration dan rotation rate
-  \item \textbf{Use Cases}: Games, virtual reality, step counters, gesture control
-  \item \textbf{Permission}: iOS 13+ memerlukan user permission
+  \item \textbf{JPEG/JPG}: Cocok untuk foto, ukuran kecil, lossy compression
+  \item \textbf{PNG}: Cocok untuk grafis, transparansi, lossless compression
+  \item \textbf{GIF}: Animasi, 256 colors, ukuran kecil
+  \item \textbf{SVG}: Vector graphics, scalable, tanpa pixelation
+  \item \textbf{WebP}: Modern format, ukuran kecil, kualitas baik
 \end{itemize}
 
-\begin{lstlisting}[caption={Device Orientation dan Motion}, basicstyle=\ttfamily\small, frame=single]
+\begin{lstlisting}[caption={Berbagai Format Image}, basicstyle=\ttfamily\small, frame=single]
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Device Orientation & Motion</title>
-  <style>
-    body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f8f9fa; }
-    .sensor-demo { background-color: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    .orientation-data { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
-    .data-card { background-color: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; padding: 15px; text-align: center; }
-    .data-value { font-size: 24px; font-weight: bold; color: #007bff; margin: 10px 0; }
-    .data-label { font-size: 14px; color: #6c757d; }
-    .device-visual { width: 200px; height: 200px; margin: 20px auto; position: relative; }
-    .device-box { width: 100px; height: 60px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); transition: transform 0.1s; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-    .btn { background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin-right: 10px; }
-    .btn:hover { background-color: #0056b3; }
-    .status { padding: 10px; border-radius: 4px; margin-top: 15px; }
-    .status.active { background-color: #d4edda; color: #155724; }
-    .status.inactive { background-color: #f8d7da; color: #721c24; }
-  </style>
+  <title>Format Image</title>
 </head>
 <body>
-  <h1>Device Orientation & Motion</h1>
+  <h1>Demonstrasi Format Image</h1>
   
-  <div class="sensor-demo">
-    <h2>[Compass] Device Orientation</h2>
-    
-    <div>
-      <button class="btn" onclick="startOrientation()">[Play] Start Orientation</button>
-      <button class="btn" onclick="stopOrientation()">[Stop] Stop Orientation</button>
-    </div>
-    
-    <div class="device-visual">
-      <div class="device-box" id="deviceBox"></div>
-    </div>
-    
-    <div class="orientation-data">
-      <div class="data-card">
-        <div class="data-label">Alpha (Z-axis)</div>
-        <div class="data-value" id="alpha">0 deg</div>
-        <small>Rotation around z-axis</small>
-      </div>
-      
-      <div class="data-card">
-        <div class="data-label">Beta (X-axis)</div>
-        <div class="data-value" id="beta">0 deg</div>
-        <small>Front-to-back tilt</small>
-      </div>
-      
-      <div class="data-card">
-        <div class="data-label">Gamma (Y-axis)</div>
-        <div class="data-value" id="gamma">0 deg</div>
-        <small>Left-to-right tilt</small>
-      </div>
-    </div>
-    
-    <div id="orientationStatus" class="status inactive">
-      Orientation tracking: Inactive
-    </div>
-  </div>
+  <!-- JPEG untuk foto -->
+  <h3>JPEG - Untuk Foto</h3>
+  <img src="photo.jpg" alt="Foto landscape" width="300" height="200">
+  <p><small>Format: JPEG | Ukuran: 45KB | Cocok untuk foto kompleks</small></p>
   
-  <div class="sensor-demo">
-    <h2>[Motion] Device Motion (Accelerometer)</h2>
-    
-    <div>
-      <button class="btn" onclick="startMotion()">[Play] Start Motion</button>
-      <button class="btn" onclick="stopMotion()">[Stop] Stop Motion</button>
-    </div>
-    
-    <div class="orientation-data" style="margin-top: 15px;">
-      <div class="data-card">
-        <div class="data-label">Acceleration X</div>
-        <div class="data-value" id="accelX">0</div>
-        <small>m/s^2</small>
-      </div>
-      
-      <div class="data-card">
-        <div class="data-label">Acceleration Y</div>
-        <div class="data-value" id="accelY">0</div>
-        <small>m/s^2</small>
-      </div>
-      
-      <div class="data-card">
-        <div class="data-label">Acceleration Z</div>
-        <div class="data-value" id="accelZ">0</div>
-        <small>m/s^2</small>
-      </div>
-      
-      <div class="data-card">
-        <div class="data-label">Total Acceleration</div>
-        <div class="data-value" id="totalAccel">0</div>
-        <small>m/s^2</small>
-      </div>
-    </div>
-    
-    <div id="motionStatus" class="status inactive" style="margin-top: 15px;">
-      Motion tracking: Inactive
-    </div>
-  </div>
+  <!-- PNG untuk grafis -->
+  <h3>PNG - Untuk Grafis</h3>
+  <img src="logo.png" alt="Logo transparan" width="200" height="100">
+  <p><small>Format: PNG | Ukuran: 12KB | Mendukung transparansi</small></p>
   
-  <script>
-    let orientationListener = null;
-    let motionListener = null;
-    
-    // Device Orientation
-    function startOrientation() {
-      if (window.DeviceOrientationEvent) {
-        orientationListener = handleOrientation;
-        window.addEventListener('deviceorientation', handleOrientation);
-        
-        document.getElementById('orientationStatus').className = 'status active';
-        document.getElementById('orientationStatus').textContent = 'Orientation tracking: Active';
-      } else {
-        alert('DeviceOrientationEvent tidak didukung di browser ini');
-      }
-    }
-    
-    function stopOrientation() {
-      if (orientationListener) {
-        window.removeEventListener('deviceorientation', handleOrientation);
-        orientationListener = null;
-        
-        document.getElementById('orientationStatus').className = 'status inactive';
-        document.getElementById('orientationStatus').textContent = 'Orientation tracking: Inactive';
-      }
-    }
-    
-    function handleOrientation(event) {
-      const alpha = event.alpha || 0;
-      const beta = event.beta || 0;
-      const gamma = event.gamma || 0;
-      
-      document.getElementById('alpha').textContent = alpha.toFixed(1) + ' deg';
-      document.getElementById('beta').textContent = beta.toFixed(1) + ' deg';
-      document.getElementById('gamma').textContent = gamma.toFixed(1) + ' deg';
-      
-      // Visual feedback dengan rotate device box
-      const deviceBox = document.getElementById('deviceBox');
-      deviceBox.style.transform = `translate(-50%, -50%) rotateX(${-beta}deg) rotateY(${gamma}deg) rotateZ(${alpha}deg)`;
-    }
-    
-    // Device Motion
-    function startMotion() {
-      if (window.DeviceMotionEvent) {
-        motionListener = handleMotion;
-        window.addEventListener('devicemotion', handleMotion);
-        
-        document.getElementById('motionStatus').className = 'status active';
-        document.getElementById('motionStatus').textContent = 'Motion tracking: Active';
-      } else {
-        alert('DeviceMotionEvent tidak didukung di browser ini');
-      }
-    }
-    
-    function stopMotion() {
-      if (motionListener) {
-        window.removeEventListener('devicemotion', handleMotion);
-        motionListener = null;
-        
-        document.getElementById('motionStatus').className = 'status inactive';
-        document.getElementById('motionStatus').textContent = 'Motion tracking: Inactive';
-      }
-    }
-    
-    function handleMotion(event) {
-      const acceleration = event.accelerationIncludingGravity;
-      
-      if (acceleration) {
-        const x = acceleration.x || 0;
-        const y = acceleration.y || 0;
-        const z = acceleration.z || 0;
-        const total = Math.sqrt(x*x + y*y + z*z);
-        
-        document.getElementById('accelX').textContent = x.toFixed(2);
-        document.getElementById('accelY').textContent = y.toFixed(2);
-        document.getElementById('accelZ').textContent = z.toFixed(2);
-        document.getElementById('totalAccel').textContent = total.toFixed(2);
-      }
-    }
-  </script>
+  <!-- GIF untuk animasi -->
+  <h3>GIF - Untuk Animasi</h3>
+  <img src="loading.gif" alt="Loading animation" width="100" height="100">
+  <p><small>Format: GIF | Ukuran: 8KB | Mendukung animasi</small></p>
+  
+  <!-- SVG untuk vector -->
+  <h3>SVG - Vector Graphics</h3>
+  <img src="icon.svg" alt="SVG Icon" width="100" height="100">
+  <p><small>Format: SVG | Ukuran: 2KB | Vector, tidak pecah saat diperbesar</small></p>
+  
+  <!-- WebP modern format -->
+  <h3>WebP - Modern Format</h3>
+  <img src="banner.webp" alt="WebP Banner" width="400" height="200">
+  <p><small>Format: WebP | Ukuran: 25KB | Format modern, kompresi baik</small></p>
 </body>
 </html>
 \end{lstlisting}
 
 \textbf{Hasil di Browser:}
-- Visualisasi device orientation dengan 3D box yang berputar
-- Display alpha, beta, gamma rotation values secara real-time
-- Accelerometer data untuk x, y, z acceleration
-- Tombol start/stop untuk mengontrol sensor monitoring
-- Device motion tracking untuk gesture control
+- JPEG menampilkan foto dengan kualitas baik namun ukuran lebih besar
+- PNG menampilkan grafis dengan transparansi (jika ada)
+- GIF menampilkan animasi bergerak
+- SVG tetap tajam saat diperbesar (vector)
+- WebP menampilkan kualitas baik dengan ukuran lebih kecil
 
-\subsection{Media Devices API (Camera \& Microphone)}
+\subsection{Responsive Images}
 
-Media Devices API memungkinkan akses ke camera dan microphone:
+Responsive images memastikan gambar tampil optimal di berbagai ukuran layar:
 
 \begin{itemize}
-  \item \textbf{getUserMedia()}: Akses camera dan microphone streams
-  \item \textbf{Constraints}: Resolusi, facing mode, frame rate
-  \item \textbf{Permissions}: User consent diperlukan untuk akses media
-  \item \textbf{Recording}: MediaRecorder API untuk merekam audio/video
+  \item \textbf{Fluid Images}: Width dalam persentase
+  \item \textbf{Srcset}: Multiple sources untuk berbagai resolusi
+  \item \textbf{Picture Element}: Art direction untuk berbagai kondisi
 \end{itemize}
 
-\begin{lstlisting}[caption={Media Devices API}, basicstyle=\ttfamily\small, frame=single]
+\begin{lstlisting}[caption={Responsive Images}, basicstyle=\ttfamily\small, frame=single]
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Media Devices API</title>
+  <title>Responsive Images</title>
   <style>
-    body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f8f9fa; }
-    .media-demo { background-color: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    .video-container { position: relative; background-color: #000; border-radius: 8px; overflow: hidden; margin-bottom: 15px; }
-    .video-preview { width: 100%; height: 300px; object-fit: cover; display: block; }
-    .camera-controls { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
-    .btn { background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
-    .btn:hover { background-color: #0056b3; }
-    .btn:disabled { background-color: #6c757d; cursor: not-allowed; }
-    .btn.record { background-color: #dc3545; }
-    .btn.record:hover { background-color: #c82333; }
-    .btn.stop { background-color: #6c757d; }
-    .recording-indicator { display: none; background-color: #dc3545; color: white; padding: 5px 10px; border-radius: 4px; font-size: 12px; animation: blink 1s infinite; }
-    @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
-    .captured-photos { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 15px; }
-    .photo-item { position: relative; border-radius: 4px; overflow: hidden; }
-    .photo-item img { width: 100%; height: 100px; object-fit: cover; }
-    .audio-visualizer { width: 100%; height: 100px; background-color: #000; border-radius: 8px; margin-top: 15px; }
+    .responsive-img {
+      max-width: 100%;
+      height: auto;
+    }
   </style>
 </head>
 <body>
-  <h1>Media Devices API</h1>
+  <h1>Responsive Image Techniques</h1>
   
-  <div class="media-demo">
-    <h2>Camera Access</h2>
-    
-    <div class="camera-controls">
-      <button class="btn" onclick="startCamera()">[Play] Start Camera</button>
-      <button class="btn" onclick="stopCamera()">[Stop] Stop Camera</button>
-      <button class="btn" onclick="switchCamera()">[Switch] Switch Camera</button>
-      <button class="btn record" onclick="takePhoto()">[Photo] Take Photo</button>
-      <span class="recording-indicator" id="recordingIndicator">[REC] Recording</span>
-    </div>
-    
-    <div class="video-container">
-      <video id="videoPreview" class="video-preview" autoplay muted playsinline></video>
-    </div>
-    
-    <canvas id="photoCanvas" style="display: none;"></canvas>
-    
-    <div id="capturedPhotos" class="captured-photos" style="display: none;">
-      <h4>Captured Photos:</h4>
-    </div>
-  </div>
+  <!-- Fluid Image dengan CSS -->
+  <h3>Fluid Image (CSS)</h3>
+  <img src="landscape.jpg" alt="Landscape" class="responsive-img">
   
-  <div class="media-demo">
-    <h2>Microphone Access</h2>
-    
-    <div class="camera-controls">
-      <button class="btn" onclick="startAudio()">[Play] Start Audio</button>
-      <button class="btn" onclick="stopAudio()">[Stop] Stop Audio</button>
-    </div>
-    
-    <canvas id="audioVisualizer" class="audio-visualizer"></canvas>
-    
-    <div id="audioStatus" style="margin-top: 15px; padding: 10px; background-color: #e9ecef; border-radius: 4px;">
-      Audio Status: Stopped
-    </div>
-  </div>
+  <!-- Srcset untuk berbagai resolusi -->
+  <h3>Srcset untuk Multiple Resolutions</h3>
+  <img src="photo-small.jpg" 
+       srcset="photo-small.jpg 480w,
+               photo-medium.jpg 800w,
+               photo-large.jpg 1200w"
+       sizes="(max-width: 600px) 480px,
+              (max-width: 900px) 800px,
+              1200px"
+       alt="Foto responsif">
   
-  <div class="media-demo">
-    <h2>[!] Privacy & Permissions</h2>
-    
-    <div style="background-color: #fff3cd; border: 1px solid #ffeaa7; border-radius: 4px; padding: 15px;">
-      <h4>[!] Important Notes:</h4>
-      <ul>
-        <li><strong>User Consent:</strong> Browser akan meminta izin sebelum mengakses camera/microphone</li>
-        <li><strong>HTTPS Required:</strong> Media Devices API hanya bekerja pada secure contexts</li>
-        <li><strong>Privacy Indicators:</strong> Browser akan menampilkan indicator saat camera/microphone aktif</li>
-        <li><strong>Permission Management:</strong> User dapat revoke permission kapan saja</li>
-      </ul>
-    </div>
-  </div>
+  <!-- Picture Element untuk art direction -->
+  <h3>Picture Element untuk Art Direction</h3>
+  <picture>
+    <source media="(min-width: 900px)" srcset="banner-large.jpg">
+    <source media="(min-width: 600px)" srcset="banner-medium.jpg">
+    <img src="banner-small.jpg" alt="Banner responsif">
+  </picture>
   
-  <script>
-    let stream = null;
-    let audioContext = null;
-    let analyser = null;
-    let microphone = null;
-    let currentFacing = 'user'; // 'user' or 'environment'
-    let capturedPhotos = [];
-    
-    // Start camera
-    async function startCamera() {
-      try {
-        const constraints = {
-          video: {
-            facingMode: currentFacing,
-            width: { ideal: 1280 },
-            height: { ideal: 720 }
-          },
-          audio: false
-        };
-        
-        stream = await navigator.mediaDevices.getUserMedia(constraints);
-        const video = document.getElementById('videoPreview');
-        video.srcObject = stream;
-        
-      } catch (error) {
-        alert('Error accessing camera: ' + error.message);
-      }
-    }
-    
-    // Stop camera
-    function stopCamera() {
-      if (stream) {
-        stream.getTracks().forEach(track => track.stop());
-        stream = null;
-        document.getElementById('videoPreview').srcObject = null;
-      }
-    }
-    
-    // Switch camera (front/rear)
-    async function switchCamera() {
-      stopCamera();
-      currentFacing = currentFacing === 'user' ? 'environment' : 'user';
-      await startCamera();
-    }
-    
-    // Take photo
-    function takePhoto() {
-      const video = document.getElementById('videoPreview');
-      const canvas = document.getElementById('photoCanvas');
-      const photosContainer = document.getElementById('capturedPhotos');
-      
-      if (!video.srcObject) {
-        alert('Camera tidak aktif!');
-        return;
-      }
-      
-      // Set canvas dimensions
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      
-      // Draw video frame to canvas
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      
-      // Create photo item
-      const photoData = canvas.toDataURL('image/jpeg');
-      const photoItem = document.createElement('div');
-      photoItem.className = 'photo-item';
-      photoItem.innerHTML = `<img src="${photoData}" alt="Captured photo">`;
-      
-      photosContainer.appendChild(photoItem);
-      photosContainer.style.display = 'grid';
-      
-      capturedPhotos.push(photoData);
-    }
-    
-    // Start audio with visualization
-    async function startAudio() {
-      try {
-        const audioStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
-        
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        analyser = audioContext.createAnalyser();
-        microphone = audioContext.createMediaStreamSource(audioStream);
-        microphone.connect(analyser);
-        
-        analyser.fftSize = 256;
-        const bufferLength = analyser.frequencyBinCount;
-        const dataArray = new Uint8Array(bufferLength);
-        
-        const canvas = document.getElementById('audioVisualizer');
-        const canvasCtx = canvas.getContext('2d');
-        
-        // Resize canvas
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
-        
-        function draw() {
-          requestAnimationFrame(draw);
-          
-          analyser.getByteFrequencyData(dataArray);
-          
-          canvasCtx.fillStyle = 'rgb(0, 0, 0)';
-          canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
-          
-          const barWidth = (canvas.width / bufferLength) * 2.5;
-          let barHeight;
-          let x = 0;
-          
-          for (let i = 0; i < bufferLength; i++) {
-            barHeight = dataArray[i] / 2;
-            
-            canvasCtx.fillStyle = `rgb(${barHeight + 100}, 50, 50)`;
-            canvasCtx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-            
-            x += barWidth + 1;
-          }
-        }
-        
-        draw();
-        
-        document.getElementById('audioStatus').textContent = 'Audio Status: Active - Microphone listening';
-        document.getElementById('audioStatus').style.backgroundColor = '#d4edda';
-        document.getElementById('audioStatus').style.color = '#155724';
-        
-      } catch (error) {
-        alert('Error accessing microphone: ' + error.message);
-      }
-    }
-    
-    // Stop audio
-    function stopAudio() {
-      if (audioContext) {
-        audioContext.close();
-        audioContext = null;
-        analyser = null;
-        microphone = null;
-      }
-      
-      // Clear canvas
-      const canvas = document.getElementById('audioVisualizer');
-      const canvasCtx = canvas.getContext('2d');
-      canvasCtx.fillStyle = 'rgb(0, 0, 0)';
-      canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
-      
-      document.getElementById('audioStatus').textContent = 'Audio Status: Stopped';
-      document.getElementById('audioStatus').style.backgroundColor = '#e9ecef';
-      document.getElementById('audioStatus').style.color = '#333';
-    }
-  </script>
+  <!-- Picture untuk format berbeda -->
+  <h3>Picture untuk Format Support</h3>
+  <picture>
+    <source srcset="photo.webp" type="image/webp">
+    <source srcset="photo.jpg" type="image/jpeg">
+    <img src="photo.jpg" alt="Foto dengan fallback">
+  </picture>
 </body>
 </html>
 \end{lstlisting}
 
 \textbf{Hasil di Browser:}
-- Camera preview dengan video element
-- Tombol untuk start/stop camera dan switch front/rear camera
-- Take photo functionality dengan canvas capture
-- Photo gallery untuk menampilkan captured photos
-- Audio visualizer dengan frequency bar chart
-- Privacy notes untuk user awareness
+- Fluid images menyesuaikan lebar container
+- Srcset memilih gambar yang sesuai berdasarkan ukuran layar
+- Picture element memilih source berdasarkan media query atau format support
+- Gambar optimal untuk setiap device dan kondisi
 
-Geolocation dan Device APIs memungkinkan aplikasi web untuk mengakses fitur hardware dan informasi lokasi yang sebelumnya hanya tersedia untuk native applications \cite{w3schools-html}. Dengan permission-based access dan privacy controls, APIs ini menyediakan fondasi untuk aplikasi web yang lebih personal dan interaktif \cite{mdn-api}.
+\subsection{Background Images}
+
+Background images dapat ditambahkan melalui HTML attributes atau CSS:
+
+\begin{itemize}
+  \item \textbf{HTML Background}: Atribut background pada body atau table
+  \item \textbf{CSS Background}: Lebih fleksibel dan powerful
+\end{itemize}
+
+\begin{lstlisting}[caption={Background Images}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Background Images</title>
+  <style>
+    /* CSS Background untuk body */
+    body {
+      background-image: url('pattern.jpg');
+      background-repeat: repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+    
+    /* Background untuk div */
+    .hero-section {
+      background-image: url('hero-bg.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 400px;
+      color: white;
+      text-align: center;
+      padding: 50px;
+    }
+    
+    .pattern-box {
+      background-image: url('small-pattern.png');
+      background-repeat: repeat;
+      border: 2px solid #333;
+      padding: 20px;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background dengan CSS (recommended) -->
+  <div class="hero-section">
+    <h1>Hero Section dengan Background</h1>
+    <p>Background image yang menutupi seluruh area</p>
+  </div>
+  
+  <!-- Pattern background -->
+  <h3>Pattern Background:</h3>
+  <div class="pattern-box">
+    <h4>Box dengan Pattern</h4>
+    <p>Pattern diulang untuk mengisi background</p>
+  </div>
+  
+  <!-- HTML Background (deprecated) -->
+  <h3>HTML Background Attribute:</h3>
+  <table background="table-bg.jpg" border="1">
+    <tr>
+      <td style="color: white; padding: 10px;">Cell 1</td>
+      <td style="color: white; padding: 10px;">Cell 2</td>
+    </tr>
+  </table>
+  
+  <p><small>Catatan: HTML background attribute deprecated, gunakan CSS</small></p>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Body dengan background pattern yang fixed
+- Hero section dengan background image full width
+- Box dengan pattern background yang diulang
+- Table dengan background (deprecated method)
+- CSS background lebih fleksibel dan recommended
+
+\subsection{Image Maps Revisited}
+
+Image maps untuk navigasi interaktif dengan gambar:
+
+\begin{lstlisting}[caption={Interactive Image Map}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Interactive Image Map</title>
+</head>
+<body>
+  <h1>Interactive Campus Map</h1>
+  
+  <!-- Campus map dengan multiple clickable areas -->
+  <img src="campus-map.png" alt="Campus Map" usemap="#campusmap" 
+       width="600" height="400" style="border: 1px solid #ccc;">
+  
+  <map name="campusmap">
+    <!-- Gedung Rektorat -->
+    <area shape="rect" coords="100,100,200,180" 
+          href="rektorat.html" alt="Gedung Rektorat"
+          title="Gedung Rektorat">
+    
+    <!-- Perpustakaan -->
+    <area shape="rect" coords="250,150,350,230" 
+          href="perpustakaan.html" alt="Perpustakaan"
+          title="Perpustakaan">
+    
+    <!-- Laboratorium -->
+    <area shape="circle" coords="450,200,40" 
+          href="lab.html" alt="Laboratorium"
+          title="Laboratorium Komputer">
+    
+    <!-- Lapangan Olahraga -->
+    <area shape="poly" coords="50,300,150,320,200,280,250,100,280" 
+          href="olahraga.html" alt="Lapangan Olahraga"
+          title="Lapangan Olahraga">
+    
+    <!-- Area default -->
+    <area shape="default" href="campus-info.html" 
+          alt="Informasi Kampus" title="Informasi Umum Kampus">
+  </map>
+  
+  <h3>Legenda Peta:</h3>
+  <ul>
+    <li><b>Gedung Rektorat:</b> Administrasi utama</li>
+    <li><b>Perpustakaan:</b> Sumber belajar dan referensi</li>
+    <li><b>Laboratorium:</b> Praktikum dan riset</li>
+    <li><b>Lapangan Olahraga:</b> Fasilitas olahraga</li>
+  </ul>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Peta kampus dengan multiple area yang bisa diklik
+- Setiap area memiliki tooltip saat hover
+- Cursor berubah pointer saat di area clickable
+- Link ke halaman informasi yang relevan
+
+\subsection{Best Practices untuk Images}
+
+Praktik terbaik dalam menggunakan images di website:
+
+\begin{itemize}
+  \item \textbf{Alt Text}: Selalu gunakan alt text yang deskriptif
+  \item \textbf{File Size}: Optimasi ukuran file untuk loading cepat
+  \item \textbf{Responsive}: Gunakan images yang responsif
+  \item \textbf{Format}: Pilih format yang sesuai dengan kebutuhan
+  \item \textbf{Lazy Loading}: Load images saat dibutuhkan
+  \item \textbf{Compression}: Compress images tanpa mengurangi kualitas
+\end{itemize}
+
+\begin{lstlisting}[caption={Best Practices Implementation}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Best Practices</title>
+  <style>
+    .image-container {
+      margin: 20px 0;
+    }
+    
+    .optimized-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .optimized-image:hover {
+      transform: scale(1.05);
+    }
+    
+    .image-caption {
+      text-align: center;
+      font-style: italic;
+      color: #666;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Image Best Practices Demo</h1>
+  
+  <!-- Image dengan alt text deskriptif -->
+  <div class="image-container">
+    <img src="mountain-landscape.jpg" 
+         alt="Pemandangan gunung dengan danau biru di pagi hari, 
+               terlihat kabut tipis di puncak gunung dan cahaya matahari 
+               yang bersinar melalui awan" 
+         class="optimized-image"
+         width="600" height="400"
+         loading="lazy">
+    <p class="image-caption">Gambar 1: Pemandangan alam yang indah</p>
+  </div>
+  
+  <!-- Image dengan figure dan figcaption -->
+  <figure class="image-container">
+    <img src="city-skyline.jpg" 
+         alt="Skyline kota modern di malam hari dengan lampu-lampu gedung 
+               yang menerangi jalan-jalan utama" 
+         class="optimized-image"
+         width="600" height="400"
+         loading="lazy">
+    <figcaption>Gambar 2: Pemandangan kota di malam hari</figcaption>
+  </figure>
+  
+  <!-- Multiple images gallery -->
+  <h3>Image Gallery:</h3>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+    <div class="image-container">
+      <img src="gallery1.jpg" 
+           alt="Close-up bunga merah dengan tetesan air" 
+           class="optimized-image"
+           loading="lazy">
+      <p class="image-caption">Bunga Merah</p>
+    </div>
+    
+    <div class="image-container">
+      <img src="gallery2.jpg" 
+           alt="Jembatan kayu di tengah hutan hijau" 
+           class="optimized-image"
+           loading="lazy">
+      <p class="image-caption">Jembatan Hutan</p>
+    </div>
+    
+    <div class="image-container">
+      <img src="gallery3.jpg" 
+           alt="Pantai dengan pasir putih dan ombak biru" 
+           class="optimized-image"
+           loading="lazy">
+      <p class="image-caption">Pantai Indah</p>
+    </div>
+  </div>
+  
+  <h3>Optimization Notes:</h3>
+  <ul>
+    <li>[OK] Semua images memiliki alt text yang deskriptif</li>
+    <li>[OK] Menggunakan loading="lazy" untuk performance</li>
+    <li>[OK] Responsive dengan max-width: 100%</li>
+    <li>[OK] Optimized untuk web (compressed)</li>
+    <li>[OK] Semantic dengan figure dan figcaption</li>
+  </ul>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Images dengan hover effects dan transitions
+- Alt text yang deskriptif untuk accessibility
+- Lazy loading untuk performance
+- Responsive gallery dengan CSS Grid
+- Semantic markup dengan figure dan figcaption
+- Caption yang informatif untuk setiap gambar
+
+Pemahaman images dan media yang baik memungkinkan penciptaan website yang visual menarik, cepat, dan accessible \cite{w3schools-html}. Kombinasi teknik-teknik ini akan menghasilkan pengalaman visual yang optimal untuk pengguna \cite{mdn-html}.

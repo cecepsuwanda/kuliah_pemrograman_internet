@@ -1,0 +1,128 @@
+\section{Form HTML5 Lanjutan}
+
+HTML5 membawa evolusi signifikan dalam form development dengan menambahkan tipe input baru, atribut validasi yang lebih kuat, dan API untuk kontrol form yang lebih baik \cite{mdn-html}. Form HTML5 modern tidak hanya mengumpulkan data tetapi juga memberikan user experience yang lebih baik dengan validasi real-time dan feedback yang intuitif \cite{w3schools-html}.
+
+\subsection{Advanced Input Types HTML5}
+
+HTML5 memperkenalkan tipe input baru yang memberikan validasi dan user experience yang lebih baik:
+
+\begin{itemize}
+  \item \textbf{Email dan URL}: \texttt{type="email"} dan \texttt{type="url"} dengan validasi format otomatis
+  \item \textbf{Numeric Controls}: \texttt{type="number"}, \texttt{type="range"}, \texttt{type="tel"} dengan kontrol khusus
+  \item \textbf{Date/Time Inputs}: \texttt{type="date"}, \texttt{type="time"}, \texttt{type="datetime-local"}
+  \item \textbf{Color Picker}: \texttt{type="color"} untuk pemilihan warna
+  \item \textbf{Search}: \texttt{type="search"} dengan optimasi untuk pencarian
+  \item \textbf{File Upload}: \texttt{type="file"} dengan atribut \texttt{accept} dan \texttt{multiple}
+\end{itemize}
+
+\begin{lstlisting}[caption={Advanced HTML5 Input Types}, basicstyle=\ttfamily\small, frame=single]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Advanced HTML5 Form</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; margin-bottom: 8px; font-weight: bold; }
+    input { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+    input:focus { border-color: #4CAF50; outline: none; }
+    .input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .btn { background-color: #007bff; color: white; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Form HTML5 Lanjutan</h1>
+  
+  <form action="/process-advanced-form" method="post">
+    <!-- Personal Information dengan Advanced Inputs -->
+    <fieldset>
+      <legend>Informasi Personal</legend>
+      
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required placeholder="nama@email.com">
+      </div>
+      
+      <div class="form-group">
+        <label for="website">Website:</label>
+        <input type="url" id="website" name="website" placeholder="https://www.example.com">
+      </div>
+      
+      <div class="form-group">
+        <label for="phone">Telepon:</label>
+        <input type="tel" id="phone" name="phone" placeholder="0812-3456-789">
+      </div>
+    </fieldset>
+    
+    <!-- Numeric Controls -->
+    <fieldset>
+      <legend>Kontrol Numerik</legend>
+      
+      <div class="input-group">
+        <div>
+          <label for="age">Umur:</label>
+          <input type="number" id="age" name="age" min="17" max="100" value="25">
+        </div>
+        
+        <div>
+          <label for="rating">Rating (1-10):</label>
+          <input type="range" id="rating" name="rating" min="1" max="10" value="7">
+        </div>
+      </div>
+    </fieldset>
+    
+    <!-- Date/Time Inputs -->
+    <fieldset>
+      <legend>Informasi Waktu</legend>
+      
+      <div class="form-group">
+        <label for="birthdate">Tanggal Lahir:</label>
+        <input type="date" id="birthdate" name="birthdate" min="1900-01-01" max="2024-12-31">
+      </div>
+      
+      <div class="form-group">
+        <label for="appointment">Waktu Janji Temu:</label>
+        <input type="time" id="appointment" name="appointment" min="09:00" max="17:00">
+      </div>
+    </fieldset>
+    
+    <!-- Color Picker -->
+    <fieldset>
+      <legend>Preferensi Warna</legend>
+      
+      <div class="form-group">
+        <label for="themeColor">Warna Tema:</label>
+        <input type="color" id="themeColor" name="themeColor" value="#4CAF50">
+      </div>
+    </fieldset>
+    
+    <!-- File Upload -->
+    <fieldset>
+      <legend>Upload Dokumen</legend>
+      
+      <div class="form-group">
+        <label for="avatar">Avatar:</label>
+        <input type="file" id="avatar" name="avatar" accept="image/*">
+      </div>
+      
+      <div class="form-group">
+        <label for="documents">Dokumen:</label>
+        <input type="file" id="documents" name="documents[]" accept=".pdf,.doc,.docx" multiple>
+      </div>
+    </fieldset>
+    
+    <div class="form-group">
+      <button type="submit" class="btn">Simpan Data</button>
+    </div>
+  </form>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Hasil di Browser:}
+- Email dan URL input dengan validasi format otomatis
+- Numeric controls dengan range slider dan number spinner
+- Date/time inputs dengan native calendar picker
+- Color picker untuk pemilihan warna
+- File upload dengan multiple selection

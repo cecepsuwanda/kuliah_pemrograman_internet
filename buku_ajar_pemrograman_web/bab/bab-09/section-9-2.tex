@@ -1,12 +1,5 @@
-\section{PHP: Request-Response}
+\section{Pengenalan Library dan Framework Front-End}
 
-PHP adalah bahasa server-side yang tertanam dalam HTML dan dijalankan oleh web server \cite{php-manual}. Variabel \texttt{\$\_GET} dan \texttt{\$\_POST} menyimpan data dari request; \texttt{\$\_SERVER} berisi informasi server dan request \cite{w3schools-php}. PHP dapat membaca body request, mengembalikan HTML atau JSON, dan mengatur header respons \cite{php-right-way}. Penggunaan XAMPP memudahkan pengujian request-response secara lokal sebelum deployment.
+Sub-CPMK 2.4 menuntut penggunaan library atau framework front-end untuk antarmuka dinamis \cite{mdn-learn}. \textbf{Bootstrap} menyediakan komponen siap pakai (navbar, card, form, modal) dan grid responsif; cukup sertakan CSS dan JS Bootstrap lalu gunakan class dan komponennya \cite{bootstrap}. \textbf{jQuery} menyederhanakan selektor DOM, event handling, dan AJAX dengan API yang ringkas \cite{jquery}. Untuk proyek yang lebih besar, framework seperti \textbf{Vue} atau \textbf{React} memungkinkan antarmuka reaktif dan komponen yang terorganisir \cite{mdn-learn}.
 
-\begin{lstlisting}[caption={Contoh PHP Memproses Form}, basicstyle=\ttfamily\small, frame=single]
-<?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $nama = htmlspecialchars($_POST['nama']);
-  echo "Halo, " . $nama;
-}
-?>
-\end{lstlisting}
+Dalam konteks mata kuliah, pengenalan Bootstrap atau jQuery sudah memadai: gunakan Bootstrap untuk layout dan komponen UI, atau jQuery untuk manipulasi DOM dan permintaan AJAX. Integrasi dengan back-end PHP (Bab X--XII) dapat dilakukan dengan \texttt{fetch} atau \texttt{\$.ajax} \cite{mdn-learn-js}.

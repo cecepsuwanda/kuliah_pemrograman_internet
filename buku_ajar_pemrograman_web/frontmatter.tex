@@ -6,11 +6,11 @@
 \begin{titlepage}
   \centering
   \vspace*{1cm}
-  {\LARGE\bfseries Pemrograman Internet\par}
+  {\LARGE\bfseries Pemrograman Web\par}
   \vspace{0.5cm}
   {\large Buku Ajar Berbasis Outcome-Based Education (OBE)\par}
   \vspace{1cm}
-  {\large Mata Kuliah: Pemrograman Internet\par}
+  {\large Mata Kuliah: Pemrograman Web\par}
   {\large 2 SKS \textbar{} 16 Pertemuan\par}
   \vspace{2cm}
   {\large Program Studi Teknik Informatika\par}
@@ -28,9 +28,9 @@
 \chapter*{Kata Pengantar}
 \addcontentsline{toc}{chapter}{Kata Pengantar}
 
-Puji syukur kehadirat Tuhan Yang Maha Esa atas terselesaikannya buku ajar \textit{Pemrograman Internet} ini. Buku ini disusun dengan pendekatan \textbf{Outcome-Based Education (OBE)}, yang berfokus pada pencapaian kompetensi terukur sesuai dengan Capaian Pembelajaran Lulusan (CPL) dan Capaian Pembelajaran Mata Kuliah (CPMK).
+Puji syukur kehadirat Tuhan Yang Maha Esa atas terselesaikannya buku ajar \textit{Pemrograman Web} ini. Buku ini disusun dengan pendekatan \textbf{Outcome-Based Education (OBE)}, yang berfokus pada pencapaian kompetensi terukur sesuai dengan Capaian Pembelajaran Lulusan (CPL) dan Capaian Pembelajaran Mata Kuliah (CPMK).
 
-Pemrograman Internet merupakan keterampilan fundamental yang harus dikuasai oleh setiap mahasiswa Teknik Informatika. Mata kuliah ini tidak hanya mengajarkan cara membuat halaman web, tetapi juga cara berpikir dalam merancang dan mengimplementasikan aplikasi web yang meliputi antarmuka (HTML, CSS, JavaScript), logika server-side, basis data, dan keamanan dasar.
+Pemrograman Web merupakan keterampilan fundamental yang harus dikuasai oleh setiap mahasiswa Teknik Informatika. Mata kuliah ini tidak hanya mengajarkan cara membuat halaman web, tetapi juga cara berpikir dalam merancang dan mengimplementasikan aplikasi web yang meliputi analisis kebutuhan, wireframe dan mockup (UI/UX), antarmuka (HTML, CSS, JavaScript), logika server-side, basis data, integrasi API, pengujian, keamanan, dan deployment.
 
 Buku ini dirancang untuk mendukung pembelajaran mahasiswa dengan pendekatan student\-centered learning. Setiap bab dilengkapi dengan:
 \begin{itemize}
@@ -42,7 +42,7 @@ Buku ini dirancang untuk mendukung pembelajaran mahasiswa dengan pendekatan stud
   \item Checklist kompetensi untuk self-assessment
 \end{itemize}
 
-Kami berharap buku ini dapat menjadi panduan yang efektif dalam perjalanan pembelajaran Anda menguasai Pemrograman Internet.
+Kami berharap buku ini dapat menjadi panduan yang efektif dalam perjalanan pembelajaran Anda menguasai Pemrograman Web.
 
 \vspace{1cm}
 \begin{flushright}
@@ -65,16 +65,28 @@ Buku ajar ini dirancang dengan pendekatan OBE untuk memaksimalkan pencapaian pem
 \textbf{Bab I: Pendahuluan dan Orientasi}\\
 Memperkenalkan tujuan buku, keterkaitan dengan RPS, dan konteks kurikulum OBE.
 
-\textbf{Bab II: Landasan Teori}\\
+\textbf{Bab II: Landasan Teori dan Konsep Dasar}\\
 Menyajikan fondasi arsitektur web dan protokol HTTP yang menjadi basis pembelajaran.
 
-\textbf{Bab III--VIII: Unit Materi Inti (Front-End)}\\
-HTML5, CSS3, dan JavaScript untuk membangun antarmuka web.
+\textbf{Bab III: Analisis Kebutuhan dan Perancangan Antarmuka}\\
+Kebutuhan fungsional dan non-fungsional, wireframe, mockup, aksesibilitas, dan UX.
 
-\textbf{Bab IX--XIV: Unit Materi Inti (Back-End dan Integrasi)}\\
-Server-side, basis data, PHP, MySQL, keamanan web, dan integrasi proyek.
+\textbf{Bab IV--V: HTML5}\\
+Struktur, elemen semantik, link, gambar, tabel, form, dan media.
 
-\textbf{Bab XIV: Evaluasi dan Integrasi}\\
+\textbf{Bab VI--VII: CSS3}\\
+Selector, box model, layout dasar, Flexbox, Grid, dan desain responsif.
+
+\textbf{Bab VIII--IX: JavaScript}\\
+Sintaks, DOM, event handling, validasi form, dan library/framework front-end.
+
+\textbf{Bab X--XII: Back-End dan Integrasi}\\
+PHP (pemrosesan form, OOP), MySQL (CRUD, koneksi PHP), integrasi API dan koneksi front--back-end.
+
+\textbf{Bab XIII--XV: Pengujian, Keamanan, dan Deployment}\\
+Pengujian dan evaluasi performa, keamanan web, deployment dan administrasi dasar.
+
+\textbf{Bab XVI: Evaluasi, Refleksi, dan Integrasi Kompetensi}\\
 Berisi asesmen komprehensif dan panduan refleksi untuk mengukur pencapaian kompetensi.
 
 \textbf{Lampiran}\\
@@ -114,7 +126,7 @@ Menyediakan rubrik penilaian, glosarium istilah pemrograman web, dan referensi t
 
 \begin{tabular}{ll}
   Nama Program Studi & : Teknik Informatika \\
-  Nama Mata Kuliah & : Pemrograman Internet \\
+  Nama Mata Kuliah & : Pemrograman Web \\
   Kode Mata Kuliah & : \lbrack Diisi oleh Program Studi\rbrack \\
   Semester & : \lbrack Diisi sesuai kurikulum\rbrack \\
   SKS / Bobot Kredit & : 2 SKS \\
@@ -128,16 +140,12 @@ Menyediakan rubrik penilaian, glosarium istilah pemrograman web, dan referensi t
 
 \section*{Capaian Pembelajaran Lulusan (CPL)}
 
-CPL yang dibebankan pada mata kuliah ini mencakup kompetensi lulusan dalam aspek pengetahuan, keterampilan, dan sikap:
+CPL yang dibebankan pada mata kuliah ini:
 
 \begin{enumerate}
-  \item \textbf{CPL-1 (Pengetahuan):} Menguasai konsep teoretis arsitektur web, protokol HTTP, serta pemrograman client-side dan server-side (PHP, MySQL) secara mendalam.
+  \item \textbf{CPL04:} Kemampuan mendesain, mengimplementasi dan mengevaluasi solusi berbasis computing yang memenuhi kebutuhan-kebutuhan computing pada sebuah disiplin program.
   
-  \item \textbf{CPL-2 (Keterampilan Umum):} Mampu menerapkan pemikiran logis, kritis, sistematis, dan inovatif dalam konteks pengembangan aplikasi internet.
-  
-  \item \textbf{CPL-3 (Keterampilan Khusus):} Mampu merancang, mengimplementasikan, dan mengevaluasi aplikasi web dengan teknologi HTML, CSS, JavaScript, PHP, MySQL serta prinsip keamanan dasar.
-  
-  \item \textbf{CPL-4 (Sikap):} Menunjukkan sikap bertanggung jawab atas pekerjaan di bidang keahliannya secara mandiri dan mampu bekerja sama dalam tim.
+  \item \textbf{CPL05:} Mengidentifikasi dan menganalisis kebutuhan-kebutuhan pengguna dan mempertimbangkannya dalam memilih, membuat, mengintegrasi, mengevaluasi, dan mengadministrasi sistem berbasis computing.
 \end{enumerate}
 
 \section*{Capaian Pembelajaran Mata Kuliah (CPMK)}
@@ -145,13 +153,13 @@ CPL yang dibebankan pada mata kuliah ini mencakup kompetensi lulusan dalam aspek
 Kemampuan atau kompetensi spesifik yang diharapkan mahasiswa kuasai setelah menyelesaikan mata kuliah:
 
 \begin{enumerate}
-  \item \textbf{CPMK-1:} Mahasiswa mampu memahami dan menjelaskan arsitektur web, protokol HTTP, serta peran pemrograman client-side dan server-side.
+  \item \textbf{CPMK-1:} Mahasiswa mampu mengidentifikasi kebutuhan fungsional dan non-fungsional pengguna untuk merancang solusi web yang intuitif melalui pembuatan wireframe dan mockup (UI/UX) yang mempertimbangkan aspek aksesibilitas dan pengalaman pengguna.
   
-  \item \textbf{CPMK-2:} Mahasiswa mampu merancang dan membangun antarmuka web dengan HTML, CSS, dan JavaScript yang responsif dan aksesibel.
+  \item \textbf{CPMK-2:} Mahasiswa mampu mendesain dan mengimplementasikan antarmuka web yang responsif dan dinamis menggunakan teknologi standar (HTML5, CSS3, JavaScript) serta framework modern untuk memenuhi spesifikasi perangkat pengguna yang beragam.
   
-  \item \textbf{CPMK-3:} Mahasiswa mampu mengimplementasikan logika server-side (PHP) dan integrasi basis data (MySQL) serta menghubungkannya dengan front-end.
+  \item \textbf{CPMK-3:} Mahasiswa mampu membangun arsitektur sisi server (back-end), mengelola basis data, dan mengintegrasikan API untuk menciptakan sistem berbasis computing yang fungsional dan aman sesuai dengan disiplin program.
   
-  \item \textbf{CPMK-4:} Mahasiswa mampu menerapkan prinsip keamanan web (validasi input, prepared statement, session) pada aplikasi berbasis web.
+  \item \textbf{CPMK-4:} Mahasiswa mampu melakukan pengujian (testing), mengevaluasi keamanan serta performa aplikasi web, dan melakukan proses deployment ke server produksi (administrasi sistem) untuk memastikan aplikasi dapat diakses secara optimal oleh publik.
 \end{enumerate}
 
 \section*{Matriks Keterkaitan CPL dan CPMK}
@@ -163,19 +171,17 @@ Kemampuan atau kompetensi spesifik yang diharapkan mahasiswa kuasai setelah meny
   \hline
   \textbf{CPL} & \textbf{CPMK} & \textbf{Kontribusi} & \textbf{Keterangan} \\
   \hline
-  CPL-1 & CPMK-1 & Tinggi & Penguasaan konsep arsitektur web dan HTTP \\
+  CPL04 & CPMK-1 & Tinggi & Analisis kebutuhan dan perancangan antarmuka \\
   \hline
-  CPL-1 & CPMK-2 & Tinggi & Pemahaman client-side dan desain antarmuka \\
+  CPL04 & CPMK-2 & Tinggi & Implementasi front-end (HTML5, CSS3, JavaScript, framework) \\
   \hline
-  CPL-2 & CPMK-2, CPMK-3, CPMK-4 & Tinggi & Penerapan pemikiran sistematis dalam implementasi web \\
+  CPL04 & CPMK-3 & Tinggi & Back-end, basis data, integrasi API \\
   \hline
-  CPL-3 & CPMK-2 & Tinggi & Perancangan dan implementasi antarmuka web \\
+  CPL04 & CPMK-4 & Tinggi & Pengujian, keamanan, deployment \\
   \hline
-  CPL-3 & CPMK-3 & Tinggi & Implementasi server-side dan basis data \\
+  CPL05 & CPMK-1 & Tinggi & Identifikasi dan analisis kebutuhan pengguna \\
   \hline
-  CPL-3 & CPMK-4 & Tinggi & Implementasi keamanan web dan integrasi aplikasi \\
-  \hline
-  CPL-4 & CPMK-2, CPMK-3, CPMK-4 & Sedang & Tanggung jawab dan kerja sama dalam proyek web \\
+  CPL05 & CPMK-2, CPMK-3, CPMK-4 & Tinggi & Integrasi, evaluasi, dan administrasi sistem web \\
   \hline
 \end{tabular}
 \caption{Matriks Keterkaitan CPL dan CPMK}

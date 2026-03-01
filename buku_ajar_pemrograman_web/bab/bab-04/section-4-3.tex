@@ -1,128 +1,77 @@
-\section{Form HTML5 Lanjutan}
+\section{HTML5 Semantic Elements Lengkap}
 
-HTML5 membawa evolusi signifikan dalam form development dengan menambahkan tipe input baru, atribut validasi yang lebih kuat, dan API untuk kontrol form yang lebih baik \cite{mdn-html}. Form HTML5 modern tidak hanya mengumpulkan data tetapi juga memberikan user experience yang lebih baik dengan validasi real-time dan feedback yang intuitif \cite{w3schools-html}.
+HTML5 memperkenalkan elemen-elemen semantik yang memberikan makna struktur pada dokumen web. Elemen semantik tidak hanya mengatur tampilan, tetapi juga memberikan konteks pada konten untuk browser, search engine, dan teknologi assistif \cite{mdn-html}. Penggunaan elemen semantik yang tepat adalah fondasi web modern yang accessible dan SEO-friendly \cite{w3schools-html}.
 
-\subsection{Advanced Input Types HTML5}
+\subsection{Semantic Structural Elements}
 
-HTML5 memperkenalkan tipe input baru yang memberikan validasi dan user experience yang lebih baik:
+Elemen struktural semantik mendefinisikan bagian-bagian utama halaman:
 
 \begin{itemize}
-  \item \textbf{Email dan URL}: \texttt{type="email"} dan \texttt{type="url"} dengan validasi format otomatis
-  \item \textbf{Numeric Controls}: \texttt{type="number"}, \texttt{type="range"}, \texttt{type="tel"} dengan kontrol khusus
-  \item \textbf{Date/Time Inputs}: \texttt{type="date"}, \texttt{type="time"}, \texttt{type="datetime-local"}
-  \item \textbf{Color Picker}: \texttt{type="color"} untuk pemilihan warna
-  \item \textbf{Search}: \texttt{type="search"} dengan optimasi untuk pencarian
-  \item \textbf{File Upload}: \texttt{type="file"} dengan atribut \texttt{accept} dan \texttt{multiple}
+  \item \texttt{<header>} - Kepala halaman atau section
+  \item \texttt{<nav>} - Navigasi utama website
+  \item \texttt{<main>} - Konten utama dan unik halaman
+  \item \texttt{<article>} - Konten mandiri yang berdiri sendiri
+  \item \texttt{<section>} - Pengelompokan konten tematik
+  \item \texttt{<aside>} - Konten samping/tambahan
+  \item \texttt{<footer>} - Kaki halaman atau section
 \end{itemize}
 
-\begin{lstlisting}[caption={Advanced HTML5 Input Types}, basicstyle=\ttfamily\small, frame=single]
+\begin{lstlisting}[caption={Contoh Semantic Structure}, basicstyle=\ttfamily\small, frame=single]
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Advanced HTML5 Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Modern dengan Semantic HTML5</title>
   <style>
-    body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-    .form-group { margin-bottom: 20px; }
-    label { display: block; margin-bottom: 8px; font-weight: bold; }
-    input { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 6px; box-sizing: border-box; }
-    input:focus { border-color: #4CAF50; outline: none; }
-    .input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-    .btn { background-color: #007bff; color: white; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; }
+    body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; }
+    header { background-color: #2c3e50; color: white; padding: 1rem; text-align: center; }
+    nav { background-color: #333; padding: 1rem; }
+    nav ul { list-style-type: none; margin: 0; padding: 0; display: flex; justify-content: center; }
+    nav li { margin: 0 1rem; }
+    nav a { color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; }
+    main { padding: 2rem; max-width: 1200px; margin: 0 auto; }
+    article { background-color: white; margin-bottom: 2rem; padding: 2rem; border-radius: 8px; }
+    section { margin-bottom: 2rem; }
+    aside { background-color: #e1f5fe; padding: 2rem; border-radius: 8px; margin-bottom: 2rem; }
+    footer { background-color: #333; color: white; text-align: center; padding: 2rem; margin-top: 2rem; }
   </style>
 </head>
 <body>
-  <h1>Form HTML5 Lanjutan</h1>
-  
-  <form action="/process-advanced-form" method="post">
-    <!-- Personal Information dengan Advanced Inputs -->
-    <fieldset>
-      <legend>Informasi Personal</legend>
-      
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required placeholder="nama@email.com">
-      </div>
-      
-      <div class="form-group">
-        <label for="website">Website:</label>
-        <input type="url" id="website" name="website" placeholder="https://www.example.com">
-      </div>
-      
-      <div class="form-group">
-        <label for="phone">Telepon:</label>
-        <input type="tel" id="phone" name="phone" placeholder="0812-3456-789">
-      </div>
-    </fieldset>
-    
-    <!-- Numeric Controls -->
-    <fieldset>
-      <legend>Kontrol Numerik</legend>
-      
-      <div class="input-group">
-        <div>
-          <label for="age">Umur:</label>
-          <input type="number" id="age" name="age" min="17" max="100" value="25">
-        </div>
-        
-        <div>
-          <label for="rating">Rating (1-10):</label>
-          <input type="range" id="rating" name="rating" min="1" max="10" value="7">
-        </div>
-      </div>
-    </fieldset>
-    
-    <!-- Date/Time Inputs -->
-    <fieldset>
-      <legend>Informasi Waktu</legend>
-      
-      <div class="form-group">
-        <label for="birthdate">Tanggal Lahir:</label>
-        <input type="date" id="birthdate" name="birthdate" min="1900-01-01" max="2024-12-31">
-      </div>
-      
-      <div class="form-group">
-        <label for="appointment">Waktu Janji Temu:</label>
-        <input type="time" id="appointment" name="appointment" min="09:00" max="17:00">
-      </div>
-    </fieldset>
-    
-    <!-- Color Picker -->
-    <fieldset>
-      <legend>Preferensi Warna</legend>
-      
-      <div class="form-group">
-        <label for="themeColor">Warna Tema:</label>
-        <input type="color" id="themeColor" name="themeColor" value="#4CAF50">
-      </div>
-    </fieldset>
-    
-    <!-- File Upload -->
-    <fieldset>
-      <legend>Upload Dokumen</legend>
-      
-      <div class="form-group">
-        <label for="avatar">Avatar:</label>
-        <input type="file" id="avatar" name="avatar" accept="image/*">
-      </div>
-      
-      <div class="form-group">
-        <label for="documents">Dokumen:</label>
-        <input type="file" id="documents" name="documents[]" accept=".pdf,.doc,.docx" multiple>
-      </div>
-    </fieldset>
-    
-    <div class="form-group">
-      <button type="submit" class="btn">Simpan Data</button>
-    </div>
-  </form>
+  <header>
+    <h1>TechBlog Indonesia</h1>
+  </header>
+  <nav>
+    <ul>
+      <li><a href="#beranda">Beranda</a></li>
+      <li><a href="#tutorial">Tutorial</a></li>
+      <li><a href="#review">Review</a></li>
+      <li><a href="#tentang">Tentang</a></li>
+    </ul>
+  </nav>
+  <main>
+    <article id="beranda">
+      <header><h2>Artikel Terbaru: HTML5 Semantic Elements</h2></header>
+      <section>
+        <h3>Pengenalan Semantic HTML5</h3>
+        <p>HTML5 membawa revolusi dalam cara kita menulis dan memahami struktur dokumen web.</p>
+      </section>
+    </article>
+    <aside>
+      <h3>Artikel Terkait</h3>
+      <ul><li><a href="#article2">CSS Grid vs Flexbox</a></li></ul>
+    </aside>
+  </main>
+  <footer>
+    <p>&copy; 2024 TechBlog Indonesia</p>
+  </footer>
 </body>
 </html>
 \end{lstlisting}
 
 \textbf{Hasil di Browser:}
-- Email dan URL input dengan validasi format otomatis
-- Numeric controls dengan range slider dan number spinner
-- Date/time inputs dengan native calendar picker
-- Color picker untuk pemilihan warna
-- File upload dengan multiple selection
+- Header dengan branding dan navigasi
+- Main content dengan featured article
+- Aside dengan related articles
+- Footer dengan copyright
+- Semantic structure yang jelas dan accessible

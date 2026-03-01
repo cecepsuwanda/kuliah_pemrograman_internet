@@ -1,3 +1,14 @@
-\section{Operasi CRUD Berbasis Web}
+\section{Pemrosesan Form dan OOP Dasar}
 
-CRUD (Create, Read, Update, Delete) adalah operasi dasar untuk data. Create: form POST mengirim data, server INSERT ke tabel. Read: GET request, server SELECT dan menampilkan data. Update: form POST dengan ID, server UPDATE. Delete: link atau tombol dengan konfirmasi, server DELETE \cite{php-manual}. Implementasi CRUD menghubungkan front-end (form, tabel) dengan back-end (script PHP yang menjalankan query) \cite{mysql}. Setiap operasi harus memvalidasi input dan menggunakan prepared statement \cite{php-manual}, \cite{php-right-way}.
+PHP memproses form dengan membaca \texttt{\$\_POST} atau \texttt{\$\_GET}, memvalidasi input, dan memproses data (simpan ke basis data, kirim email, dll.) \cite{php-manual}. Selalu gunakan \texttt{htmlspecialchars()} atau escape saat menampilkan data pengguna untuk mencegah XSS \cite{php-right-way}.
+
+PHP mendukung pemrograman berorientasi objek (OOP): class, object, property, method, constructor, visibility (\texttt{public}, \texttt{protected}, \texttt{private}) \cite{php-manual}. OOP membantu mengorganisasi kode aplikasi yang besar; misalnya class untuk koneksi database atau model data \cite{php-right-way}.
+
+\begin{lstlisting}[caption={Contoh PHP memproses form}, basicstyle=\ttfamily\small, frame=single]
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $nama = htmlspecialchars(trim($_POST['nama'] ?? ''));
+  if ($nama !== '') echo "Halo, " . $nama;
+}
+?>
+\end{lstlisting}

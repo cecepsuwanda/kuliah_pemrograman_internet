@@ -2,30 +2,28 @@
 \ifSubfilesClassLoaded{\setcounter{chapter}{12}}{}
 \begin{document}
 
-\chapter{Keamanan Web}
+\chapter{Pengujian dan Evaluasi Performa Aplikasi Web}
 
 \begin{subcpmk}
-  \item Sub-CPMK 4.2: Validasi input, XSS, CSRF, sanitasi, HTTPS
+  \item Sub-CPMK 4.1: Melakukan pengujian (testing) dan evaluasi performa aplikasi web
 \end{subcpmk}
 
 \input{bab-13/section-13-1}
 \input{bab-13/section-13-2}
 
 \begin{aktivitas}
-  \item Terapkan escape output pada aplikasi Anda.
-  \item Implementasikan token CSRF pada form.
-  \item Pelajari praktik keamanan web di PHP The Right Way dan PHP Manual.
+  \item Jalankan Lighthouse (Chrome DevTools) pada satu halaman web dan catat skor performa serta rekomendasi.
+  \item Uji aplikasi Anda di beberapa browser (Chrome, Firefox, Edge) dan catat perbedaan perilaku.
 \end{aktivitas}
 
 \begin{checklist}
-  \item Memahami validasi dan sanitasi
-  \item Memahami XSS dan pencegahannya
-  \item Memahami CSRF dan pencegahannya
-  \item Mengetahui pentingnya HTTPS
+  \item Memahami jenis pengujian (fungsional, kompatibilitas, performa)
+  \item Dapat menggunakan alat pengujian dasar (DevTools, PageSpeed)
+  \item Memahami metrik performa (FCP, LCP, load time)
 \end{checklist}
 
 \begin{rangkuman}
-Keamanan web meliputi validasi input, sanitasi, pencegahan XSS dan CSRF, serta penggunaan HTTPS. Referensi praktis tersedia di PHP Manual dan PHP The Right Way \cite{php-manual}, \cite{php-right-way}.
+Pengujian dan evaluasi performa memastikan aplikasi web berfungsi dengan baik dan dapat diakses dengan cepat. Gunakan alat standar dan praktik baik \cite{mdn-learn}, \cite{webdev}.
 \end{rangkuman}
 
 \ifSubfilesClassLoaded{

@@ -2,28 +2,28 @@
 \ifSubfilesClassLoaded{\setcounter{chapter}{9}}{}
 \begin{document}
 
-\chapter{Integrasi Basis Data dan CRUD}
+\chapter{PHP: Pengenalan, Pemrosesan Form, OOP Dasar}
 
 \begin{subcpmk}
-  \item Sub-CPMK 3.1, 3.2: Koneksi basis data; operasi CRUD berbasis web
+  \item Sub-CPMK 3.1: Mengimplementasikan logika server-side dengan PHP (pemrosesan form, struktur dasar, OOP)
 \end{subcpmk}
 
 \input{bab-10/section-10-1}
 \input{bab-10/section-10-2}
 
 \begin{aktivitas}
-  \item Buat tabel di MySQL dan koneksi dari PHP (melalui XAMPP).
-  \item Implementasikan CRUD lengkap untuk satu entitas (mis. daftar tugas).
+  \item Setup environment PHP lokal menggunakan XAMPP.
+  \item Buat form HTML dan proses data POST dengan PHP; tampilkan hasil dengan escape yang aman.
 \end{aktivitas}
 
 \begin{checklist}
-  \item Dapat menghubungkan aplikasi ke basis data
-  \item Dapat menjalankan query dengan aman (prepared statement)
-  \item Dapat mengimplementasikan CRUD
+  \item Memahami peran server-side dan alur request-response
+  \item Dapat memproses form (GET/POST) dengan PHP
+  \item Mengenal dasar OOP dalam PHP
 \end{checklist}
 
 \begin{rangkuman}
-Integrasi basis data memungkinkan aplikasi web menyimpan dan mengelola data. CRUD adalah operasi dasar; keamanan (prepared statement, validasi) wajib diperhatikan \cite{owasp-sql}.
+PHP menangani logika server-side, pemrosesan form, dan dapat diorganisasi dengan OOP. Praktik keamanan (validasi, escape output) wajib diperhatikan \cite{php-manual}, \cite{php-right-way}.
 \end{rangkuman}
 
 \ifSubfilesClassLoaded{

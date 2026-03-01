@@ -13,6 +13,8 @@
 
 \begin{document}
 
+\setlength{\emergencystretch}{2.5em}
+
 \begin{center}
 \textbf{\Large RENCANA PEMBELAJARAN SEMESTER (RPS)}\\
 \textbf{Berbasis Outcome-Based Education (OBE)}\\[0.5cm]
@@ -29,7 +31,7 @@
 \section*{1. Identitas Mata Kuliah}
 \begin{tabular}{ll}
 Nama Program Studi & : Teknik Informatika \\
-Nama Mata Kuliah & : Pemrograman Internet \\
+Nama Mata Kuliah & : Pemrograman Web \\
 Kode Mata Kuliah & : \lbrack Diisi oleh Program Studi\rbrack \\
 Semester & : \lbrack Diisi sesuai kurikulum\rbrack \\
 SKS / Bobot Kredit & : 2 SKS \\
@@ -46,16 +48,12 @@ Tanggal Penyusunan & : \lbrack Tanggal\rbrack \\
 % ============================================================
 \section*{2. Capaian Pembelajaran Lulusan (CPL)}
 
-CPL yang dibebankan pada mata kuliah ini mencakup kompetensi lulusan dalam aspek pengetahuan, keterampilan, dan sikap:
+CPL yang dibebankan pada mata kuliah ini:
 
 \begin{itemize}[leftmargin=*]
-  \item \textbf{CPL-1 (Pengetahuan):} Menguasai konsep teoretis arsitektur web, protokol HTTP, pemrograman client-side (HTML, CSS, JavaScript) dan server-side (PHP, MySQL) secara mendalam, serta mampu memformulasikan penyelesaian masalah dalam pengembangan aplikasi berbasis web.
+  \item \textbf{CPL04:} Kemampuan mendesain, mengimplementasi dan mengevaluasi solusi berbasis computing yang memenuhi kebutuhan-kebutuhan computing pada sebuah disiplin program.
   
-  \item \textbf{CPL-2 (Keterampilan Umum):} Mampu menerapkan pemikiran logis, kritis, sistematis, dan inovatif dalam konteks pengembangan aplikasi internet yang memperhatikan dan menerapkan nilai humaniora.
-  
-  \item \textbf{CPL-3 (Keterampilan Khusus):} Mampu merancang, mengimplementasikan, dan mengevaluasi aplikasi web dengan memanfaatkan teknologi HTML, CSS, JavaScript, PHP, MySQL serta prinsip keamanan dasar.
-  
-  \item \textbf{CPL-4 (Sikap):} Menunjukkan sikap bertanggung jawab atas pekerjaan di bidang keahliannya secara mandiri dan mampu bekerja sama dalam tim.
+  \item \textbf{CPL05:} Mengidentifikasi dan menganalisis kebutuhan-kebutuhan pengguna dan mempertimbangkannya dalam memilih, membuat, mengintegrasi, mengevaluasi, dan mengadministrasi sistem berbasis computing.
 \end{itemize}
 
 \vspace{0.5cm}
@@ -68,13 +66,13 @@ CPL yang dibebankan pada mata kuliah ini mencakup kompetensi lulusan dalam aspek
 Kemampuan atau kompetensi spesifik yang diharapkan mahasiswa kuasai setelah menyelesaikan mata kuliah:
 
 \begin{itemize}[leftmargin=*]
-  \item \textbf{CPMK-1:} Mahasiswa mampu memahami dan menjelaskan arsitektur web, protokol HTTP, serta peran pemrograman client-side dan server-side dalam aplikasi internet.
+  \item \textbf{CPMK-1:} Mahasiswa mampu mengidentifikasi kebutuhan fungsional dan non-fungsional pengguna untuk merancang solusi web yang intuitif melalui pembuatan wireframe dan mockup (UI/UX) yang mempertimbangkan aspek aksesibilitas dan pengalaman pengguna.
   
-  \item \textbf{CPMK-2:} Mahasiswa mampu merancang dan membangun antarmuka web dengan HTML, CSS, dan JavaScript yang responsif dan memenuhi prinsip aksesibilitas dasar.
+  \item \textbf{CPMK-2:} Mahasiswa mampu mendesain dan mengimplementasikan antarmuka web yang responsif dan dinamis menggunakan teknologi standar (seperti HTML5, CSS3, dan JavaScript) serta framework modern untuk memenuhi spesifikasi perangkat pengguna yang beragam.
   
-  \item \textbf{CPMK-3:} Mahasiswa mampu mengimplementasikan logika server-side (PHP) dan integrasi basis data (MySQL) serta menghubungkannya dengan front-end.
+  \item \textbf{CPMK-3:} Mahasiswa mampu membangun arsitektur sisi server (back-end), mengelola basis data, dan mengintegrasikan API (Application Programming Interface) untuk menciptakan sistem berbasis computing yang fungsional dan aman sesuai dengan disiplin program.
   
-  \item \textbf{CPMK-4:} Mahasiswa mampu menerapkan prinsip keamanan web (validasi input, prepared statement, session) dalam aplikasi berbasis web.
+  \item \textbf{CPMK-4:} Mahasiswa mampu melakukan pengujian (testing), mengevaluasi keamanan serta performa aplikasi web, dan melakukan proses deployment ke server produksi (administrasi sistem) untuk memastikan aplikasi dapat diakses secara optimal oleh publik.
 \end{itemize}
 
 \vspace{0.5cm}
@@ -87,15 +85,19 @@ Kemampuan atau kompetensi spesifik yang diharapkan mahasiswa kuasai setelah meny
 Penjabaran CPMK menjadi indikator yang lebih terukur dan dapat diuji:
 
 \begin{itemize}[leftmargin=*]
-  \item \textbf{Sub-CPMK 1.1:} Menjelaskan arsitektur client-server dan alur komunikasi HTTP request-response
-  \item \textbf{Sub-CPMK 1.2:} Membedakan peran dan teknologi client-side (browser) dan server-side
-  \item \textbf{Sub-CPMK 2.1:} Membuat halaman web dengan HTML5 (struktur, form, semantic elements)
-  \item \textbf{Sub-CPMK 2.2:} Menerapkan CSS3 untuk layout (Flexbox/Grid) dan desain responsif
-  \item \textbf{Sub-CPMK 2.3:} Menggunakan JavaScript untuk manipulasi DOM, event handling, dan validasi form
-  \item \textbf{Sub-CPMK 3.1:} Mengimplementasikan script PHP untuk pemrosesan form dan koneksi basis data MySQL
-  \item \textbf{Sub-CPMK 3.2:} Membuat operasi CRUD berbasis web dengan integrasi PHP dan MySQL
-  \item \textbf{Sub-CPMK 4.1:} Menerapkan validasi input dan session dalam aplikasi web
-  \item \textbf{Sub-CPMK 4.2:} Menerapkan prepared statement, sanitasi, dan prinsip keamanan web dasar (XSS, CSRF)
+  \item \textbf{Sub-CPMK 1.1:} Mengidentifikasi kebutuhan fungsional dan non-fungsional pengguna untuk solusi web
+  \item \textbf{Sub-CPMK 1.2:} Membuat wireframe dan mockup antarmuka web yang mendukung alur pengguna (user flow)
+  \item \textbf{Sub-CPMK 1.3:} Menerapkan prinsip aksesibilitas (a11y) dan pengalaman pengguna (UX) dalam desain antarmuka
+  \item \textbf{Sub-CPMK 2.1:} Membuat halaman web dengan HTML5 (struktur, elemen semantik, form, media)
+  \item \textbf{Sub-CPMK 2.2:} Menerapkan CSS3 untuk styling, layout (Flexbox/Grid), dan desain responsif
+  \item \textbf{Sub-CPMK 2.3:} Mengimplementasikan interaktivitas dengan JavaScript (DOM, event handling, validasi form)
+  \item \textbf{Sub-CPMK 2.4:} Menggunakan library atau framework front-end (mis.\ Bootstrap, jQuery, atau Vue/React) untuk antarmuka dinamis
+  \item \textbf{Sub-CPMK 3.1:} Mengimplementasikan logika server-side dengan PHP (pemrosesan form, struktur dasar, OOP)
+  \item \textbf{Sub-CPMK 3.2:} Mengelola basis data dan mengimplementasikan operasi CRUD dengan MySQL serta koneksi dari PHP
+  \item \textbf{Sub-CPMK 3.3:} Mengintegrasikan API dan menghubungkan front-end dengan back-end (request/response, data terstruktur)
+  \item \textbf{Sub-CPMK 4.1:} Melakukan pengujian (testing) dan evaluasi performa aplikasi web
+  \item \textbf{Sub-CPMK 4.2:} Menerapkan prinsip keamanan web: validasi input, prepared statement, session, mitigasi XSS dan CSRF
+  \item \textbf{Sub-CPMK 4.3:} Melakukan deployment ke lingkungan produksi dan administrasi dasar (server/web, basis data)
 \end{itemize}
 
 \vspace{0.5cm}
@@ -105,24 +107,24 @@ Penjabaran CPMK menjadi indikator yang lebih terukur dan dapat diuji:
 % ============================================================
 \section*{5. Materi Pembelajaran (Bahan Kajian)}
 
-Daftar topik materi yang relevan dengan Sub-CPMK dan CPMK. \textbf{Fokus teknologi:} HTML, CSS, JavaScript, MySQL, PHP. \textbf{Alat yang digunakan:} XAMPP, VS Code (dengan addon untuk HTML/CSS/JS/PHP), GitHub Copilot.
+Daftar topik materi yang relevan dengan Sub-CPMK dan CPMK. \textbf{Fokus teknologi:} HTML5, CSS3, JavaScript, PHP, MySQL. \textbf{Alat yang digunakan:} XAMPP, VS Code (dengan addon untuk HTML/CSS/JS/PHP).
 
 \begin{enumerate}[leftmargin=*]
-  \item Pengenalan pemrograman internet, arsitektur client-server, alat (XAMPP, VS Code)
-  \item Protokol HTTP dan interaksi browser--server
+  \item Pengenalan pemrograman web, analisis kebutuhan (fungsional \& non-fungsional)
+  \item Wireframe, mockup, prinsip aksesibilitas dan UX
   \item HTML5: struktur dokumen, elemen semantik, link, gambar, tabel
-  \item HTML5: form dan elemen input
-  \item CSS3: selector, box model, warna, typography
+  \item HTML5: form dan media
+  \item CSS3: selector, box model, layout dasar
   \item CSS3: Flexbox, Grid, desain responsif
-  \item JavaScript: sintaks, tipe data, kontrol alur, fungsi
-  \item JavaScript: DOM, event handling, validasi form
-  \item UTS / Review materi pertemuan 1--8
-  \item PHP: pengenalan, environment XAMPP, request-response
-  \item PHP + MySQL: koneksi, query, CRUD
-  \item Session, cookie, autentikasi dasar
-  \item Pembuatan aplikasi web integratif (HTML/CSS/JS/PHP/MySQL)
-  \item Keamanan web: validasi input, prepared statement, sanitasi
-  \item Proyek kelompok: aplikasi web CRUD
+  \item JavaScript: sintaks, DOM, event handling
+  \item JavaScript: validasi form; pengenalan library/framework (Bootstrap/jQuery)
+  \item UTS / Review pertemuan 1--8
+  \item PHP: pengenalan, pemrosesan form, OOP dasar
+  \item MySQL: koneksi dari PHP, operasi CRUD
+  \item Integrasi API, koneksi front-end dan back-end
+  \item Pengujian dan evaluasi performa aplikasi web
+  \item Keamanan web: validasi input, prepared statement, session, XSS, CSRF
+  \item Deployment dan administrasi dasar; proyek kelompok
   \item Presentasi proyek, review semester, UAS
 \end{enumerate}
 
@@ -142,35 +144,35 @@ Daftar topik materi yang relevan dengan Sub-CPMK dan CPMK. \textbf{Fokus teknolo
 \endhead
 \hline
 \endfoot
-1 & Pengenalan pemrograman internet, arsitektur web, alat (XAMPP, VS Code) & 1.1, 1.2 & Ceramah, praktikum \\
+1 & Pengenalan pemrograman web, analisis kebutuhan (fungsional \& non-fungsional) & 1.1 & Ceramah, diskusi \\
 \hline
-2 & Protokol HTTP, interaksi browser--server & 1.1, 1.2 & Ceramah, praktikum \\
+2 & Wireframe, mockup, prinsip aksesibilitas dan UX & 1.2, 1.3 & Ceramah, praktikum \\
 \hline
 3 & HTML5: struktur, elemen semantik, link, gambar, tabel & 2.1 & Praktikum, live coding \\
 \hline
-4 & HTML5: form dan elemen input & 2.1 & Praktikum, live coding \\
+4 & HTML5: form dan media & 2.1 & Praktikum, live coding \\
 \hline
-5 & CSS3: selector, box model, warna, typography & 2.2 & Praktikum \\
+5 & CSS3: selector, box model, layout dasar & 2.2 & Praktikum \\
 \hline
 6 & CSS3: Flexbox, Grid, desain responsif & 2.2 & Praktikum \\
 \hline
 7 & JavaScript: sintaks, DOM, event handling & 2.3 & Praktikum \\
 \hline
-8 & JavaScript: validasi form, integrasi HTML/CSS & 2.3 & Praktikum, kuis \\
+8 & JavaScript: validasi form; pengenalan library/framework (Bootstrap/jQuery) & 2.3, 2.4 & Praktikum, kuis \\
 \hline
-9 & UTS / Review materi pertemuan 1--8 & CPMK-1, CPMK-2 & Ujian, diskusi \\
+9 & UTS / Review pertemuan 1--8 & CPMK-1, CPMK-2 & Ujian, diskusi \\
 \hline
-10 & PHP: pengenalan, environment XAMPP, request-response & 3.1 & Ceramah, praktikum \\
+10 & PHP: pengenalan, pemrosesan form, OOP dasar & 3.1 & Ceramah, praktikum \\
 \hline
-11 & PHP + MySQL: koneksi, query, CRUD & 3.1, 3.2 & Praktikum \\
+11 & MySQL: koneksi dari PHP, operasi CRUD & 3.2 & Praktikum \\
 \hline
-12 & Session, cookie, autentikasi dasar & 4.1 & Praktikum \\
+12 & Integrasi API, koneksi front-end dan back-end & 3.3 & Praktikum \\
 \hline
-13 & Integrasi web (HTML, CSS, JS, PHP, MySQL) & 3.2, 4.1 & Praktikum \\
+13 & Pengujian dan evaluasi performa aplikasi web & 4.1 & Ceramah, praktikum \\
 \hline
-14 & Keamanan web: validasi, prepared statement, sanitasi & 4.2 & Ceramah, praktikum \\
+14 & Keamanan web: validasi input, prepared statement, session, XSS, CSRF & 4.2 & Ceramah, praktikum \\
 \hline
-15 & Proyek kelompok: aplikasi web CRUD & 3.2, 4.1, 4.2 & Project-based \\
+15 & Deployment dan administrasi dasar; proyek kelompok & 4.3 & Project-based \\
 \hline
 16 & Presentasi proyek, review semester, UAS & Semua CPMK & Presentasi, ujian \\
 \hline
@@ -187,13 +189,13 @@ Daftar topik materi yang relevan dengan Sub-CPMK dan CPMK. \textbf{Fokus teknolo
 Strategi atau pendekatan pembelajaran yang dipilih sesuai OBE dengan komposisi 70\% praktek dan 30\% teori:
 
 \begin{itemize}[leftmargin=*]
-  \item \textbf{Ceramah Interaktif (30\% teori):} Penjelasan konsep arsitektur web, HTTP, dan keamanan dengan diskusi tanya jawab
-  \item \textbf{Praktikum Terbimbing (70\% praktek):} Latihan HTML/CSS/JavaScript, PHP, MySQL dengan XAMPP dan VS Code
-  \item \textbf{Live Coding dan Demonstrasi:} Memperagakan pembuatan halaman web, form, koneksi database dengan alat XAMPP dan VS Code
-  \item \textbf{Problem-Based Learning (PBL):} Mahasiswa menyelesaikan permasalahan nyata (membuat situs, CRUD) menggunakan teknologi HTML, CSS, JS, PHP, MySQL
-  \item \textbf{Project-Based Learning:} Pengembangan aplikasi web mini sebagai proyek kelompok
+  \item \textbf{Ceramah Interaktif (30\% teori):} Penjelasan analisis kebutuhan pengguna, wireframe/mockup, prinsip aksesibilitas dan UX, arsitektur web, serta keamanan dengan diskusi tanya jawab
+  \item \textbf{Praktikum Terbimbing (70\% praktek):} Latihan HTML5/CSS3/JavaScript, PHP, MySQL dengan XAMPP dan VS Code
+  \item \textbf{Live Coding dan Demonstrasi:} Memperagakan pembuatan wireframe, halaman web, form, koneksi database, integrasi front--back-end dengan alat XAMPP dan VS Code
+  \item \textbf{Problem-Based Learning (PBL):} Mahasiswa menyelesaikan permasalahan nyata (analisis kebutuhan, membuat situs, CRUD, integrasi API) menggunakan teknologi HTML5, CSS3, JS, PHP, MySQL
+  \item \textbf{Project-Based Learning:} Pengembangan aplikasi web mini sebagai proyek kelompok (termasuk pengujian, keamanan, deployment)
   \item \textbf{Peer Review:} Mahasiswa melakukan review kode atau tampilan web terhadap pekerjaan rekan
-  \item \textbf{Penggunaan GitHub Copilot:} Alat bantu coding (dengan etika akademik dan panduan kejujuran)
+  \item \textbf{Penggunaan alat bantu:} VS Code, XAMPP; opsional: GitHub Copilot (dengan etika akademik dan panduan kejujuran)
 \end{itemize}
 
 \vspace{0.5cm}
@@ -206,14 +208,15 @@ Strategi atau pendekatan pembelajaran yang dipilih sesuai OBE dengan komposisi 7
 Deskripsi tugas, aktivitas, atau pengalaman belajar yang mendukung pencapaian Sub-CPMK:
 
 \begin{itemize}[leftmargin=*]
-  \item Membuat halaman web statis (HTML, CSS, JavaScript) dengan VS Code
-  \item Merancang dan mengimplementasikan antarmuka web (landing page, form registrasi/login) dengan VS Code
-  \item Praktik koneksi PHP--MySQL dengan XAMPP
-  \item Membangun modul CRUD berbasis web dengan integrasi PHP dan MySQL
-  \item Menerapkan validasi input, session, dan prinsip keamanan (prepared statement, sanitasi) dalam tugas atau proyek
-  \item Berkolaborasi dalam tim untuk mengembangkan proyek aplikasi web
-  \item Mempresentasikan hasil proyek atau melakukan peer review terhadap kode/tampilan web rekan
-  \item Menggunakan GitHub Copilot untuk asistensi coding (sesuai panduan kejujuran akademik)
+  \item Mengidentifikasi kebutuhan fungsional dan non-fungsional pengguna; membuat wireframe dan mockup; menerapkan prinsip aksesibilitas dan UX dalam desain antarmuka
+  \item Membuat halaman web dengan HTML5 (struktur, elemen semantik, form, media) menggunakan VS Code
+  \item Menerapkan CSS3 untuk styling, layout (Flexbox/Grid), dan desain responsif
+  \item Mengimplementasikan interaktivitas dengan JavaScript (DOM, event handling, validasi form); menggunakan library/framework (Bootstrap, jQuery, atau lainnya) untuk antarmuka dinamis
+  \item Mengimplementasikan logika server-side dengan PHP (pemrosesan form, OOP); mengelola basis data dan operasi CRUD dengan MySQL serta koneksi dari PHP
+  \item Mengintegrasikan API serta koneksi front-end dan back-end (request/response, data terstruktur)
+  \item Melakukan pengujian dan evaluasi performa aplikasi web; menerapkan prinsip keamanan web (validasi input, prepared statement, session, mitigasi XSS dan CSRF)
+  \item Melakukan deployment ke lingkungan produksi dan administrasi dasar (server/web, basis data)
+  \item Berkolaborasi dalam tim untuk mengembangkan proyek aplikasi web; mempresentasikan hasil proyek atau melakukan peer review terhadap kode/tampilan web rekan
 \end{itemize}
 
 \vspace{0.5cm}
@@ -237,15 +240,15 @@ Teknik/alat asesmen dipetakan ke Sub-CPMK/CPMK dengan bobot yang jelas (sesuai k
 \hline
 \endfoot
 
-Tugas Individu & Tugas coding web (HTML/CSS/JS, form, layout) & Sub-CPMK 2.1, 2.2, 2.3 & 15 \\
+Tugas Individu & Tugas coding web (wireframe/mockup, HTML/CSS/JS, form, layout) & Sub-CPMK 1.2, 1.3, 2.1, 2.2, 2.3 & 15 \\
 \hline
-Kuis & Multiple Choice \& Essay & Sub-CPMK 1.1, 1.2, 2.1, 2.2 & 10 \\
+Kuis & Multiple Choice \& Essay & Sub-CPMK 1.1, 2.1, 2.2 & 10 \\
 \hline
-Praktikum & Lab exercise (PHP, MySQL, CRUD) & Sub-CPMK 3.1, 3.2, 4.1, 4.2 & 20 \\
+Praktikum & Lab exercise (PHP, MySQL, CRUD, API, keamanan) & Sub-CPMK 2.4, 3.1, 3.2, 3.3, 4.1, 4.2 & 20 \\
 \hline
 UTS & Written exam \& praktik coding & CPMK-1, CPMK-2 & 20 \\
 \hline
-Proyek Kelompok & Aplikasi web (front-end + back-end) & CPMK-2, CPMK-3, CPMK-4 & 20 \\
+Proyek Kelompok & Aplikasi web (front-end + back-end + testing/deployment) & CPMK-2, CPMK-3, CPMK-4 & 20 \\
 \hline
 UAS & Ujian komprehensif & CPMK-1, CPMK-2, CPMK-3, CPMK-4 & 15 \\
 \hline
@@ -273,8 +276,8 @@ Penilaian sumatif/formatif untuk memantau ketercapaian outcome secara menyeluruh
 
 \begin{itemize}[leftmargin=*]
   \item \textbf{Evaluasi Formatif:} Kuis, latihan coding web (HTML/CSS/JS/PHP/MySQL), dan peer review untuk memberikan feedback berkelanjutan
-  \item \textbf{Evaluasi Sumatif:} UTS dan UAS untuk mengukur pencapaian CPMK Pemrograman Internet secara komprehensif
-  \item \textbf{Refleksi Mahasiswa:} Jurnal belajar atau refleksi singkat terhadap pemahaman materi (arsitektur web, HTML, CSS, JavaScript, PHP, MySQL, keamanan)
+  \item \textbf{Evaluasi Sumatif:} UTS dan UAS untuk mengukur pencapaian CPMK Pemrograman Web (CPMK-1 s/d CPMK-4) secara komprehensif
+  \item \textbf{Refleksi Mahasiswa:} Jurnal belajar atau refleksi singkat terhadap pemahaman materi (analisis kebutuhan \& UI/UX, HTML5, CSS3, JavaScript, PHP, MySQL, integrasi API, keamanan, deployment)
   \item \textbf{Evaluasi Dosen:} Survey kepuasan mahasiswa di tengah dan akhir semester
   \item \textbf{Continuous Improvement:} Analisis hasil penilaian untuk perbaikan RPS di semester berikutnya
 \end{itemize}

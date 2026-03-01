@@ -1,0 +1,152 @@
+\section{Validasi Form HTML5 Lanjutan dan Keamanan}
+
+Validasi form merupakan aspek krusial dalam pengembangan aplikasi web yang aman dan user-friendly. HTML5 menyediakan berbagai mekanisme validasi bawaan, namun perlu dikombinasikan dengan validasi server-side untuk keamanan maksimal \cite{mdn-form-validation}.
+
+\subsection{Atribut Validasi HTML5}
+
+HTML5 memperkenalkan atribut-atribut validasi yang bekerja di browser sebelum form dikirim:
+
+\begin{itemize}
+  \item \texttt{required}: Field wajib diisi
+  \item \texttt{pattern}: Regex pattern untuk validasi format
+  \item \texttt{minlength} dan \texttt{maxlength}: Panjang minimum dan maksimum teks
+  \item \texttt{min} dan \texttt{max}: Rentang nilai untuk tipe numerik
+  \item \texttt{step}: Interval nilai yang diperbolehkan
+\end{itemize}
+
+\begin{lstlisting}[caption={Contoh Validasi dengan Pattern}, basicstyle=\ttfamily\small, frame=single]
+<form>
+  <!-- Validasi username: alphanumeric, 3-20 karakter -->
+  <label for="username">Username:</label>
+  <input type="text" id="username" name="username" 
+         pattern="[a-zA-Z0-9]{3,20}" 
+         title="Username harus 3-20 karakter alphanumeric"
+         required>
+  
+  <!-- Validasi password: minimal 8 karakter, ada huruf dan angka -->
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="password" 
+         pattern="(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}"
+         title="Password minimal 8 karakter, mengandung huruf dan angka"
+         required>
+  
+  <!-- Validasi kode pos Indonesia -->
+  <label for="kodepos">Kode Pos:</label>
+  <input type="text" id="kodepos" name="kodepos" 
+         pattern="[0-9]{5}" 
+         title="Kode pos harus 5 digit angka"
+         required>
+</form>
+\end{lstlisting}
+
+\subsection{Pseudo-classes CSS untuk Validasi}
+
+CSS menyediakan pseudo-classes untuk styling form berdasarkan status validasi:
+
+\begin{lstlisting}[caption={Styling Form dengan CSS Validasi}, basicstyle=\ttfamily\small, frame=single]
+/* Style untuk input valid */
+input:valid {
+  border-color: green;
+  background-color: #f0fff0;
+}
+
+/* Style untuk input invalid */
+input:invalid {
+  border-color: red;
+  background-color: #fff0f0;
+}
+
+/* Style untuk input yang sedang difokuskan */
+input:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Style untuk input wajib */
+input:required {
+  border-left: 3px solid orange;
+}
+\end{lstlisting}
+
+\subsection{JavaScript API untuk Validasi}
+
+HTML5 menyediakan Constraint Validation API yang memungkinkan validasi kustom menggunakan JavaScript:
+
+\begin{lstlisting}[caption={Validasi dengan JavaScript}, basicstyle=\ttfamily\small, frame=single]
+<script>
+const form = document.querySelector('form');
+const email = document.getElementById('email');
+
+// Custom validation message
+email.addEventListener('input', function() {
+  if (email.validity.typeMismatch) {
+    email.setCustomValidity('Masukkan alamat email yang valid!');
+  } else {
+    email.setCustomValidity('');
+  }
+});
+
+// Validasi saat submit
+form.addEventListener('submit', function(event) {
+  if (!form.checkValidity()) {
+    event.preventDefault();
+    // Tampilkan error message
+    alert('Mohon perbaiki input yang salah!');
+  }
+});
+</script>
+\end{lstlisting}
+
+\subsection{Praktik Keamanan Validasi}
+
+Validasi client-side hanya untuk UX yang lebih baik. Validasi server-side WAJIB untuk keamanan:
+
+\begin{enumerate}
+  \item \textbf{Jangan percaya input client}: Data dapat dimanipulasi menggunakan browser developer tools
+  
+  \item \textbf{Sanitasi semua input}: Bersihkan input dari karakter berbahaya sebelum diproses
+  
+  \item \textbf{Gunakan parameterized queries}: Hindari SQL injection dengan prepared statements
+  
+  \item \textbf{Validasi tipe data}: Pastikan data sesuai tipe yang diharapkan (integer, string, date)
+  
+  \item \textbf{Batasi ukuran file}: Untuk upload, batasi ukuran dan tipe file yang diperbolehkan
+\end{enumerate}
+
+\begin{lstlisting}[caption={Contoh Validasi Server-Side (PHP)}, basicstyle=\ttfamily\small, frame=single]
+<?php
+// Validasi dan sanitasi email
+$email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+if (!$email) {
+    die("Email tidak valid!");
+}
+
+// Validasi panjang password
+$password = $_POST['password'];
+if (strlen($password) < 8) {
+    die("Password minimal 8 karakter!");
+}
+
+// Sanitasi input string
+$nama = htmlspecialchars(trim($_POST['nama']), ENT_QUOTES, 'UTF-8');
+
+// Prepared statement untuk database
+$stmt = $pdo->prepare("INSERT INTO users (email, nama) VALUES (?, ?)");
+$stmt->execute([$email, $nama]);
+?>
+\end{lstlisting}
+
+\subsection{Error Handling dan User Feedback}
+
+Berikan feedback yang jelas kepada pengguna tentang error validasi:
+
+\begin{itemize}
+  \item Gunakan warna yang kontras untuk menandai field error
+  \item Tampilkan pesan error yang spesifik dan actionable
+  \item Hindari pesan error teknis yang membingungkan
+  \item Berikan contoh format yang benar (contoh: "Format: 081234567890")
+  \item Validasi real-time untuk UX yang lebih baik
+\end{itemize}
+
+Implementasi validasi yang komprehensif di sisi client dan server adalah kunci aplikasi web yang aman dan user-friendly \cite{owasp-validation}.
+

@@ -2,8 +2,8 @@
 chcp 65001 >nul
 setlocal
 
-set TEXFILE=silabus_pemrograman_internet.tex
-set BASENAME=silabus_pemrograman_internet
+set TEXFILE=silabus_pemrograman_web.tex
+set BASENAME=silabus_pemrograman_web
 
 echo [1/3] Kompilasi pertama...
 pdflatex -interaction=nonstopmode "%TEXFILE%" >nul 2>&1
