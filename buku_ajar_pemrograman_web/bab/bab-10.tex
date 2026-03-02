@@ -1,0 +1,52 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{9}}{}
+\begin{document}
+
+\chapter{PHP Dasar dan Pemrosesan Form}
+
+\begin{subcpmk}
+  \item Sub-CPMK 3.1: Mengimplementasikan logika server-side dengan PHP (pemrosesan form, struktur dasar, OOP).
+\end{subcpmk}
+
+\input{bab/bab-10/section-10-1}
+\input{bab/bab-10/section-10-2}
+
+\begin{aktivitas}
+  \item Buat halaman HTML dengan form sederhana.
+  \item Buat script PHP untuk membaca dan menampilkan input.
+  \item Tambahkan validasi agar input tidak kosong.
+\end{aktivitas}
+
+\begin{latihan}
+  \item Jelaskan perbedaan metode GET dan POST.
+  \item Tambahkan validasi sederhana untuk input nama.
+\end{latihan}
+
+\begin{asesmen}
+Asesmen berupa tugas membuat form dan pemrosesan data dengan PHP.
+\end{asesmen}
+
+\begin{checklist}
+  \item Saya dapat menulis sintaks dasar PHP.
+  \item Saya memahami cara membaca data form.
+  \item Saya mampu melakukan validasi server-side sederhana.
+\end{checklist}
+
+\begin{rangkuman}
+Bab ini memperkenalkan PHP sebagai bahasa server-side dan cara memproses form. Dengan PHP, Anda dapat membuat halaman web yang dinamis dan dapat mengolah input pengguna.
+
+\textbf{Poin Kunci:}
+\begin{itemize}
+  \item PHP berjalan di server dan menghasilkan output HTML.
+  \item Form diproses menggunakan \code{\$\_GET} dan \code{\$\_POST}.
+  \item Validasi server-side penting untuk keamanan data.
+\end{itemize}
+\end{rangkuman}
+
+\ifSubfilesClassLoaded{
+  \renewcommand{\bibname}{Daftar Pustaka}
+  \bibliographystyle{plain}
+  \bibliography{../references}
+}{}
+\end{document}
+

@@ -1,0 +1,14 @@
+\section{Flexbox untuk Tata Letak Sederhana}
+Flexbox memudahkan Anda menyusun elemen secara horizontal atau vertikal dengan aturan yang jelas. Properti seperti \code{display: flex}, \code{justify\allowbreak-content}, dan \code{align\allowbreak-items} membantu mengatur distribusi ruang. Dengan Flexbox, layout sederhana seperti navbar atau card list menjadi mudah dibuat \cite{mdnCss}.
+
+Flexbox cocok untuk susunan satu dimensi, misalnya deretan kartu atau menu navigasi. Anda dapat mengatur jarak dan perataan elemen tanpa menggunakan float. Ini membuat kode CSS lebih bersih dan mudah dipelihara.
+
+\begin{webcode}[language=CSS, caption={Contoh Flexbox Sederhana}]
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+\end{webcode}
+

@@ -1,0 +1,29 @@
+\section{Session, Cookie, dan Keamanan Dasar}
+Session digunakan untuk menyimpan informasi pengguna selama interaksi berlangsung. Cookie menyimpan data kecil di sisi client, misalnya preferensi tema. Penggunaan keduanya harus aman agar data tidak mudah disalahgunakan \cite{phpRightWay}.
+
+Keamanan dasar meliputi validasi input, sanitasi output, dan penggunaan prepared statement untuk mencegah SQL injection. Anda juga perlu memahami risiko XSS dan CSRF agar tidak membiarkan celah keamanan. Prinsip ini menjadi fondasi sebelum masuk ke topik keamanan lebih lanjut \cite{owaspXss}.
+
+\begin{webcode}[language=PHP, caption={Session Dasar di PHP}]
+<?php
+session_start();
+$_SESSION["username"] = "cecep";
+echo "Login sebagai " . $_SESSION["username"];
+?>
+\end{webcode}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{4cm}|P{7cm}|}
+\hline
+\textbf{Risiko} & \textbf{Mitigasi} \\
+\hline
+XSS & Escape output dengan \code{htmlspecialchars} \\
+\hline
+CSRF & Gunakan token pada form \cite{owaspCsrf} \\
+\hline
+SQL Injection & Gunakan prepared statement \\
+\hline
+\end{tabular}
+\caption{Risiko keamanan dan mitigasi dasar}
+\end{table}
+

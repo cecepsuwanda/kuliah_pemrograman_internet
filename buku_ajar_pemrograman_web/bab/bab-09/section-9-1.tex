@@ -1,0 +1,16 @@
+\section{Event Handling dan Validasi Form}
+Event handling memungkinkan program merespons aksi pengguna seperti klik, input, atau submit. Dengan event, Anda bisa melakukan validasi form sebelum data dikirim ke server. Validasi ini membantu menjaga kualitas data dan meningkatkan pengalaman pengguna \cite{mdnJsGuide}.
+
+Validasi sederhana bisa dilakukan dengan memeriksa apakah input kosong atau format email valid. Anda juga bisa menampilkan pesan kesalahan langsung di halaman. Praktik ini membuat pengguna memahami kesalahan tanpa harus memuat ulang halaman.
+
+\begin{webcode}[language=JavaScript, caption={Validasi Form Sederhana}]
+const form = document.querySelector("#form");
+form.addEventListener("submit", (e) => {
+  const email = document.querySelector("#email").value;
+  if (!email.includes("@")) {
+    e.preventDefault();
+    alert("Email tidak valid");
+  }
+});
+\end{webcode}
+

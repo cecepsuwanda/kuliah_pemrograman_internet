@@ -1,0 +1,21 @@
+\section{Wireframe, Mockup, User Flow, dan Aksesibilitas}
+Setelah kebutuhan jelas, Anda perlu memvisualisasikan alur pengguna melalui user flow dan wireframe. Wireframe adalah sketsa struktur halaman, sedangkan mockup adalah versi visual yang lebih detail. Langkah ini memudahkan komunikasi ide sebelum coding dimulai \cite{mdnAccessibility}.
+
+Aksesibilitas memastikan semua pengguna, termasuk yang memiliki keterbatasan, dapat menggunakan aplikasi dengan nyaman. Prinsip ini mencakup kontras warna, navigasi keyboard, dan penggunaan label yang jelas. Dengan memperhatikan aksesibilitas sejak awal, Anda membangun web yang lebih inklusif \cite{webdevAccessibility}.
+
+\begin{figure}[h]
+\centering
+\resizebox{0.9\textwidth}{!}{%
+\begin{tikzpicture}[node distance=1.6cm, transform shape]
+  \node (home) [class] {Beranda};
+  \node (login) [class, right=of home] {Login};
+  \node (dashboard) [class, right=of login] {Dashboard};
+  \node (form) [class, right=of dashboard] {Form Input};
+  \draw [arrow] (home) -- (login);
+  \draw [arrow] (login) -- (dashboard);
+  \draw [arrow] (dashboard) -- (form);
+\end{tikzpicture}%
+}
+\caption{Contoh alur pengguna sederhana}
+\end{figure}
+

@@ -1,0 +1,13 @@
+\section{CRUD dengan PHP dan MySQL}
+CRUD adalah singkatan dari Create, Read, Update, dan Delete. Operasi ini adalah inti dari hampir semua aplikasi berbasis data. Dengan PHP, Anda dapat menjalankan query CRUD menggunakan MySQLi atau PDO \cite{mysqlGettingStarted}.
+
+Praktik terbaik adalah menggunakan prepared statement agar aman dari SQL injection. Anda juga perlu memeriksa hasil query dan menampilkan pesan kesalahan jika ada masalah. Dengan demikian, aplikasi menjadi lebih stabil dan aman.
+
+\begin{webcode}[language=PHP, caption={Insert Data dengan Prepared Statement}]
+<?php
+$stmt = $conn->prepare("INSERT INTO pengguna (nama, email) VALUES (?, ?)");
+$stmt->bind_param("ss", $nama, $email);
+$stmt->execute();
+?>
+\end{webcode}
+

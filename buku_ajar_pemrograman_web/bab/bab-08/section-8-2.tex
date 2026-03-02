@@ -1,0 +1,10 @@
+\section{Pengenalan DOM dan Manipulasi Elemen}
+DOM (Document Object Model) adalah representasi struktur halaman yang bisa dimanipulasi menggunakan JavaScript. Dengan DOM, Anda dapat mengubah teks, menambah elemen, atau merespons aksi pengguna. Konsep ini membuat halaman web berubah tanpa perlu reload \cite{mdnJsGuide}.
+
+Misalnya, Anda bisa menampilkan pesan ketika tombol diklik atau mengganti warna teks berdasarkan input. Teknik ini sering digunakan untuk validasi form dan interaksi sederhana. Pemahaman DOM adalah kunci dalam pengembangan front-end modern.
+
+\begin{webcode}[language=JavaScript, caption={Mengubah Teks dengan DOM}]
+const judul = document.querySelector("#judul");
+judul.textContent = "Belajar DOM";
+\end{webcode}
+

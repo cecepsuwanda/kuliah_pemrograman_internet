@@ -1,0 +1,19 @@
+\section{Client, Server, dan Alat Pengembangan}
+Client adalah aplikasi yang meminta layanan, sementara server menyediakan layanan tersebut. Dalam konteks web, client umumnya adalah browser, dan server bisa berupa aplikasi PHP yang berjalan di Apache. Hubungan ini membentuk siklus request-response yang bisa Anda uji menggunakan alat pengembang di browser \cite{webdevLearn}.
+
+Alat pengembangan dasar meliputi editor kode, browser modern, serta server lokal seperti XAMPP. Anda juga membutuhkan struktur folder proyek yang rapi agar mudah melakukan debugging. Kombinasi alat ini memungkinkan Anda membangun web secara bertahap dan terukur.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[node distance=2cm]
+  \node (client) [class] {Client (Browser)};
+  \node (server) [class, right=of client] {Server (PHP)};
+  \node (db) [class, right=of server] {Database (MySQL)};
+  \draw [arrow] (client) -- (server);
+  \draw [arrow] (server) -- (db);
+  \draw [arrow] (db) -- (server);
+  \draw [arrow] (server) -- (client);
+\end{tikzpicture}
+\caption{Interaksi client, server, dan database}
+\end{figure}
+

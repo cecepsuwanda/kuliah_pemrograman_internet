@@ -1,7 +1,298 @@
 \documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[indonesian]{babel}
+\usepackage{geometry}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[hidelinks,breaklinks]{hyperref}
+\geometry{margin=2.5cm}
 
 \begin{document}
 
+\begin{center}
+\textbf{\Large RENCANA PEMBELAJARAN SEMESTER (RPS)}\\
+\textbf{Berbasis Outcome-Based Education (OBE)}\\[0.5cm]
+\textbf{PROGRAM STUDI TEKNIK INFORMATIKA}\\
+\textbf{FAKULTAS TEKNOLOGI INFORMASI}\\
+\textbf{UNIVERSITAS BALE BANDUNG}\\
+\end{center}
 
+\vspace{1cm}
+
+% ============================================================
+% 1. IDENTITAS MATA KULIAH
+% ============================================================
+\section*{1. Identitas Mata Kuliah}
+\begin{tabular}{ll}
+Nama Program Studi & : Teknik Informatika \\
+Nama Mata Kuliah & : Pemrograman Web \\
+Kode Mata Kuliah & : TIF-XXX \\
+Semester & : 3 (Tiga) \\
+SKS / Bobot Kredit & : 2 SKS \\
+Jumlah Pertemuan & : 16 pertemuan \\
+Komposisi Pembelajaran & : 70\% Praktik, 30\% Teori \\
+Dosen Pengampu & : TBD \\
+Tanggal Penyusunan & : 2 Maret 2026 \\
+\end{tabular}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 2. CAPAIAN PEMBELAJARAN LULUSAN (CPL)
+% ============================================================
+\section*{2. Capaian Pembelajaran Lulusan (CPL)}
+
+CPL yang dibebankan pada mata kuliah ini mencakup kompetensi lulusan dalam aspek pengetahuan, keterampilan, dan sikap:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{CPL-04:} Kemampuan mendesain, mengimplementasi dan mengevaluasi solusi berbasis computing yang memenuhi kebutuhan-kebutuhan computing pada sebuah disiplin program.
+  \item \textbf{CPL-05:} Mengidentifikasi dan menganalisis kebutuhan-kebutuhan pengguna dan mempertimbangkannya dalam memilih, membuat, mengintegrasi, mengevaluasi, dan mengadministrasi sistem berbasis computing.
+\end{itemize}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 3. CAPAIAN PEMBELAJARAN MATA KULIAH (CPMK)
+% ============================================================
+\section*{3. Capaian Pembelajaran Mata Kuliah (CPMK)}
+
+Kemampuan atau kompetensi spesifik yang diharapkan mahasiswa kuasai setelah menyelesaikan mata kuliah:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{CPMK-1 (Analisis Kebutuhan Pengguna dan Perancangan Antarmuka):} Mahasiswa mampu mengidentifikasi kebutuhan fungsional dan non-fungsional pengguna untuk merancang solusi web yang intuitif melalui pembuatan wireframe dan mockup (UI/UX) yang mempertimbangkan aspek aksesibilitas dan pengalaman pengguna.
+  \item \textbf{CPMK-2 (Implementasi Solusi Web Front-End):} Mahasiswa mampu mendesain dan mengimplementasikan antarmuka web yang responsif dan dinamis menggunakan teknologi standar (HTML5, CSS3, dan JavaScript) serta framework modern untuk memenuhi spesifikasi perangkat pengguna yang beragam.
+  \item \textbf{CPMK-3 (Pengembangan Sistem Back-End dan Integrasi Data):} Mahasiswa mampu membangun arsitektur sisi server (back-end), mengelola basis data, dan mengintegrasikan API untuk menciptakan sistem berbasis computing yang fungsional dan aman.
+  \item \textbf{CPMK-4 (Evaluasi, Deployment dan Administrasi Web):} Mahasiswa mampu melakukan pengujian, mengevaluasi keamanan serta performa aplikasi web, dan melakukan proses deployment ke server produksi untuk memastikan aplikasi dapat diakses secara optimal oleh publik.
+\end{itemize}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 4. SUB-CPMK / INDIKATOR PENCAPAIAN
+% ============================================================
+\section*{4. Sub-CPMK / Indikator Pencapaian}
+
+Penjabaran CPMK menjadi indikator yang lebih terukur dan dapat diuji:
+
+\textbf{Turunan CPMK-1}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Sub-CPMK 1.1:} Mengidentifikasi kebutuhan fungsional dan non-fungsional pengguna untuk solusi web.
+  \item \textbf{Sub-CPMK 1.2:} Membuat wireframe dan mockup antarmuka web yang mendukung alur pengguna (user flow).
+  \item \textbf{Sub-CPMK 1.3:} Menerapkan prinsip aksesibilitas (a11y) dan pengalaman pengguna (UX) dalam desain antarmuka.
+\end{itemize}
+
+\textbf{Turunan CPMK-2}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Sub-CPMK 2.1:} Membuat halaman web dengan HTML5 (struktur, elemen semantik, form, media).
+  \item \textbf{Sub-CPMK 2.2:} Menerapkan CSS3 untuk styling, layout (Flexbox/Grid), dan desain responsif.
+  \item \textbf{Sub-CPMK 2.3:} Mengimplementasikan interaktivitas dengan JavaScript (DOM, event handling, validasi form).
+  \item \textbf{Sub-CPMK 2.4:} Menggunakan library atau framework front-end untuk antarmuka dinamis.
+\end{itemize}
+
+\textbf{Turunan CPMK-3}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Sub-CPMK 3.1:} Mengimplementasikan logika server-side dengan PHP (pemrosesan form, struktur dasar, OOP).
+  \item \textbf{Sub-CPMK 3.2:} Mengelola basis data dan mengimplementasikan operasi CRUD dengan MySQL serta koneksi dari PHP.
+  \item \textbf{Sub-CPMK 3.3:} Mengintegrasikan API dan menghubungkan front-end dengan back-end (request/response, data terstruktur).
+\end{itemize}
+
+\textbf{Turunan CPMK-4}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Sub-CPMK 4.1:} Melakukan pengujian dan evaluasi performa aplikasi web.
+  \item \textbf{Sub-CPMK 4.2:} Menerapkan prinsip keamanan web: validasi input, prepared statement, session, mitigasi XSS dan CSRF.
+  \item \textbf{Sub-CPMK 4.3:} Melakukan deployment ke lingkungan produksi dan administrasi dasar (server/web, basis data).
+\end{itemize}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 5. MATERI PEMBELAJARAN (BAHAN KAJIAN)
+% ============================================================
+\section*{5. Materi Pembelajaran (Bahan Kajian)}
+
+Materi disusun dari sumber terbuka dan judul materi yang relevan, lalu dipetakan ke Sub-CPMK dalam 16 pertemuan.
+
+\textbf{Rencana Pembelajaran 16 Pertemuan}
+
+\begin{longtable}{|c|>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{6.2cm}|>{\raggedright\arraybackslash}p{2.2cm}|>{\raggedright\arraybackslash}p{2.2cm}|}
+\hline
+\textbf{Pertemuan} & \textbf{Sub-CPMK} & \textbf{Materi Pokok} & \textbf{Bentuk} & \textbf{Asesmen} \\
+\hline
+\endfirsthead
+\hline
+\textbf{Pertemuan} & \textbf{Sub-CPMK} & \textbf{Materi Pokok} & \textbf{Bentuk} & \textbf{Asesmen} \\
+\hline
+\endhead
+\hline
+\endfoot
+
+1 & Sub-CPMK 1.1 & Pengantar pemrograman web, arsitektur client-server, ruang lingkup kebutuhan pengguna, kontrak kuliah & Teori & Kuis awal \\
+\hline
+2 & Sub-CPMK 1.1, 1.2 & Kebutuhan fungsional dan non-fungsional, user flow, wireframe dasar & Praktik & Tugas 1 \\
+\hline
+3 & Sub-CPMK 1.2, 1.3 & Mockup, prototyping, aksesibilitas dasar (WCAG), prinsip UX & Praktik & Tugas 2 \\
+\hline
+4 & Sub-CPMK 2.1 & HTML dasar, struktur dokumen, elemen semantik & Praktik & Praktikum 1 \\
+\hline
+5 & Sub-CPMK 2.1, 1.3 & HTML form, media, validasi dasar, aksesibilitas form & Praktik & Praktikum 2 \\
+\hline
+6 & Sub-CPMK 2.2 & CSS dasar, selector, box model, tipografi & Praktik & Praktikum 3 \\
+\hline
+7 & Sub-CPMK 2.2 & Flexbox, Grid, desain responsif & Praktik & Tugas 3 \\
+\hline
+8 & Sub-CPMK 1.1-2.2 & UTS (teori dan praktik) & Evaluasi & UTS \\
+\hline
+9 & Sub-CPMK 2.3 & JavaScript dasar, DOM, manipulasi elemen & Praktik & Praktikum 4 \\
+\hline
+10 & Sub-CPMK 2.3 & Event handling, validasi form, error handling & Praktik & Praktikum 5 \\
+\hline
+11 & Sub-CPMK 2.4 & Library/framework front-end (jQuery/Bootstrap/Vue/React) untuk UI dinamis & Praktik & Tugas 4 \\
+\hline
+12 & Sub-CPMK 3.1 & PHP dasar, pemrosesan form, include/require & Praktik & Praktikum 6 \\
+\hline
+13 & Sub-CPMK 3.1, 4.2 & PHP OOP dasar, session/cookie, validasi input & Praktik & Praktikum 7 \\
+\hline
+14 & Sub-CPMK 3.2 & MySQL dasar, CRUD, koneksi PHP-MySQL (MySQLi/PDO) & Praktik & Praktikum 8 \\
+\hline
+15 & Sub-CPMK 3.3, 4.1, 4.2 & Integrasi API, pengujian, performa, keamanan (XSS/CSRF) & Praktik & Proyek \\
+\hline
+16 & Sub-CPMK 4.3 & Deployment dasar, administrasi web, presentasi hasil & Evaluasi/Praktik & UAS \\
+\hline
+\end{longtable}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 6. METODE PEMBELAJARAN
+% ============================================================
+\section*{6. Metode Pembelajaran}
+
+Strategi atau pendekatan pembelajaran dipilih sesuai OBE dengan komposisi 70\% praktik dan 30\% teori:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Ceramah interaktif (teori 30\%):} Penjelasan konsep inti, diskusi terarah, dan tanya jawab.
+  \item \textbf{Praktikum terbimbing (praktik 70\%):} Latihan coding HTML, CSS, JavaScript, PHP, dan MySQL.
+  \item \textbf{Project-based learning:} Pengembangan proyek web terintegrasi dari front-end sampai back-end.
+  \item \textbf{Problem-based learning:} Analisis kebutuhan dan perancangan antarmuka dari studi kasus.
+  \item \textbf{Demonstrasi dan code review:} Umpan balik cepat atas hasil praktik mahasiswa.
+\end{itemize}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 7. PENGALAMAN BELAJAR MAHASISWA
+% ============================================================
+\section*{7. Pengalaman Belajar Mahasiswa}
+
+Deskripsi tugas, aktivitas, atau pengalaman belajar yang mendukung pencapaian Sub-CPMK:
+
+\begin{itemize}[leftmargin=*]
+  \item Mengidentifikasi kebutuhan fungsional dan non-fungsional dari studi kasus sederhana.
+  \item Menyusun user flow serta membuat wireframe dan mockup antarmuka web.
+  \item Membangun halaman web semantik dan aksesibel menggunakan HTML5.
+  \item Mendesain tampilan responsif dengan CSS (Flexbox/Grid).
+  \item Membuat interaksi front-end dengan JavaScript (DOM dan event).
+  \item Mengembangkan aplikasi web sederhana dengan PHP (form, session, dan validasi).
+  \item Mengelola database MySQL dan menerapkan operasi CRUD dari PHP.
+  \item Menerapkan keamanan dasar (prepared statement, XSS, CSRF).
+  \item Melakukan pengujian dasar dan evaluasi performa aplikasi web.
+  \item Melakukan deployment sederhana dan mempresentasikan hasil proyek.
+\end{itemize}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 8. KRITERIA, INDIKATOR, DAN BOBOT PENILAIAN
+% ============================================================
+\section*{8. Kriteria, Indikator, dan Bobot Penilaian}
+
+Teknik/alat asesmen dipetakan ke Sub-CPMK/CPMK dengan bobot yang jelas:
+
+\begin{longtable}{|>{\raggedright\arraybackslash}p{2.8cm}|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{5.7cm}|c|}
+\hline
+\textbf{Komponen} & \textbf{Teknik Asesmen} & \textbf{Indikator/CPMK} & \textbf{Bobot (\%)} \\
+\hline
+\endfirsthead
+\hline
+\textbf{Komponen} & \textbf{Teknik Asesmen} & \textbf{Indikator/CPMK} & \textbf{Bobot (\%)} \\
+\hline
+\endhead
+\hline
+\endfoot
+
+Tugas/Praktikum & Lab exercise dan laporan praktik & Sub-CPMK 1.1-3.2 & 35 \\
+\hline
+Kuis & Kuis singkat dan refleksi & Sub-CPMK 1.1-2.2 & 10 \\
+\hline
+UTS & Ujian tengah semester (teori dan praktik) & CPMK-1, CPMK-2 & 20 \\
+\hline
+Proyek & Proyek terintegrasi front-end dan back-end & CPMK-2, CPMK-3, CPMK-4 & 20 \\
+\hline
+UAS & Ujian akhir dan presentasi hasil & CPMK-1, CPMK-2, CPMK-3, CPMK-4 & 15 \\
+\hline
+\textbf{Total} & & & \textbf{100} \\
+\hline
+\end{longtable}
+
+\textbf{Kriteria Penilaian:}
+\begin{itemize}[leftmargin=*]
+  \item A (85-100): Menguasai semua CPMK dengan sangat baik dan mampu menerapkan dalam proyek nyata.
+  \item B (70-84): Menguasai sebagian besar CPMK dengan baik.
+  \item C (60-69): Menguasai CPMK dasar dengan cukup.
+  \item D (50-59): Menguasai sebagian kecil CPMK.
+  \item E (<50): Belum menguasai CPMK yang ditetapkan.
+\end{itemize}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 9. EVALUASI DAN REFLEKSI PEMBELAJARAN (OPSIONAL)
+% ============================================================
+\section*{9. Evaluasi dan Refleksi Pembelajaran}
+
+Penilaian sumatif/formatif untuk memantau ketercapaian outcome secara menyeluruh:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Evaluasi formatif:} Kuis mingguan, praktik, dan umpan balik cepat.
+  \item \textbf{Evaluasi sumatif:} UTS dan UAS untuk mengukur capaian CPMK secara komprehensif.
+  \item \textbf{Refleksi mahasiswa:} Jurnal atau ringkasan belajar untuk menilai pemahaman.
+  \item \textbf{Evaluasi dosen:} Review hasil proyek dan perbaikan strategi pembelajaran.
+  \item \textbf{Continuous improvement:} Analisis capaian untuk perbaikan RPS semester berikutnya.
+\end{itemize}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 10. DAFTAR REFERENSI
+% ============================================================
+\section*{10. Daftar Referensi}
+
+Sumber belajar utama yang digunakan dalam penyusunan materi dan asesmen:
+
+\begin{enumerate}[leftmargin=*]
+  \item \textit{RPS Pemrograman Web - Universitas Mulawarman}. \url{https://si.ft.unmul.ac.id/kurikulum_rps/1753877341_28.%20RPS-Pemrograman%20Web.pdf}
+  \item \textit{RPS Pemrograman Web - UIN Ar-Raniry}. \url{https://cdn.ar-raniry.ac.id/aps-test/teknologi_informasi/Pemograman_Web.pdf}
+  \item \textit{Panduan Kurikulum Berbasis OBE/KKNI/SKKNI - APTIKOM}. \url{https://aptikom-journal.id/home/index.php/2024/05/31/panduan-kurikulum-berbasis-obe-kkni-skkni-aptikom-program-studi-sarjana-teknologi-infomasi-2/}
+  \item \textit{MDN Learn Web Development}. \url{https://developer.mozilla.org/en-US/docs/Learn}
+  \item \textit{W3Schools Tutorials}. \url{https://www.w3schools.com/tutorials/}
+  \item \textit{web.dev Learn Web Development}. \url{https://web.dev/learn}
+  \item \textit{MDN - Introduction to HTML}. \url{https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Getting_started}
+  \item \textit{web.dev - Learn HTML}. \url{https://web.dev/learn/html/welcome}
+  \item \textit{MDN - Styling the Web with CSS}. \url{https://developer.mozilla.org/en-US/docs/Learn/CSS}
+  \item \textit{web.dev - Learn CSS}. \url{https://web.dev/learn/css}
+  \item \textit{JavaScript.info (Indonesia)}. \url{https://id.javascript.info/}
+  \item \textit{MDN - JavaScript Guide}. \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide}
+  \item \textit{PHP Manual}. \url{https://www.php.net/manual/en/}
+  \item \textit{PHP The Right Way}. \url{https://phptherightway.com}
+  \item \textit{MySQL Documentation}. \url{https://dev.mysql.com/doc/}
+  \item \textit{MySQL Getting Started Guide}. \url{https://dev.mysql.com/doc/mysql-getting-started/en/}
+  \item \textit{MDN - Tools and testing}. \url{https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing}
+  \item \textit{MDN - Deploying to production}. \url{https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/deployment}
+  \item \textit{OWASP - Cross Site Scripting Prevention Cheat Sheet}. \url{https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html}
+  \item \textit{OWASP - Cross-Site Request Forgery Prevention Cheat Sheet}. \url{https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html}
+\end{enumerate}
 
 \end{document}

@@ -17,11 +17,27 @@ cari sumber terbuka di internet mengenai materi-materi di bawah ini :
 16. cari materi mengenai tutorial sistem informasi akademik perguruan tinggi sederhana, dapatkan minimal 10 sumber
 tuliskan sumber-sumber yang ditemukan ke sumber_materi.md
 
-menggunakan sumber-sumber yang tercatat di sumber_materi.md, 
-tulis ulang silabus_pemrograman_internet.tex mengikuti aturan di bawah ini :
-1. silabus mata kuliah pemrograman internet
-2. Untuk S1 Teknik Informatika, Fakultas Teknologi Informasi, Universitas Bale Bandung
-3. terdiri dari 16 pertemuan
-4. komposisi materi 70% praktek, 30% teori
-5. untuk struktur mengikuti struktur_silabus_OBE.txt
-6. untuk format mengikuti silabus.tex
+PROMPT AI - SILABUS PEMROGRAMAN WEB (DESKRIPSI)
+Deskripsi:
+Anda adalah asisten akademik yang menulis ulang silabus mata kuliah Pemrograman Web berbasis OBE untuk S1 Teknik Informatika, Fakultas Teknologi Informasi, Universitas Bale Bandung.
+
+Tugas:
+Gunakan sumber-sumber yang tercatat di sumber_materi.md untuk menulis ulang silabus_pemrograman_web.tex sesuai ketentuan berikut.
+
+Instruksi:
+- Silabus mata kuliah Pemrograman Web.
+- Terdiri dari 16 pertemuan.
+- Komposisi materi 70% praktek, 30% teori.
+- Struktur mengikuti struktur_silabus_OBE.txt.
+- Format mengikuti silabus.tex.
+- CPL, CPMK, dan Sub-CPMK menggunakan cpl_cpmk.md.
+- Materi analisis kebutuhan dan perancangan antarmuka gunakan judul_materi_analisis_kebutuhan_dan_perancangan_antarnuka.md.
+- Materi HTML gunakan judul_materi_html.md.
+- Materi CSS gunakan judul_materi_css.md.
+- Materi JavaScript gunakan judul_materi_javascript.md.
+- Materi PHP gunakan judul_materi_php.md.
+- Materi MySQL gunakan judul_materi_mysql.md.
+- Materi evaluasi deployment administrasi web gunakan judul_materi_evaluasi_deployment_administrasi_web.md.
+
+Output:
+Tulis ulang silabus_pemrograman_web.tex sesuai ketentuan di atas dan konsisten dengan sumber_materi.md.

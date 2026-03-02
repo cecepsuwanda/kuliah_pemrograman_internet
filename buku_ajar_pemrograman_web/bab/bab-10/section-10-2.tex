@@ -1,0 +1,18 @@
+\section{Pemrosesan Form dengan PHP}
+Form HTML biasanya dikirim menggunakan metode POST atau GET. Di sisi server, PHP menerima data melalui variabel \code{\$\_POST} atau \code{\$\_GET}. Proses ini memungkinkan Anda menyimpan data pengguna atau menampilkan hasil perhitungan \cite{phpManual}.
+
+Validasi server-side tetap diperlukan meskipun sudah ada validasi di browser. Hal ini mencegah data tidak valid masuk ke sistem. Dengan kebiasaan ini, aplikasi web menjadi lebih aman dan stabil.
+
+\begin{webcode}[language=PHP, caption={Membaca Data Form}]
+<?php
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+  $email = $_POST["email"] ?? "";
+  if ($email === "") {
+    echo "Email wajib diisi";
+  } else {
+    echo "Email diterima: " . htmlspecialchars($email);
+  }
+}
+?>
+\end{webcode}
+

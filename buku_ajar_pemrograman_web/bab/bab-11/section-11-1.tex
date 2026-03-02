@@ -1,0 +1,21 @@
+\section{Konsep OOP Dasar di PHP}
+OOP membantu Anda mengorganisasi kode ke dalam class dan object agar lebih rapi. Konsep ini bermanfaat saat aplikasi berkembang dan membutuhkan struktur yang jelas. Dengan OOP, Anda bisa memisahkan logika aplikasi berdasarkan tanggung jawabnya \cite{phpManual}.
+
+Class di PHP mendefinisikan properti dan method yang bisa digunakan berulang. Anda juga dapat membuat constructor untuk inisialisasi data. Kebiasaan ini memudahkan pemeliharaan kode dan pengujian.
+
+\begin{webcode}[language=PHP, caption={Contoh Class PHP Sederhana}]
+<?php
+class User {
+  public string $nama;
+
+  public function __construct(string $nama) {
+    $this->nama = $nama;
+  }
+
+  public function sapa(): string {
+    return "Halo, " . $this->nama;
+  }
+}
+?>
+\end{webcode}
+

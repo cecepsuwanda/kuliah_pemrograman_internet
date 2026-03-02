@@ -1,0 +1,23 @@
+\section{Keterkaitan dengan RPS dan Cara Belajar}
+Struktur buku ini disusun untuk mengikuti RPS Pemrograman Web sehingga topik di setiap bab selaras dengan pertemuan perkuliahan. Dengan begitu, Anda dapat menyesuaikan ritme belajar mandiri dengan materi yang dibahas di kelas. Pola ini memudahkan Anda menilai kemajuan melalui latihan dan checklist di akhir bab.
+
+Cara belajar yang efektif adalah membaca konsep singkat, mencoba contoh, lalu mengerjakan latihan tanpa melihat solusi. Setelah itu, bandingkan hasil Anda dengan solusi atau diskusikan dengan teman. Siklus belajar ini membantu Anda memahami hubungan antara teori dan praktik \cite{mdnLearn}.
+
+\begin{figure}[h]
+\centering
+\resizebox{0.95\textwidth}{!}{%
+\begin{tikzpicture}[node distance=1.6cm, transform shape]
+  \node (need) [class] {Kebutuhan};
+  \node (design) [class, right=of need] {Desain UI};
+  \node (build) [class, right=of design] {Implementasi};
+  \node (test) [class, right=of build] {Evaluasi};
+  \node (deploy) [class, right=of test] {Deployment};
+  \draw [arrow] (need) -- (design);
+  \draw [arrow] (design) -- (build);
+  \draw [arrow] (build) -- (test);
+  \draw [arrow] (test) -- (deploy);
+\end{tikzpicture}%
+}
+\caption{Alur belajar Pemrograman Web}
+\end{figure}
+

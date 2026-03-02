@@ -1,0 +1,53 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{10}}{}
+\begin{document}
+
+\chapter{PHP OOP, Session, dan Keamanan Dasar}
+
+\begin{subcpmk}
+  \item Sub-CPMK 3.1: Mengimplementasikan logika server-side dengan PHP (pemrosesan form, struktur dasar, OOP).
+  \item Sub-CPMK 4.2: Menerapkan prinsip keamanan web: validasi input, prepared statement, session, mitigasi XSS dan CSRF.
+\end{subcpmk}
+
+\input{bab/bab-11/section-11-1}
+\input{bab/bab-11/section-11-2}
+
+\begin{aktivitas}
+  \item Buat class PHP sederhana untuk mengelola data user.
+  \item Simulasikan login dan simpan nama user di session.
+  \item Terapkan \code{htmlspecialchars} saat menampilkan input.
+\end{aktivitas}
+
+\begin{latihan}
+  \item Jelaskan perbedaan session dan cookie.
+  \item Buat daftar 3 risiko keamanan pada aplikasi web.
+\end{latihan}
+
+\begin{asesmen}
+Asesmen berupa tugas membuat modul login sederhana dengan session dan validasi input.
+\end{asesmen}
+
+\begin{checklist}
+  \item Saya memahami konsep class dan object di PHP.
+  \item Saya dapat menggunakan session untuk menyimpan data pengguna.
+  \item Saya memahami mitigasi dasar XSS dan CSRF.
+\end{checklist}
+
+\begin{rangkuman}
+Bab ini membahas OOP di PHP serta keamanan dasar menggunakan session, cookie, dan validasi input. Pemahaman ini penting agar aplikasi web lebih terstruktur dan aman.
+
+\textbf{Poin Kunci:}
+\begin{itemize}
+  \item OOP memudahkan pengorganisasian kode PHP.
+  \item Session digunakan untuk menyimpan state pengguna.
+  \item Validasi input dan sanitasi output adalah wajib.
+\end{itemize}
+\end{rangkuman}
+
+\ifSubfilesClassLoaded{
+  \renewcommand{\bibname}{Daftar Pustaka}
+  \bibliographystyle{plain}
+  \bibliography{../references}
+}{}
+\end{document}
+

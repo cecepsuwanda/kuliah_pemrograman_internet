@@ -1,0 +1,52 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{11}}{}
+\begin{document}
+
+\chapter{MySQL dan Operasi CRUD}
+
+\begin{subcpmk}
+  \item Sub-CPMK 3.2: Mengelola basis data dan mengimplementasikan operasi CRUD dengan MySQL serta koneksi dari PHP.
+\end{subcpmk}
+
+\input{bab/bab-12/section-12-1}
+\input{bab/bab-12/section-12-2}
+
+\begin{aktivitas}
+  \item Buat tabel pengguna dengan kolom id, nama, dan email.
+  \item Lakukan insert data menggunakan PHP.
+  \item Buat halaman untuk menampilkan data pengguna.
+\end{aktivitas}
+
+\begin{latihan}
+  \item Jelaskan fungsi primary key dalam tabel.
+  \item Buat query SQL untuk mengupdate email pengguna.
+\end{latihan}
+
+\begin{asesmen}
+Asesmen berupa proyek mini CRUD sederhana menggunakan PHP dan MySQL.
+\end{asesmen}
+
+\begin{checklist}
+  \item Saya memahami struktur tabel dan tipe data dasar.
+  \item Saya dapat melakukan operasi CRUD.
+  \item Saya menggunakan prepared statement untuk keamanan.
+\end{checklist}
+
+\begin{rangkuman}
+Bab ini menjelaskan dasar SQL dan operasi CRUD di MySQL. Anda juga belajar menghubungkan PHP dengan database agar aplikasi web dapat menyimpan data secara permanen.
+
+\textbf{Poin Kunci:}
+\begin{itemize}
+  \item SQL digunakan untuk mengelola data di MySQL.
+  \item CRUD adalah operasi utama dalam aplikasi berbasis data.
+  \item Prepared statement membantu mencegah SQL injection.
+\end{itemize}
+\end{rangkuman}
+
+\ifSubfilesClassLoaded{
+  \renewcommand{\bibname}{Daftar Pustaka}
+  \bibliographystyle{plain}
+  \bibliography{../references}
+}{}
+\end{document}
+

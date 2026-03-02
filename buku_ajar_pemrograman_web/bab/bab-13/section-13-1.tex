@@ -1,0 +1,13 @@
+\section{Integrasi API dan Pertukaran Data}
+API memungkinkan aplikasi web berkomunikasi dan bertukar data secara terstruktur. Data biasanya dikirim dalam format JSON agar mudah diproses oleh front-end dan back-end. Pemahaman tentang request dan response membantu Anda membangun fitur yang terintegrasi \cite{mdnJsGuide}.
+
+Pada praktik pemula, Anda bisa mencoba mengambil data dari endpoint sederhana. JavaScript menyediakan \code{fetch} untuk melakukan request HTTP. Hasilnya dapat ditampilkan di halaman tanpa reload.
+
+\begin{webcode}[language=JavaScript, caption={Mengambil Data JSON dengan Fetch}]
+fetch("/api/produk")
+  .then((res) => res.json())
+  .then((data) => {
+    console.log(data);
+  });
+\end{webcode}
+

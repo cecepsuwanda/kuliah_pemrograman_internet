@@ -1,0 +1,19 @@
+\section{Grid dan Desain Responsif}
+CSS Grid dirancang untuk layout dua dimensi sehingga cocok untuk halaman kompleks seperti dashboard. Anda dapat mendefinisikan baris dan kolom dengan \code{grid\allowbreak-template\allowbreak-columns} dan \code{grid\allowbreak-template\allowbreak-rows}. Grid juga memudahkan Anda mengatur area konten tanpa kalkulasi manual \cite{webdevCss}.
+
+Desain responsif menggunakan media query agar tampilan menyesuaikan ukuran layar. Misalnya, tiga kolom di desktop bisa berubah menjadi satu kolom di mobile. Pendekatan ini membuat aplikasi web Anda nyaman digunakan di berbagai perangkat.
+
+\begin{webcode}[language=CSS, caption={Contoh Grid dan Media Query}]
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+\end{webcode}
+

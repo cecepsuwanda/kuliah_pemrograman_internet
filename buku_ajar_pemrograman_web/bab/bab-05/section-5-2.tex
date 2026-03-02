@@ -1,0 +1,21 @@
+\section{Tabel, Media, dan Aksesibilitas}
+Tabel digunakan untuk menampilkan data yang terstruktur seperti daftar mahasiswa atau produk. Gunakan \code{th} untuk header dan tambahkan atribut agar pembaca layar memahami struktur tabel. Media seperti gambar dan video perlu diberi teks alternatif agar tetap aksesibel \cite{mdnAccessibility}.
+
+Aksesibilitas dalam HTML juga menekankan penggunaan label yang jelas dan urutan fokus yang logis. Atribut \code{alt} pada gambar membantu pengguna dengan keterbatasan visual. Dengan praktik ini, halaman web lebih ramah bagi semua pengguna.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{4cm}|P{7cm}|}
+\hline
+\textbf{Elemen} & \textbf{Catatan Aksesibilitas} \\
+\hline
+\code{img} & Wajib gunakan atribut \code{alt} \\
+\hline
+\code{table} & Gunakan \code{th} untuk header \\
+\hline
+\code{label} & Hubungkan ke input dengan \code{for} \\
+\hline
+\end{tabular}
+\caption{Praktik aksesibilitas dasar HTML}
+\end{table}
+

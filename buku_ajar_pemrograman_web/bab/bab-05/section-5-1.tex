@@ -1,0 +1,15 @@
+\section{Formulir dan Validasi Dasar}
+Formulir HTML memungkinkan pengguna mengirim data seperti nama, email, atau pesan. Elemen form seperti \code{input}, \code{label}, dan \code{button} harus digunakan dengan benar agar mudah diisi. Validasi dasar di HTML membantu mencegah input kosong atau format yang salah \cite{mdnHtmlIntro}.
+
+Penggunaan atribut seperti \code{required} dan \code{type} memperbaiki pengalaman pengguna. Misalnya, \code{type="email"} memberi petunjuk format yang benar. Praktik ini juga membantu menjaga data yang masuk lebih konsisten.
+
+\begin{webcode}[language=HTML, caption={Contoh Formulir Sederhana}]
+<form action="/kirim" method="post">
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required />
+  <label for="pesan">Pesan:</label>
+  <textarea id="pesan" name="pesan" required></textarea>
+  <button type="submit">Kirim</button>
+</form>
+\end{webcode}
+

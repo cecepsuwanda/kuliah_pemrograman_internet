@@ -1,0 +1,13 @@
+\section{Dasar SQL dan Struktur Tabel}
+MySQL adalah sistem manajemen basis data yang banyak digunakan untuk aplikasi web. SQL digunakan untuk membuat tabel, menyimpan data, dan mengambil data kembali. Konsep dasar ini penting agar data terstruktur dan mudah dikelola \cite{mysqlDocs}.
+
+Struktur tabel terdiri dari kolom dengan tipe data tertentu, seperti \code{INT}, \code{VARCHAR}, atau \code{DATE}. Kunci utama (primary key) membantu mengidentifikasi setiap baris secara unik. Dengan desain tabel yang baik, operasi CRUD berjalan lebih efisien.
+
+\begin{webcode}[language=SQL, caption={Membuat Tabel Sederhana}]
+CREATE TABLE pengguna (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nama VARCHAR(100),
+  email VARCHAR(100)
+);
+\end{webcode}
+
