@@ -1,0 +1,26 @@
+\section{ORDER BY dan LIMIT}
+
+Klausa \code{ORDER BY} mengurutkan hasil query berdasarkan satu atau lebih kolom. Secara default, pengurutan bersifat \code{ASC} (ascending/naik); tambahkan \code{DESC} untuk urutan menurun. Anda dapat mengurutkan berdasarkan beberapa kolom: \code{ORDER BY kolom1 ASC, kolom2 DESC} --- MySQL akan mengurutkan berdasarkan kolom pertama terlebih dahulu, lalu kolom kedua untuk baris yang bernilai sama di kolom pertama \cite{mysqlDocs}.
+
+Klausa \code{LIMIT} membatasi jumlah baris yang dikembalikan. Ini sangat berguna untuk \textbf{pagination} (menampilkan data per halaman) di aplikasi web. Sintaks: \code{LIMIT jumlah} untuk membatasi jumlah baris, atau \code{LIMIT offset, jumlah} untuk melewati sejumlah baris pertama. Misalnya, halaman 2 dengan 10 item per halaman: \code{LIMIT 10, 10} (lewati 10, ambil 10). Kombinasi ORDER BY dan LIMIT adalah pola yang sangat umum dalam query aplikasi web \cite{mysqlGettingStarted}.
+
+\begin{webcode}[language=SQL, caption={ORDER BY dan LIMIT untuk pengurutan dan pagination}]
+-- Urutkan berdasarkan harga (termurah dulu)
+SELECT nama, harga FROM produk ORDER BY harga ASC;
+
+-- Urutkan berdasarkan tanggal terbaru
+SELECT * FROM produk ORDER BY created_at DESC;
+
+-- Top 5 produk termahal
+SELECT nama, harga FROM produk ORDER BY harga DESC LIMIT 5;
+
+-- Pagination: halaman 1 (10 item)
+SELECT * FROM produk ORDER BY id LIMIT 0, 10;
+
+-- Pagination: halaman 2 (10 item)
+SELECT * FROM produk ORDER BY id LIMIT 10, 10;
+
+-- Pagination: halaman 3 (10 item)
+SELECT * FROM produk ORDER BY id LIMIT 20, 10;
+\end{webcode}
+

@@ -1,0 +1,87 @@
+\section{RESTful API Dasar dengan PHP}
+
+\textbf{REST} (\textit{Representational State Transfer}) adalah arsitektur API yang menggunakan metode HTTP standar: \code{GET} (baca), \code{POST} (buat), \code{PUT/PATCH} (ubah), \code{DELETE} (hapus). API REST mengembalikan data dalam format \textbf{JSON} --- format ringan yang mudah diproses oleh JavaScript di front-end maupun aplikasi mobile. Endpoint didesain mengikuti konvensi resource: \code{/api/produk} untuk koleksi, \code{/api/produk/1} untuk item spesifik \cite{phpManual}.
+
+\begin{contoh}
+\textbf{Studi Kasus: REST API Produk}
+
+Endpoint API:
+\begin{itemize}
+  \item \code{GET /api/produk} --- daftar semua produk
+  \item \code{GET /api/produk/\{id\}} --- detail satu produk
+  \item \code{POST /api/produk} --- tambah produk baru
+  \item \code{PUT /api/produk/\{id\}} --- update produk
+  \item \code{DELETE /api/produk/\{id\}} --- hapus produk
+\end{itemize}
+Semua response dalam format JSON dengan HTTP status code yang sesuai (200 OK, 201 Created, 404 Not Found, dll).
+\end{contoh}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners, minimum width=2.5cm, minimum height=1cm, align=center, font=\small, fill=#1},
+  arrow/.style={-Stealth, thick},
+  node distance=1.5cm
+]
+  \node[box=blue!15] (client) {Client\\(Browser/App)};
+  \node[box=orange!20, right=2.5cm of client] (api) {PHP API\\(api.php)};
+  \node[box=green!15, right=2.5cm of api] (db) {MySQL\\Database};
+
+  \draw[arrow] (client) -- node[above, font=\footnotesize]{HTTP Request (JSON)} (api);
+  \draw[arrow] (api) -- node[above, font=\footnotesize]{SQL Query} (db);
+  \draw[arrow] (db) -- node[below, font=\footnotesize]{Data} (api);
+  \draw[arrow] (api) -- node[below, font=\footnotesize]{JSON Response} (client);
+\end{tikzpicture}
+\caption{Alur request-response REST API}
+\end{figure}
+
+\begin{webcode}[language=PHP, caption={REST API sederhana untuk produk}]
+<?php
+header('Content-Type: application/json; charset=utf-8');
+require_once 'config.php';
+
+$method = $_SERVER['REQUEST_METHOD'];
+$path   = explode('/', trim($_SERVER['PATH_INFO'] ?? '', '/'));
+$id     = intval($path[0] ?? 0);
+
+switch ($method) {
+  case 'GET':
+    if ($id > 0) {
+      $stmt = $conn->prepare("SELECT * FROM produk WHERE id = ?");
+      $stmt->bind_param("i", $id);
+      $stmt->execute();
+      $produk = $stmt->get_result()->fetch_assoc();
+      if ($produk) {
+        echo json_encode($produk);
+      } else {
+        http_response_code(404);
+        echo json_encode(['error' => 'Produk tidak ditemukan']);
+      }
+    } else {
+      $result = $conn->query("SELECT * FROM produk ORDER BY id DESC");
+      echo json_encode($result->fetch_all(MYSQLI_ASSOC));
+    }
+    break;
+
+  case 'POST':
+    $data = json_decode(file_get_contents('php://input'), true);
+    $stmt = $conn->prepare("INSERT INTO produk (nama, harga) VALUES (?, ?)");
+    $stmt->bind_param("sd", $data['nama'], $data['harga']);
+    $stmt->execute();
+    http_response_code(201);
+    echo json_encode(['id' => $stmt->insert_id, 'message' => 'Created']);
+    break;
+
+  case 'DELETE':
+    if ($id > 0) {
+      $stmt = $conn->prepare("DELETE FROM produk WHERE id = ?");
+      $stmt->bind_param("i", $id);
+      $stmt->execute();
+      echo json_encode(['message' => 'Deleted']);
+    }
+    break;
+}
+$conn->close();
+?>
+\end{webcode}
+

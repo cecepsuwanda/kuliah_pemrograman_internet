@@ -1,0 +1,39 @@
+\section{CSS Grid: Grid Container, Track, dan Area}
+
+CSS Grid Layout adalah sistem layout dua dimensi yang memungkinkan pengaturan elemen di baris \textbf{dan} kolom secara bersamaan. Berbeda dari Flexbox yang bersifat satu dimensi, Grid dirancang untuk layout halaman secara keseluruhan: membagi ruang menjadi region yang dapat diisi oleh konten. Grid diaktifkan dengan \code{display: grid} pada kontainer, kemudian didefinisikan kolom dan baris menggunakan \code{grid-template-columns} dan \code{grid-template-rows} \cite{mdnCss}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{5cm}|P{3.5cm}|P{3.5cm}|}
+\hline
+\textbf{Properti Container} & \textbf{Fungsi} & \textbf{Contoh Nilai} \\
+\hline
+\code{grid-template-columns} & Definisi kolom & \code{1fr 2fr 1fr}, \code{repeat(3, 1fr)} \\
+\hline
+\code{grid-template-rows} & Definisi baris & \code{auto 1fr auto} \\
+\hline
+\code{grid-template-areas} & Named areas & \code{"header header" "side main"} \\
+\hline
+\code{gap} / \code{row-gap} & Jarak antar track & \code{1rem}, \code{16px 24px} \\
+\hline
+\code{justify-items} & Alignment horizontal items & \code{start}, \code{center}, \code{stretch} \\
+\hline
+\code{align-items} & Alignment vertikal items & \code{start}, \code{center}, \code{stretch} \\
+\hline
+\end{tabular}
+\caption{Properti utama CSS Grid container}
+\end{table}
+
+Satuan \code{fr} (fraction) adalah satuan khusus Grid yang membagi ruang tersedia secara proporsional. \code{1fr 2fr 1fr} membuat tiga kolom dengan kolom tengah dua kali lebih lebar. Fungsi \code{repeat(n, ukuran)} menghindari pengulangan manual; \code{minmax(min, max)} mendefinisikan ukuran minimum dan maksimum track. Kombinasi \code{repeat(auto-fill, minmax(250px, 1fr))} menciptakan grid responsif yang otomatis menyesuaikan jumlah kolom berdasarkan lebar kontainer---tanpa memerlukan media query \cite{webdevCss}.
+
+\textbf{Grid areas} memungkinkan penamaan region layout secara visual. Setiap grid item diberi nama area dengan \code{grid-area: nama;}, kemudian tata letak didefinisikan di kontainer menggunakan \code{grid-template-areas} dengan notasi string yang menggambarkan posisi setiap area secara intuitif. Titik (\code{.}) menandai sel kosong. Pendekatan ini sangat membantu untuk membuat layout halaman yang kompleks dengan kode yang mudah dibaca \cite{cssTricks}.
+
+\begin{konsep}
+\textbf{Kapan Grid vs Flexbox?}
+\begin{itemize}
+  \item \textbf{Grid}: layout 2D (baris DAN kolom)---halaman utama, dashboard, galeri foto, form multi-kolom.
+  \item \textbf{Flexbox}: layout 1D (baris ATAU kolom)---navbar, toolbar, card row, centering.
+  \item Keduanya dapat digabungkan: Grid untuk layout halaman, Flexbox untuk komponen di dalam grid area \cite{cssTricks}.
+\end{itemize}
+\end{konsep}
+

@@ -1,20 +1,40 @@
-\section{Struktur Dokumen HTML5}
-HTML adalah fondasi struktur halaman web dan menjelaskan elemen apa saja yang ada di sebuah halaman. Dokumen HTML5 memiliki struktur standar seperti \code{doctype}, \code{head}, dan \code{body}. Pemahaman struktur ini penting agar browser dapat menampilkan konten dengan benar \cite{mdnHtmlIntro}.
+\section{Pengenalan HTML dan Perannya di Web}
 
-Bagian \code{head} berisi metadata seperti judul halaman dan informasi viewport. Bagian \code{body} berisi seluruh konten yang terlihat oleh pengguna. Dengan struktur yang rapi, Anda dapat mengembangkan halaman lebih mudah dan terorganisir.
+HTML (HyperText Markup Language) adalah bahasa markup standar yang digunakan untuk membuat dan menyusun konten halaman web. HTML pertama kali dikembangkan oleh Tim Berners-Lee di CERN pada tahun 1991 sebagai bagian dari proyek World Wide Web. Sejak saat itu, HTML telah berkembang secara signifikan dari versi sederhana yang hanya mendukung teks dasar hingga HTML5 modern yang mendukung multimedia, aplikasi interaktif, dan struktur semantik yang kaya \cite{mdnHtmlIntro}.
 
-\begin{webcode}[language=HTML, caption={Struktur Dasar HTML5}]
-<!doctype html>
-<html lang="id">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Halaman Pertama</title>
-  </head>
-  <body>
-    <h1>Halo Web!</h1>
-    <p>Ini adalah paragraf pertama.</p>
-  </body>
-</html>
-\end{webcode}
+Secara fundamental, HTML berfungsi sebagai kerangka tulang punggung (skeleton) dari setiap halaman web. HTML menggunakan sistem \textit{markup} berbasis \textit{tag} untuk menandai elemen-elemen konten seperti judul, paragraf, daftar, gambar, link, dan berbagai komponen lainnya. Berbeda dengan bahasa pemrograman yang memiliki logika dan algoritma, HTML adalah bahasa deklaratif yang menjelaskan struktur dan makna konten kepada browser, bukan cara menampilkannya secara visual. Untuk pengaturan tampilan visual, pengembang menggunakan CSS (Cascading Style Sheets), sedangkan untuk interaktivitas dan perilaku dinamis digunakan JavaScript \cite{webdevHtml}.
+
+Evolusi HTML mencerminkan perkembangan web itu sendiri. HTML 4.01, yang dirilis pada tahun 1999, menjadi standar yang digunakan selama bertahun-tahun. Kemudian, HTML5 muncul sebagai spesifikasi modern yang tidak hanya menambahkan elemen-elemen baru untuk multimedia (seperti \code{<video>} dan \code{<audio>}), tetapi juga memperkenalkan elemen semantik (seperti \code{<header>}, \code{<article>}, \code{<footer>}) yang memberikan makna struktural pada konten. Saat ini, HTML dikelola oleh WHATWG (Web Hypertext Application Technology Working Group) sebagai "Living Standard" yang terus diperbarui seiring dengan perkembangan teknologi web \cite{whatwgHtml}.
+
+Peran HTML dalam ekosistem web modern sangatlah sentral dan tidak dapat digantikan. Dalam triad teknologi web (HTML, CSS, JavaScript), HTML memegang posisi sebagai fondasi struktural. Tanpa HTML yang baik, CSS tidak memiliki elemen untuk ditata, dan JavaScript tidak memiliki struktur DOM (Document Object Model) untuk dimanipulasi. Pemahaman HTML yang mendalam memudahkan pengembang untuk memahami kerangka halaman web, meningkatkan aksesibilitas bagi pengguna dengan disabilitas, mengoptimalkan performa mesin pencari (SEO), serta berkolaborasi efektif dengan alat pengembang dan tim lintas fungsi \cite{mdnLearn}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3cm}|P{4cm}|P{5cm}|}
+\hline
+\textbf{Komponen} & \textbf{Peran Utama} & \textbf{Analogi} \\
+\hline
+HTML & Struktur dan makna konten & Kerangka bangunan \\
+\hline
+CSS & Tampilan visual dan layout & Cat, dekorasi interior \\
+\hline
+JavaScript & Interaktivitas dan perilaku & Sistem kelistrikan dan plumbing \\
+\hline
+\end{tabular}
+\caption{Peran HTML, CSS, dan JavaScript dalam Ekosistem Web}
+\label{tab:web-triad}
+\end{table}
+
+\begin{konsep}
+\textbf{Kenapa Mempelajari HTML itu Penting?}
+
+Mempelajari HTML adalah langkah pertama yang esensial dalam perjalanan pengembangan web. Berikut adalah alasan mengapa pemahaman HTML yang kuat sangat penting:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Aksesibilitas:} HTML semantik yang benar memungkinkan pembaca layar (screen readers) untuk membantu pengguna dengan disabilitas visual mengakses konten web.
+  \item \textbf{SEO (Search Engine Optimization):} Struktur HTML yang baik membantu mesin pencari seperti Google memahami dan mengindeks konten website Anda dengan lebih efektif.
+  \item \textbf{Performa:} HTML yang bersih dan efisien memuat lebih cepat dan menggunakan bandwidth lebih sedikit, terutama penting untuk pengguna mobile.
+  \item \textbf{Maintainability:} Kode HTML yang terstruktur dengan baik lebih mudah dipelihara, diperbarui, dan dikembangkan oleh tim pengembang.
+\end{itemize}
+\end{konsep}
 

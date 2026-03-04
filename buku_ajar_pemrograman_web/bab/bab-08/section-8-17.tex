@@ -1,0 +1,64 @@
+\section{Event Dasar: click, load, submit}
+
+\textbf{Event} adalah sinyal bahwa sesuatu telah terjadi di halaman---pengguna mengklik tombol, form dikirim, halaman selesai dimuat, atau kursor diarahkan ke elemen. JavaScript menangani event menggunakan \code{addEventListener()}: mendaftarkan fungsi (event handler/listener) yang dipanggil saat event terjadi. Ini adalah mekanisme utama yang membuat halaman web interaktif \cite{jsInfo}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{2.5cm}|P{3.5cm}|P{6cm}|}
+\hline
+\textbf{Event} & \textbf{Kapan Terjadi} & \textbf{Contoh Penggunaan} \\
+\hline
+\code{click} & Elemen diklik & Tombol, link, toggle \\
+\hline
+\code{submit} & Form dikirim & Validasi sebelum kirim \\
+\hline
+\code{load} & Halaman/gambar selesai dimuat & Inisialisasi aplikasi \\
+\hline
+\code{input} & Nilai input berubah & Live search, validasi real-time \\
+\hline
+\code{keydown} & Tombol keyboard ditekan & Shortcut, navigasi keyboard \\
+\hline
+\code{change} & Nilai input berubah (setelah blur) & Select, checkbox, radio \\
+\hline
+\end{tabular}
+\caption{Event DOM yang paling sering digunakan}
+\end{table}
+
+\begin{contoh}
+\textbf{Studi Kasus: Validasi Form dengan JavaScript}
+
+Form pendaftaran dengan validasi sebelum submit:
+\begin{enumerate}
+  \item Tangani event \code{submit} dengan \code{addEventListener}
+  \item Panggil \code{event.preventDefault()} untuk mencegah pengiriman jika validasi gagal
+  \item Akses nilai input: \code{document.querySelector("\#email").value}
+  \item Cek kondisi: nama tidak kosong, email mengandung ``@'', password minimal 8 karakter
+  \item Tampilkan pesan error di elemen \code{<span>} menggunakan \code{textContent}
+\end{enumerate}
+\end{contoh}
+
+\begin{webcode}[language=JavaScript, caption={Event listener dan validasi form}]
+const form = document.querySelector("#registerForm");
+form.addEventListener("submit", function(event) {
+  const email = document.querySelector("#email").value;
+  const password = document.querySelector("#password").value;
+  const errorEl = document.querySelector("#error");
+
+  if (!email.includes("@")) {
+    errorEl.textContent = "Email tidak valid";
+    event.preventDefault();
+    return;
+  }
+  if (password.length < 8) {
+    errorEl.textContent = "Password minimal 8 karakter";
+    event.preventDefault();
+    return;
+  }
+  errorEl.textContent = ""; // clear error
+});
+\end{webcode}
+
+\begin{konsep}
+\textbf{Event Bubbling dan event.target.} Saat event terjadi pada elemen, ia ``naik'' (\textit{bubbles}) dari elemen target ke parent, grandparent, hingga \code{document}. Properti \code{event.target} merujuk elemen yang sebenarnya diklik (target asli), sedangkan \code{event.currentTarget} merujuk elemen yang memiliki listener. Ini memungkinkan \textit{event delegation}: memasang satu listener di parent untuk menangani klik pada banyak child, sangat efisien untuk daftar dinamis \cite{mdnJsGuide}.
+\end{konsep}
+

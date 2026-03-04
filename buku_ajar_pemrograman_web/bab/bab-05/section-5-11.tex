@@ -1,0 +1,70 @@
+\section{Validasi HTML dan Alat Validator}
+
+Validasi HTML adalah proses memeriksa apakah dokumen HTML mengikuti aturan sintaks dan semantik yang ditetapkan oleh standar (WHATWG HTML Living Standard atau rekomendasi W3C). Dokumen yang valid cenderung berperilaku lebih konsisten di berbagai browser, lebih mudah dirawat, dan lebih aksesibel. Meskipun browser modern sangat toleran terhadap kesalahan HTML (mereka mencoba ``memperbaiki'' markup secara otomatis), ketergantungan pada toleransi ini dapat menghasilkan perilaku yang tidak terduga dan sulit dideteksi \cite{w3cValidator}.
+
+Terdapat beberapa jenis kesalahan yang dideteksi validator. Kesalahan sintaks meliputi tag yang tidak ditutup, atribut tanpa tanda kutip, dan karakter khusus yang tidak di-escape. Kesalahan struktural termasuk elemen yang ditempatkan di lokasi yang tidak diizinkan (misalnya \code{<p>} di dalam \code{<p>}), atau elemen yang hilang (misalnya \code{<title>} di dalam \code{<head>}). Peringatan (warnings) biasanya terkait praktik yang kurang optimal namun tidak melanggar standar secara teknis \cite{whatwgHtml}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{2.5cm}|P{4cm}|P{5.5cm}|}
+\hline
+\textbf{Jenis} & \textbf{Contoh Masalah} & \textbf{Dampak} \\
+\hline
+Error fatal & Tag tidak ditutup & Struktur DOM berbeda dari yang dimaksud \\
+\hline
+Error sintaks & Atribut tanpa tanda kutip & Nilai atribut mungkin salah terbaca \\
+\hline
+Error struktural & \code{<div>} di dalam \code{<p>} & Browser memperbaiki secara otomatis, hasilnya tidak terduga \\
+\hline
+Warning & Elemen deprecated & Mungkin tidak didukung di browser masa depan \\
+\hline
+Info & Encoding tidak eksplisit & Sebaiknya ditambahkan \code{<meta charset>} \\
+\hline
+\end{tabular}
+\caption{Jenis error dan peringatan yang dideteksi validator HTML}
+\end{table}
+
+Alat validator utama adalah \textbf{W3C Markup Validation Service} di \url{https://validator.w3.org/}. Layanan ini menerima input dalam tiga cara: memasukkan URL halaman web, mengunggah file HTML, atau menempelkan kode HTML secara langsung. Validator akan menampilkan daftar error dan warning beserta nomor baris dan penjelasan masalah. Alat lain yang berguna termasuk Nu HTML Checker (\url{https://validator.w3.org/nu/}), ekstensi browser seperti HTML Validator, dan fitur audit pada browser DevTools (Lighthouse) \cite{w3cValidator}.
+
+\begin{webcode}[language=HTML, caption={Contoh HTML invalid dan versi yang diperbaiki}]
+<!-- SALAH: banyak kesalahan -->
+<html>
+<body>
+<p>Paragraf pertama
+<p>Paragraf <b>kedua</p></b>
+<img src=foto.jpg>
+<div>
+  <p>Teks di dalam div
+    <div>Div bersarang di dalam p</div>
+  </p>
+</div>
+
+<!-- BENAR: tervalidasi -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Halaman Valid</title>
+</head>
+<body>
+  <p>Paragraf pertama</p>
+  <p>Paragraf <b>kedua</b></p>
+  <img src="foto.jpg" alt="Deskripsi foto" />
+  <div>
+    <p>Teks di dalam div</p>
+    <div>Div terpisah dari p</div>
+  </div>
+</body>
+</html>
+\end{webcode}
+
+\begin{konsep}
+\textbf{Jadikan Validasi Bagian dari Alur Kerja.} Validasi HTML sebaiknya dilakukan secara rutin, bukan hanya di akhir pengembangan. Langkah praktis:
+\begin{enumerate}
+  \item Pasang ekstensi validator di editor kode (misalnya HTMLHint untuk VS Code).
+  \item Jalankan validator W3C setelah setiap perubahan signifikan.
+  \item Integrasikan pengecekan HTML dalam pipeline CI/CD (continuous integration).
+  \item Perbaiki error terlebih dahulu; warning dapat ditangani sesuai prioritas \cite{mdnLearn}.
+\end{enumerate}
+\end{konsep}
+

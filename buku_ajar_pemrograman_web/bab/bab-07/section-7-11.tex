@@ -1,0 +1,50 @@
+\section{Styling Form: Input, Button, dan Select}
+
+Elemen form HTML memiliki tampilan default yang bervariasi antar browser dan sistem operasi. CSS memungkinkan penyeragaman dan peningkatan tampilan form agar konsisten dengan desain halaman. Properti \code{appearance: none} menghapus styling default browser pada input dan select, memungkinkan kontrol penuh melalui CSS. Perhatian pada aksesibilitas tetap penting: label, fokus, dan state error harus jelas \cite{mdnCss}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3.5cm}|P{4cm}|P{4.5cm}|}
+\hline
+\textbf{Elemen} & \textbf{Properti Styling Utama} & \textbf{Tips} \\
+\hline
+\code{input[type=text]} & \code{padding}, \code{border}, \code{border-radius}, \code{font-size} & Gunakan \code{box-sizing: border-box} \\
+\hline
+\code{button} & \code{background}, \code{color}, \code{border}, \code{cursor: pointer}, \code{padding} & Tambah \code{transition} untuk hover \\
+\hline
+\code{select} & \code{appearance: none}, padding, custom arrow & Gunakan background-image untuk panah \\
+\hline
+\code{textarea} & \code{resize}, \code{min-height}, font-family & Samakan font dengan input \\
+\hline
+\code{:focus} & \code{outline}, \code{box-shadow} & Wajib ada indikator fokus \\
+\hline
+\end{tabular}
+\caption{Styling elemen form dan tips praktis}
+\end{table}
+
+\begin{webcode}[language=CSS, caption={Styling form yang konsisten}]
+input, select, textarea, button {
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #2a6fb0;
+  box-shadow: 0 0 0 3px rgba(42,111,176,0.2);
+}
+button {
+  background: #2a6fb0; color: white;
+  border: none; cursor: pointer;
+  transition: background 0.2s;
+}
+button:hover { background: #1a4f80; }
+\end{webcode}
+
+\begin{catatan}
+\textbf{font-family: inherit pada form.} Secara default, \code{input}, \code{button}, \code{select}, dan \code{textarea} \textbf{tidak mewarisi} font dari parent---mereka menggunakan font sistem. Atur \code{font-family: inherit; font-size: inherit;} untuk menyeragamkan tipografi form dengan halaman. Ini sering terlewat dan menyebabkan inkonsistensi visual \cite{webdevCss}.
+\end{catatan}
+

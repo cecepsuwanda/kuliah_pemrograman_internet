@@ -1,0 +1,24 @@
+\section{Cookie: SameSite, Secure, HttpOnly untuk Keamanan}
+
+Cookie sering digunakan untuk menyimpan session ID, preferensi pengguna, dan data ringan lainnya. Tanpa pengaturan keamanan yang tepat, cookie menjadi target serangan. Tiga atribut keamanan penting: \textbf{HttpOnly} (cookie tidak bisa diakses JavaScript --- mencegah pencurian via XSS), \textbf{Secure} (cookie hanya dikirim melalui HTTPS --- mencegah penyadapan), \textbf{SameSite} (mengontrol kapan cookie dikirim bersama request lintas situs --- mencegah CSRF) \cite{owaspCsrf}.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{2.5cm}|P{5cm}|P{5cm}|}
+\hline
+\textbf{Atribut} & \textbf{Fungsi} & \textbf{Melindungi dari} \\
+\hline
+\code{HttpOnly} & Cookie tidak bisa diakses JS & XSS (pencurian cookie) \\
+\hline
+\code{Secure} & Hanya dikirim via HTTPS & Penyadapan (MITM) \\
+\hline
+\code{SameSite=Strict} & Tidak dikirim di request lintas situs & CSRF \\
+\hline
+\code{SameSite=Lax} & Dikirim untuk navigasi top-level saja & CSRF (sebagian) \\
+\hline
+\code{SameSite=None} & Selalu dikirim (butuh Secure) & Tidak melindungi \\
+\hline
+\end{tabular}
+\caption{Atribut keamanan cookie}
+\end{table}
+

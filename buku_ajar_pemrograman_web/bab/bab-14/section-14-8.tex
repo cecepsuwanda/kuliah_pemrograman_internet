@@ -1,0 +1,25 @@
+\section{Reverse Proxy dan HTTPS (Konsep Dasar)}
+
+\textbf{Reverse proxy} adalah server yang berada di depan web server aplikasi, menerima semua request dari client, lalu meneruskannya ke server backend. Manfaat: (1) \textbf{SSL termination} --- HTTPS ditangani di proxy, backend cukup HTTP; (2) \textbf{load balancing} --- mendistribusikan traffic ke beberapa backend; (3) \textbf{caching} --- menyimpan response untuk request identik; (4) \textbf{keamanan} --- menyembunyikan detail server backend. Nginx sangat populer sebagai reverse proxy \cite{mdnDeploy}.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners, minimum width=2cm, minimum height=0.9cm, align=center, font=\footnotesize, fill=#1},
+  arrow/.style={-Stealth, thick},
+  node distance=1.2cm
+]
+  \node[box=blue!15] (client) {Client\\(Browser)};
+  \node[box=green!20, right=2cm of client] (proxy) {Nginx\\(Reverse Proxy)\\{\scriptsize HTTPS/SSL}};
+  \node[box=orange!15, right=2cm of proxy] (app) {Apache/PHP\\(Backend)\\{\scriptsize HTTP:8080}};
+  \node[box=yellow!15, right=2cm of app] (db) {MySQL};
+
+  \draw[arrow] (client) -- node[above, font=\scriptsize]{HTTPS} (proxy);
+  \draw[arrow] (proxy) -- node[above, font=\scriptsize]{HTTP} (app);
+  \draw[arrow] (app) -- (db);
+\end{tikzpicture}
+\caption{Arsitektur reverse proxy dengan SSL termination}
+\end{figure}
+
+\textbf{HTTPS} mengenkripsi komunikasi antara browser dan server menggunakan sertifikat SSL/TLS. \textbf{Let's Encrypt} menyediakan sertifikat SSL gratis; tool \code{certbot} mengotomasi instalasi dan pembaruan sertifikat. HTTPS wajib di produksi untuk melindungi data pengguna (password, informasi kartu kredit) dari penyadapan \cite{mdnDeploy}.
+

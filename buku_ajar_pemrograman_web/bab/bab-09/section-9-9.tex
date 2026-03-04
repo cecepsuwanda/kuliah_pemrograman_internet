@@ -1,0 +1,10 @@
+\section{Strict Mode dan Praktik Penulisan yang Baik}
+
+\code{"use strict";} di awal skrip atau fungsi mengaktifkan mode ketat yang melarang praktik rawan error. Dalam strict mode, menggunakan variabel tanpa deklarasi menjadi error (mencegah global leak), assignment ke properti read-only gagal, parameter duplikat tidak diizinkan, dan beberapa kata kunci reserved dilindungi. ES6 modules otomatis berjalan di strict mode \cite{jsInfo}.
+
+Praktik penulisan JavaScript yang baik meliputi: (1) selalu deklarasikan variabel dengan \code{const}/\code{let}; (2) gunakan \code{===} dan \code{!==}; (3) beri nama bermakna (camelCase untuk variabel/fungsi, PascalCase untuk class); (4) batasi panjang fungsi (satu fungsi = satu tugas); (5) hindari magic numbers (gunakan konstanta bernama); (6) tulis komentar untuk ``mengapa'', bukan ``apa''; (7) gunakan linter (ESLint) untuk menegakkan konsistensi otomatis \cite{mdnJsGuide}.
+
+\begin{konsep}
+\textbf{ESLint: Linter untuk JavaScript.} ESLint menganalisis kode dan melaporkan masalah: variabel tidak terpakai, \code{==} alih-alih \code{===}, \code{var} alih-alih \code{let}/\code{const}, dan banyak lagi. Konfigurasi populer: \code{eslint:recommended}, atau preset seperti Airbnb Style Guide. Integrasikan ESLint dengan editor (VS Code extension) agar error terdeteksi saat menulis kode, bukan saat runtime \cite{mdnToolsTesting}.
+\end{konsep}
+

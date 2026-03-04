@@ -1,0 +1,51 @@
+\section{CREATE TABLE dan Tipe Data Umum (INT, VARCHAR, DATE, TEXT, dll.)}
+
+Tabel adalah struktur utama penyimpanan data dalam database relasional. Setiap tabel terdiri dari kolom (\textit{field}) yang masing-masing memiliki nama dan \textbf{tipe data}, serta baris (\textit{record}) yang berisi data aktual. Perintah \code{CREATE TABLE} mendefinisikan struktur tabel: nama tabel, daftar kolom beserta tipe datanya, constraint (batasan), dan opsi lain seperti primary key dan auto-increment. Pemilihan tipe data yang tepat sangat penting karena mempengaruhi performa, penyimpanan, dan integritas data \cite{mysqlDocs}.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{2.5cm}|P{3cm}|P{3cm}|P{3.5cm}|}
+\hline
+\textbf{Tipe Data} & \textbf{Kategori} & \textbf{Kapasitas} & \textbf{Contoh Penggunaan} \\
+\hline
+\code{INT} & Numerik & -2M s.d. +2M & ID, jumlah, umur \\
+\hline
+\code{BIGINT} & Numerik & Sangat besar & ID skala besar \\
+\hline
+\code{DECIMAL(p,s)} & Numerik & Presisi tepat & Harga, saldo \\
+\hline
+\code{VARCHAR(n)} & Teks & Maks. n karakter & Nama, email \\
+\hline
+\code{TEXT} & Teks & Maks. 65535 byte & Deskripsi, komentar \\
+\hline
+\code{DATE} & Tanggal & YYYY-MM-DD & Tanggal lahir \\
+\hline
+\code{DATETIME} & Tanggal/Waktu & YYYY-MM-DD HH:MM:SS & Timestamp log \\
+\hline
+\code{BOOLEAN} & Logika & 0 atau 1 & Status aktif \\
+\hline
+\code{ENUM} & Pilihan & Set nilai tetap & Status (draft/publish) \\
+\hline
+\end{tabular}
+\caption{Tipe data umum di MySQL}
+\end{table}
+
+Setiap tabel sebaiknya memiliki kolom \textbf{primary key} yang mengidentifikasi setiap baris secara unik. Kolom primary key biasanya bertipe \code{INT} atau \code{BIGINT} dengan atribut \code{AUTO\_INCREMENT} sehingga nilainya dihasilkan otomatis oleh MySQL setiap kali record baru ditambahkan. Selain primary key, kolom juga dapat memiliki constraint seperti \code{NOT NULL} (wajib diisi), \code{DEFAULT} (nilai bawaan), dan \code{UNIQUE} (tidak boleh duplikat) \cite{mysqlGettingStarted}.
+
+\begin{webcode}[language=SQL, caption={Membuat tabel dengan berbagai tipe data dan constraint}]
+CREATE TABLE produk (
+  id        INT AUTO_INCREMENT PRIMARY KEY,
+  nama      VARCHAR(200) NOT NULL,
+  harga     DECIMAL(12,2) NOT NULL DEFAULT 0,
+  stok      INT NOT NULL DEFAULT 0,
+  deskripsi TEXT,
+  kategori  ENUM('elektronik', 'pakaian', 'makanan', 'lainnya')
+              DEFAULT 'lainnya',
+  aktif     BOOLEAN DEFAULT TRUE,
+  dibuat    DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Melihat struktur tabel
+DESCRIBE produk;
+\end{webcode}
+

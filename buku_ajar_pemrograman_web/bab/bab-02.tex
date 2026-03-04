@@ -4,6 +4,8 @@
 
 \chapter{Landasan Teori dan Konsep Dasar}
 
+Bab ini menyajikan fondasi teoritis yang mendukung seluruh materi dalam buku. Anda akan mempelajari arsitektur web, protokol HTTP, teknologi front-end dan back-end, siklus pengembangan, alat yang digunakan, standar web, serta pengenalan keamanan dan aksesibilitas. Pemahaman konsep-konsep ini menjadi prasyarat sebelum masuk ke implementasi di bab-bab selanjutnya. Dalam RPS, Bab ini selaras dengan \textbf{Pertemuan 1--2} (pengantar pemrograman web, arsitektur client-server, kebutuhan pengguna) dan menjadi dasar konseptual untuk \textbf{Pertemuan 4--7} (HTML, CSS).
+
 \begin{subcpmk}
   \item Sub-CPMK 1.1: Mengidentifikasi kebutuhan fungsional dan non-fungsional pengguna untuk solusi web.
   \item Sub-CPMK 2.1: Membuat halaman web dengan HTML5 (struktur, elemen semantik, form, media).
@@ -11,36 +13,89 @@
 
 \input{bab/bab-02/section-2-1}
 \input{bab/bab-02/section-2-2}
+\input{bab/bab-02/section-2-3}
+\input{bab/bab-02/section-2-4}
+\input{bab/bab-02/section-2-5}
+\input{bab/bab-02/section-2-6}
+\input{bab/bab-02/section-2-7}
+\input{bab/bab-02/section-2-8}
+\input{bab/bab-02/section-2-9}
+\input{bab/bab-02/section-2-10}
 
 \begin{aktivitas}
-  \item Amati request dan response menggunakan DevTools di browser.
-  \item Instal XAMPP dan jalankan server lokal.
-  \item Buat folder proyek sederhana untuk menyimpan latihan.
+  \item Buka browser, ketik sebuah URL (misalnya \url{https://www.example.com/halaman?id=1#bagian}), lalu amati request dan response di tab Network pada DevTools. Identifikasi metode HTTP, status code, header, dan komponen URL yang terlihat.
+  \item Instal XAMPP di komputer Anda. Buat file \code{info.php} berisi \code{<?php phpinfo(); ?>} di folder \code{htdocs}, lalu akses melalui \code{http://localhost/info.php}. Catat versi PHP dan modul yang aktif.
+  \item Buat halaman HTML sederhana yang menampilkan judul, paragraf, dan tombol. Tambahkan CSS untuk mengubah warna, font, dan tata letak menggunakan Flexbox. Tambahkan JavaScript agar tombol mengubah teks paragraf saat diklik.
+  \item Buat file PHP yang menghubungkan ke database MySQL menggunakan \code{mysqli}. Buat tabel \code{produk} di phpMyAdmin, isi dengan beberapa data, lalu tampilkan data tersebut di halaman web.
+  \item Gambar peta konsep hubungan antar teknologi web (HTML, CSS, JS, PHP, MySQL, HTTP, DNS, API) di kertas atau alat digital. Tunjukkan arah aliran data dan identifikasi mana yang berjalan di client dan mana di server.
+  \item Lakukan audit aksesibilitas dan performa menggunakan Lighthouse di Chrome DevTools pada sebuah situs web pilihan Anda. Catat skor dan tiga rekomendasi perbaikan yang paling penting.
+  \item Inisialisasi repositori Git untuk folder proyek latihan. Buat commit pertama, lalu buat branch baru untuk menambahkan fitur. Praktikkan perintah \code{git add}, \code{git commit}, \code{git branch}, dan \code{git merge}.
+  \item Buat contoh kode PHP yang rentan terhadap SQL Injection, lalu perbaiki menggunakan prepared statement. Uji kedua versi untuk memahami perbedaannya.
 \end{aktivitas}
 
 \begin{latihan}
-  \item Jelaskan perbedaan peran client dan server dalam 3 kalimat.
-  \item Sebutkan tiga status code HTTP dan artinya.
+  \item Jelaskan perbedaan peran client dan server dalam arsitektur web. Berikan contoh konkret masing-masing dan gambarkan alur komunikasinya.
+  \item Sebutkan dan jelaskan tujuh komponen URL beserta contohnya. Berikan contoh URL lengkap dan identifikasi setiap komponennya.
+  \item Jelaskan perbedaan metode HTTP GET dan POST. Kapan masing-masing digunakan? Apa yang dimaksud dengan \textit{idempotent}?
+  \item Sebutkan lima status code HTTP dari kategori yang berbeda (2xx, 3xx, 4xx, 5xx) beserta artinya. Berikan situasi nyata di mana masing-masing muncul.
+  \item Jelaskan peran HTML, CSS, dan JavaScript dalam pembangunan halaman web. Apa yang dimaksud dengan \textit{separation of concerns} dan mengapa prinsip ini penting?
+  \item Apa perbedaan antara front-end dan back-end? Jelaskan alur lengkap dari saat pengguna mengklik tombol hingga data ditampilkan di halaman.
+  \item Sebutkan dan jelaskan secara singkat enam tahapan siklus pengembangan web (SDLC). Apa output utama dari masing-masing tahap?
+  \item Jelaskan perbedaan pendekatan Waterfall dan Agile dalam pengembangan web. Kapan masing-masing lebih tepat digunakan?
+  \item Jelaskan tiga ancaman keamanan web utama (SQL Injection, XSS, CSRF): bagaimana serangannya bekerja dan cara pencegahannya.
+  \item Apa yang dimaksud dengan aksesibilitas web? Sebutkan empat prinsip WCAG (POUR) dan berikan contoh implementasi masing-masing.
+  \item Sebutkan tiga metrik Core Web Vitals dan jelaskan apa yang diukur oleh masing-masing. Apa target yang dianggap baik?
+  \item Sebutkan tiga organisasi standar web dan kontribusi masing-masing. Mengapa standar web penting untuk interoperabilitas?
 \end{latihan}
 
 \begin{asesmen}
-Asesmen berupa tugas membuat ringkasan konsep HTTP dan demonstrasi request sederhana.
+Asesmen bab ini berupa:
+\begin{enumerate}
+  \item \textbf{Kuis konsep}: pertanyaan pilihan ganda dan isian singkat tentang arsitektur web, HTTP (metode, status code, header), teknologi front-end/back-end, SDLC, standar web, dan keamanan dasar.
+  \item \textbf{Tugas praktik}: buat halaman web (HTML + CSS + JS) yang menampilkan daftar produk dengan tata letak Flexbox. Halaman harus berjalan di server lokal XAMPP. Sertakan screenshot DevTools yang menunjukkan:
+  \begin{itemize}
+    \item Request HTTP dan status code di tab Network
+    \item Struktur HTML di tab Elements
+    \item Hasil audit Lighthouse (skor Accessibility dan Performance)
+  \end{itemize}
+  \item \textbf{Tugas back-end}: buat file PHP yang mengambil data produk dari database MySQL dan menampilkannya di halaman. Gunakan prepared statement untuk query database.
+  \item \textbf{Peta konsep}: gambar diagram hubungan antar teknologi web yang dipelajari di bab ini, tunjukkan alur data dari browser ke database dan kembali.
+\end{enumerate}
 \end{asesmen}
 
 \begin{checklist}
-  \item Saya memahami konsep client-server.
-  \item Saya bisa menjelaskan metode HTTP yang umum.
-  \item Saya sudah mencoba alat pengembang di browser.
+  \item Saya memahami arsitektur client-server, peran DNS, dan siklus request-response HTTP.
+  \item Saya dapat menjelaskan komponen URL (skema, host, port, path, query, fragment).
+  \item Saya dapat menjelaskan metode HTTP (GET, POST, PUT, DELETE, PATCH) dan konsep idempotent.
+  \item Saya dapat membaca dan menginterpretasikan status code HTTP (2xx, 3xx, 4xx, 5xx).
+  \item Saya memahami peran HTTP header dan perbedaan HTTP vs HTTPS (TLS/SSL).
+  \item Saya dapat menjelaskan peran HTML, CSS, dan JavaScript, termasuk konsep Box Model dan Flexbox.
+  \item Saya memahami peran PHP, MySQL, dan REST API di sisi back-end beserta alur pemrosesannya.
+  \item Saya mengenal tahapan siklus pengembangan web (SDLC) dan perbedaan Waterfall vs Agile.
+  \item Saya dapat menggunakan alat pengembangan: VS Code, DevTools, XAMPP, dan Git.
+  \item Saya mengenal organisasi standar web (W3C, WHATWG, ECMA, IETF) dan perannya.
+  \item Saya memahami hubungan antar teknologi web melalui peta konsep, termasuk konsep AJAX/Fetch.
+  \item Saya mengenal tiga ancaman keamanan utama (SQL Injection, XSS, CSRF) dan teknik pencegahannya.
+  \item Saya memahami prinsip defense in depth dan pentingnya validasi server-side.
+  \item Saya memahami prinsip aksesibilitas web (WCAG, POUR) dan penggunaan HTML semantik serta ARIA.
+  \item Saya mengenal metrik Core Web Vitals (LCP, INP, CLS) dan cara mengukurnya dengan Lighthouse.
 \end{checklist}
 
 \begin{rangkuman}
-Bab ini membahas dasar arsitektur web, protokol HTTP, serta alat pengembangan yang diperlukan. Konsep ini menjadi fondasi untuk memahami bagaimana halaman web dibangun dan diakses.
+Bab ini menyajikan landasan teori dan konsep dasar yang menjadi fondasi seluruh pembelajaran pemrograman web dalam buku ini.
 
 \textbf{Poin Kunci:}
 \begin{itemize}
-  \item HTTP mengatur komunikasi antara client dan server.
-  \item Metode GET dan POST adalah metode yang paling sering digunakan.
-  \item Tool seperti browser DevTools dan XAMPP membantu proses belajar.
+  \item \textbf{Arsitektur web} didasarkan pada model client-server dengan HTTP sebagai protokol komunikasi. DNS menerjemahkan nama domain menjadi alamat IP. URL mengidentifikasi sumber daya melalui komponen: skema, host, port, path, query, dan fragment. Koneksi dimulai dengan TCP three-way handshake.
+  \item \textbf{HTTP} memiliki metode (GET, POST, PUT, DELETE, PATCH), status code (2xx, 3xx, 4xx, 5xx), dan header yang membawa metadata. HTTP bersifat stateless; cookie dan session digunakan untuk mengelola state. HTTPS menambahkan enkripsi TLS untuk keamanan.
+  \item \textbf{Front-end} terdiri dari HTML (struktur), CSS (presentasi), dan JavaScript (interaktivitas). CSS modern menyediakan Flexbox dan Grid untuk layout responsif. JavaScript ES6+ menambahkan fitur seperti arrow function, Promise, dan Fetch API.
+  \item \textbf{Back-end} terdiri dari PHP (logika bisnis), MySQL (penyimpanan data), dan web server (Apache). REST API menggunakan format JSON untuk komunikasi front-end dan back-end.
+  \item \textbf{Siklus pengembangan web} meliputi analisis kebutuhan, perancangan, implementasi, pengujian, deployment, dan pemeliharaan. Pendekatan Agile memungkinkan iterasi cepat melalui sprint.
+  \item \textbf{Alat pengembangan} yang diperlukan meliputi editor kode (VS Code), browser DevTools, server lokal (XAMPP), version control (Git), dan terminal.
+  \item \textbf{Standar web} dikembangkan oleh W3C (CSS), WHATWG (HTML), ECMA (JavaScript), dan IETF (HTTP). Standar memastikan interoperabilitas lintas browser dan platform.
+  \item \textbf{Peta konsep} menggambarkan hubungan antar teknologi web. AJAX/Fetch memungkinkan JavaScript berkomunikasi dengan server tanpa reload halaman.
+  \item \textbf{Keamanan web} harus diperhatikan sejak awal: waspadai SQL Injection (gunakan prepared statement), XSS (gunakan output encoding), dan CSRF (gunakan CSRF token). Prinsip utama: \textit{never trust user input}.
+  \item \textbf{Aksesibilitas} (WCAG/POUR) dan \textbf{performa} (Core Web Vitals: LCP, INP, CLS) merupakan aspek kualitas yang meningkatkan jangkauan pengguna dan pengalaman browsing.
 \end{itemize}
 \end{rangkuman}
 

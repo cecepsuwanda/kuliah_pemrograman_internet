@@ -1,13 +1,51 @@
-\section{Dasar SQL dan Struktur Tabel}
-MySQL adalah sistem manajemen basis data yang banyak digunakan untuk aplikasi web. SQL digunakan untuk membuat tabel, menyimpan data, dan mengambil data kembali. Konsep dasar ini penting agar data terstruktur dan mudah dikelola \cite{mysqlDocs}.
+\section{Pengenalan Database dan SQL}
 
-Struktur tabel terdiri dari kolom dengan tipe data tertentu, seperti \code{INT}, \code{VARCHAR}, atau \code{DATE}. Kunci utama (primary key) membantu mengidentifikasi setiap baris secara unik. Dengan desain tabel yang baik, operasi CRUD berjalan lebih efisien.
+\textbf{Basis data} (\textit{database}) adalah kumpulan data yang terorganisasi secara sistematis sehingga dapat disimpan, dikelola, dan diambil kembali secara efisien. Dalam konteks aplikasi web, basis data menyimpan informasi seperti data pengguna, produk, transaksi, dan konten halaman. Tanpa basis data, aplikasi web hanya dapat menampilkan konten statis --- tidak dapat mengingat pengguna, menyimpan formulir, atau menampilkan data yang berubah. Sistem yang mengelola basis data disebut \textbf{DBMS} (\textit{Database Management System}), dan yang paling umum digunakan di web adalah DBMS relasional (RDBMS) yang mengorganisasi data dalam bentuk tabel dengan baris dan kolom \cite{mysqlDocs}.
 
-\begin{webcode}[language=SQL, caption={Membuat Tabel Sederhana}]
-CREATE TABLE pengguna (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  nama VARCHAR(100),
-  email VARCHAR(100)
-);
-\end{webcode}
+\textbf{SQL} (\textit{Structured Query Language}) adalah bahasa standar untuk berkomunikasi dengan RDBMS. SQL digunakan untuk mendefinisikan struktur data (\textbf{DDL} --- \textit{Data Definition Language}: CREATE, ALTER, DROP), memanipulasi data (\textbf{DML} --- \textit{Data Manipulation Language}: SELECT, INSERT, UPDATE, DELETE), dan mengontrol akses (\textbf{DCL} --- \textit{Data Control Language}: GRANT, REVOKE). SQL bersifat deklaratif --- Anda menyatakan \textit{apa} yang ingin dilakukan, bukan \textit{bagaimana} melakukannya. Hampir semua RDBMS (MySQL, PostgreSQL, SQLite, SQL Server, Oracle) menggunakan SQL dengan variasi minor \cite{mysqlGettingStarted}.
+
+\begin{konsep}
+\textbf{Database Relasional} menyimpan data dalam \textit{tabel} (relasi) yang terdiri dari \textit{baris} (record/tuple) dan \textit{kolom} (field/attribute). Hubungan antar tabel dibangun melalui \textit{kunci} (primary key dan foreign key), memungkinkan data yang saling terkait disimpan secara terpisah namun dapat digabungkan kembali dengan operasi JOIN.
+\end{konsep}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners, minimum width=2.8cm, minimum height=1.2cm, align=center, font=\small, fill=#1},
+  arrow/.style={-Stealth, thick}
+]
+  \node[box=blue!15] (app) {Aplikasi Web\\(PHP)};
+  \node[box=orange!20, right=2cm of app] (sql) {Query SQL};
+  \node[box=green!15, right=2cm of sql] (dbms) {DBMS\\(MySQL)};
+  \node[box=yellow!20, below=1.5cm of dbms] (storage) {Penyimpanan\\(File/Disk)};
+
+  \draw[arrow] (app) -- node[above, font=\footnotesize]{Kirim query} (sql);
+  \draw[arrow] (sql) -- node[above, font=\footnotesize]{Eksekusi} (dbms);
+  \draw[arrow] (dbms) -- (storage);
+  \draw[arrow] (storage) -- (dbms);
+  \draw[arrow] (dbms) -- node[below, font=\footnotesize]{Hasil data} (sql);
+  \draw[arrow] (sql) -- node[below, font=\footnotesize]{Return} (app);
+\end{tikzpicture}
+\caption{Arsitektur interaksi aplikasi web dengan database melalui SQL}
+\end{figure}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{2.5cm}|P{2cm}|P{2.5cm}|P{2.5cm}|P{2.5cm}|}
+\hline
+\textbf{DBMS} & \textbf{Tipe} & \textbf{Lisensi} & \textbf{Keunggulan} & \textbf{Penggunaan} \\
+\hline
+MySQL & Relasional & Open-source & Cepat, populer & WordPress, PHP apps \\
+\hline
+PostgreSQL & Relasional & Open-source & Fitur lengkap & Enterprise, GIS \\
+\hline
+SQLite & Relasional & Public domain & Ringan, file-based & Mobile, embedded \\
+\hline
+MongoDB & NoSQL & Open-source & Fleksibel (JSON) & Real-time, big data \\
+\hline
+\end{tabular}
+\caption{Perbandingan beberapa DBMS populer}
+\end{table}
+
+MySQL dipilih sebagai DBMS utama dalam mata kuliah ini karena beberapa alasan: (1) open-source dan gratis untuk penggunaan akademik; (2) mudah diinstal sebagai bagian dari paket XAMPP bersama Apache dan PHP; (3) dokumentasi resmi yang sangat lengkap; (4) kompatibilitas tinggi dengan PHP melalui ekstensi MySQLi dan PDO; (5) digunakan secara luas di industri --- dari startup hingga perusahaan besar. Memahami MySQL memberikan fondasi kuat untuk mempelajari RDBMS lain karena SQL bersifat lintas platform \cite{mysqlDocs}.
 

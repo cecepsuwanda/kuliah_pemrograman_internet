@@ -1,0 +1,61 @@
+\section{Gambar Vektor (SVG) dalam HTML}
+
+SVG (Scalable Vector Graphics) adalah format gambar berbasis XML yang mendefinisikan grafik menggunakan rumus matematika---bukan piksel seperti format raster (PNG, JPG, GIF). Keunggulan utama SVG adalah skalabilitas tanpa batas: gambar SVG dapat diperbesar atau diperkecil ke ukuran berapa pun tanpa kehilangan kualitas atau menjadi buram. Ini menjadikan SVG ideal untuk ikon, logo, ilustrasi, grafik data, dan elemen antarmuka yang harus tampil tajam di berbagai resolusi layar, termasuk layar Retina/HiDPI \cite{mdnHtmlIntro}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3cm}|P{4.5cm}|P{4.5cm}|}
+\hline
+\textbf{Aspek} & \textbf{SVG (Vektor)} & \textbf{PNG/JPG (Raster)} \\
+\hline
+Skalabilitas & Tanpa batas, selalu tajam & Pecah/blur jika diperbesar \\
+\hline
+Ukuran file & Kecil untuk grafik sederhana & Bisa besar untuk resolusi tinggi \\
+\hline
+Animasi & Didukung (CSS \& SMIL) & Hanya GIF (terbatas) \\
+\hline
+Styling CSS & Penuh (fill, stroke, dll.) & Tidak bisa \\
+\hline
+Interaksi JS & Penuh (klik, hover, dll.) & Terbatas \\
+\hline
+Cocok untuk & Ikon, logo, diagram, grafik & Foto, gambar kompleks \\
+\hline
+\end{tabular}
+\caption{Perbandingan SVG (vektor) vs PNG/JPG (raster)}
+\end{table}
+
+SVG dapat disisipkan di HTML dengan beberapa cara. Cara pertama: sebagai file eksternal melalui \code{<img src="file.svg" alt="...">}---cara paling sederhana namun SVG tidak dapat dimanipulasi dengan CSS/JS. Cara kedua: inline SVG, yaitu menuliskan kode SVG langsung di dalam dokumen HTML---cara ini memberikan kontrol penuh melalui CSS dan JavaScript. Cara ketiga: melalui CSS \code{background-image}. Cara keempat: menggunakan \code{<object>} yang memungkinkan fallback. Untuk ikon dan ilustrasi yang perlu distylish atau diinteraksi, inline SVG adalah pilihan terbaik \cite{webdevHtml}.
+
+Elemen dasar SVG meliputi bentuk-bentuk primitif: \code{<rect>} untuk persegi panjang, \code{<circle>} untuk lingkaran, \code{<ellipse>} untuk elips, \code{<line>} untuk garis, \code{<polyline>} untuk garis bersambung, \code{<polygon>} untuk poligon tertutup, dan \code{<path>} untuk bentuk bebas yang didefinisikan dengan perintah jalur (path commands). Atribut visual utama adalah \code{fill} (warna isi), \code{stroke} (warna garis), \code{stroke-width} (ketebalan garis), dan \code{opacity} (transparansi) \cite{mdnHtmlIntro}.
+
+\begin{webcode}[language=HTML, caption={SVG inline dengan berbagai bentuk dasar}]
+<svg width="300" height="200" viewBox="0 0 300 200"
+     role="img" aria-label="Contoh bentuk SVG">
+  <!-- Persegi panjang dengan sudut membulat -->
+  <rect x="10" y="10" width="80" height="60"
+        rx="10" fill="#3498db" />
+  <!-- Lingkaran -->
+  <circle cx="160" cy="40" r="30"
+          fill="#e74c3c" opacity="0.8" />
+  <!-- Garis -->
+  <line x1="220" y1="10" x2="290" y2="70"
+        stroke="#2ecc71" stroke-width="3" />
+  <!-- Poligon (segitiga) -->
+  <polygon points="50,120 10,190 90,190"
+           fill="#f39c12" />
+  <!-- Teks SVG -->
+  <text x="130" y="160" font-size="16"
+        fill="#333">Hello SVG!</text>
+</svg>
+\end{webcode}
+
+\begin{konsep}
+\textbf{Aksesibilitas SVG.} Untuk memastikan SVG dapat diakses oleh semua pengguna:
+\begin{itemize}
+  \item Pada \code{<img src="file.svg">}: gunakan atribut \code{alt} yang deskriptif.
+  \item Pada inline \code{<svg>}: tambahkan \code{role="img"} dan \code{aria-label} atau gunakan elemen \code{<title>} dan \code{<desc>} di dalam SVG.
+  \item Untuk SVG dekoratif (tidak mengandung informasi penting): gunakan \code{aria-hidden="true"} agar diabaikan oleh pembaca layar.
+  \item Pastikan warna dan kontras cukup untuk pengguna dengan gangguan penglihatan warna \cite{mdnAccessibility}.
+\end{itemize}
+\end{konsep}
+

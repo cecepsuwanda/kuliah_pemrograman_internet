@@ -1,0 +1,68 @@
+\section{Standar Web dan Organisasi Terkait}
+Teknologi web dibangun di atas \textbf{standar terbuka} yang memastikan halaman web tampil konsisten di berbagai browser dan perangkat. Standar ini dikembangkan oleh organisasi internasional melalui proses kolaboratif yang melibatkan vendor browser, pengembang, dan akademisi. Tanpa standar, setiap browser akan menginterpretasikan kode dengan cara berbeda, dan pengembang harus menulis kode terpisah untuk setiap platform. Era sebelum standar yang ketat disebut \textit{browser wars}---masa di mana Internet Explorer dan Netscape memiliki implementasi yang tidak kompatibel satu sama lain \cite{mdnLearn}.
+
+\textbf{W3C} (World Wide Web Consortium) adalah organisasi yang mengembangkan standar untuk CSS, SVG, XML, dan banyak teknologi web lainnya. W3C didirikan oleh Tim Berners-Lee, penemu World Wide Web, pada tahun 1994. Spesifikasi W3C melalui proses review yang ketat sebelum menjadi \textit{Recommendation} (rekomendasi resmi): dimulai dari \textit{Working Draft}, lalu \textit{Candidate Recommendation}, \textit{Proposed Recommendation}, dan akhirnya \textit{Recommendation}. Proses ini memastikan bahwa standar telah diuji dan didukung oleh berbagai implementasi sebelum dianggap final \cite{w3cCss}.
+
+\textbf{WHATWG} (Web Hypertext Application Technology Working Group) mengelola standar HTML sebagai \textit{Living Standard} yang terus diperbarui tanpa nomor versi tetap. Pendekatan ini berbeda dengan W3C yang menerbitkan versi diskret (HTML 4.01, XHTML 1.0, HTML5). Living Standard memastikan spesifikasi selalu mencerminkan fitur terbaru yang didukung browser. Spesifikasi HTML Living Standard mencakup elemen, atribut, API DOM, dan aturan parsing yang harus dipatuhi browser. WHATWG dibentuk oleh vendor browser (Apple, Google, Mozilla, Microsoft) untuk mempercepat evolusi web \cite{whatwgHtml}.
+
+\textbf{ECMA International} menstandarkan bahasa JavaScript melalui spesifikasi \textbf{ECMAScript}. Setiap tahun diterbitkan versi baru yang menambahkan fitur baru ke bahasa. Tonggak terpenting adalah \textbf{ES2015 (ES6)} yang memperkenalkan perubahan besar: \code{let}/\code{const}, arrow function, template literal, \code{class}, modul (\code{import}/\code{export}), \code{Promise}, dan \textit{destructuring}. Sejak ES2015, versi baru dirilis setiap tahun dengan penambahan fitur yang lebih kecil, seperti \code{async}/\code{await} (ES2017) dan optional chaining (ES2020). Browser kemudian mengimplementasikan fitur berdasarkan spesifikasi ECMAScript \cite{mdnJsGuide}.
+
+\textbf{IETF} (Internet Engineering Task Force) mengembangkan standar protokol internet melalui dokumen \textbf{RFC} (Request for Comments). Protokol HTTP/1.1 didefinisikan dalam RFC 7230--7235, HTTP/2 dalam RFC 7540, dan HTTP/3 dalam RFC 9114. IETF juga menstandarkan TLS (RFC 8446) yang menjadi dasar HTTPS, serta protokol email (SMTP, IMAP), DNS, dan banyak lagi. Standar ini memastikan bahwa server web dan browser dari vendor berbeda dapat berkomunikasi dengan cara yang sama di seluruh dunia \cite{mdnLearn}.
+
+Selain keempat organisasi utama tersebut, tata kelola web juga melibatkan \textbf{W3C WAI} (Web Accessibility Initiative) yang mengembangkan WCAG untuk aksesibilitas, \textbf{IANA} (Internet Assigned Numbers Authority) yang mengelola alokasi port dan tipe MIME, serta berbagai komunitas open source yang berkontribusi pada implementasi standar di browser. Pemahaman tentang keberadaan standar ini membantu Anda menulis kode yang sesuai praktik terbaik dan kompatibel lintas platform \cite{w3cValidator}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{2.5cm}|P{4cm}|P{5cm}|}
+\hline
+\textbf{Organisasi} & \textbf{Standar Utama} & \textbf{Contoh Spesifikasi} \\
+\hline
+W3C & CSS, SVG, WAI-ARIA & CSS Flexbox, CSS Grid, WCAG 2.x \\
+\hline
+WHATWG & HTML & HTML Living Standard \\
+\hline
+ECMA & JavaScript (ECMAScript) & ES2015 (ES6), ES2024 \\
+\hline
+IETF & Protokol internet & HTTP/1.1, HTTP/2, HTTP/3, TLS 1.3 \\
+\hline
+\end{tabular}
+\caption{Organisasi standar web dan spesifikasi utamanya}
+\end{table}
+
+\vspace{0.8cm}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{2cm}|P{3.5cm}|P{6cm}|}
+\hline
+\textbf{Tahun} & \textbf{Standar} & \textbf{Perubahan Penting} \\
+\hline
+1997 & HTML 4.0 & Elemen presentasi, tabel, form \\
+\hline
+1999 & CSS 2 & Positioning, z-index, media types \\
+\hline
+2008 & HTML5 (draft) & Elemen semantik, canvas, video, audio \\
+\hline
+2011 & CSS3 Modules & Flexbox, Grid, Animations, Transitions \\
+\hline
+2015 & ES2015 (ES6) & Arrow function, class, module, Promise \\
+\hline
+2015 & HTTP/2 & Multiplexing, server push, header compression \\
+\hline
+2022 & HTTP/3 & Berbasis QUIC (UDP), latensi lebih rendah \\
+\hline
+\end{tabular}
+\caption{Timeline standar web penting}
+\end{table}
+
+\begin{konsep}
+\textbf{Mengapa Standar Web Penting?}
+
+Standar web memastikan tiga hal fundamental:
+\begin{itemize}
+  \item \textbf{Interoperabilitas} --- halaman web yang ditulis sesuai standar akan tampil konsisten di semua browser (Chrome, Firefox, Safari, Edge) dan semua perangkat (desktop, tablet, mobile).
+  \item \textbf{Aksesibilitas} --- standar menyediakan mekanisme agar konten web dapat diakses oleh teknologi bantu seperti pembaca layar.
+  \item \textbf{Masa depan} --- kode yang mengikuti standar lebih tahan terhadap perubahan teknologi; browser baru akan tetap mendukung fitur standar lama.
+\end{itemize}
+Selalu validasi kode HTML Anda menggunakan \textbf{W3C Markup Validation Service} di \code{https://validator.w3.org/} untuk memastikan kesesuaian dengan standar \cite{w3cValidator}.
+\end{konsep}
+

@@ -1,0 +1,95 @@
+\section{User Flow dan Analisis Tugas}
+
+\textbf{User flow} adalah diagram yang menggambarkan langkah-langkah yang dilalui pengguna untuk menyelesaikan tugas tertentu di dalam aplikasi. User flow membantu pengembang dan desainer memvisualisasikan jalur interaksi---dari titik masuk (entry point) hingga penyelesaian tugas (goal). Dengan membuat user flow sebelum wireframe, tim dapat mengidentifikasi jalur yang terlalu panjang, langkah yang membingungkan, atau skenario error yang belum tertangani \cite{mdnLearn}.
+
+Berbeda dengan \textbf{site map} yang menunjukkan struktur hierarki halaman, user flow lebih berfokus pada \textit{perjalanan pengguna} melalui berbagai halaman dan tindakan. User flow juga berbeda dari skenario penggunaan---skenario bersifat naratif dan kontekstual, sedangkan user flow bersifat diagramatis dan menunjukkan percabangan keputusan.
+
+\subsection{Analisis Tugas (Task Analysis)}
+
+\textbf{Analisis tugas} (\textit{task analysis}) adalah proses memecah tugas besar menjadi sub-tugas yang lebih kecil dan terperinci. Teknik ini membantu pengembang memahami \textit{setiap langkah} yang harus dilakukan pengguna, termasuk keputusan yang harus diambil dan informasi yang dibutuhkan di setiap langkah. Salah satu metode populer adalah \textbf{HTA} (Hierarchical Task Analysis) yang menyusun tugas dalam struktur hierarki \cite{nngroup}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{2.5cm}|P{4.5cm}|P{5cm}|}
+\hline
+\textbf{Simbol} & \textbf{Nama} & \textbf{Fungsi} \\
+\hline
+Persegi panjang & Proses / Halaman & Menunjukkan halaman atau tindakan \\
+\hline
+Belah ketupat & Keputusan & Percabangan berdasarkan kondisi \\
+\hline
+Oval / Rounded & Mulai / Selesai & Titik awal dan akhir alur \\
+\hline
+Panah & Alur & Menunjukkan arah perjalanan \\
+\hline
+\end{tabular}
+\caption{Notasi dasar dalam diagram user flow}
+\end{table}
+
+\subsection{Membuat User Flow}
+
+\begin{sloppypar}
+Proses pembuatan user flow dimulai dengan (1) menentukan \textbf{tugas} yang ingin dipetakan---misalnya ``Tambah Catatan Baru''; (2) menentukan \textbf{titik masuk}---halaman mana pengguna mulai; (3) menggambar \textbf{setiap langkah} termasuk percabangan keputusan; dan (4) menentukan \textbf{titik selesai}---kondisi apa yang menandai tugas berhasil. Berikut contoh user flow untuk fitur ``Tambah Catatan'' pada aplikasi catatan harian \cite{webdevLearn}:
+\end{sloppypar}
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[node distance=2cm, transform shape, every node/.style={font=\footnotesize},
+  decision/.style={diamond, draw=black, fill=yellow!15, minimum width=2.5cm, minimum height=1.2cm, text centered, align=center, font=\footnotesize, inner sep=1pt},
+  startstop/.style={rectangle, rounded corners=10pt, draw=black, fill=red!10, minimum width=2cm, minimum height=0.8cm, text centered, align=center, font=\footnotesize}]
+  
+  \node (start) [startstop] {Buka Aplikasi};
+  \node (home) [class, right=of start] {Halaman Utama};
+  \node (click) [class, right=of home] {Klik ``Tambah''};
+  \node (form) [class, right=of click] {Form Catatan};
+  \node (check) [decision, right=2.5cm of form] {Form\\valid?};
+  \node (save) [class, right=2.5cm of check] {Simpan ke\\Database};
+  \node (done) [startstop, right=of save] {Catatan\\Tersimpan};
+  \node (error) [class, below=1.5cm of check] {Tampilkan\\Pesan Error};
+  
+  \draw [arrow] (start) -- (home);
+  \draw [arrow] (home) -- (click);
+  \draw [arrow] (click) -- (form);
+  \draw [arrow] (form) -- (check);
+  \draw [arrow] (check) -- node[above] {Ya} (save);
+  \draw [arrow] (save) -- (done);
+  \draw [arrow] (check) -- node[right] {Tidak} (error);
+  \draw [arrow] (error) -| (form);
+\end{tikzpicture}%
+}
+\caption{User flow: Tambah Catatan Baru pada aplikasi catatan harian}
+\end{figure}
+
+\subsection{Studi Kasus: Analisis Tugas untuk ``Edit Catatan''}
+
+Berikut contoh analisis tugas menggunakan pendekatan hierarkis untuk fitur ``Edit Catatan'' pada aplikasi catatan harian. Setiap sub-tugas dapat diidentifikasi dan masing-masing memerlukan elemen antarmuka yang berbeda.
+
+\begin{contoh}
+\textbf{Analisis Tugas Hierarkis: Edit Catatan}
+
+\textbf{Tugas utama:} Mengedit catatan yang sudah ada.
+
+\begin{enumerate}
+  \item Buka halaman utama (melihat daftar catatan)
+  \item Temukan catatan yang ingin diedit
+  \begin{enumerate}
+    \item Scroll daftar catatan, \textbf{atau}
+    \item Gunakan fitur pencarian
+  \end{enumerate}
+  \item Klik catatan untuk membuka detail
+  \item Klik tombol ``Edit''
+  \item Ubah judul dan/atau isi catatan
+  \item Klik ``Simpan'' untuk menyimpan perubahan
+  \begin{enumerate}
+    \item Jika berhasil: tampilkan notifikasi sukses, kembali ke detail
+    \item Jika gagal (validasi): tampilkan pesan error, tetap di form edit
+  \end{enumerate}
+\end{enumerate}
+
+\textbf{Implikasi desain:} Fitur pencarian harus mudah diakses. Tombol ``Edit'' harus terlihat jelas di halaman detail. Form edit harus pre-filled dengan data catatan saat ini.
+\end{contoh}
+
+\begin{catatan}
+User flow sebaiknya dibuat untuk semua \textit{happy path} (jalur utama yang berhasil) dan minimal satu \textit{unhappy path} (jalur saat terjadi error atau kondisi tidak ideal). Dengan begitu, desainer dan pengembang sudah memikirkan penanganan error sejak tahap desain, bukan saat coding.
+\end{catatan}

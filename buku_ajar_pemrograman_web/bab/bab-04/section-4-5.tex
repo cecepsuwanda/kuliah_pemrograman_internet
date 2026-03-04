@@ -1,0 +1,73 @@
+\section{Bagian Head dan Metadata Halaman}
+
+Bagian \code{<head>} dalam dokumen HTML adalah container untuk metadata dan instruksi yang tidak ditampilkan langsung kepada pengguna, namun sangat penting untuk fungsionalitas, performa, dan optimasi halaman web. Metadata adalah data tentang data - dalam konteks ini, informasi tentang dokumen HTML itu sendiri seperti judul, pengarang, deskripsi, dan pengaturan teknis. Browser menggunakan informasi dalam \code{<head>} untuk menentukan cara memproses dan menampilkan halaman, sementara mesin pencari menggunakan metadata untuk mengindeks dan menampilkan hasil pencarian yang relevan \cite{mdnHtmlIntro}.
+
+Encoding karakter adalah aspek fundamental yang ditentukan dalam \code{<head>} melalui elemen \code{<meta charset="UTF-8">}. UTF-8 adalah encoding standar yang mendukung hampir semua karakter dari semua bahasa dunia, termasuk karakter khas bahasa Indonesia seperti 'é' dalam 'résumé' atau karakter lokal lainnya. Pengaturan encoding yang benar mencegah masalah karakter mojibake (tanda tanya atau karakter aneh yang muncul karena encoding salah) dan memastikan teks ditampilkan dengan benar di semua perangkat. Elemen \code{<meta>} ini harus ditempatkan dalam 1024 byte pertama dokumen untuk memastikan browser membaca encoding sebelum parsing konten.
+
+\begin{sloppypar}
+Meta viewport adalah elemen penting lainnya untuk pengalaman mobile yang optimal: \code{<meta name="viewport" content="width=device-width, initial-scale=1.0">}. Tanpa tag ini, browser mobile akan mengasumsikan halaman dirancang untuk desktop dan menskalakan halaman kecil, memaksa pengguna untuk melakukan zoom dan scroll horizontal. Atribut \code{width=device-width} memberitahu browser untuk menggunakan lebar layar perangkat sebagai lebar viewport, sementara \code{initial-scale=1.0} mengatur level zoom awal menjadi 100\%. Dalam era mobile-first, elemen ini menjadi wajib untuk setiap halaman web yang responsif \cite{webdevHtml}.
+\end{sloppypar}
+
+SEO (Search Engine Optimization) dasar dimulai dari \code{<head>} dengan elemen \code{<title>} dan \code{<meta name="description">}. Elemen \code{<title>} menentukan teks yang muncul di tab browser, hasil pencarian Google, dan bookmark. Judul yang baik harus deskriptif, mengandung kata kunci relevan, dan tidak lebih dari 60 karakter agar tidak terpotong. Meta description memberikan ringkasan halaman yang ditampilkan di hasil pencarian di bawah judul; deskripsi yang menarik dapat meningkatkan click-through rate dari hasil pencarian.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{4cm}|P{2.5cm}|P{5cm}|}
+\hline
+\textbf{Meta Tag} & \textbf{Wajib?} & \textbf{Fungsi} \\
+\hline
+\code{charset="UTF-8"} & Ya & Encoding karakter universal \\
+\hline
+\code{viewport} & Ya & Responsif di perangkat mobile \\
+\hline
+\code{<title>} & Ya & Judul halaman di tab/browser \\
+\hline
+\code{description} & Rekomendasi & Ringkasan untuk SEO \\
+\hline
+\code{author} & Opsional & Nama pembuat dokumen \\
+\hline
+\code{keywords} & Opsional & Kata kunci (kurang relevan untuk SEO modern) \\
+\hline
+\end{tabular}
+\caption{Meta Tag Penting dalam Bagian Head}
+\label{tab:meta-tags}
+\end{table}
+
+\begin{webcode}[language=HTML, caption={Contoh Bagian Head yang Lengkap}]
+<head>
+  <!-- Encoding karakter -->
+  <meta charset="UTF-8" />
+  
+  <!-- Viewport untuk mobile -->
+  <meta name="viewport" 
+        content="width=device-width, initial-scale=1.0" />
+  
+  <!-- SEO Metadata -->
+  <title>Belajar HTML Dasar - Panduan Lengkap</title>
+  <meta name="description" 
+        content="Panduan lengkap belajar HTML dari nol hingga mahir. 
+                 Cocok untuk pemula yang ingin memulai karir web development." />
+  <meta name="author" content="Nama Penulis" />
+  
+  <!-- Link ke resource eksternal -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  
+  <!-- Open Graph untuk media sosial -->
+  <meta property="og:title" content="Belajar HTML Dasar" />
+  <meta property="og:description" content="Panduan lengkap HTML" />
+  <meta property="og:image" content="images/thumbnail.jpg" />
+</head>
+\end{webcode}
+
+\begin{catatan}
+\textbf{Praktik Terbaik SEO untuk Head:}
+\begin{itemize}[leftmargin=*]
+  \item Setiap halaman harus memiliki \code{<title>} yang unik dan deskriptif.
+  \item Meta description sebaiknya 150-160 karakter untuk tampilan optimal di Google.
+  \item Gunakan Open Graph tags (\code{og:}) untuk kontrol tampilan saat dibagikan di media sosial.
+  \item Letakkan elemen \code{<meta charset>} di awal \code{<head>} untuk performance optimal.
+  \item Hindari duplikasi meta tags antara halaman - setiap halaman harus unik.
+\end{itemize}
+\end{catatan}
+

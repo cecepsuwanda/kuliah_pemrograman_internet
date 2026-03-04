@@ -1,0 +1,29 @@
+\section{Pengenalan Composer dan Dependency Management}
+
+\textbf{Composer} adalah package manager untuk PHP --- mirip npm untuk JavaScript. Composer mengelola library pihak ketiga (\textit{dependency}) yang digunakan proyek Anda: instalasi, update, dan autoloading. File \code{composer.json} mendefinisikan dependency proyek; file \code{composer.lock} mengunci versi tepat yang diinstal. Direktori \code{vendor/} berisi library yang terunduh. Perintah utama: \code{composer init} (membuat proyek), \code{composer require vendor/package} (instal library), \code{composer install} (instal dari lock file), \code{composer update} (update dependency) \cite{phpRightWay}.
+
+\begin{webcode}[language=PHP, caption={Contoh composer.json dan penggunaan library}]
+// composer.json
+{
+  "name": "myapp/toko",
+  "require": {
+    "php": ">=8.0",
+    "vlucas/phpdotenv": "^5.5",
+    "phpmailer/phpmailer": "^6.8"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  }
+}
+
+// Terminal: composer install
+
+// PHP: gunakan autoloader dan library
+// require 'vendor/autoload.php';
+// $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+// $dotenv->load();
+// $db_host = $_ENV['DB_HOST'];
+\end{webcode}
+

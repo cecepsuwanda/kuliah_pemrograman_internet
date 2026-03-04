@@ -1,0 +1,10 @@
+\section{String Lanjutan dan Template Literal}
+
+Selain metode dasar (Bab 8), string JavaScript memiliki metode lanjutan untuk pencarian, pemeriksaan, dan transformasi. \code{startsWith()}, \code{endsWith()}, dan \code{includes()} mengembalikan boolean; \code{repeat(n)} mengulang string; \code{padStart()} dan \code{padEnd()} menambah padding. Metode-metode ini membuat pemrosesan teks lebih ekspresif tanpa RegExp \cite{jsInfo}.
+
+\textbf{Tagged template literal} adalah fitur ES6+ lanjutan di mana fungsi memproses template literal: \code{tag`Hello \$\{name\}`}. Fungsi tag menerima array string statis dan array ekspresi interpolasi. Ini digunakan oleh library seperti \code{styled-components} (CSS-in-JS) dan \code{html} (lit-html) untuk membangun DSL (Domain-Specific Language) \cite{mdnJsGuide}.
+
+\begin{catatan}
+\textbf{String Immutability.} String di JavaScript bersifat \textbf{immutable}---setiap operasi string menghasilkan string baru. \code{str.toUpperCase()} tidak mengubah \code{str} asli. Untuk membangun string besar secara efisien (misalnya dalam loop), kumpulkan bagian-bagian di array lalu gabungkan dengan \code{.join("")} alih-alih konkatenasi berulang \cite{jsInfo}.
+\end{catatan}
+

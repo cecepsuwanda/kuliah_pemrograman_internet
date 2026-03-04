@@ -4,6 +4,8 @@
 
 \chapter{Event Handling, Validasi, dan Library Front-End}
 
+Bab ini melanjutkan penguasaan JavaScript dari Bab 8 ke level menengah-lanjut: fungsi dan struktur data lanjutan, DOM manipulation, event handling, asynchronous programming, ES6+, OOP, keamanan, dan pengenalan ekosistem front-end modern.
+
 \begin{subcpmk}
   \item Sub-CPMK 2.3: Mengimplementasikan interaktivitas dengan JavaScript (DOM, event handling, validasi form).
   \item Sub-CPMK 2.4: Menggunakan library atau framework front-end untuk antarmuka dinamis.
@@ -11,36 +13,98 @@
 
 \input{bab/bab-09/section-9-1}
 \input{bab/bab-09/section-9-2}
+\input{bab/bab-09/section-9-3}
+\input{bab/bab-09/section-9-4}
+\input{bab/bab-09/section-9-5}
+\input{bab/bab-09/section-9-6}
+\input{bab/bab-09/section-9-7}
+\input{bab/bab-09/section-9-8}
+\input{bab/bab-09/section-9-9}
+\input{bab/bab-09/section-9-10}
+\input{bab/bab-09/section-9-11}
+\input{bab/bab-09/section-9-12}
+\input{bab/bab-09/section-9-13}
+\input{bab/bab-09/section-9-14}
+\input{bab/bab-09/section-9-15}
+\input{bab/bab-09/section-9-16}
+\input{bab/bab-09/section-9-17}
+\input{bab/bab-09/section-9-18}
+\input{bab/bab-09/section-9-19}
+\input{bab/bab-09/section-9-20}
+\input{bab/bab-09/section-9-21}
+\input{bab/bab-09/section-9-22}
+\input{bab/bab-09/section-9-23}
+\input{bab/bab-09/section-9-24}
+\input{bab/bab-09/section-9-25}
+\input{bab/bab-09/section-9-26}
+\input{bab/bab-09/section-9-27}
+\input{bab/bab-09/section-9-28}
+\input{bab/bab-09/section-9-29}
 
 \begin{aktivitas}
-  \item Buat validasi form pendaftaran dengan JavaScript.
-  \item Tambahkan event klik pada tombol untuk menampilkan pesan.
-  \item Coba implementasi jQuery untuk manipulasi DOM.
+  \item Gunakan fungsi lanjutan (arrow, default, rest); praktik \code{map}, \code{filter}, \code{reduce} untuk transformasi data array.
+  \item Manipulasi DOM: buat elemen, tambah/hapus node, traversing; implementasi event delegation pada daftar dinamis.
+  \item Buat form registrasi dengan validasi real-time (event \code{input}): email, password, konfirmasi; tampilkan pesan error.
+  \item Implementasi Fetch API: ambil data dari public API, tampilkan di halaman dengan loading dan error state.
+  \item Tulis class \code{Product} dengan constructor dan method; gunakan \code{extends} untuk pewarisan.
+  \item Eksplorasi closure (counter privat), RegExp (validasi format), dan Promise/async-await (fetch berurutan).
 \end{aktivitas}
 
 \begin{latihan}
-  \item Jelaskan perbedaan library dan framework.
-  \item Buat event handler untuk menghitung jumlah karakter input.
+  \item Jelaskan perbedaan \code{map()}, \code{filter()}, dan \code{reduce()}. Beri contoh chaining ketiganya.
+  \item Apa yang dimaksud event bubbling dan event delegation? Beri contoh implementasi.
+  \item Tulis validasi form: nama tidak kosong, email valid (regex), password min 8 karakter, konfirmasi cocok.
+  \item Jelaskan perbedaan callback, Promise, dan async/await. Mengapa async/await lebih direkomendasikan?
+  \item Apa itu XSS? Bagaimana mencegahnya di sisi client dan server?
+  \item Jelaskan perbedaan library dan framework. Sebutkan 3 framework/library front-end populer dan kelebihannya.
+  \item Buat fungsi \code{fetchAndDisplay(url)} yang mengambil JSON dari API, menangani error, dan menampilkan data di halaman.
+  \item Jelaskan apa itu closure dan berikan contoh counter privat menggunakan closure.
 \end{latihan}
 
 \begin{asesmen}
-Asesmen berupa tugas membuat form interaktif dan laporan perbandingan library/framework.
+Asesmen berupa proyek aplikasi web interaktif yang menggabungkan konsep Bab 9:
+\begin{enumerate}
+  \item Buat SPA (Single Page Application) sederhana: daftar produk yang diambil dari public API.
+  \item Implementasi: Fetch + async/await, loading state, error handling, DOM manipulation dinamis.
+  \item Tambahkan form pencarian/filter dengan validasi input dan event handling.
+  \item Organisasi kode: ES6 modules, class untuk model data, closure untuk state management.
+  \item Perhatikan keamanan (gunakan \code{textContent}, bukan \code{innerHTML} untuk data dari API/user).
+\end{enumerate}
+Penilaian: Fetch/async (25\%), DOM dan event (25\%), validasi dan keamanan (20\%), ES6+/OOP (15\%), kode bersih (15\%).
 \end{asesmen}
 
 \begin{checklist}
-  \item Saya memahami konsep event handling.
-  \item Saya mampu membuat validasi form sederhana.
-  \item Saya mengetahui contoh penggunaan library front-end.
+  \item Saya menguasai fungsi lanjutan (arrow, default, rest) dan higher-order functions.
+  \item Saya dapat menggunakan \code{map}, \code{filter}, \code{reduce}, dan chaining untuk transformasi data.
+  \item Saya memahami \code{this} dalam berbagai konteks dan operasi objek lanjutan.
+  \item Saya dapat menggunakan JSON (\code{parse}/\code{stringify}), Date, dan error handling (\code{try/catch}).
+  \item Saya menguasai DOM traversing, membuat/menghapus elemen, dan event (addEventListener, propagation, delegation).
+  \item Saya dapat membuat validasi form real-time dan memahami perbedaan validasi client vs server.
+  \item Saya memahami asynchronous JavaScript: callback, Promise, async/await.
+  \item Saya dapat menggunakan Fetch API untuk GET dan POST request dengan error handling.
+  \item Saya menguasai ES6+ (destructuring, spread, modules), class/pewarisan, dan RegExp dasar.
+  \item Saya memahami closure, prototype chain, dan pola desain dasar (module, singleton).
+  \item Saya dapat debugging dengan DevTools dan memahami konsep unit test.
+  \item Saya memahami ancaman XSS dan cara pencegahannya.
+  \item Saya mengenal ekosistem front-end: library/framework (React, Vue, Angular) dan tooling (bundler, linter).
 \end{checklist}
 
 \begin{rangkuman}
-Bab ini membahas event handling, validasi form, serta penggunaan library atau framework front-end. Pemahaman ini penting untuk membangun antarmuka yang interaktif dan mudah digunakan.
+Bab ini memperluas penguasaan JavaScript dari dasar ke tingkat menengah-lanjut. Materi fungsi lanjutan (arrow, default, rest, higher-order) dan metode array fungsional (map, filter, reduce) menjadi fondasi pemrograman modern. Pendalaman objek (this, constructor, bind/call/apply) dan OOP (class, prototype, pewarisan) memperkuat kemampuan abstraksi.
+
+Manipulasi DOM lanjutan (traversing, createElement, DocumentFragment) dan event handling (addEventListener, propagation, delegation) memungkinkan pembuatan antarmuka yang responsif dan efisien. Validasi form real-time menghubungkan event, DOM, dan logika bisnis. Timer, debounce, dan throttle mengoptimalkan respons terhadap event yang sering terjadi.
+
+Asynchronous JavaScript---dari callback ke Promise ke async/await---dan Fetch API memungkinkan komunikasi dengan server tanpa reload. ES6+ (destructuring, spread, modules) dan fitur modern (RegExp, JSON, Date, error handling) melengkapi toolkit pengembang.
+
+Debugging dengan DevTools, pengujian dasar, performa, dan keamanan (XSS) mempersiapkan praktik profesional. Pengenalan library/framework (React, Vue, Angular) dan tooling (bundler, linter) membuka jalan ke pengembangan front-end modern.
 
 \textbf{Poin Kunci:}
 \begin{itemize}
-  \item Event handling menghubungkan aksi pengguna dengan logika program.
-  \item Validasi form mencegah data yang salah masuk.
-  \item Library/framework mempercepat pengembangan UI.
+  \item Metode array fungsional (map/filter/reduce) dan ES6+ membuat kode lebih deklaratif dan bersih.
+  \item Event delegation dan DOM manipulation efisien untuk antarmuka dinamis.
+  \item async/await + Fetch API adalah standar modern untuk komunikasi async dengan server.
+  \item Keamanan (XSS) dan validasi bukan opsional; selalu sanitasi input dan gunakan \code{textContent}.
+  \item Framework mempercepat development, tetapi fondasi JavaScript yang kuat adalah prasyaratnya.
 \end{itemize}
 \end{rangkuman}
 

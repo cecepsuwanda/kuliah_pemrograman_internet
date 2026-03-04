@@ -1,0 +1,104 @@
+\section{CRUD Aplikasi Web dengan PHP dan MySQL}
+
+Section ini menyajikan \textbf{studi kasus} CRUD lengkap: Aplikasi Manajemen Produk yang menggabungkan form HTML, PHP, dan MySQLi. Aplikasi terdiri dari beberapa operasi: menampilkan daftar produk (Read), menambah produk baru (Create), mengedit produk (Update), dan menghapus produk (Delete). Seluruh operasi menggunakan prepared statement untuk keamanan \cite{phpManual}.
+
+\begin{contoh}
+\textbf{Studi Kasus: Aplikasi CRUD Produk}
+
+Alur aplikasi: (1) Halaman utama menampilkan daftar produk dari database (SELECT); (2) Form ``Tambah Produk'' mengirim data via POST; (3) PHP memvalidasi input, lalu INSERT menggunakan prepared statement; (4) Tombol ``Edit'' memuat data produk ke form, lalu UPDATE; (5) Tombol ``Hapus'' mengirim ID via POST, lalu DELETE. Semua output menggunakan \code{htmlspecialchars()} untuk mencegah XSS.
+\end{contoh}
+
+\begin{webcode}[language=PHP, caption={CRUD Produk - Tampil dan Tambah (Read + Create)}]
+<?php
+require_once 'config.php'; // koneksi $conn
+
+// CREATE - Insert produk baru
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['aksi'] ?? '') === 'tambah') {
+  $nama  = trim($_POST['nama'] ?? '');
+  $harga = floatval($_POST['harga'] ?? 0);
+
+  if (!empty($nama) && $harga > 0) {
+    $stmt = $conn->prepare("INSERT INTO produk (nama, harga) VALUES (?, ?)");
+    $stmt->bind_param("sd", $nama, $harga);
+    $stmt->execute();
+    $stmt->close();
+    header("Location: produk.php");
+    exit;
+  }
+}
+
+// READ - Ambil semua produk
+$result = $conn->query("SELECT id, nama, harga FROM produk ORDER BY id DESC");
+$produkList = $result->fetch_all(MYSQLI_ASSOC);
+$result->free();
+?>
+<!DOCTYPE html>
+<html lang="id">
+<head><title>CRUD Produk</title></head>
+<body>
+<h2>Daftar Produk</h2>
+<table border="1" cellpadding="5">
+  <tr><th>ID</th><th>Nama</th><th>Harga</th><th>Aksi</th></tr>
+  <?php foreach ($produkList as $p): ?>
+  <tr>
+    <td><?= $p['id'] ?></td>
+    <td><?= htmlspecialchars($p['nama']) ?></td>
+    <td>Rp <?= number_format($p['harga'], 0, ',', '.') ?></td>
+    <td>
+      <a href="edit.php?id=<?= $p['id'] ?>">Edit</a>
+      <form method="POST" style="display:inline">
+        <input type="hidden" name="aksi" value="hapus">
+        <input type="hidden" name="id" value="<?= $p['id'] ?>">
+        <button onclick="return confirm('Hapus?')">Hapus</button>
+      </form>
+    </td>
+  </tr>
+  <?php endforeach; ?>
+</table>
+
+<h3>Tambah Produk</h3>
+<form method="POST">
+  <input type="hidden" name="aksi" value="tambah">
+  <label>Nama: <input type="text" name="nama" required></label><br>
+  <label>Harga: <input type="number" name="harga" min="0" required></label><br>
+  <button type="submit">Tambah</button>
+</form>
+</body>
+</html>
+\end{webcode}
+
+\begin{webcode}[language=PHP, caption={CRUD Produk - Update dan Delete}]
+<?php
+require_once 'config.php';
+
+// DELETE
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['aksi'] ?? '') === 'hapus') {
+  $id = intval($_POST['id'] ?? 0);
+  if ($id > 0) {
+    $stmt = $conn->prepare("DELETE FROM produk WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $stmt->close();
+  }
+  header("Location: produk.php");
+  exit;
+}
+
+// UPDATE
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['aksi'] ?? '') === 'update') {
+  $id    = intval($_POST['id'] ?? 0);
+  $nama  = trim($_POST['nama'] ?? '');
+  $harga = floatval($_POST['harga'] ?? 0);
+
+  if ($id > 0 && !empty($nama) && $harga > 0) {
+    $stmt = $conn->prepare("UPDATE produk SET nama = ?, harga = ? WHERE id = ?");
+    $stmt->bind_param("sdi", $nama, $harga, $id);
+    $stmt->execute();
+    $stmt->close();
+  }
+  header("Location: produk.php");
+  exit;
+}
+?>
+\end{webcode}
+

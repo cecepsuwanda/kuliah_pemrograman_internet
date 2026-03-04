@@ -1,0 +1,101 @@
+\section{Wireframe dan Mockup: Low-Fidelity hingga High-Fidelity}
+
+Setelah kebutuhan diidentifikasi dan persona dibuat, langkah selanjutnya adalah memvisualisasikan solusi melalui \textbf{wireframe} dan \textbf{mockup}. Kedua artefak desain ini berfungsi sebagai ``cetak biru'' antarmuka sebelum pengembang menulis kode. Membangun wireframe dan mockup terlebih dahulu jauh lebih murah dan cepat daripada langsung coding lalu merevisi---perubahan pada kertas atau Figma membutuhkan menit, sedangkan perubahan pada kode bisa membutuhkan hari \cite{mdnLearn}.
+
+\subsection{Wireframe (Low-Fidelity)}
+
+\textbf{Wireframe} adalah sketsa kasar (\textit{low-fidelity}) yang menunjukkan struktur dan tata letak halaman tanpa detail visual. Wireframe fokus pada \textbf{apa} yang ada di halaman dan \textbf{di mana} letaknya---bukan pada bagaimana tampilannya. Wireframe biasanya dibuat dalam warna abu-abu atau hitam-putih, tanpa gambar sesungguhnya, dan menggunakan placeholder untuk teks dan gambar. Alat yang umum digunakan untuk membuat wireframe antara lain kertas dan pensil, Balsamiq, Whimsical, atau Figma dalam mode wireframe \cite{webdevLearn}.
+
+Manfaat wireframe antara lain: (1) cepat dibuat dan mudah diubah; (2) membantu tim mendiskusikan struktur tanpa terdistraksi oleh detail visual; (3) dapat diuji dengan pengguna sejak dini (\textit{paper prototyping}); dan (4) menjadi dasar untuk membuat mockup yang lebih detail.
+
+\subsection{Mockup (High-Fidelity)}
+
+\textbf{Mockup} adalah representasi visual \textit{high-fidelity} yang menunjukkan tampilan akhir halaman secara detail---termasuk warna, tipografi, gambar, ikon, dan spacing. Mockup memberikan gambaran yang sangat mirip dengan produk akhir, tetapi tanpa interaksi (tidak bisa diklik). Mockup dibuat setelah wireframe disetujui dan biasanya menggunakan alat desain seperti Figma, Adobe XD, atau Sketch \cite{figmaDocs}.
+
+Mockup penting karena: (1) menjadi acuan pixel-perfect bagi pengembang saat implementasi; (2) membantu stakeholder memahami tampilan akhir sebelum development dimulai; dan (3) memastikan konsistensi visual di seluruh halaman.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3cm}|P{4.5cm}|P{4.5cm}|}
+\hline
+\textbf{Aspek} & \textbf{Wireframe (Low-Fi)} & \textbf{Mockup (High-Fi)} \\
+\hline
+Detail visual & Minimal (abu-abu, placeholder) & Lengkap (warna, font, gambar) \\
+\hline
+Tujuan & Struktur dan tata letak & Tampilan akhir yang akurat \\
+\hline
+Waktu pembuatan & Cepat (menit--jam) & Lebih lama (jam--hari) \\
+\hline
+Alat & Kertas, Balsamiq, Whimsical & Figma, Adobe XD, Sketch \\
+\hline
+Kapan dibuat & Tahap awal desain & Setelah wireframe disetujui \\
+\hline
+Interaktivitas & Tidak ada & Tidak ada (statis) \\
+\hline
+Revisi & Sangat mudah dan murah & Lebih memakan waktu \\
+\hline
+\end{tabular}
+\caption{Perbandingan wireframe (low-fidelity) dan mockup (high-fidelity)}
+\end{table}
+
+\subsection{Langkah Membuat Wireframe}
+
+Proses pembuatan wireframe mengikuti langkah-langkah berikut: (1) tentukan halaman apa saja yang perlu di-wireframe berdasarkan user flow; (2) identifikasi elemen utama setiap halaman (header, navigasi, konten utama, sidebar, footer); (3) gambar tata letak menggunakan kotak dan garis; (4) tambahkan placeholder teks dan gambar; dan (5) review bersama tim dan pengguna lalu iterasi.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[transform shape, every node/.style={font=\scriptsize}]
+  % Phone frame
+  \draw[thick, rounded corners=8pt] (0,0) rectangle (5,9);
+  
+  % Header
+  \draw[fill=gray!30] (0.3,7.8) rectangle (4.7,8.7);
+  \node[font=\scriptsize\bfseries] at (2.5,8.25) {Header / Logo};
+  
+  % Navigation
+  \draw[fill=gray!15] (0.3,7.2) rectangle (4.7,7.6);
+  \node at (2.5,7.4) {Nav: Beranda | Catatan | Profil};
+  
+  % Search bar
+  \draw[fill=gray!10] (0.3,6.5) rectangle (4.7,7.0);
+  \node at (2.5,6.75) {[ Cari catatan... ]};
+  
+  % Card 1
+  \draw[fill=blue!8] (0.3,4.8) rectangle (4.7,6.3);
+  \node[font=\scriptsize\bfseries] at (2.5,5.9) {Judul Catatan 1};
+  \node at (2.5,5.5) {Cuplikan isi catatan...};
+  \node[font=\tiny, gray] at (2.5,5.1) {2 Maret 2026};
+  
+  % Card 2
+  \draw[fill=blue!8] (0.3,3.1) rectangle (4.7,4.6);
+  \node[font=\scriptsize\bfseries] at (2.5,4.2) {Judul Catatan 2};
+  \node at (2.5,3.8) {Cuplikan isi catatan...};
+  \node[font=\tiny, gray] at (2.5,3.4) {1 Maret 2026};
+  
+  % FAB button
+  \draw[fill=green!40, thick] (4.0,0.8) circle (0.45);
+  \node[font=\bfseries] at (4.0,0.8) {+};
+  
+  % Label
+  \node[font=\tiny, gray] at (2.5, -0.3) {Wireframe: Halaman Utama Aplikasi Catatan};
+\end{tikzpicture}
+\caption{Contoh wireframe halaman utama aplikasi catatan harian (low-fidelity)}
+\end{figure}
+
+\subsection{Dari Wireframe ke Mockup}
+
+Setelah wireframe divalidasi, proses selanjutnya adalah mengembangkannya menjadi mockup. Pada tahap ini, desainer menambahkan elemen visual: palet warna yang sesuai, tipografi yang terbaca, ikon yang konsisten, gambar atau ilustrasi sesungguhnya, dan spacing yang presisi. Mockup harus mengikuti \textbf{design system} yang telah ditetapkan (jika ada) agar konsisten dengan halaman lain \cite{figmaDocs}.
+
+\begin{contoh}
+\textbf{Studi Kasus: Wireframe ke Mockup untuk Aplikasi Catatan}
+
+\textbf{Wireframe:} Kotak abu-abu menunjukkan posisi header, daftar catatan (kartu), dan tombol ``Tambah''. Placeholder teks ``Lorem ipsum'' digunakan.
+
+\textbf{Mockup:} Header menjadi biru tua (\code{\#1A237E}) dengan logo putih. Kartu catatan memiliki shadow halus, font Inter 14px untuk judul, warna teks \code{\#333}. Tombol FAB (Floating Action Button) berwarna hijau (\code{\#4CAF50}) dengan ikon ``+'' putih. Spacing antar kartu 12px.
+
+\textbf{Pelajaran:} Wireframe memvalidasi \textit{struktur}, mockup memvalidasi \textit{tampilan}. Keduanya harus disetujui sebelum coding dimulai.
+\end{contoh}
+
+\begin{catatan}
+Jangan langsung membuat mockup tanpa melalui wireframe terlebih dahulu. Memulai dari wire\-frame memungkinkan eksplorasi berbagai tata letak dengan cepat tanpa investasi waktu pada detail visual. Banyak pemula melakukan kesalahan ini---langsung mendesain mockup yang cantik, lalu harus mengubah seluruh strukturnya karena alur pengguna tidak tepat.
+\end{catatan}

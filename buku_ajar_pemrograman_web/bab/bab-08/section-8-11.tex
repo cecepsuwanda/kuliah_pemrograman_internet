@@ -1,0 +1,46 @@
+\section{Fungsi: Deklarasi, Parameter, dan Return}
+
+Fungsi adalah blok kode yang dapat dipanggil berulang kali dengan nama tertentu. Fungsi menerima \textbf{parameter} (input), melakukan operasi, dan dapat mengembalikan nilai dengan \code{return}. Fungsi adalah fondasi organisasi kode: memecah program besar menjadi bagian-bagian kecil yang dapat diuji dan digunakan ulang. Di JavaScript, fungsi adalah \textit{first-class citizens}---dapat disimpan di variabel, dikirim sebagai argumen, dan dikembalikan dari fungsi lain \cite{jsInfo}.
+
+\begin{webcode}[language=JavaScript, caption={Tiga cara membuat fungsi}]
+// 1. Function declaration (hoisted)
+function greet(name) {
+  return `Hello, ${name}!`;
+}
+
+// 2. Function expression (tidak hoisted)
+const add = function(a, b) {
+  return a + b;
+};
+
+// 3. Arrow function (ES6, ringkas)
+const multiply = (a, b) => a * b;
+
+// Default parameter
+function power(base, exp = 2) {
+  return base ** exp;
+}
+console.log(power(3));    // 9 (exp default 2)
+console.log(power(3, 3)); // 27
+\end{webcode}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3.5cm}|P{4cm}|P{4.5cm}|}
+\hline
+\textbf{Jenis} & \textbf{Sintaks} & \textbf{Karakteristik} \\
+\hline
+Declaration & \code{function f() \{\}} & Hoisted; dapat dipanggil sebelum dideklarasikan \\
+\hline
+Expression & \code{const f = function() \{\}} & Tidak hoisted; di variabel \\
+\hline
+Arrow (ES6) & \code{const f = () => \{\}} & Ringkas; tanpa \code{this} sendiri \\
+\hline
+\end{tabular}
+\caption{Tiga cara mendefinisikan fungsi JavaScript}
+\end{table}
+
+\begin{konsep}
+\textbf{Arrow Function dan \code{this}.} Arrow function tidak memiliki \code{this} sendiri---ia mewarisi \code{this} dari konteks luar (\textit{lexical this}). Ini sangat berguna dalam callback dan event handler di dalam objek. Namun, arrow function \textbf{tidak cocok} untuk method objek (\code{this} tidak merujuk ke objek) dan tidak bisa digunakan sebagai constructor. Gunakan arrow function untuk callback dan function expression biasa untuk method objek \cite{mdnJsGuide}.
+\end{konsep}
+

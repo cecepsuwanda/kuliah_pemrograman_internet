@@ -1,0 +1,26 @@
+\section{Konversi Tipe dan typeof}
+
+JavaScript sering melakukan \textbf{konversi tipe implisit} (type coercion) saat operasi melibatkan tipe data yang berbeda. Misalnya, operator \code{+} dengan string melakukan konkatenasi: \code{"5" + 3} menghasilkan \code{"53"} (bukan 8). Sebaliknya, operator matematika lain (\code{-}, \code{*}, \code{/}) mengonversi string ke number: \code{"5" - 3} menghasilkan \code{2}. Perilaku ini sering menjadi sumber bug bagi pemula \cite{jsInfo}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3cm}|P{3.5cm}|P{5.5cm}|}
+\hline
+\textbf{Konversi} & \textbf{Fungsi} & \textbf{Contoh} \\
+\hline
+Ke Number & \code{Number(x)}, \code{parseInt()}, \code{parseFloat()}, \code{+x} & \code{Number("42")} $\rightarrow$ \code{42}; \code{Number("abc")} $\rightarrow$ \code{NaN} \\
+\hline
+Ke String & \code{String(x)}, \code{x.toString()}, \code{`\$\{x\}`} & \code{String(42)} $\rightarrow$ \code{"42"} \\
+\hline
+Ke Boolean & \code{Boolean(x)}, \code{!!x} & \code{Boolean(0)} $\rightarrow$ \code{false}; \code{Boolean("hi")} $\rightarrow$ \code{true} \\
+\hline
+\end{tabular}
+\caption{Metode konversi tipe eksplisit di JavaScript}
+\end{table}
+
+Operator \code{typeof} mengembalikan string yang menunjukkan tipe data: \code{typeof 42} menghasilkan \code{"number"}, \code{typeof "hello"} menghasilkan \code{"string"}. Perhatian: \code{typeof null} mengembalikan \code{"object"} (bug historis yang tidak diperbaiki untuk kompatibilitas), dan \code{typeof} untuk array juga mengembalikan \code{"object"}---gunakan \code{Array.isArray()} untuk memeriksa array \cite{mdnJsGuide}.
+
+\begin{konsep}
+\textbf{NaN: Not a Number yang Unik.} \code{NaN} adalah nilai number yang berarti ``bukan angka''---dihasilkan dari operasi matematika yang gagal (misalnya \code{Number("abc")}). Keunikannya: \code{NaN !== NaN} (NaN tidak sama dengan dirinya sendiri). Gunakan \code{Number.isNaN(x)} untuk memeriksa NaN, bukan \code{x === NaN} yang selalu false \cite{jsInfo}.
+\end{konsep}
+

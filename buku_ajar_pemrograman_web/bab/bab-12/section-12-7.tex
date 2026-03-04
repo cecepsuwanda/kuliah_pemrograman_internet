@@ -1,0 +1,30 @@
+\section{SELECT Dasar dan WHERE}
+
+Perintah \code{SELECT} adalah perintah SQL yang paling sering digunakan --- berfungsi untuk mengambil (membaca) data dari satu atau lebih tabel. Sintaks dasar: \code{SELECT kolom1, kolom2 FROM tabel;} untuk memilih kolom tertentu, atau \code{SELECT * FROM tabel;} untuk mengambil semua kolom. Meskipun \code{SELECT *} praktis untuk eksplorasi, di aplikasi produksi sebaiknya disebutkan kolom secara eksplisit agar query lebih efisien dan tidak mengambil data yang tidak diperlukan \cite{mysqlDocs}.
+
+Klausa \code{WHERE} memfilter baris yang dikembalikan berdasarkan kondisi. Kondisi dapat menggunakan operator perbandingan (\code{=}, \code{<>}, \code{<}, \code{>}, \code{<=}, \code{>=}), operator logika (\code{AND}, \code{OR}, \code{NOT}), serta operator khusus seperti \code{BETWEEN}, \code{IN}, \code{LIKE}, dan \code{IS NULL}. Operator \code{LIKE} mendukung wildcard: \code{\%} untuk nol atau lebih karakter, \code{\_} untuk satu karakter. Kombinasi \code{WHERE} dengan operator ini memungkinkan pencarian data yang sangat fleksibel \cite{mysqlGettingStarted}.
+
+\begin{webcode}[language=SQL, caption={Contoh SELECT dengan WHERE}]
+-- Semua produk
+SELECT * FROM produk;
+
+-- Kolom tertentu
+SELECT nama, harga FROM produk;
+
+-- Filter dengan WHERE
+SELECT nama, harga FROM produk WHERE harga > 100000;
+
+-- Kombinasi kondisi
+SELECT nama, harga, stok FROM produk
+  WHERE kategori = 'elektronik' AND stok > 0;
+
+-- Pencarian teks dengan LIKE
+SELECT * FROM produk WHERE nama LIKE '%laptop%';
+
+-- Nilai dalam daftar
+SELECT * FROM produk WHERE kategori IN ('elektronik', 'pakaian');
+
+-- Rentang nilai
+SELECT * FROM produk WHERE harga BETWEEN 50000 AND 200000;
+\end{webcode}
+

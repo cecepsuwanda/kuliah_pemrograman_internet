@@ -1,0 +1,106 @@
+\section{Teknologi Front-End: HTML, CSS, dan JavaScript}
+\textbf{Front-end} (sisi client) adalah bagian aplikasi web yang berjalan di browser dan berinteraksi langsung dengan pengguna. Tiga teknologi inti front-end adalah HTML, CSS, dan JavaScript. Ketiganya bekerja bersama: HTML menyusun struktur dan konten, CSS mengatur tampilan visual, dan JavaScript menambahkan interaktivitas. Analogi sederhana: jika halaman web adalah rumah, maka HTML adalah kerangka dan dinding, CSS adalah cat dan dekorasi, sedangkan JavaScript adalah sistem listrik dan mekanik yang membuat segala sesuatu berfungsi \cite{mdnLearn}. Ketiga teknologi ini disebut \textit{holy trinity} pengembangan web karena tidak ada halaman web modern yang lengkap tanpa ketiganya.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{2cm}|P{3cm}|P{3cm}|P{3.5cm}|}
+\hline
+\textbf{Aspek} & \textbf{HTML} & \textbf{CSS} & \textbf{JavaScript} \\
+\hline
+Peran & Struktur \& konten & Presentasi visual & Interaktivitas \& logika \\
+\hline
+Analogi & Kerangka rumah & Cat \& dekorasi & Sistem listrik \\
+\hline
+Ekstensi file & \code{.html} & \code{.css} & \code{.js} \\
+\hline
+Standar & WHATWG HTML Living Standard & W3C CSS Specifications & ECMA-262 (ECMAScript) \\
+\hline
+Contoh tugas & Judul, paragraf, form, gambar & Warna, font, layout, animasi & Validasi form, AJAX, DOM \\
+\hline
+\end{tabular}
+\caption{Perbandingan peran HTML, CSS, dan JavaScript}
+\end{table}
+
+\textbf{HTML} (HyperText Markup Language) mendefinisikan struktur halaman web menggunakan elemen-elemen yang ditulis dengan tag. Setiap elemen memiliki makna semantik: \code{<h1>} untuk judul utama, \code{<p>} untuk paragraf, \code{<nav>} untuk navigasi, \code{<form>} untuk formulir input. HTML5 memperkenalkan elemen semantik baru seperti \code{<header>}, \code{<main>}, \code{<article>}, \code{<section>}, dan \code{<footer>} yang membantu mesin pencari dan pembaca layar memahami struktur halaman \cite{mdnHtmlIntro}. Penggunaan elemen semantik juga meningkatkan aksesibilitas karena teknologi bantu (\textit{assistive technology}) dapat mengenali hierarki dan fungsi setiap bagian halaman secara otomatis.
+
+Selain elemen semantik, HTML5 juga menyediakan elemen baru untuk menangani \textbf{multimedia dan formulir}. Elemen \code{<video>} dan \code{<audio>} memungkinkan penyematan media tanpa plugin pihak ketiga. Elemen \code{<canvas>} memungkinkan penggambaran grafik dan animasi menggunakan JavaScript. Untuk formulir, HTML5 menambahkan tipe input baru seperti \code{email}, \code{date}, \code{number}, dan \code{range} yang menyediakan validasi bawaan browser. Fitur-fitur ini mengurangi ketergantungan pada JavaScript untuk tugas-tugas dasar \cite{webdevHtml}.
+
+\textbf{CSS} (Cascading Style Sheets) mengontrol tampilan elemen HTML: warna, ukuran, jenis huruf, jarak, tata letak, dan efek visual. CSS memisahkan presentasi dari struktur, sehingga satu file CSS dapat mengatur tampilan seluruh situs secara konsisten. Konsep kunci CSS adalah \textbf{Box Model}, di mana setiap elemen HTML dianggap sebagai kotak yang terdiri dari empat lapisan: \textit{content} (isi), \textit{padding} (jarak dalam), \textit{border} (batas), dan \textit{margin} (jarak luar). Memahami Box Model sangat penting untuk mengatur tata letak halaman dengan benar \cite{mdnCss}.
+
+Fitur CSS modern seperti \textbf{Flexbox} dan \textbf{Grid} memudahkan pembuatan layout responsif yang menyesuaikan tampilan di berbagai ukuran layar. Flexbox cocok untuk tata letak satu dimensi (baris atau kolom), sedangkan Grid cocok untuk tata letak dua dimensi (baris dan kolom sekaligus). Berikut adalah contoh penggunaan Flexbox untuk membuat navigasi horizontal yang responsif \cite{webdevCss}.
+
+\begin{webcode}[language=CSS, caption={Contoh layout navigasi responsif dengan CSS Flexbox}]
+/* Navigasi horizontal dengan Flexbox */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2c3e50;
+  padding: 1em 2em;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+}
+
+.navbar a:hover {
+  background-color: #34495e;
+}
+
+/* Responsif: kolom vertikal di layar kecil */
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+\end{webcode}
+
+\vspace{0.5cm}
+\textbf{JavaScript} adalah bahasa pemrograman yang berjalan di browser dan memungkinkan halaman web menjadi interaktif. Dengan JavaScript Anda dapat merespons klik pengguna, memvalidasi formulir sebelum dikirim, mengubah konten halaman secara dinamis melalui manipulasi \textbf{DOM} (Document Object Model), dan mengambil data dari server tanpa memuat ulang halaman menggunakan \textbf{Fetch API}. JavaScript modern (ES6+) memperkenalkan fitur-fitur penting seperti \code{let}/\code{const} untuk deklarasi variabel, \textit{arrow function} untuk penulisan fungsi yang lebih ringkas, \textit{template literal} untuk string yang fleksibel, dan \textit{destructuring} untuk mengekstrak nilai dari objek atau array \cite{mdnJsGuide}.
+
+JavaScript juga menjadi dasar bagi \textbf{framework dan library front-end modern} seperti React, Vue, dan Angular yang mempermudah pembangunan aplikasi web skala besar. Selain berjalan di browser, JavaScript kini juga dapat berjalan di sisi server melalui \textbf{Node.js}, menjadikannya bahasa yang sangat serbaguna. Ekosistem JavaScript didukung oleh \textit{package manager} seperti npm yang menyediakan ribuan library siap pakai \cite{eloquentJs}.
+
+\begin{webcode}[language=HTML, caption={Contoh halaman web sederhana dengan HTML, CSS, dan JavaScript}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Contoh Front-End</title>
+  <style>
+    body { font-family: sans-serif; margin: 2em; }
+    h1 { color: #2c3e50; }
+    .highlight { background-color: #f1c40f;
+      padding: 0.2em 0.5em; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>Halo, Dunia!</h1>
+  <p id="pesan">Klik tombol di bawah.</p>
+  <button onclick="ubahPesan()">Klik Saya</button>
+  <script>
+    function ubahPesan() {
+      const el = document.getElementById("pesan");
+      el.textContent = "Tombol berhasil diklik!";
+      el.classList.add("highlight");
+    }
+  </script>
+</body>
+</html>
+\end{webcode}
+
+\begin{konsep}
+\textbf{Pemisahan Tanggung Jawab (Separation of Concerns)}
+
+Praktik terbaik dalam pengembangan front-end adalah memisahkan tiga lapisan:
+\begin{itemize}
+  \item \textbf{Struktur} (HTML) --- apa yang ditampilkan
+  \item \textbf{Presentasi} (CSS) --- bagaimana tampilannya
+  \item \textbf{Perilaku} (JavaScript) --- bagaimana interaksinya
+\end{itemize}
+Meskipun ketiganya dapat ditulis dalam satu file HTML, disarankan untuk menyimpan CSS di file \code{.css} terpisah dan JavaScript di file \code{.js} terpisah. Pemisahan ini membuat kode lebih mudah dibaca, dipelihara, dan digunakan kembali.
+\end{konsep}
+

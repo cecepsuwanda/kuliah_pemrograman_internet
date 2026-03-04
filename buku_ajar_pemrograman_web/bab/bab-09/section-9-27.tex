@@ -1,0 +1,30 @@
+\section{Library dan Framework Front-End (Sub-CPMK 2.4)}
+
+\textbf{Library} menyediakan fungsi siap pakai yang dipanggil oleh kode Anda (Anda yang mengontrol alur). \textbf{Framework} mengontrol alur dan memanggil kode Anda (inversion of control). Perbedaan ini sering disederhanakan: ``Anda memanggil library; framework memanggil Anda'' \cite{jsInfo}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{2.5cm}|P{2cm}|P{3.5cm}|P{4cm}|}
+\hline
+\textbf{Nama} & \textbf{Jenis} & \textbf{Keunggulan} & \textbf{Kapan Digunakan} \\
+\hline
+React & Library & Komponen, virtual DOM & SPA, UI kompleks \\
+\hline
+Vue.js & Framework & Mudah dipelajari, reaktif & SPA, progressive \\
+\hline
+Angular & Framework & Fitur lengkap; TypeScript & Enterprise, tim besar \\
+\hline
+jQuery & Library & Manipulasi DOM sederhana & Legacy; hindari untuk baru \\
+\hline
+Alpine.js & Library & Ringan; di HTML langsung & Interaktivitas ringan \\
+\hline
+\end{tabular}
+\caption{Perbandingan library dan framework front-end populer}
+\end{table}
+
+Ekosistem front-end modern didominasi oleh tiga framework/library: \textbf{React} (Facebook, komponen-based, paling populer), \textbf{Vue.js} (progressive, mudah dipelajari), dan \textbf{Angular} (Google, TypeScript, full-featured). Ketiganya menggunakan konsep \textit{component-based architecture}: UI dipecah menjadi komponen kecil yang dapat digunakan ulang, masing-masing dengan template, logika, dan (opsional) style sendiri \cite{mdnJsGuide}.
+
+\begin{konsep}
+\textbf{Kuasai JavaScript Dulu.} Sebelum menggunakan framework, pastikan pemahaman JavaScript (DOM, event, async, ES6+) sudah kuat. Framework adalah abstraksi di atas JavaScript vanilla---tanpa fondasi yang kuat, debugging dan pemahaman perilaku framework akan sulit. Framework berubah dan berganti; fundamental JavaScript bertahan \cite{mdnJsGuide}.
+\end{konsep}
+

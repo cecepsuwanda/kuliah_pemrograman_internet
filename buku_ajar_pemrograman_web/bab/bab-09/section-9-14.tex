@@ -1,0 +1,10 @@
+\section{Pengenalan Asynchronous: Callback}
+
+Kode \textbf{asinkron} tidak menunggu operasi selesai; eksekusi berlanjut dan hasilnya ditangani kemudian melalui callback. Ini penting karena JavaScript bersifat \textit{single-threaded}---hanya satu operasi dieksekusi pada satu waktu. Operasi yang memakan waktu (network request, timer, file I/O) berjalan di background dan memanggil callback saat selesai \cite{jsInfo}.
+
+Masalah dengan callback: \textbf{callback hell} (pyramid of doom) terjadi ketika banyak operasi asinkron bersarang. Kode menjadi sulit dibaca, di-debug, dan dirawat. Promise dan async/await (section berikutnya) mengatasi masalah ini dengan sintaks yang lebih datar dan linier \cite{eloquentJs}.
+
+\begin{catatan}
+\textbf{Event Loop.} JavaScript memiliki satu thread utama (call stack) dan event loop yang memproses callback dari antrian (task queue). Saat call stack kosong, event loop mengambil callback dari antrian dan mengeksekusinya. Inilah sebabnya \code{setTimeout(fn, 0)} tidak langsung dieksekusi---ia masuk ke antrian dan menunggu call stack kosong. Memahami event loop penting untuk memahami perilaku kode asinkron \cite{mdnJsGuide}.
+\end{catatan}
+

@@ -11,36 +11,77 @@
 
 \input{bab/bab-11/section-11-1}
 \input{bab/bab-11/section-11-2}
+\input{bab/bab-11/section-11-3}
+\input{bab/bab-11/section-11-4}
+\input{bab/bab-11/section-11-5}
+\input{bab/bab-11/section-11-6}
+\input{bab/bab-11/section-11-7}
+\input{bab/bab-11/section-11-8}
+\input{bab/bab-11/section-11-9}
+\input{bab/bab-11/section-11-10}
+\input{bab/bab-11/section-11-11}
+\input{bab/bab-11/section-11-12}
+\input{bab/bab-11/section-11-13}
+\input{bab/bab-11/section-11-14}
 
 \begin{aktivitas}
-  \item Buat class PHP sederhana untuk mengelola data user.
-  \item Simulasikan login dan simpan nama user di session.
-  \item Terapkan \code{htmlspecialchars} saat menampilkan input.
+  \item Buat class PHP (\code{Mahasiswa}, \code{Produk}) dengan constructor, properti (typed), metode, dan demonstrasi visibility (public, protected, private).
+  \item Praktikkan inheritance: buat hierarki class (misal \code{Hewan} $\to$ \code{Kucing}, \code{Anjing}) dengan method overriding dan \code{parent::}. Buat juga class dengan static property dan factory method.
+  \item Bangun sistem login sederhana menggunakan session: \code{session\_start()}, \code{session\_regenerate\_id()}, \code{session\_destroy()}. Terapkan atribut keamanan cookie session (HttpOnly, Secure, SameSite).
+  \item Implementasikan form upload file dengan validasi lengkap (ukuran, ekstensi whitelist, MIME type) dan \code{move\_uploaded\_file()}.
+  \item Buat koneksi MySQLi (OOP) dan jalankan query CRUD menggunakan prepared statement (\code{prepare()}, \code{bind\_param()}, \code{execute()}).
+  \item Bangun form lanjutan dengan validasi server-side (\code{filter\_var()}, regex) dan sanitasi (\code{htmlspecialchars()}, \code{trim()}, \code{strip\_tags()}). Tambahkan CSRF token.
+  \item Integrasikan semua materi dalam studi kasus Aplikasi Daftar Tugas (CRUD + Login + Session).
 \end{aktivitas}
 
 \begin{latihan}
-  \item Jelaskan perbedaan session dan cookie.
-  \item Buat daftar 3 risiko keamanan pada aplikasi web.
+  \item Jelaskan empat pilar OOP (encapsulation, inheritance, polymorphism, abstraction) dan berikan contoh masing-masing dalam konteks PHP.
+  \item Apa perbedaan antara \code{public}, \code{protected}, dan \code{private}? Mengapa encapsulation penting?
+  \item Jelaskan perbedaan session dan cookie, serta sebutkan kapan masing-masing sebaiknya digunakan.
+  \item Apa itu \textit{prepared statement}? Mengapa lebih aman daripada menggabungkan string langsung ke query SQL?
+  \item Terapkan \code{htmlspecialchars()} saat menampilkan input pengguna. Jelaskan risiko XSS dan bagaimana cara mitigasinya.
+  \item Apa itu CSRF token dan bagaimana cara kerjanya untuk melindungi form dari serangan CSRF?
 \end{latihan}
 
 \begin{asesmen}
-Asesmen berupa tugas membuat modul login sederhana dengan session dan validasi input.
+Asesmen berupa tugas proyek: membangun \textbf{Aplikasi Web CRUD} dengan fitur berikut:
+\begin{itemize}
+  \item Sistem login dan registrasi menggunakan session dan \code{password\_hash()}/\code{password\_verify()}.
+  \item Operasi CRUD (Create, Read, Update, Delete) pada satu entitas menggunakan MySQLi dengan prepared statement.
+  \item Validasi input server-side menggunakan \code{filter\_var()} dan sanitasi output dengan \code{htmlspecialchars()}.
+  \item CSRF token pada setiap form.
+  \item File upload dengan validasi tipe dan ukuran (opsional).
+  \item Penanganan error yang baik (try-catch, pesan informatif).
+\end{itemize}
+Penilaian meliputi: fungsionalitas (40\%), keamanan (30\%), struktur kode OOP (20\%), dan tampilan (10\%).
 \end{asesmen}
 
 \begin{checklist}
-  \item Saya memahami konsep class dan object di PHP.
-  \item Saya dapat menggunakan session untuk menyimpan data pengguna.
-  \item Saya memahami mitigasi dasar XSS dan CSRF.
+  \item Saya memahami konsep OOP di PHP: class, object, properti, metode, \code{\$this}.
+  \item Saya dapat membuat constructor (termasuk constructor promotion PHP 8) dan memahami destructor.
+  \item Saya memahami inheritance (\code{extends}), method overriding (\code{parent::}), dan \code{final}.
+  \item Saya dapat menerapkan visibility (public, protected, private) dengan getter/setter.
+  \item Saya memahami static property/method dan perbedaan \code{self::} vs \code{static::}.
+  \item Saya dapat menggunakan session dengan aman: \code{session\_start()}, \code{session\_regenerate\_id()}, \code{session\_destroy()}.
+  \item Saya memahami cookie: \code{setcookie()} dengan atribut HttpOnly, Secure, SameSite.
+  \item Saya dapat menangani file upload dengan validasi lengkap (error, ukuran, tipe, MIME).
+  \item Saya mampu menangani error dengan \code{try-catch} dan menggunakan custom exception.
+  \item Saya dapat melakukan koneksi MySQLi (OOP) dan menjalankan CRUD dengan prepared statement.
+  \item Saya memahami validasi (\code{filter\_var()}) dan sanitasi (\code{htmlspecialchars()}, \code{trim()}).
+  \item Saya mengetahui risiko XSS dan CSRF serta cara mitigasinya.
 \end{checklist}
 
 \begin{rangkuman}
-Bab ini membahas OOP di PHP serta keamanan dasar menggunakan session, cookie, dan validasi input. Pemahaman ini penting agar aplikasi web lebih terstruktur dan aman.
+Bab ini membahas PHP tingkat menengah yang mencakup tiga area utama: OOP, session/cookie, dan keamanan dasar. Pada bagian OOP, dibahas pengenalan paradigma OOP dan empat pilarnya, class dan object (properti, metode, typed properties), constructor (termasuk constructor promotion PHP 8) dan destructor, inheritance dan method overriding, visibility (public, protected, private) dengan prinsip encapsulation, serta static property dan method.
+
+Pada bagian session dan cookie, dibahas mekanisme session (siklus hidup, penyimpanan, dan keamanan termasuk \code{session\_regenerate\_id()}), perbedaan session vs cookie, serta atribut keamanan cookie (HttpOnly, Secure, SameSite). Pada bagian keamanan, dibahas file upload dengan validasi ketat, penanganan error modern (try-catch, custom exception), koneksi database MySQLi (OOP), query CRUD dengan prepared statement, serta validasi dan sanitasi input (termasuk mitigasi XSS dan CSRF).
 
 \textbf{Poin Kunci:}
 \begin{itemize}
-  \item OOP memudahkan pengorganisasian kode PHP.
-  \item Session digunakan untuk menyimpan state pengguna.
-  \item Validasi input dan sanitasi output adalah wajib.
+  \item OOP mengorganisasi kode PHP ke dalam class dan object; empat pilar: encapsulation, inheritance, polymorphism, abstraction.
+  \item Session menyimpan data di server (aman), cookie di client (ringan); keduanya perlu pengaturan keamanan.
+  \item Prepared statement mencegah SQL injection; \code{htmlspecialchars()} mencegah XSS; CSRF token mencegah request palsu.
+  \item Validasi input dan sanitasi output adalah prinsip fundamental keamanan web (OWASP).
 \end{itemize}
 \end{rangkuman}
 

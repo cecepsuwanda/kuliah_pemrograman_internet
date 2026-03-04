@@ -1,14 +1,32 @@
-\section{Flexbox untuk Tata Letak Sederhana}
-Flexbox memudahkan Anda menyusun elemen secara horizontal atau vertikal dengan aturan yang jelas. Properti seperti \code{display: flex}, \code{justify\allowbreak-content}, dan \code{align\allowbreak-items} membantu mengatur distribusi ruang. Dengan Flexbox, layout sederhana seperti navbar atau card list menjadi mudah dibuat \cite{mdnCss}.
+\section{Normal Flow dan Positioning}
 
-Flexbox cocok untuk susunan satu dimensi, misalnya deretan kartu atau menu navigasi. Anda dapat mengatur jarak dan perataan elemen tanpa menggunakan float. Ini membuat kode CSS lebih bersih dan mudah dipelihara.
+\textbf{Normal flow} adalah model tata letak default browser di mana elemen HTML disusun berdasarkan urutan kemunculannya di dokumen. Elemen block (seperti \code{div}, \code{p}, \code{h1}) ditumpuk secara vertikal---masing-masing memulai baris baru dan mengisi lebar penuh kontainer. Elemen inline (seperti \code{span}, \code{a}, \code{strong}) mengalir horizontal dalam baris teks. Memahami normal flow adalah prasyarat untuk memahami bagaimana positioning CSS memodifikasi perilaku ini \cite{mdnCss}.
 
-\begin{webcode}[language=CSS, caption={Contoh Flexbox Sederhana}]
-.menu {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-}
-\end{webcode}
+Properti \code{position} mengontrol bagaimana elemen diposisikan relatif terhadap normal flow. CSS menyediakan lima nilai positioning: \code{static} (default), \code{relative}, \code{absolute}, \code{fixed}, dan \code{sticky}. Setiap nilai memiliki konteks referensi dan perilaku yang berbeda terhadap layout elemen lain. Properti pendamping \code{top}, \code{right}, \code{bottom}, dan \code{left} menentukan offset dari posisi referensi; properti ini hanya berlaku jika \code{position} bukan \code{static} \cite{webdevCss}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{2cm}|P{3cm}|P{3.5cm}|P{3.5cm}|}
+\hline
+\textbf{Nilai} & \textbf{Referensi} & \textbf{Efek pada Flow} & \textbf{Kasus Penggunaan} \\
+\hline
+\code{static} & Normal flow & Tetap di flow & Default; tidak perlu diset \\
+\hline
+\code{relative} & Posisi asal sendiri & Tetap di flow; ruang asli dipertahankan & Konteks untuk \code{absolute} child \\
+\hline
+\code{absolute} & Ancestor terdekat non-static & Keluar dari flow & Tooltip, dropdown, badge \\
+\hline
+\code{fixed} & Viewport & Keluar dari flow; tetap saat scroll & Header/navbar tetap \\
+\hline
+\code{sticky} & Viewport + scroll threshold & Di flow sampai threshold & Header sticky saat scroll \\
+\hline
+\end{tabular}
+\caption{Lima nilai CSS position dan karakteristiknya}
+\end{table}
+
+Elemen \code{relative} tetap di posisi normal flow-nya, tetapi dapat digeser menggunakan \code{top}/\code{left}/\code{right}/\code{bottom} tanpa mempengaruhi elemen lain. Kegunaan utamanya adalah sebagai \textbf{containing block} untuk elemen \code{absolute} di dalamnya. Elemen \code{absolute} keluar sepenuhnya dari normal flow dan diposisikan relatif terhadap ancestor terdekat yang memiliki \code{position} non-static. Jika tidak ada ancestor seperti itu, elemen absolute merujuk ke viewport. Properti \code{z-index} mengontrol urutan tumpukan saat elemen overlap \cite{cssTricks}.
+
+\begin{konsep}
+\textbf{Stacking Context dan z-index.} Properti \code{z-index} hanya berlaku pada elemen yang memiliki \code{position} non-static (atau elemen flex/grid child). Nilai lebih tinggi ditempatkan di atas. Setiap elemen dengan \code{z-index} menciptakan \textit{stacking context} baru---elemen di dalam konteks tersebut tidak dapat ``menembus'' keluar. Ini menjelaskan mengapa kadang \code{z-index: 9999} pun tidak berhasil: elemen berada di stacking context yang lebih rendah dari elemen lain \cite{mdnCss}.
+\end{konsep}
 

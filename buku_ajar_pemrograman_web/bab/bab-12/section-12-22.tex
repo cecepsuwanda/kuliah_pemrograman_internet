@@ -1,0 +1,24 @@
+\section{Backup dan Restore (mysqldump Dasar)}
+
+\textbf{Backup} database adalah proses membuat salinan data agar dapat dipulihkan jika terjadi kerusakan, penghapusan tidak sengaja, atau bencana. Alat standar untuk backup MySQL adalah \code{mysqldump}, yang menghasilkan file SQL berisi perintah CREATE TABLE dan INSERT untuk merekonstruksi database. Backup rutin adalah praktik wajib di lingkungan produksi --- tanpa backup, kehilangan data bersifat permanen \cite{mysqlDocs}.
+
+\code{mysqldump} dijalankan dari command line (bukan dari dalam MySQL prompt). Untuk me-restore, gunakan command \code{mysql} dengan input redirect dari file backup. Backup dapat dilakukan per database, per tabel, atau seluruh server. Di lingkungan produksi, backup biasanya dijadwalkan otomatis menggunakan cron job (Linux) atau Task Scheduler (Windows) \cite{mysqlGettingStarted}.
+
+\begin{webcode}[language=SQL, caption={Backup dan restore dengan mysqldump (dijalankan di terminal)}]
+-- Backup satu database
+-- $ mysqldump -u root -p toko_online > backup_toko.sql
+
+-- Backup tabel tertentu
+-- $ mysqldump -u root -p toko_online produk kategori > backup_tabel.sql
+
+-- Backup semua database
+-- $ mysqldump -u root -p --all-databases > backup_semua.sql
+
+-- Restore dari file backup
+-- $ mysql -u root -p toko_online < backup_toko.sql
+
+-- Restore ke database baru
+-- $ mysql -u root -p -e "CREATE DATABASE toko_baru"
+-- $ mysql -u root -p toko_baru < backup_toko.sql
+\end{webcode}
+

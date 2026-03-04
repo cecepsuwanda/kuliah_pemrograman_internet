@@ -1,0 +1,76 @@
+\section{Sintaks Dasar CSS: Selector, Properti, dan Nilai}
+
+Sintaks CSS memiliki struktur yang sederhana dan konsisten. Setiap \textbf{blok aturan} (rule block) terdiri dari sebuah \textbf{selector} yang menentukan elemen target, diikuti oleh kurung kurawal \code{\{\}} yang membungkus satu atau lebih \textbf{deklarasi}. Setiap deklarasi berisi pasangan \textbf{properti} dan \textbf{nilai} yang dipisahkan oleh titik dua (\code{:}), dan diakhiri dengan titik koma (\code{;}). Meskipun titik koma pada deklarasi terakhir bersifat opsional, praktik terbaik adalah selalu menulisnya untuk menghindari error saat menambah deklarasi baru \cite{mdnCss}.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{0.85\textwidth}{!}{%
+\begin{tikzpicture}[node distance=0.8cm, transform shape, every node/.style={font=\footnotesize}]
+  \node (selector) [class, fill=orange!20, minimum width=3cm] {\textbf{Selector}\\misal: \code{h1}};
+  \node (brace) [right=0.5cm of selector, font=\Large\bfseries] {\{};
+  \node (prop1) [class, right=0.5cm of brace, fill=blue!15, minimum width=2.5cm] {\textbf{Properti}\\misal: \code{color}};
+  \node (colon) [right=0.3cm of prop1, font=\Large\bfseries] {:};
+  \node (val1) [class, right=0.3cm of colon, fill=green!15, minimum width=2.5cm] {\textbf{Nilai}\\misal: \code{navy}};
+  \node (semi) [right=0.3cm of val1, font=\Large\bfseries] {;};
+  \node (brace2) [right=0.3cm of semi, font=\Large\bfseries] {\}};
+
+  \draw [arrow] (selector) -- (brace);
+  \draw [arrow] (brace) -- (prop1);
+  \draw [arrow] (prop1) -- (colon);
+  \draw [arrow] (colon) -- (val1);
+\end{tikzpicture}%
+}
+\caption{Anatomi blok aturan CSS: selector, properti, dan nilai}
+\end{figure}
+
+Komentar dalam CSS ditulis menggunakan \code{/* ... */} dan dapat membentang beberapa baris. Komentar berguna untuk menjelaskan keputusan desain, menandai bagian kode, atau menonaktifkan aturan sementara saat debugging. CSS tidak mengenal komentar satu baris (\code{//}) seperti JavaScript \cite{webdevCss}.
+
+Beberapa properti CSS mendukung penulisan \textbf{shorthand}---menggabungkan beberapa properti terkait dalam satu deklarasi. Misalnya, \code{margin: 10px 20px 10px 20px;} adalah shorthand untuk \code{margin-top}, \code{margin-right}, \code{margin-bottom}, \code{margin-left} (searah jarum jam dari atas). Shorthand mempercepat penulisan namun perlu dipahami agar tidak secara tidak sengaja me-reset nilai yang tidak dimaksud. Jika hanya dua nilai diberikan (\code{margin: 10px 20px;}), nilai pertama berlaku vertikal dan kedua berlaku horizontal \cite{cssTricks}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3cm}|P{4.5cm}|P{4.5cm}|}
+\hline
+\textbf{Shorthand} & \textbf{Properti Individual} & \textbf{Contoh} \\
+\hline
+\code{margin} & top, right, bottom, left & \code{margin: 10px 20px;} \\
+\hline
+\code{padding} & top, right, bottom, left & \code{padding: 8px 16px 8px 16px;} \\
+\hline
+\code{border} & width, style, color & \code{border: 1px solid \#333;} \\
+\hline
+\code{font} & style, weight, size/line-height, family & \code{font: italic bold 1rem/1.5 Arial;} \\
+\hline
+\code{background} & color, image, repeat, position, size & \code{background: \#fff url(bg.png) no-repeat;} \\
+\hline
+\end{tabular}
+\caption{Properti shorthand CSS yang umum digunakan}
+\end{table}
+
+\begin{webcode}[language=CSS, caption={Sintaks CSS: aturan, komentar, dan shorthand}]
+/* === Header Styling === */
+h1 {
+  color: #2a6fb0;       /* Warna teks */
+  font-size: 2rem;
+  margin: 0 0 1rem 0;   /* shorthand: atas kanan bawah kiri */
+}
+
+/* Card component */
+.card {
+  padding: 16px;         /* shorthand: semua sisi */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+/* Aturan tidak valid (akan diabaikan browser) */
+p {
+  colour: red;  /* SALAH: typo 'colour' */
+  font-size: ;  /* SALAH: nilai kosong */
+}
+\end{webcode}
+
+\begin{konsep}
+\textbf{CSS yang Tidak Valid Tidak Merusak Halaman.} Berbeda dengan bahasa pemrograman yang menghentikan eksekusi saat ada error, CSS bersifat \textit{forgiving}. Jika browser menemukan properti yang tidak dikenal, nilai yang tidak valid, atau sintaks yang salah, ia akan \textbf{mengabaikan} deklarasi tersebut dan melanjutkan ke deklarasi berikutnya. Ini menjadikan debugging CSS lebih menantang; gunakan DevTools browser untuk memeriksa properti mana yang diterapkan dan mana yang dicoret (invalid) \cite{mdnCss}.
+\end{konsep}
+

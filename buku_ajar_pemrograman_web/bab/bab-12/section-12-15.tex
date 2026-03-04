@@ -1,0 +1,50 @@
+\section{Relasi Tabel dan Konsep Kunci (Primary Key, Foreign Key)}
+
+Dalam database relasional, data disimpan di beberapa tabel yang saling berhubungan (\textit{relasi}) melalui mekanisme \textbf{kunci}. \textbf{Primary key} (PK) adalah kolom atau kombinasi kolom yang secara unik mengidentifikasi setiap baris dalam tabel. \textbf{Foreign key} (FK) adalah kolom di satu tabel yang merujuk ke primary key di tabel lain, membentuk hubungan antar tabel. Relasi ini memungkinkan data disimpan secara terpisah (\textit{normalisasi}) namun dapat digabungkan kembali melalui operasi JOIN \cite{mysqlDocs}.
+
+Ada tiga jenis relasi utama: \textbf{one-to-one} (satu baris di tabel A berhubungan dengan tepat satu baris di tabel B), \textbf{one-to-many} (satu baris di tabel A berhubungan dengan banyak baris di tabel B --- paling umum), dan \textbf{many-to-many} (banyak baris di A berhubungan dengan banyak baris di B --- memerlukan tabel perantara/pivot). Misalnya, satu kategori memiliki banyak produk (one-to-many); satu produk bisa masuk banyak pesanan dan satu pesanan bisa berisi banyak produk (many-to-many) \cite{mysqlGettingStarted}.
+
+\begin{konsep}
+\textbf{Entity-Relationship (ER)} adalah model konseptual yang menggambarkan entitas (tabel), atribut (kolom), dan relasi (hubungan) antar entitas dalam database. ER diagram digunakan dalam tahap perancangan sebelum menulis SQL, membantu memvisualisasikan struktur data secara keseluruhan.
+\end{konsep}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  entity/.style={draw, rectangle, rounded corners, minimum width=2.5cm, minimum height=1.2cm, align=center, font=\small\bfseries, fill=#1},
+  relation/.style={draw, diamond, aspect=2, minimum width=1.5cm, align=center, font=\footnotesize, fill=yellow!15},
+  arrow/.style={-Stealth, thick}
+]
+  \node[entity=blue!15] (kat) {Kategori\\{\footnotesize PK: id}};
+  \node[entity=green!15, right=3.2cm of kat] (prod) {Produk\\{\footnotesize PK: id}\\{\footnotesize FK: kategori\_id}};
+  \node[entity=orange!15, right=3.2cm of prod] (pesanan) {Pesanan\\{\footnotesize PK: id}\\{\footnotesize FK: user\_id}};
+
+  \draw[thick] (kat) -- node[above, font=\footnotesize]{1} node[below, font=\footnotesize]{memiliki} (prod);
+  \draw[thick] (prod) -- node[above, font=\footnotesize]{N} (prod -| kat);
+  \node[above=0.1cm of prod, font=\footnotesize, xshift=-2cm]{N};
+
+  \draw[thick] (prod) -- node[above, font=\footnotesize]{dipesan} (pesanan);
+\end{tikzpicture}
+\caption{Contoh relasi antar tabel: Kategori, Produk, Pesanan}
+\end{figure}
+
+\begin{webcode}[language=SQL, caption={Membuat tabel dengan relasi (foreign key)}]
+CREATE TABLE kategori (
+  id   INT AUTO_INCREMENT PRIMARY KEY,
+  nama VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE produk (
+  id          INT AUTO_INCREMENT PRIMARY KEY,
+  nama        VARCHAR(200) NOT NULL,
+  harga       DECIMAL(12,2) NOT NULL,
+  kategori_id INT,
+  FOREIGN KEY (kategori_id) REFERENCES kategori(id)
+);
+
+-- Insert data
+INSERT INTO kategori (nama) VALUES ('Elektronik'), ('Pakaian');
+INSERT INTO produk (nama, harga, kategori_id) VALUES
+  ('Laptop', 8500000, 1), ('Kaos', 75000, 2);
+\end{webcode}
+

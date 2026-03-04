@@ -1,0 +1,25 @@
+\section{Organisasi Kode dan Metodologi (BEM)}
+
+Saat proyek CSS membesar, organisasi kode menjadi krusial untuk maintainability. Tanpa konvensi penamaan, stylesheet cepat menjadi ``CSS soup''---selector bersaing, specificity war, dan duplikasi kode. Metodologi seperti \textbf{BEM} (Block Element Modifier) menyediakan sistem penamaan yang jelas dan terstruktur \cite{webdevCss}.
+
+BEM membagi komponen UI menjadi tiga level: \textbf{Block} (komponen independen, contoh: \code{.card}), \textbf{Element} (bagian di dalam block, contoh: \code{.card\_\_title}), dan \textbf{Modifier} (variasi block/element, contoh: \code{.card--featured}). Notasi double underscore dan double dash membuatnya mudah dibaca dan menghindari konflik nama \cite{mdnCss}.
+
+\begin{webcode}[language=CSS, caption={Contoh BEM naming}]
+/* Block */
+.card { border: 1px solid #ddd; border-radius: 8px; }
+
+/* Element (bagian dari block) */
+.card__image { width: 100%; border-radius: 8px 8px 0 0; }
+.card__title { font-size: 1.25rem; margin: 0.5rem 0; }
+.card__body  { padding: 1rem; }
+
+/* Modifier (variasi) */
+.card--featured { border-color: #2a6fb0; }
+.card--compact  { padding: 0.5rem; }
+.card__title--large { font-size: 1.5rem; }
+\end{webcode}
+
+\begin{catatan}
+\textbf{Alternatif BEM:} Selain BEM, ada SMACSS (Scalable and Modular Architecture), OOCSS (Object-Oriented CSS), dan \textit{utility-first} (Tailwind CSS). Tidak ada metodologi yang ``terbaik''---yang penting adalah konsistensi dalam satu proyek. BEM paling populer karena sederhana dan mudah dipahami. Apapun pilihannya, dokumentasikan konvensi di README proyek agar semua anggota tim mengikuti aturan yang sama \cite{cssTricks}.
+\end{catatan}
+

@@ -1,0 +1,84 @@
+\section{Percabangan: if, else if, else, dan switch}
+
+Percabangan (\textit{conditional statement}) adalah struktur kontrol yang memungkinkan program mengeksekusi blok kode tertentu berdasarkan kondisi. Tanpa percabangan, program hanya akan menjalankan instruksi secara berurutan dari atas ke bawah. Dengan percabangan, alur program dapat ``bercabang'' ke jalur yang berbeda tergantung pada kondisi yang dievaluasi. Ini adalah dasar dari logika pemrograman dan digunakan di hampir setiap program PHP \cite{phpManual}.
+
+Struktur percabangan dasar di PHP menggunakan \code{if}, \code{elseif} (atau \code{else if}), dan \code{else}. Blok \code{if} memeriksa apakah kondisi bernilai \code{true}; jika ya, blok di dalamnya dieksekusi. Blok \code{elseif} menyediakan kondisi tambahan yang diperiksa jika kondisi sebelumnya \code{false}. Blok \code{else} menangani semua kasus lainnya. Kondisi dapat mengandung operator perbandingan dan logika yang telah dibahas sebelumnya.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  node distance=1.2cm,
+  decision/.style={diamond, draw, fill=orange!20, text width=2.5cm, text badly centered, inner sep=2pt, aspect=2},
+  block/.style={rectangle, draw, fill=blue!15, rounded corners, text width=3cm, minimum height=0.8cm, text centered},
+  line/.style={draw, -Stealth, thick},
+  startstop/.style={rectangle, draw, fill=green!15, rounded corners, minimum width=2cm, minimum height=0.7cm, text centered}
+]
+  \node[startstop] (start) {Mulai};
+  \node[decision, below=of start] (cond1) {Nilai $\geq$ 70?};
+  \node[block, right=2cm of cond1] (lulus) {echo ``Lulus''};
+  \node[decision, below=of cond1] (cond2) {Nilai $\geq$ 50?};
+  \node[block, right=2cm of cond2] (remedial) {echo ``Remedial''};
+  \node[block, below=of cond2] (gagal) {echo ``Tidak Lulus''};
+  \node[startstop, below=of gagal] (end) {Selesai};
+
+  \path[line] (start) -- (cond1);
+  \path[line] (cond1) -- node[above]{Ya} (lulus);
+  \path[line] (cond1) -- node[right]{Tidak} (cond2);
+  \path[line] (cond2) -- node[above]{Ya} (remedial);
+  \path[line] (cond2) -- node[right]{Tidak} (gagal);
+  \path[line] (lulus) |- (end);
+  \path[line] (remedial) |- (end);
+  \path[line] (gagal) -- (end);
+\end{tikzpicture}
+\caption{Flowchart percabangan if-elseif-else}
+\end{figure}
+
+\begin{webcode}[language=PHP, caption={Percabangan if, elseif, dan else}]
+<?php
+$nilai = 75;
+
+if ($nilai >= 70) {
+    echo "Selamat, Anda Lulus!\n";
+    $grade = "B";
+} elseif ($nilai >= 50) {
+    echo "Anda harus mengikuti remedial.\n";
+    $grade = "D";
+} else {
+    echo "Maaf, Anda Tidak Lulus.\n";
+    $grade = "E";
+}
+
+echo "Grade: $grade";
+?>
+\end{webcode}
+
+Struktur \code{switch} menyediakan alternatif yang lebih rapi ketika Anda perlu membandingkan satu variabel dengan banyak nilai yang mungkin. PHP mengevaluasi ekspresi \code{switch} sekali, lalu membandingkannya dengan setiap \code{case}. Penting untuk menyertakan \code{break} di setiap case untuk mencegah \textit{fall-through} (eksekusi berlanjut ke case berikutnya). Blok \code{default} menangani kasus yang tidak cocok dengan case mana pun \cite{w3schoolsPhp}.
+
+\begin{webcode}[language=PHP, caption={switch untuk pemilihan menu}]
+<?php
+$hari = date("l");  // nama hari dalam bahasa Inggris
+
+switch ($hari) {
+    case "Monday":
+    case "Tuesday":
+    case "Wednesday":
+    case "Thursday":
+    case "Friday":
+        echo "Hari kerja: $hari";
+        break;
+    case "Saturday":
+    case "Sunday":
+        echo "Akhir pekan: $hari";
+        break;
+    default:
+        echo "Hari tidak dikenali";
+}
+?>
+\end{webcode}
+
+PHP juga mendukung \textbf{ternary operator} (\code{kondisi ? nilai\_true : nilai\_false}) sebagai cara singkat menulis percabangan sederhana dalam satu baris. Selain itu, PHP 8 memperkenalkan ekspresi \code{match} yang mirip switch tetapi menggunakan perbandingan ketat (\code{===}) dan tidak memerlukan \code{break} karena setiap arm langsung mengembalikan nilai. Penggunaan \code{match} membuat kode lebih ringkas dan aman dari bug fall-through \cite{phpRightWay}.
+
+\begin{catatan}
+\textbf{Sintaks Alternatif untuk Template:} PHP menyediakan sintaks alternatif \code{if (): ... elseif (): ... else: ... endif;} yang lebih mudah dibaca saat PHP dicampur dengan HTML. Sintaks ini menggantikan kurung kurawal dengan titik dua dan \code{endif}. Sangat berguna di file template atau view.
+\end{catatan}
+

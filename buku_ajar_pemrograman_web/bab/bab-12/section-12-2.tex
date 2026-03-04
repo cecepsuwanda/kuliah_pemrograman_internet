@@ -1,13 +1,10 @@
-\section{CRUD dengan PHP dan MySQL}
-CRUD adalah singkatan dari Create, Read, Update, dan Delete. Operasi ini adalah inti dari hampir semua aplikasi berbasis data. Dengan PHP, Anda dapat menjalankan query CRUD menggunakan MySQLi atau PDO \cite{mysqlGettingStarted}.
+\section{Instalasi MySQL dan Lingkungan (XAMPP/Standalone)}
 
-Praktik terbaik adalah menggunakan prepared statement agar aman dari SQL injection. Anda juga perlu memeriksa hasil query dan menampilkan pesan kesalahan jika ada masalah. Dengan demikian, aplikasi menjadi lebih stabil dan aman.
+Cara termudah untuk memulai pengembangan web dengan PHP dan MySQL adalah menginstal paket \textbf{XAMPP} --- sebuah distribusi yang mencakup Apache (web server), MySQL/MariaDB (database server), PHP, dan Perl dalam satu instalasi. XAMPP tersedia untuk Windows, macOS, dan Linux, serta dapat diunduh gratis dari situs resmi Apache Friends. Setelah instalasi, cukup jalankan XAMPP Control Panel, aktifkan modul Apache dan MySQL, dan lingkungan pengembangan sudah siap digunakan tanpa konfigurasi rumit \cite{mysqlGettingStarted}.
 
-\begin{webcode}[language=PHP, caption={Insert Data dengan Prepared Statement}]
-<?php
-$stmt = $conn->prepare("INSERT INTO pengguna (nama, email) VALUES (?, ?)");
-$stmt->bind_param("ss", $nama, $email);
-$stmt->execute();
-?>
-\end{webcode}
+Alternatif lain adalah menginstal MySQL secara \textbf{standalone} (terpisah) menggunakan installer resmi dari Oracle. Pendekatan ini lebih cocok untuk lingkungan produksi atau jika membutuhkan versi MySQL terbaru. Installer MySQL menyediakan opsi konfigurasi detail: port (default 3306), password root, charset default, dan mode SQL. Untuk pengembangan, disarankan mengatur password root dan mengaktifkan karakter set \code{utf8mb4} yang mendukung emoji dan karakter Unicode penuh \cite{mysqlDocs}.
+
+\begin{catatan}
+Setelah instalasi XAMPP, MySQL dapat diakses melalui: (1) \textbf{phpMyAdmin} --- antarmuka web di \code{http://localhost/phpmyadmin}; (2) \textbf{Command line} --- \code{mysql -u root -p} dari terminal; (3) \textbf{MySQL Workbench} --- aplikasi GUI resmi dari Oracle. Pastikan port 3306 tidak digunakan oleh aplikasi lain. Jika XAMPP menggunakan MariaDB (fork MySQL), hampir semua perintah SQL tetap kompatibel.
+\end{catatan}
 

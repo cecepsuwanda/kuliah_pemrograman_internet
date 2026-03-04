@@ -1,0 +1,28 @@
+\section{Alat Pengujian Dasar: Browser DevTools dan Network/Console}
+
+\textbf{Browser DevTools} (Developer Tools) adalah alat bawaan browser modern yang sangat berguna untuk debugging, inspeksi, dan pengujian. DevTools dapat dibuka dengan \code{F12} atau \code{Ctrl+Shift+I}. Tab utama meliputi: \textbf{Elements} (inspeksi HTML/CSS), \textbf{Console} (menjalankan JavaScript, melihat error), \textbf{Network} (memantau HTTP request/response), \textbf{Sources} (debug JavaScript dengan breakpoint), dan \textbf{Performance/Lighthouse} (mengukur performa). Memahami DevTools adalah keterampilan wajib bagi setiap web developer \cite{mdnToolsTesting}.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{2.5cm}|P{5cm}|P{5cm}|}
+\hline
+\textbf{Tab} & \textbf{Fungsi} & \textbf{Kegunaan Pengujian} \\
+\hline
+Elements & Inspeksi dan edit HTML/CSS & Cek layout, modifikasi style \\
+\hline
+Console & Log, error, eksekusi JS & Debug JavaScript, cek error \\
+\hline
+Network & Lihat semua HTTP request & Cek API call, status, waktu \\
+\hline
+Sources & Debug JS (breakpoint) & Trace alur eksekusi kode \\
+\hline
+Lighthouse & Audit performa dan aksesibilitas & Skor performa, rekomendasi \\
+\hline
+Application & Storage, cookie, session & Inspeksi data tersimpan \\
+\hline
+\end{tabular}
+\caption{Tab utama Browser DevTools dan kegunaannya}
+\end{table}
+
+Tab \textbf{Network} sangat berguna untuk menguji integrasi API: Anda dapat melihat setiap request yang dikirim browser, termasuk URL, metode HTTP, header, body request, status code response, dan waktu yang dibutuhkan. Jika API mengembalikan error, tab Network menunjukkan detail response yang membantu debugging. Tab \textbf{Console} menampilkan \code{console.log()}, warning, dan error JavaScript secara real-time \cite{mdnToolsTesting}.
+

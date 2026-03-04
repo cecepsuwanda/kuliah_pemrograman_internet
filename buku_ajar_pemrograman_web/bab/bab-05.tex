@@ -11,36 +11,74 @@
 
 \input{bab/bab-05/section-5-1}
 \input{bab/bab-05/section-5-2}
+\input{bab/bab-05/section-5-3}
+\input{bab/bab-05/section-5-4}
+\input{bab/bab-05/section-5-5}
+\input{bab/bab-05/section-5-6}
+\input{bab/bab-05/section-5-7}
+\input{bab/bab-05/section-5-8}
+\input{bab/bab-05/section-5-9}
+\input{bab/bab-05/section-5-10}
+\input{bab/bab-05/section-5-11}
+\input{bab/bab-05/section-5-12}
+\input{bab/bab-05/section-5-13}
 
 \begin{aktivitas}
-  \item Buat form pendaftaran sederhana dengan validasi HTML.
-  \item Buat tabel data dengan header yang jelas.
-  \item Tambahkan gambar dengan atribut \code{alt} yang deskriptif.
+  \item Buat tabel data lengkap dengan \code{<thead>}, \code{<tbody>}, \code{<tfoot>}, \code{scope}, dan \code{<caption>}; pastikan aksesibel menggunakan pembaca layar atau navigasi keyboard.
+  \item Buat form pendaftaran dengan berbagai tipe input (text, email, date, radio, checkbox, select, textarea), validasi dasar (\code{required}, \code{pattern}, \code{minlength}), serta \code{<fieldset>} dan \code{<legend>} untuk pengelompokan.
+  \item Rancang satu halaman lengkap dengan elemen semantik (\code{header}, \code{nav}, \code{main}, \code{article}, \code{aside}, \code{footer}); sisipkan media audio/video dengan subtitle track, SVG inline, dan iframe yang aman (sandbox).
+  \item Jalankan W3C Markup Validation Service pada halaman Anda, perbaiki semua error, dan dokumentasikan peringatan yang tersisa beserta alasannya.
+  \item Lakukan audit aksesibilitas menggunakan Lighthouse atau aXe DevTools; identifikasi dan perbaiki masalah yang ditemukan.
 \end{aktivitas}
 
 \begin{latihan}
-  \item Jelaskan mengapa \code{label} penting dalam form.
-  \item Tambahkan input baru (telepon) ke form di atas.
+  \item Jelaskan perbedaan antara \code{scope="col"} dan mekanisme \code{id}+\code{headers} pada tabel. Kapan sebaiknya menggunakan masing-masing pendekatan?
+  \item Buat tabel perbandingan antara validasi client-side (HTML5) dan server-side. Mengapa keduanya diperlukan?
+  \item Tambahkan \code{<fieldset>}/\code{<legend>} pada sebuah form dan uji hasilnya dengan navigasi keyboard saja. Catat perbedaan pengalaman sebelum dan sesudah penambahan.
+  \item Jelaskan mengapa atribut \code{alt} pada gambar, \code{<label>} pada form, dan \code{<caption>} pada tabel penting untuk aksesibilitas. Berikan contoh kasus di mana ketidakhadiran masing-masing elemen ini menyulitkan pengguna.
+  \item Apa yang dimaksud dengan prinsip POUR dalam WCAG? Berikan satu contoh penerapan untuk setiap prinsip.
 \end{latihan}
 
 \begin{asesmen}
-Asesmen berupa evaluasi form dan tabel berdasarkan kelengkapan dan aksesibilitas.
+Asesmen berupa proyek mini yang menggabungkan seluruh materi Bab 5. Mahasiswa diminta membuat satu halaman web lengkap yang mengandung:
+\begin{enumerate}
+  \item Tabel data dengan pengelompokan (\code{thead}/\code{tbody}/\code{tfoot}), \code{scope}, dan \code{caption}.
+  \item Form pendaftaran dengan minimal 5 tipe input berbeda, \code{fieldset}/\code{legend}, validasi HTML5, dan atribut aksesibilitas (label, aria-describedby).
+  \item Elemen semantik yang tepat untuk struktur halaman.
+  \item Media (audio atau video) dengan subtitle track dan teks alternatif.
+  \item Hasil validasi W3C tanpa error dan skor aksesibilitas Lighthouse minimal 90.
+\end{enumerate}
+Penilaian berdasarkan: kelengkapan fitur (30\%), ketepatan semantik dan standar (25\%), aksesibilitas (25\%), serta kualitas kode dan dokumentasi (20\%).
 \end{asesmen}
 
 \begin{checklist}
-  \item Saya bisa membuat form HTML dengan validasi dasar.
-  \item Saya dapat membuat tabel dengan struktur yang benar.
-  \item Saya memahami pentingnya atribut \code{alt}.
+  \item Saya bisa membuat tabel HTML dengan pengelompokan (thead, tbody, tfoot), scope, caption, dan aksesibilitas yang tepat.
+  \item Saya dapat membuat form dengan label, berbagai tipe input, fieldset/legend, dan validasi HTML5 dasar.
+  \item Saya memahami perbedaan validasi client-side dan server-side serta kapan menggunakan masing-masing.
+  \item Saya dapat menyisipkan media (audio/video) dengan kontrol, subtitle track, dan teks alternatif.
+  \item Saya memahami perbedaan SVG dan gambar raster serta dapat menyisipkan SVG inline yang aksesibel.
+  \item Saya dapat menggunakan iframe dengan atribut keamanan (sandbox, allow) dan aksesibilitas (title).
+  \item Saya memahami prinsip POUR dan level WCAG serta dapat menerapkan ARIA dengan tepat.
+  \item Saya dapat membuat form dan tabel yang aksesibel untuk pengguna pembaca layar dan keyboard.
+  \item Saya dapat memvalidasi HTML menggunakan W3C Validator dan memperbaiki error yang dilaporkan.
+  \item Saya menguasai teknik debugging HTML menggunakan DevTools browser.
+  \item Saya mengikuti best practices HTML dan memahami peran standar WHATWG/W3C.
 \end{checklist}
 
 \begin{rangkuman}
-Bab ini membahas formulir HTML, penggunaan tabel, serta aksesibilitas dasar. Struktur yang benar dan teks alternatif membuat web lebih mudah digunakan oleh semua pengguna.
+Bab ini membahas secara mendalam seluruh aspek HTML yang berkaitan dengan penyajian data, pengumpulan masukan pengguna, media, dan aksesibilitas. Tabel HTML (\code{table}, \code{tr}, \code{th}, \code{td}) dilengkapi dengan pengelompokan (\code{thead}, \code{tbody}, \code{tfoot}), atribut \code{scope}/\code{headers} untuk aksesibilitas, dan \code{caption} untuk deskripsi. Form HTML (\code{form}, \code{input}, \code{label}, \code{button}, \code{select}, \code{textarea}) didukung oleh beragam tipe input HTML5 dengan validasi bawaan browser, serta pengelompokan field menggunakan \code{fieldset}/\code{legend}.
+
+Struktur halaman menggunakan elemen semantik (header, nav, main, article, section, aside, footer) meningkatkan aksesibilitas, SEO, dan kemudahan pemeliharaan. Media HTML5 (audio/video) dengan subtitle track dan SVG sebagai format gambar vektor memperkaya konten. Embedding melalui iframe dengan atribut keamanan (sandbox) memungkinkan integrasi konten eksternal secara aman.
+
+Aksesibilitas web dibangun di atas prinsip POUR (WCAG): konten harus perceivable, operable, understandable, dan robust. Atribut ARIA melengkapi semantik HTML saat diperlukan, namun prioritas utama tetap pada penggunaan elemen HTML semantik yang tepat. Validasi dan debugging HTML menggunakan W3C Validator dan DevTools memastikan kode mengikuti standar. Best practices HTML---termasuk pemisahan concerns, aksesibilitas sejak awal, dan pengujian lintas browser---menjadi fondasi pembuatan halaman web berkualitas profesional.
 
 \textbf{Poin Kunci:}
 \begin{itemize}
-  \item Form HTML membutuhkan label dan validasi dasar.
-  \item Tabel harus memiliki header untuk kejelasan struktur.
-  \item Aksesibilitas meningkatkan kualitas pengalaman pengguna.
+  \item Tabel dan form membutuhkan struktur dan atribut yang mendukung aksesibilitas (scope, label, fieldset, ARIA).
+  \item Media dan embedding perlu teks alternatif, subtitle, dan kontrol keamanan yang sesuai.
+  \item Aksesibilitas (POUR/WCAG) memastikan web dapat digunakan oleh semua orang, termasuk pengguna dengan disabilitas.
+  \item Validasi dan debugging HTML memastikan dokumen mengikuti standar dan bebas error.
+  \item Best practices dan standar WHATWG/W3C menjadi panduan pembuatan kode HTML yang profesional dan interoperable.
 \end{itemize}
 \end{rangkuman}
 

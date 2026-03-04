@@ -1,0 +1,28 @@
+\section{CI/CD Dasar: Otomasi Build dan Deploy (Konsep)}
+
+\textbf{CI/CD} (\textit{Continuous Integration / Continuous Deployment}) adalah praktik mengotomasi proses build, test, dan deploy setiap kali ada perubahan kode. \textbf{CI} memastikan kode dari berbagai developer diintegrasikan dan diuji secara otomatis. \textbf{CD} mengotomasi deployment ke staging atau produksi setelah semua tes lulus. Alat populer: \textbf{GitHub Actions}, GitLab CI, Jenkins. CI/CD mengurangi human error, mempercepat rilis, dan memberikan kepercayaan bahwa kode yang di-deploy telah teruji \cite{mdnDeploy}.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners, minimum width=1.8cm, minimum height=0.8cm, align=center, font=\footnotesize, fill=#1},
+  arrow/.style={-Stealth, thick},
+  node distance=0.7cm
+]
+  \node[box=blue!15] (push) {Git Push};
+  \node[box=green!15, right=0.7cm of push] (build) {Build};
+  \node[box=orange!15, right=0.7cm of build] (test) {Test};
+  \node[box=yellow!15, right=0.7cm of test] (stage) {Deploy\\Staging};
+  \node[box=red!15, right=0.7cm of stage] (prod) {Deploy\\Prod};
+
+  \draw[arrow] (push) -- (build);
+  \draw[arrow] (build) -- (test);
+  \draw[arrow] (test) -- (stage);
+  \draw[arrow] (stage) -- (prod);
+
+  \node[above=0.3cm of build, font=\footnotesize\bfseries, blue!60] {CI};
+  \node[above=0.3cm of stage, font=\footnotesize\bfseries, red!60] {CD};
+\end{tikzpicture}
+\caption{Pipeline CI/CD: push $\to$ build $\to$ test $\to$ deploy}
+\end{figure}
+

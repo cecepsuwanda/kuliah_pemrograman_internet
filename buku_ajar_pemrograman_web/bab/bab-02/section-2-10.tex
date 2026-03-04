@@ -1,0 +1,100 @@
+\section{Aksesibilitas dan Performa: Prinsip Dasar}
+\textbf{Aksesibilitas web} (sering disingkat \textbf{a11y}) berarti memastikan bahwa situs web dapat digunakan oleh semua orang, termasuk penyandang disabilitas. Sekitar 15\% populasi dunia memiliki beberapa bentuk disabilitas yang dapat memengaruhi cara mereka mengakses web: gangguan penglihatan, pendengaran, motorik, atau kognitif. Aksesibilitas bukan hanya tentang penyandang disabilitas---pengguna dengan koneksi lambat, layar kecil, atau yang menggunakan browser teks juga diuntungkan. Selain alasan kemanusiaan, aksesibilitas juga meningkatkan kualitas kode, memperluas jangkauan pengguna, dan di beberapa negara merupakan kewajiban hukum \cite{mdnAccessibility}.
+
+Standar utama aksesibilitas web adalah \textbf{WCAG} (Web Content Accessibility Guidelines) yang dikembangkan oleh W3C WAI. WCAG didasarkan pada empat prinsip yang disingkat \textbf{POUR}:
+\begin{itemize}
+  \item \textbf{Perceivable} (Dapat Dirasakan) --- konten harus dapat diakses oleh setidaknya satu indera pengguna. Contoh: teks alternatif pada gambar untuk pengguna pembaca layar.
+  \item \textbf{Operable} (Dapat Dioperasikan) --- antarmuka harus dapat dioperasikan oleh semua pengguna. Contoh: semua fungsionalitas dapat diakses via keyboard.
+  \item \textbf{Understandable} (Dapat Dipahami) --- informasi dan operasi antarmuka harus dapat dipahami. Contoh: pesan error yang jelas dan instruksi yang mudah dimengerti.
+  \item \textbf{Robust} (Tangguh) --- konten harus dapat diinterpretasikan oleh berbagai teknologi, termasuk teknologi bantu. Contoh: penggunaan HTML semantik yang valid.
+\end{itemize}
+Level kepatuhan WCAG terdiri dari A (minimum), AA (disarankan untuk sebagian besar situs), dan AAA (optimal) \cite{webdevAccessibility}.
+
+Praktik aksesibilitas dasar yang perlu diterapkan sejak awal meliputi: menggunakan elemen HTML semantik (menggunakan \code{<nav>}, \code{<main>}, \code{<article>} alih-alih hanya \code{<div>}), menyediakan teks alternatif (\code{alt}) pada gambar, memastikan kontras warna yang memadai (rasio minimal 4.5:1 untuk teks normal), dan membuat semua fitur dapat diakses melalui keyboard. Atribut \textbf{ARIA} (\textit{Accessible Rich Internet Applications}) menambahkan informasi semantik pada elemen yang tidak memiliki makna bawaan, misalnya \code{role}, \code{aria-label}, dan \code{aria-hidden} \cite{mdnAccessibility}.
+
+\begin{webcode}[language=HTML, caption={Contoh HTML dengan praktik aksesibilitas yang baik}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Toko Online - Daftar Produk</title>
+</head>
+<body>
+  <!-- Navigasi dengan elemen semantik -->
+  <nav aria-label="Menu Utama">
+    <ul>
+      <li><a href="/">Beranda</a></li>
+      <li><a href="/produk">Produk</a></li>
+      <li><a href="/kontak">Kontak</a></li>
+    </ul>
+  </nav>
+
+  <!-- Konten utama dengan elemen semantik -->
+  <main>
+    <h1>Daftar Produk</h1>
+
+    <article>
+      <h2>Laptop ABC</h2>
+      <!-- Gambar dengan teks alternatif deskriptif -->
+      <img src="laptop.jpg"
+           alt="Laptop ABC warna silver, layar 14 inci">
+      <p>Laptop ringan untuk kebutuhan sehari-hari.</p>
+      <button aria-label="Tambah Laptop ABC ke keranjang">
+        Tambah ke Keranjang
+      </button>
+    </article>
+  </main>
+
+  <!-- Footer dengan informasi kontak -->
+  <footer role="contentinfo">
+    <p>Hak Cipta 2026 Toko Online</p>
+  </footer>
+</body>
+</html>
+\end{webcode}
+
+\textbf{Performa web} mengukur seberapa cepat dan responsif sebuah halaman web dimuat dan berinteraksi dengan pengguna. Halaman yang lambat menyebabkan pengguna meninggalkan situs: riset menunjukkan bahwa 53\% pengguna mobile meninggalkan halaman yang memerlukan lebih dari 3 detik untuk dimuat. Google juga menggunakan kecepatan halaman sebagai faktor peringkat pencarian seit tahun 2018. Metrik performa utama yang digunakan saat ini dikelompokkan dalam \textbf{Core Web Vitals} \cite{webdevLearn}:
+
+\begin{itemize}
+  \item \textbf{LCP} (Largest Contentful Paint) --- mengukur waktu hingga elemen terbesar di halaman (gambar atau blok teks utama) selesai dirender. Target: di bawah 2,5 detik.
+  \item \textbf{FID} (First Input Delay) / \textbf{INP} (Interaction to Next Paint) --- mengukur responsivitas interaksi pengguna pertama. Target: di bawah 200 milidetik.
+  \item \textbf{CLS} (Cumulative Layout Shift) --- mengukur stabilitas visual halaman, yaitu seberapa banyak elemen bergeser saat halaman dimuat. Target: di bawah 0,1.
+\end{itemize}
+
+Optimasi performa dimulai dari hal-hal dasar: mengompres gambar ke format modern (WebP), menentukan dimensi \code{width} dan \code{height} pada elemen \code{<img>} untuk mencegah layout shift, meminifikasi file CSS dan JavaScript, memanfaatkan caching browser dengan header \code{Cache-Control}, dan menempatkan skrip JavaScript di akhir \code{<body>} atau menggunakan atribut \code{defer} agar tidak menghalangi rendering halaman. Teknik \textit{lazy loading} memuat gambar hanya saat mereka mendekati area pandang pengguna, mengurangi waktu pemuatan awal \cite{mdnToolsTesting}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{2.5cm}|P{4.5cm}|P{4.5cm}|}
+\hline
+\textbf{Aspek} & \textbf{Aksesibilitas} & \textbf{Performa} \\
+\hline
+Tujuan & Web dapat digunakan semua orang & Web dimuat cepat dan responsif \\
+\hline
+Standar & WCAG 2.x (A, AA, AAA) & Core Web Vitals (LCP, INP, CLS) \\
+\hline
+Alat ukur & Lighthouse, axe DevTools, WAVE & PageSpeed Insights, WebPageTest \\
+\hline
+Praktik dasar & HTML semantik, kontras warna, alt text, keyboard nav & Kompres gambar, minifikasi, caching, lazy loading \\
+\hline
+Dampak bisnis & Memperluas jangkauan pengguna, kepatuhan hukum & Meningkatkan konversi, SEO, kepuasan pengguna \\
+\hline
+\end{tabular}
+\caption{Perbandingan aspek aksesibilitas dan performa web}
+\end{table}
+
+\begin{catatan}
+\textbf{Tips: Cek Aksesibilitas dan Performa dengan Lighthouse}
+
+Google Lighthouse adalah alat audit bawaan Chrome DevTools yang dapat mengukur aksesibilitas dan performa sekaligus:
+\begin{enumerate}
+  \item Buka halaman web yang ingin di-audit di Chrome
+  \item Tekan \code{F12} untuk membuka DevTools
+  \item Klik tab \textbf{Lighthouse}
+  \item Pilih kategori yang ingin diuji: \textbf{Performance}, \textbf{Accessibility}, \textbf{Best Practices}, dan \textbf{SEO}
+  \item Klik \textbf{Analyze page load} dan tunggu proses audit selesai
+  \item Periksa skor dan rekomendasi perbaikan yang diberikan
+\end{enumerate}
+Target skor yang baik: Performance $\geq$ 90, Accessibility $\geq$ 90. Setiap rekomendasi disertai penjelasan dan tautan ke dokumentasi untuk mempelajari lebih lanjut.
+\end{catatan}
+

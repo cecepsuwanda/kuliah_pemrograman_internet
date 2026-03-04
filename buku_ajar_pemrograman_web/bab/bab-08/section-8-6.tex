@@ -1,0 +1,42 @@
+\section{Operator: Aritmetika, Perbandingan, Logika, dan Penugasan}
+
+Operator adalah simbol yang melakukan operasi pada nilai (operand). JavaScript menyediakan beberapa kategori operator: aritmetika untuk perhitungan matematika, perbandingan untuk membandingkan nilai, logika untuk operasi boolean, dan penugasan untuk mengubah nilai variabel \cite{jsInfo}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{2.5cm}|P{4.5cm}|P{5cm}|}
+\hline
+\textbf{Kategori} & \textbf{Operator} & \textbf{Catatan} \\
+\hline
+Aritmetika & \code{+}, \code{-}, \code{*}, \code{/}, \code{\%}, \code{**} & \code{\%} modulo, \code{**} pangkat \\
+\hline
+Perbandingan & \code{==}, \code{===}, \code{!=}, \code{!==}, \code{<}, \code{>} & \code{===} tanpa konversi tipe \\
+\hline
+Logika & \code{\&\&} (AND), \code{||} (OR), \code{!} (NOT) & Short-circuit evaluation \\
+\hline
+Penugasan & \code{=}, \code{+=}, \code{-=}, \code{*=}, \code{/=} & Shorthand operasi + assign \\
+\hline
+Increment & \code{++}, \code{--} & Pre (\code{++x}) vs post (\code{x++}) \\
+\hline
+\end{tabular}
+\caption{Kategori operator JavaScript}
+\end{table}
+
+\begin{webcode}[language=JavaScript, caption={Operator perbandingan dan logika}]
+// == vs === (ketat)
+console.log(5 == "5");    // true  (konversi tipe)
+console.log(5 === "5");   // false (tipe berbeda)
+console.log(null == undefined); // true (kasus khusus)
+
+// Short-circuit evaluation
+const name = userName || "Guest"; // jika userName falsy, pakai "Guest"
+const display = isAdmin && "Admin Panel"; // jika true, kembalikan string
+
+// Nullish coalescing (??)
+const port = config.port ?? 3000; // hanya null/undefined yang diganti
+\end{webcode}
+
+\begin{konsep}
+\textbf{Selalu Gunakan \code{===} (Strict Equality).} Operator \code{==} melakukan konversi tipe sebelum membandingkan, yang sering menghasilkan perilaku tak terduga (\code{0 == ""} adalah \code{true}). Operator \code{===} membandingkan tanpa konversi---lebih aman dan lebih prediktif. Satu-satunya pengecualian yang wajar: \code{value == null} untuk memeriksa null atau undefined sekaligus \cite{mdnJsGuide}.
+\end{konsep}
+

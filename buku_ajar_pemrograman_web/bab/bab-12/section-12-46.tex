@@ -1,0 +1,18 @@
+\section{Deployment: Menyiapkan Aplikasi PHP untuk Produksi}
+
+\textbf{Deployment} adalah proses memindahkan aplikasi dari lingkungan pengembangan ke server produksi agar dapat diakses pengguna. Langkah-langkah: (1) upload kode ke server via Git (\code{git pull}), FTP, atau CI/CD pipeline; (2) konfigurasi web server (Apache/Nginx) untuk mengarahkan request ke \code{public/index.php}; (3) konfigurasi PHP: matikan \code{display\_errors}, aktifkan \code{error\_log}; (4) instal dependency: \code{composer install --no-dev}; (5) atur environment variable untuk kredensial (database, API key); (6) pastikan HTTPS aktif \cite{phpRightWay}.
+
+\begin{catatan}
+\textbf{Checklist deployment:}
+\begin{itemize}
+  \item \code{display\_errors = Off} dan \code{error\_log} aktif
+  \item Password database di environment variable (bukan di kode)
+  \item HTTPS aktif dan redirect HTTP ke HTTPS
+  \item \code{composer install --no-dev --optimize-autoloader}
+  \item Folder \code{vendor/}, \code{.env}, \code{.git/} tidak bisa diakses via URL
+  \item File upload disimpan di luar \code{public/}
+  \item Backup database terjadwal
+  \item Monitoring error log secara rutin
+\end{itemize}
+\end{catatan}
+

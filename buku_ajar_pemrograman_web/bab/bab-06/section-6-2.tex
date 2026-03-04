@@ -1,23 +1,57 @@
-\section{Box Model dan Spasi}
-Box model adalah konsep yang menjelaskan bagaimana setiap elemen HTML memiliki margin, border, padding, dan content. Dengan box model, Anda bisa mengatur jarak antar elemen dan mengontrol ukuran tampilan. Konsep ini sangat penting untuk membuat layout yang rapi \cite{webdevCss}.
+\section{Cara Menyisipkan CSS: Inline, Internal, dan Eksternal}
 
-Misalnya, padding memberi ruang di dalam kotak, sedangkan margin memberi ruang di luar kotak. Jika box model tidak dipahami, layout bisa terlihat tidak konsisten. Karena itu, latihan menggunakan box model harus dilakukan sejak awal.
+CSS dapat disisipkan ke halaman web dengan tiga cara yang masing-masing memiliki kelebihan dan kekurangan. Pemahaman tentang kapan menggunakan metode yang tepat membantu pengembang menulis kode yang efisien dan mudah dirawat. Ketiga metode ini dapat digunakan bersamaan dalam satu halaman---browser akan menerapkan aturan cascading untuk menentukan gaya mana yang berlaku jika terjadi konflik \cite{mdnCss}.
 
-\begin{table}[ht]
+\begin{table}[htbp]
 \centering
-\begin{tabular}{|P{4cm}|P{7cm}|}
+\begin{tabular}{|P{2cm}|P{3cm}|P{3.5cm}|P{3.5cm}|}
 \hline
-\textbf{Properti} & \textbf{Fungsi} \\
+\textbf{Metode} & \textbf{Cara Penulisan} & \textbf{Kelebihan} & \textbf{Kekurangan} \\
 \hline
-margin & Jarak antar elemen (luar) \\
+Inline & Atribut \code{style} pada elemen & Cepat untuk percobaan; specificity tinggi & Sulit dirawat; mengotori HTML \\
 \hline
-padding & Ruang di dalam elemen \\
+Internal & Tag \code{<style>} di \code{<head>} & CSS dan HTML satu file; cocok untuk satu halaman & Tidak bisa di-cache terpisah; duplikasi jika multi-halaman \\
 \hline
-border & Garis batas elemen \\
-\hline
-content & Isi utama elemen \\
+Eksternal & File \code{.css} + \code{<link>} & Satu file untuk banyak halaman; di-cache browser; kode bersih & Satu request HTTP tambahan \\
 \hline
 \end{tabular}
-\caption{Komponen box model}
+\caption{Perbandingan tiga metode penyisipan CSS}
 \end{table}
+
+\textbf{CSS Inline} ditulis langsung pada atribut \code{style} elemen HTML, misalnya \code{<p style="color: red;">}. Metode ini memiliki specificity tertinggi sehingga akan mengalahkan aturan CSS lain (kecuali \code{!important}). Namun, inline CSS membuat kode HTML berantakan, sulit dirawat, dan melanggar prinsip separation of concerns. Penggunaannya sebaiknya dibatasi hanya untuk pengujian cepat atau skenario email HTML yang tidak mendukung CSS eksternal \cite{webdevCss}.
+
+\textbf{CSS Internal} ditempatkan di dalam elemen \code{<style>} pada bagian \code{<head>} dokumen HTML. Semua aturan CSS berada dalam satu file bersama HTML, sehingga cocok untuk halaman tunggal (one-page) atau prototipe. Kelemahannya adalah jika situs memiliki banyak halaman, CSS harus diduplikasi di setiap halaman, dan perubahan desain memerlukan pengeditan di banyak file \cite{mdnCss}.
+
+\textbf{CSS Eksternal} adalah praktik terbaik untuk pengembangan web profesional. File CSS terpisah (misalnya \code{style.css}) dihubungkan ke HTML menggunakan \code{<link rel="stylesheet" href="style.css">}. Keuntungan utama: satu file CSS melayani seluruh halaman situs, browser dapat meng-cache file sehingga halaman berikutnya lebih cepat dimuat, kode HTML dan CSS terpisah rapi, serta kolaborasi tim lebih mudah. Atribut \code{media} pada \code{<link>} memungkinkan memuat stylesheet berbeda untuk layar dan cetak \cite{cssTricks}.
+
+\begin{webcode}[language=HTML, caption={Tiga cara menyisipkan CSS}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <!-- CSS Eksternal (direkomendasikan) -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- CSS untuk cetak -->
+  <link rel="stylesheet" href="print.css"
+        media="print" />
+
+  <!-- CSS Internal -->
+  <style>
+    h1 { color: navy; }
+    p  { line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <h1>Judul</h1>
+  <!-- CSS Inline (hindari jika mungkin) -->
+  <p style="color: red; font-weight: bold;">
+    Teks ini menggunakan inline CSS.
+  </p>
+</body>
+</html>
+\end{webcode}
+
+\begin{catatan}
+\textbf{Praktik Terbaik:} Gunakan CSS eksternal sebagai metode utama. CSS internal dapat digunakan untuk \textit{critical CSS}---styling minimal yang dibutuhkan untuk tampilan awal halaman (above-the-fold) agar halaman terlihat lebih cepat. Inline CSS sebaiknya dihindari kecuali pada kasus khusus seperti email HTML atau dynamic styles yang di-generate JavaScript. Jika menggunakan beberapa metode bersamaan, pahami urutan specificity: inline \textgreater\ internal/eksternal; file yang dimuat terakhir menang \cite{webdevCss}.
+\end{catatan}
 

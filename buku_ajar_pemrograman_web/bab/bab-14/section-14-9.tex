@@ -1,0 +1,32 @@
+\section{Hardening Server: Firewall, Updates, dan Konfigurasi Aplikasi}
+
+\textbf{Server hardening} adalah proses mengamankan server dengan mengurangi \textit{attack surface} --- menutup celah yang tidak diperlukan. Langkah utama: (1) aktifkan \textbf{firewall} untuk memblokir port yang tidak digunakan; (2) lakukan \textbf{update rutin} sistem operasi dan software; (3) buat \textbf{user non-root} untuk menjalankan aplikasi; (4) nonaktifkan layanan yang tidak diperlukan; (5) batasi akses SSH (gunakan key-based auth, nonaktifkan password login) \cite{phpRightWay}.
+
+\begin{webcode}[language=PHP, caption={Perintah hardening server dasar (Ubuntu/Debian)}]
+# Update sistem
+# sudo apt update && sudo apt upgrade -y
+
+# Firewall (UFW)
+# sudo ufw default deny incoming
+# sudo ufw default allow outgoing
+# sudo ufw allow ssh       # port 22
+# sudo ufw allow http      # port 80
+# sudo ufw allow https     # port 443
+# sudo ufw enable
+# sudo ufw status
+
+# User non-root
+# sudo adduser deployer
+# sudo usermod -aG www-data deployer
+
+# SSH: nonaktifkan login root + password
+# sudo nano /etc/ssh/sshd_config
+# PermitRootLogin no
+# PasswordAuthentication no
+# sudo systemctl restart sshd
+\end{webcode}
+
+\begin{catatan}
+Checklist hardening: (1) firewall aktif (hanya port 22, 80, 443 terbuka); (2) OS dan software ter-update; (3) root login SSH dinonaktifkan; (4) SSH key-based auth; (5) file permission benar (755 folder, 644 file); (6) \code{.env} dan \code{vendor/} tidak bisa diakses publik; (7) database port (3306) diblokir dari publik.
+\end{catatan}
+

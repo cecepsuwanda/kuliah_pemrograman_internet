@@ -1,0 +1,62 @@
+\section{Keamanan Web: Pengenalan Konsep Dasar}
+Keamanan adalah aspek kritis dalam pengembangan web yang tidak boleh diabaikan sejak tahap awal. Aplikasi web yang terhubung ke internet menghadapi berbagai ancaman: pencurian data pengguna, manipulasi konten, penyalahgunaan akses, dan perusakan layanan. Statistik menunjukkan bahwa sebagian besar insiden keamanan web disebabkan oleh kerentanan yang sebenarnya dapat dicegah dengan praktik coding yang baik. Memahami konsep keamanan dasar membantu Anda membangun kebiasaan yang aman dan mencegah kerentanan sebelum terjadi \cite{owaspXss}.
+
+\textbf{OWASP} (Open Web Application Security Project) adalah komunitas global yang secara rutin menerbitkan \textbf{OWASP Top 10}---daftar sepuluh risiko keamanan aplikasi web yang paling kritis. Daftar ini menjadi acuan industri untuk memprioritaskan upaya keamanan. Tiga ancaman yang paling sering dijumpai oleh pemula---dan yang paling relevan untuk pembahasan di buku ini---adalah SQL Injection, Cross-Site Scripting (XSS), dan Cross-Site Request Forgery (CSRF). Pemahaman ketiga ancaman ini menjadi fondasi keamanan web yang akan Anda kembangkan di bab-bab selanjutnya \cite{owaspXss}.
+
+\textbf{SQL Injection} terjadi ketika input pengguna disisipkan langsung ke dalam query SQL tanpa sanitasi, sehingga penyerang dapat memanipulasi query untuk mengakses, mengubah, atau menghapus data. Misalnya, jika aplikasi membangun query dengan menggabungkan string: \code{SELECT * FROM user WHERE nama = '\$input'}, penyerang dapat memasukkan \code{' OR 1=1 --} sebagai input, yang mengubah query menjadi mengembalikan semua data pengguna. Pencegahannya adalah menggunakan \textbf{prepared statement} yang memisahkan struktur query dari data \cite{phpRightWay}.
+
+\begin{webcode}[language=PHP, caption={Perbandingan kode PHP rentan vs aman terhadap SQL Injection}]
+<?php
+// === RENTAN: Input langsung digabung ke query ===
+$nama = $_GET['nama']; // input dari pengguna
+$sql = "SELECT * FROM user WHERE nama = '$nama'";
+// Penyerang bisa memasukkan: ' OR 1=1 --
+// Query menjadi: SELECT * FROM user WHERE nama = '' OR 1=1 --'
+// Hasilnya: SEMUA data user dikembalikan!
+
+// === AMAN: Menggunakan prepared statement ===
+$stmt = $conn->prepare(
+    "SELECT * FROM user WHERE nama = ?"
+);
+$stmt->bind_param("s", $_GET['nama']);
+$stmt->execute();
+$result = $stmt->get_result();
+// Input pengguna diperlakukan sebagai DATA, bukan SQL
+// Serangan SQL Injection tidak akan berhasil
+?>
+\end{webcode}
+
+\textbf{Cross-Site Scripting (XSS)} terjadi ketika penyerang menyisipkan skrip berbahaya (biasanya JavaScript) ke dalam halaman web yang kemudian dieksekusi di browser pengguna lain. Dampaknya bisa berupa pencurian cookie (dan sesi login), pengalihan ke situs palsu, pencatatan keystroke, atau manipulasi tampilan halaman. Terdapat tiga jenis XSS: \textbf{Stored XSS} (skrip disimpan di database), \textbf{Reflected XSS} (skrip disisipkan melalui URL), dan \textbf{DOM-based XSS} (manipulasi DOM di browser). Pencegahan utama adalah \textbf{output encoding}: mengubah karakter khusus seperti \code{<}, \code{>}, dan \code{"} menjadi entitas HTML sebelum ditampilkan. Di PHP, gunakan fungsi \code{htmlspecialchars()} \cite{owaspXss}.
+
+\textbf{Cross-Site Request Forgery (CSRF)} memaksa pengguna yang sudah login untuk menjalankan aksi yang tidak diinginkan tanpa sepengetahuannya. Misalnya, penyerang membuat halaman yang berisi form tersembunyi yang otomatis mengirim request untuk mengubah password korban. Karena browser mengirimkan cookie sesi secara otomatis, server menganggap request tersebut sah. Pencegahan dilakukan dengan menyematkan \textbf{CSRF token}---token unik yang dihasilkan server dan disertakan di setiap formulir. Server memverifikasi token ini sebelum memproses request. Pengaturan cookie \code{SameSite=Strict} juga membantu mencegah CSRF \cite{owaspCsrf}.
+
+Prinsip keamanan yang perlu dipegang sejak awal adalah \textbf{defense in depth}: jangan bergantung pada satu lapisan keamanan saja. Validasi input di client (JavaScript) meningkatkan UX dengan memberikan umpan balik cepat, tetapi validasi di server (PHP) adalah pertahanan utama karena validasi di client dapat dilewati. Selalu asumsikan bahwa \textit{semua input dari pengguna berpotensi berbahaya} dan harus divalidasi serta disanitasi sebelum diproses, disimpan, atau ditampilkan \cite{phpRightWay}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{2.5cm}|P{3.5cm}|P{2.5cm}|P{3.8cm}|}
+\hline
+\textbf{Ancaman} & \textbf{Cara Serangan} & \textbf{Dampak} & \textbf{Pencegahan} \\
+\hline
+SQL Injection & Input disisipkan ke query SQL & Kebocoran / penghapusan data & Prepared statement \\
+\hline
+XSS & Skrip berbahaya disisipkan ke halaman & Pencurian cookie / sesi & Encoding (\code{htmlspecialchars}) \\
+\hline
+CSRF & Request palsu dari situs penyerang & Aksi tidak sah atas nama korban & CSRF token, SameSite cookie \\
+\hline
+Brute Force & Percobaan login berulang-ulang & Akses akun tanpa izin & Rate limiting, CAPTCHA \\
+\hline
+\end{tabular}
+\caption{Ringkasan ancaman keamanan web, dampak, dan pencegahannya}
+\end{table}
+
+\begin{konsep}
+Tiga ancaman keamanan web yang paling umum:
+\begin{enumerate}
+  \item \textbf{SQL Injection} --- manipulasi query database melalui input pengguna. Pencegahan: prepared statement.
+  \item \textbf{XSS} --- penyisipan skrip berbahaya yang dieksekusi di browser korban. Pencegahan: output encoding.
+  \item \textbf{CSRF} --- pemaksaan aksi oleh pengguna yang sudah terautentikasi. Pencegahan: CSRF token.
+\end{enumerate}
+\textbf{Prinsip utama}: \textit{Never trust user input}---selalu validasi dan sanitasi setiap input di sisi server. Ketiga ancaman ini akan dibahas lebih dalam di bab-bab selanjutnya beserta implementasi teknik pencegahannya.
+\end{konsep}
+

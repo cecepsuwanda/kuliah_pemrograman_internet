@@ -1,0 +1,27 @@
+\section{Optimasi Performa Aplikasi Web: Caching, Minifikasi, Lazy Loading}
+
+Optimasi performa meningkatkan kecepatan dan responsivitas aplikasi. Tiga teknik utama: \textbf{caching} menyimpan data yang sering diakses agar tidak perlu diproses ulang (browser cache, server cache, opcode cache); \textbf{minifikasi} mengurangi ukuran file CSS, JavaScript, dan HTML dengan menghapus whitespace, komentar, dan memperpendek nama variabel; \textbf{lazy loading} menunda pemuatan resource (gambar, video) yang belum terlihat di viewport, mengurangi waktu loading awal \cite{mdnToolsTesting}.
+
+\begin{webcode}[language=JavaScript, caption={Lazy loading gambar dengan atribut HTML dan Intersection Observer}]
+<!-- HTML: lazy loading native -->
+<!-- <img src="hero.jpg" loading="lazy" alt="Hero image"> -->
+
+// JavaScript: Intersection Observer untuk lazy loading kustom
+const images = document.querySelectorAll('img[data-src]');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const img = entry.target;
+      img.src = img.dataset.src;
+      img.removeAttribute('data-src');
+      observer.unobserve(img);
+    }
+  });
+});
+images.forEach(img => observer.observe(img));
+\end{webcode}
+
+\begin{catatan}
+Checklist optimasi performa: (1) aktifkan \textbf{gzip/brotli compression} di web server; (2) minifikasi CSS dan JS; (3) gunakan \code{loading="lazy"} pada gambar; (4) aktifkan browser caching dengan header \code{Cache-Control}; (5) optimalkan gambar (format WebP, kompresi); (6) gunakan CDN untuk aset statis; (7) aktifkan \textbf{opcode cache} (OPcache) untuk PHP.
+\end{catatan}
+

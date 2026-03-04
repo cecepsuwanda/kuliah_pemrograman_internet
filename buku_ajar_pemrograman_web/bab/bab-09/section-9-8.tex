@@ -1,0 +1,27 @@
+\section{Penanganan Error: try, catch, throw}
+
+Error handling mencegah program crash ketika terjadi kesalahan runtime. Blok \code{try \{ ... \} catch (err) \{ ... \}} menangkap error: kode di \code{try} dieksekusi; jika error terjadi, eksekusi langsung pindah ke \code{catch}. Blok \code{finally \{ ... \}} (opsional) selalu dieksekusi, baik error terjadi maupun tidak---cocok untuk cleanup (menutup koneksi, menyembunyikan loading) \cite{jsInfo}.
+
+\begin{webcode}[language=JavaScript, caption={try/catch/finally dan custom error}]
+function parseJSON(str) {
+  try {
+    const data = JSON.parse(str);
+    if (!data.name) {
+      throw new Error("Field 'name' wajib ada");
+    }
+    return data;
+  } catch (err) {
+    console.error("Parse gagal:", err.message);
+    return null;
+  } finally {
+    console.log("Proses selesai");
+  }
+}
+\end{webcode}
+
+Statement \code{throw} melempar error secara eksplisit: \code{throw new Error("pesan")}. Objek \code{Error} memiliki properti \code{message} (pesan error) dan \code{stack} (call stack untuk debugging). Tipe error bawaan: \code{TypeError} (tipe salah), \code{ReferenceError} (variabel tidak ditemukan), \code{SyntaxError} (sintaks salah), \code{RangeError} (nilai di luar rentang) \cite{mdnJsGuide}.
+
+\begin{catatan}
+\textbf{Jangan Tangkap Semua Error Diam-Diam.} \code{catch (err) \{ \}} (tanpa penanganan) menyembunyikan error dan menyulitkan debugging. Selalu log error (\code{console.error(err)}) atau tampilkan pesan ke pengguna. Gunakan \code{try/catch} hanya untuk kode yang memang bisa gagal (parsing, network request), bukan untuk membungkus seluruh kode \cite{jsInfo}.
+\end{catatan}
+

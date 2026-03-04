@@ -1,0 +1,65 @@
+\section{Media: Audio dan Video}
+
+HTML5 menghadirkan dukungan native untuk media audio dan video melalui elemen \code{<audio>} dan \code{<video>}, menghilangkan ketergantungan pada plugin pihak ketiga seperti Flash yang dahulu mendominasi pemutaran media di web. Kemampuan memutar media langsung di browser merupakan salah satu fitur terpenting HTML5, memungkinkan pengembang membuat pengalaman multimedia yang konsisten di berbagai platform tanpa risiko keamanan dan performa yang terkait dengan plugin \cite{mdnHtmlIntro}. Elemen-elemen ini didukung oleh semua browser modern dan menyediakan API JavaScript untuk kontrol terprogram.
+
+Atribut \code{controls} pada elemen media menampilkan antarmuka kontrol bawaan browser (putar, jeda, volume, progress bar). Atribut \code{autoplay} memulai pemutaran otomatis saat halaman dimuat---namun sebagian besar browser modern memblokir autoplay audio/video kecuali media di-mute, demi kenyamanan pengguna. Atribut \code{loop} memutar ulang media secara terus-menerus, dan \code{muted} memulai media tanpa suara. Elemen \code{<source>} di dalam \code{<audio>} atau \code{<video>} memungkinkan penyediaan beberapa format fallback---browser akan memilih format pertama yang didukung \cite{webdevHtml}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{2cm}|P{2cm}|P{2.5cm}|P{2cm}|P{2.5cm}|}
+\hline
+\textbf{Format} & \textbf{Tipe} & \textbf{MIME Type} & \textbf{Ekstensi} & \textbf{Dukungan Browser} \\
+\hline
+MP3 & Audio & \code{audio/mpeg} & .mp3 & Semua modern \\
+\hline
+WAV & Audio & \code{audio/wav} & .wav & Semua modern \\
+\hline
+OGG Vorbis & Audio & \code{audio/ogg} & .ogg & Chrome, Firefox \\
+\hline
+MP4 (H.264) & Video & \code{video/mp4} & .mp4 & Semua modern \\
+\hline
+WebM (VP8/VP9) & Video & \code{video/webm} & .webm & Chrome, Firefox \\
+\hline
+OGG Theora & Video & \code{video/ogg} & .ogv & Chrome, Firefox \\
+\hline
+\end{tabular}
+\caption{Format media umum dan dukungan browser}
+\end{table}
+
+Untuk video, atribut \code{poster} menentukan gambar thumbnail yang ditampilkan sebelum pemutaran dimulai. Ini memberikan kesan profesional dan membantu pengguna memahami isi video sebelum memutarnya. Atribut \code{width} dan \code{height} mengatur dimensi pemutar video. Jika atribut \code{controls} tidak diberikan, pengguna tidak akan memiliki cara bawaan untuk mengontrol media---ini dapat dikombinasikan dengan JavaScript untuk membuat kontrol kustom \cite{whatwgHtml}.
+
+Aksesibilitas media memerlukan perhatian khusus. Elemen \code{<track>} memungkinkan penambahan subtitle (\code{kind="subtitles"}), caption (\code{kind="captions"} untuk deskripsi audio termasuk efek suara), dan deskripsi (\code{kind="descriptions"} untuk narasi visual). File track menggunakan format WebVTT (\code{.vtt}). Selalu sediakan teks alternatif atau transkrip lengkap untuk konten media, terutama bagi pengguna yang tuli, tuna rungu, atau berada di lingkungan yang tidak memungkinkan mendengar audio \cite{mdnAccessibility}.
+
+\begin{webcode}[language=HTML, caption={Video dengan subtitle track dan audio dengan fallback}]
+<!-- Video dengan poster dan subtitle -->
+<video controls poster="thumbnail.jpg"
+       width="640" height="360">
+  <source src="kuliah.mp4" type="video/mp4" />
+  <source src="kuliah.webm" type="video/webm" />
+  <track src="subtitle-id.vtt" kind="subtitles"
+         srclang="id" label="Bahasa Indonesia"
+         default />
+  <track src="subtitle-en.vtt" kind="subtitles"
+         srclang="en" label="English" />
+  Browser Anda tidak mendukung video HTML5.
+</video>
+
+<!-- Audio dengan beberapa format -->
+<audio controls>
+  <source src="podcast.mp3" type="audio/mpeg" />
+  <source src="podcast.ogg" type="audio/ogg" />
+  <p>Browser Anda tidak mendukung audio.
+     <a href="podcast.mp3">Unduh audio</a>.</p>
+</audio>
+\end{webcode}
+
+\begin{catatan}
+\textbf{Tips Aksesibilitas Media:}
+\begin{itemize}
+  \item Hindari \code{autoplay} tanpa \code{muted}---pemutaran otomatis dengan suara mengganggu pengguna, terutama yang menggunakan pembaca layar.
+  \item Selalu sediakan teks fallback di antara tag pembuka dan penutup media untuk browser yang tidak mendukung.
+  \item Sertakan transkrip teks lengkap dan/atau subtitle untuk setiap konten audio dan video.
+  \item Pastikan kontrol media dapat diakses dengan keyboard (bawaan browser sudah mendukung ini) \cite{webdevAccessibility}.
+\end{itemize}
+\end{catatan}
+

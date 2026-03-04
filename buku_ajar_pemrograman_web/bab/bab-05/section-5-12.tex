@@ -1,0 +1,67 @@
+\section{Debugging HTML: Menemukan dan Memperbaiki Error}
+
+Debugging HTML adalah proses menemukan dan memperbaiki kesalahan dalam kode markup. Berbeda dengan bahasa pemrograman yang menampilkan pesan error jelas saat terjadi kesalahan, HTML bersifat sangat permisif (``permissive'')---browser akan berusaha menampilkan halaman meskipun terdapat error dalam markup. Sifat ini, yang disebut \textbf{error recovery} oleh standar HTML, menjadikan debugging lebih menantang karena kesalahan mungkin tidak langsung terlihat secara visual namun menyebabkan masalah pada struktur DOM, aksesibilitas, atau tampilan di browser lain \cite{mdnHtmlIntro}.
+
+Kesalahan HTML yang paling umum meliputi: (1) tag yang tidak ditutup---misalnya \code{<p>} tanpa \code{</p>} yang menyebabkan paragraf ``menelan'' konten berikutnya; (2) tag yang salah urutan penutupan---misalnya \code{<b><i>teks</b></i>} yang melanggar aturan nesting; (3) atribut yang hilang tanda kutip---misalnya \code{class=nama kelas} yang hanya mengambil ``nama'' sebagai nilai; (4) elemen yang salah tempat---misalnya elemen block di dalam elemen inline; dan (5) entitas karakter khusus yang tidak di-escape seperti \code{<}, \code{>}, \code{\&} di dalam konten teks \cite{whatwgHtml}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3.5cm}|P{4cm}|P{4.5cm}|}
+\hline
+\textbf{Kesalahan} & \textbf{Contoh} & \textbf{Solusi} \\
+\hline
+Tag tidak ditutup & \code{<p>Teks} & Tambahkan \code{</p>} \\
+\hline
+Nesting salah urutan & \code{<b><i>x</b></i>} & Perbaiki: \code{<b><i>x</i></b>} \\
+\hline
+Atribut tanpa kutip & \code{class=nama kelas} & Gunakan \code{class="nama kelas"} \\
+\hline
+Block di dalam inline & \code{<span><div>} & Gunakan block wrapper \\
+\hline
+Karakter tidak di-escape & \code{5 < 10} di teks & Gunakan \code{5 \&lt; 10} \\
+\hline
+\code{id} duplikat & Dua elemen \code{id="menu"} & Pastikan setiap \code{id} unik \\
+\hline
+\end{tabular}
+\caption{Kesalahan HTML umum dan cara memperbaikinya}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[node distance=2.2cm, transform shape, every node/.style={font=\footnotesize}]
+  \node (problem) [class, fill=red!15] {Masalah\\terdeteksi};
+  \node (devtools) [class, right=of problem, fill=orange!15] {Buka DevTools\\(F12)};
+  \node (inspect) [class, right=of devtools, fill=yellow!15] {Inspect elemen\\di tab Elements};
+  \node (compare) [class, right=of inspect, fill=green!15] {Bandingkan DOM\\dengan source};
+  \node (fix) [class, below=1.5cm of compare, fill=blue!15] {Perbaiki\\kode sumber};
+  \node (validate) [class, left=of fix] {Jalankan\\validator W3C};
+  \node (test) [class, left=of validate] {Uji di\\beberapa browser};
+  \node (done) [class, left=of test, fill=green!25] {Selesai};
+
+  \draw [arrow] (problem) -- (devtools);
+  \draw [arrow] (devtools) -- (inspect);
+  \draw [arrow] (inspect) -- (compare);
+  \draw [arrow] (compare) -- (fix);
+  \draw [arrow] (fix) -- (validate);
+  \draw [arrow] (validate) -- (test);
+  \draw [arrow] (test) -- (done);
+  \draw [arrow, dashed] (validate) to[bend left=30] node[above, font=\scriptsize] {masih error} (fix);
+\end{tikzpicture}%
+}
+\caption{Alur debugging HTML: dari deteksi masalah hingga verifikasi perbaikan}
+\end{figure}
+
+Browser DevTools (dibuka dengan F12 atau Ctrl+Shift+I) adalah alat debugging HTML yang paling penting. Tab \textbf{Elements} (Chrome) atau \textbf{Inspector} (Firefox) menampilkan struktur DOM yang dihasilkan oleh browser setelah proses parsing---ini mungkin berbeda dari source code asli jika browser melakukan error recovery. Dengan membandingkan DOM yang ditampilkan DevTools dengan kode sumber, pengembang dapat menemukan di mana browser melakukan ``perbaikan'' otomatis yang mungkin tidak sesuai dengan maksud asli. Fitur ``Inspect Element'' (klik kanan pada elemen) memungkinkan navigasi langsung ke elemen yang bermasalah \cite{mdnLearn}.
+
+\begin{konsep}
+\textbf{Strategi Debugging HTML yang Efektif:}
+\begin{enumerate}
+  \item \textbf{Validasi dulu}: Jalankan validator W3C untuk mendapatkan daftar error dan warning---ini adalah langkah tercepat untuk menemukan kesalahan sintaks.
+  \item \textbf{Periksa DevTools}: Bandingkan DOM hasil parse dengan kode sumber untuk menemukan perbedaan.
+  \item \textbf{Isolasi masalah}: Jika halaman kompleks, komentari bagian-bagian kode hingga masalah hilang---bagian terakhir yang dikomentari berisi error.
+  \item \textbf{Periksa konsol}: Tab Console di DevTools menampilkan pesan error terkait resource yang gagal dimuat (gambar, script, stylesheet).
+  \item \textbf{Uji lintas browser}: Tampilan yang benar di satu browser tidak menjamin kebenaran---uji di Chrome, Firefox, Safari, dan Edge \cite{mdnHtmlIntro}.
+\end{enumerate}
+\end{konsep}
+

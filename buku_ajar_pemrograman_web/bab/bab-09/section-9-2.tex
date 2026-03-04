@@ -1,11 +1,49 @@
-\section{Library dan Framework Front-End}
-Library seperti jQuery menyederhanakan manipulasi DOM, sedangkan framework seperti Vue atau React membantu membangun UI kompleks. Penggunaan library memungkinkan Anda membuat komponen dinamis dengan lebih cepat. Untuk pemula, memahami konsep dasar library cukup untuk meningkatkan produktivitas \cite{w3schoolsTutorials}.
+\section{Array Lanjutan: map, filter, reduce, dan Metode Fungsional}
 
-Contoh sederhana penggunaan jQuery adalah memilih elemen dan menambahkan event tanpa banyak kode. Framework modern menekankan konsep komponen agar UI mudah dipelihara. Dalam praktik, Anda dapat memilih library sesuai kebutuhan proyek dan skala aplikasi.
+Metode fungsional array menghasilkan array atau nilai baru \textbf{tanpa} mengubah array asli (\textit{immutable pattern}). Ini menjadikan kode lebih mudah dipahami dan di-debug. Tiga metode terpenting: \code{map()} mentransformasi setiap elemen, \code{filter()} menyaring elemen berdasarkan kondisi, dan \code{reduce()} mengakumulasi semua elemen menjadi satu nilai \cite{jsInfo}.
 
-\begin{webcode}[language=JavaScript, caption={Contoh jQuery Sederhana}]
-$("#tombol").on("click", function () {
-  $("#pesan").text("Halo dari jQuery!");
-});
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{2.5cm}|P{4.5cm}|P{5cm}|}
+\hline
+\textbf{Metode} & \textbf{Fungsi} & \textbf{Contoh} \\
+\hline
+\code{.map(fn)} & Transformasi setiap elemen & \code{[1,2,3].map(x => x*2)} $\rightarrow$ \code{[2,4,6]} \\
+\hline
+\code{.filter(fn)} & Saring berdasarkan kondisi & \code{[1,2,3].filter(x => x>1)} $\rightarrow$ \code{[2,3]} \\
+\hline
+\code{.reduce(fn, init)} & Akumulasi ke satu nilai & \code{[1,2,3].reduce((s,x)=>s+x, 0)} $\rightarrow$ 6 \\
+\hline
+\code{.find(fn)} & Elemen pertama yang cocok & \code{arr.find(x => x.id===5)} \\
+\hline
+\code{.some(fn)} & Minimal 1 cocok? (boolean) & \code{arr.some(x => x > 10)} \\
+\hline
+\code{.every(fn)} & Semua cocok? (boolean) & \code{arr.every(x => x > 0)} \\
+\hline
+\code{.sort(fn)} & Urutkan (mutasi!) & \code{arr.sort((a,b) => a-b)} \\
+\hline
+\code{.flat(depth)} & Ratakan array bersarang & \code{[[1],[2,3]].flat()} $\rightarrow$ \code{[1,2,3]} \\
+\hline
+\end{tabular}
+\caption{Metode array fungsional dan contoh penggunaannya}
+\end{table}
+
+\begin{webcode}[language=JavaScript, caption={Chaining metode array}]
+const products = [
+  { name: "Laptop", price: 12000000, stock: 5 },
+  { name: "Mouse",  price: 150000,   stock: 0 },
+  { name: "Monitor",price: 3500000,  stock: 8 }
+];
+
+const result = products
+  .filter(p => p.stock > 0)           // hanya yang tersedia
+  .map(p => ({ ...p, tax: p.price * 0.1 })) // tambah pajak
+  .sort((a, b) => a.price - b.price); // urutkan harga
+
+const total = result.reduce((sum, p) => sum + p.price, 0);
 \end{webcode}
+
+\begin{catatan}
+\textbf{sort() Bermutasi!} Berbeda dari \code{map}/\code{filter}/\code{reduce}, \code{sort()} mengubah array asli. Untuk menghindari mutasi, salin dulu: \code{[...arr].sort(fn)}. Tanpa fungsi komparator, \code{sort()} mengurutkan secara alfabetis (bahkan angka: \code{[10,2,1].sort()} $\rightarrow$ \code{[1,10,2]}). Selalu berikan komparator untuk angka: \code{(a,b) => a-b} \cite{mdnJsGuide}.
+\end{catatan}
 

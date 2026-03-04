@@ -1,0 +1,75 @@
+\section{Teks dan Tipografi}
+
+Tipografi adalah seni dan teknik mengatur teks agar mudah dibaca dan menarik secara visual. Dalam CSS, tipografi mencakup pemilihan jenis huruf, pengaturan ukuran, ketebalan, jarak antar baris dan huruf, serta perataan teks. Tipografi yang baik meningkatkan \textbf{readability} (kemudahan membaca) dan \textbf{legibility} (kemudahan mengenali huruf), serta memberikan karakter visual yang konsisten pada halaman web \cite{webdevCss}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3.5cm}|P{3.5cm}|P{5cm}|}
+\hline
+\textbf{Properti} & \textbf{Fungsi} & \textbf{Contoh Nilai} \\
+\hline
+\code{font-family} & Jenis huruf & \code{'Segoe UI', Arial, sans-serif} \\
+\hline
+\code{font-size} & Ukuran huruf & \code{16px}, \code{1rem}, \code{1.2em} \\
+\hline
+\code{font-weight} & Ketebalan & \code{normal}, \code{bold}, \code{700} \\
+\hline
+\code{font-style} & Gaya huruf & \code{normal}, \code{italic}, \code{oblique} \\
+\hline
+\code{line-height} & Jarak antar baris & \code{1.5}, \code{1.6}, \code{24px} \\
+\hline
+\code{text-align} & Perataan horizontal & \code{left}, \code{center}, \code{right}, \code{justify} \\
+\hline
+\code{text-decoration} & Dekorasi teks & \code{none}, \code{underline}, \code{line-through} \\
+\hline
+\code{text-transform} & Transformasi huruf & \code{uppercase}, \code{lowercase}, \code{capitalize} \\
+\hline
+\code{letter-spacing} & Jarak antar huruf & \code{0.05em}, \code{2px} \\
+\hline
+\code{text-overflow} & Teks yang meluap & \code{ellipsis}, \code{clip} \\
+\hline
+\end{tabular}
+\caption{Properti tipografi CSS yang umum digunakan}
+\end{table}
+
+Properti \code{font-family} mendefinisikan \textbf{font stack}---daftar font yang dicoba secara berurutan. Browser menggunakan font pertama yang tersedia di komputer pengguna; jika tidak ada, font berikutnya dicoba, hingga font generik terakhir (misalnya \code{sans-serif} atau \code{serif}). Penulisan: font dengan nama berspasi harus dibungkus tanda kutip, dan selalu akhiri dengan font generik sebagai fallback. Contoh: \code{font-family: 'Segoe UI', Roboto, Arial, sans-serif;} \cite{mdnCss}.
+
+\textbf{Web fonts} memungkinkan penggunaan font yang tidak terpasang di komputer pengguna. Layanan seperti Google Fonts menyediakan ribuan font gratis yang dimuat dari CDN. Font dimuat melalui \code{<link>} di HTML atau \code{@import} di CSS. Properti \code{font-display: swap;} memastikan teks tetap terlihat dengan font fallback selama web font dimuat, menghindari ``flash of invisible text'' (FOIT) yang mengganggu pengalaman pengguna \cite{webdevCss}.
+
+\begin{webcode}[language=CSS, caption={Tipografi: font stack, web font, dan pengaturan teks}]
+/* Web font dari Google Fonts (dimuat di HTML) */
+/* <link href="https://fonts.googleapis.com/css2
+   ?family=Inter:wght@400;700&display=swap"
+   rel="stylesheet"> */
+
+body {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 1rem;       /* 16px */
+  line-height: 1.6;
+  color: #333;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;  /* teks panjang jadi "..." */
+}
+\end{webcode}
+
+\begin{catatan}
+\textbf{Tips Tipografi untuk Keterbacaan:}
+\begin{itemize}
+  \item Gunakan \code{line-height} antara 1.4--1.8 untuk teks paragraf; nilai terlalu rapat menyulitkan pembacaan.
+  \item Batasi lebar teks (gunakan \code{max-width}) agar 50--75 karakter per baris---terlalu lebar membuat mata sulit menemukan baris berikutnya.
+  \item Hindari \code{text-align: justify} pada web kecuali dengan \code{hyphens: auto}, karena spasi antar kata menjadi tidak rata.
+  \item Gunakan font \code{sans-serif} untuk layar dan \code{serif} untuk cetak sebagai aturan umum \cite{cssTricks}.
+\end{itemize}
+\end{catatan}
+

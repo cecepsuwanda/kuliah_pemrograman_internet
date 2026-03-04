@@ -1,0 +1,18 @@
+\section{Normalisasi Basis Data: 1NF, 2NF, 3NF}
+
+\textbf{Normalisasi} adalah proses mendesain struktur tabel agar data tersimpan secara efisien, mengurangi \textit{redundansi} (duplikasi data), dan mencegah \textit{anomali} data (inkonsistensi saat insert, update, atau delete). Normalisasi dilakukan secara bertahap melalui bentuk normal (\textit{Normal Forms}): 1NF, 2NF, 3NF, dan seterusnya. Untuk kebanyakan aplikasi web, normalisasi hingga 3NF sudah memadai \cite{mysqlDocs}.
+
+\textbf{1NF} (First Normal Form): setiap kolom hanya mengandung satu nilai (\textit{atomic}), tidak ada kolom berulang (\textit{repeating groups}). Contoh pelanggaran: kolom ``telepon'' berisi ``08123,08456'' --- harus dipisah ke tabel sendiri. \textbf{2NF}: memenuhi 1NF dan setiap kolom non-key bergantung sepenuhnya pada seluruh primary key (relevan untuk composite key). \textbf{3NF}: memenuhi 2NF dan tidak ada kolom non-key yang bergantung pada kolom non-key lain (\textit{transitive dependency}) \cite{mysqlGettingStarted}.
+
+\begin{contoh}
+\textbf{Contoh normalisasi bertahap:}
+
+\textbf{Belum normal}: Tabel \code{pesanan(id, pelanggan, alamat, produk1, produk2, produk3)}.
+
+\textbf{1NF}: Hapus kolom berulang --- pisahkan produk ke tabel \code{pesanan\_detail(pesanan\_id, produk\_id, jumlah)}.
+
+\textbf{2NF}: Pindahkan data pelanggan yang hanya bergantung pada \code{pelanggan\_id} (bukan \code{pesanan\_id}) ke tabel \code{pelanggan}.
+
+\textbf{3NF}: Jika kolom \code{kota} bergantung pada \code{kode\_pos} (bukan pada \code{pelanggan\_id}), pisahkan ke tabel \code{kode\_pos(kode, kota)}.
+\end{contoh}
+

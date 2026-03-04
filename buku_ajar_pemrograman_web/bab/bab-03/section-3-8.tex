@@ -1,0 +1,63 @@
+\section{Prinsip UX: Usability, Learnability, dan Heuristik Nielsen}
+
+\textbf{Usability} (kebergunaan) adalah ukuran seberapa mudah dan efisien pengguna dapat menyelesaikan tugas menggunakan suatu produk. Produk dengan usability tinggi memungkinkan pengguna mencapai tujuannya dengan \textbf{sedikit usaha}, \textbf{sedikit error}, dan \textbf{dalam waktu yang wajar}. Usability bukan properti biner---sebuah produk tidak ``usable'' atau ``tidak usable'', melainkan memiliki \textit{tingkat} usability yang dapat diukur melalui beberapa dimensi \cite{nngroup}.
+
+Lima dimensi usability menurut Jakob Nielsen (pelopor usability engineering) adalah: (1) \textbf{Learnability}---seberapa mudah pengguna baru mempelajari cara menggunakan produk; (2) \textbf{Efficiency}---seberapa cepat pengguna berpengalaman menyelesaikan tugas; (3) \textbf{Memorability}---seberapa mudah pengguna mengingat cara penggunaan setelah jeda waktu; (4) \textbf{Errors}---seberapa sering pengguna membuat kesalahan dan seberapa mudah recovery-nya; dan (5) \textbf{Satisfaction}---seberapa puas pengguna dengan pengalamannya \cite{nngroup}.
+
+\subsection{Learnability}
+
+\textbf{Learnability} adalah dimensi usability yang paling kritis untuk produk web---karena jika pengguna tidak dapat memahami cara menggunakan situs dalam beberapa detik pertama, mereka akan meninggalkannya. Learnability tinggi dicapai melalui: penggunaan konvensi yang sudah dikenal (misalnya logo di kiri atas sebagai link ke beranda, keranjang belanja di kanan atas), label yang jelas, dan alur yang predictable. Produk yang ``familiar'' secara konvensi lebih mudah dipelajari daripada produk yang sepenuhnya baru dan unik \cite{webdevLearn}.
+
+\subsection{10 Heuristik Nielsen}
+
+Jakob Nielsen merumuskan \textbf{10 heuristik usability}---prinsip umum yang dapat digunakan untuk mengevaluasi antarmuka tanpa perlu melibatkan pengguna (disebut \textit{heuristic evaluation}). Heuristik ini telah menjadi standar industri dan relevan untuk segala jenis antarmuka digital, termasuk web \cite{nngroup}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{0.6cm}|P{3.5cm}|P{4cm}|P{4cm}|}
+\hline
+\textbf{No} & \textbf{Heuristik} & \textbf{Penjelasan} & \textbf{Contoh di Web} \\
+\hline
+1 & Visibility of system status & Sistem menunjukkan apa yang sedang terjadi & Loading spinner, progress bar upload \\
+\hline
+2 & Match between system \& real world & Bahasa dan konsep sesuai dunia pengguna & Ikon keranjang untuk belanja, bukan istilah teknis \\
+\hline
+3 & User control \& freedom & Ada opsi undo/batal jika salah & Tombol ``Batalkan'' di modal konfirmasi \\
+\hline
+4 & Consistency \& standards & Elemen sama berperilaku sama & Semua link berwarna biru dan bergaris bawah \\
+\hline
+5 & Error prevention & Cegah error sebelum terjadi & Validasi real-time pada form \\
+\hline
+6 & Recognition rather than recall & Tampilkan opsi, jangan suruh mengingat & Dropdown pilihan, bukan input kosong \\
+\hline
+7 & Flexibility \& efficiency of use & Shortcut untuk pengguna berpengalaman & Keyboard shortcut (Ctrl+S), autocomplete \\
+\hline
+8 & Aesthetic \& minimalist design & Tampilkan hanya informasi relevan & Halaman checkout yang fokus tanpa sidebar \\
+\hline
+9 & Help users recognize, diagnose errors & Pesan error yang jelas dan solusi & ``Email tidak valid. Contoh: nama@email.com'' \\
+\hline
+10 & Help \& documentation & Bantuan tersedia jika diperlukan & Tooltip, FAQ, panduan kontekstual \\
+\hline
+\end{tabular}
+\caption{10 Heuristik Usability oleh Jakob Nielsen}
+\end{table}
+
+\subsection{Evaluasi Heuristik}
+
+\textbf{Evaluasi heuristik} adalah metode inspeksi usability di mana 3--5 evaluator secara independen menilai antarmuka berdasarkan 10 heuristik Nielsen. Setiap temuan pelanggaran heuristik dicatat bersama tingkat keparahannya (\textit{severity rating}: 0 = bukan masalah, 4 = harus diperbaiki sebelum rilis). Metode ini relatif murah dan cepat dibandingkan usability testing dengan pengguna nyata, sehingga cocok untuk tahap awal desain \cite{nngroup}.
+
+\begin{contoh}
+\textbf{Contoh Evaluasi Heuristik: Halaman Registrasi}
+
+\begin{itemize}
+  \item \textbf{Temuan 1 (Heuristik \#5 --- Error prevention):} Form registrasi tidak memberikan validasi real-time pada field email. Pengguna baru mengetahui kesalahan setelah menekan tombol ``Daftar''. \textit{Severity: 3 (major)}.
+  \item \textbf{Temuan 2 (Heuristik \#9 --- Error messages):} Pesan error hanya menampilkan ``Input tidak valid'' tanpa menjelaskan field mana yang bermasalah. \textit{Severity: 3 (major)}.
+  \item \textbf{Temuan 3 (Heuristik \#1 --- Visibility):} Setelah menekan ``Daftar'', tidak ada indikator loading. Pengguna tidak tahu apakah proses berjalan atau gagal. \textit{Severity: 2 (minor)}.
+\end{itemize}
+
+\textbf{Rekomendasi:} Tambahkan validasi real-time, perbaiki pesan error agar spesifik per field, dan tambahkan loading indicator.
+\end{contoh}
+
+\begin{konsep}
+\textbf{Heuristik Bukan Checklist, Melainkan Panduan.} 10 heuristik Nielsen bukan daftar yang harus dipenuhi secara kaku, melainkan \textit{panduan berpikir} untuk mengidentifikasi potensi masalah usability. Sebuah desain bisa melanggar satu heuristik secara sadar jika ada alasan yang kuat---misalnya game sengaja tidak memberikan ``undo'' untuk meningkatkan tantangan. Kuncinya adalah memahami \textit{mengapa} heuristik itu ada dan membuat keputusan yang informasional.
+\end{konsep}

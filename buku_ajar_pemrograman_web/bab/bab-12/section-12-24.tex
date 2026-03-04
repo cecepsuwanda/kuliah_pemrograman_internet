@@ -1,0 +1,44 @@
+\section[Mengambil Hasil Query (Fetch) dengan MySQLi]{Mengambil Hasil Query (Fetch) dengan MySQLi}
+
+Setelah menjalankan query SELECT, hasilnya berupa object \code{mysqli\_result} yang berisi baris-baris data. Untuk mengakses data, gunakan metode \textit{fetch}: \code{fetch\_assoc()} mengembalikan satu baris sebagai array asosiatif (key = nama kolom), \code{fetch\_row()} sebagai array numerik, \code{fetch\_object()} sebagai object, dan \code{fetch\_all()} mengembalikan semua baris sekaligus. Setelah selesai, bebaskan memori dengan \code{\$result->free()} \cite{phpManual}.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{3.5cm}|P{4cm}|P{5cm}|}
+\hline
+\textbf{Metode Fetch} & \textbf{Return Type} & \textbf{Akses Data} \\
+\hline
+\code{fetch\_assoc()} & Array asosiatif & \code{\$row['nama']} \\
+\hline
+\code{fetch\_row()} & Array numerik & \code{\$row[0]} \\
+\hline
+\code{fetch\_object()} & Object stdClass & \code{\$row->nama} \\
+\hline
+\code{fetch\_all(MYSQLI\_ASSOC)} & Array of arrays & Semua baris sekaligus \\
+\hline
+\end{tabular}
+\caption{Metode fetch pada MySQLi}
+\end{table}
+
+\begin{webcode}[language=PHP, caption={Berbagai metode fetch MySQLi}]
+<?php
+$result = $conn->query("SELECT id, nama, harga FROM produk");
+
+// fetch_assoc - paling umum
+while ($row = $result->fetch_assoc()) {
+  echo "Produk: {$row['nama']}, Harga: {$row['harga']}\n";
+}
+
+// fetch_all - ambil semua sekaligus (cocok untuk data kecil)
+$result = $conn->query("SELECT * FROM kategori");
+$semua = $result->fetch_all(MYSQLI_ASSOC);
+foreach ($semua as $row) {
+  echo "Kategori: {$row['nama']}\n";
+}
+
+// Jumlah baris
+echo "Total: " . $result->num_rows . " baris\n";
+$result->free();
+?>
+\end{webcode}
+

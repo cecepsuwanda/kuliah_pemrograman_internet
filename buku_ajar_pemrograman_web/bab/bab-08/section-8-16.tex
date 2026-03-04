@@ -1,0 +1,40 @@
+\section{Mengakses Elemen DOM dan Mengubah Konten}
+
+JavaScript menyediakan beberapa metode untuk mengakses elemen di DOM. Metode modern yang paling direkomendasikan adalah \code{querySelector()} (mengembalikan elemen pertama yang cocok) dan \code{querySelectorAll()} (mengembalikan semua elemen yang cocok). Keduanya menggunakan CSS selector sebagai argumen, sehingga sangat fleksibel \cite{mdnJsGuide}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{5cm}|P{2.5cm}|P{4.5cm}|}
+\hline
+\textbf{Metode} & \textbf{Hasil} & \textbf{Catatan} \\
+\hline
+\code{getElementById("id")} & 1 elemen & Cepat; hanya by id \\
+\hline
+\code{querySelector(".css")} & 1 elemen & CSS selector; fleksibel \\
+\hline
+\code{querySelectorAll("p")} & NodeList & Semua yang cocok \\
+\hline
+\code{getElementsByClassName()} & HTMLCollection & Live collection; legacy \\
+\hline
+\end{tabular}
+\caption{Metode akses elemen DOM}
+\end{table}
+
+Setelah mendapatkan elemen, konten dapat diubah: \code{textContent} mengubah teks (aman dari XSS), \code{innerHTML} mengubah HTML di dalam elemen (hati-hati: rentan XSS jika menyisipkan input pengguna tanpa sanitasi). Atribut diubah dengan \code{setAttribute()} atau properti langsung (\code{el.src = "..."}). Style diubah dengan \code{el.style.color = "red"} atau lebih baik menggunakan class: \code{el.classList.add("active")} \cite{jsInfo}.
+
+\begin{contoh}
+\textbf{Studi Kasus: Counter Interaktif}
+
+Tombol + dan - mengubah angka yang ditampilkan di halaman:
+\begin{enumerate}
+  \item HTML: \code{<span id="count">0</span>} dan dua \code{<button>}
+  \item JavaScript: variabel \code{let count = 0;} dan dua event listener
+  \item Klik +: \code{count++; document.getElementById("count").textContent = count;}
+  \item Klik -: \code{count--; ...} (1 baris)
+\end{enumerate}
+\end{contoh}
+
+\begin{catatan}
+\textbf{textContent vs innerHTML.} \code{textContent} mengubah teks polos---aman karena HTML tag akan di-escape (ditampilkan sebagai teks, bukan dirender). \code{innerHTML} menyisipkan HTML yang akan dirender oleh browser---\textbf{jangan} gunakan untuk menyisipkan input pengguna tanpa sanitasi (risiko XSS). Untuk menambah elemen secara aman, gunakan \code{createElement()} + \code{appendChild()} \cite{owaspXss}.
+\end{catatan}
+

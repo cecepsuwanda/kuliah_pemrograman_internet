@@ -1,0 +1,30 @@
+\section{Trigger (Dasar)}
+
+\textbf{Trigger} adalah prosedur yang secara otomatis dijalankan (\textit{fired}) oleh MySQL ketika terjadi event tertentu pada tabel: \code{BEFORE INSERT}, \code{AFTER INSERT}, \code{BEFORE UPDATE}, \code{AFTER UPDATE}, \code{BEFORE DELETE}, atau \code{AFTER DELETE}. Trigger berguna untuk audit log (mencatat perubahan), validasi data di level database, atau memperbarui tabel lain secara otomatis. Dalam trigger, \code{NEW.kolom} merujuk ke nilai baru (INSERT/UPDATE) dan \code{OLD.kolom} merujuk ke nilai lama (UPDATE/DELETE) \cite{mysqlDocs}.
+
+\begin{webcode}[language=SQL, caption={Trigger untuk audit log}]
+-- Tabel audit log
+CREATE TABLE produk_log (
+  id        INT AUTO_INCREMENT PRIMARY KEY,
+  produk_id INT, aksi VARCHAR(10),
+  detail    TEXT, waktu DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Trigger: catat setiap UPDATE pada tabel produk
+DELIMITER //
+CREATE TRIGGER trg_produk_update
+AFTER UPDATE ON produk
+FOR EACH ROW
+BEGIN
+  INSERT INTO produk_log (produk_id, aksi, detail) VALUES (
+    OLD.id, 'UPDATE',
+    CONCAT('Harga: ', OLD.harga, ' -> ', NEW.harga)
+  );
+END //
+DELIMITER ;
+
+-- Ketika produk diupdate, log otomatis tercatat
+UPDATE produk SET harga = 9000000 WHERE id = 1;
+SELECT * FROM produk_log;
+\end{webcode}
+

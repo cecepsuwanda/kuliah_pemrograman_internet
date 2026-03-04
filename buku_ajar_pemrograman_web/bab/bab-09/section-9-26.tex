@@ -1,0 +1,26 @@
+\section{Keamanan: XSS dan Sanitasi Input}
+
+\textbf{Cross-Site Scripting (XSS)} terjadi ketika input pengguna yang mengandung kode JavaScript disisipkan ke halaman tanpa sanitasi, lalu dieksekusi oleh browser pengguna lain. XSS dapat mencuri cookie (sesi), mengubah tampilan halaman, atau mengarahkan pengguna ke situs berbahaya. Ada tiga tipe: Stored (tersimpan di server), Reflected (di URL), dan DOM-based (via JavaScript) \cite{owaspXss}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3cm}|P{4.5cm}|P{4.5cm}|}
+\hline
+\textbf{Teknik Pencegahan} & \textbf{Implementasi} & \textbf{Catatan} \\
+\hline
+Gunakan \code{textContent} & Bukan \code{innerHTML} & Otomatis escape HTML \\
+\hline
+Escape output & Encode \code{<}, \code{>}, \code{\&}, \code{"}, \code{'} & Jika harus gunakan innerHTML \\
+\hline
+CSP header & \code{Content-Security-Policy} & Server-side; blokir inline script \\
+\hline
+Validasi server & Jangan percaya input client & Client validasi = UX saja \\
+\hline
+\end{tabular}
+\caption{Teknik pencegahan XSS}
+\end{table}
+
+\begin{catatan}
+\textbf{Prinsip: Jangan Pernah Percaya Input Pengguna.} Setiap string yang berasal dari pengguna (form, URL, cookie) harus dianggap berbahaya. Di sisi client, gunakan \code{textContent} dan \code{createElement()} alih-alih \code{innerHTML}. Di sisi server, sanitasi dan escape semua output. \textbf{Kedua sisi} harus melakukan validasi dan sanitasi \cite{owaspXss}.
+\end{catatan}
+

@@ -1,0 +1,57 @@
+\section{Cookie: Membuat dan Membaca Cookie}
+
+\textbf{Cookie} adalah mekanisme penyimpanan data kecil di sisi \textbf{client} (browser). Berbeda dengan session yang menyimpan data di server, cookie menyimpan data langsung di komputer pengguna dalam bentuk pasangan \textit{key-value}. Cookie dikirim oleh server ke browser melalui header HTTP \code{Set-Cookie}, dan browser secara otomatis mengirimkan cookie kembali ke server pada setiap request berikutnya yang sesuai dengan domain dan path cookie. Cookie umumnya digunakan untuk fitur ``ingat saya'' pada login, menyimpan preferensi tampilan, atau tracking pengguna \cite{phpManual}.
+
+Di PHP, cookie dibuat menggunakan fungsi \code{setcookie()} yang harus dipanggil \textbf{sebelum} output apa pun (seperti \code{session\_start()}). Fungsi ini menerima beberapa parameter: nama, nilai, waktu kedaluwarsa (timestamp Unix), path, domain, secure, dan httponly. Cookie yang sudah dikirim oleh browser tersedia di superglobal \code{\$\_COOKIE['nama']}. Untuk menghapus cookie, panggil \code{setcookie()} dengan waktu kedaluwarsa di masa lalu \cite{phpRightWay}.
+
+\begin{webcode}[language=PHP, caption={Membuat, membaca, dan menghapus cookie}]
+<?php
+// Membuat cookie - berlaku 7 hari
+setcookie("tema", "dark", [
+  'expires'  => time() + (7 * 24 * 3600),
+  'path'     => '/',
+  'secure'   => true,
+  'httponly'  => true,
+  'samesite' => 'Lax'
+]);
+
+// Membaca cookie (tersedia di request berikutnya)
+if (isset($_COOKIE['tema'])) {
+  echo "Tema saat ini: " . htmlspecialchars($_COOKIE['tema']);
+} else {
+  echo "Tema default digunakan.";
+}
+
+// Menghapus cookie - set expired di masa lalu
+setcookie("tema", "", time() - 3600, '/');
+?>
+\end{webcode}
+
+Keamanan cookie sangat penting karena data tersimpan di sisi client dan dapat dimodifikasi atau dicuri. Atribut keamanan yang harus diperhatikan: \code{Secure} memastikan cookie hanya dikirim melalui HTTPS; \code{HttpOnly} mencegah akses cookie melalui JavaScript (mitigasi XSS); \code{SameSite} mengontrol pengiriman cookie pada request lintas situs (\code{Strict}, \code{Lax}, atau \code{None}). Jangan simpan data sensitif (password, token rahasia) langsung di cookie; jika perlu, enkripsi terlebih dahulu \cite{owaspXss}.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{3cm}|P{5cm}|P{5cm}|}
+\hline
+\textbf{Aspek} & \textbf{Session} & \textbf{Cookie} \\
+\hline
+Penyimpanan & Server & Browser (client) \\
+\hline
+Kapasitas & Tergantung server & Maks. ~4 KB per cookie \\
+\hline
+Keamanan & Lebih aman (server) & Rentan modifikasi client \\
+\hline
+Masa berlaku & Hingga browser ditutup / timeout & Bisa diatur (hari/bulan) \\
+\hline
+Pengiriman & Otomatis via Session ID & Otomatis via header HTTP \\
+\hline
+Contoh penggunaan & Login, keranjang belanja & Preferensi tema, ``ingat saya'' \\
+\hline
+Fungsi PHP & \code{session\_start()}, \code{\$\_SESSION} & \code{setcookie()}, \code{\$\_COOKIE} \\
+\hline
+\end{tabular}
+\caption{Perbandingan session dan cookie}
+\end{table}
+
+Perlu diingat bahwa jumlah cookie per domain dibatasi oleh browser (umumnya 20--50 cookie) dan total ukuran cookie per domain terbatas (~4 KB). Untuk menyimpan data yang lebih besar di sisi client, pertimbangkan \textit{Web Storage API} (localStorage/sessionStorage) yang diakses melalui JavaScript. Namun, Web Storage tidak secara otomatis dikirim ke server pada setiap request seperti cookie. Pemilihan antara session, cookie, dan Web Storage bergantung pada kebutuhan: data sensitif di session, preferensi ringan di cookie, data client-side besar di Web Storage \cite{phpManual}.
+

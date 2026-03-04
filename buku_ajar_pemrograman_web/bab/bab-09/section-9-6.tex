@@ -1,0 +1,10 @@
+\section{Date dan Penanganan Waktu}
+
+Objek \code{Date} merepresentasikan titik waktu tertentu. \code{new Date()} menghasilkan waktu saat ini; \code{new Date("2024-01-15")} membuat tanggal dari string ISO 8601; \code{new Date(year, month, day)} membuat dari komponen (bulan dimulai dari 0!). \code{Date.now()} mengembalikan timestamp dalam milidetik sejak epoch (1 Januari 1970) \cite{jsInfo}.
+
+Metode getter dan setter mengakses/mengubah komponen: \code{getFullYear()}, \code{getMonth()} (0-11), \code{getDate()} (1-31), \code{getHours()}, \code{getMinutes()}, \code{getSeconds()}. Untuk format tampilan, \code{toLocaleDateString()} dan \code{toLocaleTimeString()} menyesuaikan dengan locale pengguna. Untuk manipulasi tanggal yang kompleks (tambah hari, selisih waktu, timezone), library seperti \textbf{date-fns} atau \textbf{Luxon} sangat direkomendasikan \cite{mdnJsGuide}.
+
+\begin{catatan}
+\textbf{Bulan Dimulai dari 0.} \code{new Date(2024, 0, 1)} adalah 1 Januari (bulan 0 = Januari). Ini adalah salah satu ``gotcha'' paling terkenal di JavaScript. \code{getMonth()} juga mengembalikan 0--11. Selalu ingat: bulan berbasis 0 di JavaScript Date \cite{jsInfo}.
+\end{catatan}
+

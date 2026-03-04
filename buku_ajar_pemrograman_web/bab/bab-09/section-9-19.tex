@@ -1,0 +1,42 @@
+\section{Fetch API dan Permintaan HTTP dari Browser}
+
+\textbf{Fetch API} adalah interface modern untuk melakukan permintaan HTTP dari JavaScript di browser. \code{fetch(url)} mengembalikan Promise yang resolve ke objek \code{Response}. Metode \code{.json()} pada Response juga mengembalikan Promise. Fetch mendukung semua metode HTTP (GET, POST, PUT, DELETE) melalui objek opsi \cite{jsInfo}.
+
+\begin{contoh}
+\textbf{Studi Kasus: Menampilkan Data Produk dari API}
+
+Aplikasi yang mengambil daftar produk dari REST API dan menampilkannya di halaman:
+\begin{enumerate}
+  \item Tampilkan loading indicator
+  \item \code{const res = await fetch("/api/products")}
+  \item \code{const products = await res.json()}
+  \item Loop products; buat elemen DOM untuk setiap produk
+  \item Sembunyikan loading; tampilkan daftar produk
+  \item Tangani error: tampilkan pesan jika network gagal
+\end{enumerate}
+\end{contoh}
+
+\begin{webcode}[language=JavaScript, caption={Fetch API: GET dan POST}]
+// GET request
+async function getProducts() {
+  const res = await fetch("/api/products");
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+// POST request (kirim data)
+async function createProduct(data) {
+  const res = await fetch("/api/products", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+\end{webcode}
+
+\begin{catatan}
+\textbf{fetch() Tidak Reject pada HTTP Error.} Berbeda dari XMLHttpRequest, \code{fetch()} hanya reject pada network error (tidak ada koneksi). Response 404 atau 500 tetap resolve---periksa \code{res.ok} atau \code{res.status} untuk mendeteksi error HTTP. Ini adalah ``gotcha'' paling umum saat menggunakan Fetch API \cite{mdnJsGuide}.
+\end{catatan}
+

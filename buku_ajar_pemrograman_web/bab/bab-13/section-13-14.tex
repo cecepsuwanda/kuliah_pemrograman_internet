@@ -1,0 +1,43 @@
+\section{Pencegahan XSS: Output Encoding dan Sanitasi Output}
+
+\textbf{Cross-Site Scripting (XSS)} terjadi saat penyerang menyisipkan kode JavaScript melalui input yang kemudian ditampilkan di halaman tanpa di-escape. Kode tersebut dieksekusi di browser korban, memungkinkan pencurian cookie/session, redirect ke situs phishing, atau defacement. Ada tiga tipe: \textbf{Stored XSS} (disimpan di database), \textbf{Reflected XSS} (dipantulkan dari URL/parameter), dan \textbf{DOM-based XSS} (dimanipulasi di client-side) \cite{owaspXss}.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners, minimum width=2cm, minimum height=0.8cm, align=center, font=\footnotesize, fill=#1},
+  arrow/.style={-Stealth, thick},
+  node distance=1cm
+]
+  \node[box=red!15] (atk) {Penyerang\\sisipkan \code{<script>}};
+  \node[box=orange!15, right=1.2cm of atk] (srv) {Server\\simpan ke DB};
+  \node[box=blue!15, right=1.2cm of srv] (page) {Halaman\\tampilkan data};
+  \node[box=purple!15, right=1.2cm of page] (vic) {Browser korban\\eksekusi script};
+
+  \draw[arrow] (atk) -- (srv);
+  \draw[arrow] (srv) -- (page);
+  \draw[arrow] (page) -- (vic);
+\end{tikzpicture}
+\caption{Alur serangan Stored XSS}
+\end{figure}
+
+Pencegahan utama: \textbf{output encoding} --- gunakan \code{htmlspecialchars(\$data, ENT\_QUOTES, 'UTF-8')} \textbf{setiap kali} menampilkan data yang berasal dari input pengguna ke HTML. Fungsi ini mengubah karakter berbahaya (\code{<}, \code{>}, \code{\&}, \code{'}, \code{"}) menjadi entitas HTML sehingga browser menampilkannya sebagai teks, bukan mengeksekusinya sebagai kode. Prinsip: \textbf{sanitasi saat output, bukan saat input} \cite{owaspXss}.
+
+\begin{webcode}[language=PHP, caption={Pencegahan XSS dengan output encoding}]
+<?php
+// RENTAN: output langsung tanpa escape
+// echo "<p>Hai, " . $_GET['nama'] . "</p>";
+// Input: ?nama=<script>alert('XSS')</script>
+
+// AMAN: selalu escape output
+echo "<p>Hai, " . htmlspecialchars($_GET['nama'] ?? '',
+  ENT_QUOTES, 'UTF-8') . "</p>";
+
+// Helper function untuk kemudahan
+function e(string $s): string {
+  return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
+}
+echo "<p>Email: " . e($user['email']) . "</p>";
+?>
+\end{webcode}
+

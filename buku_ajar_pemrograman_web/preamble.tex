@@ -10,20 +10,27 @@
 
 % --- Layout Halaman ---
 \usepackage{geometry}
-\geometry{a4paper, margin=2.5cm, headheight=15pt}
+\geometry{a4paper, margin=2.5cm, headheight=27.2pt}
+
+% --- Posisi Float Dinamis ---
+\usepackage{float}
+\floatplacement{table}{htbp}
+\floatplacement{figure}{htbp}
 
 % --- Grafik dan Tabel ---
+\usepackage{adjustbox}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
 \usepackage{multirow}
+\usepackage{tabularx}
 \usepackage{xcolor}
 \usepackage{amssymb}
 
 % --- TikZ untuk Diagram ---
 \usepackage{tikz}
-\usetikzlibrary{shapes,arrows,positioning,calc}
+\usetikzlibrary{shapes,arrows,arrows.meta,positioning,calc}
 \tikzset{
   class/.style={
     rectangle,
@@ -32,7 +39,8 @@
     minimum width=3cm,
     minimum height=1cm,
     text centered,
-    font=\bfseries
+    align=center,
+    font=\bfseries\footnotesize
   },
   object/.style={
     rectangle,
@@ -41,7 +49,9 @@
     fill=green!10,
     minimum width=3cm,
     minimum height=1cm,
-    text centered
+    text centered,
+    align=center,
+    font=\footnotesize
   },
   arrow/.style={
     thick,
@@ -55,6 +65,13 @@
 
 % --- Kolom tabel dengan ragged right ---
 \newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+% --- Tabel dengan font kecil (dinamis) ---
+\let\oldtable\table
+\let\endoldtable\endtable
+\renewenvironment{table}[1][htbp]
+  {\oldtable[#1]\centering\small\setlength{\tabcolsep}{4pt}}
+  {\endoldtable}
 
 % --- Hyperlinks ---
 \usepackage{xurl}
@@ -90,10 +107,10 @@
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codebg}{rgb}{0.95,0.95,0.95}
 
-% Style untuk code listing umum
+% Style untuk code listing umum (escape # untuk warna hex CSS)
 \lstdefinestyle{webstyle}{
   basicstyle=\ttfamily\small,
-  keywordstyle=\color{keywordblue}\bfseries,
+  keywordstyle=\color{keywordblue},
   stringstyle=\color{stringred},
   commentstyle=\color{commentgreen},
   numbers=left,
@@ -110,7 +127,10 @@
   breaklines=true,
   breakatwhitespace=false,
   xleftmargin=15pt,
-  xrightmargin=5pt
+  xrightmargin=5pt,
+  aboveskip=10pt,
+  belowskip=10pt,
+  literate={\#}{{\char35}}1
 }
 
 \lstdefinelanguage{CSS}{
@@ -276,6 +296,22 @@
 % Spacing untuk paragraf
 \setlength{\parskip}{0.5em}
 \setlength{\parindent}{0pt}
+\setlength{\emergencystretch}{5em}
+\tolerance=2500
+\pretolerance=500
+
+% Spacing untuk float dan listing (mencegah numpuk)
+\setlength{\floatsep}{12pt plus 2pt minus 2pt}
+\setlength{\textfloatsep}{14pt plus 2pt minus 4pt}
+\setlength{\intextsep}{12pt plus 2pt minus 2pt}
+
+% Mengurangi Underfull \vbox (badness) pada halaman dengan sedikit konten
+\raggedbottom
+% Mengurangi Overfull/Underfull \hbox (bad box)
+\sloppy
+% Abaikan overfull/underfull sangat kecil (<2pt) di log
+\hfuzz=2pt
+\vfuzz=2pt
 
 % Depth untuk table of contents
 \setcounter{tocdepth}{2}

@@ -1,0 +1,56 @@
+\section{Prepared Statement dengan MySQLi: Mencegah SQL Injection}
+
+\textbf{SQL injection} adalah serangan di mana penyerang menyisipkan kode SQL berbahaya melalui input pengguna. Misalnya, input \code{' OR 1=1 --} pada form login dapat melewati autentikasi jika query dibangun dengan penggabungan string. \textbf{Prepared statement} mencegah serangan ini dengan memisahkan template query dari data: MySQL memperlakukan data sebagai literal (nilai), bukan sebagai bagian dari perintah SQL \cite{phpRightWay}.
+
+\begin{contoh}
+\textbf{Studi Kasus: Pencegahan SQL Injection}
+
+\textbf{Query rentan}: \code{"SELECT * FROM users WHERE user='\$u' AND pass='\$p'"}. Jika \code{\$u = "admin' --"}, query menjadi: \code{SELECT * FROM users WHERE user='admin' --' AND pass='...'} --- komentar SQL (\code{--}) menghilangkan cek password.
+
+\textbf{Dengan prepared statement}: \code{\$stmt = \$conn->prepare("SELECT * FROM users WHERE user=? AND pass=?")}. Input \code{"admin' --"} diperlakukan sebagai string literal, bukan perintah SQL. Serangan gagal.
+\end{contoh}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners, minimum width=3cm, minimum height=1cm, align=center, font=\footnotesize, fill=#1},
+  arrow/.style={-Stealth, thick},
+  node distance=1cm
+]
+  \node[box=blue!15] (prep) {1. Prepare\\template query};
+  \node[box=green!15, right=1.5cm of prep] (bind) {2. Bind\\parameter};
+  \node[box=orange!20, right=1.5cm of bind] (exec) {3. Execute};
+  \node[box=purple!15, right=1.5cm of exec] (fetch) {4. Fetch\\hasil};
+
+  \draw[arrow] (prep) -- (bind);
+  \draw[arrow] (bind) -- (exec);
+  \draw[arrow] (exec) -- (fetch);
+\end{tikzpicture}
+\caption{Alur prepared statement: prepare, bind, execute, fetch}
+\end{figure}
+
+\begin{webcode}[language=PHP, caption={Prepared statement MySQLi lengkap}]
+<?php
+// Langkah 1: Prepare - template query dengan placeholder ?
+$stmt = $conn->prepare(
+  "SELECT id, nama, email FROM pengguna WHERE email = ? AND aktif = ?"
+);
+
+// Langkah 2: Bind - tipe: s=string, i=integer, d=double, b=blob
+$email = $_POST['email'];
+$aktif = 1;
+$stmt->bind_param("si", $email, $aktif);
+
+// Langkah 3: Execute
+$stmt->execute();
+
+// Langkah 4: Fetch hasil
+$result = $stmt->get_result();
+while ($row = $result->fetch_assoc()) {
+  echo htmlspecialchars($row['nama']) . "\n";
+}
+
+$stmt->close();
+?>
+\end{webcode}
+

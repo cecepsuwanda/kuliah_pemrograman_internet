@@ -1,21 +1,96 @@
-\section{Wireframe, Mockup, User Flow, dan Aksesibilitas}
-Setelah kebutuhan jelas, Anda perlu memvisualisasikan alur pengguna melalui user flow dan wireframe. Wireframe adalah sketsa struktur halaman, sedangkan mockup adalah versi visual yang lebih detail. Langkah ini memudahkan komunikasi ide sebelum coding dimulai \cite{mdnAccessibility}.
+\section{Kebutuhan Fungsional dan Non-Fungsional}
 
-Aksesibilitas memastikan semua pengguna, termasuk yang memiliki keterbatasan, dapat menggunakan aplikasi dengan nyaman. Prinsip ini mencakup kontras warna, navigasi keyboard, dan penggunaan label yang jelas. Dengan memperhatikan aksesibilitas sejak awal, Anda membangun web yang lebih inklusif \cite{webdevAccessibility}.
+Setelah proses elicitation, kebutuhan yang terkumpul perlu diklasifikasikan ke dalam dua kategori utama: \textbf{kebutuhan fungsional} dan \textbf{kebutuhan non-fungsional}. Pemahaman yang tepat tentang kedua jenis kebutuhan ini sangat penting karena masing-masing mempengaruhi aspek yang berbeda dari produk akhir. Kebutuhan fungsional menentukan \textit{apa} yang harus dilakukan sistem, sedangkan kebutuhan non-fungsional menentukan \textit{seberapa baik} sistem melakukannya \cite{mdnLearn}.
 
-\begin{figure}[h]
+\textbf{Kebutuhan fungsional} menjelaskan perilaku dan fitur sistem yang harus tersedia---``pengguna dapat mendaftar akun'', ``pengguna dapat mengunggah foto'', ``sistem mengirim notifikasi email setelah transaksi berhasil''. Setiap kebutuhan fungsional mendeskripsikan interaksi antara pengguna dan sistem. Di sisi lain, \textbf{kebutuhan non-fungsional} menggambarkan atribut kualitas: keamanan, performa (halaman dimuat dalam kurang dari 3 detik), ketersediaan (uptime 99.9\%), responsivitas (dapat digunakan di layar mobile), dan aksesibilitas. Kebutuhan non-fungsional sering disebut juga \textit{quality attributes} atau \textit{constraints} \cite{webdevLearn}.
+
+\begin{table}[htbp]
 \centering
-\resizebox{0.9\textwidth}{!}{%
-\begin{tikzpicture}[node distance=1.6cm, transform shape]
-  \node (home) [class] {Beranda};
-  \node (login) [class, right=of home] {Login};
-  \node (dashboard) [class, right=of login] {Dashboard};
-  \node (form) [class, right=of dashboard] {Form Input};
-  \draw [arrow] (home) -- (login);
-  \draw [arrow] (login) -- (dashboard);
-  \draw [arrow] (dashboard) -- (form);
-\end{tikzpicture}%
-}
-\caption{Contoh alur pengguna sederhana}
-\end{figure}
+\begin{tabular}{|P{2.5cm}|P{4cm}|P{5.5cm}|}
+\hline
+\textbf{Aspek} & \textbf{Fungsional} & \textbf{Non-Fungsional} \\
+\hline
+Definisi & Apa yang dilakukan sistem & Seberapa baik sistem bekerja \\
+\hline
+Contoh & Login, CRUD, pencarian, upload & Performa, keamanan, responsif, aksesibel \\
+\hline
+Cara mengukur & Berhasil/gagal (biner) & Metrik kuantitatif (waktu, persentase) \\
+\hline
+Dampak jika tidak terpenuhi & Fitur tidak tersedia & Pengalaman buruk, ditinggalkan pengguna \\
+\hline
+Sumber & Pengguna, stakeholder & Standar industri, regulasi, best practice \\
+\hline
+\end{tabular}
+\caption{Perbandingan kebutuhan fungsional dan non-fungsional}
+\end{table}
 
+\subsection{Mendokumentasikan Kebutuhan}
+
+Kebutuhan yang telah diidentifikasi harus didokumentasikan secara formal agar menjadi acuan yang jelas bagi semua pihak. Dokumentasi kebutuhan dapat berupa \textbf{Software Requirements Specification (SRS)}, \textbf{user story}, atau format lain yang disepakati tim. Kunci dokumentasi yang baik adalah: setiap kebutuhan ditulis dengan bahasa yang jelas, dapat diuji, dan diberi identifikasi unik (misalnya FR-01, NFR-01). Berikut contoh format dokumentasi \cite{webdevLearn}:
+
+\begin{contoh}
+\textbf{Contoh Dokumentasi Kebutuhan untuk Aplikasi Catatan Harian}
+
+\textbf{Kebutuhan Fungsional:}
+\begin{itemize}
+  \item FR-01: Pengguna dapat membuat catatan baru dengan judul dan isi.
+  \item FR-02: Pengguna dapat mengedit catatan yang sudah ada.
+  \item FR-03: Pengguna dapat menghapus catatan dengan konfirmasi.
+  \item FR-04: Pengguna dapat mencari catatan berdasarkan kata kunci.
+  \item FR-05: Sistem menampilkan daftar catatan terurut berdasarkan tanggal terbaru.
+\end{itemize}
+
+\textbf{Kebutuhan Non-Fungsional:}
+\begin{itemize}
+  \item NFR-01: Halaman utama dimuat dalam kurang dari 2 detik.
+  \item NFR-02: Aplikasi responsif dan dapat digunakan di layar 320px ke atas.
+  \item NFR-03: Semua form dapat dioperasikan menggunakan keyboard (\textit{keyboard accessible}).
+  \item NFR-04: Data pengguna dienkripsi saat transit (HTTPS).
+\end{itemize}
+\end{contoh}
+
+\subsection{Prioritisasi Kebutuhan: Metode MoSCoW}
+
+Tidak semua kebutuhan memiliki tingkat urgensi yang sama. Metode \textbf{MoSCoW} adalah teknik prioritisasi yang membagi kebutuhan menjadi empat kategori berdasarkan kepentingannya. Metode ini sangat berguna dalam proyek dengan keterbatasan waktu dan sumber daya, karena membantu tim fokus pada fitur yang paling kritis terlebih dahulu \cite{webdevLearn}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3cm}|P{4cm}|P{5cm}|}
+\hline
+\textbf{Kategori} & \textbf{Arti} & \textbf{Contoh (Aplikasi Catatan)} \\
+\hline
+\textbf{M}ust have & Wajib ada, tanpa ini produk gagal & CRUD catatan, autentikasi \\
+\hline
+\textbf{S}hould have & Penting, tetapi bisa ditunda & Pencarian catatan, kategori \\
+\hline
+\textbf{C}ould have & Bagus jika ada, bukan prioritas & Tema gelap, ekspor PDF \\
+\hline
+\textbf{W}on't have (saat ini) & Tidak dikerjakan di rilis ini & Kolaborasi real-time, AI summary \\
+\hline
+\end{tabular}
+\caption{Metode prioritisasi MoSCoW}
+\end{table}
+
+\subsection{Acceptance Criteria}
+
+Setiap kebutuhan fungsional sebaiknya dilengkapi dengan \textbf{acceptance criteria}---kondisi spesifik yang harus terpenuhi agar kebutuhan dianggap selesai. Acceptance criteria ditulis dalam format yang dapat diuji (\textit{testable}) dan menghilangkan ambiguitas. Format yang umum digunakan adalah \textbf{Given--When--Then} yang berasal dari Behavior-Driven Development (BDD) \cite{mdnLearn}.
+
+\begin{contoh}
+\textbf{Acceptance Criteria untuk FR-01 (Buat Catatan Baru):}
+\begin{itemize}
+  \item \textbf{Given} pengguna berada di halaman utama,
+  \item \textbf{When} pengguna mengklik tombol ``Tambah Catatan'' dan mengisi judul serta isi,
+  \item \textbf{Then} catatan baru muncul di daftar catatan dengan tanggal saat ini.
+\end{itemize}
+
+\textbf{Acceptance Criteria untuk NFR-01 (Performa):}
+\begin{itemize}
+  \item \textbf{Given} pengguna membuka halaman utama,
+  \item \textbf{When} halaman pertama kali dimuat,
+  \item \textbf{Then} waktu \textit{First Contentful Paint} (FCP) kurang dari 2 detik pada koneksi 3G.
+\end{itemize}
+\end{contoh}
+
+\begin{konsep}
+\textbf{Mengapa Acceptance Criteria Penting?} Acceptance criteria berfungsi sebagai ``definisi selesai'' (\textit{definition of done}) untuk setiap fitur. Tanpa acceptance criteria, pengembang dan pengguna mungkin memiliki ekspektasi yang berbeda tentang bagaimana fitur seharusnya bekerja. Dalam pengembangan web, acceptance criteria juga menjadi dasar untuk menulis test case otomatis---baik unit test maupun end-to-end test.
+\end{konsep}

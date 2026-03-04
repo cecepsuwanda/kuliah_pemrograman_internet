@@ -4,42 +4,82 @@
 
 \chapter{Deployment, Administrasi, dan Evaluasi Akhir}
 
+Bab ini membahas seluruh proses deployment aplikasi web ke lingkungan produksi, konfigurasi server dan database, hardening keamanan, CI/CD, pemantauan, serta evaluasi akhir kompetensi.
+
 \begin{subcpmk}
   \item Sub-CPMK 4.3: Melakukan deployment ke lingkungan produksi dan administrasi dasar (server/web, basis data).
 \end{subcpmk}
 
-\input{bab/bab-14/bab-14-section-1}
-\input{bab/bab-14/bab-14-section-2}
+\input{bab/bab-14/section-14-1}
+\input{bab/bab-14/section-14-2}
+\input{bab/bab-14/section-14-3}
+\input{bab/bab-14/section-14-4}
+\input{bab/bab-14/section-14-5}
+\input{bab/bab-14/section-14-6}
+\input{bab/bab-14/section-14-7}
+\input{bab/bab-14/section-14-8}
+\input{bab/bab-14/section-14-9}
+\input{bab/bab-14/section-14-10}
+\input{bab/bab-14/section-14-11}
+\input{bab/bab-14/section-14-12}
+\input{bab/bab-14/section-14-13}
+\input{bab/bab-14/section-14-14}
 
 \begin{aktivitas}
-  \item Siapkan proyek mini dan lakukan deployment sederhana.
-  \item Buat catatan konfigurasi server dan database.
-  \item Presentasikan hasil dan minta umpan balik.
+  \item Bandingkan konfigurasi PHP di lingkungan lokal (XAMPP) dan produksi; catat perbedaannya.
+  \item Siapkan file \code{.env} untuk menyimpan konfigurasi database dan mode aplikasi.
+  \item Lakukan deployment sederhana ke server (atau simulasi lokal) dan dokumentasikan langkahnya.
+  \item Atur konfigurasi PHP produksi: nonaktifkan \code{display\_errors}, aktifkan \code{log\_errors}.
+  \item Buat skrip backup database menggunakan \code{mysqldump} dan uji restore-nya.
+  \item Jelaskan konsep reverse proxy dan HTTPS; identifikasi manfaatnya.
+  \item Buat checklist hardening server sederhana berdasarkan materi bab ini.
+  \item Presentasikan proyek akhir dan lakukan refleksi kompetensi.
 \end{aktivitas}
 
 \begin{latihan}
-  \item Jelaskan dua perbedaan utama antara lokal dan produksi.
-  \item Buat checklist langkah deployment sederhana.
+  \item Jelaskan tiga perbedaan utama antara lingkungan development dan produksi.
+  \item Buat checklist langkah deployment dari lokal ke server.
+  \item Sebutkan lima pengaturan \code{php.ini} yang harus diubah untuk produksi.
+  \item Jelaskan fungsi environment variable dan mengapa file \code{.env} tidak boleh masuk ke Git.
+  \item Jelaskan konsep CI/CD dan sebutkan dua alat yang mendukungnya.
+  \item Sebutkan tiga hal yang harus dipantau pada aplikasi di produksi.
 \end{latihan}
 
 \begin{asesmen}
-Asesmen akhir berupa proyek terintegrasi dan presentasi hasil kerja.
+Asesmen akhir berupa proyek terintegrasi yang di-deploy ke server (atau simulasi), dilengkapi dokumentasi konfigurasi, checklist keamanan, dan prosedur backup. Penilaian mencakup kelengkapan deployment, konfigurasi produksi, dan presentasi refleksi kompetensi.
+
+\textbf{Keterkaitan dengan RPS:} \textbf{UTS} (Pertemuan 8) mengukur CPMK-1 dan CPMK-2 (teori dan praktik). \textbf{UAS} (Pertemuan 16) serta presentasi hasil mengukur CPMK-1 s.d. CPMK-4. Bobot dan kriteria penilaian mengikuti RPS; rubrik terperinci yang terhubung ke Sub-CPMK tercantum di \textbf{Lampiran A}.
 \end{asesmen}
 
 \begin{checklist}
-  \item Saya memahami konsep deployment dasar.
-  \item Saya tahu langkah konfigurasi produksi.
-  \item Saya mampu mengevaluasi hasil belajar sendiri.
+  \item Saya memahami perbedaan lingkungan development dan produksi.
+  \item Saya mengetahui siklus rilis dan langkah deployment dasar.
+  \item Saya memahami peran server web (Apache/Nginx) dan PHP di produksi.
+  \item Saya dapat mengelola konfigurasi menggunakan environment variable.
+  \item Saya dapat mengonfigurasi PHP untuk produksi (error logging, session security).
+  \item Saya memahami proses upload, permissions, dan konfigurasi deployment.
+  \item Saya memahami konsep reverse proxy dan HTTPS.
+  \item Saya mengetahui langkah hardening server dasar.
+  \item Saya dapat melakukan backup dan restore database.
+  \item Saya memahami konsep CI/CD untuk otomasi deployment.
+  \item Saya memahami pentingnya pemantauan (log, error tracking, uptime) di produksi.
+  \item Saya mengenal referensi standar: MDN, OWASP, web.dev, PHP The Right Way.
+  \item Saya mampu mengevaluasi dan merefleksikan pencapaian kompetensi.
 \end{checklist}
 
 \begin{rangkuman}
-Bab ini menutup pembahasan dengan deployment, administrasi dasar, dan evaluasi akhir. Anda diajak mengintegrasikan semua keterampilan yang telah dipelajari dalam satu proyek.
+Bab ini menutup pembahasan dengan deployment, administrasi server dan database, serta evaluasi akhir. Semua keterampilan dari bab-bab sebelumnya diintegrasikan dalam proyek akhir yang di-deploy ke lingkungan produksi.
 
 \textbf{Poin Kunci:}
 \begin{itemize}
-  \item Deployment memerlukan konfigurasi dan keamanan yang lebih ketat.
-  \item Administrasi dasar mencakup server dan database.
-  \item Evaluasi akhir membantu mengukur pencapaian kompetensi.
+  \item Lingkungan produksi memerlukan konfigurasi keamanan dan stabilitas yang lebih ketat daripada lokal.
+  \item Environment variable memisahkan konfigurasi sensitif dari kode sumber.
+  \item Konfigurasi PHP, permission file, dan HTTPS adalah langkah wajib sebelum deployment.
+  \item Hardening server (firewall, updates, user non-root) mengurangi permukaan serangan.
+  \item Backup database rutin dan prosedur restore yang teruji melindungi data.
+  \item CI/CD mengotomasi build, test, dan deploy untuk rilis yang lebih cepat dan konsisten.
+  \item Pemantauan (log, error tracking, uptime) memungkinkan perbaikan proaktif.
+  \item Evaluasi akhir mengukur pencapaian kompetensi dan menjadi bekal untuk proyek nyata.
 \end{itemize}
 \end{rangkuman}
 

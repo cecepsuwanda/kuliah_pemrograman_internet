@@ -1,0 +1,38 @@
+\section{Form: Mengambil Nilai Input dan Validasi di Client}
+
+Validasi form di client-side memberikan umpan balik instan tanpa menunggu respons server. Nilai input diakses melalui \code{.value} (teks, email, password), \code{.checked} (checkbox, radio), dan \code{.selectedIndex}/\code{.value} (select). Validasi dapat dilakukan saat event \code{input} (real-time), \code{change} (setelah blur), atau \code{submit} \cite{jsInfo}.
+
+\begin{contoh}
+\textbf{Studi Kasus: Form Registrasi dengan Validasi Real-Time}
+
+Form dengan tiga field: email, password, dan konfirmasi password. Validasi berjalan real-time saat pengguna mengetik.
+\begin{enumerate}
+  \item Pasang \code{addEventListener("input", validate)} di setiap field
+  \item Validasi email: harus mengandung ``@'' dan ``.''
+  \item Validasi password: minimal 8 karakter, mengandung huruf dan angka
+  \item Konfirmasi password: harus sama dengan password
+  \item Tampilkan pesan error di \code{<span>} di bawah field menggunakan \code{textContent}
+  \item Pada \code{submit}: periksa ulang semua field; \code{preventDefault()} jika gagal
+\end{enumerate}
+\end{contoh}
+
+\begin{webcode}[language=JavaScript, caption={Validasi form real-time}]
+const emailInput = document.querySelector("#email");
+const errorEl = document.querySelector("#emailError");
+
+emailInput.addEventListener("input", () => {
+  const val = emailInput.value;
+  if (!val.includes("@") || !val.includes(".")) {
+    errorEl.textContent = "Format email tidak valid";
+    emailInput.classList.add("error");
+  } else {
+    errorEl.textContent = "";
+    emailInput.classList.remove("error");
+  }
+});
+\end{webcode}
+
+\begin{catatan}
+\textbf{Validasi Client $\neq$ Validasi Server.} Validasi di browser meningkatkan UX tetapi \textbf{tidak} menggantikan validasi server. Pengguna dapat menonaktifkan JavaScript atau memodifikasi request. Validasi server wajib untuk keamanan; validasi client untuk kenyamanan. HTML5 juga menyediakan validasi bawaan (\code{required}, \code{type="email"}, \code{pattern}) yang dapat menjadi layer pertama \cite{mdnAccessibility}.
+\end{catatan}
+

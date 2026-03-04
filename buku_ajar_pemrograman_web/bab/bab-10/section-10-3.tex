@@ -1,0 +1,66 @@
+\section{Sintaks Dasar PHP: Tag, Komentar, dan Aturan Penulisan}
+
+Kode PHP ditulis di dalam tag pembuka \code{<?php} dan tag penutup \code{?>}, dan dapat disisipkan ke dalam file HTML. Ketika web server menemukan tag PHP, ia akan meneruskan kode tersebut ke interpreter PHP untuk dieksekusi, dan hasilnya (biasanya teks atau HTML) dikirim kembali ke browser. Setiap pernyataan (\textit{statement}) di PHP harus diakhiri dengan tanda titik koma (\code{;}), kecuali statement terakhir sebelum tag penutup (meskipun tetap disarankan menggunakan titik koma untuk konsistensi) \cite{phpManual}.
+
+PHP mendukung tiga jenis komentar yang berfungsi sebagai dokumentasi di dalam kode. Komentar satu baris menggunakan \code{//} atau \code{\#}, sedangkan komentar blok (multi-baris) menggunakan \code{/* ... */}. Komentar tidak akan dieksekusi oleh PHP dan sangat berguna untuk menjelaskan logika kode, meninggalkan catatan bagi programmer lain, atau menonaktifkan bagian kode sementara saat debugging. Kebiasaan memberikan komentar yang jelas merupakan praktik pemrograman yang baik \cite{phpRightWay}.
+
+\begin{webcode}[language=PHP, caption={Tag PHP dan tiga jenis komentar}]
+<?php
+// Komentar satu baris dengan double slash
+# Komentar satu baris dengan tanda pagar
+
+/*
+ * Komentar blok (multi-baris)
+ * Berguna untuk dokumentasi fungsi
+ */
+
+$nama = "Budi";   // variabel string
+$umur = 20;        // variabel integer
+echo "Nama: " . $nama . ", Umur: " . $umur;
+?>
+\end{webcode}
+
+Terdapat beberapa aturan penulisan penting yang harus diperhatikan saat menulis kode PHP. Berikut rangkumannya dalam bentuk tabel agar mudah dijadikan referensi cepat.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{3.5cm}|P{4cm}|P{4.5cm}|}
+\hline
+\textbf{Aturan} & \textbf{Contoh Benar} & \textbf{Keterangan} \\
+\hline
+Tag pembuka & \code{<?php} & Selalu gunakan tag panjang \\
+\hline
+Akhir statement & \code{\$x = 5;} & Wajib titik koma \\
+\hline
+Nama variabel & \code{\$namaUser} & Diawali \code{\$}, case-sensitive \\
+\hline
+Nama fungsi & \code{hitungTotal()} & Tidak case-sensitive (tapi konsisten) \\
+\hline
+Blok kode & \code{\{ ... \}} & Kurung kurawal untuk blok \\
+\hline
+Konvensi penamaan & camelCase atau snake\_case & Pilih satu, konsisten \\
+\hline
+Tag penutup file PHP murni & (dihilangkan) & Hindari spasi/newline tak sengaja \\
+\hline
+\end{tabular}
+\caption{Ringkasan aturan penulisan sintaks PHP}
+\end{table}
+
+\begin{catatan}
+\textbf{Tip Praktis:} Untuk file yang \textbf{seluruhnya PHP} (tanpa HTML), disarankan untuk \textbf{tidak} menggunakan tag penutup \code{?>}. Ini mencegah masalah spasi atau baris baru yang tidak disengaja setelah tag penutup, yang dapat menyebabkan error ``Headers already sent'' saat bekerja dengan session atau redirect \cite{phpRightWay}.
+\end{catatan}
+
+PHP juga dapat disisipkan di antara kode HTML, menjadikannya sangat fleksibel untuk membuat halaman web dinamis. Dalam satu file \code{.php}, Anda dapat berpindah antara mode HTML dan mode PHP sebanyak yang dibutuhkan. Berikut contoh halaman HTML yang menyisipkan kode PHP untuk menampilkan tanggal saat ini secara dinamis.
+
+\begin{webcode}[language=PHP, caption={Menyisipkan PHP di dalam HTML}]
+<!DOCTYPE html>
+<html lang="id">
+<head><title>Halaman Dinamis</title></head>
+<body>
+  <h1>Selamat Datang</h1>
+  <p>Hari ini: <?php echo date("l, d F Y"); ?></p>
+  <p>Waktu server: <?php echo date("H:i:s"); ?></p>
+</body>
+</html>
+\end{webcode}
+

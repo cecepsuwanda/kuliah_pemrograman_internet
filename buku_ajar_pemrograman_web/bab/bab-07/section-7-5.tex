@@ -1,0 +1,47 @@
+\section{CSS Grid: Praktik Layout}
+
+Section ini mendemonstrasikan penerapan CSS Grid untuk layout halaman dan komponen nyata. Grid sangat kuat untuk membuat layout responsif yang secara otomatis menyesuaikan jumlah kolom dan baris berdasarkan ruang yang tersedia. Kombinasi \code{repeat()}, \code{auto-fill}/\code{auto-fit}, dan \code{minmax()} menciptakan grid yang responsif tanpa media query \cite{mdnCss}.
+
+\begin{webcode}[language=CSS, caption={Grid layout halaman dengan named areas}]
+.page {
+  display: grid;
+  grid-template-areas:
+    "header  header"
+    "sidebar main"
+    "footer  footer";
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  gap: 1rem;
+}
+.header  { grid-area: header;  background: #2a6fb0; }
+.sidebar { grid-area: sidebar; background: #f0f0f0; }
+.main    { grid-area: main; }
+.footer  { grid-area: footer;  background: #333; }
+
+/* Responsif: satu kolom di mobile */
+@media (max-width: 768px) {
+  .page {
+    grid-template-areas:
+      "header" "main" "sidebar" "footer";
+    grid-template-columns: 1fr;
+  }
+}
+\end{webcode}
+
+\begin{contoh}
+\textbf{Studi Kasus: Grid Kartu Produk Responsif}
+
+Galeri kartu produk yang otomatis menyesuaikan jumlah kolom:
+\begin{enumerate}
+  \item Container: \code{display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;}
+  \item Auto-fill mengisi kolom sebanyak mungkin (minimum 280px per kolom)
+  \item Di desktop lebar: 4 kolom; tablet: 2--3 kolom; mobile: 1 kolom---tanpa media query
+  \item Setiap card menggunakan Flexbox internal: \code{display: flex; flex-direction: column;} untuk menyusun gambar, judul, harga, dan tombol
+\end{enumerate}
+\end{contoh}
+
+\begin{catatan}
+\textbf{auto-fill vs auto-fit:} Keduanya mengisi kolom otomatis, tetapi berbeda saat jumlah item sedikit. \code{auto-fill} mempertahankan track kosong (ruang tetap terbagi); \code{auto-fit} meleburkan track kosong sehingga item yang ada melebar mengisi ruang. Gunakan \code{auto-fill} untuk grid dengan jumlah item dinamis, \code{auto-fit} untuk memaksimalkan ukuran item \cite{cssTricks}.
+\end{catatan}
+

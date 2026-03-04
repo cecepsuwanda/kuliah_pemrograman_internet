@@ -1,20 +1,34 @@
-\section{Selector dan Cara Menyisipkan CSS}
-CSS digunakan untuk mengatur tampilan elemen HTML agar lebih menarik dan konsisten. Anda dapat menyisipkan CSS secara inline, internal, atau eksternal, dan praktik terbaik adalah menggunakan file eksternal. Memahami selector adalah kunci untuk memilih elemen yang ingin di-styling \cite{mdnCss}.
+\section{Pengenalan CSS dan Perannya dalam Styling Halaman Web}
 
-Selector dasar meliputi elemen, class, dan id. Selector ini memungkinkan Anda mengatur warna, ukuran teks, dan margin dengan mudah. Dengan pemahaman selector, Anda dapat membuat desain yang terstruktur dan mudah dirawat.
+CSS (Cascading Style Sheets) adalah bahasa yang mengatur tampilan dan tata letak elemen HTML di halaman web. Jika HTML berfungsi sebagai kerangka struktur---mendefinisikan paragraf, heading, tabel, dan form---maka CSS berperan sebagai ``dekorator'' yang menentukan bagaimana struktur tersebut ditampilkan secara visual. Tanpa CSS, halaman web hanya menampilkan teks polos dengan format default browser: heading hitam tebal, tautan biru bergaris bawah, dan paragraf tanpa jarak yang menarik. Dengan CSS, pengembang memiliki kendali penuh atas warna, tipografi, spasi, layout, animasi, dan responsivitas halaman \cite{mdnCss}.
 
-\begin{webcode}[language=CSS, caption={Contoh Selector Dasar CSS}]
-h1 {
-  color: #2a6fb0;
-}
+Peran CSS dalam pengembangan web modern sangat sentral karena menerapkan prinsip \textbf{separation of concerns}---pemisahan antara struktur (HTML), presentasi (CSS), dan perilaku (JavaScript). Pemisahan ini menghasilkan beberapa keuntungan penting: desain visual yang konsisten di seluruh halaman situs, kemudahan pemeliharaan karena perubahan tampilan cukup dilakukan di satu tempat, dan kemampuan membuat tampilan berbeda untuk perangkat yang berbeda tanpa mengubah HTML. Penguasaan CSS dasar menjadi fondasi mutlak sebelum mempelajari teknik layout modern seperti Flexbox dan Grid \cite{webdevCss}.
 
-.card {
-  padding: 16px;
-  border: 1px solid #ddd;
-}
+\subsection{Konsep Cascading dan Specificity}
 
-#judul-utama {
-  font-size: 24px;
-}
-\end{webcode}
+Nama ``Cascading'' dalam CSS mengacu pada mekanisme penentuan gaya mana yang berlaku ketika beberapa aturan CSS menargetkan elemen yang sama. Tiga faktor utama yang menentukan prioritas aturan CSS adalah: (1) \textbf{Specificity}---selector yang lebih spesifik menang atas yang lebih umum; (2) \textbf{Source order}---jika specificity sama, aturan yang ditulis terakhir menang; dan (3) \textbf{Importance}---deklarasi dengan \code{!important} mengalahkan aturan lain (namun penggunaannya tidak disarankan). Memahami cascading adalah kunci untuk menghindari kebingungan saat styling tidak bekerja sesuai harapan \cite{webdevCss}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3cm}|P{2.5cm}|P{3cm}|P{3.5cm}|}
+\hline
+\textbf{Selector} & \textbf{Contoh} & \textbf{Specificity} & \textbf{Keterangan} \\
+\hline
+Inline style & \code{style="..."} & 1-0-0-0 & Tertinggi (hindari) \\
+\hline
+ID & \code{\#header} & 0-1-0-0 & Tinggi; unik per halaman \\
+\hline
+Class / pseudo-class & \code{.card}, \code{:hover} & 0-0-1-0 & Sedang; dapat dipakai ulang \\
+\hline
+Elemen / pseudo-element & \code{p}, \code{::before} & 0-0-0-1 & Rendah; berlaku semua tag \\
+\hline
+Universal & \code{*} & 0-0-0-0 & Tidak berkontribusi \\
+\hline
+\end{tabular}
+\caption{Tingkat specificity selector CSS (dari tinggi ke rendah)}
+\end{table}
+
+\begin{konsep}
+\textbf{Sebelum dan Sesudah CSS.} Sebelum CSS diadopsi secara luas (era awal 1990-an), tampilan halaman web diatur langsung di dalam HTML menggunakan elemen seperti \code{<font>}, \code{<center>}, dan atribut \code{bgcolor}. Pendekatan ini membuat kode sulit dirawat, tidak konsisten, dan tidak responsif. Dengan CSS, satu file stylesheet dapat mengatur tampilan ratusan halaman secara konsisten, dan perubahan desain cukup dilakukan di satu tempat \cite{cssTricks}.
+\end{konsep}
 

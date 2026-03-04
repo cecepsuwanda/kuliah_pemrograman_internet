@@ -1,15 +1,53 @@
-\section{Formulir dan Validasi Dasar}
-Formulir HTML memungkinkan pengguna mengirim data seperti nama, email, atau pesan. Elemen form seperti \code{input}, \code{label}, dan \code{button} harus digunakan dengan benar agar mudah diisi. Validasi dasar di HTML membantu mencegah input kosong atau format yang salah \cite{mdnHtmlIntro}.
+\section{Tabel HTML: Dasar (Baris, Sel, Header)}
 
-Penggunaan atribut seperti \code{required} dan \code{type} memperbaiki pengalaman pengguna. Misalnya, \code{type="email"} memberi petunjuk format yang benar. Praktik ini juga membantu menjaga data yang masuk lebih konsisten.
+Tabel merupakan salah satu elemen HTML yang paling sering digunakan untuk menyajikan data terstruktur dalam format baris dan kolom. Berbeda dengan penggunaan CSS Grid atau Flexbox yang ditujukan untuk tata letak visual, elemen \code{<table>} dirancang khusus untuk menampilkan data tabular---yaitu data yang secara alami memiliki hubungan antara baris dan kolom. Contoh data tabular meliputi jadwal kuliah, daftar nilai, perbandingan produk, dan statistik \cite{mdnHtmlIntro}. Memahami kapan menggunakan tabel dan kapan menggunakan CSS untuk layout adalah keterampilan penting bagi pengembang web.
 
-\begin{webcode}[language=HTML, caption={Contoh Formulir Sederhana}]
-<form action="/kirim" method="post">
-  <label for="email">Email:</label>
-  <input type="email" id="email" name="email" required />
-  <label for="pesan">Pesan:</label>
-  <textarea id="pesan" name="pesan" required></textarea>
-  <button type="submit">Kirim</button>
-</form>
+Elemen dasar pembentuk tabel HTML terdiri dari empat komponen utama. Elemen \code{<table>} berfungsi sebagai wadah keseluruhan tabel. Di dalamnya, \code{<tr>} (table row) mendefinisikan setiap baris data. Setiap baris berisi sel-sel yang dapat berupa \code{<td>} (table data) untuk sel data biasa atau \code{<th>} (table header) untuk sel header. Elemen \code{<th>} secara default ditampilkan dengan cetak tebal dan rata tengah, serta memberikan makna semantik yang membantu pembaca layar (screen reader) memahami struktur tabel \cite{webdevHtml}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{2.5cm}|P{4cm}|P{5.5cm}|}
+\hline
+\textbf{Elemen} & \textbf{Fungsi} & \textbf{Keterangan} \\
+\hline
+\code{<table>} & Wadah tabel & Membungkus seluruh struktur tabel \\
+\hline
+\code{<tr>} & Baris tabel & Setiap \code{<tr>} berisi satu baris sel \\
+\hline
+\code{<td>} & Sel data & Berisi data biasa; default rata kiri \\
+\hline
+\code{<th>} & Sel header & Cetak tebal, rata tengah; penanda kolom/baris \\
+\hline
+\code{<caption>} & Judul tabel & Deskripsi tabel untuk aksesibilitas \\
+\hline
+\end{tabular}
+\caption{Elemen dasar pembentuk tabel HTML}
+\end{table}
+
+Selain elemen dasar di atas, atribut \code{colspan} dan \code{rowspan} memungkinkan penggabungan sel secara horizontal dan vertikal. Atribut \code{colspan="2"} pada sebuah \code{<td>} atau \code{<th>} akan membuat sel tersebut membentang dua kolom, sedangkan \code{rowspan="3"} akan membentang tiga baris. Penggabungan sel berguna misalnya untuk membuat header yang mencakup beberapa sub-kolom, namun penggunaan berlebihan dapat mengurangi aksesibilitas tabel \cite{mdnAccessibility}.
+
+\begin{webcode}[language=HTML, caption={Tabel dasar dengan header dan caption}]
+<table>
+  <caption>Daftar Kontak Mahasiswa</caption>
+  <tr>
+    <th>Nama</th>
+    <th>Email</th>
+    <th>Jurusan</th>
+  </tr>
+  <tr>
+    <td>Budi Santoso</td>
+    <td>budi@example.com</td>
+    <td>Teknik Informatika</td>
+  </tr>
+  <tr>
+    <td>Siti Aminah</td>
+    <td>siti@example.com</td>
+    <td>Sistem Informasi</td>
+  </tr>
+</table>
 \end{webcode}
+
+\begin{konsep}
+\textbf{Tabel untuk Data, Bukan untuk Layout.} Sebelum era CSS modern, pengembang sering menggunakan tabel untuk mengatur tata letak halaman. Praktik ini \textbf{tidak direkomendasikan} karena: (1) menyulitkan pembaca layar yang menginterpretasi tabel sebagai data tabular; (2) membuat kode sulit dirawat dan tidak responsif; (3) melanggar prinsip pemisahan struktur (HTML) dan presentasi (CSS). Gunakan CSS Flexbox atau Grid untuk layout, dan \code{<table>} hanya untuk data tabular yang sesungguhnya \cite{webdevHtml}.
+\end{konsep}
 

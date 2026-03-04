@@ -1,0 +1,27 @@
+\section{GROUP BY dan HAVING}
+
+Klausa \code{GROUP BY} mengelompokkan baris yang memiliki nilai sama pada kolom tertentu, lalu fungsi agregat diterapkan pada setiap kelompok. Misalnya, \code{GROUP BY kategori} mengelompokkan produk berdasarkan kategori, dan \code{COUNT(*)} menghitung jumlah produk di setiap kategori. Kolom yang muncul di \code{SELECT} harus berupa kolom yang ada di \code{GROUP BY} atau hasil fungsi agregat --- jika tidak, hasilnya tidak terdefinisi dengan jelas \cite{mysqlDocs}.
+
+\code{HAVING} memfilter hasil setelah pengelompokan, berbeda dengan \code{WHERE} yang memfilter baris sebelum pengelompokan. Gunakan \code{HAVING} untuk kondisi yang melibatkan fungsi agregat. Misalnya, ``tampilkan kategori yang memiliki lebih dari 5 produk'' ditulis: \code{HAVING COUNT(*) > 5}. Urutan eksekusi: FROM $\to$ WHERE $\to$ GROUP BY $\to$ HAVING $\to$ SELECT $\to$ ORDER BY $\to$ LIMIT \cite{mysqlGettingStarted}.
+
+\begin{webcode}[language=SQL, caption={GROUP BY dan HAVING}]
+-- Jumlah produk per kategori
+SELECT kategori, COUNT(*) AS jumlah
+FROM produk
+GROUP BY kategori;
+
+-- Kategori dengan rata-rata harga di atas 100 ribu
+SELECT kategori, AVG(harga) AS rata_harga
+FROM produk
+GROUP BY kategori
+HAVING AVG(harga) > 100000;
+
+-- Kombinasi WHERE + GROUP BY + HAVING + ORDER BY
+SELECT kategori, COUNT(*) AS jumlah, SUM(stok) AS total_stok
+FROM produk
+WHERE aktif = TRUE
+GROUP BY kategori
+HAVING COUNT(*) >= 2
+ORDER BY total_stok DESC;
+\end{webcode}
+

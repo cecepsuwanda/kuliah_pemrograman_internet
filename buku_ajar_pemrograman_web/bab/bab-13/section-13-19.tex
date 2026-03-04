@@ -1,0 +1,39 @@
+\section{Audit Keamanan: OWASP Top 10 dan Checklist Keamanan}
+
+\textbf{OWASP} (Open Web Application Security Project) menerbitkan daftar \textbf{Top 10} ancaman keamanan aplikasi web yang paling kritis, diperbarui secara berkala. Daftar ini menjadi standar referensi di industri untuk audit keamanan. Melakukan audit berdasarkan OWASP Top 10 membantu memastikan aplikasi terlindungi dari ancaman paling umum dan berbahaya \cite{owaspXss}.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{|P{0.6cm}|P{3.5cm}|P{4.5cm}|P{3.5cm}|}
+\hline
+\textbf{\#} & \textbf{Ancaman} & \textbf{Deskripsi} & \textbf{Mitigasi} \\
+\hline
+1 & Broken Access Control & Akses ke resource tanpa otorisasi & Cek izin di server \\
+\hline
+2 & Cryptographic Failures & Enkripsi lemah/tidak ada & HTTPS, \code{password\_hash} \\
+\hline
+3 & Injection & SQL, OS, LDAP injection & Prepared statement \\
+\hline
+4 & Insecure Design & Arsitektur tanpa keamanan & Threat modeling \\
+\hline
+5 & Security Misconfig & Default password, error detail & Hardening server \\
+\hline
+6 & Vulnerable Components & Library usang/bermasalah & Update, \code{composer audit} \\
+\hline
+7 & Auth Failures & Login lemah, session buruk & MFA, rate limit \\
+\hline
+8 & Data Integrity Failures & Update tanpa verifikasi & Tanda tangan digital \\
+\hline
+9 & Logging Failures & Log tidak ada/tidak memadai & Log event penting \\
+\hline
+10 & SSRF & Server mengakses URL berbahaya & Validasi URL, whitelist \\
+\hline
+\end{tabular}
+\caption{OWASP Top 10 (versi 2021)}
+\end{table}
+
+\begin{catatan}
+Lakukan audit keamanan secara berkala: (1) review kode untuk injection dan XSS; (2) cek konfigurasi server (non-default password, HTTPS); (3) update semua dependency (\code{composer audit}); (4) uji autentikasi (brute force, session fixation); (5) periksa access control di setiap endpoint; (6) pastikan error message tidak mengungkap detail teknis di produksi.
+\end{catatan}
+

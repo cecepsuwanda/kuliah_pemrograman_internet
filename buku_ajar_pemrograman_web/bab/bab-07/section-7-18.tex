@@ -1,0 +1,36 @@
+\section{Pseudo-class dan Pseudo-element Lanjutan}
+
+Pseudo-class dan pseudo-element memperluas kemampuan selector CSS tanpa menambah markup HTML. Pseudo-class menargetkan elemen berdasarkan \textbf{state atau posisi} (\code{:hover}, \code{:nth-child}), sedangkan pseudo-element menargetkan \textbf{bagian tertentu} dari elemen (\code{::before}, \code{::first-line}). Penguasaan keduanya mengurangi kebutuhan menambah class atau elemen HTML tambahan \cite{mdnCss}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3cm}|P{3cm}|P{6cm}|}
+\hline
+\textbf{Selector} & \textbf{Jenis} & \textbf{Fungsi} \\
+\hline
+\code{:nth-child(n)} & Pseudo-class & Elemen ke-n (angka, even, odd, formula) \\
+\hline
+\code{:not(selector)} & Pseudo-class & Elemen yang BUKAN sesuatu \\
+\hline
+\code{:is(sel1, sel2)} & Pseudo-class & Matches list (mengurangi repetisi) \\
+\hline
+\code{:has(selector)} & Pseudo-class & ``Parent selector'' (jika child cocok) \\
+\hline
+\code{::before} & Pseudo-element & Konten virtual sebelum elemen \\
+\hline
+\code{::after} & Pseudo-element & Konten virtual sesudah elemen \\
+\hline
+\code{::first-line} & Pseudo-element & Baris pertama teks \\
+\hline
+\code{::placeholder} & Pseudo-element & Teks placeholder input \\
+\hline
+\end{tabular}
+\caption{Pseudo-class dan pseudo-element CSS lanjutan}
+\end{table}
+
+\code{:has()} adalah pseudo-class terbaru yang memungkinkan styling elemen berdasarkan child atau sibling-nya---fitur yang lama dinanti sebagai ``parent selector.'' Contoh: \code{.card:has(img)} memilih card yang mengandung gambar. \code{:is()} dan \code{:where()} mengurangi repetisi selector: \code{:is(h1, h2, h3) \{ color: navy; \}} setara menulis tiga selector terpisah. Perbedaannya: \code{:is()} menambah specificity dari selector terdalamnya, \code{:where()} selalu specificity 0 \cite{webdevCss}.
+
+\begin{konsep}
+\textbf{::before dan ::after.} Pseudo-element ini menyisipkan konten virtual yang dapat di-styling. Properti \code{content} wajib ada (bahkan jika kosong: \code{content: ""}). Kegunaan: ikon dekoratif, garis aksen, clearfix, badge, tooltip arrow. Konten pseudo-element \textbf{tidak} terbaca oleh semua pembaca layar, jadi jangan gunakan untuk informasi penting \cite{mdnAccessibility}.
+\end{konsep}
+

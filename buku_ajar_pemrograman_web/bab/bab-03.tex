@@ -4,6 +4,8 @@
 
 \chapter{Analisis Kebutuhan dan Perancangan Antarmuka}
 
+Bab ini membahas seluruh proses analisis kebutuhan dan perancangan antarmuka untuk pengembangan web. Dimulai dari penggalian kebutuhan dan dokumentasi, dilanjutkan dengan pemahaman pengguna melalui persona dan skenario, kemudian perancangan melalui wireframe, mockup, dan user flow. Bab ini juga mencakup prinsip desain visual, UX, aksesibilitas (WCAG, HTML semantik, ARIA), prototyping, design system, hingga UX research dan usability testing.
+
 \begin{subcpmk}
   \item Sub-CPMK 1.1: Mengidentifikasi kebutuhan fungsional dan non-fungsional pengguna untuk solusi web.
   \item Sub-CPMK 1.2: Membuat wireframe dan mockup antarmuka web yang mendukung alur pengguna.
@@ -12,36 +14,97 @@
 
 \input{bab/bab-03/section-3-1}
 \input{bab/bab-03/section-3-2}
+\input{bab/bab-03/section-3-3}
+\input{bab/bab-03/section-3-4}
+\input{bab/bab-03/section-3-5}
+\input{bab/bab-03/section-3-6}
+\input{bab/bab-03/section-3-7}
+\input{bab/bab-03/section-3-8}
+\input{bab/bab-03/section-3-9}
+\input{bab/bab-03/section-3-10}
+\input{bab/bab-03/section-3-11}
+\input{bab/bab-03/section-3-12}
 
 \begin{aktivitas}
-  \item Susun daftar kebutuhan fungsional dan non-fungsional dari studi kasus sederhana.
-  \item Buat wireframe dua halaman utama menggunakan kertas atau alat desain.
-  \item Evaluasi wireframe dengan prinsip aksesibilitas dasar.
+  \item Identifikasi tiga pemangku kepentingan (\textit{stakeholder}) untuk sebuah aplikasi web pilihan dan lakukan wawancara singkat untuk menggali kebutuhan.
+  \item Susun daftar kebutuhan fungsional dan non-fungsional dari hasil wawancara, lalu prioritaskan menggunakan metode MoSCoW.
+  \item Buat dua persona pengguna lengkap (dengan tujuan, frustrasi, dan konteks penggunaan) berdasarkan studi kasus yang diberikan.
+  \item Buat wireframe low-fidelity (kertas atau digital) untuk tiga halaman utama: beranda, form input, dan halaman detail.
+  \item Kembangkan wireframe menjadi mockup high-fidelity menggunakan Figma, termasuk palet warna, tipografi, dan spacing.
+  \item Gambar user flow lengkap untuk dua fitur utama, termasuk percabangan error handling.
+  \item Lakukan evaluasi heuristik (menggunakan 10 heuristik Nielsen) terhadap satu situs web pilihan dan dokumentasikan temuannya.
+  \item Audit aksesibilitas halaman web menggunakan Lighthouse dan perbaiki minimal tiga temuan.
+  \item Lakukan usability testing sederhana dengan 3 rekan: siapkan tugas, amati, dan buat laporan temuan.
+  \item Buat dokumen design system sederhana: design tokens (warna, font, spacing), tiga komponen (tombol, input, kartu), dan panduan penggunaan.
 \end{aktivitas}
 
 \begin{latihan}
-  \item Buat tiga kebutuhan fungsional dan tiga kebutuhan non-fungsional untuk aplikasi catatan harian.
-  \item Buat user flow untuk fitur ``Tambah Catatan''.
+  \item Jelaskan perbedaan antara kebutuhan fungsional dan non-fungsional. Berikan masing-masing tiga contoh untuk aplikasi toko online.
+  \item Buat tiga \textit{acceptance criteria} dalam format Given--When--Then untuk fitur ``Tambah Produk ke Keranjang''.
+  \item Apa perbedaan UI dan UX? Berikan analogi dari kehidupan sehari-hari.
+  \item Buat persona pengguna untuk aplikasi reservasi perpustakaan.
+  \item Buat user flow untuk fitur ``Registrasi Akun Baru'', termasuk validasi email dan konfirmasi password.
+  \item Identifikasi tiga pelanggaran heuristik Nielsen pada halaman web yang sering Anda kunjungi.
+  \item Tuliskan kode HTML semantik untuk halaman kontak yang aksesibel (gunakan \code{<form>}, \code{<label>}, dan \code{aria-describedby}).
+  \item Jelaskan empat prinsip POUR dalam WCAG dan berikan satu contoh implementasi untuk masing-masing.
+  \item Apa itu design token? Tuliskan lima design token (variabel CSS) untuk sebuah design system sederhana.
+  \item Rancang skenario usability testing sederhana: tentukan tujuan, tiga tugas untuk partisipan, dan metrik yang diukur.
 \end{latihan}
 
 \begin{asesmen}
-Asesmen berupa penilaian wireframe dan daftar kebutuhan yang disusun mahasiswa.
+Asesmen Bab 3 berupa portofolio yang mencakup:
+\begin{enumerate}
+  \item \textbf{Dokumen Kebutuhan} (20\%): Daftar kebutuhan fungsional (min. 5) dan non-fungsional (min. 3) dengan prioritisasi MoSCoW dan acceptance criteria.
+  \item \textbf{Persona dan User Flow} (20\%): Dua persona lengkap dan user flow untuk dua fitur utama.
+  \item \textbf{Wireframe dan Mockup} (25\%): Wireframe low-fidelity untuk tiga halaman dan mockup high-fidelity (Figma) untuk satu halaman utama.
+  \item \textbf{Laporan Aksesibilitas} (20\%): Audit WCAG menggunakan Lighthouse, identifikasi masalah, dan implementasi perbaikan (kode HTML semantik + ARIA).
+  \item \textbf{Laporan Usability Testing} (15\%): Protokol testing, temuan dari minimal 3 partisipan, dan rekomendasi perbaikan.
+\end{enumerate}
+
+\textbf{Rubrik Penilaian:}
+\begin{itemize}
+  \item \textbf{A (85--100)}: Seluruh komponen lengkap, kebutuhan terdokumentasi dengan jelas, wireframe dan mockup profesional, aksesibilitas terpenuhi, usability testing terdokumentasi dengan baik.
+  \item \textbf{B (70--84)}: Sebagian besar komponen lengkap, beberapa detail kurang, desain konsisten namun ada area perbaikan.
+  \item \textbf{C (55--69)}: Komponen dasar ada tetapi kurang mendalam, wireframe/mockup sederhana, aksesibilitas belum sepenuhnya diterapkan.
+  \item \textbf{D ($<$55)}: Komponen tidak lengkap atau tidak memenuhi standar minimum.
+\end{itemize}
 \end{asesmen}
 
 \begin{checklist}
-  \item Saya dapat membedakan kebutuhan fungsional dan non-fungsional.
-  \item Saya dapat membuat wireframe dan user flow sederhana.
-  \item Saya memahami prinsip aksesibilitas dasar.
+  \item Saya dapat menjelaskan proses analisis kebutuhan dan teknik elicitation.
+  \item Saya dapat membedakan kebutuhan fungsional dan non-fungsional serta menuliskan acceptance criteria.
+  \item Saya dapat memprioritaskan kebutuhan menggunakan metode MoSCoW.
+  \item Saya dapat membuat persona pengguna dan skenario penggunaan berdasarkan data.
+  \item Saya memahami perbedaan UI dan UX serta prinsip dasar keduanya.
+  \item Saya dapat membuat wireframe low-fidelity dan mockup high-fidelity.
+  \item Saya dapat menggambar user flow dengan percabangan dan penanganan error.
+  \item Saya memahami prinsip desain visual: layout (grid), hierarki, tipografi, dan warna.
+  \item Saya dapat menerapkan 10 heuristik Nielsen untuk mengevaluasi usability antarmuka.
+  \item Saya memahami prinsip aksesibilitas WCAG (POUR) dan dapat menulis HTML semantik + ARIA.
+  \item Saya dapat melakukan audit aksesibilitas menggunakan Lighthouse atau axe.
+  \item Saya dapat membuat prototipe interaktif dan memahami proses iterasi desain.
+  \item Saya mengenal Figma dan fitur-fitur utamanya untuk desain antarmuka.
+  \item Saya memahami konsep design system, design tokens, dan konsistensi antarmuka.
+  \item Saya memahami proses handoff desain ke pengembang.
+  \item Saya dapat merancang dan melaksanakan usability testing sederhana.
 \end{checklist}
 
 \begin{rangkuman}
-Bab ini menekankan pentingnya analisis kebutuhan serta perancangan antarmuka sebelum coding. Dengan wireframe, mockup, dan aksesibilitas, Anda memastikan solusi yang dibangun sesuai kebutuhan pengguna.
+Bab ini membahas seluruh siklus analisis kebutuhan dan perancangan antarmuka untuk pengembangan web---dari penggalian kebutuhan hingga validasi desain.
 
 \textbf{Poin Kunci:}
 \begin{itemize}
-  \item Kebutuhan fungsional dan non-fungsional harus didefinisikan sejak awal.
-  \item Wireframe dan mockup membantu memvalidasi desain sebelum implementasi.
-  \item Aksesibilitas membuat aplikasi lebih inklusif dan mudah digunakan.
+  \item \textbf{Analisis kebutuhan} adalah fondasi pengembangan: identifikasi stakeholder, lakukan elicitation (wawancara, observasi, survei), dan dokumentasikan hasilnya secara formal.
+  \item \textbf{Kebutuhan fungsional} (apa yang dilakukan sistem) dan \textbf{non-fungsional} (seberapa baik) harus diprioritaskan (MoSCoW) dan dilengkapi acceptance criteria.
+  \item \textbf{Persona dan skenario} mewakili pengguna nyata---keputusan desain harus didasarkan pada kebutuhan mereka, bukan asumsi tim.
+  \item \textbf{UI} (tampilan) dan \textbf{UX} (pengalaman) saling melengkapi; produk terbaik unggul di keduanya.
+  \item \textbf{Wireframe} (low-fi) memvalidasi struktur, \textbf{mockup} (high-fi) memvalidasi tampilan akhir---selalu wireframe dulu sebelum mockup.
+  \item \textbf{User flow} dan \textbf{analisis tugas} memastikan alur interaksi logis dan efisien.
+  \item \textbf{Prinsip desain visual} (layout, hierarki, tipografi, warna) dan \textbf{10 heuristik Nielsen} menjadi panduan evaluasi antarmuka.
+  \item \textbf{Aksesibilitas} (WCAG/POUR, HTML semantik, ARIA) memastikan web inklusif untuk semua pengguna.
+  \item \textbf{Prototyping dan iterasi} menghasilkan desain yang terus membaik berdasarkan umpan balik pengguna.
+  \item \textbf{Design system} menjaga konsistensi; \textbf{handoff} yang baik memperlancar transisi dari desain ke kode.
+  \item \textbf{UX research dan usability testing} memvalidasi desain dengan pengguna nyata---cukup 5 partisipan untuk menemukan 85\% masalah.
 \end{itemize}
 \end{rangkuman}
 
@@ -51,4 +114,3 @@ Bab ini menekankan pentingnya analisis kebutuhan serta perancangan antarmuka seb
   \bibliography{../references}
 }{}
 \end{document}
-

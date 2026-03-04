@@ -1,23 +1,55 @@
-\section{Elemen Semantik dan Struktur Halaman}
-Elemen semantik membantu memberi makna pada struktur halaman, misalnya \code{header}, \code{nav}, \code{main}, dan \code{footer}. Dengan elemen semantik, mesin pencari dan pembaca layar lebih mudah memahami konten \cite{webdevHtml}. Ini juga memudahkan pengembang lain memahami struktur halaman.
+\section{Memulai: Editor, Browser, dan File HTML}
 
-Struktur semantik dapat dianggap sebagai kerangka informasi halaman. Misalnya, \code{header} berisi judul dan navigasi, sedangkan \code{main} berisi konten utama. Kebiasaan menggunakan elemen semantik sejak awal akan meningkatkan kualitas proyek Anda.
+Sebelum memulai pengembangan halaman web, Anda perlu menyiapkan peralatan dasar yang meliputi editor kode, browser modern, dan pemahaman tentang cara kerja file HTML. Editor kode adalah aplikasi yang digunakan untuk menulis dan mengedit file teks dengan fitur khusus untuk pemrograman seperti syntax highlighting, auto-completion, dan error detection. Beberapa editor populer yang banyak digunakan oleh pengembang web antara lain Visual Studio Code (VS Code) yang gratis dan open-source dengan ekosistem plugin yang kaya, Notepad++ yang ringan untuk Windows, dan Sublime Text yang dikenal dengan kecepatan dan kemudahan penggunaannya \cite{mdnHtmlIntro}.
 
-\begin{table}[ht]
+Browser modern adalah aplikasi yang tidak hanya menampilkan halaman web tetapi juga menyediakan alat pengembang (Developer Tools) yang sangat berguna untuk debugging dan inspeksi elemen. Browser yang direkomendasikan untuk pengembangan web meliputi Google Chrome dengan DevTools yang kuat, Mozilla Firefox yang unggul dalam standar web terbuka, Microsoft Edge yang dibangun di atas Chromium, dan Safari untuk pengujian di ekosistem Apple. Masing-masing browser memiliki karakteristik rendering yang sedikit berbeda, sehingga pengujian di beberapa browser merupakan praktik terbaik untuk memastikan kompatibilitas lintas-platform.
+
+File HTML adalah dokumen teks biasa yang disimpan dengan ekstensi \code{.html} atau \code{.htm}. Ekstensi ini memberitahu browser dan sistem operasi bahwa file tersebut berisi markup HTML yang perlu diinterpretasikan dan ditampilkan sebagai halaman web. Saat membuat file HTML pertama Anda, disarankan untuk membuat folder proyek khusus yang akan menampung semua file terkait seperti \code{index.html}, file CSS, gambar, dan aset lainnya. Struktur folder yang terorganisir sejak awal akan sangat membantu ketika proyek berkembang menjadi lebih kompleks.
+
+\begin{table}[htbp]
 \centering
-\begin{tabular}{|P{4cm}|P{7cm}|}
+\begin{tabular}{|P{3.5cm}|P{3cm}|P{5.5cm}|}
 \hline
-\textbf{Elemen} & \textbf{Fungsi} \\
+\textbf{Editor} & \textbf{Platform} & \textbf{Keunggulan} \\
 \hline
-\code{header} & Bagian atas halaman, judul dan navigasi \\
+Visual Studio Code & Windows, macOS, Linux & Gratis, ekstensi kaya, debugging terintegrasi \\
 \hline
-\code{main} & Konten utama halaman \\
+Notepad++ & Windows & Ringan, cepat, syntax highlighting \\
 \hline
-\code{section} & Pengelompokan konten terkait \\
+Sublime Text & Windows, macOS, Linux & Kecepatan, multiple cursors \\
 \hline
-\code{footer} & Informasi penutup, hak cipta \\
+WebStorm & Windows, macOS, Linux & IDE lengkap, refactoring cerdas \\
 \hline
 \end{tabular}
-\caption{Contoh elemen semantik HTML5}
+\caption{Perbandingan Editor Kode Populer untuk Pengembangan Web}
+\label{tab:editor-comparison}
 \end{table}
+
+Workflow dasar pengembangan HTML melibatkan siklus edit-save-refresh yang berulang. Pertama, buka file HTML di editor kode dan lakukan perubahan. Kedua, simpan file dengan menekan Ctrl+S (atau Cmd+S di macOS). Ketiga, buka file di browser dengan mengklik dua kali file tersebut atau menggunakan menu \textit{File > Open File}. Keempat, setelah melakukan perubahan di editor, simpan file lalu muat ulang halaman di browser dengan menekan F5 atau Ctrl+R untuk melihat perubahan. Penggunaan alat pengembang browser (F12) memungkinkan Anda memeriksa struktur HTML, memodifikasi elemen secara real-time, dan melihat pesan error \cite{mdnHtmlIntro}.
+
+\begin{webcode}[language=HTML, caption={File HTML Pertama: hello.html}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hello World - Halaman Pertama Saya</title>
+</head>
+<body>
+  <h1>Selamat Datang!</h1>
+  <p>Ini adalah halaman HTML pertama saya.</p>
+  <p>Dibuat pada: <strong>2026</strong></p>
+</body>
+</html>
+\end{webcode}
+
+\begin{catatan}
+\textbf{Tips Memulai:}
+\begin{itemize}[leftmargin=*]
+  \item Selalu simpan file dengan ekstensi \code{.html} agar browser mengenalinya sebagai dokumen HTML.
+  \item Gunakan nama \code{index.html} untuk halaman utama website, karena server web secara default akan mencari file ini.
+  \item Hindari menggunakan spasi dalam nama file; gunakan tanda hubung (-) atau garis bawah (\_) sebagai gantinya.
+  \item Aktifkan \textit{word wrap} di editor jika baris kode terlalu panjang untuk tampilan layar.
+\end{itemize}
+\end{catatan}
 

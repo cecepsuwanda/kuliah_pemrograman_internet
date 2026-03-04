@@ -1,0 +1,99 @@
+\section{Design System, Handoff, dan Konsistensi Antarmuka}
+
+\textbf{Design system} adalah kumpulan komponen yang dapat digunakan ulang (\textit{reusable}), panduan gaya (\textit{style guide}), dan standar desain yang menjaga konsistensi antarmuka di seluruh produk. Design system bukan sekadar kumpulan warna dan font---melainkan ``bahasa bersama'' antara desainer dan pengembang yang memastikan setiap halaman dan fitur memiliki tampilan dan perilaku yang konsisten. Perusahaan besar seperti Google (Material Design), Apple (Human Interface Guidelines), dan IBM (Carbon Design System) memiliki design system yang terdokumentasi secara publik \cite{webdevLearn}.
+
+Mengapa design system penting? Bayangkan sebuah tim dengan 5 desainer dan 10 pengembang membangun aplikasi web besar. Tanpa design system, setiap orang akan membuat tombol, form, dan kartu dengan gaya yang sedikit berbeda---menghasilkan antarmuka yang tidak konsisten dan membingungkan pengguna. Design system memecahkan masalah ini dengan menetapkan standar yang jelas dan komponen yang siap digunakan.
+
+\subsection{Komponen Design System}
+
+Design system umumnya terdiri dari beberapa lapisan, dari yang paling abstrak (prinsip desain) hingga yang paling konkret (komponen siap pakai). Setiap lapisan memiliki peran yang berbeda dalam menjaga konsistensi.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3.5cm}|P{4cm}|P{4.5cm}|}
+\hline
+\textbf{Lapisan} & \textbf{Isi} & \textbf{Contoh} \\
+\hline
+Design Tokens & Nilai primitif (warna, font, spacing) & \code{--color-primary: \#1A237E} \\
+\hline
+Foundation & Tipografi, grid, ikon & Font scale, 12-column grid, icon library \\
+\hline
+Components & Elemen UI reusable & Button, Input, Card, Modal, Navbar \\
+\hline
+Patterns & Kombinasi komponen untuk tugas & Form login, search bar, data table \\
+\hline
+Templates & Layout halaman lengkap & Dashboard, landing page, profil \\
+\hline
+Dokumentasi & Panduan penggunaan & Kapan pakai primary vs secondary button \\
+\hline
+\end{tabular}
+\caption{Lapisan komponen dalam design system}
+\end{table}
+
+\subsection{Design Tokens}
+
+\textbf{Design tokens} adalah variabel yang menyimpan nilai-nilai desain dasar (warna, ukuran font, spacing, border radius, shadow) sehingga dapat digunakan secara konsisten di seluruh kode. Tokens menjadi \textit{single source of truth}---jika warna primer berubah, cukup ubah satu variabel dan seluruh aplikasi mengikuti. Dalam CSS, tokens diimplementasikan menggunakan \textbf{CSS Custom Properties} (variabel CSS) \cite{mdnCss}.
+
+\begin{webcode}[language=CSS, caption={Contoh design tokens dan komponen tombol dalam CSS}]
+/* === Design Tokens === */
+:root {
+  --color-primary: #1A237E;
+  --color-primary-hover: #283593;
+  --color-white: #FFFFFF;
+  --radius-md: 8px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+  --font-weight-bold: 600;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --transition-fast: 150ms ease;
+}
+
+/* === Komponen: Primary Button === */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  font-weight: var(--font-weight-bold);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.btn-primary:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+\end{webcode}
+
+\subsection{Handoff Desain ke Pengembang}
+
+\textbf{Handoff} adalah proses penyerahan desain dari desainer ke pengembang agar dapat diimplementasikan dalam kode. Handoff yang buruk---misalnya desainer hanya memberikan file gambar tanpa spesifikasi---menyebabkan pengembang harus menebak ukuran, warna, dan spacing, sehingga hasil akhir tidak sesuai desain. Handoff yang baik menyertakan informasi yang cukup agar pengembang dapat mereplikasi desain secara akurat \cite{figmaDocs}.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[node distance=2.5cm, transform shape, every node/.style={font=\footnotesize}]
+  \node (designer) [class, minimum width=3.5cm] {Desainer (Figma)};
+  \node (handoff) [object, minimum width=3.5cm, right=of designer] {Dokumen Handoff (Spesifikasi)};
+  \node (developer) [class, minimum width=3.5cm, right=of handoff] {Pengembang (HTML/CSS/JS)};
+  
+  \draw [arrow] (designer) -- node[above, font=\scriptsize, text width=2.5cm, align=center] {Ekspor specs, tokens, assets} (handoff);
+  \draw [arrow] (handoff) -- node[above, font=\scriptsize, text width=2.5cm, align=center] {Baca specs, implementasi kode} (developer);
+  
+  \draw [arrow, dashed] (developer) to[bend right=25] node[below, font=\scriptsize] {Feedback implementasi} (designer);
+\end{tikzpicture}%
+}
+\caption{Alur handoff desain dari desainer ke pengembang}
+\end{figure}
+
+Dokumen handoff yang baik mencakup: (1) \textbf{design tokens} (variabel warna, font, spacing); (2) \textbf{spesifikasi komponen} (ukuran, padding, margin, border radius); (3) \textbf{aset} (ikon SVG, gambar yang sudah diekspor); (4) \textbf{perilaku interaksi} (hover, focus, animasi); dan (5) \textbf{responsive behavior} (bagaimana tampilan berubah di berbagai ukuran layar). Figma menyediakan fitur \textbf{Inspect} yang memudahkan pengembang melihat semua spesifikasi ini langsung dari file desain \cite{figmaDocs}.
+
+\begin{catatan}
+Handoff bukan proses satu arah. Pengembang sering menemukan kendala teknis yang tidak terpikirkan saat desain---misalnya animasi yang terlalu berat, atau komponen yang sulit diimplementasikan secara responsif. Komunikasi dua arah antara desainer dan pengembang harus terus berlangsung selama implementasi. Prinsipnya: desainer yang memahami batasan teknis dan pengembang yang memahami prinsip desain menghasilkan kolaborasi terbaik.
+\end{catatan}

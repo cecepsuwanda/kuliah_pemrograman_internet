@@ -4,42 +4,81 @@
 
 \chapter{CSS Dasar: Selector dan Box Model}
 
+Urutan materi dalam bab ini dan bab berikutnya (CSS Layout Responsif) mengikuti alur belajar CSS dari dasar sampai mahir: pengenalan, sintaks dan selector, warna dan teks, box model dan display, link serta list/tabel, satuan dan nilai, lalu layout dan responsif.
+
 \begin{subcpmk}
   \item Sub-CPMK 2.2: Menerapkan CSS3 untuk styling, layout, dan desain responsif.
 \end{subcpmk}
 
 \input{bab/bab-06/section-6-1}
 \input{bab/bab-06/section-6-2}
+\input{bab/bab-06/section-6-3}
+\input{bab/bab-06/section-6-4}
+\input{bab/bab-06/section-6-5}
+\input{bab/bab-06/section-6-6}
+\input{bab/bab-06/section-6-7}
+\input{bab/bab-06/section-6-8}
+\input{bab/bab-06/section-6-9}
+\input{bab/bab-06/section-6-10}
+\input{bab/bab-06/section-6-11}
+\input{bab/bab-06/section-6-12}
 
 \begin{aktivitas}
-  \item Buat file CSS eksternal dan hubungkan ke HTML.
-  \item Ubah warna dan ukuran teks judul menggunakan selector.
-  \item Atur margin dan padding pada elemen card.
+  \item Buat file CSS eksternal dan hubungkan ke halaman HTML; terapkan selector elemen, class, dan id untuk mengatur warna, tipografi, dan spasi.
+  \item Buat komponen card produk menggunakan box model lengkap: atur \code{padding}, \code{border}, \code{border-radius}, \code{margin: auto} untuk centering, dan gunakan \code{box-sizing: border-box}.
+  \item Buat menu navigasi horizontal dari \code{<ul>} dengan menghilangkan bullet, menggunakan \code{display: inline-block} atau Flexbox, dan styling state tautan (\code{:link}, \code{:visited}, \code{:hover}, \code{:focus}).
+  \item Styling tabel data HTML: gunakan \code{border-collapse}, \code{padding} pada \code{th}/\code{td}, background header, dan zebra striping dengan \code{:nth-child(even)}.
+  \item Buat stylesheet yang konsisten menggunakan satuan \code{rem} untuk font-size, \code{em} untuk spacing, dan \code{\%} untuk ukuran layout responsif; gunakan \code{calc()} untuk satu kasus.
 \end{aktivitas}
 
 \begin{latihan}
-  \item Jelaskan perbedaan margin dan padding.
-  \item Buat selector untuk elemen \code{p} dan class \code{highlight}.
+  \item Jelaskan perbedaan antara \code{margin} dan \code{padding} serta berikan contoh situasi nyata di mana masing-masing lebih tepat digunakan.
+  \item Apa yang dimaksud dengan margin collapse? Berikan contoh kasus dan cara mengatasinya.
+  \item Buatlah tabel perbandingan \code{content-box} vs \code{border-box}. Mengapa \code{border-box} menjadi standar praktis?
+  \item Jelaskan perbedaan \code{display: block}, \code{inline}, dan \code{inline-block}. Kapan menggunakan masing-masing?
+  \item Mengapa urutan LVHA penting saat menytyling tautan? Apa yang terjadi jika urutan salah?
+  \item Bandingkan satuan \code{px}, \code{em}, dan \code{rem}. Mengapa \code{rem} direkomendasikan untuk \code{font-size}?
 \end{latihan}
 
 \begin{asesmen}
-Asesmen berupa penilaian penggunaan selector dan pengaturan box model pada halaman latihan.
+Asesmen berupa proyek styling halaman web lengkap yang menggabungkan seluruh konsep Bab 6:
+\begin{enumerate}
+  \item Buat halaman produk dengan: CSS eksternal, selector elemen/class/id, skema warna konsisten, tipografi menggunakan web font, dan background gradient.
+  \item Halaman harus memiliki: card produk yang menggunakan box model (\code{border-box}), menu navigasi horizontal dari list, tabel harga dengan zebra striping, dan tautan dengan styling state lengkap.
+  \item Gunakan satuan \code{rem} untuk font-size dan spacing, \code{\%} untuk layout, dan \code{calc()} minimal satu kasus.
+  \item Fokus indikator (\code{:focus} / \code{:focus-visible}) harus terlihat pada semua elemen interaktif.
+\end{enumerate}
+Penilaian: ketepatan selector dan specificity (20\%), box model dan layout (25\%), warna dan tipografi (20\%), aksesibilitas dan kode bersih (20\%), konsistensi satuan (15\%).
 \end{asesmen}
 
 \begin{checklist}
-  \item Saya dapat menulis selector dasar CSS.
-  \item Saya memahami komponen box model.
-  \item Saya bisa mengatur spasi dengan margin dan padding.
+  \item Saya memahami peran CSS dan konsep cascading serta specificity.
+  \item Saya dapat menyisipkan CSS dengan inline, internal, dan eksternal; serta tahu kapan menggunakan masing-masing.
+  \item Saya dapat menulis selector elemen, class, id, descendant, child, dan grouping.
+  \item Saya memahami format warna (hex, rgb, rgba, hsl) dan dapat membuat gradient.
+  \item Saya dapat mengatur tipografi: font-family, font-size, line-height, text-align, dan web fonts.
+  \item Saya memahami box model (content, padding, border, margin) dan dapat menjelaskan setiap lapisan.
+  \item Saya menggunakan \code{box-sizing: border-box} secara global dan memahami perbedaan dari \code{content-box}.
+  \item Saya memahami \code{display: block}, \code{inline}, dan \code{inline-block} serta perbedaan \code{display: none} vs \code{visibility: hidden}.
+  \item Saya dapat menytyling tautan dengan urutan LVHA dan menyediakan indikator fokus yang aksesibel.
+  \item Saya dapat menytyling daftar dan tabel, termasuk membuat menu navigasi dan zebra striping.
+  \item Saya memahami satuan px, em, rem, \%, vw/vh, dan fungsi \code{calc()}, serta tahu kapan menggunakan masing-masing.
 \end{checklist}
 
 \begin{rangkuman}
-Bab ini mengenalkan selector CSS dan konsep box model. Kedua konsep ini menjadi dasar untuk membangun layout dan tampilan web yang rapi.
+Bab ini mengenalkan CSS sebagai bahasa pengatur tampilan halaman web, dimulai dari konsep cascading dan specificity yang menentukan aturan mana yang diterapkan saat terjadi konflik. Tiga metode penyisipan CSS---inline, internal, dan eksternal---dibahas beserta kelebihan dan kekurangan masing-masing, dengan CSS eksternal sebagai praktik terbaik.
+
+Sintaks CSS dibangun dari selector, properti, dan nilai. Selector dasar (elemen, class, id) serta selector gabungan (descendant, child, grouping) memungkinkan targeting yang presisi. Warna dan background mencakup beragam format (hex, rgb, hsl, gradient), sementara tipografi dikontrol melalui font-family, font-size, line-height, dan web fonts.
+
+Box model---terdiri dari content, padding, border, dan margin---adalah fondasi layout CSS. Properti \code{box-sizing: border-box} menyederhanakan perhitungan dimensi. Properti \code{display} mengontrol perilaku elemen dalam flow layout, dengan tiga mode utama: block, inline, dan inline-block. Styling tautan (pseudo-class LVHA) dan aksesibilitas fokus keyboard menjadi perhatian penting. Terakhir, pemilihan satuan yang tepat---rem untuk font-size, em/rem untuk spacing, \% untuk layout---memastikan styling yang skalabel dan mudah dirawat.
 
 \textbf{Poin Kunci:}
 \begin{itemize}
-  \item Selector menentukan elemen mana yang di-styling.
-  \item Box model menjelaskan ukuran dan spasi elemen.
-  \item CSS eksternal lebih rapi dan mudah dirawat.
+  \item Cascading dan specificity menentukan aturan CSS mana yang berlaku; pahami untuk menghindari konflik.
+  \item Box model (content, padding, border, margin) mengontrol spasi dan ukuran; gunakan \code{border-box} secara global.
+  \item Selector class direkomendasikan untuk styling komponen modular; id untuk anchor dan JavaScript.
+  \item Satuan rem direkomendasikan untuk font-size demi aksesibilitas dan skalabilitas.
+  \item Selalu sediakan indikator fokus yang jelas pada elemen interaktif.
 \end{itemize}
 \end{rangkuman}
 

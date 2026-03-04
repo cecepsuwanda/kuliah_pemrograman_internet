@@ -1,0 +1,93 @@
+\section{Peta Konsep: Hubungan Antar Teknologi Web}
+Untuk memahami bagaimana seluruh komponen web saling terhubung, kita perlu melihat gambaran besar (\textit{big picture}) terlebih dahulu sebelum mendalami setiap komponen satu per satu. Pengguna membuka browser (client) dan mengetik URL. Browser mengirim HTTP request ke web server. Jika halaman memerlukan data dinamis, web server menjalankan skrip PHP yang berkomunikasi dengan basis data MySQL. Hasil pemrosesan dikembalikan sebagai HTML, yang kemudian di-render oleh browser bersama file CSS dan JavaScript. Peta konsep ini membantu Anda melihat konteks setiap topik yang akan dipelajari di bab-bab selanjutnya \cite{mdnLearn}.
+
+Di sisi \textbf{front-end}, tiga teknologi utama bekerja bersama di dalam browser. \textbf{HTML} membentuk struktur dokumen---elemen-elemen seperti judul, paragraf, daftar, dan formulir yang membentuk kerangka halaman. \textbf{CSS} mengatur presentasi visual---warna, ukuran, tata letak, dan animasi yang membuat halaman menarik secara visual. \textbf{JavaScript} menambahkan interaktivitas---merespons aksi pengguna, memvalidasi input, dan memanipulasi DOM untuk mengubah halaman secara dinamis. Ketiga teknologi ini diunduh dari server sebagai bagian dari HTTP response dan diproses seluruhnya di browser pengguna \cite{mdnJsGuide}.
+
+Di sisi \textbf{back-end}, beberapa komponen bekerja secara berurutan untuk memproses setiap request. \textbf{Web server} (Apache atau Nginx) menerima request HTTP dan meneruskannya ke interpreter PHP. PHP memproses logika bisnis: memeriksa autentikasi, memvalidasi input, berkomunikasi dengan MySQL, dan mengolah data. MySQL menyimpan data secara persisten dalam tabel-tabel relasional. Setelah pemrosesan selesai, PHP menghasilkan HTML atau JSON sebagai response. Seluruh proses ini terjadi di server dan hasilnya dikirim kembali ke browser melalui HTTP \cite{phpManual}.
+
+Dalam model tradisional, setiap interaksi pengguna memerlukan pemuatan ulang halaman (\textit{full page reload}). Browser mengirim request, menunggu response HTML yang lengkap, lalu merender ulang seluruh halaman. Pendekatan modern menggunakan teknik \textbf{AJAX} (Asynchronous JavaScript and XML) yang memungkinkan JavaScript berkomunikasi dengan server \textit{di latar belakang} tanpa memuat ulang halaman. Dengan AJAX, hanya bagian halaman yang berubah yang diperbarui, menghasilkan pengalaman pengguna yang lebih cepat dan responsif---mirip seperti aplikasi desktop \cite{webdevLearn}.
+
+API modern menggunakan \textbf{Fetch API} sebagai pengganti objek \code{XMLHttpRequest} yang lebih lama. Fetch API menyediakan antarmuka yang bersih dan berbasis \code{Promise} untuk melakukan request HTTP dari JavaScript. Berikut contoh penggunaan Fetch API untuk mengambil data produk dari server dalam format JSON \cite{mdnJsGuide}.
+
+\begin{webcode}[language=JavaScript, caption={Contoh Fetch API: mengambil data produk dari server}]
+// Mengambil data produk dari API
+fetch("https://toko.com/api/produk")
+  .then(function(response) {
+    if (!response.ok) {
+      throw new Error("HTTP error: " + response.status);
+    }
+    return response.json();
+  })
+  .then(function(data) {
+    // data berisi array produk dari server
+    const container = document.getElementById("produk-list");
+    data.forEach(function(produk) {
+      const el = document.createElement("div");
+      el.textContent = produk.nama + " - Rp " + produk.harga;
+      container.appendChild(el);
+    });
+  })
+  .catch(function(error) {
+    console.error("Gagal mengambil data:", error);
+  });
+\end{webcode}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3cm}|P{4cm}|P{4.5cm}|}
+\hline
+\textbf{Pendekatan} & \textbf{Traditional (Full Reload)} & \textbf{AJAX (Partial Update)} \\
+\hline
+Request & Browser meminta halaman penuh & JavaScript meminta data (JSON/XML) \\
+\hline
+Response & HTML lengkap & Data JSON/XML \\
+\hline
+Rendering & Seluruh halaman digambar ulang & Hanya bagian yang berubah diperbarui \\
+\hline
+Pengalaman & Terasa lambat, halaman berkedip & Cepat, responsif, tanpa kedipan \\
+\hline
+Contoh & Klik link tradisional & Gmail, Google Maps, Instagram \\
+\hline
+\end{tabular}
+\caption{Perbandingan pendekatan traditional page load vs AJAX}
+\end{table}
+
+Diagram berikut menggambarkan hubungan lengkap antar teknologi web yang akan dipelajari dalam buku ini. Panah menunjukkan alur komunikasi dan ketergantungan antar komponen. Setiap bab dalam buku ini membahas satu atau beberapa komponen dari peta konsep ini secara mendalam \cite{webdevLearn}.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[node distance=2cm, every node/.style={font=\footnotesize}, transform shape]
+  % Front-end layer
+  \node (browser) [class, minimum width=4cm] {Browser (Client)};
+  \node (html) [object, below left=1.5cm and -0.5cm of browser] {HTML};
+  \node (css) [object, below=1.5cm of browser] {CSS};
+  \node (js) [object, below right=1.5cm and -0.5cm of browser] {JavaScript};
+
+  % Back-end layer
+  \node (server) [class, minimum width=4cm, right=4cm of browser] {Web Server (Apache)};
+  \node (php) [object, below=1.5cm of server] {PHP};
+  \node (mysql) [object, below=1.5cm of php] {MySQL};
+
+  % Communication
+  \draw [arrow] ([yshift=2pt]browser.east) -- node[above, font=\footnotesize] {HTTP Request} ([yshift=2pt]server.west);
+  \draw [arrow] ([yshift=-2pt]server.west) -- node[below, font=\footnotesize] {HTTP Response} ([yshift=-2pt]browser.east);
+
+  % Back-end connections
+  \draw [arrow] (server) -- (php);
+  \draw [arrow] (php) -- (server);
+  \draw [arrow] (php) -- node[right, font=\footnotesize] {SQL} (mysql);
+  \draw [arrow] (mysql) -- node[left, font=\footnotesize] {Data} (php);
+
+  % Front-end connections
+  \draw [thick, dashed, ->] (browser) -- node[left, font=\footnotesize] {Struktur} (html);
+  \draw [thick, dashed, ->] (browser) -- node[right, font=\footnotesize] {Tampilan} (css);
+  \draw [thick, dashed, ->] (browser) -- node[right, font=\footnotesize] {Interaksi} (js);
+
+  % AJAX arrow
+  \draw [arrow, dashed, blue] (js.east) -- ++(1.5,0) |- node[below, font=\footnotesize, near end] {AJAX/Fetch} (server.south);
+\end{tikzpicture}%
+}
+\caption{Peta konsep hubungan antar teknologi web}
+\end{figure}
+

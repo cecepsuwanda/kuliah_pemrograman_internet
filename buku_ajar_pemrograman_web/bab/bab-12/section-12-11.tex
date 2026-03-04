@@ -1,0 +1,46 @@
+\section{Fungsi Agregat: COUNT, SUM, AVG, MIN, MAX}
+
+\textbf{Fungsi agregat} mengolah sekumpulan baris dan mengembalikan satu nilai ringkasan. Fungsi ini sangat berguna untuk analisis data: menghitung jumlah record, total penjualan, rata-rata harga, nilai minimum, dan maksimum. Fungsi agregat biasanya digunakan bersama \code{GROUP BY} untuk menghasilkan ringkasan per kelompok, namun juga dapat digunakan sendiri untuk ringkasan seluruh tabel \cite{mysqlDocs}.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{2.5cm}|P{5cm}|P{5cm}|}
+\hline
+\textbf{Fungsi} & \textbf{Deskripsi} & \textbf{Contoh} \\
+\hline
+\code{COUNT()} & Jumlah baris & \code{COUNT(*)} atau \code{COUNT(kolom)} \\
+\hline
+\code{SUM()} & Total nilai & \code{SUM(harga * stok)} \\
+\hline
+\code{AVG()} & Rata-rata nilai & \code{AVG(harga)} \\
+\hline
+\code{MIN()} & Nilai terkecil & \code{MIN(harga)} \\
+\hline
+\code{MAX()} & Nilai terbesar & \code{MAX(harga)} \\
+\hline
+\end{tabular}
+\caption{Fungsi agregat utama di MySQL}
+\end{table}
+
+\begin{webcode}[language=SQL, caption={Penggunaan fungsi agregat}]
+-- Jumlah total produk
+SELECT COUNT(*) AS total_produk FROM produk;
+
+-- Total nilai inventaris
+SELECT SUM(harga * stok) AS total_inventaris FROM produk;
+
+-- Rata-rata harga produk elektronik
+SELECT AVG(harga) AS rata_harga
+  FROM produk WHERE kategori = 'elektronik';
+
+-- Produk termurah dan termahal
+SELECT MIN(harga) AS termurah, MAX(harga) AS termahal FROM produk;
+
+-- Ringkasan per kategori
+SELECT kategori,
+       COUNT(*) AS jumlah,
+       AVG(harga) AS rata_harga,
+       SUM(stok) AS total_stok
+FROM produk GROUP BY kategori;
+\end{webcode}
+

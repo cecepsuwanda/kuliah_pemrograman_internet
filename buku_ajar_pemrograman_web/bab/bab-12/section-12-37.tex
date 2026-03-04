@@ -1,0 +1,47 @@
+\section{Keamanan: Mitigasi XSS dan CSRF}
+
+\textbf{Cross-Site Scripting (XSS)} terjadi saat penyerang menyisipkan kode JavaScript berbahaya melalui input yang ditampilkan di halaman web tanpa di-escape. Kode tersebut dieksekusi di browser pengguna lain, memungkinkan pencurian cookie, session hijacking, atau defacement. Pencegahan: selalu gunakan \code{htmlspecialchars(\$data, ENT\_QUOTES, 'UTF-8')} saat menampilkan data ke HTML. Jangan gunakan \code{echo \$\_GET['q']} langsung --- ini membuka celah XSS \cite{owaspXss}.
+
+\textbf{Cross-Site Request Forgery (CSRF)} terjadi saat penyerang membuat pengguna (yang sudah login) mengirim request berbahaya tanpa sadar --- misalnya melalui link tersembunyi di email atau situs lain. Pencegahan: tambahkan \textbf{CSRF token} unik di setiap form dan verifikasi di server. Token harus random, per-session, dan diperiksa dengan \code{hash\_equals()} untuk mencegah timing attack \cite{owaspCsrf}.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners, minimum width=2.5cm, minimum height=0.9cm, align=center, font=\footnotesize, fill=#1},
+  arrow/.style={-Stealth, thick, red!70},
+  node distance=1cm
+]
+  \node[box=red!10] (atk) {Penyerang\\sisipkan JS};
+  \node[box=orange!15, right=1.5cm of atk] (srv) {Server simpan\\tanpa escape};
+  \node[box=blue!15, right=1.5cm of srv] (page) {Halaman tampilkan\\script berbahaya};
+  \node[box=purple!15, right=1.5cm of page] (victim) {Browser korban\\eksekusi JS};
+
+  \draw[arrow] (atk) -- (srv);
+  \draw[arrow] (srv) -- (page);
+  \draw[arrow] (page) -- (victim);
+\end{tikzpicture}
+\caption{Alur serangan Stored XSS}
+\end{figure}
+
+\begin{webcode}[language=PHP, caption={Mitigasi CSRF dengan token}]
+<?php
+session_start();
+// Generate token
+if (empty($_SESSION['csrf'])) {
+  $_SESSION['csrf'] = bin2hex(random_bytes(32));
+}
+
+// Dalam form HTML:
+// <input type="hidden" name="csrf" value="<?= $_SESSION['csrf'] ?>">
+
+// Verifikasi saat proses
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  if (!hash_equals($_SESSION['csrf'], $_POST['csrf'] ?? '')) {
+    die("CSRF token tidak valid!");
+  }
+  // Proses form...
+  $_SESSION['csrf'] = bin2hex(random_bytes(32)); // regenerate
+}
+?>
+\end{webcode}
+

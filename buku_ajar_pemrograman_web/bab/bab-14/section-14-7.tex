@@ -1,0 +1,23 @@
+\section{Deployment ke Server: Upload, Permissions, dan Environment}
+
+Deployment melibatkan transfer kode ke server, pengaturan permission file, dan konfigurasi environment. Dua metode utama: \textbf{Git-based} (\code{git clone}/\code{git pull} di server --- lebih modern dan terlacak) dan \textbf{SFTP/SCP} (upload file manual --- sederhana namun rawan human error). Setelah upload, atur permission: folder \code{755} (\code{rwxr-xr-x}), file \code{644} (\code{rw-r--r--}), dan folder upload/cache \code{775}. File sensitif (\code{.env}, \code{config.php}) tidak boleh berada di web root \cite{mdnDeploy}.
+
+\begin{contoh}
+\textbf{Studi Kasus: Deploy Aplikasi Toko Online ke VPS}
+
+Langkah-langkah deploy ke VPS (Ubuntu + Apache):
+\begin{enumerate}
+  \item SSH ke server: \code{ssh user@ip\_server}
+  \item Install stack: \code{apt install apache2 php mysql-server php-mysql}
+  \item Clone proyek: \code{git clone repo.git /var/www/toko}
+  \item Install dependency: \code{cd /var/www/toko \&\& composer install --no-dev}
+  \item Buat file \code{.env} dengan konfigurasi produksi
+  \item Import database: \code{mysql -u root -p toko < database.sql}
+  \item Atur permission: \code{chown -R www-data:www-data /var/www/toko}
+  \item Konfigurasi virtual host Apache (arahkan ke \code{public/})
+  \item Aktifkan HTTPS dengan Let's Encrypt: \code{certbot --apache}
+  \item Atur \code{php.ini}: matikan \code{display\_errors}, aktifkan OPcache
+  \item Uji semua fitur utama di browser
+\end{enumerate}
+\end{contoh}
+

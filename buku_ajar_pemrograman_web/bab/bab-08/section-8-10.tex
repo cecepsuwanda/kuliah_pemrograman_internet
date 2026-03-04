@@ -1,0 +1,47 @@
+\section{Perulangan: for, while, do...while, break, continue}
+
+Perulangan mengeksekusi blok kode berulang kali selama kondisi terpenuhi. JavaScript menyediakan tiga jenis loop utama: \code{for} (dengan counter eksplisit), \code{while} (kondisi diperiksa sebelum eksekusi), dan \code{do...while} (kondisi diperiksa setelah eksekusi---minimal satu kali jalan). \code{for...of} (ES6) adalah cara modern untuk iterasi elemen array \cite{jsInfo}.
+
+\begin{webcode}[language=JavaScript, caption={Tiga jenis perulangan dan for...of}]
+// for: ketika jumlah iterasi diketahui
+for (let i = 0; i < 5; i++) {
+  console.log(i); // 0, 1, 2, 3, 4
+}
+
+// while: ketika kondisi berhenti belum pasti
+let input = "";
+while (input !== "quit") {
+  input = prompt("Ketik 'quit' untuk keluar");
+}
+
+// for...of: iterasi elemen array (ES6)
+const fruits = ["apel", "jeruk", "mangga"];
+for (const fruit of fruits) {
+  console.log(fruit);
+}
+\end{webcode}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{2.5cm}|P{4.5cm}|P{5cm}|}
+\hline
+\textbf{Loop} & \textbf{Kapan Digunakan} & \textbf{Catatan} \\
+\hline
+\code{for} & Jumlah iterasi diketahui & Counter \code{i} eksplisit \\
+\hline
+\code{while} & Kondisi berhenti dinamis & Cek sebelum eksekusi \\
+\hline
+\code{do...while} & Minimal 1x eksekusi & Cek setelah eksekusi \\
+\hline
+\code{for...of} & Iterasi elemen iterable & Array, string, Map, Set \\
+\hline
+\code{for...in} & Iterasi key objek & Hindari untuk array \\
+\hline
+\end{tabular}
+\caption{Jenis perulangan JavaScript dan kapan menggunakannya}
+\end{table}
+
+\begin{catatan}
+\textbf{break dan continue.} \code{break} menghentikan loop sepenuhnya; \code{continue} melewati iterasi saat ini dan lanjut ke iterasi berikutnya. Keduanya berguna untuk mengoptimalkan loop: \code{break} ketika target sudah ditemukan, \code{continue} untuk melewati elemen yang tidak memenuhi syarat. Hindari loop tak terbatas (infinite loop)---pastikan kondisi \code{while} atau counter \code{for} pasti akan terpenuhi \cite{mdnJsGuide}.
+\end{catatan}
+

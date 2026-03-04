@@ -1,0 +1,54 @@
+\section{Media Queries}
+
+Media queries adalah mekanisme CSS yang memungkinkan penerapan aturan styling berdasarkan kondisi perangkat---terutama \textbf{lebar viewport}. Ini adalah fondasi utama desain responsif: satu halaman HTML yang tampil optimal di desktop, tablet, dan mobile. Sintaks dasar: \code{@media (kondisi) \{ aturan CSS \}}. Kondisi paling umum adalah \code{min-width} dan \code{max-width} \cite{mdnCss}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{4.5cm}|P{3cm}|P{4.5cm}|}
+\hline
+\textbf{Media Query} & \textbf{Target} & \textbf{Penggunaan} \\
+\hline
+\code{max-width: 480px} & Mobile kecil & Font, padding lebih kecil \\
+\hline
+\code{max-width: 768px} & Tablet portrait & Layout 1--2 kolom \\
+\hline
+\code{max-width: 1024px} & Tablet landscape & Sidebar collapse \\
+\hline
+\code{min-width: 1200px} & Desktop besar & Layout penuh, sidebar \\
+\hline
+\code{prefers-color-scheme} & Tema gelap/terang & Dark mode otomatis \\
+\hline
+\code{prefers-reduced-motion} & Kurangi animasi & Aksesibilitas \\
+\hline
+\end{tabular}
+\caption{Media queries umum untuk desain responsif}
+\end{table}
+
+Selain lebar viewport, media queries juga mendukung fitur lain: \code{orientation} (portrait/landscape), \code{resolution} (untuk layar HiDPI), \code{prefers-color-scheme} (dark/light mode), dan \code{prefers-reduced-motion} (untuk aksesibilitas). Operator logika \code{and}, \code{or} (koma), dan \code{not} memungkinkan kondisi majemuk: \code{@media (min-width: 768px) and (orientation: landscape)} \cite{webdevCss}.
+
+\begin{webcode}[language=CSS, caption={Media queries untuk layout responsif}]
+/* Base styles (mobile-first) */
+.container { padding: 1rem; }
+.grid { display: grid; gap: 1rem; }
+
+/* Tablet: 2 kolom */
+@media (min-width: 768px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* Desktop: 3 kolom + sidebar */
+@media (min-width: 1024px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+  .sidebar { display: block; }
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  body { background: #1a1a1a; color: #eee; }
+}
+\end{webcode}
+
+\begin{catatan}
+\textbf{Breakpoint Berdasarkan Konten.} Pilih breakpoint berdasarkan kapan layout ``rusak'' (konten terlalu sempit atau terlalu lebar), bukan berdasarkan ukuran perangkat tertentu. Perangkat memiliki ukuran yang sangat beragam; breakpoint berbasis konten lebih tahan masa depan. Uji dengan perlahan menyempitkan browser dan catat di mana layout perlu disesuaikan \cite{cssTricks}.
+\end{catatan}
+

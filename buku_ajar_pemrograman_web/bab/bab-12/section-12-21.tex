@@ -1,0 +1,28 @@
+\section{Index: Pengenalan dan Penggunaan}
+
+\textbf{Index} adalah struktur data yang mempercepat pencarian baris di tabel, mirip indeks di buku yang membantu menemukan halaman tanpa membaca keseluruhan. Tanpa index, MySQL harus melakukan \textit{full table scan} --- membaca setiap baris satu per satu. Dengan index, MySQL dapat langsung melompat ke baris yang sesuai. Primary key dan UNIQUE secara otomatis membuat index. Index tambahan perlu dibuat manual pada kolom yang sering digunakan di WHERE, JOIN, atau ORDER BY \cite{mysqlDocs}.
+
+Namun, index memiliki \textit{trade-off}: index mempercepat SELECT tetapi memperlambat INSERT, UPDATE, dan DELETE karena index harus diperbarui. Index juga menggunakan ruang penyimpanan. Jangan membuat index pada semua kolom --- hanya pada kolom yang sering dicari atau difilter. Gunakan perintah \code{EXPLAIN} untuk menganalisis apakah query menggunakan index dengan baik \cite{mysqlGettingStarted}.
+
+\begin{webcode}[language=SQL, caption={Membuat dan mengelola index}]
+-- Membuat index pada kolom yang sering dicari
+CREATE INDEX idx_nama ON produk(nama);
+CREATE INDEX idx_kategori ON produk(kategori_id);
+
+-- Index komposit (beberapa kolom)
+CREATE INDEX idx_kat_harga ON produk(kategori_id, harga);
+
+-- Melihat index di tabel
+SHOW INDEX FROM produk;
+
+-- Menghapus index
+DROP INDEX idx_nama ON produk;
+
+-- Cek apakah query menggunakan index
+EXPLAIN SELECT * FROM produk WHERE kategori_id = 1;
+\end{webcode}
+
+\begin{catatan}
+Aturan praktis: buat index pada kolom yang digunakan di \code{WHERE}, \code{JOIN ON}, \code{ORDER BY}, dan \code{GROUP BY} --- terutama pada tabel dengan ribuan baris atau lebih. Untuk tabel kecil (puluhan baris), index mungkin tidak memberikan peningkatan signifikan.
+\end{catatan}
+

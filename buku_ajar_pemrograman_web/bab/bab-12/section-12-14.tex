@@ -1,0 +1,24 @@
+\section{Nilai NULL dan Penanganannya}
+
+\textbf{NULL} dalam SQL menyatakan ketiadaan nilai --- artinya data tidak ada, tidak diketahui, atau belum diisi. NULL \textbf{berbeda} dari angka nol (0), string kosong (''), atau spasi. Kolom yang bernilai NULL berarti tidak memiliki data sama sekali. Pemahaman NULL penting karena perilakunya berbeda dari nilai biasa: perbandingan dengan NULL selalu menghasilkan \code{UNKNOWN} (bukan TRUE atau FALSE), sehingga \code{kolom = NULL} tidak pernah benar --- gunakan \code{IS NULL} atau \code{IS NOT NULL} \cite{mysqlDocs}.
+
+Fungsi bawaan MySQL untuk menangani NULL: \code{IFNULL(kolom, nilai\_default)} mengembalikan \code{nilai\_default} jika kolom NULL; \code{COALESCE(a, b, c)} mengembalikan argumen pertama yang bukan NULL; \code{NULLIF(a, b)} mengembalikan NULL jika \code{a = b}. Saat melakukan fungsi agregat, NULL biasanya diabaikan --- misalnya \code{AVG()} tidak menyertakan baris NULL dalam perhitungan. Untuk kolom yang wajib diisi, gunakan constraint \code{NOT NULL} saat membuat tabel \cite{mysqlGettingStarted}.
+
+\begin{webcode}[language=SQL, caption={Penanganan nilai NULL}]
+-- Mencari baris dengan nilai NULL
+SELECT * FROM produk WHERE deskripsi IS NULL;
+SELECT * FROM produk WHERE deskripsi IS NOT NULL;
+
+-- Mengganti NULL dengan nilai default saat menampilkan
+SELECT nama, IFNULL(deskripsi, 'Belum ada deskripsi') AS deskripsi
+FROM produk;
+
+-- COALESCE: ambil nilai pertama yang tidak NULL
+SELECT nama, COALESCE(deskripsi, kategori, 'N/A') AS info
+FROM produk;
+\end{webcode}
+
+\begin{catatan}
+Hati-hati saat menggunakan \code{NOT IN} dengan subquery yang mungkin mengandung NULL. Jika subquery mengembalikan NULL, seluruh \code{NOT IN} menghasilkan UNKNOWN dan tidak ada baris yang dikembalikan. Gunakan \code{NOT EXISTS} sebagai alternatif yang lebih aman.
+\end{catatan}
+

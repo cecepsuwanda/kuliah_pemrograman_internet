@@ -1,0 +1,28 @@
+\section[Penggunaan PHP dari Command Line (CLI)]{Penggunaan PHP dari Command Line (CLI)}
+
+PHP tidak hanya untuk web --- PHP juga dapat dijalankan dari \textbf{command line} (CLI) untuk skrip otomasi, cron job, migrasi database, atau pengujian. Perintah \code{php namafile.php} menjalankan skrip; \code{php -r "echo 'test';"} menjalankan kode langsung. Variabel \code{\$argv} berisi argumen CLI, dan \code{\$argc} jumlahnya. PHP CLI berguna untuk tugas backend yang tidak memerlukan browser --- misalnya import data massal atau kirim email terjadwal \cite{phpManual}.
+
+\begin{webcode}[language=PHP, caption={Contoh skrip PHP CLI}]
+<?php
+// file: migrate.php
+// Jalankan: php migrate.php create_table
+
+if ($argc < 2) {
+  echo "Penggunaan: php migrate.php <perintah>\n";
+  exit(1);
+}
+
+$command = $argv[1];
+echo "Menjalankan migrasi: {$command}\n";
+
+// Contoh: buat tabel jika belum ada
+$conn = new mysqli('localhost', 'root', '', 'toko_online');
+$sql = "CREATE TABLE IF NOT EXISTS log_migrasi (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nama VARCHAR(100), waktu DATETIME DEFAULT CURRENT_TIMESTAMP
+)";
+$conn->query($sql);
+echo "Migrasi selesai.\n";
+?>
+\end{webcode}
+

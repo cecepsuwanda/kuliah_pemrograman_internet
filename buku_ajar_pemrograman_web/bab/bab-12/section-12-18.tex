@@ -1,0 +1,41 @@
+\section{PRIMARY KEY dan UNIQUE}
+
+\textbf{PRIMARY KEY} dan \textbf{UNIQUE} adalah dua jenis constraint yang menjamin keunikan data, namun memiliki perbedaan penting. Primary key mengidentifikasi setiap baris secara unik dan \textbf{tidak boleh NULL}; setiap tabel hanya boleh memiliki satu primary key (bisa terdiri dari beberapa kolom --- \textit{composite key}). UNIQUE juga menjamin keunikan nilai, namun \textbf{boleh berisi NULL} (satu nilai NULL per kolom) dan satu tabel boleh memiliki beberapa constraint UNIQUE \cite{mysqlDocs}.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{3.5cm}|P{5cm}|P{5cm}|}
+\hline
+\textbf{Aspek} & \textbf{PRIMARY KEY} & \textbf{UNIQUE} \\
+\hline
+Jumlah per tabel & Hanya 1 & Boleh banyak \\
+\hline
+Boleh NULL? & Tidak & Ya (1 NULL) \\
+\hline
+Index otomatis & Clustered index & Non-clustered index \\
+\hline
+Fungsi utama & Identitas baris & Mencegah duplikasi \\
+\hline
+Contoh & id, nim & email, username \\
+\hline
+\end{tabular}
+\caption{Perbedaan PRIMARY KEY dan UNIQUE}
+\end{table}
+
+\begin{webcode}[language=SQL, caption={Penggunaan PRIMARY KEY dan UNIQUE}]
+CREATE TABLE pengguna (
+  id       INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(50) NOT NULL UNIQUE,
+  email    VARCHAR(100) NOT NULL UNIQUE,
+  nama     VARCHAR(100) NOT NULL
+);
+
+-- Composite primary key
+CREATE TABLE pesanan_detail (
+  pesanan_id INT,
+  produk_id  INT,
+  jumlah     INT NOT NULL DEFAULT 1,
+  PRIMARY KEY (pesanan_id, produk_id)
+);
+\end{webcode}
+

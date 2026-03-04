@@ -1,0 +1,32 @@
+\section{Best Practices dan Performa CSS}
+
+CSS yang performan dan mudah dirawat memerlukan perhatian pada beberapa aspek: efisiensi selector, minimalisasi reflow/repaint, manajemen ukuran file, dan strategi loading. Dalam proyek skala besar, CSS yang tidak terkelola dapat memperlambat rendering halaman secara signifikan \cite{webdevCss}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3.5cm}|P{4cm}|P{4.5cm}|}
+\hline
+\textbf{Praktik} & \textbf{Cara Implementasi} & \textbf{Dampak} \\
+\hline
+Animasi GPU-friendly & Gunakan \code{transform}/\code{opacity} & Hindari reflow; animasi mulus \\
+\hline
+Hindari \code{@import} & Gunakan \code{<link>} atau bundler & Kurangi latency CSS \\
+\hline
+Critical CSS & Inline CSS above-the-fold & First paint lebih cepat \\
+\hline
+Minifikasi & Build tool + purge unused & Ukuran file lebih kecil \\
+\hline
+Selector efisien & Hindari deep nesting & Parsing lebih cepat \\
+\hline
+\code{will-change} & Hanya saat perlu & GPU prepare; jangan overuse \\
+\hline
+\end{tabular}
+\caption{Best practices performa CSS}
+\end{table}
+
+Gunakan DevTools browser (tab Performance dan Coverage) untuk mengidentifikasi bottleneck. Tab Coverage menunjukkan berapa persen CSS yang benar-benar digunakan di halaman---sering kali lebih dari 50\% CSS tidak terpakai. Tool seperti PurgeCSS menghapus kode CSS yang tidak digunakan secara otomatis. Untuk proyek besar, pertimbangkan CSS-in-JS atau CSS Modules untuk memastikan hanya CSS yang relevan yang dimuat \cite{mdnCss}.
+
+\begin{konsep}
+\textbf{will-change: Gunakan dengan Bijak.} Properti \code{will-change: transform;} memberi tahu browser untuk menyiapkan optimisasi GPU. Namun, penggunaan berlebihan (\code{* \{ will-change: transform; \}}) justru menghabiskan memori dan menurunkan performa. Gunakan hanya pada elemen yang akan dianimasikan, dan hapus setelah animasi selesai jika memungkinkan \cite{webdevCss}.
+\end{konsep}
+

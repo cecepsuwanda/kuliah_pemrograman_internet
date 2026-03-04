@@ -1,0 +1,74 @@
+\section{Prinsip Desain Visual: Layout, Hierarki, Tipografi, dan Warna}
+
+Desain visual yang baik bukan hanya tentang estetika---melainkan tentang \textbf{komunikasi yang efektif}. Prinsip desain visual membantu desainer dan pengembang menyusun elemen-elemen antarmuka agar informasi mudah dipahami, navigasi intuitif, dan pengalaman pengguna menyenangkan. Empat pilar utama desain visual untuk web adalah \textbf{layout}, \textbf{hierarki visual}, \textbf{tipografi}, dan \textbf{warna} \cite{mdnCss}.
+
+\subsection{Layout dan Grid System}
+
+\textbf{Layout} menentukan bagaimana elemen-elemen disusun di halaman. Layout yang baik menciptakan ketertiban visual dan membantu pengguna menemukan informasi dengan cepat. Dalam desain web modern, \textbf{grid system} adalah fondasi layout---halaman dibagi menjadi kolom-kolom yang konsisten sehingga elemen-elemen tersusun rapi dan selaras. Grid 12-kolom adalah standar yang paling umum digunakan karena fleksibilitasnya (bisa dibagi menjadi 1, 2, 3, 4, 6, atau 12 kolom) \cite{webdevLearn}.
+
+Dua teknologi CSS utama untuk layout modern adalah \textbf{Flexbox} (ideal untuk layout satu dimensi---baris atau kolom) dan \textbf{CSS Grid} (ideal untuk layout dua dimensi---baris dan kolom sekaligus). Memahami kapan menggunakan Flexbox dan kapan menggunakan Grid sangat penting bagi pengembang web.
+
+\subsection{Hierarki Visual}
+
+\textbf{Hierarki visual} adalah pengaturan elemen-elemen sehingga pengguna secara alami memperhatikan elemen terpenting terlebih dahulu. Hierarki diciptakan melalui variasi \textbf{ukuran}, \textbf{warna}, \textbf{kontras}, \textbf{posisi}, dan \textbf{whitespace}. Judul yang besar dan tebal secara otomatis menarik perhatian lebih dari teks paragraf biasa. Tombol berwarna cerah di atas latar belakang netral akan langsung menjadi \textit{focal point} \cite{mdnCss}.
+
+\begin{konsep}
+\textbf{Prinsip F-Pattern dan Z-Pattern:} Riset eye-tracking menunjukkan bahwa pengguna web membaca halaman dalam pola ``F'' (untuk halaman berisi teks banyak) atau ``Z'' (untuk halaman sederhana). Desainer yang memahami pola ini menempatkan informasi terpenting di area yang pertama kali dilihat: pojok kiri atas, baris pertama, dan sisi kiri halaman. Tombol CTA (\textit{Call to Action}) yang penting ditempatkan di area yang secara alami menjadi akhir pola scanning.
+\end{konsep}
+
+\subsection{Tipografi}
+
+\textbf{Tipografi} adalah seni memilih dan mengatur huruf agar teks terbaca dengan nyaman dan mendukung hierarki visual. Untuk web, pemilihan font harus mempertimbangkan: (1) \textbf{keterbacaan} (\textit{readability})---apakah teks mudah dibaca dalam berbagai ukuran; (2) \textbf{ketersediaan}---apakah font tersedia di berbagai perangkat (gunakan \textit{web-safe fonts} atau Google Fonts); dan (3) \textbf{konsistensi}---batasi penggunaan maksimal 2--3 jenis font per situs \cite{mdnCss}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3cm}|P{3.5cm}|P{5.5cm}|}
+\hline
+\textbf{Prinsip} & \textbf{Panduan} & \textbf{Contoh Implementasi Web} \\
+\hline
+Ukuran font & Body minimal 16px & \code{font-size: 1rem} (16px default) \\
+\hline
+Line height & 1.4--1.6$\times$ ukuran font & \code{line-height: 1.5} \\
+\hline
+Jumlah font & Maksimal 2--3 jenis & Heading: Inter, Body: Roboto \\
+\hline
+Kontras teks & Rasio minimal 4.5:1 & Teks gelap (\code{\#333}) di latar terang \\
+\hline
+Panjang baris & 45--75 karakter per baris & \code{max-width: 65ch} \\
+\hline
+\end{tabular}
+\caption{Panduan tipografi untuk desain web}
+\end{table}
+
+\subsection{Warna}
+
+\textbf{Warna} memiliki peran penting dalam desain: menyampaikan emosi, membedakan elemen, menunjukkan status, dan membangun identitas merek. Pemilihan palet warna yang tepat harus mempertimbangkan: (1) \textbf{psikologi warna}---biru memberikan kesan profesional dan terpercaya, merah menunjukkan urgensi; (2) \textbf{aksesibilitas}---kontras warna harus memenuhi standar WCAG (rasio minimal 4.5:1 untuk teks normal); dan (3) \textbf{konsistensi}---gunakan palet warna terbatas yang sudah ditentukan dalam design system \cite{webdevAccessibility}.
+
+\begin{webcode}[language=CSS, caption={Contoh CSS design tokens untuk warna dan tipografi}]
+:root {
+  /* Palet Warna */
+  --color-primary: #1A237E;
+  --color-secondary: #4CAF50;
+  --color-bg: #FAFAFA;
+  --color-text: #333333;
+  --color-error: #D32F2F;
+  --color-success: #388E3C;
+  
+  /* Tipografi */
+  --font-heading: 'Inter', sans-serif;
+  --font-body: 'Roboto', sans-serif;
+  --font-size-base: 1rem;
+  --line-height-base: 1.5;
+  
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+}
+\end{webcode}
+
+\begin{catatan}
+Selalu uji kombinasi warna untuk aksesibilitas menggunakan alat seperti WebAIM Contrast Checker atau built-in contrast checker di Chrome DevTools. Warna yang terlihat bagus di monitor desainer mungkin tidak terbaca oleh pengguna dengan buta warna parsial (deuteranopia, protanopia). Aturan praktisnya: jangan hanya mengandalkan warna untuk menyampaikan informasi---tambahkan ikon, teks, atau pola sebagai indikator tambahan.
+\end{catatan}

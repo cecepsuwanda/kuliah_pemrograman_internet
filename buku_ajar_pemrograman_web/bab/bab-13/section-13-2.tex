@@ -1,21 +1,26 @@
-\section{Testing dan Evaluasi Performa}
-Pengujian memastikan aplikasi berjalan sesuai kebutuhan pengguna. Testing bisa dilakukan secara manual dengan skenario sederhana, atau otomatis menggunakan alat pengujian. Evaluasi performa membantu Anda mengetahui apakah aplikasi lambat atau berat \cite{mdnToolsTesting}.
+\section{Pengenalan Pengujian (Testing) Aplikasi Web dan Tujuannya}
 
-Metrik dasar seperti waktu muat halaman dan ukuran file bisa diukur melalui DevTools. Anda juga bisa memperkecil ukuran gambar atau meminimalkan JavaScript untuk mempercepat aplikasi. Kebiasaan evaluasi ini membuat aplikasi lebih andal.
+\textbf{Pengujian} (\textit{testing}) adalah proses sistematis untuk memverifikasi bahwa aplikasi web berfungsi sesuai harapan, bebas bug, dan memenuhi standar kualitas. Pengujian bukan langkah terakhir --- idealnya diintegrasikan di setiap tahap pengembangan (\textit{shift-left testing}). Tanpa pengujian, bug ditemukan oleh pengguna di produksi, yang jauh lebih mahal untuk diperbaiki dibandingkan saat pengembangan \cite{mdnToolsTesting}.
+
+Tujuan pengujian meliputi: (1) \textbf{verifikasi fungsionalitas} --- memastikan fitur bekerja sesuai spesifikasi; (2) \textbf{deteksi bug} --- menemukan kesalahan sebelum deployment; (3) \textbf{keamanan} --- memastikan tidak ada celah keamanan; (4) \textbf{performa} --- memastikan aplikasi cepat dan responsif; (5) \textbf{kompatibilitas} --- memastikan berjalan di berbagai browser dan perangkat. Pengujian yang baik memberikan kepercayaan untuk melakukan perubahan dan refactoring tanpa merusak fitur yang ada \cite{mdnToolsTesting}.
 
 \begin{table}[ht]
 \centering
-\begin{tabular}{|P{4cm}|P{7cm}|}
+\begin{tabular}{|P{3cm}|P{4.5cm}|P{5cm}|}
 \hline
-\textbf{Aspek Uji} & \textbf{Contoh} \\
+\textbf{Tujuan} & \textbf{Deskripsi} & \textbf{Contoh} \\
 \hline
-Fungsional & Form berfungsi dan data tersimpan \\
+Verifikasi & Fitur sesuai spesifikasi & Form registrasi menyimpan data \\
 \hline
-Performa & Waktu muat halaman < 3 detik \\
+Deteksi bug & Temukan error sebelum rilis & Tombol submit tidak merespons \\
 \hline
-Kesesuaian & Tampilan konsisten di berbagai browser \\
+Keamanan & Tidak ada celah serangan & SQL injection via form login \\
+\hline
+Performa & Aplikasi cepat dan responsif & Halaman load $<$ 3 detik \\
+\hline
+Kompatibilitas & Berjalan di semua browser & Layout benar di Chrome/Firefox \\
 \hline
 \end{tabular}
-\caption{Contoh aspek pengujian aplikasi web}
+\caption{Tujuan utama pengujian aplikasi web}
 \end{table}
 

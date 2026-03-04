@@ -1,0 +1,33 @@
+\section{Navigasi dan Menu CSS}
+
+Menu navigasi adalah komponen UI yang hampir selalu ada di situs web. CSS modern menyediakan Flexbox untuk menyusun menu horizontal, dan media queries untuk mengubahnya menjadi menu vertikal pada layar kecil. Menu dapat berupa navigasi utama (horizontal di header), sidebar (vertikal), atau dropdown (submenu yang muncul saat hover/klik) \cite{mdnCss}.
+
+Dropdown menu dibuat menggunakan kombinasi HTML semantik (\code{<nav>}, \code{<ul>}, \code{<li>} bersarang) dan CSS (\code{position: absolute} pada submenu, \code{display: none/block} pada hover). Pseudo-class \code{:hover} pada \code{<li>} parent memunculkan submenu child. Untuk aksesibilitas, tambahkan \code{:focus-within} agar submenu juga terbuka saat navigasi keyboard \cite{webdevCss}.
+
+\begin{webcode}[language=CSS, caption={Dropdown menu dengan Flexbox}]
+.nav { display: flex; list-style: none; gap: 0; }
+.nav > li { position: relative; }
+.nav a {
+  display: block; padding: 12px 16px;
+  color: white; text-decoration: none;
+  background: #2a6fb0;
+}
+.nav a:hover { background: #1a4f80; }
+
+/* Submenu (dropdown) */
+.nav .submenu {
+  display: none;
+  position: absolute; top: 100%; left: 0;
+  min-width: 180px;
+  list-style: none; padding: 0;
+}
+.nav li:hover > .submenu,
+.nav li:focus-within > .submenu {
+  display: block;  /* tampil saat hover/focus */
+}
+\end{webcode}
+
+\begin{catatan}
+\textbf{Aksesibilitas Menu:} Bungkus menu dengan \code{<nav aria-label="Main">}. Gunakan \code{:focus-within} agar dropdown terbuka saat navigasi keyboard. Jangan hanya mengandalkan \code{:hover}---pengguna keyboard dan touch device tidak bisa hover. Pastikan setiap tautan dapat diklik dan memiliki \code{:focus} yang terlihat \cite{mdnAccessibility}.
+\end{catatan}
+

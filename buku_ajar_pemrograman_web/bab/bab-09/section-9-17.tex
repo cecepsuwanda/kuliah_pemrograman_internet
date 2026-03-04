@@ -1,0 +1,32 @@
+\section{Regular Expression (RegExp) Dasar}
+
+\textbf{Regular expression} (regex) mendeskripsikan pola teks untuk pencarian, validasi, dan penggantian. Dibuat dengan literal \code{/pola/flags} atau \code{new RegExp("pola", "flags")}. Metode utama: \code{regex.test(str)} (true/false), \code{str.match(regex)} (hasil cocok), \code{str.replace(regex, replacement)} \cite{jsInfo}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{2cm}|P{4cm}|P{6cm}|}
+\hline
+\textbf{Pola} & \textbf{Arti} & \textbf{Contoh} \\
+\hline
+\code{.} & Karakter apapun & \code{/a.c/} cocok \code{"abc"}, \code{"a1c"} \\
+\hline
+\texttt{\textbackslash d} & Digit (0--9) & \texttt{/\textbackslash d+/} cocok \code{"123"} \\
+\hline
+\texttt{\textbackslash w} & Word char (a--z, 0--9, \_) & \texttt{/\textbackslash w+/} cocok \code{"hello"} \\
+\hline
+\code{+} & 1 atau lebih & \code{/a+/} cocok \code{"aaa"} \\
+\hline
+\code{*} & 0 atau lebih & \code{/bo*/} cocok \code{"b"}, \code{"booo"} \\
+\hline
+\code{\^{}} \code{\$} & Awal/akhir string & \texttt{/\^{}hello\$/} hanya \code{"hello"} \\
+\hline
+\code{[abc]} & Salah satu karakter & \code{/[aeiou]/} cocok vokal \\
+\hline
+\end{tabular}
+\caption{Pola regex dasar dan contohnya}
+\end{table}
+
+\begin{konsep}
+\textbf{Regex untuk Validasi.} Contoh pola umum: email (mengandung \texttt{@} dan domain), telepon Indonesia (\texttt{+62} atau \texttt{0} diikuti 9--12 digit), password kuat (minimal 8 karakter dengan huruf besar, huruf kecil, dan angka menggunakan \textit{lookahead} \texttt{(?=...)}). Regex validasi sebaiknya hanya digunakan untuk format dasar---validasi email yang benar-benar lengkap sangat kompleks; server-side check diperlukan \cite{mdnJsGuide}.
+\end{konsep}
+

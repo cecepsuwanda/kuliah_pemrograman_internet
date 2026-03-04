@@ -1,14 +1,26 @@
-\section{Sintaks Dasar dan Struktur Program}
-JavaScript adalah bahasa pemrograman yang membuat halaman web menjadi interaktif. Anda dapat menulis variabel, percabangan, dan perulangan untuk mengontrol alur program. Konsep dasar ini menjadi fondasi sebelum berinteraksi dengan DOM \cite{jsInfo}.
+\section{Pengenalan JavaScript dan Perannya di Web}
 
-Salah satu cara belajar efektif adalah mencoba kode kecil secara bertahap di console browser. Anda bisa melihat langsung hasilnya tanpa harus membuat file terpisah. Kebiasaan ini membantu Anda memahami perilaku kode dengan cepat.
+JavaScript adalah bahasa pemrograman yang berjalan di sisi client (browser) dan memungkinkan halaman web menjadi interaktif. Jika HTML menyediakan struktur dan CSS mengatur tampilan, JavaScript menambahkan \textbf{perilaku}---merespons klik pengguna, memvalidasi form, memperbarui konten tanpa reload, dan membuat animasi kompleks. JavaScript diciptakan oleh Brendan Eich di Netscape pada tahun 1995 dan telah berkembang menjadi salah satu bahasa pemrograman paling populer di dunia \cite{jsInfo}.
 
-\begin{webcode}[language=JavaScript, caption={Contoh Variabel dan Percabangan}]
-const nilai = 75;
-if (nilai >= 70) {
-  console.log("Lulus");
-} else {
-  console.log("Belum lulus");
-}
-\end{webcode}
+Standar resmi JavaScript disebut \textbf{ECMAScript} (dikelola oleh ECMA International). Versi penting termasuk ES5 (2009), ES6/ES2015 (penambahan besar: \code{let}/\code{const}, arrow function, class, template literal, promise), dan pembaruan tahunan setelahnya. Ekosistem JavaScript sangat luas: di browser untuk interaktivitas (client-side), di server dengan Node.js, di mobile dengan React Native, dan di desktop dengan Electron \cite{mdnJsGuide}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{2cm}|P{3cm}|P{3.5cm}|P{3.5cm}|}
+\hline
+\textbf{Teknologi} & \textbf{Peran} & \textbf{Analogi} & \textbf{Contoh} \\
+\hline
+HTML & Struktur & Kerangka bangunan & Paragraf, heading, form \\
+\hline
+CSS & Tampilan & Cat dan dekorasi & Warna, font, layout \\
+\hline
+JavaScript & Perilaku & Sistem listrik/mekanik & Klik, validasi, animasi \\
+\hline
+\end{tabular}
+\caption{Peran tiga teknologi web utama}
+\end{table}
+
+\begin{konsep}
+\textbf{JavaScript Bukan Java.} Meskipun namanya mirip, JavaScript dan Java adalah bahasa yang \textbf{berbeda}. JavaScript awalnya dinamai untuk tujuan pemasaran. JavaScript bersifat dinamis (tipe data fleksibel), interpreted (dijalankan langsung di browser), dan berbasis prototipe. Java bersifat statically typed, compiled, dan berbasis class. Keduanya memiliki sintaks yang mirip C, tetapi konsep dan penggunaannya berbeda \cite{jsInfo}.
+\end{konsep}
 

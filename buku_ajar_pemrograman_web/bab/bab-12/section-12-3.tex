@@ -1,0 +1,45 @@
+\section{Mengakses MySQL: Command Line dan Alat GUI}
+
+MySQL dapat diakses melalui dua cara utama: \textbf{command line interface} (CLI) dan \textbf{graphical user interface} (GUI). CLI memberikan kontrol penuh dan efisien untuk menjalankan query SQL langsung, cocok untuk administrasi server dan otomasi. GUI menyediakan tampilan visual yang lebih mudah dipahami pemula, seperti phpMyAdmin (berbasis web) atau MySQL Workbench (desktop). Pemahaman kedua cara ini penting karena di lingkungan produksi sering kali hanya tersedia CLI \cite{mysqlDocs}.
+
+Untuk mengakses MySQL via CLI, buka terminal atau command prompt, lalu ketik \code{mysql -u root -p}. Setelah memasukkan password, prompt \code{mysql>} akan muncul dan Anda dapat langsung mengetikkan perintah SQL. Untuk keluar, ketik \code{exit} atau \code{\\q}. Beberapa perintah CLI berguna: \code{SHOW DATABASES;} untuk melihat daftar database, \code{USE nama\_db;} untuk memilih database, dan \code{SHOW TABLES;} untuk melihat tabel \cite{mysqlGettingStarted}.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{3cm}|P{5cm}|P{5cm}|}
+\hline
+\textbf{Aspek} & \textbf{CLI (Command Line)} & \textbf{GUI (phpMyAdmin)} \\
+\hline
+Akses & Terminal / CMD & Browser web \\
+\hline
+Kecepatan & Cepat untuk query & Lebih lambat (render UI) \\
+\hline
+Kurva belajar & Perlu hafal perintah & Visual, intuitif \\
+\hline
+Otomasi & Mudah (skrip .sql) & Terbatas \\
+\hline
+Produksi & Sering satu-satunya opsi & Tidak selalu tersedia \\
+\hline
+Fitur & Lengkap & Lengkap + visual \\
+\hline
+\end{tabular}
+\caption{Perbandingan akses MySQL via CLI dan GUI}
+\end{table}
+
+\begin{webcode}[language=SQL, caption={Perintah dasar di MySQL CLI}]
+-- Login ke MySQL
+-- $ mysql -u root -p
+
+-- Melihat daftar database
+SHOW DATABASES;
+
+-- Membuat database baru
+CREATE DATABASE toko_online;
+
+-- Menggunakan database
+USE toko_online;
+
+-- Melihat tabel dalam database aktif
+SHOW TABLES;
+\end{webcode}
+

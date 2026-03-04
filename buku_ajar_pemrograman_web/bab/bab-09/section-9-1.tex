@@ -1,16 +1,28 @@
-\section{Event Handling dan Validasi Form}
-Event handling memungkinkan program merespons aksi pengguna seperti klik, input, atau submit. Dengan event, Anda bisa melakukan validasi form sebelum data dikirim ke server. Validasi ini membantu menjaga kualitas data dan meningkatkan pengalaman pengguna \cite{mdnJsGuide}.
+\section{Fungsi Lanjutan: Expression, Arrow, Default, dan Rest}
 
-Validasi sederhana bisa dilakukan dengan memeriksa apakah input kosong atau format email valid. Anda juga bisa menampilkan pesan kesalahan langsung di halaman. Praktik ini membuat pengguna memahami kesalahan tanpa harus memuat ulang halaman.
+Bab 8 memperkenalkan fungsi dasar; section ini memperdalam fitur fungsi modern ES6+. \textbf{Function expression} menyimpan fungsi anonim di variabel: \code{const greet = function(name) \{ ... \}}. \textbf{Arrow function} (\code{=>}) menyederhanakan sintaks dan memiliki perilaku \code{this} leksikal---ia mewarisi \code{this} dari scope luar, bukan menciptakan \code{this} sendiri \cite{jsInfo}.
 
-\begin{webcode}[language=JavaScript, caption={Validasi Form Sederhana}]
-const form = document.querySelector("#form");
-form.addEventListener("submit", (e) => {
-  const email = document.querySelector("#email").value;
-  if (!email.includes("@")) {
-    e.preventDefault();
-    alert("Email tidak valid");
-  }
-});
-\end{webcode}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3cm}|P{4.5cm}|P{4.5cm}|}
+\hline
+\textbf{Fitur} & \textbf{Sintaks} & \textbf{Catatan} \\
+\hline
+Default parameter & \code{function f(x = 10)} & Nilai default jika argumen undefined \\
+\hline
+Rest parameter & \code{function f(...args)} & Menampung sisa argumen ke array \\
+\hline
+Spread (panggil) & \code{f(...arr)} & Membongkar array menjadi argumen \\
+\hline
+Arrow function & \code{(x) => x * 2} & Tanpa \code{this} sendiri; ringkas \\
+\hline
+IIFE & \code{(() => \{ ... \})()} & Langsung dieksekusi; isolasi scope \\
+\hline
+\end{tabular}
+\caption{Fitur fungsi lanjutan ES6+}
+\end{table}
+
+\begin{konsep}
+\textbf{Higher-Order Function.} Fungsi yang menerima fungsi lain sebagai argumen atau mengembalikan fungsi disebut \textit{higher-order function}. Contoh: \code{arr.map(fn)}, \code{arr.filter(fn)}, \code{setTimeout(fn, ms)}. Konsep ini adalah fondasi pemrograman fungsional di JavaScript dan memungkinkan kode yang deklaratif dan modular \cite{eloquentJs}.
+\end{konsep}
 

@@ -1,0 +1,108 @@
+\section{Teknologi Back-End: Server-Side Scripting dan Basis Data}
+\textbf{Back-end} (sisi server) adalah bagian aplikasi web yang berjalan di server dan tidak terlihat langsung oleh pengguna. Back-end bertanggung jawab untuk memproses logika bisnis, mengelola data, mengautentikasi pengguna, dan mengirimkan respons ke client. Bahasa pemrograman sisi server yang populer antara lain PHP, Python, Node.js, Ruby, dan Java. Dalam buku ini, kita menggunakan PHP sebagai bahasa utama sisi server karena kemudahannya untuk pemula dan integrasinya yang erat dengan web server Apache \cite{phpManual}.
+
+\textbf{PHP} (PHP: Hypertext Preprocessor) adalah bahasa skrip sisi server yang dirancang khusus untuk pengembangan web. Kode PHP dieksekusi di server; hasilnya (biasanya HTML) dikirim ke browser. PHP dapat disisipkan langsung ke dalam file HTML menggunakan tag \code{<?php ... ?>}, membuatnya mudah dipelajari oleh pemula. Saat browser meminta file \code{.php}, web server meneruskan file tersebut ke interpreter PHP. PHP mengeksekusi kode, menghasilkan output HTML, lalu web server mengirimkan hasilnya ke browser. Browser hanya menerima HTML murni---kode PHP tidak pernah terlihat oleh pengguna \cite{phpRightWay}.
+
+PHP memiliki ekosistem yang luas dengan dokumentasi resmi yang lengkap, banyak framework populer (Laravel, CodeIgniter, Symfony), dan komunitas yang aktif. PHP juga menyediakan banyak fungsi bawaan untuk operasi umum web seperti manipulasi string, pengolahan formulir, pengelolaan file, dan koneksi basis data. Versi PHP terbaru (PHP 8.x) membawa fitur modern seperti \textit{named arguments}, \textit{match expression}, dan peningkatan performa signifikan melalui JIT compiler \cite{phpManual}.
+
+\textbf{Basis data} menyimpan data secara terstruktur agar dapat diambil, diperbarui, dan dihapus secara efisien. \textbf{MySQL} adalah sistem manajemen basis data relasional (RDBMS) yang paling sering digunakan bersama PHP. Data disimpan dalam tabel yang terdiri dari baris (record) dan kolom (field); relasi antar tabel memungkinkan penyimpanan data yang terstruktur dan konsisten. Operasi data dilakukan menggunakan bahasa \textbf{SQL} (Structured Query Language) dengan perintah utama: \code{SELECT} (baca), \code{INSERT} (tambah), \code{UPDATE} (ubah), dan \code{DELETE} (hapus) \cite{mysqlDocs}.
+
+\begin{webcode}[language=PHP, caption={Contoh koneksi PHP ke MySQL dan query data produk}]
+<?php
+// Koneksi ke database MySQL
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db   = "toko_online";
+
+$conn = new mysqli($host, $user, $pass, $db);
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
+}
+
+// Query untuk mengambil daftar produk
+$sql = "SELECT id, nama, harga FROM produk
+        WHERE stok > 0 ORDER BY nama";
+$result = $conn->query($sql);
+
+// Tampilkan hasil dalam HTML
+echo "<h2>Daftar Produk</h2>";
+echo "<table border='1'>";
+echo "<tr><th>ID</th><th>Nama</th><th>Harga</th></tr>";
+
+while ($row = $result->fetch_assoc()) {
+    echo "<tr>";
+    echo "<td>" . $row["id"] . "</td>";
+    echo "<td>" . $row["nama"] . "</td>";
+    echo "<td>Rp " . number_format($row["harga"]) . "</td>";
+    echo "</tr>";
+}
+echo "</table>";
+$conn->close();
+?>
+\end{webcode}
+
+Konsep \textbf{API} (Application Programming Interface) menghubungkan front-end dan back-end. Dalam konteks web, API memungkinkan front-end mengirim request ke back-end untuk mengambil atau mengubah data, biasanya dalam format \textbf{JSON} (JavaScript Object Notation). Pola arsitektur \textbf{REST} (Representational State Transfer) mendefinisikan konvensi untuk merancang API yang konsisten: setiap URL merepresentasikan sumber daya, dan metode HTTP menentukan operasi yang dilakukan. Misalnya, \code{GET /api/produk} mengambil daftar produk, sedangkan \code{POST /api/produk} menambahkan produk baru \cite{mdnLearn}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3cm}|P{4cm}|P{4.5cm}|}
+\hline
+\textbf{Komponen} & \textbf{Teknologi} & \textbf{Peran} \\
+\hline
+Server-side language & PHP & Memproses logika dan menghasilkan respons \\
+\hline
+Basis data & MySQL & Menyimpan dan mengelola data \\
+\hline
+Web server & Apache / Nginx & Menerima request HTTP dan meneruskan ke PHP \\
+\hline
+Format data & JSON / HTML & Mengirim data antar front-end dan back-end \\
+\hline
+Bahasa query & SQL & Operasi CRUD pada basis data \\
+\hline
+\end{tabular}
+\caption{Komponen utama teknologi back-end}
+\end{table}
+
+\begin{contoh}
+\textbf{Studi Kasus: Alur Request dari Browser ke Database}
+
+\begin{sloppypar}
+Seorang pengguna membuka halaman daftar produk di toko online \code{https://toko.com/produk}. Berikut alur lengkap yang terjadi di balik layar:
+\end{sloppypar}
+
+\begin{enumerate}
+  \item \textbf{DNS Lookup}: Browser menerjemahkan \code{toko.com} menjadi alamat IP server (misalnya \code{203.0.113.10}).
+  \item \textbf{TCP Handshake}: Browser membuka koneksi TCP ke server pada port 443 (HTTPS).
+  \item \textbf{HTTP Request}: Browser mengirim \code{GET /produk HTTP/1.1} dengan header \code{Host: toko.com}.
+  \item \textbf{Web Server}: Apache menerima request dan meneruskan ke file \code{produk.php}.
+  \item \textbf{PHP Processing}: PHP menjalankan query \code{SELECT * FROM produk WHERE stok > 0} ke MySQL.
+  \item \textbf{Database Response}: MySQL mengembalikan data 50 produk yang tersedia.
+  \item \textbf{HTML Generation}: PHP merender data menjadi tabel HTML lengkap dengan CSS.
+  \item \textbf{HTTP Response}: Server mengirim response \code{200 OK} dengan body HTML ke browser.
+  \item \textbf{Rendering}: Browser menerima HTML, mengunduh file CSS dan JavaScript, lalu merender halaman visual.
+\end{enumerate}
+
+Seluruh proses ini terjadi dalam hitungan milidetik, memberikan pengalaman yang mulus bagi pengguna.
+\end{contoh}
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[node distance=1.5cm, every node/.style={font=\footnotesize}, transform shape]
+  \node (browser) [class, minimum width=3cm] {Browser};
+  \node (apache) [class, minimum width=3cm, right=3cm of browser] {Apache};
+  \node (php) [object, minimum width=3cm, below=of apache] {PHP};
+  \node (mysql) [object, minimum width=3cm, below=of php] {MySQL};
+
+  \draw [arrow] ([yshift=2pt]browser.east) -- node[above, font=\footnotesize] {1. HTTP Request} ([yshift=2pt]apache.west);
+  \draw [arrow] (apache) -- node[right, font=\footnotesize] {2. Proses PHP} (php);
+  \draw [arrow] (php) -- node[right, font=\footnotesize] {3. Query SQL} (mysql);
+  \draw [arrow] (mysql.west) -- ++(-0.8,0) |- node[left, font=\footnotesize, near start] {4. Data} (php.west);
+  \draw [arrow] (php.north west) -- ++(-0.5,0) |- node[left, font=\footnotesize, near start] {5. HTML} (apache.south west);
+  \draw [arrow] ([yshift=-2pt]apache.west) -- node[below, font=\footnotesize] {6. HTTP Response} ([yshift=-2pt]browser.east);
+\end{tikzpicture}%
+}
+\caption{Alur request dari browser ke database dan kembali}
+\end{figure}
+

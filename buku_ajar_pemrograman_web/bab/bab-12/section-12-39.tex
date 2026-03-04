@@ -1,0 +1,28 @@
+\section{Namespace dan Autoloading}
+
+\textbf{Namespace} mengatasi masalah \textit{name collision} saat proyek besar memiliki class dengan nama sama. Namespace bekerja seperti folder virtual: \code{namespace App\\Models;} membuat class di dalamnya dapat diakses sebagai \code{App\\Models\\User}. Gunakan \code{use App\\Models\\User;} untuk mengimpor class tanpa menulis nama lengkap. \textbf{Autoloading} memuat file class secara otomatis saat dibutuhkan (tanpa perlu \code{require} manual), mengikuti standar PSR-4 \cite{phpRightWay}.
+
+\begin{webcode}[language=PHP, caption={Namespace dan autoloading PSR-4}]
+<?php
+// File: src/Models/Produk.php
+namespace App\Models;
+
+class Produk {
+  public function __construct(
+    private string $nama,
+    private float  $harga
+  ) {}
+
+  public function getNama(): string { return $this->nama; }
+}
+
+// File: index.php
+require_once 'vendor/autoload.php'; // Composer autoloader
+
+use App\Models\Produk;
+
+$p = new Produk("Laptop", 8500000);
+echo $p->getNama();
+?>
+\end{webcode}
+

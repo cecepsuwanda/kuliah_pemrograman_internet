@@ -1,0 +1,27 @@
+\section{Subquery (Dasar)}
+
+\textbf{Subquery} (subkueri) adalah query SQL yang ditempatkan di dalam query lain. Subquery dapat digunakan di klausa WHERE, FROM, atau SELECT. Subquery di WHERE berfungsi sebagai filter dinamis --- misalnya, ``tampilkan produk yang harganya di atas rata-rata.'' Subquery dijalankan terlebih dahulu, hasilnya digunakan oleh query utama (\textit{outer query}). Subquery harus diapit tanda kurung \cite{mysqlDocs}.
+
+Ada dua jenis subquery utama: \textbf{scalar subquery} yang mengembalikan satu nilai (digunakan dengan operator \code{=}, \code{>}, dll.) dan \textbf{list subquery} yang mengembalikan sekumpulan nilai (digunakan dengan \code{IN}, \code{NOT IN}, \code{ANY}, \code{ALL}). Untuk performa yang lebih baik pada dataset besar, JOIN sering lebih efisien daripada subquery, namun subquery lebih mudah dibaca untuk kasus tertentu \cite{mysqlGettingStarted}.
+
+\begin{webcode}[language=SQL, caption={Contoh subquery}]
+-- Produk dengan harga di atas rata-rata (scalar subquery)
+SELECT nama, harga FROM produk
+WHERE harga > (SELECT AVG(harga) FROM produk);
+
+-- Produk dari kategori yang punya lebih dari 5 item (list subquery)
+SELECT nama FROM produk
+WHERE kategori_id IN (
+  SELECT kategori_id FROM produk
+  GROUP BY kategori_id HAVING COUNT(*) > 5
+);
+
+-- Subquery di FROM (derived table)
+SELECT kategori, rata_harga
+FROM (
+  SELECT kategori_id AS kategori, AVG(harga) AS rata_harga
+  FROM produk GROUP BY kategori_id
+) AS ringkasan
+WHERE rata_harga > 100000;
+\end{webcode}
+

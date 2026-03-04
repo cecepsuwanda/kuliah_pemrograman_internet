@@ -1,0 +1,46 @@
+\section{Variabel: var, let, dan const}
+
+Variabel adalah wadah untuk menyimpan nilai data. JavaScript menyediakan tiga cara mendeklarasikan variabel: \code{var} (cara lama), \code{let} (ES6, untuk nilai yang berubah), dan \code{const} (ES6, untuk nilai yang tidak berubah). Memahami perbedaan ketiganya---terutama dalam hal \textbf{scope} dan \textbf{hoisting}---adalah fundamental untuk menulis JavaScript yang benar \cite{jsInfo}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{2cm}|P{2.5cm}|P{2.5cm}|P{2cm}|P{3cm}|}
+\hline
+\textbf{Fitur} & \textbf{var} & \textbf{let} & \textbf{const} & \textbf{Catatan} \\
+\hline
+Scope & Function & Block & Block & Block = \code{\{ \}} \\
+\hline
+Hoisting & Ya (undefined) & Ya (TDZ) & Ya (TDZ) & TDZ = temporal dead zone \\
+\hline
+Re-assign & Ya & Ya & Tidak & const wajib inisialisasi \\
+\hline
+Re-declare & Ya & Tidak & Tidak & var bisa duplikat \\
+\hline
+\end{tabular}
+\caption{Perbandingan var, let, dan const}
+\end{table}
+
+\begin{webcode}[language=JavaScript, caption={Perbedaan var, let, dan const}]
+// var: function-scoped, bisa re-declare
+var x = 10;
+var x = 20;  // OK (re-declare)
+console.log(x); // 20
+
+// let: block-scoped, bisa re-assign
+let y = 10;
+y = 20;      // OK (re-assign)
+// let y = 30; // Error! (re-declare)
+
+// const: block-scoped, tidak bisa re-assign
+const PI = 3.14159;
+// PI = 3;   // Error! (re-assign)
+
+// const dengan objek/array: isi bisa berubah
+const arr = [1, 2, 3];
+arr.push(4); // OK (mutasi isi, bukan referensi)
+\end{webcode}
+
+\begin{konsep}
+\textbf{Rekomendasi: Gunakan \code{const} sebagai default.} Mulai dengan \code{const} untuk setiap variabel. Jika nanti perlu mengubah nilainya, ubah ke \code{let}. Hindari \code{var}---scope-nya terlalu luas (function scope) dan perilaku hoisting-nya sering menyebabkan bug. Ini bukan soal preferensi; ini tentang kode yang lebih aman dan lebih mudah dibaca \cite{mdnJsGuide}.
+\end{konsep}
+

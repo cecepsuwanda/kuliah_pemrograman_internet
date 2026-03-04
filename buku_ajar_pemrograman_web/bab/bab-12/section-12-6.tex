@@ -1,0 +1,47 @@
+\section{Mengubah Struktur: ALTER TABLE}
+
+Setelah tabel dibuat, kebutuhan sering berubah --- perlu kolom baru, mengubah tipe data, atau menghapus kolom yang tidak digunakan. Perintah \code{ALTER TABLE} memungkinkan modifikasi struktur tabel tanpa menghapus dan membuat ulang tabel. Ini sangat penting di lingkungan produksi karena data yang sudah ada tetap terjaga. Operasi utama: \code{ADD COLUMN} (menambah kolom), \code{MODIFY COLUMN} (mengubah tipe/constraint), \code{DROP COLUMN} (menghapus kolom), dan \code{RENAME COLUMN} (mengganti nama kolom) \cite{mysqlDocs}.
+
+\begin{webcode}[language=SQL, caption={Contoh penggunaan ALTER TABLE}]
+-- Menambah kolom baru
+ALTER TABLE produk ADD COLUMN berat DECIMAL(8,2) AFTER stok;
+
+-- Mengubah tipe data kolom
+ALTER TABLE produk MODIFY COLUMN nama VARCHAR(255) NOT NULL;
+
+-- Mengganti nama kolom
+ALTER TABLE produk RENAME COLUMN dibuat TO created_at;
+
+-- Menghapus kolom
+ALTER TABLE produk DROP COLUMN berat;
+
+-- Menambah index
+ALTER TABLE produk ADD INDEX idx_kategori (kategori);
+
+-- Menambah foreign key
+ALTER TABLE pesanan ADD CONSTRAINT fk_user
+  FOREIGN KEY (user_id) REFERENCES pengguna(id);
+\end{webcode}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{4cm}|P{8.5cm}|}
+\hline
+\textbf{Perintah ALTER} & \textbf{Fungsi} \\
+\hline
+\code{ADD COLUMN} & Menambah kolom baru \\
+\hline
+\code{MODIFY COLUMN} & Mengubah tipe data atau constraint \\
+\hline
+\code{DROP COLUMN} & Menghapus kolom (dan datanya!) \\
+\hline
+\code{RENAME COLUMN} & Mengganti nama kolom \\
+\hline
+\code{ADD INDEX} & Menambah index untuk performa \\
+\hline
+\code{ADD CONSTRAINT} & Menambah foreign key atau constraint \\
+\hline
+\end{tabular}
+\caption{Ringkasan perintah ALTER TABLE}
+\end{table}
+

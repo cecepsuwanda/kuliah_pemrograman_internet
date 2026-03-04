@@ -1,0 +1,26 @@
+\section{CREATE DATABASE dan USE}
+
+Sebelum menyimpan data, langkah pertama adalah membuat \textbf{database} --- wadah logis yang menampung kumpulan tabel terkait. Perintah \code{CREATE DATABASE nama\_database;} membuat database baru; tambahkan \code{IF NOT EXISTS} agar tidak error jika database sudah ada. Konvensi penamaan: gunakan huruf kecil, tanpa spasi (gunakan underscore), dan nama yang deskriptif --- misalnya \code{toko\_online}, \code{sistem\_akademik}, atau \code{blog\_pribadi}. Setelah dibuat, database dapat dilihat dengan \code{SHOW DATABASES;} \cite{mysqlDocs}.
+
+Untuk bekerja dengan database tertentu, gunakan perintah \code{USE nama\_database;}. Semua perintah SQL berikutnya (CREATE TABLE, SELECT, INSERT, dll.) akan beroperasi pada database yang sedang aktif. Untuk menghapus database (beserta seluruh tabel dan datanya), gunakan \code{DROP DATABASE nama\_database;} --- perintah ini \textbf{permanen dan tidak dapat di-undo}, sehingga harus digunakan dengan sangat hati-hati \cite{mysqlGettingStarted}.
+
+\begin{webcode}[language=SQL, caption={Membuat dan menggunakan database}]
+-- Membuat database dengan charset UTF-8
+CREATE DATABASE IF NOT EXISTS toko_online
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+-- Menggunakan database
+USE toko_online;
+
+-- Melihat database yang sedang aktif
+SELECT DATABASE();
+
+-- Menghapus database (HATI-HATI!)
+-- DROP DATABASE toko_online;
+\end{webcode}
+
+\begin{catatan}
+Selalu gunakan charset \code{utf8mb4} dan collation \code{utf8mb4\_unicode\_ci} saat membuat database baru. Charset \code{utf8mb4} mendukung seluruh karakter Unicode termasuk emoji, sedangkan \code{utf8} bawaan MySQL hanya mendukung 3 byte (tidak lengkap). Pengaturan ini dapat dilakukan saat CREATE DATABASE atau di level server melalui \code{my.cnf}/\code{my.ini}.
+\end{catatan}
+

@@ -1,0 +1,84 @@
+\section{Prototyping, Iterasi, dan Alat Desain (Figma)}
+
+Setelah wireframe dan mockup tersedia, langkah selanjutnya adalah membuat \textbf{prototipe}---versi interaktif dari desain yang dapat ``diklik'' dan diuji oleh pengguna. Prototipe menjembatani jarak antara desain statis (mockup) dan produk akhir (kode). Dengan prototipe, tim dapat memvalidasi alur interaksi, mengidentifikasi masalah usability, dan mengiterasi desain sebelum satu baris kode pun ditulis \cite{webdevLearn}.
+
+\subsection{Jenis Prototipe}
+
+Prototipe dapat dibedakan berdasarkan tingkat detail dan interaktivitasnya. \textbf{Low-fidelity prototype} bisa berupa wireframe kertas yang diklik secara simulasi (paper prototyping), sedangkan \textbf{high-fidelity prototype} menggunakan alat desain yang mendukung transisi, animasi, dan interaksi realistis. Pemilihan jenis prototipe bergantung pada tahap proyek dan tujuan pengujian \cite{figmaDocs}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3cm}|P{4.5cm}|P{4.5cm}|}
+\hline
+\textbf{Aspek} & \textbf{Low-Fi Prototype} & \textbf{High-Fi Prototype} \\
+\hline
+Fidelitas visual & Rendah (sketsa, wireframe) & Tinggi (mockup interaktif) \\
+\hline
+Interaktivitas & Minimal / simulasi manual & Navigasi, transisi, animasi \\
+\hline
+Waktu pembuatan & Sangat cepat (menit) & Lebih lama (jam--hari) \\
+\hline
+Tujuan testing & Validasi alur dan struktur & Validasi interaksi dan visual \\
+\hline
+Alat & Kertas, Whimsical & Figma, Adobe XD, InVision \\
+\hline
+\end{tabular}
+\caption{Perbandingan tipe prototipe berdasarkan fidelitas}
+\end{table}
+
+\subsection{Proses Iterasi Desain}
+
+Desain yang baik jarang lahir dari satu iterasi. \textbf{Iterasi} adalah siklus berulang: desain $\rightarrow$ prototipe $\rightarrow$ uji $\rightarrow$ perbaiki $\rightarrow$ desain ulang. Setiap siklus iterasi menghasilkan versi desain yang lebih baik berdasarkan temuan dari pengujian. Proses ini sering disebut \textit{design thinking loop} atau \textit{human-centered design process} \cite{ixdf}.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[node distance=2.5cm, transform shape, every node/.style={font=\footnotesize}]
+  \node (design) [class, minimum width=3cm] {Desain (Wireframe/Mockup)};
+  \node (prototype) [class, minimum width=3cm, right=of design] {Prototipe (Interaktif)};
+  \node (test) [class, minimum width=3cm, right=of prototype] {Uji (Usability Test)};
+  \node (analyze) [class, minimum width=3cm, below=2cm of test] {Analisis Temuan};
+  \node (improve) [class, minimum width=3cm, below=2cm of design] {Perbaiki Desain};
+  
+  \draw [arrow] (design) -- (prototype);
+  \draw [arrow] (prototype) -- (test);
+  \draw [arrow] (test) -- (analyze);
+  \draw [arrow] (analyze) -- (improve);
+  \draw [arrow] (improve) -- (design);
+  
+  \node[font=\scriptsize, text=gray] at (5.5, -1) {Iterasi sampai};
+  \node[font=\scriptsize, text=gray] at (5.5, -1.5) {usability memadai};
+\end{tikzpicture}%
+}
+\caption{Siklus iterasi desain: dari desain hingga perbaikan berulang}
+\end{figure}
+
+\subsection{Pengenalan Figma}
+
+\textbf{Figma} adalah alat desain antarmuka berbasis web yang sangat populer di industri. Figma memungkinkan desainer membuat wireframe, mockup, dan prototipe interaktif dalam satu platform. Keunggulan utama Figma adalah: (1) \textbf{berbasis web}---tidak perlu instal, bisa diakses dari browser; (2) \textbf{kolaborasi real-time}---beberapa desainer dapat bekerja di file yang sama secara bersamaan; (3) \textbf{gratis untuk pelajar}---tersedia paket edukasi gratis; dan (4) \textbf{prototyping built-in}---bisa membuat prototipe interaktif langsung tanpa alat tambahan \cite{figmaDocs}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3cm}|P{3cm}|P{3cm}|P{3cm}|}
+\hline
+\textbf{Fitur} & \textbf{Figma} & \textbf{Adobe XD} & \textbf{Sketch} \\
+\hline
+Platform & Web (semua OS) & Desktop (Win/Mac) & Desktop (Mac only) \\
+\hline
+Kolaborasi & Real-time & Terbatas & Via plugin \\
+\hline
+Prototipe & Built-in & Built-in & Via plugin \\
+\hline
+Harga & Gratis (starter) & Berbayar & Berbayar \\
+\hline
+Design system & Auto Layout, Components & Components & Symbols \\
+\hline
+\end{tabular}
+\caption{Perbandingan alat desain antarmuka populer}
+\end{table}
+
+Fitur-fitur kunci Figma yang relevan untuk mahasiswa antara lain: \textbf{Frame} (artboard untuk halaman), \textbf{Components} (elemen reusable seperti tombol, kartu), \textbf{Auto Layout} (layout responsif otomatis), \textbf{Prototyping} (menghubungkan frame dengan interaksi klik), dan \textbf{Inspect} (melihat spesifikasi CSS dari elemen desain). Dengan Inspect, pengembang dapat langsung melihat kode CSS yang dibutuhkan untuk mereplikasi desain---termasuk warna, font, spacing, dan ukuran \cite{figmaDocs}.
+
+\begin{konsep}
+\textbf{Iterasi $\neq$ Revisi tanpa akhir.} Iterasi yang efektif memiliki tujuan yang jelas di setiap siklus---misalnya ``iterasi pertama untuk validasi alur navigasi, iterasi kedua untuk validasi visual, iterasi ketiga untuk aksesibilitas.'' Tanpa tujuan yang jelas, proses iterasi bisa menjadi \textit{scope creep} yang tidak produktif. Tentukan \textit{exit criteria}---kapan desain dianggap ``cukup baik'' untuk dikembangkan.
+\end{konsep}

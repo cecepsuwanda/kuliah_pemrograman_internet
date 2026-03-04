@@ -1,0 +1,25 @@
+\section{Timer: setTimeout dan setInterval}
+
+\code{setTimeout(callback, ms)} menjalankan callback \textbf{sekali} setelah jeda milidetik. \code{setInterval(callback, ms)} menjalankan callback \textbf{berulang} setiap interval. Keduanya mengembalikan ID yang dapat digunakan untuk membatalkan: \code{clearTimeout(id)} dan \code{clearInterval(id)}. Timer bersifat asinkron---kode setelah \code{setTimeout} dieksekusi langsung tanpa menunggu \cite{jsInfo}.
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{|P{4cm}|P{3.2cm}|P{2.8cm}|}
+\hline
+\textbf{Fungsi} & \textbf{Perilaku} & \textbf{Pembatalan} \\
+\hline
+\code{setTimeout(fn, ms)} & Sekali, setelah jeda & \code{clearTimeout(id)} \\
+\hline
+\code{setInterval(fn, ms)} & Berulang, setiap interval & \code{clearInterval(id)} \\
+\hline
+\code{requestAnimationFrame(fn)} & Sebelum repaint (60fps) & \code{cancel}\\[\medskipamount]\code{AnimationFrame(id)} \\
+\hline
+\end{tabular}
+\caption{Timer JavaScript dan cara pembatalannya}
+\end{table}
+
+\begin{konsep}
+\textbf{Debounce dan Throttle.} Untuk event yang sering terjadi (scroll, resize, input), gunakan \textit{debounce} (tunggu sampai event berhenti, lalu jalankan sekali) atau \textit{throttle} (jalankan maksimal sekali per interval). Debounce cocok untuk search-as-you-type; throttle untuk scroll handler. Keduanya menggunakan \code{setTimeout} secara internal \cite{mdnJsGuide}.
+\end{konsep}
+

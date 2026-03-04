@@ -1,0 +1,28 @@
+\section{JSON: parse dan stringify}
+
+JSON (JavaScript Object Notation) adalah format pertukaran data berbasis teks yang ringan dan mudah dibaca. JSON digunakan secara luas untuk komunikasi antara client dan server (REST API). Sintaks JSON mirip objek literal JavaScript, tetapi key \textbf{harus} dalam kutip ganda dan tidak mendukung fungsi, \code{undefined}, atau komentar \cite{jsInfo}.
+
+\begin{webcode}[language=JavaScript, caption={JSON parse dan stringify}]
+// Objek JS ke JSON string
+const user = { name: "Budi", age: 21, hobbies: ["coding", "gaming"] };
+const jsonStr = JSON.stringify(user);
+// '{"name":"Budi","age":21,"hobbies":["coding","gaming"]}'
+
+// JSON string ke objek JS
+const parsed = JSON.parse(jsonStr);
+console.log(parsed.name); // "Budi"
+
+// Pretty print
+console.log(JSON.stringify(user, null, 2));
+
+// Reviver function (transformasi saat parse)
+const data = JSON.parse('{"date":"2024-01-15"}', (key, val) => {
+  if (key === "date") return new Date(val);
+  return val;
+});
+\end{webcode}
+
+\begin{konsep}
+\textbf{JSON dan Deep Clone.} \code{JSON.parse(JSON.stringify(obj))} adalah cara cepat untuk deep-clone objek sederhana. Namun, ini gagal untuk \code{Date} (menjadi string), \code{undefined}, fungsi, dan referensi siklikal. Untuk deep clone yang handal, gunakan \code{structuredClone(obj)} (API modern) atau library seperti Lodash \code{\_.cloneDeep()} \cite{mdnJsGuide}.
+\end{konsep}
+

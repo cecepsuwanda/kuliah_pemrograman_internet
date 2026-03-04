@@ -1,0 +1,78 @@
+\section{Memahami Pengguna: Persona, Skenario, dan Konteks}
+
+Desain yang baik dimulai dari pemahaman mendalam tentang \textbf{siapa pengguna} dan \textbf{dalam konteks apa} mereka menggunakan aplikasi. Tanpa pemahaman ini, pengembang cenderung mendesain berdasarkan asumsi sendiri---yang seringkali tidak sesuai dengan kebutuhan pengguna sebenarnya. Oleh karena itu, sebelum membuat wireframe atau menulis kode, tim perlu membangun representasi pengguna yang konkret melalui \textbf{persona}, \textbf{skenario penggunaan}, dan analisis \textbf{konteks penggunaan} \cite{nngroup}.
+
+\subsection{Persona Pengguna}
+
+\textbf{Persona} adalah representasi fiktif dari pengguna tipikal, yang disusun berdasarkan data hasil riset (wawancara, survei, analisis data). Persona membantu tim menjaga fokus pada kebutuhan pengguna nyata, bukan pada preferensi pribadi tim. Sebuah persona yang baik mencakup informasi demografis, tujuan, frustasi, perilaku digital, dan konteks penggunaan. Persona bukan asal karangan---melainkan sintesis dari pola yang ditemukan dalam data riset \cite{ixdf}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3.5cm}|P{8.5cm}|}
+\hline
+\textbf{Elemen Persona} & \textbf{Deskripsi} \\
+\hline
+Nama \& Foto & Nama fiktif dan foto representatif agar persona terasa ``nyata'' \\
+\hline
+Demografi & Usia, pekerjaan, lokasi, tingkat pendidikan \\
+\hline
+Tujuan (\textit{Goals}) & Apa yang ingin dicapai pengguna dengan menggunakan produk \\
+\hline
+Frustrasi (\textit{Pain Points}) & Kendala atau masalah yang dihadapi dengan solusi saat ini \\
+\hline
+Perilaku Digital & Perangkat yang digunakan, tingkat literasi digital, kebiasaan browsing \\
+\hline
+Konteks Penggunaan & Kapan, di mana, dan dalam situasi apa menggunakan aplikasi \\
+\hline
+Kutipan (\textit{Quote}) & Kalimat yang merangkum perspektif persona \\
+\hline
+\end{tabular}
+\caption{Template elemen persona pengguna}
+\end{table}
+
+\begin{contoh}
+\textbf{Contoh Persona: Aplikasi Catatan Harian}
+
+\textbf{Nama:} Budi Santoso\\
+\textbf{Usia:} 22 tahun\\
+\textbf{Pekerjaan:} Mahasiswa Teknik Informatika\\
+\textbf{Perangkat:} Smartphone Android (utama) dan laptop (sekunder)\\
+\textbf{Tujuan:} Mencatat kegiatan harian, ide proyek, dan tugas kuliah secara cepat kapan saja.\\
+\textbf{Frustrasi:} Aplikasi catatan sebelumnya terlalu lambat dimuat, tidak responsif di HP, dan sulit menemukan catatan lama.\\
+\textbf{Konteks:} Sering mencatat di perjalanan (bus kampus), di kelas sebelum kuliah dimulai, dan di malam hari saat review tugas.\\
+\textbf{Kutipan:} ``Saya cuma butuh yang simpel, cepat, dan bisa langsung ketik tanpa loading lama.''
+\end{contoh}
+
+\subsection{Skenario Penggunaan}
+
+\textbf{Skenario penggunaan} (\textit{use scenario}) adalah cerita naratif yang menggambarkan bagaimana persona menggunakan produk dalam situasi nyata. Skenario berbeda dari user flow---skenario lebih berorientasi pada \textit{konteks dan motivasi}, sedangkan user flow lebih berorientasi pada \textit{langkah-langkah interaksi}. Skenario membantu tim memahami ``mengapa'' di balik setiap tindakan pengguna \cite{nngroup}.
+
+\begin{contoh}
+\textbf{Skenario: Budi Mencatat Ide di Bus}
+
+Budi sedang di bus menuju kampus. Tiba-tiba ia teringat ide untuk proyek akhir semester. Ia membuka aplikasi catatan di HP-nya, mengetuk tombol ``+'' di pojok bawah, lalu mengetik judul ``Ide Proyek: Sistem Reservasi Perpustakaan'' dan beberapa poin isi. Karena bus hampir tiba di halte, ia langsung menutup aplikasi---catatan otomatis tersimpan. Sore harinya, ia membuka laptop dan melanjutkan catatan tersebut dengan detail tambahan.
+\end{contoh}
+
+\subsection{Konteks Penggunaan}
+
+Konteks penggunaan mencakup faktor-faktor lingkungan yang mempengaruhi cara pengguna berinteraksi dengan aplikasi. Faktor ini meliputi \textbf{perangkat} (mobile, desktop, tablet), \textbf{koneksi internet} (cepat, lambat, offline), \textbf{lingkungan fisik} (terang, gelap, bising), dan \textbf{kondisi pengguna} (terburu-buru, santai, multitasking). Memahami konteks membantu pengembang membuat keputusan desain yang tepat---misalnya memilih target sentuh yang besar untuk penggunaan satu tangan di mobile, atau menyediakan mode offline untuk pengguna dengan koneksi tidak stabil \cite{webdevLearn}.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[node distance=2.2cm, transform shape, every node/.style={font=\footnotesize}]
+  \node (persona) [class, minimum width=3.5cm] {Persona\\(Siapa?)};
+  \node (skenario) [class, minimum width=3.5cm, right=of persona] {Skenario\\(Mengapa \& Kapan?)};
+  \node (konteks) [class, minimum width=3.5cm, right=of skenario] {Konteks\\(Di mana \& Bagaimana?)};
+  \node (desain) [object, minimum width=3.5cm, below=1.8cm of skenario] {Keputusan Desain\\yang Tepat Sasaran};
+  \draw [arrow] (persona) -- (desain);
+  \draw [arrow] (skenario) -- (desain);
+  \draw [arrow] (konteks) -- (desain);
+\end{tikzpicture}%
+}
+\caption{Hubungan persona, skenario, dan konteks dalam pengambilan keputusan desain}
+\end{figure}
+
+\begin{catatan}
+Persona dan skenario bukan dokumen yang dibuat sekali lalu ditinggalkan. Keduanya harus diperbarui seiring bertambahnya pemahaman tentang pengguna---misalnya setelah usability testing atau peluncuran versi beta. Tim yang baik menempatkan persona di tempat yang terlihat (dinding ruang kerja, wiki internal) agar selalu diingat saat mengambil keputusan desain.
+\end{catatan}

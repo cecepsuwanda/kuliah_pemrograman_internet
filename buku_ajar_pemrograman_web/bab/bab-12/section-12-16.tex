@@ -1,0 +1,90 @@
+\section{INNER JOIN, LEFT JOIN, RIGHT JOIN}
+
+\textbf{JOIN} adalah operasi untuk menggabungkan baris dari dua atau lebih tabel berdasarkan kolom yang berhubungan (biasanya foreign key dan primary key). \code{INNER JOIN} mengembalikan hanya baris yang memiliki pasangan di \textbf{kedua} tabel. \code{LEFT JOIN} mengembalikan semua baris dari tabel kiri dan baris yang cocok dari tabel kanan; jika tidak ada pasangan, kolom dari tabel kanan bernilai NULL. \code{RIGHT JOIN} sebaliknya: semua baris dari tabel kanan \cite{mysqlDocs}.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  circle/.style={draw, minimum size=2cm, font=\small},
+  node distance=0.5cm
+]
+  % INNER JOIN
+  \begin{scope}[xshift=0cm]
+    \node[circle, fill=blue!10] (a1) {A};
+    \node[circle, fill=green!10, right=-0.7cm of a1] (b1) {B};
+    \begin{scope}
+      \clip (a1.center) circle (1cm);
+      \fill[orange!30] (b1.center) circle (1cm);
+    \end{scope}
+    \draw (a1.center) circle (1cm);
+    \draw (b1.center) circle (1cm);
+    \node[below=0.8cm of a1, xshift=0.35cm, font=\footnotesize\bfseries] {INNER JOIN};
+  \end{scope}
+
+  % LEFT JOIN
+  \begin{scope}[xshift=4.5cm]
+    \node[circle, fill=orange!30] (a2) {A};
+    \node[circle, fill=green!10, right=-0.7cm of a2] (b2) {B};
+    \begin{scope}
+      \clip (a2.center) circle (1cm);
+      \fill[orange!30] (b2.center) circle (1cm);
+    \end{scope}
+    \draw (a2.center) circle (1cm);
+    \draw (b2.center) circle (1cm);
+    \node[below=0.8cm of a2, xshift=0.35cm, font=\footnotesize\bfseries] {LEFT JOIN};
+  \end{scope}
+
+  % RIGHT JOIN
+  \begin{scope}[xshift=9cm]
+    \node[circle, fill=blue!10] (a3) {A};
+    \node[circle, fill=orange!30, right=-0.7cm of a3] (b3) {B};
+    \begin{scope}
+      \clip (b3.center) circle (1cm);
+      \fill[orange!30] (a3.center) circle (1cm);
+    \end{scope}
+    \draw (a3.center) circle (1cm);
+    \draw (b3.center) circle (1cm);
+    \node[below=0.8cm of a3, xshift=0.35cm, font=\footnotesize\bfseries] {RIGHT JOIN};
+  \end{scope}
+\end{tikzpicture}
+\caption{Visualisasi Venn diagram untuk jenis-jenis JOIN}
+\end{figure}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{3cm}|P{9.5cm}|}
+\hline
+\textbf{Jenis JOIN} & \textbf{Baris yang Dikembalikan} \\
+\hline
+\code{INNER JOIN} & Hanya baris yang ada pasangannya di kedua tabel \\
+\hline
+\code{LEFT JOIN} & Semua baris tabel kiri + pasangan dari kanan (NULL jika tidak ada) \\
+\hline
+\code{RIGHT JOIN} & Semua baris tabel kanan + pasangan dari kiri (NULL jika tidak ada) \\
+\hline
+\code{CROSS JOIN} & Semua kombinasi baris (cartesian product) \\
+\hline
+\end{tabular}
+\caption{Perbandingan jenis-jenis JOIN}
+\end{table}
+
+\begin{webcode}[language=SQL, caption={Contoh penggunaan JOIN}]
+-- INNER JOIN: produk beserta nama kategorinya
+SELECT p.nama, p.harga, k.nama AS kategori
+FROM produk p
+INNER JOIN kategori k ON p.kategori_id = k.id;
+
+-- LEFT JOIN: semua produk, termasuk yang belum punya kategori
+SELECT p.nama, p.harga, IFNULL(k.nama, 'Tanpa Kategori') AS kategori
+FROM produk p
+LEFT JOIN kategori k ON p.kategori_id = k.id;
+
+-- Multi-table JOIN
+SELECT p.nama AS produk, k.nama AS kategori, u.nama AS pembeli
+FROM pesanan_detail pd
+INNER JOIN produk p ON pd.produk_id = p.id
+INNER JOIN kategori k ON p.kategori_id = k.id
+INNER JOIN pesanan ps ON pd.pesanan_id = ps.id
+INNER JOIN pengguna u ON ps.user_id = u.id;
+\end{webcode}
+

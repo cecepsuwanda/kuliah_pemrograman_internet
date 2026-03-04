@@ -1,0 +1,36 @@
+\section{Mobile-First dan Breakpoint}
+
+Pendekatan \textbf{mobile-first} menulis CSS dasar untuk layar kecil terlebih dahulu, kemudian menambahkan aturan untuk layar lebih besar menggunakan \code{@media (min-width: ...)}. Ini adalah kebalikan dari pendekatan desktop-first yang menggunakan \code{max-width}. Mobile-first menghasilkan CSS yang lebih ringan karena mobile hanya memuat aturan dasar, sementara aturan tambahan hanya ditambahkan untuk layar yang lebih besar \cite{webdevCss}.
+
+Breakpoint adalah titik lebar viewport di mana layout berubah. Breakpoint umum: 480px (mobile), 768px (tablet), 1024px (desktop kecil), 1200px (desktop besar). Namun, breakpoint sebaiknya dipilih berdasarkan kapan konten membutuhkan penyesuaian, bukan berdasarkan perangkat tertentu. Dengan Flexbox/Grid yang responsif secara alamiah, jumlah breakpoint yang diperlukan sering lebih sedikit dari yang diperkirakan \cite{mdnCss}.
+
+\begin{webcode}[language=CSS, caption={Pendekatan mobile-first}]
+/* Mobile (base) */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+/* Tablet ke atas */
+@media (min-width: 768px) {
+  .card-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Desktop ke atas */
+@media (min-width: 1024px) {
+  .card-grid { grid-template-columns: repeat(3, 1fr); }
+  .sidebar { display: block; width: 250px; }
+}
+\end{webcode}
+
+\begin{konsep}
+\textbf{Mobile-First vs Desktop-First:}
+\begin{itemize}
+  \item \textbf{Mobile-first} (\code{min-width}): CSS base untuk mobile, lalu tambah fitur di layar besar. Lebih ringan di mobile; direkomendasikan.
+  \item \textbf{Desktop-first} (\code{max-width}): CSS base untuk desktop, lalu kurangi fitur di layar kecil. Lebih intuitif saat mendesain dari mockup desktop, tapi menghasilkan CSS lebih berat di mobile.
+  \item Kedua pendekatan bisa dicampur, tetapi konsistensi meningkatkan maintainability \cite{cssTricks}.
+\end{itemize}
+\end{konsep}
+

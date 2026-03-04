@@ -1,12 +1,59 @@
-\section{Sintaks Dasar PHP dan Output}
-PHP adalah bahasa pemrograman server-side yang berjalan di server dan menghasilkan output HTML. Anda dapat menulis variabel, percabangan, dan perulangan untuk memproses data. Konsep dasar ini membuat halaman menjadi dinamis \cite{phpManual}.
+\section{Pengenalan PHP dan Perannya dalam Pemrograman Server-Side Web}
 
-Kode PHP ditulis di dalam tag \code{<?php ... ?>} dan bisa disisipkan ke dalam file HTML. Saat server memproses file, PHP akan menghasilkan output yang dikirim ke browser. Dengan memahami alur ini, Anda bisa membangun halaman yang berubah sesuai data.
+PHP (PHP: Hypertext Preprocessor) adalah bahasa pemrograman yang berjalan di \textbf{server} dan digunakan untuk membangun aplikasi web dinamis. Berbeda dengan HTML atau JavaScript yang diproses di browser (sisi klien), kode PHP dieksekusi sepenuhnya di server sehingga dapat mengakses basis data, mengolah data form, mengelola file di server, dan menghasilkan halaman HTML yang disesuaikan dengan konteks pengguna. PHP pertama kali diciptakan oleh Rasmus Lerdorf pada tahun 1995 sebagai sekumpulan skrip CGI untuk melacak pengunjung halaman web-nya, dan sejak itu berkembang menjadi salah satu bahasa server-side paling populer di dunia \cite{phpManual}.
 
-\begin{webcode}[language=PHP, caption={Contoh Output PHP}]
-<?php
-$nama = "Alya";
-echo "Halo, " . $nama;
-?>
-\end{webcode}
+Peran PHP dalam ekosistem web sangat sentral karena menjadi penghubung antara browser pengguna dan sumber daya server seperti basis data. Ketika pengguna mengisi form atau mengklik tautan, permintaan HTTP dikirim ke server; PHP menerima permintaan tersebut, memprosesnya (misalnya melakukan query ke MySQL), lalu mengirimkan hasilnya kembali ke browser dalam bentuk HTML. Siklus ini disebut \textit{request-response cycle} dan menjadi inti dari pemrograman web dinamis. Menurut survei W3Techs, PHP digunakan oleh lebih dari 75\% situs web yang menggunakan bahasa server-side, termasuk platform besar seperti WordPress, Facebook (awalnya), dan Wikipedia \cite{w3schoolsPhp}.
+
+Pemahaman PHP dasar menjadi fondasi penting sebelum mempelajari topik lanjutan seperti Object-Oriented Programming (OOP), koneksi database dengan PDO/MySQLi, manajemen session, dan keamanan web. PHP memiliki komunitas yang sangat besar, dokumentasi resmi yang lengkap, dan ribuan framework serta library yang mempermudah pengembangan. Dengan mempelajari PHP, mahasiswa memiliki kemampuan untuk membangun aplikasi web lengkap --- mulai dari halaman statis hingga sistem informasi berbasis database yang kompleks \cite{phpRightWay}.
+
+\begin{catatan}
+PHP bersifat \textit{interpreted}: kode dieksekusi baris per baris oleh mesin PHP (Zend Engine) tanpa proses kompilasi terpisah. Ini membuat siklus pengembangan cepat karena perubahan kode langsung terlihat hasilnya dengan me-refresh browser.
+\end{catatan}
+
+Berikut adalah perbandingan PHP dengan bahasa server-side populer lain yang sering digunakan dalam pengembangan web modern.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{2.5cm}|P{2cm}|P{2.5cm}|P{2.5cm}|P{2.5cm}|}
+\hline
+\textbf{Aspek} & \textbf{PHP} & \textbf{Node.js} & \textbf{Python} & \textbf{Ruby} \\
+\hline
+Paradigma & Multi & Event-driven & Multi & OOP \\
+\hline
+Tipe & Dinamis & Dinamis & Dinamis & Dinamis \\
+\hline
+Framework Populer & Laravel, CodeIgniter & Express, Next.js & Django, Flask & Rails \\
+\hline
+Basis Data & MySQL, PostgreSQL & MongoDB, MySQL & PostgreSQL, SQLite & PostgreSQL \\
+\hline
+Kurva Belajar & Mudah & Sedang & Mudah & Sedang \\
+\hline
+Hosting & Sangat luas & Cukup luas & Cukup luas & Terbatas \\
+\hline
+\end{tabular}
+\caption{Perbandingan PHP dengan bahasa server-side lain}
+\end{table}
+
+Diagram berikut mengilustrasikan arsitektur dasar aplikasi web berbasis PHP, di mana browser sebagai klien berkomunikasi dengan server yang menjalankan PHP dan basis data.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners, minimum width=2.8cm, minimum height=1.2cm, align=center, font=\small},
+  arrow/.style={-Stealth, thick}
+]
+  \node[box, fill=blue!15] (browser) {Browser\\(Klien)};
+  \node[box, fill=orange!20, right=2.5cm of browser] (server) {Web Server\\(Apache/Nginx)};
+  \node[box, fill=green!15, right=2.5cm of server] (php) {Mesin PHP\\(Zend Engine)};
+  \node[box, fill=yellow!20, below=1.5cm of php] (db) {Basis Data\\(MySQL)};
+
+  \draw[arrow] (browser) -- node[above, font=\footnotesize]{HTTP Request} (server);
+  \draw[arrow] (server) -- node[above, font=\footnotesize]{.php file} (php);
+  \draw[arrow] (php) -- node[right, font=\footnotesize]{Query SQL} (db);
+  \draw[arrow] (db) -- node[left, font=\footnotesize]{Hasil data} (php);
+  \draw[arrow] (php) -- node[below, font=\footnotesize]{HTML output} (server);
+  \draw[arrow] (server) -- node[below, font=\footnotesize]{HTTP Response} (browser);
+\end{tikzpicture}
+\caption{Arsitektur aplikasi web berbasis PHP}
+\end{figure}
 

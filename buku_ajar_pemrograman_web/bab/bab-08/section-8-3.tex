@@ -1,0 +1,23 @@
+\section{Sintaks Dasar: Statement, Komentar, dan Aturan Penulisan}
+
+Program JavaScript terdiri dari urutan \textbf{statement}---instruksi yang dieksekusi satu per satu dari atas ke bawah. Setiap statement biasanya diakhiri dengan titik koma (\code{;}), meskipun JavaScript memiliki fitur \textit{automatic semicolon insertion} (ASI) yang menambahkan titik koma secara otomatis di beberapa kasus. Praktik terbaik: \textbf{selalu tulis titik koma secara eksplisit} untuk menghindari bug yang sulit dilacak \cite{jsInfo}.
+
+JavaScript bersifat \textbf{case-sensitive}: \code{myVariable} dan \code{myvariable} adalah dua identifier berbeda. Nama variabel dan fungsi harus dimulai dengan huruf, underscore (\code{\_}), atau dollar sign (\code{\$}), dan tidak boleh menggunakan kata kunci reserved (\code{if}, \code{for}, \code{function}, dll.). Konvensi penamaan yang umum adalah \textbf{camelCase} untuk variabel dan fungsi (\code{firstName}), \textbf{PascalCase} untuk class (\code{UserProfile}), dan \textbf{UPPER\_SNAKE\_CASE} untuk konstanta (\code{MAX\_SIZE}) \cite{mdnJsGuide}.
+
+\begin{webcode}[language=JavaScript, caption={Statement, komentar, dan penamaan}]
+// Komentar satu baris
+/* Komentar
+   multi-baris */
+
+let firstName = "Budi";      // camelCase
+const MAX_RETRIES = 3;        // UPPER_SNAKE_CASE
+let isLoggedIn = true;        // boolean
+
+console.log(firstName);       // Output: Budi
+console.log(typeof isLoggedIn); // Output: boolean
+\end{webcode}
+
+\begin{konsep}
+\textbf{Strict Mode.} Menambahkan \code{"use strict";} di awal file atau fungsi mengaktifkan mode ketat yang melarang beberapa praktik rawan error: variabel tanpa deklarasi menjadi error, assignment ke properti read-only gagal, dan beberapa sintaks yang deprecated dilarang. ES6 modules secara otomatis berjalan di strict mode. Gunakan strict mode untuk kode yang lebih aman dan mudah di-debug \cite{jsInfo}.
+\end{konsep}
+

@@ -1,0 +1,24 @@
+\section{VIEW: Membuat dan Menggunakan}
+
+\textbf{VIEW} adalah query SELECT yang disimpan sebagai tabel virtual di database. View tidak menyimpan data sendiri --- setiap kali diakses, MySQL menjalankan query yang mendasarinya. View berguna untuk: (1) menyederhanakan query kompleks (terutama yang menggunakan JOIN); (2) membatasi akses data --- berikan user akses ke view, bukan ke tabel asli; (3) menyediakan interface yang konsisten meskipun struktur tabel berubah \cite{mysqlDocs}.
+
+\begin{webcode}[language=SQL, caption={Membuat dan menggunakan VIEW}]
+-- Membuat VIEW: daftar produk dengan nama kategori
+CREATE VIEW v_produk_kategori AS
+SELECT p.id, p.nama, p.harga, p.stok, k.nama AS kategori
+FROM produk p
+LEFT JOIN kategori k ON p.kategori_id = k.id;
+
+-- Menggunakan view seperti tabel biasa
+SELECT * FROM v_produk_kategori WHERE kategori = 'Elektronik';
+
+-- VIEW untuk ringkasan
+CREATE VIEW v_ringkasan_kategori AS
+SELECT k.nama AS kategori, COUNT(p.id) AS jumlah, AVG(p.harga) AS rata_harga
+FROM kategori k LEFT JOIN produk p ON k.id = p.kategori_id
+GROUP BY k.nama;
+
+-- Menghapus view
+DROP VIEW IF EXISTS v_produk_kategori;
+\end{webcode}
+

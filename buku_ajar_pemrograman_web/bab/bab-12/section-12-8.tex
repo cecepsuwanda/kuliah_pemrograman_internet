@@ -1,0 +1,51 @@
+\section[Operator Perbandingan dan Logika dalam WHERE]{Operator Perbandingan dan Logika dalam WHERE}
+
+Klausa \code{WHERE} menggunakan \textbf{operator} untuk mendefinisikan kondisi penyaringan. Operator perbandingan membandingkan nilai kolom dengan nilai tertentu, sedangkan operator logika menggabungkan beberapa kondisi. Pemahaman operator ini penting karena hampir setiap query SELECT, UPDATE, dan DELETE menggunakan WHERE untuk menentukan baris mana yang terpengaruh \cite{mysqlDocs}.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{2.5cm}|P{5cm}|P{5cm}|}
+\hline
+\textbf{Operator} & \textbf{Fungsi} & \textbf{Contoh} \\
+\hline
+\code{=} & Sama dengan & \code{WHERE status = 'aktif'} \\
+\hline
+\code{<>} atau \code{!=} & Tidak sama dengan & \code{WHERE id <> 5} \\
+\hline
+\code{<}, \code{>} & Kurang / lebih dari & \code{WHERE harga > 10000} \\
+\hline
+\code{BETWEEN} & Dalam rentang & \code{WHERE umur BETWEEN 18 AND 25} \\
+\hline
+\code{IN} & Dalam daftar nilai & \code{WHERE kota IN ('Jakarta','Bandung')} \\
+\hline
+\code{LIKE} & Pencocokan pola & \code{WHERE nama LIKE 'A\%'} \\
+\hline
+\code{IS NULL} & Bernilai NULL & \code{WHERE email IS NULL} \\
+\hline
+\code{AND} & Semua kondisi benar & \code{WHERE a > 5 AND b < 10} \\
+\hline
+\code{OR} & Salah satu benar & \code{WHERE a = 1 OR b = 2} \\
+\hline
+\code{NOT} & Negasi kondisi & \code{WHERE NOT status = 'draft'} \\
+\hline
+\end{tabular}
+\caption{Operator perbandingan dan logika dalam SQL}
+\end{table}
+
+\begin{webcode}[language=SQL, caption={Penggunaan operator dalam WHERE}]
+-- Kombinasi AND dan OR (gunakan kurung untuk prioritas)
+SELECT * FROM produk
+  WHERE (kategori = 'elektronik' OR kategori = 'pakaian')
+  AND harga < 500000
+  AND stok > 0;
+
+-- NOT IN
+SELECT * FROM produk WHERE kategori NOT IN ('makanan');
+
+-- LIKE dengan wildcard
+SELECT * FROM pengguna WHERE email LIKE '%@gmail.com';
+
+-- IS NOT NULL
+SELECT * FROM produk WHERE deskripsi IS NOT NULL;
+\end{webcode}
+

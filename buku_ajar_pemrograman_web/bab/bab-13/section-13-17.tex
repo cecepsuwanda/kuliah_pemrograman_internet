@@ -1,0 +1,26 @@
+\section{Alat Load Testing: JMeter, Locust, atau k6}
+
+Beberapa alat populer untuk load testing: \textbf{Apache JMeter} (GUI-based, Java, mendukung banyak protokol), \textbf{Locust} (Python, menulis skenario sebagai kode Python, cocok untuk developer), dan \textbf{k6} (modern, JavaScript-based, ringan, cocok untuk CI/CD). Pemilihan alat tergantung pada kebutuhan: JMeter untuk skenario kompleks, Locust untuk developer Python, k6 untuk integrasi pipeline modern \cite{mdnToolsTesting}.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{2.5cm}|P{3cm}|P{3.5cm}|P{3.5cm}|}
+\hline
+\textbf{Aspek} & \textbf{JMeter} & \textbf{Locust} & \textbf{k6} \\
+\hline
+Bahasa skrip & Java/GUI & Python & JavaScript \\
+\hline
+Interface & GUI + CLI & Web UI + CLI & CLI \\
+\hline
+Instalasi & JRE required & pip install & Binary standalone \\
+\hline
+Protokol & HTTP, JDBC, dll. & HTTP & HTTP, WebSocket \\
+\hline
+CI/CD & Sedang & Mudah & Sangat mudah \\
+\hline
+Penggunaan & Enterprise & Developer & Modern DevOps \\
+\hline
+\end{tabular}
+\caption{Perbandingan alat load testing}
+\end{table}
+

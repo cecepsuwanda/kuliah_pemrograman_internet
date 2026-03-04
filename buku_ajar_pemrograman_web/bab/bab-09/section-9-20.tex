@@ -1,0 +1,26 @@
+\section{Closure dan Lexical Scope}
+
+\textbf{Closure} terjadi ketika fungsi ``mengingat'' dan dapat mengakses variabel dari scope luar tempat ia didefinisikan, bahkan setelah fungsi luar selesai dieksekusi. Ini dimungkinkan oleh \textit{lexical scoping}: scope ditentukan oleh posisi kode saat ditulis, bukan saat dieksekusi. Closure adalah fondasi banyak pola JavaScript: factory function, data privacy, dan event handler \cite{eloquentJs}.
+
+\begin{webcode}[language=JavaScript, caption={Closure: counter privat}]
+function createCounter(initial = 0) {
+  let count = initial; // variabel "private"
+
+  return {
+    increment() { return ++count; },
+    decrement() { return --count; },
+    getCount()  { return count; }
+  };
+}
+
+const counter = createCounter(10);
+console.log(counter.increment()); // 11
+console.log(counter.increment()); // 12
+console.log(counter.getCount());  // 12
+// count tidak bisa diakses langsung dari luar
+\end{webcode}
+
+\begin{konsep}
+\textbf{Closure = Fungsi + Lingkungannya.} Setiap kali fungsi dibuat, ia membawa referensi ke variabel di scope luar. Variabel tersebut tetap hidup selama closure masih ada. Ini bukan salinan---closure berbagi variabel yang sama. Konsekuensi: loop dengan \code{var} dan closure sering menyebabkan bug (semua closure merujuk variabel \code{i} yang sama). Solusi: gunakan \code{let} (block-scoped) di loop \cite{jsInfo}.
+\end{konsep}
+

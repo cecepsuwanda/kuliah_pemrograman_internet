@@ -1,0 +1,57 @@
+\section{Transaksi: BEGIN, COMMIT, ROLLBACK}
+
+\textbf{Transaksi} adalah serangkaian operasi SQL yang dieksekusi sebagai satu unit atomik: semua berhasil (\code{COMMIT}) atau semua dibatalkan (\code{ROLLBACK}). Transaksi menjamin properti \textbf{ACID}: \textit{Atomicity} (semua atau tidak sama sekali), \textit{Consistency} (data selalu valid), \textit{Isolation} (transaksi terisolasi), dan \textit{Durability} (data tersimpan permanen setelah commit). Transaksi penting untuk operasi yang melibatkan beberapa tabel --- misalnya transfer uang atau pemrosesan pesanan \cite{mysqlDocs}.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners, minimum width=2.5cm, minimum height=0.9cm, align=center, font=\small, fill=#1},
+  decision/.style={draw, diamond, aspect=2, minimum width=1.5cm, align=center, font=\small, fill=yellow!15},
+  arrow/.style={-Stealth, thick},
+  node distance=1cm
+]
+  \node[box=blue!15] (begin) {BEGIN};
+  \node[box=green!15, below=of begin] (op1) {Operasi 1\\(INSERT/UPDATE)};
+  \node[box=green!15, below=of op1] (op2) {Operasi 2\\(INSERT/UPDATE)};
+  \node[decision, below=1.2cm of op2] (check) {Semua\\OK?};
+  \node[box=green!20, below left=1.2cm and 1.5cm of check] (commit) {COMMIT};
+  \node[box=red!20, below right=1.2cm and 1.5cm of check] (rollback) {ROLLBACK};
+
+  \draw[arrow] (begin) -- (op1);
+  \draw[arrow] (op1) -- (op2);
+  \draw[arrow] (op2) -- (check);
+  \draw[arrow] (check) -- node[above left, font=\footnotesize]{Ya} (commit);
+  \draw[arrow] (check) -- node[above right, font=\footnotesize]{Tidak} (rollback);
+\end{tikzpicture}
+\caption{Flowchart transaksi database}
+\end{figure}
+
+\begin{webcode}[language=PHP, caption={Transaksi MySQL dari PHP (transfer saldo)}]
+<?php
+$conn->begin_transaction();
+
+try {
+  // Kurangi saldo pengirim
+  $stmt = $conn->prepare("UPDATE akun SET saldo = saldo - ? WHERE id = ?");
+  $stmt->bind_param("di", $jumlah, $pengirim_id);
+  $stmt->execute();
+
+  // Cek saldo cukup
+  $check = $conn->query("SELECT saldo FROM akun WHERE id = {$pengirim_id}");
+  $saldo = $check->fetch_assoc()['saldo'];
+  if ($saldo < 0) throw new Exception("Saldo tidak cukup");
+
+  // Tambah saldo penerima
+  $stmt = $conn->prepare("UPDATE akun SET saldo = saldo + ? WHERE id = ?");
+  $stmt->bind_param("di", $jumlah, $penerima_id);
+  $stmt->execute();
+
+  $conn->commit();
+  echo "Transfer berhasil!";
+} catch (Exception $e) {
+  $conn->rollback();
+  echo "Transfer gagal: " . $e->getMessage();
+}
+?>
+\end{webcode}
+

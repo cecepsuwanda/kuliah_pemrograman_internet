@@ -1,0 +1,32 @@
+\section{FOREIGN KEY dan Referential Integrity}
+
+\textbf{Foreign key} (FK) adalah constraint yang memastikan nilai di satu kolom merujuk ke nilai yang ada di primary key tabel lain. Ini menjaga \textbf{referential integrity} --- menjamin bahwa tidak ada data ``yatim'' (orphaned records) yang merujuk ke data yang tidak ada. Misalnya, FK pada kolom \code{kategori\_id} di tabel \code{produk} memastikan bahwa setiap produk merujuk ke kategori yang benar-benar ada di tabel \code{kategori} \cite{mysqlDocs}.
+
+MySQL menyediakan aksi referensial yang menentukan apa yang terjadi ketika baris yang dirujuk dihapus atau diubah: \code{CASCADE} (ikut dihapus/diubah), \code{SET NULL} (diset NULL), \code{RESTRICT} atau \code{NO ACTION} (tolak operasi --- default), dan \code{SET DEFAULT}. Pemilihan aksi yang tepat sangat penting: \code{CASCADE} praktis untuk data yang benar-benar bergantung (misalnya detail pesanan saat pesanan dihapus), sedangkan \code{RESTRICT} lebih aman untuk mencegah penghapusan yang tidak disengaja \cite{mysqlGettingStarted}.
+
+\begin{webcode}[language=SQL, caption={FOREIGN KEY dengan aksi referensial}]
+CREATE TABLE pesanan (
+  id      INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  tanggal DATETIME DEFAULT CURRENT_TIMESTAMP,
+  total   DECIMAL(12,2) DEFAULT 0,
+  FOREIGN KEY (user_id) REFERENCES pengguna(id)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE
+);
+
+CREATE TABLE pesanan_detail (
+  id         INT AUTO_INCREMENT PRIMARY KEY,
+  pesanan_id INT NOT NULL,
+  produk_id  INT NOT NULL,
+  jumlah     INT NOT NULL DEFAULT 1,
+  harga      DECIMAL(12,2) NOT NULL,
+  FOREIGN KEY (pesanan_id) REFERENCES pesanan(id) ON DELETE CASCADE,
+  FOREIGN KEY (produk_id) REFERENCES produk(id) ON DELETE RESTRICT
+);
+\end{webcode}
+
+\begin{catatan}
+Foreign key hanya berfungsi pada engine \textbf{InnoDB} (default di MySQL modern). Engine MyISAM tidak mendukung foreign key. Pastikan tabel menggunakan InnoDB dengan menambahkan \code{ENGINE=InnoDB} saat CREATE TABLE atau set default engine di konfigurasi server.
+\end{catatan}
+

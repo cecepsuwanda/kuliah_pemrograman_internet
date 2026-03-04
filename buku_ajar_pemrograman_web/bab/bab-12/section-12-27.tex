@@ -1,0 +1,59 @@
+\section{PDO: Koneksi dan Prepared Statement}
+
+\textbf{PDO} (PHP Data Objects) adalah abstraksi database di PHP yang mendukung \textbf{banyak DBMS} (MySQL, PostgreSQL, SQLite, SQL Server, dll.) melalui interface yang seragam. Berbeda dengan MySQLi yang hanya untuk MySQL, PDO memungkinkan Anda berpindah database dengan perubahan konfigurasi minimal. PDO hanya mendukung gaya OOP dan selalu menggunakan prepared statement secara alami. Banyak framework PHP modern (Laravel, Symfony) menggunakan PDO sebagai lapisan database \cite{phpManual}.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{3.5cm}|P{5cm}|P{5cm}|}
+\hline
+\textbf{Aspek} & \textbf{MySQLi} & \textbf{PDO} \\
+\hline
+Database & Hanya MySQL & 12+ DBMS \\
+\hline
+Gaya API & Prosedural + OOP & Hanya OOP \\
+\hline
+Named params & Tidak & Ya (\code{:nama}) \\
+\hline
+Prepared stmt & Ya & Ya \\
+\hline
+Performa MySQL & Sedikit lebih cepat & Sedikit lebih lambat \\
+\hline
+Portabilitas & Rendah & Tinggi \\
+\hline
+\end{tabular}
+\caption{Perbandingan MySQLi dan PDO}
+\end{table}
+
+\begin{webcode}[language=PHP, caption={Koneksi dan CRUD dengan PDO}]
+<?php
+// Koneksi PDO
+try {
+  $pdo = new PDO(
+    "mysql:host=localhost;dbname=toko_online;charset=utf8mb4",
+    "root", "",
+    [
+      PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+      PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+      PDO::ATTR_EMULATE_PREPARES   => false
+    ]
+  );
+} catch (PDOException $e) {
+  die("Koneksi gagal: " . $e->getMessage());
+}
+
+// INSERT dengan named parameters
+$stmt = $pdo->prepare("INSERT INTO produk (nama, harga) VALUES (:nama, :harga)");
+$stmt->execute([':nama' => 'Mouse', ':harga' => 150000]);
+echo "ID baru: " . $pdo->lastInsertId();
+
+// SELECT
+$stmt = $pdo->prepare("SELECT * FROM produk WHERE harga > :min");
+$stmt->execute([':min' => 100000]);
+$produk = $stmt->fetchAll(); // FETCH_ASSOC otomatis
+
+foreach ($produk as $p) {
+  echo "{$p['nama']}: Rp {$p['harga']}\n";
+}
+?>
+\end{webcode}
+

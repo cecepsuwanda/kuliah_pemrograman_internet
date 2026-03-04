@@ -1,0 +1,24 @@
+\section{Pengenalan Validasi Input dan Sanitasi Data}
+
+\textbf{Validasi} dan \textbf{sanitasi} adalah dua mekanisme berbeda tetapi saling melengkapi untuk mengamankan input. \textit{Validasi} memeriksa apakah data sesuai aturan yang diharapkan --- format, panjang, rentang, keberadaan. \textit{Sanitasi} membersihkan data dari karakter berbahaya sebelum disimpan atau ditampilkan. Validasi menolak data buruk; sanitasi memperbaiki (atau membersihkan) data agar aman. Kedua proses \textbf{wajib} dilakukan di server --- validasi di client (JavaScript) hanya untuk UX, bukan keamanan \cite{phpRightWay}.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{2cm}|P{5cm}|P{5.5cm}|}
+\hline
+\textbf{Aspek} & \textbf{Validasi} & \textbf{Sanitasi} \\
+\hline
+Tujuan & Memeriksa kecocokan format & Membersihkan data berbahaya \\
+\hline
+Aksi & Tolak data tidak valid & Ubah/hapus karakter berbahaya \\
+\hline
+Kapan & Sebelum proses & Sebelum simpan/tampilkan \\
+\hline
+Contoh & \code{filter\_var(VALIDATE\_EMAIL)} & \code{htmlspecialchars()}, \code{trim()} \\
+\hline
+Lokasi & Server (wajib), client (UX) & Server \\
+\hline
+\end{tabular}
+\caption{Perbedaan validasi dan sanitasi}
+\end{table}
+

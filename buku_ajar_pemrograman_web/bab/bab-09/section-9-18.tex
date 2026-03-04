@@ -1,0 +1,44 @@
+\section{Promise dan async/await}
+
+\textbf{Promise} merepresentasikan nilai yang mungkin tersedia di masa depan. Promise memiliki tiga state: \textit{pending} (menunggu), \textit{fulfilled} (berhasil, dengan nilai), dan \textit{rejected} (gagal, dengan error). \code{.then()} menangani fulfillment; \code{.catch()} menangani rejection; \code{.finally()} dijalankan di kedua kasus. Promise dapat di-chain untuk operasi berurutan \cite{jsInfo}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3cm}|P{4.5cm}|P{4.5cm}|}
+\hline
+\textbf{Pola} & \textbf{Sintaks} & \textbf{Kelebihan} \\
+\hline
+Callback & \code{fn(data, callback)} & Sederhana; tapi nesting \\
+\hline
+Promise & \code{fn().then().catch()} & Chain-able; error propagation \\
+\hline
+async/await & \code{const r = await fn()} & Linier seperti sinkron \\
+\hline
+\end{tabular}
+\caption{Evolusi penanganan asinkron di JavaScript}
+\end{table}
+
+\begin{webcode}[language=JavaScript, caption={Promise dan async/await}]
+// Promise
+function fetchUser(id) {
+  return fetch(`/api/users/${id}`)
+    .then(res => res.json());
+}
+fetchUser(1).then(user => console.log(user.name));
+
+// async/await (cara modern, lebih mudah dibaca)
+async function getUser(id) {
+  try {
+    const res = await fetch(`/api/users/${id}`);
+    const user = await res.json();
+    console.log(user.name);
+  } catch (err) {
+    console.error("Gagal:", err.message);
+  }
+}
+\end{webcode}
+
+\begin{konsep}
+\textbf{async/await = Sugar untuk Promise.} \code{async function} selalu mengembalikan Promise. \code{await} menunggu Promise selesai dan mengembalikan nilainya. Error ditangkap dengan \code{try/catch} biasa (bukan \code{.catch()}). Ini membuat kode asinkron terlihat dan berperilaku seperti kode sinkron---jauh lebih mudah dibaca dan di-debug dibanding \code{.then()} chain \cite{mdnJsGuide}.
+\end{konsep}
+

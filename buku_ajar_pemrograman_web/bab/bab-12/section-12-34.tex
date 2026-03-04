@@ -1,0 +1,42 @@
+\section{Integrasi Lanjut MySQL dengan PHP/API}
+
+Integrasi lanjut MySQL dengan PHP meliputi beberapa pola penting untuk aplikasi production. Pertama, \textbf{connection pooling} atau \textit{persistent connection} (\code{new mysqli('p:localhost', ...)}) menghindari overhead membuka koneksi baru setiap request. Kedua, \textbf{pagination} dari sisi server menggunakan LIMIT dan OFFSET agar tidak memuat seluruh dataset. Ketiga, \textbf{parameterized search} yang menggabungkan beberapa kondisi filter dari form pencarian ke query prepared statement \cite{phpManual}.
+
+\begin{webcode}[language=PHP, caption={Pagination dan pencarian dinamis dengan prepared statement}]
+<?php
+$page    = max(1, intval($_GET['page'] ?? 1));
+$perPage = 10;
+$offset  = ($page - 1) * $perPage;
+$search  = trim($_GET['q'] ?? '');
+
+// Query dinamis dengan pencarian opsional
+$sql    = "SELECT * FROM produk";
+$params = [];
+$types  = "";
+
+if (!empty($search)) {
+  $sql    .= " WHERE nama LIKE ?";
+  $params[] = "%{$search}%";
+  $types   .= "s";
+}
+$sql .= " ORDER BY id DESC LIMIT ?, ?";
+$params[] = $offset;
+$params[] = $perPage;
+$types   .= "ii";
+
+$stmt = $conn->prepare($sql);
+$stmt->bind_param($types, ...$params);
+$stmt->execute();
+$result = $stmt->get_result();
+$produk = $result->fetch_all(MYSQLI_ASSOC);
+$stmt->close();
+
+// Hitung total halaman
+$countSql = "SELECT COUNT(*) AS total FROM produk";
+if (!empty($search)) {
+  $countSql .= " WHERE nama LIKE ?";
+}
+// ... fetch total untuk pagination links
+?>
+\end{webcode}
+

@@ -1,0 +1,18 @@
+/* Reset default */
+a { text-decoration: none; transition: color 0.2s; }
+
+/* Urutan LVHA - gunakan rgb() untuk menghindari masalah LaTeX dengan # */
+a:link    { color: rgb(42,111,176); }
+a:visited { color: rgb(107,79,176); }
+a:hover   { color: rgb(26,79,128); text-decoration: underline; }
+a:focus   { outline: 2px solid rgb(243,156,18); outline-offset: 2px; }
+a:active  { color: rgb(231,76,60); }
+
+/* focus-visible: hanya tampil saat navigasi keyboard */
+a:focus-visible {
+  outline: 2px dashed rgb(42,111,176);
+  outline-offset: 3px;
+}
+a:focus:not(:focus-visible) {
+  outline: none; /* mouse click: sembunyikan outline */
+}

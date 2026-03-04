@@ -1,0 +1,86 @@
+\section{Heading dan Paragraf}
+
+\textbf{Heading} atau elemen judul dalam HTML direpresentasikan oleh enam level hierarki: \code{<h1>} hingga \code{<h6>}. Elemen \code{<h1>} menunjukkan judul utama halaman dan sebaiknya hanya digunakan satu kali per halaman untuk menjaga struktur semantik yang jelas. Elemen \code{<h2>} hingga \code{<h6>} digunakan untuk subjudul dengan tingkat kepentingan yang menurun. Hierarki heading yang benar tidak hanya penting untuk tampilan visual yang terstruktur, tetapi juga sangat berpengaruh pada aksesibilitas dan optimasi mesin pencari. Pembaca layar menggunakan hierarki heading untuk membuat outline halaman, memungkinkan pengguna dengan disabilitas visual untuk menavigasi konten secara efisien \cite{webdevHtml}.
+
+Praktik terbaik dalam penggunaan heading menekankan pentingnya tidak melompati level hierarki. Misalnya, setelah \code{<h2>}, gunakan \code{<h3>} untuk subbagian, bukan langsung meloncat ke \code{<h4>}. Struktur heading yang logis menciptakan outline dokumen yang bermakna bagi mesin pencari dan teknologi bantu. Google dan mesin pencari lainnya menggunakan heading untuk memahami topik utama dan struktur konten halaman Anda. Heading yang deskriptif dan mengandung kata kunci relevan dapat meningkatkan peringkat SEO dan membantu pengguna memindai konten dengan cepat \cite{mdnAccessibility}.
+
+\textbf{Paragraf} dalam HTML ditandai dengan elemen \code{<p>}, yang secara otomatis menambahkan margin vertikal di atas dan di bawah blok teks. Setiap unit teks yang berdiri sendiri dan membentuk satu gagasan utuh sebaiknya dibungkus dalam elemen \code{<p>}. Browser secara default menerapkan styling margin pada paragraf untuk menciptakan pemisahan visual yang jelas antara blok teks. Penting untuk dipahami bahwa HTML mengabaikan spasi berlebih dan jeda baris dalam source code; untuk pemformatan spesifik seperti teks praformat, gunakan elemen \code{<pre>} yang akan dibahas di section berikutnya.
+
+Hubungan antara heading dan paragraf menciptakan struktur konten yang mudah dibaca dan dipahami. Pola umum dalam penulisan dokumen web adalah membuka dengan \code{<h1>} sebagai judul utama, diikuti oleh \code{<p>} sebagai pengantar atau ringkasan, kemudian menggunakan \code{<h2>} untuk bagian-bagian utama, masing-masing dengan paragraf-paragraf penjelasan. Struktur ini mencerminkan pola penulisan akademis dan jurnalistik yang familiar bagi pembaca, sehingga meningkatkan usability dan keterbacaan halaman.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  node distance=0.8cm,
+  every node/.style={font=\small},
+  h1/.style={rectangle, draw, fill=blue!20, minimum width=8cm, minimum height=0.7cm, align=center},
+  h2/.style={rectangle, draw, fill=blue!15, minimum width=7cm, minimum height=0.6cm, align=left},
+  h3/.style={rectangle, draw, fill=blue!10, minimum width=6cm, minimum height=0.5cm, align=left},
+  p/.style={rectangle, draw, fill=gray!10, minimum width=6cm, minimum height=0.5cm, align=left}
+]
+
+\node[h1] (h1) {\code{<h1>} Judul Utama Halaman};
+\node[p, below=of h1] (p1) {\code{<p>} Paragraf pengantar...};
+\node[h2, below=of p1] (h2a) {\code{<h2>} Bagian Pertama};
+\node[p, below=of h2a] (p2) {\code{<p>} Isi bagian pertama...};
+\node[h3, below=of p2] (h3a) {\code{<h3>} Subbagian 1.1};
+\node[p, below=of h3a] (p3) {\code{<p>} Isi subbagian...};
+\node[h2, below=of p3] (h2b) {\code{<h2>} Bagian Kedua};
+\node[p, below=of h2b] (p4) {\code{<p>} Isi bagian kedua...};
+
+\draw[->, dashed, gray] (h1) -- (p1);
+\draw[->, dashed, gray] (p1) -- (h2a);
+\draw[->, dashed, gray] (h2a) -- (p2);
+\draw[->, dashed, gray] (p2) -- (h3a);
+\draw[->, dashed, gray] (h3a) -- (p3);
+\draw[->, dashed, gray] (p3) -- (h2b);
+\draw[->, dashed, gray] (h2b) -- (p4);
+
+\end{tikzpicture}
+\caption{Hierarki Heading dan Paragraf dalam Struktur Dokumen}
+\label{fig:heading-hierarchy}
+\end{figure}
+
+\begin{webcode}[language=HTML, caption={Contoh Penggunaan Heading dan Paragraf}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <title>Panduan HTML Lengkap</title>
+</head>
+<body>
+  <h1>Panduan Belajar HTML untuk Pemula</h1>
+  <p>Selamat datang di panduan lengkap belajar HTML. 
+     Dokumen ini akan membantu Anda memahami dasar-dasar 
+     pembuatan halaman web.</p>
+  
+  <h2>1. Pengenalan HTML</h2>
+  <p>HTML adalah bahasa markup standar untuk membuat 
+     halaman web. HTML menggunakan tag untuk menandai 
+     elemen-elemen konten.</p>
+  
+  <h3>1.1 Sejarah HTML</h3>
+  <p>HTML pertama kali dikembangkan oleh Tim Berners-Lee 
+     di CERN pada tahun 1991.</p>
+  
+  <h3>1.2 Versi HTML</h3>
+  <p>Dari HTML 1.0 hingga HTML5 modern, bahasa ini telah 
+     berevolusi secara signifikan.</p>
+  
+  <h2>2. Struktur Dokumen</h2>
+  <p>Setiap dokumen HTML memiliki struktur standar yang 
+     terdiri dari doctype, html, head, dan body.</p>
+</body>
+</html>
+\end{webcode}
+
+\begin{konsep}
+\textbf{Heading untuk SEO dan Aksesibilitas:}
+\begin{itemize}[leftmargin=*]
+  \item Gunakan satu \code{<h1>} per halaman untuk judul utama/topic.
+  \item Jangan melompati level heading (h2 ke h4 tanpa h3 di antaranya).
+  \item Buat heading deskriptif yang menggambarkan isi bagian.
+  \item Hindari menggunakan heading hanya untuk ukuran teks besar - gunakan CSS untuk styling.
+  \item Screen reader users sering menavigasi halaman melalui heading - struktur yang baik sangat membantu.
+\end{itemize}
+\end{konsep}
+

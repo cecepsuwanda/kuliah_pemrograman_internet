@@ -1,0 +1,31 @@
+\section{Exception dan try-catch}
+
+\textbf{Exception} adalah mekanisme modern untuk menangani error di PHP menggunakan blok \code{try-catch-finally}. Kode yang mungkin gagal ditempatkan di \code{try}; jika exception dilempar (\textit{thrown}), eksekusi melompat ke \code{catch} yang sesuai. \code{finally} selalu dieksekusi. PHP menyediakan hierarki class exception: \code{Exception} (dasar), \code{RuntimeException}, \code{InvalidArgumentException}, \code{PDOException}, dll. Developer juga dapat membuat custom exception \cite{phpManual}.
+
+\begin{webcode}[language=PHP, caption={Exception handling dan custom exception}]
+<?php
+class RecordNotFoundException extends RuntimeException {}
+
+function cariProduk(PDO $pdo, int $id): array {
+  $stmt = $pdo->prepare("SELECT * FROM produk WHERE id = ?");
+  $stmt->execute([$id]);
+  $produk = $stmt->fetch();
+  if (!$produk) {
+    throw new RecordNotFoundException("Produk #{$id} tidak ditemukan.");
+  }
+  return $produk;
+}
+
+try {
+  $produk = cariProduk($pdo, 999);
+  echo $produk['nama'];
+} catch (RecordNotFoundException $e) {
+  echo "Not Found: " . $e->getMessage();
+} catch (PDOException $e) {
+  echo "Database error: " . $e->getMessage();
+} finally {
+  echo "\nSelesai.\n";
+}
+?>
+\end{webcode}
+

@@ -1,0 +1,48 @@
+\section{Pencegahan CSRF: Token, SameSite Cookie, dan Validasi Origin}
+
+\textbf{Cross-Site Request Forgery (CSRF)} membuat pengguna yang sudah login tanpa sadar mengirim request berbahaya --- misalnya, penyerang menyisipkan form tersembunyi di situs lain yang mengirim POST ke aplikasi target. Karena browser mengirim cookie session secara otomatis, server mengira request tersebut sah. Pencegahan utama: \textbf{CSRF token} --- nilai unik dan random yang disisipkan di setiap form dan divalidasi di server \cite{owaspCsrf}.
+
+\begin{contoh}
+\textbf{Studi Kasus: Form Login Aman (Integrasi Keamanan Lengkap)}
+
+Form login menerapkan semua praktik keamanan:
+\begin{itemize}
+  \item CSRF token di form (mencegah CSRF)
+  \item Prepared statement untuk query login (mencegah SQL injection)
+  \item \code{password\_verify()} untuk verifikasi password hash
+  \item \code{session\_regenerate\_id(true)} setelah login (mencegah session fixation)
+  \item \code{htmlspecialchars()} pada output (mencegah XSS)
+  \item Cookie session: HttpOnly, Secure, SameSite=Strict
+\end{itemize}
+\end{contoh}
+
+\begin{webcode}[language=PHP, caption={CSRF token: generate, embed, dan validasi}]
+<?php
+session_start();
+
+// Generate token
+if (empty($_SESSION['csrf_token'])) {
+  $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
+// Di form HTML:
+// <form method="POST">
+//   <input type="hidden" name="csrf"
+//     value="<?= $_SESSION['csrf_token'] ?>">
+//   ...
+// </form>
+
+// Validasi saat proses form
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $token = $_POST['csrf'] ?? '';
+  if (!hash_equals($_SESSION['csrf_token'], $token)) {
+    http_response_code(403);
+    die("CSRF token tidak valid.");
+  }
+  // Token valid, proses form...
+  // Regenerate token setelah dipakai
+  $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+?>
+\end{webcode}
+

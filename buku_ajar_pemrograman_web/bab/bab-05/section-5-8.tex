@@ -1,0 +1,60 @@
+\section{Embedding: iframe, object, dan embed}
+
+Embedding (penyematan) memungkinkan halaman web menyertakan konten dari sumber eksternal---seperti halaman lain, video YouTube, peta Google Maps, dokumen PDF, atau widget media sosial. HTML menyediakan tiga elemen utama untuk embedding: \code{<iframe>}, \code{<object>}, dan \code{<embed>}. Dari ketiganya, \code{<iframe>} (inline frame) adalah yang paling banyak digunakan di web modern karena kesederhanaannya dan dukungan browser yang universal \cite{mdnHtmlIntro}. Memahami kemampuan dan batasan keamanan masing-masing elemen sangat penting untuk membangun halaman web yang aman dan efisien.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{2.2cm}|P{3.5cm}|P{3cm}|P{3cm}|}
+\hline
+\textbf{Elemen} & \textbf{Kegunaan Utama} & \textbf{Kelebihan} & \textbf{Keterbatasan} \\
+\hline
+\code{<iframe>} & Halaman web, video, peta & Paling sering digunakan; mendukung sandbox & Bisa berat; risiko clickjacking \\
+\hline
+\code{<object>} & PDF, Flash, SVG & Mendukung fallback content & Jarang dipakai di web modern \\
+\hline
+\code{<embed>} & Plugin, PDF, media & Sintaks sederhana (self-closing) & Tidak punya mekanisme fallback \\
+\hline
+\end{tabular}
+\caption{Perbandingan elemen embedding HTML}
+\end{table}
+
+Elemen \code{<iframe>} bekerja dengan menyematkan halaman web lain sebagai dokumen terpisah di dalam halaman Anda. Atribut \code{src} menentukan URL sumber, \code{width} dan \code{height} mengatur dimensi, dan \code{title} wajib untuk aksesibilitas---pembaca layar menggunakan nilai title untuk mendeskripsikan konten iframe kepada pengguna. Tanpa atribut \code{title}, pengguna pembaca layar tidak akan mengetahui apa yang dimuat di dalam iframe \cite{mdnAccessibility}.
+
+Keamanan iframe adalah aspek yang sangat penting. Atribut \code{sandbox} membatasi kemampuan konten di dalam iframe---misalnya mencegah eksekusi JavaScript, pencegahan submisi form, atau pencegahan navigasi ke halaman lain. Tanpa atribut \code{sandbox}, konten iframe memiliki kemampuan penuh yang bisa dieksploitasi untuk serangan seperti clickjacking. Atribut \code{allow} mengontrol fitur-fitur spesifik seperti kamera, mikrofon, atau fullscreen. Header HTTP \code{X-Frame-Options} dan \code{Content-Security-Policy} pada sisi server juga berperan dalam mengontrol apakah halaman Anda boleh di-embed oleh situs lain \cite{whatwgHtml}.
+
+\begin{webcode}[language=HTML, caption={iframe dengan atribut keamanan dan aksesibilitas}]
+<!-- Embed video YouTube dengan sandbox -->
+<iframe
+  src="https://www.youtube-nocookie.com/embed/xyz"
+  title="Video Tutorial HTML5"
+  width="560" height="315"
+  allow="accelerometer; encrypted-media"
+  sandbox="allow-scripts allow-same-origin"
+  loading="lazy">
+</iframe>
+
+<!-- Embed Google Maps -->
+<iframe
+  src="https://maps.google.com/maps?q=Bandung&output=embed"
+  title="Peta Kota Bandung"
+  width="600" height="400"
+  style="border:0;"
+  allowfullscreen
+  loading="lazy">
+</iframe>
+\end{webcode}
+
+Atribut \code{loading="lazy"} menunda pemuatan iframe hingga pengguna menggulir mendekati posisinya di halaman. Ini sangat berguna untuk performa---iframe yang memuat halaman eksternal dapat menambah waktu muat halaman secara signifikan. Selain lazy loading, pertimbangkan juga untuk memberikan dimensi eksplisit (\code{width} dan \code{height}) pada iframe agar browser dapat mengalokasikan ruang sebelum konten dimuat, menghindari pergeseran tata letak (layout shift) yang mengganggu pengalaman pengguna \cite{webdevHtml}.
+
+\begin{catatan}
+\textbf{Nilai Atribut \code{sandbox} pada iframe:}
+\begin{itemize}
+  \item \code{sandbox} (tanpa nilai): mode paling restriktif---semua kemampuan diblokir.
+  \item \code{allow-scripts}: mengizinkan eksekusi JavaScript.
+  \item \code{allow-same-origin}: memperlakukan konten sebagai satu origin (diperlukan agar cookie dan storage berfungsi).
+  \item \code{allow-forms}: mengizinkan submisi form.
+  \item \code{allow-popups}: mengizinkan popup (misalnya \code{window.open}).
+  \item \textbf{Peringatan}: Jangan gunakan \code{allow-scripts} dan \code{allow-same-origin} bersamaan pada konten yang tidak dipercaya, karena kombinasi ini dapat memungkinkan konten untuk menghapus atribut sandbox itu sendiri \cite{whatwgHtml}.
+\end{itemize}
+\end{catatan}
+

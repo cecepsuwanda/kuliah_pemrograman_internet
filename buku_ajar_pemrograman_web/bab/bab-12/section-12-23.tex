@@ -1,0 +1,62 @@
+\section[Pengenalan MySQLi (PHP): Koneksi dan Menjalankan Query]{Pengenalan MySQLi (PHP): Koneksi dan Menjalankan Query}
+
+\textbf{MySQLi} (MySQL Improved) adalah ekstensi PHP untuk berinteraksi dengan database MySQL. MySQLi menggantikan ekstensi \code{mysql\_*} yang sudah dihapus sejak PHP 7.0. MySQLi menyediakan dua gaya pemrograman: \textbf{prosedural} (menggunakan fungsi seperti \code{mysqli\_connect()}) dan \textbf{OOP} (menggunakan class \code{mysqli}). Gaya OOP lebih direkomendasikan karena lebih bersih dan konsisten. MySQLi mendukung prepared statement, transaksi, dan multiple statements \cite{phpManual}.
+
+Langkah dasar koneksi: (1) buat object \code{new mysqli(host, user, password, database)}; (2) cek error dengan \code{\$conn->connect\_error}; (3) set charset \code{utf8mb4}; (4) jalankan query dengan \code{\$conn->query(\$sql)}; (5) tutup koneksi dengan \code{\$conn->close()}. Untuk keamanan, simpan kredensial di file konfigurasi terpisah dan jangan pernah menampilkan detail koneksi ke pengguna \cite{phpRightWay}.
+
+\begin{webcode}[language=PHP, caption={Koneksi MySQLi dan menjalankan query dasar}]
+<?php
+// config.php - simpan di luar web root
+$db_host = 'localhost';
+$db_user = 'root';
+$db_pass = '';
+$db_name = 'toko_online';
+
+// Membuat koneksi (OOP)
+$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
+
+// Cek koneksi
+if ($conn->connect_error) {
+  die("Koneksi gagal: " . $conn->connect_error);
+}
+$conn->set_charset("utf8mb4");
+
+// Menjalankan query SELECT
+$sql = "SELECT id, nama, harga FROM produk WHERE aktif = TRUE";
+$result = $conn->query($sql);
+
+if ($result && $result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    echo "{$row['nama']}: Rp {$row['harga']}\n";
+  }
+  $result->free();
+} else {
+  echo "Tidak ada data.\n";
+}
+
+$conn->close();
+?>
+\end{webcode}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners, minimum width=2.5cm, minimum height=1cm, align=center, font=\small, fill=#1},
+  arrow/.style={-Stealth, thick},
+  node distance=1.5cm
+]
+  \node[box=blue!15] (php) {PHP Script};
+  \node[box=orange!20, right=2cm of php] (mysqli) {MySQLi\\Extension};
+  \node[box=green!15, right=2cm of mysqli] (mysql) {MySQL\\Server};
+  \node[box=yellow!20, below=1cm of mysql] (data) {Data\\(Tabel)};
+
+  \draw[arrow] (php) -- node[above, font=\footnotesize]{\code{new mysqli()}} (mysqli);
+  \draw[arrow] (mysqli) -- node[above, font=\footnotesize]{\code{query()}} (mysql);
+  \draw[arrow] (mysql) -- (data);
+  \draw[arrow] (data) -- (mysql);
+  \draw[arrow] (mysql) -- node[below, font=\footnotesize]{Result} (mysqli);
+  \draw[arrow] (mysqli) -- node[below, font=\footnotesize]{\code{fetch\_assoc()}} (php);
+\end{tikzpicture}
+\caption{Alur koneksi dan query PHP -- MySQLi -- MySQL}
+\end{figure}
+

@@ -1,0 +1,76 @@
+\section{Constructor dan Destructor}
+
+\textbf{Constructor} adalah metode khusus yang secara otomatis dipanggil saat sebuah object baru dibuat menggunakan operator \code{new}. Di PHP, constructor didefinisikan dengan nama \code{\_\_construct()} dan umumnya digunakan untuk menginisialisasi properti, memvalidasi parameter awal, atau menyiapkan sumber daya yang diperlukan object. Constructor dapat menerima parameter yang digunakan untuk mengatur nilai awal properti, sehingga object langsung dalam keadaan siap pakai begitu diciptakan. Tanpa constructor, developer harus mengatur setiap properti secara manual setelah object dibuat, yang rawan lupa dan inkonsistensi \cite{phpManual}.
+
+Sejak PHP 8.0, fitur \textbf{constructor promotion} memungkinkan deklarasi dan inisialisasi properti langsung di parameter constructor. Dengan menambahkan kata kunci visibility (\code{public}, \code{protected}, \code{private}) sebelum parameter, PHP otomatis mendeklarasikan properti dan menginisialisasinya dari argumen yang diberikan. Fitur ini mengurangi boilerplate code secara signifikan --- terutama untuk class dengan banyak properti. Contohnya, \code{public function \_\_construct(public string \$nama, private int \$umur)} secara otomatis membuat dua properti dan mengisinya tanpa perlu baris \code{\$this->nama = \$nama} \cite{phpRightWay}.
+
+\textbf{Destructor} adalah metode \code{\_\_destruct()} yang dipanggil ketika object dihancurkan --- baik ketika skrip selesai, object keluar dari scope, atau secara eksplisit di-\code{unset()}. Destructor berguna untuk membersihkan sumber daya (\textit{resource cleanup}) seperti menutup koneksi database, menutup file handle, atau membebaskan lock. Pada aplikasi web PHP yang bersifat \textit{shared-nothing} (setiap request independen), destructor jarang dibutuhkan karena semua sumber daya otomatis dibebaskan di akhir request. Namun, untuk skrip CLI atau long-running process, destructor menjadi lebih relevan \cite{phpManual}.
+
+\begin{webcode}[language=PHP, caption={Constructor (termasuk promotion) dan destructor}]
+<?php
+// Constructor tradisional
+class Produk {
+  private string $nama;
+  private float  $harga;
+
+  public function __construct(string $nama, float $harga) {
+    $this->nama  = $nama;
+    $this->harga = $harga;
+    echo "Produk '{$this->nama}' dibuat.\n";
+  }
+
+  public function __destruct() {
+    echo "Produk '{$this->nama}' dihancurkan.\n";
+  }
+
+  public function info(): string {
+    return "{$this->nama}: Rp " . number_format($this->harga, 0, ',', '.');
+  }
+}
+
+// Constructor promotion (PHP 8+)
+class ProdukModern {
+  public function __construct(
+    private string $nama,
+    private float  $harga
+  ) {
+    echo "ProdukModern '{$this->nama}' dibuat.\n";
+  }
+
+  public function info(): string {
+    return "{$this->nama}: Rp " . number_format($this->harga, 0, ',', '.');
+  }
+}
+
+$p1 = new Produk("Laptop", 12500000);
+$p2 = new ProdukModern("Mouse", 350000);
+echo $p1->info() . "\n";
+echo $p2->info() . "\n";
+// Destructor dipanggil otomatis di akhir skrip
+?>
+\end{webcode}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{3cm}|P{5cm}|P{5cm}|}
+\hline
+\textbf{Aspek} & \textbf{Constructor} & \textbf{Destructor} \\
+\hline
+Nama metode & \code{\_\_construct()} & \code{\_\_destruct()} \\
+\hline
+Dipanggil saat & Object dibuat (\code{new}) & Object dihancurkan \\
+\hline
+Parameter & Ya (0 atau lebih) & Tidak (tanpa parameter) \\
+\hline
+Kegunaan utama & Inisialisasi properti & Pembersihan resource \\
+\hline
+Wajib ada? & Tidak & Tidak \\
+\hline
+Frekuensi pakai & Sangat sering & Jarang (web) \\
+\hline
+\end{tabular}
+\caption{Perbandingan constructor dan destructor di PHP}
+\end{table}
+
+Perlu diperhatikan bahwa PHP tidak mendukung \textit{constructor overloading} (memiliki beberapa constructor dengan parameter berbeda) seperti Java atau C++. Namun, hal ini dapat disimulasikan menggunakan parameter default, tipe \code{union}, atau metode factory static. Misalnya, constructor dapat memiliki parameter opsional: \code{\_\_construct(string \$nama, float \$harga = 0)}. Alternatif lain adalah membuat metode static seperti \code{Produk::fromArray(\$data)} yang mengembalikan instance baru dengan cara konstruksi yang berbeda \cite{phpRightWay}.
+

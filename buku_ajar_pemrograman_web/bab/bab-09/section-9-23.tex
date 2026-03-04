@@ -1,0 +1,30 @@
+\section{Debugging dan Alat Pengembang (DevTools)}
+
+Browser menyediakan \textbf{DevTools} (F12) dengan beberapa panel penting untuk debugging JavaScript. Panel \textbf{Console} untuk menjalankan kode dan melihat log/error. Panel \textbf{Sources} untuk melihat kode, memasang breakpoint, dan step-through execution. Panel \textbf{Network} untuk memonitor HTTP request. Panel \textbf{Elements} untuk inspeksi DOM \cite{mdnToolsTesting}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3cm}|P{4.5cm}|P{4.5cm}|}
+\hline
+\textbf{Teknik} & \textbf{Cara} & \textbf{Kapan Digunakan} \\
+\hline
+\code{console.log()} & Print nilai ke Console & Inspeksi nilai cepat \\
+\hline
+\code{console.table()} & Tampilkan data tabular & Array/objek \\
+\hline
+\code{debugger;} & Pause di baris ini & Breakpoint dalam kode \\
+\hline
+Breakpoint (UI) & Klik nomor baris di Sources & Debug tanpa ubah kode \\
+\hline
+Watch expression & Tambah di Sources panel & Monitor variabel \\
+\hline
+Network tab & Filter XHR/Fetch & Debug API call \\
+\hline
+\end{tabular}
+\caption{Teknik debugging JavaScript dengan DevTools}
+\end{table}
+
+\begin{konsep}
+\textbf{Breakpoint > console.log().} Meskipun \code{console.log()} cepat dan mudah, breakpoint lebih efektif untuk debugging kompleks: Anda dapat melihat seluruh call stack, semua variabel di scope saat ini, dan menjalankan kode step-by-step. Conditional breakpoint (klik kanan pada breakpoint) hanya pause jika kondisi terpenuhi---sangat berguna di loop besar \cite{mdnToolsTesting}.
+\end{konsep}
+

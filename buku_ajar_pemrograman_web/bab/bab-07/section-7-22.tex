@@ -1,0 +1,30 @@
+\section{Referensi Standar: W3C dan MDN CSS}
+
+Spesifikasi resmi CSS dikelola oleh \textbf{W3C} (World Wide Web Consortium) melalui CSS Working Group. Dokumen spesifikasi mendefinisikan perilaku yang benar untuk setiap properti, selector, dan mekanisme CSS---implementasi browser mengacu pada spesifikasi ini. CSS modern terdiri dari banyak modul terpisah (Selectors, Box Model, Flexbox, Grid, Animations, Custom Properties, dll.) yang masing-masing memiliki level versi (biasanya Level 3 atau 4) \cite{w3cCss}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{2.5cm}|P{4cm}|P{5.5cm}|}
+\hline
+\textbf{Sumber} & \textbf{URL / Key} & \textbf{Kegunaan} \\
+\hline
+W3C CSS Spec & \code{w3cCss} & Definisi resmi; rujukan utama \\
+\hline
+MDN CSS Ref & \code{mdnCss} & Dokumentasi praktis; contoh; kompatibilitas \\
+\hline
+web.dev CSS & \code{webdevCss} & Tutorial modern; best practices Google \\
+\hline
+CSS-Tricks & \code{cssTricks} & Panduan visual; tips layout; referensi cepat \\
+\hline
+Can I Use & caniuse.com & Tabel kompatibilitas browser \\
+\hline
+\end{tabular}
+\caption{Sumber referensi CSS yang direkomendasikan}
+\end{table}
+
+Untuk pengembangan sehari-hari, \textbf{MDN CSS Reference} adalah acuan paling praktis: setiap properti memiliki penjelasan, contoh interaktif, dan tabel kompatibilitas browser. Situs \textbf{Can I Use} (caniuse.com) menyediakan data dukungan browser untuk fitur CSS tertentu---penting sebelum menggunakan fitur baru di produksi. web.dev Learn CSS dari Google menyediakan kursus terstruktur untuk mempelajari CSS modern secara sistematis \cite{webdevCss}.
+
+\begin{konsep}
+\textbf{CSS Selalu Berkembang.} CSS bukan bahasa statis; fitur baru terus ditambahkan: Container Queries, Cascade Layers (\code{@layer}), \code{:has()}, Subgrid, Color Level 4, Nesting, Scope. Ikuti perkembangan melalui MDN Blog, web.dev, dan CSS Working Group drafts. Gunakan progressive enhancement: terapkan fitur baru dengan fallback untuk browser yang belum mendukung \cite{w3cCss}.
+\end{konsep}
+

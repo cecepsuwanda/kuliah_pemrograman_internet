@@ -1,0 +1,75 @@
+\section{Alat Pengembangan Web}
+Untuk membangun aplikasi web, Anda memerlukan serangkaian alat yang mendukung proses penulisan kode, pengujian, dan deployment. Pemilihan alat yang tepat meningkatkan produktivitas dan memudahkan proses debugging. Alat-alat ini tersedia secara gratis dan sebagian besar bersifat \textit{open source}. Menguasai alat pengembangan sama pentingnya dengan menguasai bahasa pemrograman---keduanya saling melengkapi dalam alur kerja pengembangan web \cite{mdnLearn}.
+
+\textbf{Editor kode} adalah alat utama untuk menulis kode program. \textbf{Visual Studio Code} (VS Code) adalah editor yang paling populer saat ini karena ringan, memiliki ribuan ekstensi, dan mendukung syntax highlighting untuk HTML, CSS, JavaScript, PHP, dan SQL. Fitur unggulan VS Code meliputi \textit{IntelliSense} (autocomplete cerdas), \textit{integrated terminal}, \textit{live preview}, dan \textit{Git integration}. Ekstensi yang disarankan untuk pengembangan web antara lain: \textbf{Live Server} (preview halaman secara real-time), \textbf{Prettier} (format kode otomatis), \textbf{PHP Intelephense} (autocomplete PHP), dan \textbf{ESLint} (pengecekan kualitas JavaScript). Alternatif lain termasuk Sublime Text, Atom, dan Notepad++ \cite{w3schoolsTutorials}.
+
+\textbf{Browser DevTools} (alat pengembang browser) adalah fitur bawaan browser modern yang sangat berguna untuk debugging dan analisis halaman web. Tab \textbf{Elements} memungkinkan Anda memeriksa dan mengubah HTML/CSS secara langsung---setiap perubahan langsung terlihat di halaman tanpa harus mengedit file. Tab \textbf{Console} menampilkan pesan JavaScript, error, dan warning; Anda juga dapat menjalankan kode JavaScript langsung di sini. Tab \textbf{Network} menunjukkan semua request HTTP beserta status code, waktu, ukuran respons, dan header. Tab \textbf{Sources} memungkinkan debugging JavaScript dengan breakpoint. Anda dapat membuka DevTools dengan menekan \code{F12} atau \code{Ctrl+Shift+I} \cite{mdnToolsTesting}.
+
+\textbf{Server lokal} memungkinkan Anda menjalankan kode PHP dan MySQL di komputer sendiri tanpa memerlukan server di internet. \textbf{XAMPP} adalah paket populer yang menyediakan Apache (web server), MySQL (basis data), dan PHP dalam satu instalasi. Setelah XAMPP terpasang, letakkan file proyek di folder \code{htdocs}, lalu akses melalui \code{http://localhost/} di browser. XAMPP juga menyediakan \textbf{phpMyAdmin}---antarmuka web untuk mengelola basis data MySQL tanpa harus menulis perintah SQL di terminal. Alternatif lain adalah WAMP (Windows), MAMP (macOS), atau perintah built-in PHP \code{php -S localhost:8000} untuk server sederhana \cite{phpManual}.
+
+\begin{catatan}
+\textbf{Tips: Pertama Kali Menggunakan XAMPP}
+
+\begin{enumerate}
+  \item Download XAMPP dari \code{https://www.apachefriends.org/} dan instal
+  \item Buka XAMPP Control Panel, klik \textbf{Start} pada Apache dan MySQL
+  \item Jika port 80 sudah digunakan, ubah port Apache di \code{httpd.conf} (misalnya ke 8080)
+  \item Buat folder proyek di \code{C:\textbackslash xampp\textbackslash htdocs\textbackslash latihan\textbackslash}
+  \item Buat file \code{index.php} berisi \code{<?php echo "Hello World!"; ?>}
+  \item Buka browser dan akses \code{http://localhost/latihan/}
+  \item Untuk mengelola database, akses \code{http://localhost/phpmyadmin/}
+\end{enumerate}
+\end{catatan}
+
+\textbf{Version control} dengan \textbf{Git} membantu melacak setiap perubahan kode, memudahkan kolaborasi tim, dan memungkinkan rollback jika terjadi kesalahan. Git bekerja dengan menyimpan \textit{snapshot} kode pada setiap commit, sehingga Anda dapat melihat riwayat perubahan dan kembali ke versi sebelumnya kapan saja. Platform seperti \textbf{GitHub}, GitLab, dan Bitbucket menyediakan hosting repositori Git secara gratis dan fitur tambahan seperti \textit{pull request}, \textit{issue tracking}, dan \textit{CI/CD} (Continuous Integration/Continuous Deployment) \cite{mdnLearn}.
+
+\begin{webcode}[language=Bash, caption={Perintah dasar Git untuk proyek web}]
+# Inisialisasi repositori Git baru
+git init
+
+# Melihat status file (baru, berubah, dihapus)
+git status
+
+# Menambahkan semua file ke staging area
+git add .
+
+# Membuat commit dengan pesan deskriptif
+git commit -m "Tambah halaman daftar produk"
+
+# Menghubungkan ke repositori remote di GitHub
+git remote add origin https://github.com/user/proyek.git
+
+# Mengunggah commit ke GitHub
+git push -u origin main
+
+# Mengunduh perubahan terbaru dari remote
+git pull origin main
+
+# Membuat branch baru untuk fitur
+git checkout -b fitur-login
+\end{webcode}
+
+\textbf{Terminal} (command line) adalah antarmuka berbasis teks untuk berinteraksi dengan sistem operasi. Meskipun terasa tidak intuitif bagi pemula, terminal menjadi alat yang sangat efisien setelah dikuasai. Anda memerlukan terminal untuk menjalankan perintah Git, mengelola server lokal, menginstal paket dengan npm atau Composer, dan menjalankan skrip otomasi. Di Windows tersedia Command Prompt, PowerShell, dan Windows Terminal; di macOS dan Linux tersedia Bash dan Zsh \cite{mdnToolsTesting}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3.5cm}|P{3.5cm}|P{4.5cm}|}
+\hline
+\textbf{Kategori} & \textbf{Alat} & \textbf{Fungsi Utama} \\
+\hline
+Editor kode & VS Code, Sublime Text & Menulis dan mengedit kode \\
+\hline
+Browser DevTools & Chrome DevTools, Firefox DevTools & Debugging HTML, CSS, JS, dan jaringan \\
+\hline
+Server lokal & XAMPP, MAMP & Menjalankan PHP dan MySQL secara lokal \\
+\hline
+Version control & Git, GitHub & Melacak perubahan dan kolaborasi \\
+\hline
+Terminal & Command Prompt, PowerShell, Bash & Menjalankan perintah, Git, dan server \\
+\hline
+Package manager & npm, Composer & Mengelola dependensi dan library \\
+\hline
+\end{tabular}
+\caption{Alat pengembangan web yang direkomendasikan}
+\end{table}
+

@@ -1,0 +1,51 @@
+\section{INSERT, UPDATE, DELETE}
+
+Tiga perintah DML utama selain SELECT adalah \code{INSERT} (menambah data), \code{UPDATE} (mengubah data), dan \code{DELETE} (menghapus data). Ketiganya merupakan inti dari operasi \textbf{CRUD} (\textit{Create, Read, Update, Delete}) yang menjadi fondasi hampir semua aplikasi berbasis database. Setiap operasi harus dilakukan dengan hati-hati --- terutama UPDATE dan DELETE --- karena dapat mempengaruhi banyak baris sekaligus jika klausa WHERE tidak spesifik \cite{mysqlDocs}.
+
+\code{INSERT INTO} menambahkan baris baru ke tabel. Terdapat dua sintaks: menyebutkan kolom secara eksplisit (lebih aman dan jelas) atau tanpa menyebutkan kolom (nilai harus sesuai urutan seluruh kolom). \code{UPDATE} mengubah nilai kolom pada baris yang memenuhi kondisi WHERE. \code{DELETE FROM} menghapus baris yang memenuhi kondisi WHERE. Tanpa WHERE, UPDATE mengubah \textbf{semua} baris dan DELETE menghapus \textbf{semua} baris --- ini sangat berbahaya \cite{mysqlGettingStarted}.
+
+\begin{webcode}[language=SQL, caption={INSERT, UPDATE, dan DELETE}]
+-- INSERT: menambah data baru
+INSERT INTO produk (nama, harga, stok, kategori)
+  VALUES ('Laptop ASUS', 8500000, 25, 'elektronik');
+
+-- INSERT multiple rows
+INSERT INTO produk (nama, harga, stok, kategori) VALUES
+  ('Mouse Wireless', 150000, 100, 'elektronik'),
+  ('Kaos Polos', 75000, 200, 'pakaian'),
+  ('Kopi Arabika 250g', 45000, 50, 'makanan');
+
+-- UPDATE: mengubah data (selalu gunakan WHERE!)
+UPDATE produk SET harga = 8000000, stok = 20
+  WHERE id = 1;
+
+-- DELETE: menghapus data (selalu gunakan WHERE!)
+DELETE FROM produk WHERE id = 4;
+
+-- HATI-HATI: tanpa WHERE akan menghapus SEMUA data!
+-- DELETE FROM produk;  -- JANGAN lakukan ini!
+\end{webcode}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners, minimum width=2cm, minimum height=0.9cm, align=center, font=\small, fill=#1},
+  arrow/.style={-Stealth, thick},
+  node distance=1.2cm
+]
+  \node[box=green!20] (ins) {\textbf{INSERT}\\Tambah baris baru};
+  \node[box=blue!15, right=1.5cm of ins] (sel) {\textbf{SELECT}\\Baca/ambil data};
+  \node[box=orange!20, right=1.5cm of sel] (upd) {\textbf{UPDATE}\\Ubah data};
+  \node[box=red!15, right=1.5cm of upd] (del) {\textbf{DELETE}\\Hapus data};
+
+  \node[box=yellow!20, below=1.8cm of sel, minimum width=2.8cm] (tbl) {Tabel MySQL};
+  \node[box=yellow!20, right=0pt of tbl, minimum width=2.8cm] (tbl2) {};
+
+  \draw[arrow] (ins) -- (tbl);
+  \draw[arrow] (tbl) -- (sel);
+  \draw[arrow] (upd) -- (tbl2);
+  \draw[arrow] (del) -- (tbl2);
+\end{tikzpicture}
+\caption{Empat operasi CRUD pada tabel MySQL}
+\end{figure}
+

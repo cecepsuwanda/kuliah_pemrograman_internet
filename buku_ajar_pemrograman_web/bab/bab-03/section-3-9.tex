@@ -1,0 +1,131 @@
+\section{Aksesibilitas Web: WCAG, HTML Semantik, dan ARIA}
+
+\textbf{Aksesibilitas web} (sering disingkat \textbf{a11y}---a, 11 huruf, y) adalah praktik merancang dan membangun situs web yang dapat digunakan oleh \textbf{semua orang}, termasuk pengguna dengan disabilitas: tunanetra, tuli, gangguan motorik, dan gangguan kognitif. Aksesibilitas bukan sekadar ``fitur tambahan'' atau ``nice to have''---melainkan prasyarat etis dan sering kali legal untuk produk digital publik. Secara bisnis, situs yang aksesibel menjangkau audiens yang lebih luas dan cenderung memiliki SEO yang lebih baik \cite{mdnAccessibility}.
+
+Di Indonesia, populasi penyandang disabilitas mencapai sekitar 8\% dari total penduduk. Secara global, sekitar 15\% populasi dunia mengalami beberapa bentuk disabilitas. Membuat web yang aksesibel berarti membuka akses informasi dan layanan bagi jutaan orang yang selama ini mungkin terpinggirkan. Prinsip aksesibilitas juga bermanfaat bagi pengguna tanpa disabilitas---misalnya caption pada video membantu pengguna di lingkungan bising \cite{webdevAccessibility}.
+
+\subsection{Prinsip POUR (WCAG)}
+
+\textbf{WCAG} (Web Content Accessibility Guidelines) adalah standar internasional untuk aksesibilitas web yang dikembangkan oleh W3C WAI (Web Accessibility Initiative). WCAG versi 2.1 (dan draft 2.2) diorganisasikan berdasarkan empat prinsip yang disingkat \textbf{POUR} \cite{wcagW3c}:
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{2.8cm}|P{4cm}|P{5.5cm}|}
+\hline
+\textbf{Prinsip} & \textbf{Arti} & \textbf{Contoh Implementasi} \\
+\hline
+\textbf{P}erceivable & Konten dapat dipersepsi oleh semua indera & Teks alternatif pada gambar, caption pada video, kontras warna cukup \\
+\hline
+\textbf{O}perable & Antarmuka dapat dioperasikan & Navigasi keyboard, target sentuh cukup besar, tidak ada konten yang menyebabkan kejang \\
+\hline
+\textbf{U}nderstandable & Konten dan operasi dapat dipahami & Bahasa jelas, formulir dengan label yang tepat, pesan error yang bermakna \\
+\hline
+\textbf{R}obust & Konten dapat diakses teknologi assistif & HTML valid, kompatibel dengan screen reader, ARIA yang tepat \\
+\hline
+\end{tabular}
+\caption{Empat prinsip aksesibilitas WCAG (POUR)}
+\end{table}
+
+\subsection{HTML Semantik untuk Aksesibilitas}
+
+\textbf{HTML semantik} adalah penggunaan elemen HTML sesuai \textit{makna} kontennya, bukan sekadar tampilannya. Elemen semantik memberikan informasi struktur kepada browser dan \textbf{teknologi assistif} (seperti screen reader) sehingga konten dapat diinterpretasikan dengan benar. Misalnya, menggunakan \code{<nav>} untuk navigasi, \code{<main>} untuk konten utama, \code{<header>} dan \code{<footer>} untuk bagian atas dan bawah halaman \cite{mdnHtmlIntro}.
+
+\begin{webcode}[language=HTML, caption={Struktur HTML semantik yang aksesibel}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Aplikasi Catatan Harian</title>
+</head>
+<body>
+  <header>
+    <h1>Catatan Harian</h1>
+    <nav aria-label="Navigasi utama">
+      <ul>
+        <li><a href="/">Beranda</a></li>
+        <li><a href="/catatan">Catatan Saya</a></li>
+        <li><a href="/profil">Profil</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <main>
+    <h2>Daftar Catatan</h2>
+    <article>
+      <h3>Catatan Pertama</h3>
+      <p>Isi catatan...</p>
+      <time datetime="2026-03-01">1 Maret 2026</time>
+    </article>
+  </main>
+  
+  <footer>
+    <p>&copy; 2026 Catatan Harian App</p>
+  </footer>
+</body>
+</html>
+\end{webcode}
+
+\subsection{ARIA (Accessible Rich Internet Applications)}
+
+\textbf{ARIA} (Accessible Rich Internet Applications) adalah seperangkat atribut HTML tambahan yang memberikan informasi aksesibilitas untuk komponen yang tidak memiliki padanan semantik bawaan di HTML. ARIA digunakan ketika elemen HTML standar tidak cukup untuk menyampaikan peran, status, atau properti komponen kepada teknologi assistif---misalnya untuk tab, modal, dropdown custom, atau live region \cite{mdnAccessibility}.
+
+Aturan utama ARIA: \textbf{``Jangan gunakan ARIA jika HTML semantik sudah cukup.''} ARIA hanya diperlukan untuk komponen interaktif kustom yang dibangun dari elemen non-semantik. Penggunaan ARIA yang salah justru bisa mengurangi aksesibilitas.
+
+\begin{webcode}[language=HTML, caption={Contoh penggunaan ARIA pada form login aksesibel}]
+<form>
+  <div>
+    <label for="email">Alamat Email</label>
+    <input type="email" id="email" name="email" 
+           required
+           aria-describedby="email-help email-error"
+           aria-invalid="false">
+    <span id="email-help">Contoh: nama@email.com</span>
+    <span id="email-error" role="alert" 
+          aria-live="assertive"></span>
+  </div>
+  
+  <div>
+    <label for="password">Kata Sandi</label>
+    <input type="password" id="password" name="password"
+           required
+           aria-describedby="pwd-req">
+    <span id="pwd-req">Minimal 8 karakter</span>
+  </div>
+  
+  <button type="submit">Masuk</button>
+</form>
+\end{webcode}
+
+\subsection{Studi Kasus: Meningkatkan Aksesibilitas Form Login}
+
+\begin{contoh}
+\textbf{Studi Kasus: Before vs After Aksesibilitas Form}
+
+\textbf{Masalah (Before):}
+\begin{itemize}
+  \item Form menggunakan placeholder sebagai pengganti label---hilang saat pengguna mulai mengetik
+  \item Tidak ada \code{aria-describedby} untuk pesan error atau bantuan
+  \item Kontras warna placeholder hanya 2.1:1 (di bawah standar WCAG 4.5:1)
+  \item Tombol ``Login'' tidak dapat diakses dengan keyboard Tab
+  \item Pesan error muncul tanpa \code{role="alert"}, sehingga tidak dibacakan screen reader
+\end{itemize}
+
+\textbf{Perbaikan (After):}
+\begin{itemize}
+  \item Setiap input memiliki \code{<label>} yang terlihat dan terhubung via \code{for/id}
+  \item Pesan bantuan dan error dihubungkan dengan \code{aria-describedby}
+  \item Kontras teks ditingkatkan menjadi 7:1 (level AAA)
+  \item Semua elemen interaktif dapat diakses via keyboard dengan fokus visible
+  \item Pesan error menggunakan \code{role="alert"} dan \code{aria-live="assertive"}
+\end{itemize}
+
+\textbf{Dampak:} Screen reader (NVDA, JAWS) kini membacakan label, bantuan, dan pesan error dengan benar. Pengguna keyboard dapat menavigasi seluruh form. Pengguna low vision dapat membaca semua teks.
+\end{contoh}
+
+\subsection{Audit Aksesibilitas}
+
+Audit aksesibilitas adalah proses evaluasi situs web terhadap standar WCAG. Audit dapat dilakukan secara otomatis menggunakan alat seperti \textbf{Lighthouse} (built-in di Chrome DevTools), \textbf{axe DevTools}, atau \textbf{WAVE}, serta secara manual (navigasi keyboard, pengujian dengan screen reader). Hasil audit otomatis biasanya hanya mendeteksi sekitar 30--50\% masalah---sisanya memerlukan pengujian manual \cite{mdnToolsTesting}.
+
+\begin{catatan}
+Audit aksesibilitas otomatis (Lighthouse, axe) adalah langkah awal yang bagus, tetapi bukan satu-satunya evaluasi. Banyak masalah aksesibilitas yang hanya dapat ditemukan melalui pengujian manual---misalnya apakah urutan fokus logis, apakah konten video memiliki caption yang akurat, atau apakah screen reader membacakan konten dalam urutan yang bermakna. Idealnya, sertakan pengguna penyandang disabilitas dalam pengujian.
+\end{catatan}

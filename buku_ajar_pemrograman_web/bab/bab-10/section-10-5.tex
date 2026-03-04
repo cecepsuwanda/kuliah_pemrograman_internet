@@ -1,0 +1,63 @@
+\section{Tipe Data: String, Integer, Float, Boolean, Null, dan Tipe Lain}
+
+PHP mendukung beberapa tipe data yang dapat dikelompokkan menjadi tipe skalar, tipe komposit, dan tipe khusus. Tipe \textbf{skalar} mencakup \code{string} (teks), \code{int} (bilangan bulat), \code{float} (bilangan desimal), dan \code{bool} (nilai logika \code{true}/\code{false}). Tipe \textbf{komposit} mencakup \code{array} (kumpulan nilai) dan \code{object} (instansi kelas). Tipe \textbf{khusus} mencakup \code{null} (tidak ada nilai) dan \code{resource} (referensi ke sumber daya eksternal seperti koneksi database). Memahami tipe data adalah dasar untuk menulis kode yang benar dan efisien \cite{phpManual}.
+
+Setiap tipe data memiliki karakteristik dan penggunaan yang berbeda. Berikut tabel lengkap tipe data PHP beserta contoh nilai dan fungsi pengecekannya.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{1.8cm}|P{2.5cm}|P{3.5cm}|P{2.5cm}|P{1.7cm}|}
+\hline
+\textbf{Tipe} & \textbf{Contoh Nilai} & \textbf{Fungsi Cek} & \textbf{Cast} & \textbf{Kategori} \\
+\hline
+string & \code{"Halo"}, \code{'PHP'} & \code{is\_string()} & \code{(string)} & Skalar \\
+\hline
+int & \code{42}, \code{-7}, \code{0xFF} & \code{is\_int()} & \code{(int)} & Skalar \\
+\hline
+float & \code{3.14}, \code{2.0e3} & \code{is\_float()} & \code{(float)} & Skalar \\
+\hline
+bool & \code{true}, \code{false} & \code{is\_bool()} & \code{(bool)} & Skalar \\
+\hline
+array & \code{[1, 2, 3]} & \code{is\_array()} & \code{(array)} & Komposit \\
+\hline
+object & \code{new StdClass()} & \code{is\_object()} & \code{(object)} & Komposit \\
+\hline
+null & \code{null} & \code{is\_null()} & \code{(unset)} & Khusus \\
+\hline
+\end{tabular}
+\caption{Tipe data di PHP beserta contoh dan fungsi pengecekan}
+\end{table}
+
+Fungsi \code{gettype(\$variabel)} mengembalikan nama tipe data sebagai string (misalnya \code{"integer"}, \code{"string"}), sedangkan \code{var\_dump(\$variabel)} menampilkan tipe \textbf{dan} nilainya sekaligus, yang sangat berguna untuk debugging. Untuk pengecekan tipe yang lebih spesifik, gunakan fungsi \code{is\_*} seperti \code{is\_string()}, \code{is\_int()}, dan sebagainya. PHP juga mendukung type casting (konversi eksplisit) dengan menuliskan tipe target di dalam tanda kurung sebelum nilai \cite{phpManual}.
+
+\begin{webcode}[language=PHP, caption={Pengecekan dan konversi tipe data}]
+<?php
+$teks = "123";
+$angka = 45;
+$desimal = 3.14;
+$aktif = true;
+$kosong = null;
+
+// var_dump menampilkan tipe dan nilai
+var_dump($teks);     // string(3) "123"
+var_dump($angka);    // int(45)
+var_dump($desimal);  // float(3.14)
+var_dump($aktif);    // bool(true)
+var_dump($kosong);   // NULL
+
+// Type casting (konversi eksplisit)
+$x = (int) "42abc";    // $x = 42
+$y = (float) "3.14px"; // $y = 3.14
+$z = (bool) "";         // $z = false
+$w = (string) 100;      // $w = "100"
+
+echo gettype($x);  // output: integer
+?>
+\end{webcode}
+
+PHP melakukan \textbf{type juggling} (konversi tipe implisit) secara otomatis dalam konteks tertentu. Misalnya, saat string digunakan dalam operasi aritmetika, PHP akan mencoba mengonversinya menjadi angka. Perilaku ini bisa menghasilkan hasil yang tidak terduga jika tidak dipahami dengan baik. Gunakan operator \code{===} (identik) alih-alih \code{==} (sama) untuk membandingkan nilai \textbf{dan} tipe sekaligus, sehingga menghindari konversi implisit saat perbandingan \cite{phpRightWay}.
+
+\begin{catatan}
+\textbf{Perbandingan \code{==} vs \code{===}:} Ekspresi \code{"0" == false} bernilai \code{true} (karena type juggling), tetapi \code{"0" === false} bernilai \code{false} (karena tipe berbeda: string vs boolean). Selalu gunakan \code{===} untuk perbandingan yang aman dan dapat diprediksi, terutama saat memeriksa input pengguna.
+\end{catatan}
+

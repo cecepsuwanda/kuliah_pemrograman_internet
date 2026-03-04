@@ -1,0 +1,64 @@
+\section{Warna dan Background}
+
+Warna adalah salah satu aspek visual paling mendasar dalam CSS. Properti \code{color} mengatur warna teks, sedangkan \code{background-color} mengatur warna latar belakang elemen. CSS mendukung beberapa format penulisan warna yang masing-masing memiliki kelebihan dalam konteks yang berbeda. Pemahaman tentang format warna membantu pengembang membuat palet warna yang konsisten dan aksesibel \cite{mdnCss}.
+
+\begin{table}[htbp]
+\centering
+\scriptsize
+\begin{tabular}{|P{1.9cm}|P{2.5cm}|P{2.4cm}|P{2.8cm}|}
+\hline
+\textbf{Format} & \textbf{Sintaks} & \textbf{Contoh} & \textbf{Keterangan} \\
+\hline
+Nama & \code{color: red;} & \code{red}, \code{navy} & 148 nama standar \\
+\hline
+Hex & \code{\#RRGGBB} & \code{\#2a6fb0} & Paling umum; 6/3 digit \\
+\hline
+RGB & \code{rgb(R,G,B)} & \code{rgb(42,111,176)} & Nilai 0--255 per channel \\
+\hline
+RGBA & \code{rgba(R,G,B,A)} & \code{rgba(0,0,0,0.5)} & Dengan transparansi \\
+\hline
+HSL & \code{hsl(H,S,L)} & \code{hsl(210,60\%,43\%)} & Hue-Sat.-Lightness \\
+\hline
+HSLA & \code{hsla(H,S,L,A)} & \code{hsla(210,60\%,43\%,0.8)} & HSL + transparansi \\
+\hline
+\end{tabular}
+\caption{Format warna CSS dan contoh penggunaannya}
+\end{table}
+
+Untuk latar belakang, CSS menyediakan properti yang lebih kaya dari sekadar warna solid. Properti \code{background-image} memuat gambar sebagai latar; \code{background-repeat} mengontrol pengulangan (\code{repeat}, \code{no-repeat}, \code{repeat-x}, \code{repeat-y}); \code{background-position} menentukan posisi gambar; dan \code{background-size} mengatur ukuran (\code{cover} untuk menutupi seluruh area, \code{contain} untuk memastikan gambar terlihat utuh). Semua properti ini dapat digabungkan menggunakan shorthand \code{background} \cite{webdevCss}.
+
+\textbf{Gradient} CSS memungkinkan transisi halus antara dua atau lebih warna tanpa memerlukan file gambar. \code{linear-gradient()} membuat gradient linear dengan arah tertentu (misalnya \code{to right}, \code{45deg}), sedangkan \code{radial-gradient()} membuat gradient melingkar. Gradient sering digunakan untuk membuat latar belakang yang menarik pada hero section, tombol, atau card. Karena gradient dihasilkan oleh browser (bukan file gambar), ukuran file halaman tetap kecil \cite{cssTricks}.
+
+\begin{webcode}[language=CSS, caption={Warna, background, dan gradient}]
+/* Warna teks dan latar */
+body {
+  color: #333;
+  background-color: #f5f5f5;
+}
+
+/* Background gambar */
+.hero {
+  background: url('hero.jpg') center/cover no-repeat;
+  color: white;
+}
+
+/* Linear gradient */
+.header {
+  background: linear-gradient(135deg, #2a6fb0, #1a4f80);
+}
+
+/* Radial gradient */
+.badge {
+  background: radial-gradient(circle, #f39c12, #e74c3c);
+}
+
+/* RGBA untuk overlay semi-transparan */
+.overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+\end{webcode}
+
+\begin{konsep}
+\textbf{Aksesibilitas Warna.} Pastikan kontras antara warna teks dan latar belakang memenuhi standar WCAG: minimal rasio \textbf{4.5:1} untuk teks normal dan \textbf{3:1} untuk teks besar (18px+ atau 14px+ bold). Gunakan alat seperti WebAIM Contrast Checker untuk memeriksa rasio kontras. Jangan mengandalkan warna sebagai satu-satunya cara menyampaikan informasi (misalnya, field error hanya berwarna merah)---tambahkan ikon, teks, atau pola untuk pengguna buta warna \cite{mdnAccessibility}.
+\end{konsep}
+

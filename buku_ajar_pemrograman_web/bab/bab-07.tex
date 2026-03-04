@@ -4,42 +4,100 @@
 
 \chapter{CSS Layout Responsif}
 
+Bab ini melanjutkan penguasaan CSS dari Bab 6 ke tingkat layout dan responsif: positioning, Flexbox, Grid, media queries, animasi, dan organisasi kode.
+
 \begin{subcpmk}
   \item Sub-CPMK 2.2: Menerapkan CSS3 untuk styling, layout (Flexbox/Grid), dan desain responsif.
 \end{subcpmk}
 
 \input{bab/bab-07/section-7-1}
 \input{bab/bab-07/section-7-2}
+\input{bab/bab-07/section-7-3}
+\input{bab/bab-07/section-7-4}
+\input{bab/bab-07/section-7-5}
+\input{bab/bab-07/section-7-6}
+\input{bab/bab-07/section-7-7}
+\input{bab/bab-07/section-7-8}
+\input{bab/bab-07/section-7-9}
+\input{bab/bab-07/section-7-10}
+\input{bab/bab-07/section-7-11}
+\input{bab/bab-07/section-7-12}
+\input{bab/bab-07/section-7-13}
+\input{bab/bab-07/section-7-14}
+\input{bab/bab-07/section-7-15}
+\input{bab/bab-07/section-7-16}
+\input{bab/bab-07/section-7-17}
+\input{bab/bab-07/section-7-18}
+\input{bab/bab-07/section-7-19}
+\input{bab/bab-07/section-7-20}
+\input{bab/bab-07/section-7-21}
+\input{bab/bab-07/section-7-22}
 
 \begin{aktivitas}
-  \item Buat layout menu menggunakan Flexbox.
-  \item Buat layout kartu produk dengan Grid.
-  \item Uji tampilan pada ukuran layar berbeda.
+  \item Buat halaman dengan positioning: fixed header, sticky sidebar, dan elemen absolute (tooltip atau badge).
+  \item Buat navbar horizontal dengan Flexbox: logo di kiri, menu di kanan, responsif menjadi vertikal di mobile.
+  \item Buat grid kartu produk responsif menggunakan \code{repeat(auto-fill, minmax(280px, 1fr))}; tambahkan halaman layout dengan \code{grid-template-areas}.
+  \item Terapkan pendekatan mobile-first dengan media queries: base style untuk mobile, lalu \code{min-width} breakpoint untuk tablet dan desktop.
+  \item Buat form yang di-styling konsisten (\code{font-family: inherit}) dengan indikator fokus jelas dan dropdown menu yang aksesibel.
+  \item Tambahkan transition hover pada tombol dan card; buat animasi entrance (\code{@keyframes slideIn}); gunakan custom properties untuk tema warna dan dark mode.
 \end{aktivitas}
 
 \begin{latihan}
-  \item Jelaskan perbedaan Flexbox dan Grid.
-  \item Tambahkan media query untuk ukuran 480px.
+  \item Jelaskan perbedaan \code{position: relative}, \code{absolute}, \code{fixed}, dan \code{sticky}. Kapan menggunakan masing-masing?
+  \item Apa perbedaan Flexbox dan CSS Grid? Berikan contoh komponen yang cocok untuk masing-masing.
+  \item Jelaskan cara kerja \code{repeat(auto-fill, minmax(250px, 1fr))} dan mengapa grid ini responsif tanpa media query.
+  \item Apa keunggulan pendekatan mobile-first dibanding desktop-first? Jelaskan dengan contoh media query.
+  \item Jelaskan perbedaan \code{transition} dan \code{animation} dalam CSS. Kapan menggunakan masing-masing?
+  \item Apa itu BEM? Berikan contoh penamaan Block, Element, dan Modifier untuk komponen card.
+  \item Mengapa animasi dengan \code{transform}/\code{opacity} lebih performan dari animasi dengan \code{width}/\code{margin}?
+  \item Jelaskan bagaimana \code{@media (prefers-reduced-motion: reduce)} meningkatkan aksesibilitas.
 \end{latihan}
 
 \begin{asesmen}
-Asesmen berupa evaluasi layout responsif yang dibuat mahasiswa.
+Asesmen berupa proyek layout halaman web responsif yang menggabungkan seluruh konsep Bab 7:
+\begin{enumerate}
+  \item Buat halaman portfolio responsif dengan: layout Grid (\code{grid-template-areas}), navbar Flexbox dengan dropdown, sidebar sticky, dan card section responsif.
+  \item Terapkan pendekatan mobile-first: base style mobile, breakpoint 768px (tablet) dan 1024px (desktop).
+  \item Gunakan CSS custom properties untuk design system (warna, spacing, radius) dan implementasi dark mode.
+  \item Tambahkan transition pada hover dan animasi entrance untuk card.
+  \item Pastikan aksesibilitas: indikator fokus jelas, \code{prefers-reduced-motion}, kontras warna memadai.
+  \item Organisasi kode dengan konvensi BEM.
+\end{enumerate}
+Penilaian: layout responsif (25\%), Flexbox/Grid (20\%), animasi/transition (15\%), custom properties dan organisasi (15\%), aksesibilitas (15\%), kode bersih (10\%).
 \end{asesmen}
 
 \begin{checklist}
-  \item Saya dapat membuat layout dengan Flexbox.
-  \item Saya dapat membuat layout dengan CSS Grid.
-  \item Saya memahami penggunaan media query.
+  \item Saya memahami normal flow dan lima nilai \code{position} (static, relative, absolute, fixed, sticky).
+  \item Saya dapat membuat layout dengan Flexbox: \code{justify-content}, \code{align-items}, \code{flex-wrap}, \code{gap}.
+  \item Saya dapat membuat layout dengan CSS Grid: \code{grid-template-columns/rows/areas}, \code{fr}, \code{repeat()}, \code{minmax()}.
+  \item Saya memahami perbedaan Flexbox (1D) dan Grid (2D) serta kapan menggunakan masing-masing.
+  \item Saya dapat menulis media queries dengan pendekatan mobile-first (\code{min-width}).
+  \item Saya memahami unit viewport (vw, vh, dvh) dan fluid typography dengan \code{clamp()}.
+  \item Saya dapat menytyling form dan membuat dropdown menu yang aksesibel.
+  \item Saya memahami transition, animation/keyframes, dan transform; serta tahu mana yang performan (GPU-friendly).
+  \item Saya dapat menggunakan CSS custom properties untuk design system dan dark mode.
+  \item Saya memahami specificity, cascade, dan CSS Layers (\code{@layer}).
+  \item Saya dapat menggunakan pseudo-class lanjutan (\code{:nth-child}, \code{:has}, \code{:is}) dan pseudo-element (\code{::before}, \code{::after}).
+  \item Saya menerapkan aksesibilitas CSS: indikator fokus, \code{prefers-reduced-motion}, kontras warna.
+  \item Saya mengorganisasi kode dengan BEM dan menerapkan best practices performa CSS.
 \end{checklist}
 
 \begin{rangkuman}
-Bab ini membahas Flexbox dan Grid sebagai teknik layout modern serta konsep responsif. Penguasaan keduanya memudahkan Anda membuat tampilan yang rapi di berbagai perangkat.
+Bab ini membahas seluruh spektrum CSS layout dan responsif, dimulai dari normal flow dan positioning (static, relative, absolute, fixed, sticky) hingga sistem layout modern: Flexbox untuk komponen satu dimensi dan CSS Grid untuk layout dua dimensi. Float dibahas sebagai metode legacy yang tetap relevan untuk memahami kode lama.
+
+Media queries dan pendekatan mobile-first menjadi fondasi desain responsif, dilengkapi unit viewport (vw, vh, dvh) dan teknik fluid typography dengan \code{clamp()}. Styling form dan navigasi (termasuk dropdown) dibahas dengan perhatian pada konsistensi dan aksesibilitas.
+
+Transition dan animation memberikan interaksi yang halus; transform memungkinkan manipulasi visual tanpa mempengaruhi layout; ketiganya dioptimalkan oleh GPU untuk performa terbaik. CSS custom properties menciptakan design system yang konsisten dan mendukung fitur seperti dark mode.
+
+Spesifisitas, cascade, dan CSS Layers mengontrol prioritas aturan. Pseudo-class dan pseudo-element lanjutan memperluas kemampuan selector. Aksesibilitas, organisasi kode (BEM), dan best practices performa melengkapi penguasaan CSS profesional.
 
 \textbf{Poin Kunci:}
 \begin{itemize}
-  \item Flexbox cocok untuk layout satu dimensi.
-  \item Grid cocok untuk layout dua dimensi.
-  \item Media query membuat desain adaptif.
+  \item Flexbox (1D) dan Grid (2D) adalah fondasi layout modern; keduanya saling melengkapi.
+  \item Mobile-first (\code{min-width}) menghasilkan CSS lebih ringan dan direkomendasikan.
+  \item Animasikan hanya \code{transform}/\code{opacity} untuk performa optimal.
+  \item Custom properties menciptakan design system yang konsisten dan mendukung dark mode.
+  \item Aksesibilitas bukan opsional: indikator fokus, reduced motion, dan kontras warna wajib diperhatikan.
 \end{itemize}
 \end{rangkuman}
 

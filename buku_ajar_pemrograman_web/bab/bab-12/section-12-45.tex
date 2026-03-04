@@ -1,0 +1,33 @@
+\section{Pengujian Dasar (Unit Test dan Alat)}
+
+\textbf{Unit testing} memverifikasi bahwa fungsi dan class bekerja dengan benar secara terisolasi. Di PHP, framework pengujian standar adalah \textbf{PHPUnit}. Setiap test case adalah metode yang menguji satu perilaku spesifik menggunakan \textit{assertions}: \code{assertEquals()}, \code{assertTrue()}, \code{assertNull()}, dll. Pengujian otomatis membantu mendeteksi bug lebih awal, memberikan kepercayaan saat refactoring, dan mendokumentasikan perilaku yang diharapkan \cite{phpRightWay}.
+
+\begin{webcode}[language=PHP, caption={Contoh unit test dengan PHPUnit}]
+<?php
+// tests/ProdukTest.php
+use PHPUnit\Framework\TestCase;
+
+class ProdukTest extends TestCase {
+  public function testHitungDiskon(): void {
+    $harga = 100000;
+    $diskon = 0.1; // 10%
+    $expected = 90000;
+
+    $hasil = $harga - ($harga * $diskon);
+
+    $this->assertEquals($expected, $hasil);
+  }
+
+  public function testValidasiEmail(): void {
+    $valid   = filter_var('test@email.com', FILTER_VALIDATE_EMAIL);
+    $invalid = filter_var('bukan-email', FILTER_VALIDATE_EMAIL);
+
+    $this->assertNotFalse($valid);
+    $this->assertFalse($invalid);
+  }
+}
+
+// Jalankan: vendor/bin/phpunit tests/
+?>
+\end{webcode}
+

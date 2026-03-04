@@ -4,42 +4,131 @@
 
 \chapter{MySQL dan Operasi CRUD}
 
+Urutan materi MySQL dalam bab ini mengikuti struktur judul materi MySQL (tingkat dasar, menengah, lanjut) seperti pada dokumen judul materi MySQL yang menjadi acuan mata kuliah.
+
 \begin{subcpmk}
   \item Sub-CPMK 3.2: Mengelola basis data dan mengimplementasikan operasi CRUD dengan MySQL serta koneksi dari PHP.
+  \item Sub-CPMK 3.3: Mengintegrasikan API dan menghubungkan front-end dengan back-end.
+  \item Sub-CPMK 4.2: Menerapkan prinsip keamanan web: validasi input, prepared statement, session, mitigasi XSS dan CSRF.
 \end{subcpmk}
 
 \input{bab/bab-12/section-12-1}
 \input{bab/bab-12/section-12-2}
+\input{bab/bab-12/section-12-3}
+\input{bab/bab-12/section-12-4}
+\input{bab/bab-12/section-12-5}
+\input{bab/bab-12/section-12-6}
+\input{bab/bab-12/section-12-7}
+\input{bab/bab-12/section-12-8}
+\input{bab/bab-12/section-12-9}
+\input{bab/bab-12/section-12-10}
+\input{bab/bab-12/section-12-11}
+\input{bab/bab-12/section-12-12}
+\input{bab/bab-12/section-12-13}
+\input{bab/bab-12/section-12-14}
+\input{bab/bab-12/section-12-15}
+\input{bab/bab-12/section-12-16}
+\input{bab/bab-12/section-12-17}
+\input{bab/bab-12/section-12-18}
+\input{bab/bab-12/section-12-19}
+\input{bab/bab-12/section-12-20}
+\input{bab/bab-12/section-12-21}
+\input{bab/bab-12/section-12-22}
+\input{bab/bab-12/section-12-23}
+\input{bab/bab-12/section-12-24}
+\input{bab/bab-12/section-12-25}
+\input{bab/bab-12/section-12-26}
+\input{bab/bab-12/section-12-27}
+\input{bab/bab-12/section-12-28}
+\input{bab/bab-12/section-12-29}
+\input{bab/bab-12/section-12-30}
+\input{bab/bab-12/section-12-31}
+\input{bab/bab-12/section-12-32}
+\input{bab/bab-12/section-12-33}
+\input{bab/bab-12/section-12-34}
+\input{bab/bab-12/section-12-35}
+\input{bab/bab-12/section-12-36}
+\input{bab/bab-12/section-12-37}
+\input{bab/bab-12/section-12-38}
+\input{bab/bab-12/section-12-39}
+\input{bab/bab-12/section-12-40}
+\input{bab/bab-12/section-12-41}
+\input{bab/bab-12/section-12-42}
+\input{bab/bab-12/section-12-43}
+\input{bab/bab-12/section-12-44}
+\input{bab/bab-12/section-12-45}
+\input{bab/bab-12/section-12-46}
 
 \begin{aktivitas}
-  \item Buat tabel pengguna dengan kolom id, nama, dan email.
-  \item Lakukan insert data menggunakan PHP.
-  \item Buat halaman untuk menampilkan data pengguna.
+  \item Instalasi MySQL (via XAMPP); praktik akses CLI dan phpMyAdmin. Buat database dan tabel dengan berbagai tipe data.
+  \item Praktik DDL: ALTER TABLE. Praktik DML: SELECT dengan WHERE, operator, ORDER BY, LIMIT; INSERT, UPDATE, DELETE.
+  \item Gunakan fungsi agregat (COUNT, SUM, AVG, MIN, MAX), GROUP BY, HAVING, DISTINCT, alias. Tangani nilai NULL.
+  \item Desain relasi tabel: primary key, foreign key, normalisasi (1NF--3NF). Praktik JOIN (INNER, LEFT, RIGHT) dan subquery.
+  \item Buat index dan analisis performa query dengan EXPLAIN. Praktik backup/restore dengan mysqldump.
+  \item Koneksi PHP--MySQL dengan MySQLi (OOP). Praktik fetch: \code{fetch\_assoc()}, \code{fetch\_all()}. Bangun aplikasi CRUD lengkap.
+  \item Gunakan prepared statement (MySQLi dan PDO) untuk mencegah SQL injection. Bandingkan MySQLi vs PDO.
+  \item Praktik MySQL lanjut: VIEW, stored procedure, trigger, transaksi (BEGIN/COMMIT/ROLLBACK).
+  \item Kelola user dan hak akses MySQL. Rancang skema database lengkap dengan diagram ER.
+  \item Terapkan keamanan web: validasi input, sanitasi output, mitigasi XSS dan CSRF dengan token.
+  \item Pelajari exception, namespace, Composer, dan struktur proyek PHP sesuai PSR.
+  \item Bangun REST API sederhana dengan PHP; hubungkan front-end (Fetch API) dengan back-end.
+  \item Tulis unit test dengan PHPUnit. Siapkan checklist deployment untuk produksi.
 \end{aktivitas}
 
 \begin{latihan}
-  \item Jelaskan fungsi primary key dalam tabel.
-  \item Buat query SQL untuk mengupdate email pengguna.
+  \item Jelaskan perbedaan DDL dan DML; berikan contoh minimal 2 perintah masing-masing.
+  \item Apa peran primary key dan foreign key dalam menjaga integritas data?
+  \item Tulis query dengan JOIN untuk menggabungkan data dari dua tabel; jelaskan perbedaan INNER, LEFT, dan RIGHT JOIN.
+  \item Apa itu normalisasi? Jelaskan 1NF, 2NF, dan 3NF dengan contoh.
+  \item Jelaskan bagaimana prepared statement mencegah SQL injection dibandingkan penggabungan string.
+  \item Bandingkan MySQLi dan PDO dari sisi portabilitas, fitur, dan gaya API.
+  \item Buat endpoint REST API sederhana yang mengembalikan data produk dalam format JSON.
+  \item Apa itu CSRF token dan mengapa diperlukan di setiap form? Jelaskan mekanismenya.
 \end{latihan}
 
 \begin{asesmen}
-Asesmen berupa proyek mini CRUD sederhana menggunakan PHP dan MySQL.
+Asesmen berupa proyek: \textbf{Aplikasi Web CRUD Full-Stack} dengan komponen:
+\begin{itemize}
+  \item Desain database ternormalisasi (minimal 3 tabel dengan relasi FK) dan diagram ER.
+  \item Implementasi CRUD dengan PHP dan MySQLi/PDO menggunakan prepared statement.
+  \item REST API minimal 2 endpoint (GET dan POST) dengan respons JSON.
+  \item Integrasi front-end menggunakan JavaScript Fetch API.
+  \item Keamanan: validasi input, sanitasi output, CSRF token, password hashing.
+  \item (Opsional) Pengujian unit dengan PHPUnit; deployment checklist.
+\end{itemize}
+Penilaian: desain database (20\%), implementasi CRUD (25\%), API (15\%), keamanan (25\%), dokumentasi (15\%).
 \end{asesmen}
 
 \begin{checklist}
-  \item Saya memahami struktur tabel dan tipe data dasar.
-  \item Saya dapat melakukan operasi CRUD.
-  \item Saya menggunakan prepared statement untuk keamanan.
+  \item Saya memahami database relasional, SQL, DDL (CREATE, ALTER, DROP), dan DML (SELECT, INSERT, UPDATE, DELETE).
+  \item Saya dapat menggunakan WHERE, operator, ORDER BY, LIMIT, fungsi agregat, GROUP BY, HAVING, DISTINCT, alias, dan NULL.
+  \item Saya memahami relasi tabel, primary key, foreign key, JOIN (INNER/LEFT/RIGHT), subquery, dan normalisasi (1NF--3NF).
+  \item Saya dapat membuat dan menggunakan index; menganalisis query dengan EXPLAIN; melakukan backup/restore.
+  \item Saya dapat membuat koneksi MySQLi (OOP), menjalankan query, dan menggunakan metode fetch.
+  \item Saya mampu membangun aplikasi CRUD dengan prepared statement dan memahami pencegahan SQL injection.
+  \item Saya dapat menggunakan PDO dan memahami perbedaannya dengan MySQLi.
+  \item Saya mengenal VIEW, stored procedure, trigger, transaksi, dan keamanan user MySQL.
+  \item Saya mampu menerapkan validasi input, sanitasi output, dan mitigasi XSS/CSRF.
+  \item Saya memahami exception, namespace, Composer, dan struktur proyek PHP (PSR).
+  \item Saya dapat membangun REST API sederhana dan menghubungkan front-end (Fetch API) dengan back-end.
+  \item Saya mengetahui dasar pengujian (PHPUnit) dan checklist deployment produksi.
 \end{checklist}
 
 \begin{rangkuman}
-Bab ini menjelaskan dasar SQL dan operasi CRUD di MySQL. Anda juga belajar menghubungkan PHP dengan database agar aplikasi web dapat menyimpan data secara permanen.
+Bab ini membahas MySQL dan operasi CRUD secara komprehensif dalam empat area utama. \textbf{MySQL Dasar} (section 1--14) mencakup pengenalan database dan SQL, instalasi MySQL, akses CLI dan GUI, DDL (CREATE DATABASE, CREATE TABLE, ALTER TABLE), DML (SELECT, INSERT, UPDATE, DELETE), operator, ORDER BY/LIMIT, fungsi agregat, GROUP BY/HAVING, DISTINCT/alias, serta penanganan NULL.
+
+\textbf{Relasi dan Lanjut} (section 15--22) membahas relasi tabel dan konsep kunci (PK/FK), JOIN (INNER, LEFT, RIGHT), subquery, PRIMARY KEY vs UNIQUE, FOREIGN KEY dan referential integrity, normalisasi (1NF/2NF/3NF), index, serta backup dan restore dengan mysqldump.
+
+\textbf{Integrasi PHP--MySQL} (section 23--27) mengajarkan koneksi MySQLi (OOP), metode fetch, CRUD aplikasi web dengan prepared statement, pencegahan SQL injection, serta PDO sebagai alternatif yang portable.
+
+\textbf{MySQL Advanced dan PHP Lanjut} (section 28--46) meliputi VIEW, stored procedure, trigger, transaksi (ACID), optimasi EXPLAIN, keamanan user, perancangan database, keamanan web (validasi/sanitasi, XSS, CSRF), exception, namespace, Composer, struktur proyek, PHP CLI, REST API, integrasi front-back dengan Fetch API, pengujian PHPUnit, dan deployment.
 
 \textbf{Poin Kunci:}
 \begin{itemize}
-  \item SQL digunakan untuk mengelola data di MySQL.
-  \item CRUD adalah operasi utama dalam aplikasi berbasis data.
-  \item Prepared statement membantu mencegah SQL injection.
+  \item SQL DDL/DML, relasi, JOIN, normalisasi, dan index adalah fondasi pengelolaan basis data.
+  \item Prepared statement (MySQLi/PDO) wajib untuk keamanan; jangan pernah gabungkan input ke query.
+  \item REST API dengan JSON menjadi standar komunikasi front-end dan back-end modern.
+  \item Keamanan, pengujian, dan deployment yang baik melengkapi siklus pengembangan full-stack.
 \end{itemize}
 \end{rangkuman}
 

@@ -1,0 +1,80 @@
+\section{Siklus Pengembangan Web (SDLC untuk Web)}
+Pengembangan aplikasi web mengikuti tahapan yang terstruktur, mirip dengan \textbf{SDLC} (Software Development Life Cycle) pada rekayasa perangkat lunak umumnya. Tujuan siklus ini adalah menghasilkan aplikasi yang memenuhi kebutuhan pengguna, berkualitas, dan dapat dipelihara. Setiap tahapan memiliki output yang menjadi input bagi tahapan berikutnya, sehingga proses berjalan sistematis. Tanpa pendekatan yang terstruktur, proyek web berisiko mengalami keterlambatan, pembengkakan biaya, dan hasil yang tidak sesuai harapan \cite{mdnLearn}.
+
+Tahap pertama adalah \textbf{analisis kebutuhan}: mengidentifikasi apa yang harus dilakukan aplikasi (\textbf{kebutuhan fungsional}) dan standar kualitas yang harus dipenuhi (\textbf{kebutuhan non-fungsional}). Kebutuhan fungsional mendeskripsikan fitur-fitur yang akan dimiliki aplikasi, misalnya: pengguna dapat mendaftar, login, dan melihat daftar produk. Kebutuhan non-fungsional mencakup aspek seperti kecepatan respons di bawah 2 detik, keamanan data pengguna, dan ketersediaan 99,9\%. Hasil tahap ini berupa dokumen kebutuhan yang menjadi acuan seluruh tim \cite{webdevLearn}.
+
+Tahap kedua adalah \textbf{perancangan} (desain), yang mencakup pembuatan wireframe, mockup, user flow, dan arsitektur sistem. Desain antarmuka (\textbf{UI design}) menentukan bagaimana pengguna berinteraksi dengan aplikasi, sedangkan desain teknis (\textbf{technical architecture}) menentukan struktur kode, basis data, dan API. Wireframe adalah sketsa kasar yang menunjukkan tata letak halaman tanpa detail visual, sedangkan mockup menyertakan warna, font, dan gambar. Alat seperti Figma, Balsamiq, atau bahkan kertas dan pensil dapat digunakan untuk membuat prototype \cite{webdevAccessibility}.
+
+Tahap ketiga adalah \textbf{implementasi} (coding), yaitu menerjemahkan desain menjadi kode program. Front-end dibangun dengan HTML, CSS, dan JavaScript; back-end dengan PHP dan MySQL. Kode ditulis secara modular: setiap fungsi atau komponen memiliki tanggung jawab spesifik sehingga mudah diuji dan diperbaiki. Version control seperti Git membantu melacak perubahan, memungkinkan rollback jika terjadi kesalahan, dan memfasilitasi kolaborasi antar anggota tim \cite{mdnLearn}.
+
+Tahap keempat adalah \textbf{pengujian} (testing), yang memastikan aplikasi berfungsi sesuai spesifikasi dan bebas dari bug kritis. Terdapat beberapa tingkatan pengujian: \textbf{unit testing} menguji fungsi individual, \textbf{integration testing} menguji interaksi antar komponen, dan \textbf{end-to-end testing} menguji alur pengguna secara lengkap. Pengujian kompatibilitas browser memastikan tampilan konsisten di Chrome, Firefox, Safari, dan Edge. Pengujian sebaiknya dilakukan secara bertahap sejak awal, bukan hanya di akhir proyek \cite{mdnToolsTesting}.
+
+Tahap kelima adalah \textbf{deployment}, yaitu memasang aplikasi di server produksi agar dapat diakses oleh pengguna melalui internet. Proses ini meliputi konfigurasi web server, pengaturan domain dan DNS, pemasangan sertifikat SSL, dan migrasi basis data. Setelah deployment, tahap \textbf{pemeliharaan} dimulai: memperbaiki bug yang ditemukan pengguna, memperbarui fitur berdasarkan umpan balik, memantau performa dan keamanan, serta melakukan backup data secara berkala. Siklus ini bersifat iteratif---hasil pemeliharaan sering memunculkan kebutuhan baru yang memulai siklus kembali \cite{mdnDeploy}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{2.5cm}|P{4cm}|P{5cm}|}
+\hline
+\textbf{Tahap} & \textbf{Output Utama} & \textbf{Alat/Metode} \\
+\hline
+Analisis & Dokumen kebutuhan (SRS) & Wawancara, survei, observasi \\
+\hline
+Perancangan & Wireframe, mockup, ERD & Figma, Balsamiq, draw.io \\
+\hline
+Implementasi & Kode sumber (HTML, CSS, JS, PHP) & VS Code, Git, XAMPP \\
+\hline
+Pengujian & Laporan bug, test report & Browser DevTools, unit test \\
+\hline
+Deployment & Aplikasi live di server & Shared hosting, VPS, CI/CD \\
+\hline
+Pemeliharaan & Patch, update, log monitoring & Git, cPanel, log analyzer \\
+\hline
+\end{tabular}
+\caption{Output dan alat pada setiap tahap siklus pengembangan web}
+\end{table}
+
+Dalam praktiknya, terdapat dua pendekatan utama dalam menjalankan SDLC: \textbf{Waterfall} dan \textbf{Agile}. Waterfall menjalankan setiap tahap secara berurutan dari awal hingga akhir---cocok untuk proyek dengan kebutuhan yang sudah jelas dan tidak banyak berubah. Agile, sebaliknya, membagi proyek menjadi iterasi pendek (disebut \textit{sprint}, biasanya 1--2 minggu) di mana setiap sprint menghasilkan fitur fungsional yang dapat diuji. Pendekatan Agile lebih populer di industri web karena memungkinkan adaptasi cepat terhadap perubahan kebutuhan \cite{mdnLearn}.
+
+\begin{contoh}
+\textbf{Contoh Dokumen Kebutuhan Sederhana}
+
+Untuk proyek \textit{Toko Online Sederhana}, berikut contoh kebutuhan yang teridentifikasi:
+
+\textbf{Kebutuhan Fungsional:}
+\begin{itemize}
+  \item Pengguna dapat mendaftar dan login dengan email dan password
+  \item Pengguna dapat melihat daftar produk dengan foto, nama, dan harga
+  \item Pengguna dapat menambahkan produk ke keranjang belanja
+  \item Admin dapat menambah, mengubah, dan menghapus produk
+\end{itemize}
+
+\textbf{Kebutuhan Non-Fungsional:}
+\begin{itemize}
+  \item Halaman harus dimuat dalam waktu kurang dari 3 detik
+  \item Password pengguna harus disimpan menggunakan hash bcrypt
+  \item Aplikasi harus tampil baik di layar desktop dan mobile
+  \item Data harus di-backup otomatis setiap hari
+\end{itemize}
+\end{contoh}
+
+\begin{figure}[htbp]
+\centering
+\begin{adjustbox}{max width=\textwidth, max totalheight=0.5\textheight}
+\begin{tikzpicture}[node distance=1.8cm, every node/.style={font=\footnotesize}, transform shape]
+  \node (analisis) [class, minimum width=3.5cm] {1. Analisis Kebutuhan};
+  \node (desain) [class, minimum width=3.5cm, below=of analisis] {2. Perancangan (Desain)};
+  \node (impl) [class, minimum width=3.5cm, below=of desain] {3. Implementasi (Coding)};
+  \node (test) [class, minimum width=3.5cm, below=of impl] {4. Pengujian (Testing)};
+  \node (deploy) [class, minimum width=3.5cm, below=of test] {5. Deployment};
+  \node (maint) [class, minimum width=3.5cm, below=of deploy] {6. Pemeliharaan};
+  \draw [arrow] (analisis) -- (desain);
+  \draw [arrow] (desain) -- (impl);
+  \draw [arrow] (impl) -- (test);
+  \draw [arrow] (test) -- (deploy);
+  \draw [arrow] (deploy) -- (maint);
+  \draw [arrow, dashed] (maint.east) -- ++(1.5,0) |- (analisis.east);
+\end{tikzpicture}
+\end{adjustbox}
+\caption{Siklus pengembangan web (SDLC)}
+\end{figure}
+

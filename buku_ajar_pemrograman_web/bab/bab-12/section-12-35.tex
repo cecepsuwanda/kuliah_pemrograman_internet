@@ -1,0 +1,72 @@
+\section{Praktik: Merancang dan Mengelola Basis Data untuk Aplikasi Web}
+
+Merancang database yang baik memerlukan tahapan: (1) identifikasi \textbf{entitas} (objek utama: pengguna, produk, pesanan); (2) tentukan \textbf{atribut} (kolom) setiap entitas; (3) identifikasi \textbf{relasi} antar entitas dan tentukan kardinalitas (one-to-one, one-to-many, many-to-many); (4) terapkan \textbf{normalisasi} untuk mengurangi redundansi; (5) buat \textbf{diagram ER} sebelum menulis SQL; (6) tentukan \textbf{index} pada kolom yang sering dicari; (7) atur \textbf{constraint} (NOT NULL, UNIQUE, FK) untuk integritas data \cite{mysqlDocs}.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  entity/.style={draw, rectangle, rounded corners, minimum width=2.5cm, minimum height=1.3cm, align=center, font=\footnotesize, fill=#1},
+  arrow/.style={thick}
+]
+  \node[entity=blue!15] (user) {\textbf{pengguna}\\id (PK), username,\\email, password};
+  \node[entity=green!15, right=2cm of user] (order) {\textbf{pesanan}\\id (PK), user\_id (FK),\\tanggal, total, status};
+  \node[entity=orange!15, right=2cm of order] (detail) {\textbf{pesanan\_detail}\\id (PK), pesanan\_id (FK),\\produk\_id (FK), jumlah};
+  \node[entity=red!10, below=1.5cm of detail] (produk) {\textbf{produk}\\id (PK), nama, harga,\\kategori\_id (FK)};
+  \node[entity=purple!10, below=1.5cm of user] (kat) {\textbf{kategori}\\id (PK), nama};
+
+  \draw[arrow] (user) -- node[above, font=\scriptsize]{1:N} (order);
+  \draw[arrow] (order) -- node[above, font=\scriptsize]{1:N} (detail);
+  \draw[arrow] (detail) -- node[right, font=\scriptsize]{N:1} (produk);
+  \draw[arrow] (produk) -- node[below, font=\scriptsize]{N:1} (kat);
+\end{tikzpicture}
+\caption{Diagram ER untuk aplikasi e-commerce sederhana}
+\end{figure}
+
+\begin{webcode}[language=SQL, caption={SQL lengkap untuk skema e-commerce}]
+CREATE DATABASE IF NOT EXISTS ecommerce CHARACTER SET utf8mb4;
+USE ecommerce;
+
+CREATE TABLE kategori (
+  id   INT AUTO_INCREMENT PRIMARY KEY,
+  nama VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE produk (
+  id          INT AUTO_INCREMENT PRIMARY KEY,
+  nama        VARCHAR(200) NOT NULL,
+  harga       DECIMAL(12,2) NOT NULL,
+  stok        INT NOT NULL DEFAULT 0,
+  kategori_id INT,
+  FOREIGN KEY (kategori_id) REFERENCES kategori(id)
+);
+
+CREATE TABLE pengguna (
+  id       INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(50) NOT NULL UNIQUE,
+  email    VARCHAR(100) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE pesanan (
+  id      INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  tanggal DATETIME DEFAULT CURRENT_TIMESTAMP,
+  total   DECIMAL(12,2) DEFAULT 0,
+  status  ENUM('pending','proses','selesai','batal') DEFAULT 'pending',
+  FOREIGN KEY (user_id) REFERENCES pengguna(id)
+);
+
+CREATE TABLE pesanan_detail (
+  id         INT AUTO_INCREMENT PRIMARY KEY,
+  pesanan_id INT NOT NULL,
+  produk_id  INT NOT NULL,
+  jumlah     INT NOT NULL DEFAULT 1,
+  harga      DECIMAL(12,2) NOT NULL,
+  FOREIGN KEY (pesanan_id) REFERENCES pesanan(id) ON DELETE CASCADE,
+  FOREIGN KEY (produk_id) REFERENCES produk(id)
+);
+
+CREATE INDEX idx_produk_kategori ON produk(kategori_id);
+CREATE INDEX idx_pesanan_user ON pesanan(user_id);
+\end{webcode}
+

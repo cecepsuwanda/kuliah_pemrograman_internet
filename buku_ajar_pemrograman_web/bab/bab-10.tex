@@ -4,42 +4,83 @@
 
 \chapter{PHP Dasar dan Pemrosesan Form}
 
+Urutan materi dalam bab ini mengikuti struktur judul materi PHP (tingkat dasar, menengah, lanjut) seperti pada dokumen judul materi PHP yang menjadi acuan mata kuliah. Bab ini memperkenalkan PHP sebagai bahasa pemrograman server-side, mulai dari instalasi lingkungan pengembangan, sintaks dasar, tipe data, operator, struktur kontrol, fungsi, array, hingga pemrosesan form dengan validasi server-side.
+
 \begin{subcpmk}
   \item Sub-CPMK 3.1: Mengimplementasikan logika server-side dengan PHP (pemrosesan form, struktur dasar, OOP).
 \end{subcpmk}
 
 \input{bab/bab-10/section-10-1}
 \input{bab/bab-10/section-10-2}
+\input{bab/bab-10/section-10-3}
+\input{bab/bab-10/section-10-4}
+\input{bab/bab-10/section-10-5}
+\input{bab/bab-10/section-10-6}
+\input{bab/bab-10/section-10-7}
+\input{bab/bab-10/section-10-8}
+\input{bab/bab-10/section-10-9}
+\input{bab/bab-10/section-10-10}
+\input{bab/bab-10/section-10-11}
+\input{bab/bab-10/section-10-12}
+\input{bab/bab-10/section-10-13}
+\input{bab/bab-10/section-10-14}
+\input{bab/bab-10/section-10-15}
 
 \begin{aktivitas}
-  \item Buat halaman HTML dengan form sederhana.
-  \item Buat script PHP untuk membaca dan menampilkan input.
-  \item Tambahkan validasi agar input tidak kosong.
+  \item Instal XAMPP (atau server lokal lain) dan verifikasi instalasi PHP dengan membuat file \code{phpinfo()} lalu mengaksesnya melalui browser.
+  \item Tulis skrip PHP yang menggunakan variabel, tipe data, operator aritmetika, dan operator perbandingan untuk membuat kalkulator sederhana.
+  \item Praktikkan struktur kontrol: buat program yang menentukan grade (A/B/C/D/E) berdasarkan nilai numerik menggunakan \code{if-elseif-else} dan \code{switch}.
+  \item Buat program yang menggunakan perulangan \code{for} dan \code{foreach} untuk menampilkan data array dalam format tabel HTML.
+  \item Implementasikan form HTML lengkap (nama, email, pesan) dengan pemrosesan dan validasi server-side di PHP, termasuk sanitasi output dengan \code{htmlspecialchars()}.
+  \item Organisasikan proyek PHP sederhana menggunakan \code{include}/\code{require} untuk memisahkan header, footer, konfigurasi, dan fungsi ke file-file terpisah.
 \end{aktivitas}
 
 \begin{latihan}
-  \item Jelaskan perbedaan metode GET dan POST.
-  \item Tambahkan validasi sederhana untuk input nama.
+  \item Jelaskan perbedaan mendasar antara metode GET dan POST, serta berikan contoh skenario kapan masing-masing metode sebaiknya digunakan.
+  \item Apa perbedaan antara operator \code{==} dan \code{===} di PHP? Berikan contoh kasus di mana penggunaan \code{==} dapat menyebabkan bug.
+  \item Buat fungsi PHP bernama \code{validasiEmail(\$email)} yang memeriksa apakah email tidak kosong dan memiliki format yang valid menggunakan \code{filter\_var()}.
+  \item Jelaskan perbedaan antara \code{include}, \code{require}, \code{include\_once}, dan \code{require\_once}, serta kapan sebaiknya menggunakan masing-masing.
+  \item Mengapa validasi server-side tetap diperlukan meskipun form sudah memiliki validasi HTML5 di sisi klien? Berikan contoh skenario keamanannya.
 \end{latihan}
 
 \begin{asesmen}
-Asesmen berupa tugas membuat form dan pemrosesan data dengan PHP.
+Asesmen berupa tugas proyek membuat sistem form multi-halaman dengan PHP yang mencakup:
+\begin{enumerate}
+  \item Halaman form registrasi (nama, email, password, konfirmasi password) dengan validasi server-side lengkap.
+  \item Halaman hasil yang menampilkan data yang berhasil divalidasi dengan sanitasi output.
+  \item Penggunaan \code{include}/\code{require} untuk memisahkan header, footer, konfigurasi, dan fungsi validasi ke file terpisah.
+  \item Implementasi teknik \textit{sticky form} agar data tidak hilang jika validasi gagal.
+\end{enumerate}
 \end{asesmen}
 
 \begin{checklist}
-  \item Saya dapat menulis sintaks dasar PHP.
-  \item Saya memahami cara membaca data form.
-  \item Saya mampu melakukan validasi server-side sederhana.
+  \item Saya dapat menginstal dan menjalankan PHP menggunakan XAMPP atau server lokal lainnya.
+  \item Saya memahami sintaks dasar PHP: tag, komentar, variabel, dan aturan penulisan.
+  \item Saya memahami tipe data PHP dan perbedaan antara \code{==} dan \code{===}.
+  \item Saya dapat menggunakan operator aritmetika, perbandingan, logika, dan string.
+  \item Saya mampu menulis output dengan \code{echo}/\code{print} dan memahami pentingnya \code{htmlspecialchars()}.
+  \item Saya dapat mengimplementasikan percabangan (\code{if/elseif/else}, \code{switch}) dan perulangan (\code{for}, \code{while}, \code{foreach}).
+  \item Saya mampu membuat dan menggunakan fungsi dengan parameter, default, dan return.
+  \item Saya memahami array terindeks, asosiatif, dan fungsi-fungsi array dasar.
+  \item Saya mampu membaca data dari \code{\$\_GET}, \code{\$\_POST}, dan \code{\$\_SERVER} dengan aman.
+  \item Saya dapat membuat form HTML dan memprosesnya dengan PHP termasuk validasi server-side.
+  \item Saya dapat mengorganisasi kode PHP menggunakan \code{include}/\code{require} dengan struktur folder yang baik.
 \end{checklist}
 
 \begin{rangkuman}
-Bab ini memperkenalkan PHP sebagai bahasa server-side dan cara memproses form. Dengan PHP, Anda dapat membuat halaman web yang dinamis dan dapat mengolah input pengguna.
+Bab ini memperkenalkan PHP sebagai bahasa pemrograman server-side yang menjadi fondasi pengembangan web dinamis. Dimulai dari instalasi lingkungan (XAMPP), sintaks dasar (tag, komentar, aturan penulisan), variabel (penamaan, tipe dinamis, scope), tipe data (string, integer, float, boolean, null), dan operator (aritmetika, perbandingan, logika, penugasan).
+
+Selanjutnya dibahas cara menampilkan output (echo/print), manipulasi string (literal, escape, heredoc, fungsi string), struktur kontrol percabangan (if/elseif/else, switch, ternary), dan perulangan (for, while, do-while, foreach). Fungsi memungkinkan penggunaan ulang kode dengan dukungan parameter default, type hinting, dan variadic arguments. Array (terindeks, asosiatif, bersarang) menjadi struktur data fundamental di PHP.
+
+Bab ini ditutup dengan pembahasan superglobal (\code{\$\_GET}, \code{\$\_POST}, \code{\$\_SERVER}), pemrosesan form HTML dengan PHP, validasi server-side, dan pengorganisasian kode menggunakan \code{include}/\code{require}.
 
 \textbf{Poin Kunci:}
 \begin{itemize}
-  \item PHP berjalan di server dan menghasilkan output HTML.
-  \item Form diproses menggunakan \code{\$\_GET} dan \code{\$\_POST}.
-  \item Validasi server-side penting untuk keamanan data.
+  \item PHP berjalan di server dan menghasilkan output HTML yang dikirim ke browser.
+  \item Validasi server-side \textbf{wajib} dilakukan karena validasi klien dapat dilewati.
+  \item Selalu sanitasi output dengan \code{htmlspecialchars()} untuk mencegah XSS.
+  \item Gunakan \code{===} (identik) alih-alih \code{==} untuk perbandingan yang aman.
+  \item Organisasikan kode dengan \code{include}/\code{require} mengikuti prinsip DRY.
 \end{itemize}
 \end{rangkuman}
 

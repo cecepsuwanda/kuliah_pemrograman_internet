@@ -1,0 +1,36 @@
+\section{Link dan Styling Tautan (state: hover, visited, active)}
+
+Tautan (\code{<a>}) adalah elemen fundamental navigasi web. CSS memungkinkan styling yang berbeda untuk setiap \textbf{state} (keadaan) tautan menggunakan \textbf{pseudo-class}. Pseudo-class adalah selector khusus yang menargetkan elemen berdasarkan keadaan atau posisi tertentu, bukan berdasarkan atribut atau nama. Untuk tautan, pseudo-class yang paling penting adalah \code{:link}, \code{:visited}, \code{:hover}, \code{:focus}, dan \code{:active} \cite{webdevCss}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3cm}|P{3.5cm}|P{5.5cm}|}
+\hline
+\textbf{Pseudo-class} & \textbf{Keadaan} & \textbf{Keterangan} \\
+\hline
+\code{a:link} & Belum dikunjungi & Default biru bergaris bawah \\
+\hline
+\code{a:visited} & Sudah dikunjungi & Default ungu; styling terbatas (keamanan) \\
+\hline
+\code{a:hover} & Kursor di atas & Aktif saat mouse hover \\
+\hline
+\code{a:focus} & Fokus keyboard & Tab navigation; penting untuk aksesibilitas \\
+\hline
+\code{a:active} & Sedang diklik & Aktif saat mouse ditekan \\
+\hline
+\code{a:focus-visible} & Fokus keyboard (modern) & Hanya tampil saat navigasi keyboard, bukan saat klik mouse \\
+\hline
+\end{tabular}
+\caption{Pseudo-class tautan dan keadaan yang ditargetkan}
+\end{table}
+
+Urutan penulisan pseudo-class tautan sangat penting karena mengikuti aturan cascade. Urutan yang direkomendasikan adalah \textbf{LVHA}: \code{:link}, \code{:visited}, \code{:hover}, \code{:active}. Pseudo-class \code{:focus} sebaiknya ditempatkan bersama atau setelah \code{:hover} agar fokus keyboard tetap terlihat dengan jelas. Jika urutan salah, state yang lebih umum (misalnya \code{:link}) dapat menimpa state yang lebih spesifik (misalnya \code{:hover}), membuat styling tidak berfungsi \cite{mdnCss}.
+
+Aksesibilitas tautan memerlukan perhatian khusus. Banyak pengguna (terutama yang menggunakan keyboard atau pembaca layar) mengandalkan indikator fokus untuk mengetahui posisi mereka di halaman. \textbf{Jangan pernah menghilangkan outline fokus} (\code{outline: none;}) tanpa menyediakan indikator pengganti yang setara. Pseudo-class \code{:focus-visible} (didukung browser modern) menampilkan indikator fokus hanya saat navigasi keyboard, bukan saat klik mouse---solusi terbaik untuk menjaga estetika tanpa mengorbankan aksesibilitas \cite{mdnAccessibility}.
+
+\noindent\textbf{Contoh kode:} Gunakan \code{a:link}, \code{a:visited}, \code{a:hover}, \code{a:focus}, dan \code{a:focus-visible} dengan urutan LVHA. Warna hex misalnya \code{rgb(42,111,176)} untuk biru.
+
+\begin{konsep}
+\textbf{Jangan Hapus Indikator Fokus.} Hindari \code{outline: none} tanpa pengganti---pengguna keyboard bergantung pada indikator fokus. Gantilah dengan box-shadow, border, atau background-color jika outline default tidak sesuai \cite{webdevCss}.
+\end{konsep}
+

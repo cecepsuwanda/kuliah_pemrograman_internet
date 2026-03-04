@@ -1,23 +1,69 @@
-\section{Arsitektur Web dan HTTP}
-Pemrograman web berjalan di atas arsitektur client-server, di mana browser bertindak sebagai client dan server menyediakan data serta layanan. Komunikasi utama terjadi melalui protokol HTTP yang mengatur request dan response. Pemahaman dasar tentang HTTP membantu Anda menelusuri mengapa halaman bisa ditampilkan atau gagal dimuat \cite{mdnLearn}.
+\section{Arsitektur Web: Client-Server dan Komunikasi HTTP}
+Pemrograman web berjalan di atas \textbf{arsitektur client-server}. Dalam model ini, \textbf{client} (biasanya browser seperti Chrome, Firefox, atau Edge) mengirimkan permintaan kepada \textbf{server} yang menyimpan dan memproses data. Server kemudian mengembalikan respons berupa halaman HTML, data JSON, gambar, atau sumber daya lain yang diminta. Arsitektur ini memisahkan tanggung jawab: client bertugas menampilkan antarmuka, sedangkan server menangani logika bisnis dan penyimpanan data \cite{mdnLearn}. Dengan pemisahan ini, pengembang dapat bekerja secara paralel pada sisi client dan server tanpa saling mengganggu.
 
-HTTP memiliki metode yang berbeda untuk tujuan berbeda, seperti mengambil data, mengirim formulir, atau memperbarui sumber daya. Dalam praktik, Anda sering menggunakan GET untuk membaca data dan POST untuk mengirim data. Konsep status code juga penting untuk memahami hasil dari sebuah request.
+Untuk memudahkan pemahaman, bayangkan analogi berikut: client adalah \textbf{pelanggan di restoran} yang memesan makanan, sedangkan server adalah \textbf{dapur} yang menyiapkan pesanan. Pelayan (protokol HTTP) menjadi perantara yang membawa pesanan dari meja ke dapur dan mengantarkan makanan kembali ke meja. Pelanggan tidak perlu tahu cara memasak; demikian pula, browser tidak perlu mengetahui detail pemrosesan data di server. Analogi ini menggambarkan prinsip \textit{separation of concerns} yang menjadi fondasi arsitektur web modern \cite{webdevLearn}.
 
-\begin{table}[ht]
+Komunikasi antara client dan server terjadi melalui \textbf{protokol HTTP} (Hypertext Transfer Protocol). Setiap kali Anda mengetik alamat situs di browser atau mengklik tautan, browser mengirimkan \textbf{HTTP request} ke server. Server memproses request tersebut dan mengirimkan \textbf{HTTP response} kembali ke browser. Siklus request-response ini menjadi fondasi seluruh interaksi di web. Memahami siklus ini membantu Anda menelusuri mengapa halaman berhasil dimuat atau justru menampilkan pesan error \cite{webdevLearn}. Secara teknis, HTTP menggunakan protokol transport \textbf{TCP} (Transmission Control Protocol) yang menjamin pengiriman data secara andal dan berurutan.
+
+Sebelum koneksi HTTP terjalin, browser dan server terlebih dahulu melakukan proses yang disebut \textbf{TCP three-way handshake}. Proses ini terdiri dari tiga langkah: (1) client mengirim paket SYN ke server, (2) server membalas dengan paket SYN-ACK, dan (3) client mengirim paket ACK. Setelah handshake selesai, koneksi TCP terbuka dan data HTTP dapat dikirim. Komunikasi web umumnya menggunakan \textbf{port 80} untuk HTTP dan \textbf{port 443} untuk HTTPS. Port berfungsi seperti nomor pintu pada gedung---menentukan layanan mana yang dituju di server \cite{mdnLearn}.
+
+Sebelum request dikirim, browser perlu mengetahui alamat IP server tujuan. Proses ini dilakukan oleh \textbf{DNS} (Domain Name System), yang menerjemahkan nama domain (misalnya \code{www.example.com}) menjadi alamat IP numerik (misalnya \code{93.184.216.34}). DNS bekerja secara hierarkis: browser pertama-tama memeriksa cache lokal, lalu bertanya ke DNS resolver ISP, kemudian ke root server jika diperlukan. Setelah IP diperoleh, browser membuka koneksi TCP ke server, mengirim request HTTP, dan menerima response. Seluruh proses ini biasanya terjadi dalam hitungan milidetik, meskipun melibatkan beberapa langkah di belakang layar \cite{mdnLearn}.
+
+\textbf{URL} (Uniform Resource Locator) adalah alamat yang digunakan untuk mengidentifikasi sumber daya di web. Sebuah URL terdiri dari beberapa komponen yang masing-masing memiliki fungsi spesifik. Memahami struktur URL penting karena Anda akan sering memanipulasi URL saat membuat tautan, formulir, dan API. Tabel berikut menjelaskan setiap komponen URL secara detail \cite{webdevLearn}.
+
+\begin{table}[htbp]
 \centering
-\begin{tabular}{|P{3cm}|P{9cm}|}
+\begin{tabular}{|P{2.5cm}|P{3.5cm}|P{5.5cm}|}
 \hline
-\textbf{Metode} & \textbf{Kegunaan Utama} \\
+\textbf{Komponen} & \textbf{Contoh} & \textbf{Fungsi} \\
 \hline
-GET & Mengambil data atau halaman dari server \\
+Skema & \code{https} & Menentukan protokol yang digunakan (HTTP atau HTTPS) \\
 \hline
-POST & Mengirim data, misalnya formulir pendaftaran \\
+Host & \code{www.example.com} & Nama domain atau alamat IP server tujuan \\
 \hline
-PUT & Memperbarui data yang sudah ada \\
+Port & \code{:443} & Nomor port (opsional; default 80 untuk HTTP, 443 untuk HTTPS) \\
 \hline
-DELETE & Menghapus data tertentu \\
+Path & \code{/halaman/artikel} & Lokasi sumber daya di server \\
+\hline
+Query String & \code{?id=42\&lang=id} & Parameter tambahan yang dikirim ke server \\
+\hline
+Fragment & \code{\#bagian} & Menunjuk ke bagian spesifik dalam halaman (diproses di client) \\
 \hline
 \end{tabular}
-\caption{Metode HTTP yang sering digunakan}
+\caption{Komponen URL dan fungsinya}
 \end{table}
+
+\begin{contoh}
+\textbf{Membaca Struktur URL}
+
+Perhatikan URL berikut:
+\begin{center}
+\code{https://toko.com:443/produk/detail?id=101\&warna=merah\#ulasan}
+\end{center}
+Dari URL tersebut dapat diidentifikasi:
+\begin{itemize}
+  \item \textbf{Skema}: \code{https} --- menggunakan koneksi terenkripsi
+  \item \textbf{Host}: \code{toko.com} --- nama domain server tujuan
+  \item \textbf{Port}: \code{443} --- port default HTTPS (biasanya tidak ditampilkan)
+  \item \textbf{Path}: \code{/produk/detail} --- menunjukkan halaman detail produk
+  \item \textbf{Query}: \code{id=101\&warna=merah} --- parameter produk dengan ID 101 warna merah
+  \item \textbf{Fragment}: \code{\#ulasan} --- browser akan menggulir ke bagian ulasan
+\end{itemize}
+\end{contoh}
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[node distance=3.5cm, transform shape]
+  \node (client) [class] {Client (Browser)};
+  \node (dns) [object, above=1.5cm of client] {DNS Server};
+  \node (server) [class, right=of client] {Web Server};
+  \draw [arrow] (client) -- node[left, font=\footnotesize] {1. Tanya IP} (dns);
+  \draw [arrow] (dns) -- node[right, font=\footnotesize] {2. Jawab IP} (client);
+  \draw [arrow] (client) -- node[above, font=\footnotesize] {3. HTTP Request} (server);
+  \draw [arrow] (server) -- node[below, font=\footnotesize] {4. HTTP Response} (client);
+\end{tikzpicture}%
+}
+\caption{Siklus komunikasi client-server melalui DNS dan HTTP}
+\end{figure}
 

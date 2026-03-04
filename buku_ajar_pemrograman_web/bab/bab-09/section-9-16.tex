@@ -1,0 +1,30 @@
+\section{Class dan Pewarisan (ES6)}
+
+Sintaks \code{class} (ES6) menyediakan cara yang lebih jelas untuk mendefinisikan constructor dan method dibanding function constructor langsung. \code{constructor()} dipanggil saat \code{new}; method didefinisikan tanpa keyword \code{function}. Pewarisan menggunakan \code{extends} dan \code{super()} untuk memanggil constructor parent \cite{jsInfo}.
+
+\begin{webcode}[language=JavaScript, caption={Class dan pewarisan}]
+class Shape {
+  constructor(color) { this.color = color; }
+  describe() { return `Shape: ${this.color}`; }
+}
+
+class Circle extends Shape {
+  constructor(color, radius) {
+    super(color);      // panggil constructor parent
+    this.radius = radius;
+  }
+  area() { return Math.PI * this.radius ** 2; }
+  describe() {
+    return `${super.describe()}, radius ${this.radius}`;
+  }
+}
+
+const c = new Circle("red", 5);
+console.log(c.area());     // 78.54...
+console.log(c.describe()); // "Shape: red, radius 5"
+\end{webcode}
+
+\begin{catatan}
+\textbf{Class = Syntactic Sugar.} Di balik layar, \code{class} tetap menggunakan prototype-based inheritance. \code{class Circle extends Shape} secara internal mengatur prototype chain. Memahami prototype (section 9-21) membantu debug perilaku \code{class} yang tidak terduga. Modifier \code{static} membuat method milik class itu sendiri (bukan instance): \code{static create() \{ ... \}} \cite{mdnJsGuide}.
+\end{catatan}
+

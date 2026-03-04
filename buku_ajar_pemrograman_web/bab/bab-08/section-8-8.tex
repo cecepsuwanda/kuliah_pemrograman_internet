@@ -1,0 +1,36 @@
+\section{String: Literal, Escape, dan Metode Dasar}
+
+String adalah urutan karakter yang merepresentasikan teks. Di JavaScript, string dapat ditulis dengan kutip tunggal (\code{'}), kutip ganda (\code{"}), atau backtick (\code{`}) untuk template literal. Template literal (ES6) mendukung interpolasi (\code{`Hello \$\{name\}`}) dan multi-baris. String bersifat \textbf{immutable}---metode string mengembalikan string baru tanpa mengubah aslinya \cite{jsInfo}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3.5cm}|P{4cm}|P{4.5cm}|}
+\hline
+\textbf{Metode} & \textbf{Fungsi} & \textbf{Contoh} \\
+\hline
+\code{.length} & Jumlah karakter & \code{"Hello".length} $\rightarrow$ 5 \\
+\hline
+\code{.toUpperCase()} & Huruf besar & \code{"hi".toUpperCase()} $\rightarrow$ \code{"HI"} \\
+\hline
+\code{.includes(str)} & Cek substring & \code{"Hello".includes("ell")} $\rightarrow$ true \\
+\hline
+\code{.indexOf(str)} & Posisi substring & \code{"Hello".indexOf("l")} $\rightarrow$ 2 \\
+\hline
+\code{.slice(start, end)} & Ambil bagian & \code{"Hello".slice(1,4)} $\rightarrow$ \code{"ell"} \\
+\hline
+\code{.split(sep)} & Pecah ke array & \code{"a,b".split(",")} $\rightarrow$ \code{["a","b"]} \\
+\hline
+\code{.trim()} & Hapus spasi ujung & \code{" Hi ".trim()} $\rightarrow$ \code{"Hi"} \\
+\hline
+\code{.replace(old,new)} & Ganti substring & \code{"hi".replace("h","H")} $\rightarrow$ \code{"Hi"} \\
+\hline
+\end{tabular}
+\caption{Metode string JavaScript yang sering digunakan}
+\end{table}
+
+Escape sequence digunakan untuk karakter khusus dalam string: \code{\\n} (baris baru), \code{\\t} (tab), \code{\\\\} (backslash), \code{\\"} (kutip ganda). Dengan template literal, escape sequence jarang dibutuhkan karena multi-baris dan interpolasi sudah didukung secara native \cite{mdnJsGuide}.
+
+\begin{catatan}
+\textbf{Template Literal untuk Kode Bersih.} Alih-alih konkatenasi (\code{"Hello " + name + "!"}), gunakan template literal (\code{`Hello \$\{name\}!`}). Selain lebih mudah dibaca, template literal mendukung ekspresi (\code{`Total: \$\{price * qty\}`}) dan multi-baris tanpa \code{\\n}. Ini adalah salah satu fitur ES6 yang paling bermanfaat dalam praktik sehari-hari \cite{jsInfo}.
+\end{catatan}
+

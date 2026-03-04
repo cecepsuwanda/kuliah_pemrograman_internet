@@ -1,19 +1,66 @@
-\section{Kebutuhan Fungsional dan Non-Fungsional}
-Analisis kebutuhan adalah langkah awal agar aplikasi web benar-benar menjawab masalah pengguna. Kebutuhan fungsional menjelaskan apa yang harus dilakukan sistem, sedangkan kebutuhan non-fungsional menggambarkan kualitas seperti keamanan atau performa. Pemisahan ini membantu Anda menyusun prioritas fitur dengan lebih jelas \cite{mdnLearn}.
+\section{Pengenalan Analisis Kebutuhan dalam Pengembangan Web}
 
-Dalam proyek pemula, kebutuhan fungsional bisa berupa ``pengguna dapat login'' atau ``pengguna dapat menyimpan data''. Kebutuhan non-fungsional bisa berupa ``halaman harus responsif'' atau ``data harus aman''. Ketelitian pada tahap ini mengurangi revisi di tahap implementasi.
+Analisis kebutuhan adalah tahap fundamental dalam siklus pengembangan perangkat lunak, termasuk aplikasi web. Pada tahap ini, tim pengembang berusaha memahami secara mendalam \textbf{masalah yang ingin diselesaikan}, \textbf{siapa penggunanya}, dan \textbf{apa yang harus dibangun}. Tanpa analisis kebutuhan yang cermat, pengembangan berisiko menghasilkan produk yang tidak sesuai harapan pengguna, membuang waktu pada fitur yang tidak dibutuhkan, atau bahkan gagal memenuhi tujuan bisnis \cite{mdnLearn}. Dalam konteks mata kuliah ini, analisis kebutuhan mendukung pencapaian Sub-CPMK 1.1: mengidentifikasi kebutuhan fungsional dan non-fungsional pengguna untuk solusi web.
 
-\begin{table}[ht]
+Secara umum, proses analisis kebutuhan melibatkan beberapa aktivitas utama: identifikasi pemangku kepentingan (\textit{stakeholder}), pengumpulan informasi melalui berbagai teknik, analisis dan dokumentasi kebutuhan, serta validasi kebutuhan bersama pengguna. Hasilnya berupa \textbf{dokumen kebutuhan} (\textit{requirements document}) yang menjadi acuan bagi seluruh fase berikutnya---mulai dari perancangan antarmuka, implementasi kode, hingga pengujian. Dokumen ini berfungsi sebagai ``kontrak'' antara pengembang dan pengguna mengenai apa yang akan dibangun \cite{webdevLearn}.
+
+\subsection{Teknik Penggalian Kebutuhan (Elicitation)}
+
+Penggalian kebutuhan (\textit{requirements elicitation}) adalah proses aktif untuk menemukan dan mengumpulkan kebutuhan dari berbagai sumber. Teknik ini penting karena pengguna seringkali tidak dapat mengartikulasikan kebutuhannya secara lengkap hanya dalam satu sesi. Diperlukan pendekatan yang sistematis dan beragam agar kebutuhan yang tersembunyi (\textit{tacit requirements}) dapat terungkap. Berikut adalah beberapa teknik elicitation yang umum digunakan dalam pengembangan web \cite{mdnLearn}.
+
+\begin{table}[htbp]
 \centering
-\begin{tabular}{|P{5cm}|P{6cm}|}
+\begin{tabular}{|P{3.5cm}|P{4.5cm}|P{4cm}|}
 \hline
-\textbf{Jenis Kebutuhan} & \textbf{Contoh} \\
+\textbf{Teknik} & \textbf{Deskripsi} & \textbf{Kapan Digunakan} \\
 \hline
-Fungsional & Login, CRUD data, pencarian \\
+Wawancara & Tanya jawab langsung dengan pengguna atau stakeholder & Tahap awal, memahami konteks \\
 \hline
-Non-fungsional & Responsif, aman, cepat \\
+Observasi & Mengamati pengguna saat bekerja atau menggunakan sistem & Memahami alur kerja nyata \\
+\hline
+Kuesioner / Survei & Formulir tertulis untuk banyak responden & Mengumpulkan data kuantitatif \\
+\hline
+Workshop & Diskusi kelompok terfokus dengan stakeholder & Menyelaraskan visi dan prioritas \\
+\hline
+Analisis Dokumen & Mempelajari dokumen, SOP, atau sistem yang sudah ada & Memahami proses bisnis \\
+\hline
+Studi Kompetitor & Menganalisis produk sejenis yang sudah ada di pasar & Benchmark fitur dan UX \\
 \hline
 \end{tabular}
-\caption{Contoh kebutuhan fungsional dan non-fungsional}
+\caption{Teknik penggalian kebutuhan dan konteks penggunaannya}
 \end{table}
 
+\subsection{Wawancara Pengguna}
+
+Wawancara adalah teknik elicitation yang paling sering digunakan. Dalam wawancara, pengembang bertemu langsung (atau secara daring) dengan pengguna atau stakeholder untuk menggali kebutuhan, harapan, dan kendala. Wawancara dapat bersifat \textbf{terstruktur} (daftar pertanyaan sudah disiapkan), \textbf{semi-terstruktur} (ada panduan tetapi fleksibel), atau \textbf{tidak terstruktur} (percakapan bebas). Teknik semi-terstruktur paling direkomendasikan karena memberikan keseimbangan antara konsistensi dan fleksibilitas \cite{nngroup}.
+
+Beberapa tips untuk wawancara pengguna yang efektif antara lain: (1) siapkan pertanyaan terbuka---misalnya ``Ceritakan bagaimana Anda biasanya mencari informasi di web?'' alih-alih ``Apakah Anda menggunakan pencarian?''; (2) dengarkan lebih banyak daripada berbicara---biarkan pengguna bercerita; (3) catat temuan segera setelah wawancara; dan (4) validasi hasil wawancara dengan data dari sumber lain. Hasil wawancara menjadi masukan utama untuk menyusun persona, user story, dan dokumen kebutuhan.
+
+\begin{konsep}
+\textbf{Prinsip Kunci Analisis Kebutuhan:} Kebutuhan yang baik harus bersifat \textit{Complete} (lengkap), \textit{Consistent} (tidak saling bertentangan), \textit{Unambiguous} (tidak bermakna ganda), \textit{Verifiable} (dapat diuji), dan \textit{Traceable} (dapat ditelusuri ke tujuan bisnis). Akronim ini sering disebut sebagai ``CCUVT'' dan menjadi panduan untuk mengevaluasi kualitas dokumen kebutuhan.
+\end{konsep}
+
+\subsection{Proses Analisis Kebutuhan}
+
+Proses analisis kebutuhan tidak berjalan linier, melainkan bersifat \textbf{iteratif}. Pengembang mungkin perlu kembali ke tahap elicitation setelah menemukan kebutuhan yang saling bertentangan saat analisis, atau perlu memvalidasi ulang setelah prototipe diuji. Gambar berikut menunjukkan alur umum proses analisis kebutuhan dalam pengembangan web \cite{webdevLearn}.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[node distance=2.5cm, transform shape, every node/.style={font=\footnotesize}]
+  \node (identify) [class] {Identifikasi\\Stakeholder};
+  \node (elicit) [class, right=of identify] {Penggalian\\Kebutuhan};
+  \node (analyze) [class, right=of elicit] {Analisis \&\\Klasifikasi};
+  \node (document) [class, right=of analyze] {Dokumentasi\\Kebutuhan};
+  \node (validate) [class, right=of document] {Validasi \&\\Negosiasi};
+  \draw [arrow] (identify) -- (elicit);
+  \draw [arrow] (elicit) -- (analyze);
+  \draw [arrow] (analyze) -- (document);
+  \draw [arrow] (document) -- (validate);
+  \draw [arrow, dashed] (validate) to[bend right=30] node[below, font=\scriptsize] {Iterasi} (elicit);
+\end{tikzpicture}%
+}
+\caption{Alur proses analisis kebutuhan (iteratif)}
+\end{figure}
+
+Pada langkah \textbf{identifikasi stakeholder}, tim menentukan siapa saja yang berkepentingan: pengguna akhir, pemilik produk, tim teknis, dan pihak lain. Pada tahap \textbf{penggalian kebutuhan}, berbagai teknik (wawancara, observasi, survei) digunakan untuk mengumpulkan informasi. Tahap \textbf{analisis dan klasifikasi} memilah kebutuhan menjadi fungsional dan non-fungsional, mengidentifikasi konflik, dan menentukan prioritas. \textbf{Dokumentasi} menghasilkan dokumen kebutuhan formal. Terakhir, \textbf{validasi} memastikan kebutuhan benar-benar mencerminkan harapan pengguna \cite{mdnLearn}.

@@ -1,0 +1,107 @@
+\section{UX Research, Usability Testing, dan Praktik Terbaik}
+
+\textbf{UX Research} (riset pengalaman pengguna) adalah proses sistematis untuk memahami pengguna, kebutuhan mereka, dan konteks penggunaan produk. UX research bukan aktivitas yang hanya dilakukan sekali di awal proyek---melainkan proses berkelanjutan yang menyertai setiap fase pengembangan. Tujuannya adalah memastikan keputusan desain didasarkan pada data dan bukti dari pengguna nyata, bukan pada asumsi atau preferensi pribadi tim \cite{nngroup}.
+
+UX research dibagi menjadi dua kategori besar: \textbf{kualitatif} (memahami ``mengapa''---wawancara, observasi, usability testing) dan \textbf{kuantitatif} (mengukur ``berapa banyak''---survei, analytics, A/B testing). Kedua pendekatan saling melengkapi: riset kualitatif memberikan insight mendalam tentang perilaku dan motivasi, sedangkan riset kuantitatif memberikan data statistik yang dapat digeneralisasi \cite{ixdf}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3cm}|P{4.5cm}|P{4.5cm}|}
+\hline
+\textbf{Aspek} & \textbf{Riset Kualitatif} & \textbf{Riset Kuantitatif} \\
+\hline
+Pertanyaan & Mengapa? Bagaimana? & Berapa banyak? Seberapa sering? \\
+\hline
+Metode & Wawancara, observasi, usability test & Survei, analytics, A/B test \\
+\hline
+Jumlah partisipan & Sedikit (5--15) & Banyak (100+) \\
+\hline
+Hasil & Insight, tema, pola perilaku & Statistik, metrik, persentase \\
+\hline
+Kapan digunakan & Tahap awal, eksplorasi & Validasi, pengukuran dampak \\
+\hline
+\end{tabular}
+\caption{Perbandingan riset kualitatif dan kuantitatif dalam UX}
+\end{table}
+
+\subsection{Usability Testing}
+
+\textbf{Usability testing} adalah metode evaluasi di mana pengguna nyata diminta menyelesaikan tugas-tugas tertentu pada produk (atau prototipe), sementara peneliti mengamati dan mencatat kesulitan, kesalahan, dan komentar. Usability testing merupakan ``standar emas'' dalam UX research karena memberikan bukti langsung tentang masalah usability yang dialami pengguna sesungguhnya. Jakob Nielsen merekomendasikan cukup \textbf{5 partisipan} untuk menemukan sekitar 85\% masalah usability---sehingga metode ini terjangkau bahkan untuk proyek kecil \cite{nngroup}.
+
+Proses usability testing meliputi: (1) \textbf{perencanaan}---tentukan tujuan, tugas yang akan diujikan, dan kriteria peserta; (2) \textbf{rekrutmen}---cari partisipan yang sesuai persona target; (3) \textbf{pelaksanaan}---minta peserta menyelesaikan tugas sambil \textit{think aloud} (bercerita apa yang dipikirkan); (4) \textbf{analisis}---identifikasi pola masalah dan prioritaskan berdasarkan severity; dan (5) \textbf{rekomendasi}---buat daftar perbaikan yang actionable.
+
+\begin{contoh}
+\textbf{Contoh Protokol Usability Testing: Aplikasi Catatan Harian}
+
+\textbf{Tujuan:} Menguji apakah pengguna baru dapat membuat, mencari, dan menghapus catatan tanpa bantuan.
+
+\textbf{Tugas untuk partisipan:}
+\begin{enumerate}
+  \item Buat catatan baru dengan judul ``Belanja Mingguan'' dan isi ``Beli susu, roti, telur.''
+  \item Temukan catatan yang berjudul ``Ide Proyek'' dari daftar catatan.
+  \item Edit catatan ``Ide Proyek'' dan tambahkan satu poin baru.
+  \item Hapus catatan ``Belanja Mingguan.''
+\end{enumerate}
+
+\textbf{Metrik yang diamati:}
+\begin{itemize}
+  \item \textit{Task completion rate}: apakah tugas berhasil diselesaikan?
+  \item \textit{Time on task}: berapa lama waktu yang dibutuhkan?
+  \item \textit{Error rate}: berapa kali pengguna melakukan kesalahan?
+  \item \textit{Satisfaction}: seberapa puas pengguna (skala 1--5)?
+\end{itemize}
+\end{contoh}
+
+\subsection{Metode UX Research Lainnya}
+
+Selain usability testing, terdapat berbagai metode UX research yang dapat digunakan sesuai kebutuhan proyek:
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3.5cm}|P{4cm}|P{4.5cm}|}
+\hline
+\textbf{Metode} & \textbf{Deskripsi} & \textbf{Kapan Digunakan} \\
+\hline
+Card Sorting & Peserta mengelompokkan konten sesuai logika mereka & Merancang navigasi dan arsitektur informasi \\
+\hline
+Tree Testing & Peserta menemukan item di struktur navigasi & Validasi arsitektur informasi \\
+\hline
+A/B Testing & Dua versi dibandingkan secara kuantitatif & Memilih antara dua alternatif desain \\
+\hline
+Diary Study & Peserta mencatat pengalaman selama beberapa hari & Memahami penggunaan dalam konteks nyata \\
+\hline
+Eye Tracking & Melacak arah pandangan pengguna & Mengoptimalkan hierarki visual dan layout \\
+\hline
+\end{tabular}
+\caption{Metode UX research selain usability testing}
+\end{table}
+
+\subsection{Praktik Terbaik dan Referensi Standar}
+
+Pengembangan web yang baik mengikuti standar dan praktik terbaik yang telah terbukti. Berikut adalah sumber referensi utama yang wajib diketahui setiap pengembang dan desainer web \cite{mdnAccessibility} \cite{webdevAccessibility} \cite{wcagW3c}:
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3.5cm}|P{4cm}|P{4.5cm}|}
+\hline
+\textbf{Sumber} & \textbf{URL} & \textbf{Fokus} \\
+\hline
+W3C WAI & w3.org/WAI & Standar aksesibilitas (WCAG, ARIA) \\
+\hline
+web.dev (Google) & \url{web.dev/learn/accessibility} & Panduan aksesibilitas praktis \\
+\hline
+MDN Accessibility & developer.mozilla.org & Dokumentasi aksesibilitas komprehensif \\
+\hline
+Nielsen Norman Group & nngroup.com & Riset UX, heuristik, best practice \\
+\hline
+Interaction Design Foundation & interaction-design.org & Pendidikan UX/UI design \\
+\hline
+Figma Community & figma.com/community & Wireframe kit, template, plugin \\
+\hline
+\end{tabular}
+\caption{Referensi standar untuk desain dan aksesibilitas web}
+\end{table}
+
+\begin{konsep}
+\textbf{Desain yang Baik = Desain yang Teruji.} Tidak ada desain yang sempurna dari awal. Bahkan desainer berpengalaman membuat asumsi yang ternyata salah ketika diuji dengan pengguna nyata. Oleh karena itu, integrasikan usability testing dalam setiap siklus pengembangan---bukan hanya di akhir. Dengan menguji sejak dini (bahkan dengan prototipe kertas), masalah dapat ditemukan dan diperbaiki sebelum menjadi mahal untuk diubah.
+\end{konsep}

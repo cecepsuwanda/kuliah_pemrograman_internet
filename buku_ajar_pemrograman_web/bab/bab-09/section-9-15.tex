@@ -1,0 +1,12 @@
+\section{ES6+: Destructuring, Spread, dan Modul}
+
+\textbf{Destructuring} mengekstrak nilai dari array atau properti dari objek ke variabel individual. Array destructuring: \code{const [a, b] = [1, 2];}. Object destructuring: \code{const \{name, age\} = user;}. Nama variabel harus cocok dengan key objek (atau gunakan alias: \code{\{name: userName\} = user}) \cite{jsInfo}.
+
+\textbf{Spread operator} (\code{...}) membongkar iterable (array, objek) menjadi elemen individual. Digunakan untuk: menyalin array (\code{[...arr]}), menggabungkan (\code{[...a, ...b]}), menyalin objek (\code{\{...obj, newKey: val\}}). \textbf{Rest parameter} (\code{...args}) di parameter fungsi menampung sisa argumen ke array \cite{mdnJsGuide}.
+
+\textbf{ES6 Modules} (\code{import}/\code{export}) memungkinkan pemisahan kode ke file terpisah. \code{export} mengekspor fungsi/variabel; \code{import} mengimpornya. Modules memiliki scope sendiri (tidak mencemari global), otomatis strict mode, dan didukung native oleh browser modern dengan \code{<script type="module">} \cite{jsInfo}.
+
+\begin{konsep}
+\textbf{Named vs Default Export.} \code{export \{ fungsi1, fungsi2 \}} (named) memungkinkan banyak export per file; import harus cocok nama. \code{export default kelas} (default) satu per file; import bebas nama. Praktik: gunakan named export untuk utility functions, default export untuk komponen/class utama file \cite{mdnJsGuide}.
+\end{konsep}
+

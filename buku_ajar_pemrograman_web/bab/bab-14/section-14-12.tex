@@ -1,0 +1,26 @@
+\section{Pemantauan Aplikasi di Produksi: Log, Error Tracking, dan Uptime}
+
+Setelah deployment, \textbf{pemantauan} (monitoring) memastikan aplikasi berjalan normal dan masalah terdeteksi cepat. Tiga aspek utama: (1) \textbf{log monitoring} --- periksa error log PHP, access log server, dan slow query log MySQL secara rutin; (2) \textbf{error tracking} --- alat seperti Sentry atau Bugsnag menangkap exception secara real-time dan mengirim notifikasi; (3) \textbf{uptime monitoring} --- layanan seperti UptimeRobot atau Pingdom memeriksa ketersediaan situs secara berkala dan alerting jika down \cite{mdnDeploy}.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{3cm}|P{4.5cm}|P{5cm}|}
+\hline
+\textbf{Aspek} & \textbf{Alat} & \textbf{Fungsi} \\
+\hline
+Error log PHP & \code{error\_log} di php.ini & Catat error PHP ke file \\
+\hline
+Access log & Apache/Nginx log & Lihat request masuk \\
+\hline
+Slow query & MySQL slow\_query\_log & Deteksi query lambat \\
+\hline
+Error tracking & Sentry, Bugsnag & Tangkap exception real-time \\
+\hline
+Uptime & UptimeRobot, Pingdom & Cek ketersediaan situs \\
+\hline
+APM & New Relic, Datadog & Analisis performa mendalam \\
+\hline
+\end{tabular}
+\caption{Alat pemantauan aplikasi di produksi}
+\end{table}
+

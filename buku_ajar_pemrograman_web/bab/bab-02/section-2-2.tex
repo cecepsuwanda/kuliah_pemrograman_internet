@@ -1,19 +1,104 @@
-\section{Client, Server, dan Alat Pengembangan}
-Client adalah aplikasi yang meminta layanan, sementara server menyediakan layanan tersebut. Dalam konteks web, client umumnya adalah browser, dan server bisa berupa aplikasi PHP yang berjalan di Apache. Hubungan ini membentuk siklus request-response yang bisa Anda uji menggunakan alat pengembang di browser \cite{webdevLearn}.
+\section{Protokol HTTP: Metode, Status Code, dan Header}
+\textbf{HTTP} (Hypertext Transfer Protocol) adalah protokol lapisan aplikasi yang menjadi bahasa komunikasi antara browser dan server web. HTTP bersifat \textbf{stateless}, artinya setiap request berdiri sendiri tanpa mengingat request sebelumnya. Untuk mengelola keadaan (misalnya login pengguna), digunakan mekanisme tambahan seperti cookie dan session. Versi HTTP yang umum digunakan saat ini adalah HTTP/1.1 dan HTTP/2, dengan HTTP/3 yang mulai diadopsi \cite{mdnLearn}. HTTP/2 memperkenalkan fitur \textit{multiplexing} yang memungkinkan pengiriman beberapa request secara bersamaan dalam satu koneksi, meningkatkan kecepatan pemuatan halaman secara signifikan.
 
-Alat pengembangan dasar meliputi editor kode, browser modern, serta server lokal seperti XAMPP. Anda juga membutuhkan struktur folder proyek yang rapi agar mudah melakukan debugging. Kombinasi alat ini memungkinkan Anda membangun web secara bertahap dan terukur.
+Setiap request HTTP memiliki \textbf{metode} yang menunjukkan aksi yang diinginkan terhadap sumber daya. Metode yang paling sering digunakan adalah \code{GET} untuk mengambil data dan \code{POST} untuk mengirim data. Selain itu terdapat \code{PUT} untuk memperbarui data secara keseluruhan, \code{DELETE} untuk menghapus, serta \code{PATCH} untuk pembaruan parsial. Pemilihan metode yang tepat sesuai prinsip RESTful membuat API lebih mudah dipahami dan dikelola \cite{webdevLearn}. Tabel berikut merangkum metode HTTP yang umum digunakan beserta karakteristiknya.
 
-\begin{figure}[h]
+\begin{table}[htbp]
 \centering
-\begin{tikzpicture}[node distance=2cm]
-  \node (client) [class] {Client (Browser)};
-  \node (server) [class, right=of client] {Server (PHP)};
-  \node (db) [class, right=of server] {Database (MySQL)};
-  \draw [arrow] (client) -- (server);
-  \draw [arrow] (server) -- (db);
-  \draw [arrow] (db) -- (server);
-  \draw [arrow] (server) -- (client);
-\end{tikzpicture}
-\caption{Interaksi client, server, dan database}
-\end{figure}
+\begin{tabular}{|P{2cm}|P{4cm}|P{2cm}|P{3.5cm}|}
+\hline
+\textbf{Metode} & \textbf{Fungsi} & \textbf{Body?} & \textbf{Idempotent?} \\
+\hline
+GET & Mengambil data dari server & Tidak & Ya \\
+\hline
+POST & Mengirim data baru ke server & Ya & Tidak \\
+\hline
+PUT & Memperbarui seluruh sumber daya & Ya & Ya \\
+\hline
+PATCH & Memperbarui sebagian sumber daya & Ya & Tidak \\
+\hline
+DELETE & Menghapus sumber daya & Opsional & Ya \\
+\hline
+HEAD & Seperti GET, tetapi tanpa body response & Tidak & Ya \\
+\hline
+OPTIONS & Menanyakan metode yang didukung server & Tidak & Ya \\
+\hline
+\end{tabular}
+\caption{Metode HTTP dan karakteristiknya}
+\end{table}
+
+\textbf{Status code} dalam HTTP response memberi tahu client tentang hasil pemrosesan request. Kode terdiri dari tiga digit dan dikelompokkan berdasarkan kategori: 1xx (informasi), 2xx (sukses), 3xx (redirect), 4xx (error dari client), dan 5xx (error dari server). Mengenali status code membantu Anda men-debug masalah saat halaman tidak tampil atau data gagal dikirim. Berikut adalah status code yang paling sering dijumpai dalam pengembangan web \cite{mdnLearn}.
+
+\vspace{0.5cm}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{1.5cm}|P{3cm}|P{7cm}|}
+\hline
+\textbf{Kode} & \textbf{Nama} & \textbf{Arti} \\
+\hline
+200 & OK & Request berhasil; data dikembalikan \\
+\hline
+201 & Created & Sumber daya baru berhasil dibuat (biasanya setelah POST) \\
+\hline
+301 & Moved Permanently & Sumber daya dipindahkan ke URL baru secara permanen \\
+\hline
+302 & Found & Redirect sementara ke URL lain \\
+\hline
+400 & Bad Request & Request tidak valid (format salah atau parameter tidak lengkap) \\
+\hline
+401 & Unauthorized & Autentikasi diperlukan tetapi belum diberikan \\
+\hline
+403 & Forbidden & Server menolak akses (izin tidak mencukupi) \\
+\hline
+404 & Not Found & Sumber daya tidak ditemukan di server \\
+\hline
+500 & Internal Server Error & Terjadi kesalahan di sisi server \\
+\hline
+503 & Service Unavailable & Server sementara tidak dapat melayani request \\
+\hline
+\end{tabular}
+\caption{Status code HTTP yang sering dijumpai}
+\end{table}
+
+\textbf{Header HTTP} menyertai setiap request dan response, membawa metadata tentang pesan. Header request yang umum antara lain \code{Host} (nama domain tujuan), \code{User-Agent} (identitas browser), \code{Accept} (tipe konten yang dapat diterima), dan \code{Content-Type} (tipe data yang dikirim). Di sisi response, header seperti \code{Content-Type}, \code{Content-Length}, \code{Set-Cookie}, dan \code{Cache-Control} memberi informasi tentang data yang dikembalikan server. Header \code{Cache-Control} sangat penting untuk mengatur caching: menentukan apakah browser boleh menyimpan salinan response dan berapa lama salinan tersebut valid \cite{w3schoolsTutorials}.
+
+Berikut adalah contoh HTTP request dan response dalam format mentah (\textit{raw}). Memahami format ini membantu Anda membaca informasi di tab Network pada DevTools browser. Baris pertama request berisi metode, path, dan versi HTTP; baris-baris berikutnya adalah header; dan body (jika ada) mengikuti setelah baris kosong \cite{mdnLearn}.
+
+\begin{webcode}[language=Bash, caption={Contoh HTTP request dan response (format mentah)}]
+-- HTTP Request --
+GET /produk/detail?id=101 HTTP/1.1
+Host: toko.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0)
+Accept: text/html
+Accept-Language: id,en
+
+-- HTTP Response --
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=UTF-8
+Content-Length: 5120
+Set-Cookie: session_id=abc123; HttpOnly
+Cache-Control: max-age=3600
+
+<!DOCTYPE html>
+<html>
+<head><title>Detail Produk</title></head>
+<body>...</body>
+</html>
+\end{webcode}
+
+\textbf{HTTPS} (HTTP Secure) menambahkan lapisan enkripsi TLS/SSL di atas HTTP. Dengan HTTPS, data yang dikirim antara browser dan server dienkripsi sehingga tidak dapat dibaca oleh pihak ketiga. Proses enkripsi dimulai dengan \textit{TLS handshake}: browser dan server bertukar sertifikat digital dan menyepakati kunci enkripsi bersama. Saat ini HTTPS menjadi standar karena melindungi privasi pengguna, mencegah manipulasi data, dan menjadi syarat fitur browser modern seperti service worker dan geolocation \cite{mdnLearn}.
+
+\begin{catatan}
+\textbf{Tips: Membaca Header HTTP di Browser DevTools}
+
+Untuk melihat header HTTP dari sebuah halaman web:
+\begin{enumerate}
+  \item Buka browser Chrome atau Firefox, lalu tekan \code{F12} atau \code{Ctrl+Shift+I}
+  \item Klik tab \textbf{Network}, lalu muat ulang halaman (\code{Ctrl+R})
+  \item Klik salah satu request yang muncul di daftar
+  \item Perhatikan bagian \textbf{Headers}: Anda akan melihat \textit{Request Headers} dan \textit{Response Headers}
+  \item Perhatikan juga kolom \textbf{Status} yang menampilkan status code, dan kolom \textbf{Size} yang menampilkan ukuran response
+\end{enumerate}
+Kemampuan membaca informasi di tab Network sangat berguna untuk men-debug masalah koneksi, request yang gagal, atau respons yang tidak sesuai harapan.
+\end{catatan}
 

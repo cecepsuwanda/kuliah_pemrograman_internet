@@ -1,0 +1,26 @@
+\section{Float dan Clear}
+
+\code{float} adalah metode layout CSS klasik yang awalnya dirancang untuk membuat teks mengalir mengelilingi gambar. Elemen yang di-float (\code{float: left} atau \code{float: right}) dikeluarkan dari normal flow dan ditempatkan di sisi kiri atau kanan kontainernya, sementara konten di sekitarnya mengalir mengelilinginya. Meskipun Flexbox dan Grid telah menggantikan float untuk layout modern, pemahaman float tetap penting untuk memelihara kode lama \cite{mdnCss}.
+
+Properti \code{clear} menghentikan efek float: \code{clear: left} memastikan elemen dimulai di bawah elemen yang di-float kiri; \code{clear: both} di bawah semua float. Masalah klasik float adalah \textbf{kontainer yang collapse}---kontainer tidak memperhitungkan tinggi elemen float di dalamnya. Solusi modern: gunakan \code{display: flow-root} pada kontainer (menciptakan Block Formatting Context baru) atau teknik clearfix dengan \code{::after} \cite{webdevCss}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3cm}|P{4cm}|P{5cm}|}
+\hline
+\textbf{Properti} & \textbf{Nilai} & \textbf{Efek} \\
+\hline
+\code{float} & \code{left}, \code{right}, \code{none} & Elemen di sisi kiri/kanan; konten mengalir \\
+\hline
+\code{clear} & \code{left}, \code{right}, \code{both} & Memulai di bawah elemen float \\
+\hline
+\code{display: flow-root} & --- & Kontainer mencakup float (BFC baru) \\
+\hline
+\end{tabular}
+\caption{Properti float dan clear}
+\end{table}
+
+\begin{catatan}
+\textbf{Float untuk Layout: Sudah Usang.} Penggunaan float untuk membuat layout kolom (dua kolom, tiga kolom) sudah \textbf{tidak direkomendasikan}. Gunakan Flexbox atau CSS Grid yang dirancang khusus untuk layout dan jauh lebih mudah digunakan. Float tetap valid untuk use case aslinya: membuat teks mengalir mengelilingi gambar atau elemen lain \cite{cssTricks}.
+\end{catatan}
+

@@ -1,0 +1,27 @@
+\section{Pengujian Dasar (Konsep Unit Test)}
+
+\textbf{Unit test} memeriksa unit kode terkecil (fungsi, modul) secara terisolasi untuk memastikan perilaku yang benar. Test bersifat otomatis, repeatable, dan memberikan confidence saat refactoring: jika test tetap hijau, perubahan tidak merusak fungsionalitas. Framework test JavaScript populer: \textbf{Jest}, \textbf{Vitest}, dan \textbf{Mocha} \cite{mdnToolsTesting}.
+
+\begin{webcode}[language=JavaScript, caption={Contoh unit test sederhana (konsep Jest)}]
+// fungsi yang diuji
+function hitungDiskon(harga, persen) {
+  if (persen < 0 || persen > 100) throw new Error("Invalid");
+  return harga - (harga * persen / 100);
+}
+
+// test cases (pola AAA: Arrange-Act-Assert)
+test("diskon 20%", () => {
+  expect(hitungDiskon(100000, 20)).toBe(80000);
+});
+test("diskon 0%", () => {
+  expect(hitungDiskon(100000, 0)).toBe(100000);
+});
+test("persen negatif throws", () => {
+  expect(() => hitungDiskon(100000, -5)).toThrow();
+});
+\end{webcode}
+
+\begin{catatan}
+\textbf{Test Coverage Bukan Segalanya.} 100\% coverage bukan jaminan kode bebas bug---test bisa saja tidak menguji edge case yang tepat. Fokus pada test yang bermakna: happy path (kasus normal), edge cases (batas, kosong, null), dan error cases. Test yang baik juga berfungsi sebagai dokumentasi: membaca test menjelaskan apa yang dilakukan fungsi \cite{mdnToolsTesting}.
+\end{catatan}
+

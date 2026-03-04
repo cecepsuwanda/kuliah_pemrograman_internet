@@ -1,0 +1,66 @@
+\section{Teks: Emphasis, Importance, dan Format Dasar}
+
+HTML membedakan antara elemen yang memberikan makna semantik (semantik) dan elemen yang hanya mengubah tampilan visual (presentasional). Pemahaman perbedaan ini sangat penting untuk menciptakan konten yang aksesibel dan bermakna. Elemen \code{<em>} (emphasis) dan \code{<strong>} (strong importance) adalah contoh elemen semantik yang memberikan makna pada konten, bukan hanya instruksi visual. Elemen \code{<em>} menandakan teks yang perlu penekanan atau tekanan berbeda dalam konteks, yang biasanya ditampilkan sebagai miring (italic) oleh browser. Elemen \code{<strong>} menandakan konten dengan tingkat kepentingan tinggi, kekhawatiran, atau urgensi, yang biasanya ditampilkan sebagai tebal (bold) \cite{mdnHtmlIntro}.
+
+Perbedaan penting terletak pada elemen presentasional \code{<i>} (italic) dan \code{<b>} (bold). Meskipun secara visual identik dengan \code{<em>} dan \code{<strong>}, elemen \code{<i>} dan \code{<b>} tidak membawa makna semantik. Elemen \code{<i>} sebaiknya digunakan untuk teks yang berbeda dalam nada suara atau mood, seperti istilah asing, nama kapal, atau kata dalam bahasa lain. Elemen \code{<b>} sebaiknya digunakan untuk menarik perhatian tanpa menandakan kepentingan atau urgensi yang lebih tinggi. Untuk aksesibilitas dan SEO, elemen semantik \code{<em>} dan \code{<strong>} selalu lebih disarankan kecuali ada alasan spesifik untuk menggunakan pendekatan presentasional \cite{mdnAccessibility}.
+
+HTML5 memperkenalkan elemen-elemen format teks tambahan yang memberikan makna spesifik. Elemen \code{<mark>} digunakan untuk menyoroti teks yang relevan dalam konteks tertentu, seperti hasil pencarian atau bagian yang ditinjau. Elemen \code{<small>} merepresentasikan catatan samping atau cetakan kecil seperti disclaimer, pernyataan hak cipta, atau peringatan. Elemen \code{<del>} menandakan teks yang telah dihapus dari dokumen, sering digunakan untuk menunjukkan perubahan revisi. Elemen \code{<ins>} menandakan teks yang telah ditambahkan sebagai revisi. Elemen \code{<s>} (strikethrough) mirip dengan \code{<del>} tetapi lebih umum untuk konten yang tidak lagi akurat atau relevan, bukan perubahan dokumen.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{2cm}|P{2cm}|P{3.5cm}|P{4cm}|}
+\hline
+\textbf{Elemen} & \textbf{Tampilan} & \textbf{Makna Semantik} & \textbf{Penggunaan} \\
+\hline
+\code{<em>} & Miring & Penekanan, tekanan & Kata yang ditekankan dalam kalimat \\
+\hline
+\code{<strong>} & Tebal & Kepentingan tinggi, urgensi & Peringatan, informasi kritis \\
+\hline
+\code{<i>} & Miring & Beda nada, istilah asing & \textit{in medias res}, nama kapal \\
+\hline
+\code{<b>} & Tebal & Menarik perhatian & Kata kunci, nama produk \\
+\hline
+\code{<mark>} & Highlight kuning & Relevan dalam konteks & Hasil pencarian, bagian ditinjau \\
+\hline
+\code{<small>} & Ukuran kecil & Catatan samping & Hak cipta, disclaimer \\
+\hline
+\code{<del>} & Coret & Teks dihapus & Revisi dokumen \\
+\hline
+\code{<ins>} & Garis bawah & Teks ditambahkan & Perubahan baru \\
+\hline
+\end{tabular}
+\caption{Perbandingan Elemen Format Teks dalam HTML}
+\label{tab:text-formatting}
+\end{table}
+
+\begin{webcode}[language=HTML, caption={Contoh Elemen Format Teks}]
+<!-- Elemen semantik (direkomendasikan) -->
+<p>Hasil ujian <em>sangat memuaskan</em> dan 
+   <strong>harus segera dilaporkan</strong>.</p>
+
+<!-- Elemen presentasional (gunakan dengan bijak) -->
+<p>Istilah <i>in medias res</i> berasal dari bahasa Latin.</p>
+<p>Produk <b>SuperPhone X</b> sekarang tersedia!</p>
+
+<!-- Elemen format tambahan -->
+<p>Cari kata <mark>HTML</mark> dalam dokumen ini.</p>
+<p>Harga: <s>Rp 1.000.000</s> Rp 800.000</p>
+<p><small>&copy; 2026 Perusahaan Contoh. 
+   Semua hak dilindungi.</small></p>
+
+<!-- Revisi dokumen -->
+<p>Jadwal rapat: <del>Senin, 3 Maret 2026</del> 
+   <ins>Selasa, 4 Maret 2026</ins></p>
+\end{webcode}
+
+\begin{catatan}
+\textbf{Panduan Memilih Elemen Format Teks:}
+\begin{itemize}[leftmargin=*]
+  \item Gunakan \code{<em>} untuk penekanan yang mengubah makna kalimat.
+  \item Gunakan \code{<strong>} untuk informasi yang penting atau urgensi.
+  \item Gunakan \code{<i>} untuk istilah teknis, nama asing, atau beda nada.
+  \item Gunakan \code{<b>} hanya untuk menarik perhatian tanpa makna semantik.
+  \item Prioritaskan elemen semantik untuk aksesibilitas yang lebih baik.
+\end{itemize}
+\end{catatan}
+

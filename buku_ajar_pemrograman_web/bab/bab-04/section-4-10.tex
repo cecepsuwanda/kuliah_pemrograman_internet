@@ -1,0 +1,74 @@
+\section{Membuat Link (Hyperlink) dan Praktik Terbaik}
+
+\textbf{Hyperlink} adalah elemen fundamental yang membuat web menjadi "web" - jaringan dokumen yang saling terhubung. Dalam HTML, link dibuat menggunakan elemen \code{<a>} (anchor) dengan atribut \code{href} (hypertext reference) yang menentukan tujuan link. Atribut \code{href} dapat berisi berbagai jenis URL: URL absolut lengkap dengan protokol dan domain (misalnya \code{https://example.com/halaman}), path relatif ke file dalam direktori yang sama atau subdirektori (misalnya \code{tentang.html} atau \code{css/style.css}), atau bahkan protokol lain seperti \code{mailto:} untuk email atau \code{tel:} untuk nomor telepon. Pemahaman tentang jenis URL yang berbeda sangat penting untuk membangun struktur website yang terorganisir \cite{webdevHtml}.
+
+\textbf{Link internal} mengarah ke halaman lain dalam website yang sama dan menggunakan path relatif. Path relatif dapat bersifat relatif terhadap dokumen saat ini (misalnya \code{./kontak.html}) atau terhadap root domain (misalnya \code{/kontak.html} dengan awalan garis miring). Link internal membentuk arsitektur informasi website dan memudahkan navigasi pengguna. \textbf{Link eksternal} mengarah ke website lain dan memerlukan URL absolut lengkap dengan protokol \code{http://} atau \code{https://}. \textbf{Anchor links} (atau fragment links) menggunakan tanda pagar \code{\#} diikuti ID elemen target untuk membuat link ke bagian spesifik dalam halaman yang sama (misalnya \code{\#bagian-bawah}) atau halaman lain (misalnya \code{halaman.html\#section-2}).
+
+\textbf{Keamanan} adalah pertimbangan penting ketika membuat link ke website eksternal. Atribut \code{target="\_blank"} memerintahkan browser membuka link di tab atau jendela baru. Namun, ini menciptakan kerentanan keamanan yang disebut \textit{tabnabbing} di mana halaman yang dibuka dapat memanipulasi halaman asal melalui properti \code{window.opener}. Untuk mencegah ini, selalu gunakan atribut \code{rel="noopener noreferrer"} bersama dengan \code{target="\_blank"}. Nilai \code{noopener} mencegah halaman baru mengakses \code{window.opener}, sementara \code{noreferrer} mencegah browser mengirim informasi referrer ke halaman tujuan, melindungi privasi pengguna \cite{mdnHtmlIntro}.
+
+\textbf{Teks link yang deskriptif} adalah praktik aksesibilitas dan SEO yang penting. Hindari teks link generik seperti "klik di sini", "baca selengkapnya", atau "link" karena mereka tidak memberikan konteks tentang tujuan link. Pengguna pembaca layar sering menavigasi halaman dengan melompat dari link ke link; tanpa konteks deskriptif, mereka tidak dapat membuat keputusan yang informatif. Teks link yang baik menjelaskan dengan jelas apa yang akan ditemukan pengguna ketika mengklik link tersebut. Misalnya, "Panduan lengkap belajar HTML" jauh lebih baik daripada "Klik di sini untuk mempelajari lebih lanjut".
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3cm}|P{2.5cm}|P{6cm}|}
+\hline
+\textbf{Atribut} & \textbf{Nilai Umum} & \textbf{Fungsi} \\
+\hline
+\code{href} & URL & Tujuan link (wajib) \\
+\hline
+\code{target} & \code{\_blank}, \code{\_self} & Jendela/tab target \\
+\hline
+\code{rel} & \code{noopener}, \code{noreferrer}, \code{nofollow} & Hubungan dengan halaman tujuan \\
+\hline
+\code{title} & Teks & Tooltip saat hover \\
+\hline
+\code{download} & Nama file (opsional) & Memicu unduhan file \\
+\hline
+\end{tabular}
+\caption{Atribut Elemen Link (\code{<a>})}
+\label{tab:link-attributes}
+\end{table}
+
+\begin{webcode}[language=HTML, caption={Contoh Berbagai Jenis Link}]
+<!-- Link internal relatif -->
+<a href="tentang.html">Tentang Kami</a>
+<a href="produk/laptop.html">Katalog Laptop</a>
+
+<!-- Link eksternal dengan keamanan -->
+<a href="https://developer.mozilla.org" 
+   target="_blank" 
+   rel="noopener noreferrer">
+   MDN Web Docs (buka di tab baru)
+</a>
+
+<!-- Anchor link ke bagian halaman -->
+<a href="#bagian-bawah">Lompat ke Bagian Bawah</a>
+<!-- Di tempat lain dalam halaman: -->
+<h2 id="bagian-bawah">Bagian Bawah</h2>
+
+<!-- Link email dan telepon -->
+<a href="mailto:kontak@example.com">Email Kami</a>
+<a href="tel:+628123456789">Hubungi: 0812-3456-789</a>
+
+<!-- Link dengan tooltip -->
+<a href="panduan.html" title="Panduan lengkap HTML untuk pemula">
+   Baca Panduan
+</a>
+
+<!-- Link download -->
+<a href="dokumen/brosur.pdf" download="Brosur-2026.pdf">
+   Unduh Brosur (PDF)
+</a>
+\end{webcode}
+
+\begin{catatan}
+\textbf{Praktik Terbaik Link:}
+\begin{itemize}[leftmargin=*]
+  \item Selalu gunakan \code{rel="noopener noreferrer"} dengan \code{target="\_blank"}.
+  \item Buat teks link deskriptif yang menjelaskan tujuan tanpa konteks tambahan.
+  \item Hindari "klik di sini" - tidak informatif untuk screen reader users.
+  \item Gunakan \code{download} untuk file yang dimaksudkan untuk diunduh.
+  \item Pertimbangkan UX: link eksternal mungkin memerlukan indikator visual.
+\end{itemize}
+\end{catatan}
+

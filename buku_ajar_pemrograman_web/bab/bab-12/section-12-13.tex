@@ -1,0 +1,22 @@
+\section{DISTINCT dan Alias (Kolom serta Tabel)}
+
+Kata kunci \code{DISTINCT} menghilangkan baris duplikat dari hasil query. Ini berguna saat Anda ingin mengetahui nilai unik dari suatu kolom --- misalnya, daftar kategori yang ada atau kota asal pengguna. Sintaks: \code{SELECT DISTINCT kolom FROM tabel;}. DISTINCT dapat diterapkan pada satu atau beberapa kolom; jika beberapa kolom dipilih, MySQL menghilangkan baris yang kombinasi seluruh kolomnya sama \cite{mysqlDocs}.
+
+\textbf{Alias} memberikan nama sementara pada kolom atau tabel dalam query menggunakan kata kunci \code{AS}. Alias kolom berguna untuk memberi nama yang lebih deskriptif pada hasil perhitungan atau fungsi agregat --- misalnya, \code{COUNT(*) AS jumlah\_produk}. Alias tabel memperpendek nama tabel dalam query yang melibatkan JOIN, sehingga lebih mudah dibaca. Alias bersifat sementara dan hanya berlaku selama query dijalankan \cite{mysqlGettingStarted}.
+
+\begin{webcode}[language=SQL, caption={DISTINCT dan alias}]
+-- Daftar kategori unik
+SELECT DISTINCT kategori FROM produk;
+
+-- Alias kolom
+SELECT nama AS nama_produk,
+       harga AS harga_satuan,
+       harga * stok AS total_nilai
+FROM produk;
+
+-- Alias tabel (berguna di JOIN)
+SELECT p.nama, p.harga, k.nama AS nama_kategori
+FROM produk AS p
+JOIN kategori AS k ON p.kategori_id = k.id;
+\end{webcode}
+

@@ -1,0 +1,29 @@
+\section{Keamanan: User, Hak Akses, dan Praktik Aman}
+
+MySQL memiliki sistem \textbf{user management} dan \textbf{privilege} (hak akses) untuk mengontrol siapa yang dapat mengakses database dan operasi apa yang diizinkan. Prinsip \textit{least privilege}: berikan hak akses sesedikit mungkin --- jangan gunakan akun root untuk aplikasi web. Buat user khusus dengan hak terbatas (hanya SELECT, INSERT, UPDATE, DELETE pada database tertentu) untuk koneksi dari PHP \cite{mysqlDocs}.
+
+\begin{webcode}[language=SQL, caption={Mengelola user dan hak akses MySQL}]
+-- Membuat user baru
+CREATE USER 'app_user'@'localhost' IDENTIFIED BY 'password_kuat!';
+
+-- Memberikan hak akses terbatas
+GRANT SELECT, INSERT, UPDATE, DELETE
+  ON toko_online.* TO 'app_user'@'localhost';
+
+-- Menerapkan perubahan hak akses
+FLUSH PRIVILEGES;
+
+-- Melihat hak akses user
+SHOW GRANTS FOR 'app_user'@'localhost';
+
+-- Mencabut hak akses
+REVOKE DELETE ON toko_online.* FROM 'app_user'@'localhost';
+
+-- Menghapus user
+DROP USER 'app_user'@'localhost';
+\end{webcode}
+
+\begin{catatan}
+Di lingkungan produksi: (1) jangan gunakan \code{root} untuk koneksi aplikasi; (2) gunakan password yang kuat; (3) batasi host (\code{@'localhost'} bukan \code{@'\%'}); (4) jangan berikan \code{GRANT ALL} untuk user aplikasi; (5) batasi akses ke database tertentu saja. Simpan kredensial di environment variable, bukan di kode sumber.
+\end{catatan}
+

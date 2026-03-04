@@ -1,0 +1,51 @@
+\section{Session Management Lanjutan: Fixation, Hijacking, dan Mitigasi}
+
+\textbf{Session fixation} terjadi saat penyerang memaksa korban menggunakan session ID yang sudah diketahui penyerang --- setelah korban login, penyerang menggunakan session ID tersebut untuk mengakses akun korban. Mitigasi: selalu panggil \code{session\_regenerate\_id(true)} setelah login berhasil. \textbf{Session hijacking} terjadi saat penyerang mencuri session ID aktif (melalui XSS, penyadapan jaringan, atau malware). Mitigasi: (1) cookie HttpOnly (cegah XSS); (2) cookie Secure (cegah penyadapan); (3) SameSite (cegah CSRF); (4) timeout session \cite{phpRightWay}.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners, minimum width=2.2cm, minimum height=0.8cm, align=center, font=\footnotesize, fill=#1},
+  arrow/.style={-Stealth, thick},
+  node distance=0.8cm
+]
+  % Session Fixation flow
+  \node[box=red!15] (a1) {Penyerang\\buat session ID};
+  \node[box=orange!15, right=1cm of a1] (a2) {Korban pakai\\ID tersebut};
+  \node[box=blue!15, right=1cm of a2] (a3) {Korban login\\(ID tetap)};
+  \node[box=purple!15, right=1cm of a3] (a4) {Penyerang akses\\akun korban};
+
+  \draw[arrow] (a1) -- (a2);
+  \draw[arrow] (a2) -- (a3);
+  \draw[arrow] (a3) -- (a4);
+
+  \node[font=\footnotesize\bfseries, above=0.3cm of a2] {Session Fixation};
+\end{tikzpicture}
+\caption{Alur serangan session fixation}
+\end{figure}
+
+\begin{webcode}[language=PHP, caption={Mitigasi session fixation dan hijacking}]
+<?php
+// Konfigurasi session SEBELUM session_start()
+ini_set('session.cookie_httponly', 1);  // Cegah XSS
+ini_set('session.cookie_secure', 1);    // Hanya HTTPS
+ini_set('session.cookie_samesite', 'Strict');
+ini_set('session.use_strict_mode', 1);  // Tolak ID buatan
+ini_set('session.gc_maxlifetime', 1800); // Timeout 30 menit
+session_start();
+
+// Setelah login: regenerasi ID (cegah fixation)
+session_regenerate_id(true);
+
+// Cek timeout
+if (isset($_SESSION['last_activity'])
+    && (time() - $_SESSION['last_activity']) > 1800) {
+  session_unset();
+  session_destroy();
+  header("Location: login.php?timeout=1");
+  exit;
+}
+$_SESSION['last_activity'] = time();
+?>
+\end{webcode}
+

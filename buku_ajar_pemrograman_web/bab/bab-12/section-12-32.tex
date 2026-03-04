@@ -1,0 +1,23 @@
+\section{Optimasi Query: EXPLAIN dan Indeks}
+
+Perintah \code{EXPLAIN} menampilkan rencana eksekusi (\textit{execution plan}) MySQL untuk sebuah query --- menunjukkan tabel mana yang diakses, jenis scan yang dilakukan, index yang digunakan, dan perkiraan jumlah baris yang diperiksa. Ini adalah alat utama untuk mendiagnosis query yang lambat. Idealnya, kolom \code{type} menunjukkan \code{ref}, \code{eq\_ref}, atau \code{const} (menggunakan index), bukan \code{ALL} (full table scan) \cite{mysqlDocs}.
+
+\begin{webcode}[language=SQL, caption={Menggunakan EXPLAIN untuk analisis query}]
+-- Tanpa index: type = ALL (full table scan)
+EXPLAIN SELECT * FROM produk WHERE nama = 'Laptop';
+
+-- Tambah index
+CREATE INDEX idx_nama ON produk(nama);
+
+-- Dengan index: type = ref (menggunakan index)
+EXPLAIN SELECT * FROM produk WHERE nama = 'Laptop';
+
+-- Analisis query dengan JOIN
+EXPLAIN SELECT p.nama, k.nama AS kategori
+FROM produk p
+INNER JOIN kategori k ON p.kategori_id = k.id
+WHERE p.harga > 100000;
+\end{webcode}
+
+Strategi optimasi lain: (1) hindari \code{SELECT *} --- hanya ambil kolom yang diperlukan; (2) gunakan \code{LIMIT} untuk membatasi hasil; (3) tempatkan kondisi yang paling selektif di WHERE pertama; (4) gunakan index komposit untuk query yang sering memfilter beberapa kolom; (5) perhatikan ukuran tabel --- optimasi lebih penting untuk tabel besar \cite{mysqlGettingStarted}.
+

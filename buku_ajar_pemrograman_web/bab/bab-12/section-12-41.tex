@@ -1,0 +1,34 @@
+\section{Praktik Terbaik: Struktur Proyek dan Standar Penulisan (PHP The Right Way)}
+
+Proyek PHP yang terstruktur baik mudah dipahami dan dipelihara. Struktur yang direkomendasikan memisahkan \textit{public files} (yang diakses browser: \code{index.php}, CSS, JS) dari \textit{application logic} (class, konfigurasi, template). File \code{index.php} di folder \code{public/} menjadi satu-satunya entry point --- pattern ini disebut \textit{front controller} dan meningkatkan keamanan karena file internal tidak bisa diakses langsung via URL \cite{phpRightWay}.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  folder/.style={draw, rounded corners, minimum width=2cm, minimum height=0.6cm, font=\footnotesize\ttfamily, fill=#1, align=left},
+  node distance=0.3cm
+]
+  \node[folder=blue!10] (root) {project/};
+  \node[folder=green!10, below=of root, xshift=0.5cm] (pub) {public/};
+  \node[folder=yellow!10, below=of pub, xshift=0.5cm] (idx) {index.php};
+  \node[folder=orange!10, below=of idx, xshift=-0.5cm] (src) {src/};
+  \node[folder=yellow!10, below=of src, xshift=0.5cm] (mod) {Models/};
+  \node[folder=yellow!10, below=of mod] (ctrl) {Controllers/};
+  \node[folder=purple!10, below=of ctrl, xshift=-0.5cm] (cfg) {config/};
+  \node[folder=red!10, below=of cfg] (vnd) {vendor/};
+  \node[folder=gray!15, below=of vnd] (comp) {composer.json};
+
+  \draw[thick] (root.south west) ++(0.2,0) -- ++(0,-0.3) -- (pub.west);
+  \draw[thick] (pub.south west) ++(0.2,0) -- ++(0,-0.3) -- (idx.west);
+  \draw[thick] (root.south west) ++(0.2,0) -- ++(0,-1.2) -- (src.west);
+  \draw[thick] (src.south west) ++(0.2,0) -- ++(0,-0.3) -- (mod.west);
+  \draw[thick] (src.south west) ++(0.2,0) -- ++(0,-0.9) -- (ctrl.west);
+  \draw[thick] (root.south west) ++(0.2,0) -- ++(0,-3) -- (cfg.west);
+  \draw[thick] (root.south west) ++(0.2,0) -- ++(0,-3.6) -- (vnd.west);
+  \draw[thick] (root.south west) ++(0.2,0) -- ++(0,-4.2) -- (comp.west);
+\end{tikzpicture}
+\caption{Struktur folder proyek PHP yang direkomendasikan}
+\end{figure}
+
+Standar penulisan mengikuti \textbf{PSR} (PHP Standards Recommendations): PSR-1 (dasar), PSR-12 (gaya kode), PSR-4 (autoloading). Gunakan naming convention yang konsisten: PascalCase untuk class, camelCase untuk metode dan variabel. Dokumentasikan kode dengan PHPDoc. Gunakan \code{strict\_types} di awal file untuk mencegah \textit{type coercion} implisit \cite{phpRightWay}.
+

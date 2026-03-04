@@ -1,0 +1,36 @@
+\section{Integrasi API dan Menghubungkan Front-End dengan Back-End (Sub-CPMK 3.3)}
+
+Integrasi front-end dengan back-end melalui API menggunakan \textbf{Fetch API} atau \textbf{XMLHttpRequest} di JavaScript. Fetch API adalah cara modern untuk mengirim HTTP request dari browser ke server tanpa me-reload halaman (\textit{AJAX}). Data dikirim dan diterima dalam format JSON. Pendekatan ini memisahkan tampilan (front-end) dari logika bisnis (back-end), memungkinkan pengembangan independen dan mendukung arsitektur \textit{Single Page Application} (SPA) \cite{phpManual}.
+
+\begin{webcode}[language=JavaScript, caption={JavaScript Fetch API untuk mengakses REST API}]
+// GET - Ambil daftar produk
+async function ambilProduk() {
+  const response = await fetch('/api/produk');
+  const data = await response.json();
+  data.forEach(p => {
+    console.log(`${p.nama}: Rp ${p.harga}`);
+  });
+}
+
+// POST - Tambah produk baru
+async function tambahProduk(nama, harga) {
+  const response = await fetch('/api/produk', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ nama, harga })
+  });
+  const result = await response.json();
+  console.log('Created ID:', result.id);
+}
+
+// DELETE - Hapus produk
+async function hapusProduk(id) {
+  await fetch(`/api/produk/${id}`, { method: 'DELETE' });
+  console.log('Produk dihapus');
+}
+
+// Panggil
+ambilProduk();
+tambahProduk('Keyboard', 250000);
+\end{webcode}
+

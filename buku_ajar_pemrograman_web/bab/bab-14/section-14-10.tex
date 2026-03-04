@@ -1,0 +1,38 @@
+\section{Administrasi Basis Data di Produksi: Backup, Restore, dan Pemantauan}
+
+Backup database adalah \textbf{asuransi data} --- tanpa backup, kehilangan data bersifat permanen. Di produksi, backup harus dilakukan secara \textbf{otomatis dan rutin} (minimal harian) menggunakan \code{mysqldump} yang dijadwalkan dengan \code{cron}. Simpan backup di lokasi terpisah (cloud storage, server lain) untuk protection against hardware failure. Uji restore secara berkala --- backup tidak berguna jika file-nya rusak atau prosedur restore tidak teruji \cite{mysqlDocs}.
+
+\begin{contoh}
+\textbf{Studi Kasus: Backup Otomatis dan Pemulihan Database}
+
+\textbf{Skenario}: Database toko online perlu di-backup setiap hari jam 02:00 dan disimpan 7 hari terakhir. Suatu hari, data produk terhapus tidak sengaja dan perlu dipulihkan dari backup terakhir.
+
+\textbf{Solusi}: Buat skrip backup yang dijalankan oleh cron; saat terjadi kecelakaan, restore dari file backup.
+\end{contoh}
+
+\begin{webcode}[language=PHP, caption={Skrip backup dan cron job}]
+#!/bin/bash
+# File: /home/deployer/backup-db.sh
+
+DATE=$(date +%Y%m%d_%H%M)
+DB_NAME="toko_online"
+BACKUP_DIR="/home/deployer/backups"
+RETENTION=7
+
+# Backup
+mysqldump -u app_user -p"$DB_PASS" $DB_NAME \
+  | gzip > "$BACKUP_DIR/${DB_NAME}_${DATE}.sql.gz"
+
+# Hapus backup lebih dari 7 hari
+find $BACKUP_DIR -name "*.sql.gz" -mtime +$RETENTION -delete
+
+echo "Backup selesai: ${DB_NAME}_${DATE}.sql.gz"
+
+# Cron: jalankan tiap hari jam 02:00
+# crontab -e
+# 0 2 * * * /home/deployer/backup-db.sh >> /var/log/backup.log 2>&1
+
+# Restore:
+# gunzip < backups/toko_online_20260304.sql.gz | mysql -u root -p toko_online
+\end{webcode}
+

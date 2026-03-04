@@ -1,0 +1,26 @@
+\section{Load Testing dan Stress Testing: Konsep dan Skenario}
+
+\textbf{Load testing} mengukur perilaku aplikasi di bawah beban yang diharapkan --- misalnya, 100 pengguna mengakses secara bersamaan. Tujuannya: memastikan aplikasi tetap responsif dan stabil pada beban normal. \textbf{Stress testing} mendorong aplikasi melampaui kapasitas maksimum untuk menemukan titik kegagalan dan melihat bagaimana sistem pulih setelah beban berlebih dihilangkan. Kedua jenis pengujian ini penting sebelum deployment ke produksi \cite{mdnToolsTesting}.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+  \draw[->] (0,0) -- (8,0) node[right, font=\footnotesize] {Jumlah User};
+  \draw[->] (0,0) -- (0,4) node[above, font=\footnotesize] {Response Time};
+
+  \draw[thick, green!60!black] (0,0.5) -- (3,0.8) -- (5,1.5);
+  \draw[thick, orange] (5,1.5) -- (6,2.5);
+  \draw[thick, red] (6,2.5) -- (7,4);
+
+  \node[font=\footnotesize, green!60!black] at (2,0.3) {Normal};
+  \node[font=\footnotesize, orange] at (5.5,1.2) {Load};
+  \node[font=\footnotesize, red] at (7.3,3.5) {Stress};
+
+  \draw[dashed, gray] (5,0) -- (5,4);
+  \node[font=\scriptsize, gray] at (5,-0.3) {Kapasitas};
+\end{tikzpicture}
+\caption{Kurva performa: normal $\to$ load $\to$ stress (titik kegagalan)}
+\end{figure}
+
+Skenario load testing meliputi: (1) \textbf{baseline test} --- beban normal untuk mengukur waktu respons standar; (2) \textbf{peak load test} --- beban puncak yang diharapkan; (3) \textbf{endurance test} --- beban sedang dalam waktu lama untuk mendeteksi memory leak; (4) \textbf{spike test} --- lonjakan mendadak untuk menguji kemampuan \textit{auto-scaling} atau recovery.
+
