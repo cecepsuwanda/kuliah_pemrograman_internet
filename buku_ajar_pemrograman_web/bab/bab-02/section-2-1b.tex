@@ -1,0 +1,31 @@
+\section{Ruang Lingkup Kebutuhan Pengguna}
+
+Ruang lingkup kebutuhan pengguna menentukan \textit{apa} yang harus dibangun dalam solusi web. Sebelum mulai mengembangkan aplikasi, pengembang harus mengidentifikasi kebutuhan pengguna---baik kebutuhan fungsional maupun non-fungsional. Proses ini mendukung pencapaian \textbf{Sub-CPMK 1.1}: mengidentifikasi kebutuhan fungsional dan non-fungsional pengguna untuk solusi web \cite{altexsoftRequirements}.
+
+Menurut \textit{Business Analysis Body of Knowledge} (BABOK), suatu \textbf{kebutuhan} (\textit{requirement}) adalah representasi dari suatu kebutuhan. Dalam konteks pengembangan perangkat lunak, kebutuhan adalah serangkaian tuntutan yang harus dipenuhi oleh produk perangkat lunak \cite{baeldungRequirements}. Kebutuhan terbagi menjadi dua kategori utama: \textbf{kebutuhan fungsional} dan \textbf{kebutuhan non-fungsional}.
+
+\textbf{Kebutuhan fungsional} mendefinisikan \textit{apa} yang harus dilakukan sistem---fitur dan fungsi yang harus diimplementasikan agar pengguna dapat menyelesaikan tugasnya. Kebutuhan fungsional mendeskripsikan perilaku sistem dalam kondisi tertentu. Contoh untuk aplikasi web toko online: pengguna dapat mendaftar dan login, melihat daftar produk, menambahkan produk ke keranjang, dan melakukan checkout. Kebutuhan fungsional bersifat wajib---tanpanya, aplikasi tidak memenuhi tujuan pengguna \cite{altexsoftRequirements}.
+
+\textbf{Kebutuhan non-fungsional} mendefinisikan \textit{bagaimana} sistem harus berperilaku---atribut dan sifat yang menggambarkan harapan kualitas terhadap solusi perangkat lunak. Kebutuhan non-fungsional mencakup aspek seperti performa, keamanan, ketersediaan, skalabilitas, dan kegunaan. Contoh: halaman harus dimuat dalam waktu kurang dari 3 detik, password harus di-hash dengan bcrypt, aplikasi harus responsif di layar mobile. Meskipun tidak wajib, kebutuhan non-fungsional sangat direkomendasikan untuk menjamin kualitas produk akhir \cite{baeldungRequirements}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3cm}|P{5cm}|P{5cm}|}
+\hline
+\textbf{Aspek} & \textbf{Kebutuhan Fungsional} & \textbf{Kebutuhan Non-Fungsional} \\
+\hline
+Definisi & Apa yang dilakukan sistem & Bagaimana sistem berperilaku \\
+\hline
+Esensialitas & Wajib & Direkomendasikan \\
+\hline
+Hasil & Fitur aplikasi & Sifat/kualitas aplikasi \\
+\hline
+Fokus & Tuntutan pengguna & Harapan pengguna \\
+\hline
+Sumber & Pengguna dan pemangku kepentingan & Pemangku kepentingan dan tim teknis \\
+\hline
+\end{tabular}
+\caption{Perbandingan kebutuhan fungsional dan non-fungsional}
+\end{table}
+
+Dalam pengembangan web, identifikasi kebutuhan dilakukan pada tahap \textbf{analisis kebutuhan} dalam siklus pengembangan. Teknik yang umum digunakan antara lain wawancara dengan pengguna, observasi, survei, dan workshop. Hasil identifikasi didokumentasikan dalam dokumen \textbf{Software Requirements Specification} (SRS) atau dokumen kebutuhan serupa, yang menjadi acuan bagi tim desain dan pengembangan \cite{baeldungRequirements}. Pemahaman terhadap ruang lingkup kebutuhan pengguna menjadi fondasi untuk tahap berikutnya: perancangan wireframe, mockup, dan implementasi solusi web.

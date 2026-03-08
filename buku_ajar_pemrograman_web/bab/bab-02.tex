@@ -2,17 +2,17 @@
 \ifSubfilesClassLoaded{\setcounter{chapter}{1}}{}
 \begin{document}
 
-\chapter{Landasan Teori dan Konsep Dasar}
+\chapter{Pengantar Pemrograman Web, Arsitektur Client-Server, Ruang Lingkup Kebutuhan Pengguna}
 
-Bab ini menyajikan fondasi teoritis yang mendukung seluruh materi dalam buku. Anda akan mempelajari arsitektur web, protokol HTTP, teknologi front-end dan back-end, siklus pengembangan, alat yang digunakan, standar web, serta pengenalan keamanan dan aksesibilitas. Pemahaman konsep-konsep ini menjadi prasyarat sebelum masuk ke implementasi di bab-bab selanjutnya. Dalam RPS, Bab ini selaras dengan \textbf{Pertemuan 1--2} (pengantar pemrograman web, arsitektur client-server, kebutuhan pengguna) dan menjadi dasar konseptual untuk \textbf{Pertemuan 4--7} (HTML, CSS).
+Bab ini menyajikan tiga materi pokok sesuai \textbf{Pertemuan 1} RPS: (1) \textbf{pengantar pemrograman web}, pengenalan konteks dan teknologi web; (2) \textbf{arsitektur client-server}, fondasi komunikasi antara browser dan server; serta (3) \textbf{ruang lingkup kebutuhan pengguna}, identifikasi kebutuhan fungsional dan non-fungsional untuk solusi web (Sub-CPMK 1.1). Pemahaman ketiga materi ini menjadi prasyarat sebelum masuk ke analisis kebutuhan lanjutan (Pertemuan 2) dan implementasi HTML/CSS (Pertemuan 4--7).
 
 \begin{subcpmk}
   \item Sub-CPMK 1.1: Mengidentifikasi kebutuhan fungsional dan non-fungsional pengguna untuk solusi web.
-  \item Sub-CPMK 2.1: Membuat halaman web dengan HTML5 (struktur, elemen semantik, form, media).
 \end{subcpmk}
 
 \input{bab/bab-02/section-2-1}
 \input{bab/bab-02/section-2-2}
+\input{bab/bab-02/section-2-1b}
 \input{bab/bab-02/section-2-3}
 \input{bab/bab-02/section-2-4}
 \input{bab/bab-02/section-2-5}
@@ -23,6 +23,7 @@ Bab ini menyajikan fondasi teoritis yang mendukung seluruh materi dalam buku. An
 \input{bab/bab-02/section-2-10}
 
 \begin{aktivitas}
+  \item Identifikasi kebutuhan fungsional dan non-fungsional untuk sebuah aplikasi web pilihan (misalnya toko online sederhana). Buat daftar minimal 5 kebutuhan fungsional dan 3 kebutuhan non-fungsional, lalu jelaskan perbedaannya.
   \item Buka browser, ketik sebuah URL (misalnya \url{https://www.example.com/halaman?id=1#bagian}), lalu amati request dan response di tab Network pada DevTools. Identifikasi metode HTTP, status code, header, dan komponen URL yang terlihat.
   \item Instal XAMPP di komputer Anda. Buat file \code{info.php} berisi \code{<?php phpinfo(); ?>} di folder \code{htdocs}, lalu akses melalui \code{http://localhost/info.php}. Catat versi PHP dan modul yang aktif.
   \item Buat halaman HTML sederhana yang menampilkan judul, paragraf, dan tombol. Tambahkan CSS untuk mengubah warna, font, dan tata letak menggunakan Flexbox. Tambahkan JavaScript agar tombol mengubah teks paragraf saat diklik.
@@ -34,6 +35,7 @@ Bab ini menyajikan fondasi teoritis yang mendukung seluruh materi dalam buku. An
 \end{aktivitas}
 
 \begin{latihan}
+  \item Jelaskan perbedaan kebutuhan fungsional dan non-fungsional. Berikan masing-masing tiga contoh untuk aplikasi web toko online (Sub-CPMK 1.1).
   \item Jelaskan perbedaan peran client dan server dalam arsitektur web. Berikan contoh konkret masing-masing dan gambarkan alur komunikasinya.
   \item Sebutkan dan jelaskan tujuh komponen URL beserta contohnya. Berikan contoh URL lengkap dan identifikasi setiap komponennya.
   \item Jelaskan perbedaan metode HTTP GET dan POST. Kapan masing-masing digunakan? Apa yang dimaksud dengan \textit{idempotent}?
@@ -51,7 +53,7 @@ Bab ini menyajikan fondasi teoritis yang mendukung seluruh materi dalam buku. An
 \begin{asesmen}
 Asesmen bab ini berupa:
 \begin{enumerate}
-  \item \textbf{Kuis konsep}: pertanyaan pilihan ganda dan isian singkat tentang arsitektur web, HTTP (metode, status code, header), teknologi front-end/back-end, SDLC, standar web, dan keamanan dasar.
+  \item \textbf{Kuis konsep}: pertanyaan pilihan ganda dan isian singkat tentang kebutuhan fungsional dan non-fungsional (Sub-CPMK 1.1), arsitektur web, HTTP (metode, status code, header), teknologi front-end/back-end, SDLC, standar web, dan keamanan dasar.
   \item \textbf{Tugas praktik}: buat halaman web (HTML + CSS + JS) yang menampilkan daftar produk dengan tata letak Flexbox. Halaman harus berjalan di server lokal XAMPP. Sertakan screenshot DevTools yang menunjukkan:
   \begin{itemize}
     \item Request HTTP dan status code di tab Network
@@ -64,6 +66,7 @@ Asesmen bab ini berupa:
 \end{asesmen}
 
 \begin{checklist}
+  \item Saya dapat mengidentifikasi kebutuhan fungsional dan non-fungsional pengguna untuk solusi web (Sub-CPMK 1.1).
   \item Saya memahami arsitektur client-server, peran DNS, dan siklus request-response HTTP.
   \item Saya dapat menjelaskan komponen URL (skema, host, port, path, query, fragment).
   \item Saya dapat menjelaskan metode HTTP (GET, POST, PUT, DELETE, PATCH) dan konsep idempotent.
@@ -86,6 +89,7 @@ Bab ini menyajikan landasan teori dan konsep dasar yang menjadi fondasi seluruh 
 
 \textbf{Poin Kunci:}
 \begin{itemize}
+  \item \textbf{Ruang lingkup kebutuhan pengguna} mencakup kebutuhan fungsional (apa yang dilakukan sistem) dan non-fungsional (bagaimana sistem berperilaku). Identifikasi kebutuhan adalah fondasi pengembangan solusi web (Sub-CPMK 1.1).
   \item \textbf{Arsitektur web} didasarkan pada model client-server dengan HTTP sebagai protokol komunikasi. DNS menerjemahkan nama domain menjadi alamat IP. URL mengidentifikasi sumber daya melalui komponen: skema, host, port, path, query, dan fragment. Koneksi dimulai dengan TCP three-way handshake.
   \item \textbf{HTTP} memiliki metode (GET, POST, PUT, DELETE, PATCH), status code (2xx, 3xx, 4xx, 5xx), dan header yang membawa metadata. HTTP bersifat stateless; cookie dan session digunakan untuk mengelola state. HTTPS menambahkan enkripsi TLS untuk keamanan.
   \item \textbf{Front-end} terdiri dari HTML (struktur), CSS (presentasi), dan JavaScript (interaktivitas). CSS modern menyediakan Flexbox dan Grid untuk layout responsif. JavaScript ES6+ menambahkan fitur seperti arrow function, Promise, dan Fetch API.

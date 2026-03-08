@@ -1,23 +1,14 @@
-\section{Keterkaitan dengan RPS dan Cara Belajar}
-Struktur buku ini disusun untuk mengikuti RPS Pemrograman Web sehingga topik di setiap bab selaras dengan pertemuan perkuliahan. Dengan begitu, Anda dapat menyesuaikan ritme belajar mandiri dengan materi yang dibahas di kelas. Pola ini memudahkan Anda menilai kemajuan melalui latihan dan checklist di akhir bab.
+\section{Capaian Pembelajaran Mata Kuliah (CPMK)}
 
-Cara belajar yang efektif adalah membaca konsep singkat, mencoba contoh, lalu mengerjakan latihan tanpa melihat solusi. Setelah itu, bandingkan hasil Anda dengan solusi atau diskusikan dengan teman. Siklus belajar ini membantu Anda memahami hubungan antara teori dan praktik \cite{mdnLearn}.
+Capaian Pembelajaran Mata Kuliah (CPMK) adalah kemampuan atau kompetensi spesifik yang diharapkan mahasiswa kuasai setelah menyelesaikan mata kuliah Pemrograman Web. Setiap CPMK merupakan penjabaran dari CPL yang dibebankan. Pemahaman terhadap CPMK membantu Anda menyadari target utama pembelajaran dan mengarahkan aktivitas belajar Anda \cite{aptikomObe}.
 
-\begin{figure}[htbp]
-\centering
-\resizebox{\textwidth}{!}{%
-\begin{tikzpicture}[node distance=1.6cm, transform shape, every node/.style={font=\footnotesize}]
-  \node (need) [class] {Kebutuhan};
-  \node (design) [class, right=of need] {Desain UI};
-  \node (build) [class, right=of design] {Implementasi};
-  \node (test) [class, right=of build] {Evaluasi};
-  \node (deploy) [class, right=of test] {Deployment};
-  \draw [arrow] (need) -- (design);
-  \draw [arrow] (design) -- (build);
-  \draw [arrow] (build) -- (test);
-  \draw [arrow] (test) -- (deploy);
-\end{tikzpicture}%
-}
-\caption{Alur belajar Pemrograman Web}
-\end{figure}
+Kemampuan atau kompetensi spesifik yang diharapkan mahasiswa kuasai setelah menyelesaikan mata kuliah:
 
+\begin{itemize}[leftmargin=*]
+  \item \textbf{CPMK-1 (Analisis Kebutuhan Pengguna dan Perancangan Antarmuka):} Mahasiswa mampu mengidentifikasi kebutuhan fungsional dan non-fungsional pengguna untuk merancang solusi web yang intuitif melalui pembuatan wireframe dan mockup (UI/UX) yang mempertimbangkan aspek aksesibilitas dan pengalaman pengguna.
+  \item \textbf{CPMK-2 (Implementasi Solusi Web Front-End):} Mahasiswa mampu mendesain dan mengimplementasikan antarmuka web yang responsif dan dinamis menggunakan teknologi standar (HTML5, CSS3, dan JavaScript) serta framework modern untuk memenuhi spesifikasi perangkat pengguna yang beragam.
+  \item \textbf{CPMK-3 (Pengembangan Sistem Back-End dan Integrasi Data):} Mahasiswa mampu membangun arsitektur sisi server (back-end), mengelola basis data, dan mengintegrasikan API untuk menciptakan sistem berbasis computing yang fungsional dan aman.
+  \item \textbf{CPMK-4 (Evaluasi, Deployment dan Administrasi Web):} Mahasiswa mampu melakukan pengujian, mengevaluasi keamanan serta performa aplikasi web, dan melakukan proses deployment ke server produksi untuk memastikan aplikasi dapat diakses secara optimal oleh publik.
+\end{itemize}
+
+Keterkaitan CPL dan CPMK dapat digambarkan sebagai berikut: \textbf{CPL-04} mendukung CPMK-2 (implementasi antarmuka), CPMK-3 (pengembangan back-end), dan CPMK-4 (evaluasi dan deployment). \textbf{CPL-05} mendukung CPMK-1 (analisis kebutuhan pengguna), CPMK-3 (integrasi kebutuhan ke sistem), dan CPMK-4 (administrasi dan evaluasi sistem). Dengan demikian, seluruh CPMK berkontribusi terhadap pencapaian kedua CPL yang dibebankan pada mata kuliah ini.
