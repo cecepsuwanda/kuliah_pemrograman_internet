@@ -1,31 +1,70 @@
-\section{Daftar (list) dan Tabel: Styling Dasar}
+\section{Validasi HTML dan Alat Validator}
 
-Daftar (\code{<ul>} untuk unordered, \code{<ol>} untuk ordered) dan tabel (\code{<table>}) adalah elemen HTML yang sering membutuhkan styling khusus agar sesuai dengan desain halaman. CSS menyediakan properti-properti yang mengontrol tampilan bullet/nomor pada daftar, serta border, spacing, dan background pada tabel. Styling yang tepat menjadikan konten lebih terbaca dan menarik \cite{mdnCss}.
+Validasi HTML adalah proses memeriksa apakah dokumen HTML mengikuti aturan sintaks dan semantik yang ditetapkan oleh standar (WHATWG HTML Living Standard atau rekomendasi W3C). Dokumen yang valid cenderung berperilaku lebih konsisten di berbagai browser, lebih mudah dirawat, dan lebih aksesibel. Meskipun browser modern sangat toleran terhadap kesalahan HTML (mereka mencoba ``memperbaiki'' markup secara otomatis), ketergantungan pada toleransi ini dapat menghasilkan perilaku yang tidak terduga dan sulit dideteksi \cite{w3cValidator}.
 
-\subsection{Styling Daftar}
+Terdapat beberapa jenis kesalahan yang dideteksi validator. Kesalahan sintaks meliputi tag yang tidak ditutup, atribut tanpa tanda kutip, dan karakter khusus yang tidak di-escape. Kesalahan struktural termasuk elemen yang ditempatkan di lokasi yang tidak diizinkan (misalnya \code{<p>} di dalam \code{<p>}), atau elemen yang hilang (misalnya \code{<title>} di dalam \code{<head>}). Peringatan (warnings) biasanya terkait praktik yang kurang optimal namun tidak melanggar standar secara teknis \cite{whatwgHtml}.
 
-Properti \code{list-style-type} mengontrol jenis penanda: \code{disc} (lingkaran solid, default untuk \code{ul}), \code{circle}, \code{square}, \code{decimal}, \code{lower-alpha}, \code{none} (tanpa penanda). Properti \code{list-style-position} menentukan apakah penanda di luar (\code{outside}, default) atau di dalam (\code{inside}) area konten. Properti \code{list-style-image} mengganti penanda dengan gambar kustom. Menghilangkan penanda dengan \code{list-style: none} adalah teknik dasar untuk membuat menu navigasi dari daftar \cite{webdevCss}.
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{2.5cm}|P{4cm}|P{5.5cm}|}
+\hline
+\textbf{Jenis} & \textbf{Contoh Masalah} & \textbf{Dampak} \\
+\hline
+Error fatal & Tag tidak ditutup & Struktur DOM berbeda dari yang dimaksud \\
+\hline
+Error sintaks & Atribut tanpa tanda kutip & Nilai atribut mungkin salah terbaca \\
+\hline
+Error struktural & \code{<div>} di dalam \code{<p>} & Browser memperbaiki secara otomatis, hasilnya tidak terduga \\
+\hline
+Warning & Elemen deprecated & Mungkin tidak didukung di browser masa depan \\
+\hline
+Info & Encoding tidak eksplisit & Sebaiknya ditambahkan \code{<meta charset>} \\
+\hline
+\end{tabular}
+\caption{Jenis error dan peringatan yang dideteksi validator HTML}
+\end{table}
 
-\subsection{Styling Tabel}
+Alat validator utama adalah \textbf{W3C Markup Validation Service} di \url{https://validator.w3.org/}. Layanan ini menerima input dalam tiga cara: memasukkan URL halaman web, mengunggah file HTML, atau menempelkan kode HTML secara langsung. Validator akan menampilkan daftar error dan warning beserta nomor baris dan penjelasan masalah. Alat lain yang berguna termasuk Nu HTML Checker (\url{https://validator.w3.org/nu/}), ekstensi browser seperti HTML Validator, dan fitur audit pada browser DevTools (Lighthouse) \cite{w3cValidator}.
 
-Properti \code{border-collapse} mengontrol bagaimana border sel berinteraksi: \code{collapse} menggabungkan border yang bersebelahan menjadi satu, \code{separate} (default) mempertahankan border terpisah dengan jarak yang diatur \code{border-spacing}. Baris bergantian (\textit{zebra striping}) dibuat dengan \code{tr:nth-child(even)} atau \code{tr:nth-child(odd)} untuk meningkatkan keterbacaan tabel yang panjang. Properti \code{text-align} dan \code{vertical-align} mengatur perataan teks di dalam sel \cite{cssTricks}.
+\begin{webcode}[language=HTML, caption={Contoh HTML invalid dan versi yang diperbaiki}]
+<!-- SALAH: banyak kesalahan -->
+<html>
+<body>
+<p>Paragraf pertama
+<p>Paragraf <b>kedua</p></b>
+<img src=foto.jpg>
+<div>
+  <p>Teks di dalam div
+    <div>Div bersarang di dalam p</div>
+  </p>
+</div>
 
-\begin{contoh}
-\textbf{Studi Kasus: Menu Navigasi Horizontal dari List}
+<!-- BENAR: tervalidasi -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Halaman Valid</title>
+</head>
+<body>
+  <p>Paragraf pertama</p>
+  <p>Paragraf <b>kedua</b></p>
+  <img src="foto.jpg" alt="Deskripsi foto" />
+  <div>
+    <p>Teks di dalam div</p>
+    <div>Div terpisah dari p</div>
+  </div>
+</body>
+</html>
+\end{webcode}
 
-Menu navigasi web umumnya dibangun dari elemen \code{<ul>} yang di-styling dengan CSS. Langkah-langkah:
+\begin{konsep}
+\textbf{Jadikan Validasi Bagian dari Alur Kerja.} Validasi HTML sebaiknya dilakukan secara rutin, bukan hanya di akhir pengembangan. Langkah praktis:
 \begin{enumerate}
-  \item Hilangkan bullet dan padding default dengan \code{list-style: none; padding: 0;}
-  \item Ubah \code{<li>} menjadi \code{display: inline-block} agar berjajar horizontal
-  \item Styling \code{<a>} di dalam menu: hapus underline, tambahkan padding untuk area klik yang besar, dan atur warna hover
-  \item Tambahkan background dan border-radius untuk tampilan tombol
+  \item Pasang ekstensi validator di editor kode (misalnya HTMLHint untuk VS Code).
+  \item Jalankan validator W3C setelah setiap perubahan signifikan.
+  \item Integrasikan pengecekan HTML dalam pipeline CI/CD (continuous integration).
+  \item Perbaiki error terlebih dahulu; warning dapat ditangani sesuai prioritas \cite{mdnLearn}.
 \end{enumerate}
-\end{contoh}
-
-% Webcode diganti dengan deskripsi ringkas
-\textbf{Contoh CSS:} \code{.nav-menu} dengan \code{list-style: none} dan \code{display: flex}; \code{tr:nth-child(even)} untuk zebra striping.
-
-\begin{catatan}
-\textbf{Aksesibilitas Menu Navigasi:} Saat mengubah \code{<ul>} menjadi menu navigasi visual, pastikan elemen semantik tetap utuh. Bungkus menu dengan \code{<nav>} dan beri \code{aria-label}. Hindari menghilangkan \code{<li>} atau mengganti \code{<ul>} dengan \code{<div>}---pembaca layar mengandalkan daftar untuk mengumumkan jumlah item menu. Fokus keyboard harus berfungsi pada setiap tautan \cite{mdnAccessibility}.
-\end{catatan}
+\end{konsep}
 

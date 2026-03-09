@@ -2,12 +2,12 @@
 \ifSubfilesClassLoaded{\setcounter{chapter}{9}}{}
 \begin{document}
 
-\chapter{PHP Dasar dan Pemrosesan Form}
+\chapter{Event Handling, Validasi Form, dan Error Handling}
 
-Urutan materi dalam bab ini mengikuti struktur judul materi PHP (tingkat dasar, menengah, lanjut) seperti pada dokumen judul materi PHP yang menjadi acuan mata kuliah. Bab ini memperkenalkan PHP sebagai bahasa pemrograman server-side, mulai dari instalasi lingkungan pengembangan, sintaks dasar, tipe data, operator, struktur kontrol, fungsi, array, hingga pemrosesan form dengan validasi server-side.
+Bab ini membahas materi Pertemuan 10 sesuai RPS: event handling, validasi form, dan error handling. Materi meliputi fungsi dan struktur data lanjutan, DOM manipulation, penanganan error (try/catch), event (addEventListener, propagation, delegation), dan validasi form di client. Materi library/framework front-end dilanjutkan di Bab 11.
 
 \begin{subcpmk}
-  \item Sub-CPMK 3.1: Mengimplementasikan logika server-side dengan PHP (pemrosesan form, struktur dasar, OOP).
+  \item Sub-CPMK 2.3: Mengimplementasikan interaktivitas dengan JavaScript (DOM, event handling, validasi form).
 \end{subcpmk}
 
 \input{bab/bab-10/section-10-1}
@@ -22,66 +22,66 @@ Urutan materi dalam bab ini mengikuti struktur judul materi PHP (tingkat dasar, 
 \input{bab/bab-10/section-10-10}
 \input{bab/bab-10/section-10-11}
 \input{bab/bab-10/section-10-12}
-\input{bab/bab-10/section-10-13}
-\input{bab/bab-10/section-10-14}
-\input{bab/bab-10/section-10-15}
 
 \begin{aktivitas}
-  \item Instal XAMPP (atau server lokal lain) dan verifikasi instalasi PHP dengan membuat file \code{phpinfo()} lalu mengaksesnya melalui browser.
-  \item Tulis skrip PHP yang menggunakan variabel, tipe data, operator aritmetika, dan operator perbandingan untuk membuat kalkulator sederhana.
-  \item Praktikkan struktur kontrol: buat program yang menentukan grade (A/B/C/D/E) berdasarkan nilai numerik menggunakan \code{if-elseif-else} dan \code{switch}.
-  \item Buat program yang menggunakan perulangan \code{for} dan \code{foreach} untuk menampilkan data array dalam format tabel HTML.
-  \item Implementasikan form HTML lengkap (nama, email, pesan) dengan pemrosesan dan validasi server-side di PHP, termasuk sanitasi output dengan \code{htmlspecialchars()}.
-  \item Organisasikan proyek PHP sederhana menggunakan \code{include}/\code{require} untuk memisahkan header, footer, konfigurasi, dan fungsi ke file-file terpisah.
+  \item \textbf{Praktik:} Gunakan fungsi lanjutan (arrow, default, rest); praktik \code{map}, \code{filter}, \code{reduce} untuk transformasi data array.
+  \item \textbf{Praktik:} Manipulasi DOM: buat elemen, tambah/hapus node, traversing; implementasi event delegation pada daftar dinamis.
+  \item \textbf{Latihan:} Buat form registrasi dengan validasi real-time (event \code{input}): email, password, konfirmasi; tampilkan pesan error yang jelas.
+  \item \textbf{Praktik:} Implementasi penanganan error dengan \code{try/catch} pada operasi DOM atau JSON yang berisiko gagal.
+  \item \textbf{Diskusi:} Presentasikan implementasi validasi form di depan kelompok; terima umpan balik dan lakukan perbaikan.
 \end{aktivitas}
 
 \begin{latihan}
-  \item Jelaskan perbedaan mendasar antara metode GET dan POST, serta berikan contoh skenario kapan masing-masing metode sebaiknya digunakan.
-  \item Apa perbedaan antara operator \code{==} dan \code{===} di PHP? Berikan contoh kasus di mana penggunaan \code{==} dapat menyebabkan bug.
-  \item Buat fungsi PHP bernama \code{validasiEmail(\$email)} yang memeriksa apakah email tidak kosong dan memiliki format yang valid menggunakan \code{filter\_var()}.
-  \item Jelaskan perbedaan antara \code{include}, \code{require}, \code{include\_once}, dan \code{require\_once}, serta kapan sebaiknya menggunakan masing-masing.
-  \item Mengapa validasi server-side tetap diperlukan meskipun form sudah memiliki validasi HTML5 di sisi klien? Berikan contoh skenario keamanannya.
+  \item Jelaskan perbedaan \code{map()}, \code{filter()}, dan \code{reduce()}. Beri contoh chaining ketiganya.
+  \item Apa yang dimaksud event bubbling dan event delegation? Beri contoh implementasi.
+  \item Tulis validasi form: nama tidak kosong, email valid (regex), password min 8 karakter, konfirmasi cocok.
+  \item Jelaskan peran \code{try/catch} dan \code{throw} dalam penanganan error di JavaScript.
+  \item \textbf{Refleksi:} Dari materi bab ini, manakah indikator Sub-CPMK 2.3 yang sudah Anda kuasai? Area mana yang masih perlu Anda tingkatkan?
 \end{latihan}
 
 \begin{asesmen}
-Asesmen berupa tugas proyek membuat sistem form multi-halaman dengan PHP yang mencakup:
-\begin{enumerate}
-  \item Halaman form registrasi (nama, email, password, konfirmasi password) dengan validasi server-side lengkap.
-  \item Halaman hasil yang menampilkan data yang berhasil divalidasi dengan sanitasi output.
-  \item Penggunaan \code{include}/\code{require} untuk memisahkan header, footer, konfigurasi, dan fungsi validasi ke file terpisah.
-  \item Implementasi teknik \textit{sticky form} agar data tidak hilang jika validasi gagal.
-\end{enumerate}
+Asesmen Bab 10 merupakan \textbf{Evaluasi Kinerja} yang mengukur Sub-CPMK 2.3. Terkait RPS: Praktikum 5 (Pertemuan 10). Komponen penilaian meliputi:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Event Handling (25\%):} Implementasi event pada form: submit, input, change, blur; addEventListener, propagation, delegation. Mengukur Sub-CPMK 2.3.
+  \item \textbf{Validasi Form (30\%):} Validasi form real-time dengan tampilan pesan error yang jelas; validasi nama, email (regex), password, konfirmasi. Mengukur Sub-CPMK 2.3.
+  \item \textbf{Penanganan Error (20\%):} Penggunaan \code{try/catch} dan \code{throw} untuk operasi DOM atau JSON yang berisiko gagal. Mengukur Sub-CPMK 2.3.
+  \item \textbf{DOM Manipulation (25\%):} Manipulasi DOM dinamis, membuat/menghapus elemen, event delegation pada daftar dinamis. Mengukur Sub-CPMK 2.3.
+\end{itemize}
+
+\textbf{Rubrik Penilaian (berbasis OBE):}
+\begin{itemize}
+  \item \textbf{A (85--100)}: Seluruh komponen lengkap, event handling dan validasi form profesional, error handling benar. Kompeten untuk Sub-CPMK 2.3.
+  \item \textbf{B (70--84)}: Sebagian besar komponen lengkap, beberapa detail kurang.
+  \item \textbf{C (55--69)}: Komponen dasar ada tetapi kurang mendalam.
+  \item \textbf{D ($<$55)}: Komponen tidak lengkap atau tidak memenuhi standar minimum.
+\end{itemize}
+
+Rubrik penilaian detail tersedia di Lampiran untuk penilaian proyek aplikasi web interaktif lengkap.
 \end{asesmen}
 
 \begin{checklist}
-  \item Saya dapat menginstal dan menjalankan PHP menggunakan XAMPP atau server lokal lainnya.
-  \item Saya memahami sintaks dasar PHP: tag, komentar, variabel, dan aturan penulisan.
-  \item Saya memahami tipe data PHP dan perbedaan antara \code{==} dan \code{===}.
-  \item Saya dapat menggunakan operator aritmetika, perbandingan, logika, dan string.
-  \item Saya mampu menulis output dengan \code{echo}/\code{print} dan memahami pentingnya \code{htmlspecialchars()}.
-  \item Saya dapat mengimplementasikan percabangan (\code{if/elseif/else}, \code{switch}) dan perulangan (\code{for}, \code{while}, \code{foreach}).
-  \item Saya mampu membuat dan menggunakan fungsi dengan parameter, default, dan return.
-  \item Saya memahami array terindeks, asosiatif, dan fungsi-fungsi array dasar.
-  \item Saya mampu membaca data dari \code{\$\_GET}, \code{\$\_POST}, dan \code{\$\_SERVER} dengan aman.
-  \item Saya dapat membuat form HTML dan memprosesnya dengan PHP termasuk validasi server-side.
-  \item Saya dapat mengorganisasi kode PHP menggunakan \code{include}/\code{require} dengan struktur folder yang baik.
+  \item \textbf{Sub-CPMK 2.3:} Saya menguasai fungsi lanjutan (arrow, default, rest) dan higher-order functions.
+  \item \textbf{Sub-CPMK 2.3:} Saya dapat menggunakan \code{map}, \code{filter}, \code{reduce}, dan chaining untuk transformasi data.
+  \item \textbf{Sub-CPMK 2.3:} Saya memahami \code{this} dalam berbagai konteks dan operasi objek lanjutan.
+  \item \textbf{Sub-CPMK 2.3:} Saya dapat menggunakan JSON (\code{parse}/\code{stringify}), Date, dan error handling (\code{try/catch}).
+  \item \textbf{Sub-CPMK 2.3:} Saya menguasai DOM traversing, membuat/menghapus elemen, dan event (addEventListener, propagation, delegation).
+  \item \textbf{Sub-CPMK 2.3:} Saya dapat membuat validasi form real-time dan memahami perbedaan validasi client vs server.
 \end{checklist}
 
 \begin{rangkuman}
-Bab ini memperkenalkan PHP sebagai bahasa pemrograman server-side yang menjadi fondasi pengembangan web dinamis. Dimulai dari instalasi lingkungan (XAMPP), sintaks dasar (tag, komentar, aturan penulisan), variabel (penamaan, tipe dinamis, scope), tipe data (string, integer, float, boolean, null), dan operator (aritmetika, perbandingan, logika, penugasan).
-
-Selanjutnya dibahas cara menampilkan output (echo/print), manipulasi string (literal, escape, heredoc, fungsi string), struktur kontrol percabangan (if/elseif/else, switch, ternary), dan perulangan (for, while, do-while, foreach). Fungsi memungkinkan penggunaan ulang kode dengan dukungan parameter default, type hinting, dan variadic arguments. Array (terindeks, asosiatif, bersarang) menjadi struktur data fundamental di PHP.
-
-Bab ini ditutup dengan pembahasan superglobal (\code{\$\_GET}, \code{\$\_POST}, \code{\$\_SERVER}), pemrosesan form HTML dengan PHP, validasi server-side, dan pengorganisasian kode menggunakan \code{include}/\code{require}.
+Bab ini membahas event handling, validasi form, dan error handling sebagai \textbf{Unit Materi Inti} berbasis Sub-CPMK 2.3. Materi fungsi lanjutan dan metode array fungsional (\code{map}, \code{filter}, \code{reduce}) menjadi fondasi. Manipulasi DOM lanjutan dan event handling (addEventListener, propagation, delegation) memungkinkan antarmuka responsif. Validasi form real-time menghubungkan event, DOM, dan logika bisnis. Penanganan error dengan \code{try/catch} memastikan aplikasi tetap stabil.
 
 \textbf{Poin Kunci:}
 \begin{itemize}
-  \item PHP berjalan di server dan menghasilkan output HTML yang dikirim ke browser.
-  \item Validasi server-side \textbf{wajib} dilakukan karena validasi klien dapat dilewati.
-  \item Selalu sanitasi output dengan \code{htmlspecialchars()} untuk mencegah XSS.
-  \item Gunakan \code{===} (identik) alih-alih \code{==} untuk perbandingan yang aman.
-  \item Organisasikan kode dengan \code{include}/\code{require} mengikuti prinsip DRY.
+  \item \textbf{Fungsi lanjutan} (Sub-CPMK 2.3): arrow function, default parameter, rest parameter; \code{map}, \code{filter}, \code{reduce} untuk transformasi array.
+  \item \textbf{DOM dan event}: traversing, membuat/menghapus elemen; addEventListener, event bubbling, event delegation untuk antarmuka dinamis.
+  \item \textbf{Validasi form real-time}: event \code{input}, \code{change}, \code{blur}; pesan error yang jelas meningkatkan UX; validasi client melengkapi (bukan menggantikan) validasi server.
+  \item \textbf{Error handling}: \code{try/catch}, \code{throw} untuk operasi DOM atau JSON yang berisiko gagal.
+  \item Event delegation dan DOM manipulation efisien untuk antarmuka dinamis; gunakan \code{try/catch} untuk operasi berisiko.
 \end{itemize}
+
+\textbf{Refleksi:} Pastikan Anda dapat mencentang checklist di atas dan siap melanjutkan ke Bab 11 (library/framework front-end).
 \end{rangkuman}
 
 \ifSubfilesClassLoaded{

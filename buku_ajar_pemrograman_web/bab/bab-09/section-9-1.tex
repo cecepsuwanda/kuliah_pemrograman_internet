@@ -1,28 +1,26 @@
-\section{Fungsi Lanjutan: Expression, Arrow, Default, dan Rest}
+\section{Pengenalan JavaScript dan Perannya di Web}
 
-Bab 8 memperkenalkan fungsi dasar; section ini memperdalam fitur fungsi modern ES6+. \textbf{Function expression} menyimpan fungsi anonim di variabel: \code{const greet = function(name) \{ ... \}}. \textbf{Arrow function} (\code{=>}) menyederhanakan sintaks dan memiliki perilaku \code{this} leksikal---ia mewarisi \code{this} dari scope luar, bukan menciptakan \code{this} sendiri \cite{jsInfo}.
+JavaScript adalah bahasa pemrograman yang berjalan di sisi client (browser) dan memungkinkan halaman web menjadi interaktif. Jika HTML menyediakan struktur dan CSS mengatur tampilan, JavaScript menambahkan \textbf{perilaku}---merespons klik pengguna, memvalidasi form, memperbarui konten tanpa reload, dan membuat animasi kompleks. JavaScript diciptakan oleh Brendan Eich di Netscape pada tahun 1995 dan telah berkembang menjadi salah satu bahasa pemrograman paling populer di dunia \cite{jsInfo}.
+
+Standar resmi JavaScript disebut \textbf{ECMAScript} (dikelola oleh ECMA International). Versi penting termasuk ES5 (2009), ES6/ES2015 (penambahan besar: \code{let}/\code{const}, arrow function, class, template literal, promise), dan pembaruan tahunan setelahnya. Ekosistem JavaScript sangat luas: di browser untuk interaktivitas (client-side), di server dengan Node.js, di mobile dengan React Native, dan di desktop dengan Electron \cite{mdnJsGuide}.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{3cm}|P{4.5cm}|P{4.5cm}|}
+\begin{tabular}{|P{2cm}|P{3cm}|P{3.5cm}|P{3.5cm}|}
 \hline
-\textbf{Fitur} & \textbf{Sintaks} & \textbf{Catatan} \\
+\textbf{Teknologi} & \textbf{Peran} & \textbf{Analogi} & \textbf{Contoh} \\
 \hline
-Default parameter & \code{function f(x = 10)} & Nilai default jika argumen undefined \\
+HTML & Struktur & Kerangka bangunan & Paragraf, heading, form \\
 \hline
-Rest parameter & \code{function f(...args)} & Menampung sisa argumen ke array \\
+CSS & Tampilan & Cat dan dekorasi & Warna, font, layout \\
 \hline
-Spread (panggil) & \code{f(...arr)} & Membongkar array menjadi argumen \\
-\hline
-Arrow function & \code{(x) => x * 2} & Tanpa \code{this} sendiri; ringkas \\
-\hline
-IIFE & \code{(() => \{ ... \})()} & Langsung dieksekusi; isolasi scope \\
+JavaScript & Perilaku & Sistem listrik/mekanik & Klik, validasi, animasi \\
 \hline
 \end{tabular}
-\caption{Fitur fungsi lanjutan ES6+}
+\caption{Peran tiga teknologi web utama}
 \end{table}
 
 \begin{konsep}
-\textbf{Higher-Order Function.} Fungsi yang menerima fungsi lain sebagai argumen atau mengembalikan fungsi disebut \textit{higher-order function}. Contoh: \code{arr.map(fn)}, \code{arr.filter(fn)}, \code{setTimeout(fn, ms)}. Konsep ini adalah fondasi pemrograman fungsional di JavaScript dan memungkinkan kode yang deklaratif dan modular \cite{eloquentJs}.
+\textbf{JavaScript Bukan Java.} Meskipun namanya mirip, JavaScript dan Java adalah bahasa yang \textbf{berbeda}. JavaScript awalnya dinamai untuk tujuan pemasaran. JavaScript bersifat dinamis (tipe data fleksibel), interpreted (dijalankan langsung di browser), dan berbasis prototipe. Java bersifat statically typed, compiled, dan berbasis class. Keduanya memiliki sintaks yang mirip C, tetapi konsep dan penggunaannya berbeda \cite{jsInfo}.
 \end{konsep}
 

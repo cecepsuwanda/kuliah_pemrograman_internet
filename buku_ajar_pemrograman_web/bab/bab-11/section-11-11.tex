@@ -1,57 +1,30 @@
-\section{Koneksi Database: Pengenalan MySQL dan MySQLi}
+\section{Debugging dan Alat Pengembang (DevTools)}
 
-\textbf{MySQL} adalah sistem manajemen basis data relasional (\textit{RDBMS}) open-source yang paling banyak digunakan bersama PHP. MySQL menggunakan bahasa SQL (\textit{Structured Query Language}) untuk operasi data dan mendukung fitur seperti \textit{stored procedures}, \textit{triggers}, \textit{views}, dan \textit{transactions}. Kombinasi PHP dan MySQL (sering disebut sebagai bagian dari stack \textbf{LAMP} --- Linux, Apache, MySQL, PHP) telah menjadi fondasi ribuan aplikasi web, dari blog sederhana hingga platform e-commerce berskala besar \cite{mysqlDocs}.
+Browser menyediakan \textbf{DevTools} (F12) dengan beberapa panel penting untuk debugging JavaScript. Panel \textbf{Console} untuk menjalankan kode dan melihat log/error. Panel \textbf{Sources} untuk melihat kode, memasang breakpoint, dan step-through execution. Panel \textbf{Network} untuk memonitor HTTP request. Panel \textbf{Elements} untuk inspeksi DOM \cite{mdnToolsTesting}.
 
-PHP menyediakan ekstensi \textbf{MySQLi} (MySQL Improved) sebagai pengganti ekstensi \code{mysql\_*} yang sudah dihapus sejak PHP 7.0. MySQLi menawarkan dua gaya pemrograman: \textbf{prosedural} (mirip fungsi lama) dan \textbf{OOP} (menggunakan class dan object). Gaya OOP lebih direkomendasikan karena lebih bersih, konsisten, dan sejalan dengan paradigma OOP yang dipelajari di bab ini. MySQLi mendukung \textit{prepared statements}, \textit{multiple statements}, dan \textit{transactions} --- fitur yang tidak ada di ekstensi lama \cite{phpManual}.
-
-\begin{figure}[ht]
+\begin{table}[htbp]
 \centering
-\begin{tikzpicture}[
-  box/.style={draw, rounded corners, minimum width=3.2cm, minimum height=1.2cm, align=center, font=\small, fill=#1},
-  arrow/.style={-Stealth, thick}
-]
-  \node[box=blue!15] (php) {Aplikasi PHP\\{\footnotesize (server-side)}};
-  \node[box=orange!20, right=2cm of php] (mysqli) {Ekstensi\\MySQLi};
-  \node[box=green!15, right=2cm of mysqli] (mysql) {MySQL\\Server};
-  \node[box=yellow!20, below=1.5cm of mysql] (db) {Database\\{\footnotesize (tabel, data)}};
+\begin{tabular}{|P{3cm}|P{4.5cm}|P{4.5cm}|}
+\hline
+\textbf{Teknik} & \textbf{Cara} & \textbf{Kapan Digunakan} \\
+\hline
+\code{console.log()} & Print nilai ke Console & Inspeksi nilai cepat \\
+\hline
+\code{console.table()} & Tampilkan data tabular & Array/objek \\
+\hline
+\code{debugger;} & Pause di baris ini & Breakpoint dalam kode \\
+\hline
+Breakpoint (UI) & Klik nomor baris di Sources & Debug tanpa ubah kode \\
+\hline
+Watch expression & Tambah di Sources panel & Monitor variabel \\
+\hline
+Network tab & Filter XHR/Fetch & Debug API call \\
+\hline
+\end{tabular}
+\caption{Teknik debugging JavaScript dengan DevTools}
+\end{table}
 
-  \draw[arrow] (php) -- node[above, font=\footnotesize]{\$conn = new mysqli()} (mysqli);
-  \draw[arrow] (mysqli) -- node[above, font=\footnotesize]{TCP/Socket} (mysql);
-  \draw[arrow] (mysql) -- (db);
-  \draw[arrow] (db) -- (mysql);
-  \draw[arrow] (mysql) -- node[below, font=\footnotesize]{Result set} (mysqli);
-  \draw[arrow] (mysqli) -- node[below, font=\footnotesize]{\$result} (php);
-\end{tikzpicture}
-\caption{Arsitektur koneksi PHP -- MySQLi -- MySQL}
-\end{figure}
-
-\begin{webcode}[language=PHP, caption={Koneksi MySQLi gaya OOP dengan error handling}]
-<?php
-// Konfigurasi - idealnya di file terpisah (config.php)
-$host     = 'localhost';
-$username = 'root';
-$password = '';
-$database = 'belajar_php';
-
-// Membuat koneksi (OOP)
-$conn = new mysqli($host, $username, $password, $database);
-
-// Cek koneksi
-if ($conn->connect_error) {
-  die("Koneksi gagal: " . $conn->connect_error);
-}
-
-// Set charset UTF-8 (penting untuk karakter Indonesia)
-$conn->set_charset("utf8mb4");
-
-echo "Koneksi ke database '{$database}' berhasil!";
-
-// ... lakukan query ...
-
-// Tutup koneksi setelah selesai
-$conn->close();
-?>
-\end{webcode}
-
-Beberapa praktik terbaik dalam mengelola koneksi database: (1) simpan kredensial database di file konfigurasi terpisah yang tidak dapat diakses dari web (misalnya di luar \code{public\_html/}); (2) selalu set charset ke \code{utf8mb4} untuk mendukung karakter Unicode penuh; (3) cek \code{connect\_error} setelah koneksi dan berikan pesan error yang informatif; (4) tutup koneksi dengan \code{\$conn->close()} setelah selesai (meskipun PHP menutupnya otomatis di akhir skrip); (5) di lingkungan produksi, gunakan \textit{connection pooling} atau \textit{persistent connections} untuk performa yang lebih baik. Jangan pernah menampilkan detail koneksi database (host, username) ke pengguna jika koneksi gagal \cite{phpRightWay}.
+\begin{konsep}
+\textbf{Breakpoint > console.log().} Meskipun \code{console.log()} cepat dan mudah, breakpoint lebih efektif untuk debugging kompleks: Anda dapat melihat seluruh call stack, semua variabel di scope saat ini, dan menjalankan kode step-by-step. Conditional breakpoint (klik kanan pada breakpoint) hanya pause jika kondisi terpenuhi---sangat berguna di loop besar \cite{mdnToolsTesting}.
+\end{konsep}
 

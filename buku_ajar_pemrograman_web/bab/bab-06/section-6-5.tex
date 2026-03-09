@@ -1,64 +1,110 @@
-\section{Warna dan Background}
+\section[Struktur Halaman dengan Elemen Semantik]{Struktur Halaman dengan Elemen Semantik}
 
-Warna adalah salah satu aspek visual paling mendasar dalam CSS. Properti \code{color} mengatur warna teks, sedangkan \code{background-color} mengatur warna latar belakang elemen. CSS mendukung beberapa format penulisan warna yang masing-masing memiliki kelebihan dalam konteks yang berbeda. Pemahaman tentang format warna membantu pengembang membuat palet warna yang konsisten dan aksesibel \cite{mdnCss}.
+Bab 5 telah memperkenalkan elemen-elemen semantik HTML5 secara konseptual. Pada section ini, fokus diarahkan pada \textbf{praktik merancang} struktur halaman web menggunakan elemen-elemen tersebut. Struktur semantik yang baik bukan sekadar tentang tampilan visual, melainkan tentang memberikan \textbf{makna} pada setiap bagian halaman sehingga browser, mesin pencari, dan teknologi bantu dapat memahami peran masing-masing konten. Halaman yang terstruktur dengan baik lebih mudah dirawat, lebih aksesibel, dan mendapat peringkat SEO yang lebih baik \cite{webdevHtml}.
+
+HTML5 menyediakan elemen semantik yang menggantikan penggunaan \code{<div>} generik untuk bagian-bagian halaman yang umum. Setiap elemen memiliki makna spesifik: \code{<header>} untuk kepala halaman atau section, \code{<nav>} untuk navigasi utama, \code{<main>} untuk konten utama (hanya satu per halaman), \code{<article>} untuk konten mandiri, \code{<section>} untuk pengelompokan tematik, \code{<aside>} untuk konten pendukung, dan \code{<footer>} untuk penutup halaman. Penggunaan elemen yang tepat membantu pembaca layar membuat peta navigasi otomatis bagi penggunanya \cite{mdnHtmlIntro}.
 
 \begin{table}[htbp]
 \centering
-\scriptsize
-\begin{tabular}{|P{1.9cm}|P{2.5cm}|P{2.4cm}|P{2.8cm}|}
+\begin{tabular}{|P{2.2cm}|P{4cm}|P{5.5cm}|}
 \hline
-\textbf{Format} & \textbf{Sintaks} & \textbf{Contoh} & \textbf{Keterangan} \\
+\textbf{Elemen} & \textbf{Makna Semantik} & \textbf{Contoh Penggunaan} \\
 \hline
-Nama & \code{color: red;} & \code{red}, \code{navy} & 148 nama standar \\
+\code{<header>} & Kepala halaman/section & Logo, judul situs, navigasi utama \\
 \hline
-Hex & \code{\#RRGGBB} & \code{\#2a6fb0} & Paling umum; 6/3 digit \\
+\code{<nav>} & Blok navigasi & Menu utama, breadcrumb, sidebar link \\
 \hline
-RGB & \code{rgb(R,G,B)} & \code{rgb(42,111,176)} & Nilai 0--255 per channel \\
+\code{<main>} & Konten utama & Area isi utama (satu per halaman) \\
 \hline
-RGBA & \code{rgba(R,G,B,A)} & \code{rgba(0,0,0,0.5)} & Dengan transparansi \\
+\code{<article>} & Konten mandiri & Blog post, berita, komentar \\
 \hline
-HSL & \code{hsl(H,S,L)} & \code{hsl(210,60\%,43\%)} & Hue-Sat.-Lightness \\
+\code{<section>} & Grup tematik & Bab, tab panel, bagian konten \\
 \hline
-HSLA & \code{hsla(H,S,L,A)} & \code{hsla(210,60\%,43\%,0.8)} & HSL + transparansi \\
+\code{<aside>} & Konten pendukung & Sidebar, iklan, info terkait \\
+\hline
+\code{<footer>} & Penutup halaman & Hak cipta, link kebijakan, kontak \\
 \hline
 \end{tabular}
-\caption{Format warna CSS dan contoh penggunaannya}
+\caption{Elemen semantik HTML5 dan konteks penggunaannya}
 \end{table}
 
-Untuk latar belakang, CSS menyediakan properti yang lebih kaya dari sekadar warna solid. Properti \code{background-image} memuat gambar sebagai latar; \code{background-repeat} mengontrol pengulangan (\code{repeat}, \code{no-repeat}, \code{repeat-x}, \code{repeat-y}); \code{background-position} menentukan posisi gambar; dan \code{background-size} mengatur ukuran (\code{cover} untuk menutupi seluruh area, \code{contain} untuk memastikan gambar terlihat utuh). Semua properti ini dapat digabungkan menggunakan shorthand \code{background} \cite{webdevCss}.
+\begin{figure}[htbp]
+\centering
+\resizebox{0.85\textwidth}{!}{%
+\begin{tikzpicture}[node distance=0.6cm, transform shape, every node/.style={font=\footnotesize}]
+  % Body container
+  \node (body) [class, minimum width=12cm, minimum height=0.8cm] {\code{<body>}};
 
-\textbf{Gradient} CSS memungkinkan transisi halus antara dua atau lebih warna tanpa memerlukan file gambar. \code{linear-gradient()} membuat gradient linear dengan arah tertentu (misalnya \code{to right}, \code{45deg}), sedangkan \code{radial-gradient()} membuat gradient melingkar. Gradient sering digunakan untuk membuat latar belakang yang menarik pada hero section, tombol, atau card. Karena gradient dihasilkan oleh browser (bukan file gambar), ukuran file halaman tetap kecil \cite{cssTricks}.
+  % Header
+  \node (header) [class, below=of body, minimum width=11cm, fill=orange!15] {\code{<header>} --- Logo, Judul Situs};
 
-\begin{webcode}[language=CSS, caption={Warna, background, dan gradient}]
-/* Warna teks dan latar */
-body {
-  color: #333;
-  background-color: #f5f5f5;
+  % Nav
+  \node (nav) [class, below=of header, minimum width=11cm, fill=yellow!15] {\code{<nav>} --- Menu Navigasi Utama};
+
+  % Main + Aside row
+  \node (main) [class, below=of nav, minimum width=7.5cm, xshift=-1.75cm, minimum height=3cm, fill=green!10] {\code{<main>}};
+
+  % Article inside main
+  \node (article) [object, below=0.3cm of main.north, minimum width=6.5cm, fill=green!20] {\code{<article>} --- Konten Artikel};
+  \node (section) [object, below=0.3cm of article, minimum width=6.5cm, fill=green!25] {\code{<section>} --- Bagian Konten};
+
+  % Aside
+  \node (aside) [class, right=0.5cm of main, minimum width=3cm, minimum height=3cm, fill=purple!10] {\code{<aside>}\\Sidebar};
+
+  % Footer
+  \node (footer) [class, below=0.6cm of main.south east, minimum width=11cm, xshift=-0.5cm, fill=gray!15] {\code{<footer>} --- Hak Cipta, Kontak};
+\end{tikzpicture}%
 }
+\caption{Diagram struktur halaman web dengan elemen semantik HTML5}
+\end{figure}
 
-/* Background gambar */
-.hero {
-  background: url('hero.jpg') center/cover no-repeat;
-  color: white;
-}
+Hierarki heading (\code{<h1>} sampai \code{<h6>}) di dalam elemen semantik sangat penting untuk aksesibilitas dan SEO. Praktik terbaik: gunakan satu \code{<h1>} per halaman untuk judul utama, lalu \code{<h2>} untuk judul section, \code{<h3>} untuk sub-section, dan seterusnya. Jangan melewatkan level heading (misalnya langsung dari \code{<h2>} ke \code{<h4>}) karena akan membingungkan pembaca layar yang menggunakan heading untuk navigasi cepat. Setiap \code{<section>} dan \code{<article>} sebaiknya diawali dengan heading yang sesuai \cite{mdnAccessibility}.
 
-/* Linear gradient */
-.header {
-  background: linear-gradient(135deg, #2a6fb0, #1a4f80);
-}
+\begin{webcode}[language=HTML, caption={Struktur halaman lengkap dengan elemen semantik}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Blog Pemrograman Web</title>
+</head>
+<body>
+  <header>
+    <h1>Blog Pemrograman Web</h1>
+    <nav>
+      <ul>
+        <li><a href="/">Beranda</a></li>
+        <li><a href="/artikel">Artikel</a></li>
+        <li><a href="/tentang">Tentang</a></li>
+      </ul>
+    </nav>
+  </header>
 
-/* Radial gradient */
-.badge {
-  background: radial-gradient(circle, #f39c12, #e74c3c);
-}
+  <main>
+    <article>
+      <h2>Mengenal HTML5 Semantik</h2>
+      <p>HTML5 memperkenalkan elemen semantik...</p>
+      <section>
+        <h3>Mengapa Semantik Penting?</h3>
+        <p>Elemen semantik memberikan makna...</p>
+      </section>
+    </article>
+    <aside>
+      <h2>Artikel Terkait</h2>
+      <ul>
+        <li><a href="/css-dasar">CSS Dasar</a></li>
+        <li><a href="/js-intro">Pengenalan JS</a></li>
+      </ul>
+    </aside>
+  </main>
 
-/* RGBA untuk overlay semi-transparan */
-.overlay {
-  background-color: rgba(0, 0, 0, 0.6);
-}
+  <footer>
+    <p>&copy; 2026 Blog Pemrograman Web</p>
+  </footer>
+</body>
+</html>
 \end{webcode}
 
-\begin{konsep}
-\textbf{Aksesibilitas Warna.} Pastikan kontras antara warna teks dan latar belakang memenuhi standar WCAG: minimal rasio \textbf{4.5:1} untuk teks normal dan \textbf{3:1} untuk teks besar (18px+ atau 14px+ bold). Gunakan alat seperti WebAIM Contrast Checker untuk memeriksa rasio kontras. Jangan mengandalkan warna sebagai satu-satunya cara menyampaikan informasi (misalnya, field error hanya berwarna merah)---tambahkan ikon, teks, atau pola untuk pengguna buta warna \cite{mdnAccessibility}.
-\end{konsep}
+\begin{catatan}
+Jangan menggunakan elemen semantik hanya untuk mendapatkan styling default (misalnya \code{<nav>} agar terlihat seperti menu). Gunakan elemen berdasarkan \textbf{maknanya}, bukan tampilannya. Tampilan dapat selalu diubah dengan CSS. Sebaliknya, jangan menggunakan \code{<div>} untuk konten yang memiliki makna semantik yang jelas---gunakan elemen semantik yang tepat agar halaman Anda aksesibel dan mudah dirawat \cite{webdevHtml}.
+\end{catatan}
 

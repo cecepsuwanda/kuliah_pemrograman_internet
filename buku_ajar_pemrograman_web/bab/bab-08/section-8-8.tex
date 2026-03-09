@@ -1,36 +1,54 @@
-\section{String: Literal, Escape, dan Metode Dasar}
+\section{Media Queries}
 
-String adalah urutan karakter yang merepresentasikan teks. Di JavaScript, string dapat ditulis dengan kutip tunggal (\code{'}), kutip ganda (\code{"}), atau backtick (\code{`}) untuk template literal. Template literal (ES6) mendukung interpolasi (\code{`Hello \$\{name\}`}) dan multi-baris. String bersifat \textbf{immutable}---metode string mengembalikan string baru tanpa mengubah aslinya \cite{jsInfo}.
+Media queries adalah mekanisme CSS yang memungkinkan penerapan aturan styling berdasarkan kondisi perangkat---terutama \textbf{lebar viewport}. Ini adalah fondasi utama desain responsif: satu halaman HTML yang tampil optimal di desktop, tablet, dan mobile. Sintaks dasar: \code{@media (kondisi) \{ aturan CSS \}}. Kondisi paling umum adalah \code{min-width} dan \code{max-width} \cite{mdnCss}.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{3.5cm}|P{4cm}|P{4.5cm}|}
+\begin{tabular}{|P{4.5cm}|P{3cm}|P{4.5cm}|}
 \hline
-\textbf{Metode} & \textbf{Fungsi} & \textbf{Contoh} \\
+\textbf{Media Query} & \textbf{Target} & \textbf{Penggunaan} \\
 \hline
-\code{.length} & Jumlah karakter & \code{"Hello".length} $\rightarrow$ 5 \\
+\code{max-width: 480px} & Mobile kecil & Font, padding lebih kecil \\
 \hline
-\code{.toUpperCase()} & Huruf besar & \code{"hi".toUpperCase()} $\rightarrow$ \code{"HI"} \\
+\code{max-width: 768px} & Tablet portrait & Layout 1--2 kolom \\
 \hline
-\code{.includes(str)} & Cek substring & \code{"Hello".includes("ell")} $\rightarrow$ true \\
+\code{max-width: 1024px} & Tablet landscape & Sidebar collapse \\
 \hline
-\code{.indexOf(str)} & Posisi substring & \code{"Hello".indexOf("l")} $\rightarrow$ 2 \\
+\code{min-width: 1200px} & Desktop besar & Layout penuh, sidebar \\
 \hline
-\code{.slice(start, end)} & Ambil bagian & \code{"Hello".slice(1,4)} $\rightarrow$ \code{"ell"} \\
+\code{prefers-color-scheme} & Tema gelap/terang & Dark mode otomatis \\
 \hline
-\code{.split(sep)} & Pecah ke array & \code{"a,b".split(",")} $\rightarrow$ \code{["a","b"]} \\
-\hline
-\code{.trim()} & Hapus spasi ujung & \code{" Hi ".trim()} $\rightarrow$ \code{"Hi"} \\
-\hline
-\code{.replace(old,new)} & Ganti substring & \code{"hi".replace("h","H")} $\rightarrow$ \code{"Hi"} \\
+\code{prefers-reduced-motion} & Kurangi animasi & Aksesibilitas \\
 \hline
 \end{tabular}
-\caption{Metode string JavaScript yang sering digunakan}
+\caption{Media queries umum untuk desain responsif}
 \end{table}
 
-Escape sequence digunakan untuk karakter khusus dalam string: \code{\\n} (baris baru), \code{\\t} (tab), \code{\\\\} (backslash), \code{\\"} (kutip ganda). Dengan template literal, escape sequence jarang dibutuhkan karena multi-baris dan interpolasi sudah didukung secara native \cite{mdnJsGuide}.
+Selain lebar viewport, media queries juga mendukung fitur lain: \code{orientation} (portrait/landscape), \code{resolution} (untuk layar HiDPI), \code{prefers-color-scheme} (dark/light mode), dan \code{prefers-reduced-motion} (untuk aksesibilitas). Operator logika \code{and}, \code{or} (koma), dan \code{not} memungkinkan kondisi majemuk: \code{@media (min-width: 768px) and (orientation: landscape)} \cite{webdevCss}.
+
+\begin{webcode}[language=CSS, caption={Media queries untuk layout responsif}]
+/* Base styles (mobile-first) */
+.container { padding: 1rem; }
+.grid { display: grid; gap: 1rem; }
+
+/* Tablet: 2 kolom */
+@media (min-width: 768px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* Desktop: 3 kolom + sidebar */
+@media (min-width: 1024px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+  .sidebar { display: block; }
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  body { background: #1a1a1a; color: #eee; }
+}
+\end{webcode}
 
 \begin{catatan}
-\textbf{Template Literal untuk Kode Bersih.} Alih-alih konkatenasi (\code{"Hello " + name + "!"}), gunakan template literal (\code{`Hello \$\{name\}!`}). Selain lebih mudah dibaca, template literal mendukung ekspresi (\code{`Total: \$\{price * qty\}`}) dan multi-baris tanpa \code{\\n}. Ini adalah salah satu fitur ES6 yang paling bermanfaat dalam praktik sehari-hari \cite{jsInfo}.
+\textbf{Breakpoint Berdasarkan Konten.} Pilih breakpoint berdasarkan kapan layout ``rusak'' (konten terlalu sempit atau terlalu lebar), bukan berdasarkan ukuran perangkat tertentu. Perangkat memiliki ukuran yang sangat beragam; breakpoint berbasis konten lebih tahan masa depan. Uji dengan perlahan menyempitkan browser dan catat di mana layout perlu disesuaikan \cite{cssTricks}.
 \end{catatan}
 

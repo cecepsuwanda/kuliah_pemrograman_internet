@@ -1,54 +1,49 @@
-\section[Memulai: Instalasi PHP dan Environment]{Memulai: Instalasi PHP dan Environment (XAMPP, Server Lokal)}
+\section{Array Lanjutan: map, filter, reduce, dan Metode Fungsional}
 
-Untuk menjalankan kode PHP, Anda memerlukan sebuah lingkungan server karena PHP adalah bahasa \textit{server-side} yang membutuhkan web server dan interpreter PHP. Cara termudah bagi pemula adalah menggunakan paket \textbf{XAMPP}, yang menyediakan Apache (web server), MySQL/MariaDB (basis data), PHP, dan Perl dalam satu instalasi lengkap. XAMPP tersedia untuk Windows, Linux, dan macOS, sehingga sangat fleksibel digunakan di berbagai sistem operasi \cite{phpManual}.
+Metode fungsional array menghasilkan array atau nilai baru \textbf{tanpa} mengubah array asli (\textit{immutable pattern}). Ini menjadikan kode lebih mudah dipahami dan di-debug. Tiga metode terpenting: \code{map()} mentransformasi setiap elemen, \code{filter()} menyaring elemen berdasarkan kondisi, dan \code{reduce()} mengakumulasi semua elemen menjadi satu nilai \cite{jsInfo}.
 
-Proses instalasi XAMPP sangat sederhana: unduh installer dari situs resmi Apache Friends, jalankan installer, lalu pilih komponen yang ingin dipasang (minimal Apache dan PHP). Setelah instalasi selesai, buka XAMPP Control Panel dan klik \textbf{Start} pada modul Apache. Jika berhasil, modul Apache akan berwarna hijau, menandakan web server sudah aktif. Semua file PHP yang ingin Anda jalankan harus disimpan di dalam folder \code{htdocs} (biasanya di \code{C:\textbackslash xampp\textbackslash htdocs} pada Windows), lalu diakses melalui browser dengan URL \code{http://localhost/nama-file.php} \cite{w3schoolsPhp}.
-
-Langkah pertama setelah instalasi adalah memverifikasi bahwa PHP berjalan dengan benar menggunakan fungsi \code{phpinfo()}. Buat file baru bernama \code{info.php} di folder \code{htdocs}, lalu isi dengan kode berikut. Halaman yang dihasilkan akan menampilkan seluruh informasi konfigurasi PHP: versi PHP, ekstensi yang aktif, pengaturan server, dan banyak lagi. Ini sangat berguna untuk memeriksa apakah lingkungan pengembangan sudah siap.
-
-\begin{webcode}[language=PHP, caption={Mengecek instalasi PHP dengan phpinfo()}]
-<?php
-// File: htdocs/info.php
-// Akses via: http://localhost/info.php
-phpinfo();
-?>
-\end{webcode}
-
-\begin{konsep}
-\textbf{Struktur Folder htdocs:} Setiap folder di dalam \code{htdocs} menjadi path di URL. Misalnya, file \code{htdocs/proyek/index.php} diakses dengan \code{http://localhost/proyek/index.php}. Memahami pemetaan folder ke URL ini penting untuk mengorganisasi proyek web Anda.
-\end{konsep}
-
-Selain XAMPP, terdapat beberapa alternatif lingkungan pengembangan PHP yang dapat digunakan sesuai preferensi dan sistem operasi. Masing-masing memiliki kelebihan dan kekurangan, namun semuanya menyediakan fungsi dasar yang sama: menjalankan web server dan interpreter PHP.
-
-\begin{table}[ht]
+\begin{table}[htbp]
 \centering
-\begin{tabular}{|P{2.5cm}|P{2.5cm}|P{4cm}|P{3cm}|}
+\begin{tabular}{|P{2.5cm}|P{4.5cm}|P{5cm}|}
 \hline
-\textbf{Paket} & \textbf{Platform} & \textbf{Komponen} & \textbf{Keterangan} \\
+\textbf{Metode} & \textbf{Fungsi} & \textbf{Contoh} \\
 \hline
-XAMPP & Windows, Linux, macOS & Apache, MySQL, PHP, Perl & Paling populer, lengkap \\
+\code{.map(fn)} & Transformasi setiap elemen & \code{[1,2,3].map(x => x*2)} $\rightarrow$ \code{[2,4,6]} \\
 \hline
-WAMP & Windows & Apache, MySQL, PHP & Khusus Windows \\
+\code{.filter(fn)} & Saring berdasarkan kondisi & \code{[1,2,3].filter(x => x>1)} $\rightarrow$ \code{[2,3]} \\
 \hline
-LAMP & Linux & Apache, MySQL, PHP & Instalasi manual via terminal \\
+\code{.reduce(fn, init)} & Akumulasi ke satu nilai & \code{[1,2,3].reduce((s,x)=>s+x,\allowbreak 0)} $\rightarrow$ 6 \\
 \hline
-MAMP & macOS, Windows & Apache, MySQL, PHP & Populer untuk macOS \\
+\code{.find(fn)} & Elemen pertama yang cocok & \code{arr.find(x => x.id===5)} \\
 \hline
-PHP Built-in Server & Semua OS & PHP saja & Ringan, tanpa Apache \\
+\code{.some(fn)} & Minimal 1 cocok? (boolean) & \code{arr.some(x => x > 10)} \\
+\hline
+\code{.every(fn)} & Semua cocok? (boolean) & \code{arr.every(x => x > 0)} \\
+\hline
+\code{.sort(fn)} & Urutkan (mutasi!) & \code{arr.sort((a,b) => a-b)} \\
+\hline
+\code{.flat(depth)} & Ratakan array bersarang & \code{[[1],[2,3]].flat()} $\rightarrow$ \code{[1,2,3]} \\
 \hline
 \end{tabular}
-\caption{Perbandingan paket server lokal untuk pengembangan PHP}
+\caption{Metode array fungsional dan contoh penggunaannya}
 \end{table}
 
-PHP juga menyediakan web server bawaan yang sangat praktis untuk pengembangan dan pengujian cepat tanpa perlu menginstal Apache. Cukup buka terminal, navigasi ke folder proyek, lalu jalankan perintah \code{php -S localhost:8000}. Server bawaan ini akan melayani file di folder saat ini dan menampilkan log request di terminal. Namun, server ini \textbf{tidak} disarankan untuk lingkungan produksi karena hanya dapat menangani satu request secara bersamaan dan tidak memiliki fitur keamanan lengkap \cite{phpRightWay}.
+\begin{webcode}[language=JavaScript, caption={Chaining metode array}]
+const products = [
+  { name: "Laptop", price: 12000000, stock: 5 },
+  { name: "Mouse",  price: 150000,   stock: 0 },
+  { name: "Monitor",price: 3500000,  stock: 8 }
+];
 
-\begin{webcode}[language=Bash, caption={Menjalankan PHP built-in server}]
-# Navigasi ke folder proyek
-cd /path/to/proyek
+const result = products
+  .filter(p => p.stock > 0)           // hanya yang tersedia
+  .map(p => ({ ...p, tax: p.price * 0.1 })) // tambah pajak
+  .sort((a, b) => a.price - b.price); // urutkan harga
 
-# Jalankan server di port 8000
-php -S localhost:8000
-
-# Akses via browser: http://localhost:8000
+const total = result.reduce((sum, p) => sum + p.price, 0);
 \end{webcode}
+
+\begin{catatan}
+\textbf{sort() Bermutasi!} Berbeda dari \code{map}/\code{filter}/\code{reduce}, \code{sort()} mengubah array asli. Untuk menghindari mutasi, salin dulu: \code{[...arr].sort(fn)}. Tanpa fungsi komparator, \code{sort()} mengurutkan secara alfabetis (bahkan angka: \code{[10,2,1].sort()} $\rightarrow$ \code{[1,10,2]}). Selalu berikan komparator untuk angka: \code{(a,b) => a-b} \cite{mdnJsGuide}.
+\end{catatan}
 

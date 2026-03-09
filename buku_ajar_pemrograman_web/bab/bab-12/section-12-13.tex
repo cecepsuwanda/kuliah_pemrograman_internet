@@ -1,22 +1,64 @@
-\section{DISTINCT dan Alias (Kolom serta Tabel)}
+\section{Superglobal: \$\_GET, \$\_POST, dan \$\_SERVER}
 
-Kata kunci \code{DISTINCT} menghilangkan baris duplikat dari hasil query. Ini berguna saat Anda ingin mengetahui nilai unik dari suatu kolom --- misalnya, daftar kategori yang ada atau kota asal pengguna. Sintaks: \code{SELECT DISTINCT kolom FROM tabel;}. DISTINCT dapat diterapkan pada satu atau beberapa kolom; jika beberapa kolom dipilih, MySQL menghilangkan baris yang kombinasi seluruh kolomnya sama \cite{mysqlDocs}.
+Variabel \textbf{superglobal} adalah variabel bawaan PHP yang tersedia di seluruh scope --- baik di luar maupun di dalam fungsi --- tanpa perlu menggunakan kata kunci \code{global}. Superglobal berisi informasi penting tentang permintaan HTTP, data form, session, cookie, dan lingkungan server. Tiga superglobal yang paling sering digunakan dalam pemrosesan form adalah \code{\$\_GET}, \code{\$\_POST}, dan \code{\$\_SERVER}. Memahami cara kerja dan cara mengamankan superglobal ini adalah kunci untuk membangun aplikasi web yang fungsional dan aman \cite{phpManual}.
 
-\textbf{Alias} memberikan nama sementara pada kolom atau tabel dalam query menggunakan kata kunci \code{AS}. Alias kolom berguna untuk memberi nama yang lebih deskriptif pada hasil perhitungan atau fungsi agregat --- misalnya, \code{COUNT(*) AS jumlah\_produk}. Alias tabel memperpendek nama tabel dalam query yang melibatkan JOIN, sehingga lebih mudah dibaca. Alias bersifat sementara dan hanya berlaku selama query dijalankan \cite{mysqlGettingStarted}.
+\code{\$\_GET} adalah array asosiatif yang berisi parameter dari query string URL. Ketika pengguna mengakses URL seperti \code{halaman.php?nama=Budi\&umur=20}, maka \code{\$\_GET["nama"]} berisi \code{"Budi"} dan \code{\$\_GET["umur"]} berisi \code{"20"}. Data GET terlihat di URL, sehingga cocok untuk parameter pencarian atau navigasi yang tidak sensitif. \code{\$\_POST} berisi data yang dikirim melalui form HTML dengan \code{method="post"}; data tidak terlihat di URL dan cocok untuk data sensitif atau jumlah data yang besar \cite{w3schoolsPhp}.
 
-\begin{webcode}[language=SQL, caption={DISTINCT dan alias}]
--- Daftar kategori unik
-SELECT DISTINCT kategori FROM produk;
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{2.5cm}|P{4.5cm}|P{4.5cm}|}
+\hline
+\textbf{Aspek} & \textbf{\$\_GET} & \textbf{\$\_POST} \\
+\hline
+Data dikirim via & Query string URL & Body HTTP request \\
+\hline
+Visibilitas & Terlihat di URL & Tidak terlihat di URL \\
+\hline
+Batas ukuran & Terbatas ($\sim$2048 karakter) & Hampir tidak terbatas \\
+\hline
+Bisa di-bookmark & Ya & Tidak \\
+\hline
+Keamanan & Kurang aman (terlihat) & Lebih aman (tersembunyi) \\
+\hline
+Kegunaan umum & Pencarian, filter, navigasi & Form login, registrasi, upload \\
+\hline
+Idempoten & Ya (seharusnya) & Tidak (boleh mengubah data) \\
+\hline
+\end{tabular}
+\caption{Perbandingan \$\_GET dan \$\_POST}
+\end{table}
 
--- Alias kolom
-SELECT nama AS nama_produk,
-       harga AS harga_satuan,
-       harga * stok AS total_nilai
-FROM produk;
+\code{\$\_SERVER} adalah superglobal yang berisi informasi tentang server dan permintaan HTTP yang sedang masuk. Beberapa kunci (\textit{key}) yang paling sering digunakan antara lain \code{\$\_SERVER['REQUEST\_METHOD']} (metode HTTP: GET/POST), \code{\$\_SERVER['PHP\_SELF']} (path skrip yang sedang dieksekusi), \code{\$\_SERVER['HTTP\_HOST']} (nama host), dan \code{\$\_SERVER['REMOTE\_ADDR']} (alamat IP pengguna). Informasi ini sangat berguna untuk logika routing, logging, dan keamanan \cite{phpManual}.
 
--- Alias tabel (berguna di JOIN)
-SELECT p.nama, p.harga, k.nama AS nama_kategori
-FROM produk AS p
-JOIN kategori AS k ON p.kategori_id = k.id;
+\begin{webcode}[language=PHP, caption={Menggunakan superglobal GET, POST, dan SERVER}]
+<?php
+// Mengecek metode request
+$method = $_SERVER["REQUEST_METHOD"];
+echo "Metode: $method\n";
+
+// Membaca data GET (dari URL: ?cari=php&hal=2)
+$cari = $_GET["cari"] ?? "";
+$halaman = (int) ($_GET["hal"] ?? 1);
+echo "Pencarian: " . htmlspecialchars($cari) . "\n";
+
+// Membaca data POST (dari form)
+if ($method === "POST") {
+    $email = $_POST["email"] ?? "";
+    $pesan = $_POST["pesan"] ?? "";
+    // Selalu sanitasi sebelum output!
+    echo "Email: " . htmlspecialchars($email) . "\n";
+}
+
+// Informasi server
+echo "Host: " . $_SERVER["HTTP_HOST"] . "\n";
+echo "IP Pengguna: " . $_SERVER["REMOTE_ADDR"] . "\n";
+echo "Skrip: " . $_SERVER["PHP_SELF"] . "\n";
+?>
 \end{webcode}
+
+\begin{catatan}
+\textbf{Prinsip Keamanan:} \textbf{Jangan pernah} langsung menggunakan data dari \code{\$\_GET}, \code{\$\_POST}, atau superglobal lainnya tanpa validasi dan sanitasi. Gunakan \code{htmlspecialchars()} saat menampilkan ke HTML, \code{filter\_input()} atau \code{filter\_var()} untuk validasi, dan \textit{prepared statements} untuk query database. Input pengguna harus \textbf{selalu} dianggap tidak tepercaya \cite{owaspXss}.
+\end{catatan}
+
+Selain \code{\$\_GET}, \code{\$\_POST}, dan \code{\$\_SERVER}, PHP memiliki beberapa superglobal lain yang akan dipelajari lebih lanjut di bab-bab berikutnya: \code{\$\_SESSION} (data session pengguna), \code{\$\_COOKIE} (data cookie), \code{\$\_FILES} (file yang diupload), dan \code{\$\_REQUEST} (gabungan GET, POST, dan COOKIE). Masing-masing memiliki fungsi spesifik dalam pengelolaan state dan data di aplikasi web \cite{phpRightWay}.
 

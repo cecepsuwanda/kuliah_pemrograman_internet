@@ -1,72 +1,27 @@
-\section{String: Literal, Escape, Konkatenasi, dan Fungsi String Dasar}
+\section{Penanganan Error: try, catch, throw}
 
-String adalah tipe data yang merepresentasikan teks dan merupakan salah satu tipe yang paling sering digunakan dalam pemrograman web. Di PHP, string dapat ditulis dengan dua cara utama: menggunakan \textbf{kutip tunggal} (\code{'...'}) atau \textbf{kutip ganda} (\code{"..."}). Perbedaan utamanya terletak pada interpretasi: kutip ganda menginterpretasikan escape sequence (seperti \code{\textbackslash n} untuk baris baru, \code{\textbackslash t} untuk tab) dan variabel di dalam string, sedangkan kutip tunggal hanya mengenali \code{\textbackslash\textbackslash} (backslash literal) dan \code{\textbackslash'} (kutip tunggal literal) \cite{phpManual}.
+Error handling mencegah program crash ketika terjadi kesalahan runtime. Blok \code{try \{ ... \} catch (err) \{ ... \}} menangkap error: kode di \code{try} dieksekusi; jika error terjadi, eksekusi langsung pindah ke \code{catch}. Blok \code{finally \{ ... \}} (opsional) selalu dieksekusi, baik error terjadi maupun tidak---cocok untuk cleanup (menutup koneksi, menyembunyikan loading) \cite{jsInfo}.
 
-Selain kutip tunggal dan ganda, PHP juga mendukung sintaks \textbf{heredoc} dan \textbf{nowdoc} untuk string multi-baris yang panjang. Heredoc (diawali \code{<<<LABEL}) berperilaku seperti kutip ganda (menginterpretasikan variabel dan escape), sedangkan nowdoc (diawali \code{<<<'LABEL'}) berperilaku seperti kutip tunggal. Keduanya sangat berguna untuk menulis blok HTML atau teks panjang tanpa harus meng-escape kutip \cite{phpManual}.
-
-\begin{webcode}[language=PHP, caption={Jenis-jenis string di PHP}]
-<?php
-$nama = "Ani";
-
-// Kutip ganda: interpretasi variabel dan escape
-$pesan1 = "Halo, $nama!\nSelamat belajar PHP.";
-
-// Kutip tunggal: literal, tanpa interpretasi
-$pesan2 = 'Halo, $nama!\nIni tidak diinterpretasi.';
-
-// Heredoc: seperti kutip ganda, multi-baris
-$html = <<<HTML
-<div class="card">
-  <h2>Profil $nama</h2>
-  <p>Selamat datang.</p>
-</div>
-HTML;
-
-// Nowdoc: seperti kutip tunggal, multi-baris
-$template = <<<'EOT'
-Variabel $nama tidak diinterpretasi di sini.
-\n juga tidak menjadi baris baru.
-EOT;
-?>
+\begin{webcode}[language=JavaScript, caption={try/catch/finally dan custom error}]
+function parseJSON(str) {
+  try {
+    const data = JSON.parse(str);
+    if (!data.name) {
+      throw new Error("Field 'name' wajib ada");
+    }
+    return data;
+  } catch (err) {
+    console.error("Parse gagal:", err.message);
+    return null;
+  } finally {
+    console.log("Proses selesai");
+  }
+}
 \end{webcode}
 
-\textbf{Konkatenasi} (penggabungan) string dilakukan dengan operator titik (\code{.}). Operator \code{.=} menggabungkan dan mengassign sekaligus. Dalam PHP, string dan angka dapat digabungkan secara langsung karena PHP akan mengonversi angka menjadi string secara otomatis.
+Statement \code{throw} melempar error secara eksplisit: \code{throw new Error("pesan")}. Objek \code{Error} memiliki properti \code{message} (pesan error) dan \code{stack} (call stack untuk debugging). Tipe error bawaan: \code{TypeError} (tipe salah), \code{ReferenceError} (variabel tidak ditemukan), \code{SyntaxError} (sintaks salah), \code{RangeError} (nilai di luar rentang) \cite{mdnJsGuide}.
 
-PHP menyediakan puluhan fungsi bawaan untuk memanipulasi string. Berikut adalah fungsi-fungsi string yang paling sering digunakan dalam pengembangan web sehari-hari.
-
-\begin{table}[ht]
-\centering
-\begin{tabular}{|P{3.5cm}|P{4.5cm}|P{4cm}|}
-\hline
-\textbf{Fungsi} & \textbf{Kegunaan} & \textbf{Contoh} \\
-\hline
-\code{strlen(\$s)} & Panjang string & \code{strlen("PHP")} $\rightarrow$ \code{3} \\
-\hline
-\code{strtoupper(\$s)} & Huruf besar semua & \code{strtoupper("php")} $\rightarrow$ \code{"PHP"} \\
-\hline
-\code{strtolower(\$s)} & Huruf kecil semua & \code{strtolower("PHP")} $\rightarrow$ \code{"php"} \\
-\hline
-\code{trim(\$s)} & Hapus spasi awal/akhir & \code{trim("  hi  ")} $\rightarrow$ \code{"hi"} \\
-\hline
-\code{substr(\$s, i, n)} & Ambil substring & \code{substr("Hello", 1, 3)} $\rightarrow$ \code{"ell"} \\
-\hline
-\code{strpos(\$s, \$q)} & Cari posisi substring & \code{strpos("Halo", "lo")} $\rightarrow$ \code{2} \\
-\hline
-\code{str\_replace(a, b, s)} & Ganti substring & \code{str\_replace("X", "Y", "AXB")} $\rightarrow$ \code{"AYB"} \\
-\hline
-\code{explode(d, s)} & Pecah string $\rightarrow$ array & \code{explode(",", "a,b")} $\rightarrow$ \code{["a","b"]} \\
-\hline
-\code{implode(d, a)} & Gabung array $\rightarrow$ string & \code{implode("-", [1,2])} $\rightarrow$ \code{"1-2"} \\
-\hline
-\code{htmlspecialchars(\$s)} & Escape karakter HTML & Mencegah XSS \\
-\hline
-\end{tabular}
-\caption{Fungsi string PHP yang sering digunakan}
-\end{table}
-
-Fungsi \code{htmlspecialchars()} mendapat perhatian khusus karena perannya yang krusial dalam keamanan web. Fungsi ini mengonversi karakter-karakter khusus HTML (seperti \code{<}, \code{>}, \code{\&}, \code{"}, \code{'}) menjadi entitas HTML yang aman. Ini mencegah serangan \textit{Cross-Site Scripting} (XSS) di mana penyerang menyuntikkan kode JavaScript melalui input pengguna. Selalu gunakan \code{htmlspecialchars()} saat menampilkan data dari pengguna ke halaman web \cite{owaspXss}.
-
-\begin{konsep}
-\textbf{Kapan Memilih Kutip Tunggal vs Ganda?} Gunakan kutip tunggal untuk string statis (tanpa variabel atau escape) karena sedikit lebih cepat. Gunakan kutip ganda saat Anda perlu menyisipkan variabel atau karakter escape di dalam string. Gunakan heredoc/nowdoc untuk blok teks multi-baris yang panjang.
-\end{konsep}
+\begin{catatan}
+\textbf{Jangan Tangkap Semua Error Diam-Diam.} \code{catch (err) \{ \}} (tanpa penanganan) menyembunyikan error dan menyulitkan debugging. Selalu log error (\code{console.error(err)}) atau tampilkan pesan ke pengguna. Gunakan \code{try/catch} hanya untuk kode yang memang bisa gagal (parsing, network request), bukan untuk membungkus seluruh kode \cite{jsInfo}.
+\end{catatan}
 

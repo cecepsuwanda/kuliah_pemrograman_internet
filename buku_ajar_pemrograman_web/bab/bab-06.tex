@@ -2,12 +2,13 @@
 \ifSubfilesClassLoaded{\setcounter{chapter}{5}}{}
 \begin{document}
 
-\chapter{CSS Dasar: Selector dan Box Model}
+\chapter{HTML Form, Media, Validasi Dasar, dan Aksesibilitas Form}
 
-Urutan materi dalam bab ini dan bab berikutnya (CSS Layout Responsif) mengikuti alur belajar CSS dari dasar sampai mahir: pengenalan, sintaks dan selector, warna dan teks, box model dan display, link serta list/tabel, satuan dan nilai, lalu layout dan responsif.
+Bab ini membahas materi Pertemuan 5 sesuai RPS: HTML form, media, validasi dasar, dan aksesibilitas form.
 
 \begin{subcpmk}
-  \item Sub-CPMK 2.2: Menerapkan CSS3 untuk styling, layout (Flexbox/Grid), dan desain responsif.
+  \item Sub-CPMK 2.1: Membuat halaman web dengan HTML5 (struktur, elemen semantik, form, media).
+  \item Sub-CPMK 1.3: Menerapkan prinsip aksesibilitas (a11y) dan pengalaman pengguna (UX) dalam desain antarmuka.
 \end{subcpmk}
 
 \input{bab/bab-06/section-6-1}
@@ -22,64 +23,75 @@ Urutan materi dalam bab ini dan bab berikutnya (CSS Layout Responsif) mengikuti 
 \input{bab/bab-06/section-6-10}
 \input{bab/bab-06/section-6-11}
 \input{bab/bab-06/section-6-12}
+\input{bab/bab-06/section-6-13}
 
 \begin{aktivitas}
-  \item Buat file CSS eksternal dan hubungkan ke halaman HTML; terapkan selector elemen, class, dan id untuk mengatur warna, tipografi, dan spasi.
-  \item Buat komponen card produk menggunakan box model lengkap: atur \code{padding}, \code{border}, \code{border-radius}, \code{margin: auto} untuk centering, dan gunakan \code{box-sizing: border-box}.
-  \item Buat menu navigasi horizontal dari \code{<ul>} dengan menghilangkan bullet, menggunakan \code{display: inline-block} atau Flexbox, dan styling state tautan (\code{:link}, \code{:visited}, \code{:hover}, \code{:focus}).
-  \item Styling tabel data HTML: gunakan \code{border-collapse}, \code{padding} pada \code{th}/\code{td}, background header, dan zebra striping dengan \code{:nth-child(even)}.
-  \item Buat stylesheet yang konsisten menggunakan satuan \code{rem} untuk font-size, \code{em} untuk spacing, dan \code{\%} untuk ukuran layout responsif; gunakan \code{calc()} untuk satu kasus.
+  \item \textbf{Praktik:} Buat tabel data lengkap dengan \code{<thead>}, \code{<tbody>}, \code{<tfoot>}, \code{scope}, dan \code{<caption>}; pastikan aksesibel menggunakan pembaca layar atau navigasi keyboard.
+  \item \textbf{Praktik:} Buat form pendaftaran dengan berbagai tipe input (text, email, date, radio, checkbox, select, textarea), validasi dasar (\code{required}, \code{pattern}, \code{minlength}), serta \code{<fieldset>} dan \code{<legend>} untuk pengelompokan.
+  \item \textbf{Proyek mini:} Rancang satu halaman lengkap dengan elemen semantik (\code{header}, \code{nav}, \code{main}, \code{article}, \code{aside}, \code{footer}); sisipkan media audio/video dengan subtitle track, SVG inline, dan iframe yang aman (sandbox).
+  \item \textbf{Latihan:} Jalankan W3C Markup Validation Service pada halaman Anda, perbaiki semua error, dan dokumentasikan peringatan yang tersisa beserta alasannya.
+  \item \textbf{Studi kasus:} Lakukan audit aksesibilitas menggunakan Lighthouse atau aXe DevTools; identifikasi dan perbaiki masalah yang ditemukan, lalu bandingkan skor sebelum dan sesudah perbaikan.
 \end{aktivitas}
 
 \begin{latihan}
-  \item Jelaskan perbedaan antara \code{margin} dan \code{padding} serta berikan contoh situasi nyata di mana masing-masing lebih tepat digunakan.
-  \item Apa yang dimaksud dengan margin collapse? Berikan contoh kasus dan cara mengatasinya.
-  \item Buatlah tabel perbandingan \code{content-box} vs \code{border-box}. Mengapa \code{border-box} menjadi standar praktis?
-  \item Jelaskan perbedaan \code{display: block}, \code{inline}, dan \code{inline-block}. Kapan menggunakan masing-masing?
-  \item Mengapa urutan LVHA penting saat menytyling tautan? Apa yang terjadi jika urutan salah?
-  \item Bandingkan satuan \code{px}, \code{em}, dan \code{rem}. Mengapa \code{rem} direkomendasikan untuk \code{font-size}?
+  \item Jelaskan perbedaan antara \code{scope="col"} dan mekanisme \code{id}+\code{headers} pada tabel. Kapan sebaiknya menggunakan masing-masing pendekatan?
+  \item Buat tabel perbandingan antara validasi client-side (HTML5) dan server-side. Mengapa keduanya diperlukan?
+  \item Tambahkan \code{<fieldset>}/\code{<legend>} pada sebuah form dan uji hasilnya dengan navigasi keyboard saja. Catat perbedaan pengalaman sebelum dan sesudah penambahan.
+  \item Jelaskan mengapa atribut \code{alt} pada gambar, \code{<label>} pada form, dan \code{<caption>} pada tabel penting untuk aksesibilitas. Berikan contoh kasus di mana ketidakhadiran masing-masing elemen ini menyulitkan pengguna.
+  \item Apa yang dimaksud dengan prinsip POUR dalam WCAG? Berikan satu contoh penerapan untuk setiap prinsip.
+  \item \textbf{Refleksi:} Dari materi bab ini, manakah indikator Sub-CPMK 2.1 dan Sub-CPMK 1.3 yang sudah Anda kuasai? Area mana yang masih perlu Anda tingkatkan untuk mencapai kompetensi penuh?
 \end{latihan}
 
 \begin{asesmen}
-Asesmen berupa proyek styling halaman web lengkap yang menggabungkan seluruh konsep Bab 6:
+Asesmen Bab 6 merupakan \textbf{Evaluasi Kinerja} yang mengukur Sub-CPMK 2.1 dan Sub-CPMK 1.3. Terkait RPS: Praktikum 2 (Pertemuan 5). Mahasiswa diminta membuat satu halaman web lengkap yang mengandung:
 \begin{enumerate}
-  \item Buat halaman produk dengan: CSS eksternal, selector elemen/class/id, skema warna konsisten, tipografi menggunakan web font, dan background gradient.
-  \item Halaman harus memiliki: card produk yang menggunakan box model (\code{border-box}), menu navigasi horizontal dari list, tabel harga dengan zebra striping, dan tautan dengan styling state lengkap.
-  \item Gunakan satuan \code{rem} untuk font-size dan spacing, \code{\%} untuk layout, dan \code{calc()} minimal satu kasus.
-  \item Fokus indikator (\code{:focus} / \code{:focus-visible}) harus terlihat pada semua elemen interaktif.
+  \item Tabel data dengan pengelompokan (\code{thead}/\code{tbody}/\code{tfoot}), \code{scope}, dan \code{caption}. Mengukur Sub-CPMK 2.1.
+  \item Form pendaftaran dengan minimal 5 tipe input berbeda, \code{fieldset}/\code{legend}, validasi HTML5, dan atribut aksesibilitas (label, aria-describedby). Mengukur Sub-CPMK 2.1.
+  \item Elemen semantik yang tepat untuk struktur halaman. Mengukur Sub-CPMK 2.1.
+  \item Media (audio atau video) dengan subtitle track dan teks alternatif. Mengukur Sub-CPMK 2.1.
+  \item Hasil validasi W3C tanpa error dan skor aksesibilitas Lighthouse minimal 90. Mengukur Sub-CPMK 1.3.
 \end{enumerate}
-Penilaian: ketepatan selector dan specificity (20\%), box model dan layout (25\%), warna dan tipografi (20\%), aksesibilitas dan kode bersih (20\%), konsistensi satuan (15\%).
+
+Komponen penilaian: kelengkapan fitur (30\%), ketepatan semantik dan standar (25\%), aksesibilitas (25\%), serta kualitas kode dan dokumentasi (20\%).
+
+\textbf{Rubrik Penilaian (berbasis OBE):}
+\begin{itemize}
+  \item \textbf{A (85--100)}: Seluruh komponen lengkap, form dan tabel aksesibel, media terpasang benar, W3C valid, Lighthouse $\geq$90. Kompeten untuk Sub-CPMK 2.1 dan 1.3.
+  \item \textbf{B (70--84)}: Sebagian besar komponen lengkap, beberapa detail aksesibilitas kurang.
+  \item \textbf{C (55--69)}: Komponen dasar ada tetapi kurang mendalam.
+  \item \textbf{D ($<$55)}: Komponen tidak lengkap atau tidak memenuhi standar minimum.
+\end{itemize}
 \end{asesmen}
 
 \begin{checklist}
-  \item Saya memahami peran CSS dan konsep cascading serta specificity.
-  \item Saya dapat menyisipkan CSS dengan inline, internal, dan eksternal; serta tahu kapan menggunakan masing-masing.
-  \item Saya dapat menulis selector elemen, class, id, descendant, child, dan grouping.
-  \item Saya memahami format warna (hex, rgb, rgba, hsl) dan dapat membuat gradient.
-  \item Saya dapat mengatur tipografi: font-family, font-size, line-height, text-align, dan web fonts.
-  \item Saya memahami box model (content, padding, border, margin) dan dapat menjelaskan setiap lapisan.
-  \item Saya menggunakan \code{box-sizing: border-box} secara global dan memahami perbedaan dari \code{content-box}.
-  \item Saya memahami \code{display: block}, \code{inline}, dan \code{inline-block} serta perbedaan \code{display: none} vs \code{visibility: hidden}.
-  \item Saya dapat menytyling tautan dengan urutan LVHA dan menyediakan indikator fokus yang aksesibel.
-  \item Saya dapat menytyling daftar dan tabel, termasuk membuat menu navigasi dan zebra striping.
-  \item Saya memahami satuan px, em, rem, \%, vw/vh, dan fungsi \code{calc()}, serta tahu kapan menggunakan masing-masing.
+  \item \textbf{Sub-CPMK 2.1:} Saya bisa membuat tabel HTML dengan pengelompokan (thead, tbody, tfoot), scope, caption, dan aksesibilitas yang tepat.
+  \item \textbf{Sub-CPMK 2.1:} Saya dapat membuat form dengan label, berbagai tipe input, fieldset/legend, dan validasi HTML5 dasar.
+  \item \textbf{Sub-CPMK 2.1:} Saya memahami perbedaan validasi client-side dan server-side serta kapan menggunakan masing-masing.
+  \item \textbf{Sub-CPMK 2.1:} Saya dapat menyisipkan media (audio/video) dengan kontrol, subtitle track, dan teks alternatif.
+  \item \textbf{Sub-CPMK 2.1:} Saya memahami perbedaan SVG dan gambar raster serta dapat menyisipkan SVG inline yang aksesibel.
+  \item \textbf{Sub-CPMK 2.1:} Saya dapat menggunakan iframe dengan atribut keamanan (sandbox, allow) dan aksesibilitas (title).
+  \item \textbf{Sub-CPMK 1.3:} Saya memahami prinsip POUR dan level WCAG serta dapat menerapkan ARIA dengan tepat.
+  \item \textbf{Sub-CPMK 1.3:} Saya dapat membuat form dan tabel yang aksesibel untuk pengguna pembaca layar dan keyboard.
+  \item \textbf{Sub-CPMK 2.1:} Saya dapat memvalidasi HTML menggunakan W3C Validator dan memperbaiki error yang dilaporkan.
+  \item \textbf{Sub-CPMK 2.1:} Saya menguasai teknik debugging HTML menggunakan DevTools browser.
+  \item \textbf{Sub-CPMK 2.1, 1.3:} Saya mengikuti best practices HTML dan memahami peran standar WHATWG/W3C untuk aksesibilitas dan interoperabilitas.
 \end{checklist}
 
 \begin{rangkuman}
-Bab ini mengenalkan CSS sebagai bahasa pengatur tampilan halaman web, dimulai dari konsep cascading dan specificity yang menentukan aturan mana yang diterapkan saat terjadi konflik. Tiga metode penyisipan CSS---inline, internal, dan eksternal---dibahas beserta kelebihan dan kekurangan masing-masing, dengan CSS eksternal sebagai praktik terbaik.
+Bab ini membahas HTML form, media, validasi dasar, dan aksesibilitas form sebagai \textbf{Unit Materi Inti} berbasis Sub-CPMK 2.1 dan Sub-CPMK 1.3. Tabel HTML dilengkapi dengan pengelompokan (\code{thead}, \code{tbody}, \code{tfoot}), atribut \code{scope}/\code{headers} untuk aksesibilitas, dan \code{caption}. Form HTML didukung oleh beragam tipe input HTML5 dengan validasi bawaan browser, serta pengelompokan field menggunakan \code{fieldset}/\code{legend}. Media HTML5 (audio/video) dengan subtitle track dan SVG memperkaya konten. Embedding melalui iframe dengan atribut keamanan (sandbox) memungkinkan integrasi konten eksternal secara aman.
 
-Sintaks CSS dibangun dari selector, properti, dan nilai. Selector dasar (elemen, class, id) serta selector gabungan (descendant, child, grouping) memungkinkan targeting yang presisi. Warna dan background mencakup beragam format (hex, rgb, hsl, gradient), sementara tipografi dikontrol melalui font-family, font-size, line-height, dan web fonts.
-
-Box model---terdiri dari content, padding, border, dan margin---adalah fondasi layout CSS. Properti \code{box-sizing: border-box} menyederhanakan perhitungan dimensi. Properti \code{display} mengontrol perilaku elemen dalam flow layout, dengan tiga mode utama: block, inline, dan inline-block. Styling tautan (pseudo-class LVHA) dan aksesibilitas fokus keyboard menjadi perhatian penting. Terakhir, pemilihan satuan yang tepat---rem untuk font-size, em/rem untuk spacing, \% untuk layout---memastikan styling yang skalabel dan mudah dirawat.
+Aksesibilitas web dibangun di atas prinsip POUR (WCAG): konten harus perceivable, operable, understandable, dan robust. Atribut ARIA melengkapi semantik HTML saat diperlukan. Validasi dan debugging HTML menggunakan W3C Validator dan DevTools memastikan kode mengikuti standar.
 
 \textbf{Poin Kunci:}
 \begin{itemize}
-  \item Cascading dan specificity menentukan aturan CSS mana yang berlaku; pahami untuk menghindari konflik.
-  \item Box model (content, padding, border, margin) mengontrol spasi dan ukuran; gunakan \code{border-box} secara global.
-  \item Selector class direkomendasikan untuk styling komponen modular; id untuk anchor dan JavaScript.
-  \item Satuan rem direkomendasikan untuk font-size demi aksesibilitas dan skalabilitas.
-  \item Selalu sediakan indikator fokus yang jelas pada elemen interaktif.
+  \item Tabel dan form membutuhkan struktur dan atribut yang mendukung aksesibilitas (scope, label, fieldset, ARIA).
+  \item Media dan embedding perlu teks alternatif, subtitle, dan kontrol keamanan yang sesuai.
+  \item Aksesibilitas (POUR/WCAG) memastikan web dapat digunakan oleh semua orang, termasuk pengguna dengan disabilitas.
+  \item Validasi dan debugging HTML memastikan dokumen mengikuti standar dan bebas error.
+  \item Best practices dan standar WHATWG/W3C menjadi panduan pembuatan kode HTML yang profesional dan interoperable.
 \end{itemize}
+
+\textbf{Refleksi:} Pastikan Anda dapat mencentang checklist di atas dan siap melanjutkan ke Bab 7 (CSS dasar, selector, box model, tipografi).
 \end{rangkuman}
 
 \ifSubfilesClassLoaded{

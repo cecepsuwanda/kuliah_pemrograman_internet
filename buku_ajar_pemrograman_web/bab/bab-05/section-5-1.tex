@@ -1,53 +1,40 @@
-\section{Tabel HTML: Dasar (Baris, Sel, Header)}
+\section{Pengenalan HTML dan Perannya di Web}
 
-Tabel merupakan salah satu elemen HTML yang paling sering digunakan untuk menyajikan data terstruktur dalam format baris dan kolom. Berbeda dengan penggunaan CSS Grid atau Flexbox yang ditujukan untuk tata letak visual, elemen \code{<table>} dirancang khusus untuk menampilkan data tabular---yaitu data yang secara alami memiliki hubungan antara baris dan kolom. Contoh data tabular meliputi jadwal kuliah, daftar nilai, perbandingan produk, dan statistik \cite{mdnHtmlIntro}. Memahami kapan menggunakan tabel dan kapan menggunakan CSS untuk layout adalah keterampilan penting bagi pengembang web.
+HTML (HyperText Markup Language) adalah bahasa markup standar yang digunakan untuk membuat dan menyusun konten halaman web. HTML pertama kali dikembangkan oleh Tim Berners-Lee di CERN pada tahun 1991 sebagai bagian dari proyek World Wide Web. Sejak saat itu, HTML telah berkembang secara signifikan dari versi sederhana yang hanya mendukung teks dasar hingga HTML5 modern yang mendukung multimedia, aplikasi interaktif, dan struktur semantik yang kaya \cite{mdnHtmlIntro}.
 
-Elemen dasar pembentuk tabel HTML terdiri dari empat komponen utama. Elemen \code{<table>} berfungsi sebagai wadah keseluruhan tabel. Di dalamnya, \code{<tr>} (table row) mendefinisikan setiap baris data. Setiap baris berisi sel-sel yang dapat berupa \code{<td>} (table data) untuk sel data biasa atau \code{<th>} (table header) untuk sel header. Elemen \code{<th>} secara default ditampilkan dengan cetak tebal dan rata tengah, serta memberikan makna semantik yang membantu pembaca layar (screen reader) memahami struktur tabel \cite{webdevHtml}.
+Secara fundamental, HTML berfungsi sebagai kerangka tulang punggung (skeleton) dari setiap halaman web. HTML menggunakan sistem \textit{markup} berbasis \textit{tag} untuk menandai elemen-elemen konten seperti judul, paragraf, daftar, gambar, link, dan berbagai komponen lainnya. Berbeda dengan bahasa pemrograman yang memiliki logika dan algoritma, HTML adalah bahasa deklaratif yang menjelaskan struktur dan makna konten kepada browser, bukan cara menampilkannya secara visual. Untuk pengaturan tampilan visual, pengembang menggunakan CSS (Cascading Style Sheets), sedangkan untuk interaktivitas dan perilaku dinamis digunakan JavaScript \cite{webdevHtml}.
+
+Evolusi HTML mencerminkan perkembangan web itu sendiri. HTML 4.01, yang dirilis pada tahun 1999, menjadi standar yang digunakan selama bertahun-tahun. Kemudian, HTML5 muncul sebagai spesifikasi modern yang tidak hanya menambahkan elemen-elemen baru untuk multimedia (seperti \code{<video>} dan \code{<audio>}), tetapi juga memperkenalkan elemen semantik (seperti \code{<header>}, \code{<article>}, \code{<footer>}) yang memberikan makna struktural pada konten. Saat ini, HTML dikelola oleh WHATWG (Web Hypertext Application Technology Working Group) sebagai "Living Standard" yang terus diperbarui seiring dengan perkembangan teknologi web \cite{whatwgHtml}.
+
+Peran HTML dalam ekosistem web modern sangatlah sentral dan tidak dapat digantikan. Dalam triad teknologi web (HTML, CSS, JavaScript), HTML memegang posisi sebagai fondasi struktural. Tanpa HTML yang baik, CSS tidak memiliki elemen untuk ditata, dan JavaScript tidak memiliki struktur DOM (Document Object Model) untuk dimanipulasi. Pemahaman HTML yang mendalam memudahkan pengembang untuk memahami kerangka halaman web, meningkatkan aksesibilitas bagi pengguna dengan disabilitas, mengoptimalkan performa mesin pencari (SEO), serta berkolaborasi efektif dengan alat pengembang dan tim lintas fungsi \cite{mdnLearn}.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{2.5cm}|P{4cm}|P{5.5cm}|}
+\begin{tabular}{|P{3cm}|P{4cm}|P{5cm}|}
 \hline
-\textbf{Elemen} & \textbf{Fungsi} & \textbf{Keterangan} \\
+\textbf{Komponen} & \textbf{Peran Utama} & \textbf{Analogi} \\
 \hline
-\code{<table>} & Wadah tabel & Membungkus seluruh struktur tabel \\
+HTML & Struktur dan makna konten & Kerangka bangunan \\
 \hline
-\code{<tr>} & Baris tabel & Setiap \code{<tr>} berisi satu baris sel \\
+CSS & Tampilan visual dan layout & Cat, dekorasi interior \\
 \hline
-\code{<td>} & Sel data & Berisi data biasa; default rata kiri \\
-\hline
-\code{<th>} & Sel header & Cetak tebal, rata tengah; penanda kolom/baris \\
-\hline
-\code{<caption>} & Judul tabel & Deskripsi tabel untuk aksesibilitas \\
+JavaScript & Interaktivitas dan perilaku & Sistem kelistrikan dan plumbing \\
 \hline
 \end{tabular}
-\caption{Elemen dasar pembentuk tabel HTML}
+\caption{Peran HTML, CSS, dan JavaScript dalam Ekosistem Web}
+\label{tab:web-triad}
 \end{table}
 
-Selain elemen dasar di atas, atribut \code{colspan} dan \code{rowspan} memungkinkan penggabungan sel secara horizontal dan vertikal. Atribut \code{colspan="2"} pada sebuah \code{<td>} atau \code{<th>} akan membuat sel tersebut membentang dua kolom, sedangkan \code{rowspan="3"} akan membentang tiga baris. Penggabungan sel berguna misalnya untuk membuat header yang mencakup beberapa sub-kolom, namun penggunaan berlebihan dapat mengurangi aksesibilitas tabel \cite{mdnAccessibility}.
-
-\begin{webcode}[language=HTML, caption={Tabel dasar dengan header dan caption}]
-<table>
-  <caption>Daftar Kontak Mahasiswa</caption>
-  <tr>
-    <th>Nama</th>
-    <th>Email</th>
-    <th>Jurusan</th>
-  </tr>
-  <tr>
-    <td>Budi Santoso</td>
-    <td>budi@example.com</td>
-    <td>Teknik Informatika</td>
-  </tr>
-  <tr>
-    <td>Siti Aminah</td>
-    <td>siti@example.com</td>
-    <td>Sistem Informasi</td>
-  </tr>
-</table>
-\end{webcode}
-
 \begin{konsep}
-\textbf{Tabel untuk Data, Bukan untuk Layout.} Sebelum era CSS modern, pengembang sering menggunakan tabel untuk mengatur tata letak halaman. Praktik ini \textbf{tidak direkomendasikan} karena: (1) menyulitkan pembaca layar yang menginterpretasi tabel sebagai data tabular; (2) membuat kode sulit dirawat dan tidak responsif; (3) melanggar prinsip pemisahan struktur (HTML) dan presentasi (CSS). Gunakan CSS Flexbox atau Grid untuk layout, dan \code{<table>} hanya untuk data tabular yang sesungguhnya \cite{webdevHtml}.
+\textbf{Kenapa Mempelajari HTML itu Penting?}
+
+Mempelajari HTML adalah langkah pertama yang esensial dalam perjalanan pengembangan web. Berikut adalah alasan mengapa pemahaman HTML yang kuat sangat penting:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Aksesibilitas:} HTML semantik yang benar memungkinkan pembaca layar (screen readers) untuk membantu pengguna dengan disabilitas visual mengakses konten web.
+  \item \textbf{SEO (Search Engine Optimization):} Struktur HTML yang baik membantu mesin pencari seperti Google memahami dan mengindeks konten website Anda dengan lebih efektif.
+  \item \textbf{Performa:} HTML yang bersih dan efisien memuat lebih cepat dan menggunakan bandwidth lebih sedikit, terutama penting untuk pengguna mobile.
+  \item \textbf{Maintainability:} Kode HTML yang terstruktur dengan baik lebih mudah dipelihara, diperbarui, dan dikembangkan oleh tim pengembang.
+\end{itemize}
 \end{konsep}
 

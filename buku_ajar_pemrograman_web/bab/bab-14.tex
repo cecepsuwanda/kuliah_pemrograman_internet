@@ -2,12 +2,12 @@
 \ifSubfilesClassLoaded{\setcounter{chapter}{13}}{}
 \begin{document}
 
-\chapter{Deployment, Administrasi, dan Evaluasi Akhir}
+\chapter{MySQL Dasar, CRUD, dan Koneksi PHP-MySQL (MySQLi/PDO)}
 
-Bab ini membahas seluruh proses deployment aplikasi web ke lingkungan produksi, konfigurasi server dan database, hardening keamanan, CI/CD, pemantauan, serta evaluasi akhir kompetensi.
+Bab ini membahas materi Pertemuan 14 sesuai RPS: MySQL dasar, CRUD, dan koneksi PHP-MySQL (MySQLi/PDO). Urutan materi mengikuti struktur judul materi MySQL (tingkat dasar, menengah, lanjut) seperti pada dokumen judul materi MySQL yang menjadi acuan mata kuliah.
 
 \begin{subcpmk}
-  \item Sub-CPMK 4.3: Melakukan deployment ke lingkungan produksi dan administrasi dasar (server/web, basis data).
+  \item Sub-CPMK 3.2: Mengelola basis data dan mengimplementasikan operasi CRUD dengan MySQL serta koneksi dari PHP.
 \end{subcpmk}
 
 \input{bab/bab-14/section-14-1}
@@ -24,63 +24,122 @@ Bab ini membahas seluruh proses deployment aplikasi web ke lingkungan produksi, 
 \input{bab/bab-14/section-14-12}
 \input{bab/bab-14/section-14-13}
 \input{bab/bab-14/section-14-14}
+\input{bab/bab-14/section-14-15}
+\input{bab/bab-14/section-14-16}
+\input{bab/bab-14/section-14-17}
+\input{bab/bab-14/section-14-18}
+\input{bab/bab-14/section-14-19}
+\input{bab/bab-14/section-14-20}
+\input{bab/bab-14/section-14-21}
+\input{bab/bab-14/section-14-22}
+\input{bab/bab-14/section-14-23}
+\input{bab/bab-14/section-14-24}
+\input{bab/bab-14/section-14-25}
+\input{bab/bab-14/section-14-26}
+\input{bab/bab-14/section-14-27}
+\input{bab/bab-14/section-14-28}
+\input{bab/bab-14/section-14-29}
+\input{bab/bab-14/section-14-30}
+\input{bab/bab-14/section-14-31}
+\input{bab/bab-14/section-14-32}
+\input{bab/bab-14/section-14-33}
+\input{bab/bab-14/section-14-34}
+\input{bab/bab-14/section-14-35}
+\input{bab/bab-14/section-14-36}
+\input{bab/bab-14/section-14-37}
+\input{bab/bab-14/section-14-38}
+\input{bab/bab-14/section-14-39}
+\input{bab/bab-14/section-14-40}
+\input{bab/bab-14/section-14-41}
+\input{bab/bab-14/section-14-42}
+\input{bab/bab-14/section-14-43}
+\input{bab/bab-14/section-14-44}
+\input{bab/bab-14/section-14-45}
+\input{bab/bab-14/section-14-46}
 
 \begin{aktivitas}
-  \item Bandingkan konfigurasi PHP di lingkungan lokal (XAMPP) dan produksi; catat perbedaannya.
-  \item Siapkan file \code{.env} untuk menyimpan konfigurasi database dan mode aplikasi.
-  \item Lakukan deployment sederhana ke server (atau simulasi lokal) dan dokumentasikan langkahnya.
-  \item Atur konfigurasi PHP produksi: nonaktifkan \code{display\_errors}, aktifkan \code{log\_errors}.
-  \item Buat skrip backup database menggunakan \code{mysqldump} dan uji restore-nya.
-  \item Jelaskan konsep reverse proxy dan HTTPS; identifikasi manfaatnya.
-  \item Buat checklist hardening server sederhana berdasarkan materi bab ini.
-  \item Presentasikan proyek akhir dan lakukan refleksi kompetensi.
+  \item \textbf{Praktik:} Instalasi MySQL (via XAMPP); akses CLI dan phpMyAdmin. Buat database dan tabel dengan berbagai tipe data.
+  \item \textbf{Praktik:} Praktik DDL: ALTER TABLE. Praktik DML: SELECT dengan WHERE, operator, ORDER BY, LIMIT; INSERT, UPDATE, DELETE.
+  \item \textbf{Praktik:} Gunakan fungsi agregat (COUNT, SUM, AVG, MIN, MAX), GROUP BY, HAVING, DISTINCT, alias. Tangani nilai NULL.
+  \item \textbf{Praktik:} Desain relasi tabel: primary key, foreign key, normalisasi (1NF--3NF). Praktik JOIN (INNER, LEFT, RIGHT) dan subquery.
+  \item \textbf{Praktik:} Buat index dan analisis performa query dengan EXPLAIN. Praktik backup/restore dengan mysqldump.
+  \item \textbf{Praktik:} Koneksi PHP--MySQL dengan MySQLi (OOP). Praktik fetch: \code{fetch\_assoc()}, \code{fetch\_all()}. Bangun aplikasi CRUD lengkap.
+  \item \textbf{Praktik:} Gunakan prepared statement (MySQLi dan PDO) untuk mencegah SQL injection. Bandingkan MySQLi vs PDO.
+  \item \textbf{Praktik:} Praktik MySQL lanjut: VIEW, stored procedure, trigger, transaksi (BEGIN/COMMIT/ROLLBACK).
+  \item \textbf{Praktik:} Kelola user dan hak akses MySQL. Rancang skema database lengkap dengan diagram ER.
+  \item \textbf{Praktik:} Terapkan keamanan web: validasi input, sanitasi output, mitigasi XSS dan CSRF dengan token.
+  \item \textbf{Studi literatur:} Pelajari exception, namespace, Composer, dan struktur proyek PHP sesuai PSR.
+  \item \textbf{Praktik:} Bangun REST API sederhana dengan PHP; hubungkan front-end (Fetch API) dengan back-end.
+  \item \textbf{Praktik:} Tulis unit test dengan PHPUnit. Siapkan checklist deployment untuk produksi.
+  \item \textbf{Studi kasus:} Integrasikan seluruh materi dalam Aplikasi Web CRUD Full-Stack (database, PHP, API, keamanan).
 \end{aktivitas}
 
 \begin{latihan}
-  \item Jelaskan tiga perbedaan utama antara lingkungan development dan produksi.
-  \item Buat checklist langkah deployment dari lokal ke server.
-  \item Sebutkan lima pengaturan \code{php.ini} yang harus diubah untuk produksi.
-  \item Jelaskan fungsi environment variable dan mengapa file \code{.env} tidak boleh masuk ke Git.
-  \item Jelaskan konsep CI/CD dan sebutkan dua alat yang mendukungnya.
-  \item Sebutkan tiga hal yang harus dipantau pada aplikasi di produksi.
+  \item Jelaskan perbedaan DDL dan DML; berikan contoh minimal 2 perintah masing-masing.
+  \item Apa peran primary key dan foreign key dalam menjaga integritas data?
+  \item Tulis query dengan JOIN untuk menggabungkan data dari dua tabel; jelaskan perbedaan INNER, LEFT, dan RIGHT JOIN.
+  \item Apa itu normalisasi? Jelaskan 1NF, 2NF, dan 3NF dengan contoh.
+  \item Jelaskan bagaimana prepared statement mencegah SQL injection dibandingkan penggabungan string.
+  \item Bandingkan MySQLi dan PDO dari sisi portabilitas, fitur, dan gaya API.
+  \item Buat endpoint REST API sederhana yang mengembalikan data produk dalam format JSON.
+  \item Apa itu CSRF token dan mengapa diperlukan di setiap form? Jelaskan mekanismenya.
+  \item \textbf{Refleksi:} Dari materi bab ini, indikator Sub-CPMK 3.2 mana yang sudah Anda kuasai? Area mana yang masih perlu Anda tingkatkan?
 \end{latihan}
 
 \begin{asesmen}
-Asesmen akhir berupa proyek terintegrasi yang di-deploy ke server (atau simulasi), dilengkapi dokumentasi konfigurasi, checklist keamanan, dan prosedur backup. Penilaian mencakup kelengkapan deployment, konfigurasi produksi, dan presentasi refleksi kompetensi.
+Asesmen Bab 14 (Praktikum 8) merupakan \textbf{Evaluasi Kinerja} yang mengukur Sub-CPMK 3.2. Tugas berupa proyek: \textbf{Aplikasi Web CRUD Full-Stack} dengan komponen berikut; setiap komponen terhubung ke indikator pencapaian Sub-CPMK 3.2:
 
-\textbf{Keterkaitan dengan RPS:} \textbf{UTS} (Pertemuan 8) mengukur CPMK-1 dan CPMK-2 (teori dan praktik). \textbf{UAS} (Pertemuan 16) serta presentasi hasil mengukur CPMK-1 s.d. CPMK-4. Bobot dan kriteria penilaian mengikuti RPS; rubrik terperinci yang terhubung ke Sub-CPMK tercantum di \textbf{Lampiran A}.
+\begin{enumerate}
+  \item \textbf{Desain database} (20\%): Database ternormalisasi (minimal 3 tabel dengan relasi FK) dan diagram ER. Mengukur kemampuan mengelola basis data (Sub-CPMK 3.2).
+  \item \textbf{Implementasi CRUD} (25\%): Operasi Create, Read, Update, Delete dengan PHP dan MySQLi/PDO menggunakan prepared statement. Mengukur kemampuan mengimplementasikan CRUD (Sub-CPMK 3.2).
+  \item \textbf{REST API} (15\%): Minimal 2 endpoint (GET dan POST) dengan respons JSON. Mengukur integrasi koneksi PHP--MySQL dan penyediaan data terstruktur (Sub-CPMK 3.2).
+  \item \textbf{Integrasi front-end} (10\%): Penggunaan JavaScript Fetch API untuk menampilkan data dari back-end. Mengukur koneksi dari PHP (Sub-CPMK 3.2).
+  \item \textbf{Keamanan} (15\%): Validasi input, sanitasi output, CSRF token, password hashing. Mendukung keandalan aplikasi CRUD.
+  \item \textbf{Dokumentasi} (15\%): Laporan atau dokumentasi singkat. (Opsional) Pengujian unit PHPUnit; deployment checklist.
+\end{enumerate}
+
+\textbf{Rubrik Penilaian (berbasis OBE):}
+\begin{itemize}
+  \item \textbf{A (85--100)}: Seluruh komponen lengkap, desain database ternormalisasi, CRUD dengan prepared statement benar, API berfungsi, keamanan diterapkan. Kompeten untuk Sub-CPMK 3.2.
+  \item \textbf{B (70--84)}: Sebagian besar komponen lengkap, beberapa detail kurang.
+  \item \textbf{C (55--69)}: Komponen dasar ada tetapi kurang mendalam.
+  \item \textbf{D ($<$55)}: Komponen tidak lengkap atau tidak memenuhi standar minimum.
+\end{itemize}
 \end{asesmen}
 
 \begin{checklist}
-  \item Saya memahami perbedaan lingkungan development dan produksi.
-  \item Saya mengetahui siklus rilis dan langkah deployment dasar.
-  \item Saya memahami peran server web (Apache/Nginx) dan PHP di produksi.
-  \item Saya dapat mengelola konfigurasi menggunakan environment variable.
-  \item Saya dapat mengonfigurasi PHP untuk produksi (error logging, session security).
-  \item Saya memahami proses upload, permissions, dan konfigurasi deployment.
-  \item Saya memahami konsep reverse proxy dan HTTPS.
-  \item Saya mengetahui langkah hardening server dasar.
-  \item Saya dapat melakukan backup dan restore database.
-  \item Saya memahami konsep CI/CD untuk otomasi deployment.
-  \item Saya memahami pentingnya pemantauan (log, error tracking, uptime) di produksi.
-  \item Saya mengenal referensi standar: MDN, OWASP, web.dev, PHP The Right Way.
-  \item Saya mampu mengevaluasi dan merefleksikan pencapaian kompetensi.
+  \item \textbf{Sub-CPMK 3.2:} Saya memahami database relasional, SQL, DDL (CREATE, ALTER, DROP), dan DML (SELECT, INSERT, UPDATE, DELETE).
+  \item \textbf{Sub-CPMK 3.2:} Saya dapat menggunakan WHERE, operator, ORDER BY, LIMIT, fungsi agregat, GROUP BY, HAVING, DISTINCT, alias, dan NULL.
+  \item \textbf{Sub-CPMK 3.2:} Saya memahami relasi tabel, primary key, foreign key, JOIN (INNER/LEFT/RIGHT), subquery, dan normalisasi (1NF--3NF).
+  \item \textbf{Sub-CPMK 3.2:} Saya dapat membuat dan menggunakan index; menganalisis query dengan EXPLAIN; melakukan backup/restore.
+  \item \textbf{Sub-CPMK 3.2:} Saya dapat membuat koneksi MySQLi (OOP), menjalankan query, dan menggunakan metode fetch.
+  \item \textbf{Sub-CPMK 3.2:} Saya mampu membangun aplikasi CRUD dengan prepared statement dan memahami pencegahan SQL injection.
+  \item \textbf{Sub-CPMK 3.2:} Saya dapat menggunakan PDO dan memahami perbedaannya dengan MySQLi.
+  \item \textbf{Sub-CPMK 3.2:} Saya mengenal VIEW, stored procedure, trigger, transaksi, dan keamanan user MySQL.
+  \item \textbf{Sub-CPMK 3.2:} Saya mampu menerapkan validasi input, sanitasi output, dan mitigasi XSS/CSRF pada aplikasi CRUD.
+  \item \textbf{Sub-CPMK 3.2:} Saya memahami exception, namespace, Composer, dan struktur proyek PHP (PSR).
+  \item \textbf{Sub-CPMK 3.2:} Saya dapat membangun REST API sederhana dan menghubungkan front-end (Fetch API) dengan back-end.
+  \item \textbf{Sub-CPMK 3.2:} Saya mengetahui dasar pengujian (PHPUnit) dan checklist deployment produksi untuk aplikasi database.
 \end{checklist}
 
 \begin{rangkuman}
-Bab ini menutup pembahasan dengan deployment, administrasi server dan database, serta evaluasi akhir. Semua keterampilan dari bab-bab sebelumnya diintegrasikan dalam proyek akhir yang di-deploy ke lingkungan produksi.
+Bab ini merupakan \textbf{Unit Materi Inti} berbasis Sub-CPMK 3.2 yang membahas MySQL dan operasi CRUD secara komprehensif dalam empat area utama. \textbf{MySQL Dasar} (section 1--14) mencakup pengenalan database dan SQL, instalasi MySQL, akses CLI dan GUI, DDL (CREATE DATABASE, CREATE TABLE, ALTER TABLE), DML (SELECT, INSERT, UPDATE, DELETE), operator, ORDER BY/LIMIT, fungsi agregat, GROUP BY/HAVING, DISTINCT/alias, serta penanganan NULL.
+
+\textbf{Relasi dan Lanjut} (section 15--22) membahas relasi tabel dan konsep kunci (PK/FK), JOIN (INNER, LEFT, RIGHT), subquery, PRIMARY KEY vs UNIQUE, FOREIGN KEY dan referential integrity, normalisasi (1NF/2NF/3NF), index, serta backup dan restore dengan mysqldump.
+
+\textbf{Integrasi PHP--MySQL} (section 23--27) mengajarkan koneksi MySQLi (OOP), metode fetch, CRUD aplikasi web dengan prepared statement, pencegahan SQL injection, serta PDO sebagai alternatif yang portable.
+
+\textbf{MySQL Advanced dan PHP Lanjut} (section 28--46) meliputi VIEW, stored procedure, trigger, transaksi (ACID), optimasi EXPLAIN, keamanan user, perancangan database, keamanan web (validasi/sanitasi, XSS, CSRF), exception, namespace, Composer, struktur proyek, PHP CLI, REST API, integrasi front-back dengan Fetch API, pengujian PHPUnit, dan deployment.
 
 \textbf{Poin Kunci:}
 \begin{itemize}
-  \item Lingkungan produksi memerlukan konfigurasi keamanan dan stabilitas yang lebih ketat daripada lokal.
-  \item Environment variable memisahkan konfigurasi sensitif dari kode sumber.
-  \item Konfigurasi PHP, permission file, dan HTTPS adalah langkah wajib sebelum deployment.
-  \item Hardening server (firewall, updates, user non-root) mengurangi permukaan serangan.
-  \item Backup database rutin dan prosedur restore yang teruji melindungi data.
-  \item CI/CD mengotomasi build, test, dan deploy untuk rilis yang lebih cepat dan konsisten.
-  \item Pemantauan (log, error tracking, uptime) memungkinkan perbaikan proaktif.
-  \item Evaluasi akhir mengukur pencapaian kompetensi dan menjadi bekal untuk proyek nyata.
+  \item SQL DDL/DML, relasi, JOIN, normalisasi, dan index adalah fondasi pengelolaan basis data.
+  \item Prepared statement (MySQLi/PDO) wajib untuk keamanan; jangan pernah gabungkan input ke query.
+  \item REST API dengan JSON menjadi standar komunikasi front-end dan back-end modern.
+  \item Keamanan, pengujian, dan deployment yang baik melengkapi siklus pengembangan full-stack.
 \end{itemize}
+
+\textbf{Refleksi:} Pastikan Anda dapat mencentang checklist di atas dan siap melanjutkan ke Bab 15 (Integrasi API, Pengujian, Keamanan, Deployment, dan Administrasi Web).
 \end{rangkuman}
 
 \ifSubfilesClassLoaded{

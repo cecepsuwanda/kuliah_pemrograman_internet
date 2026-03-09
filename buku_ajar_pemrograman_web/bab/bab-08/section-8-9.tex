@@ -1,37 +1,32 @@
-\section{Percabangan: if, else if, else, dan switch}
+\section{Viewport dan Unit Responsif}
 
-Percabangan memungkinkan program mengeksekusi kode yang berbeda berdasarkan kondisi. Statement \code{if} mengevaluasi ekspresi boolean; jika \code{true}, blok kode di dalamnya dieksekusi. \code{else if} menambahkan kondisi tambahan, dan \code{else} menangani kasus selain semua kondisi di atasnya. JavaScript juga menyediakan \code{switch} untuk membandingkan satu nilai dengan banyak kemungkinan \cite{jsInfo}.
+Viewport adalah area tampilan browser yang terlihat oleh pengguna. Meta tag \code{<meta name="viewport" content="width=device-width, initial-scale=1.0">} wajib ada di setiap halaman responsif---tanpanya, mobile browser akan merender halaman pada lebar desktop (biasanya 980px) lalu memperkecilnya, membuat teks sangat kecil. Unit viewport CSS memungkinkan ukuran elemen relatif terhadap dimensi viewport \cite{mdnCss}.
 
-\begin{webcode}[language=JavaScript, caption={if/else if/else dan switch}]
-// if/else if/else
-const score = 85;
-let grade;
-if (score >= 90) {
-  grade = "A";
-} else if (score >= 80) {
-  grade = "B";
-} else if (score >= 70) {
-  grade = "C";
-} else {
-  grade = "D";
-}
-console.log(grade); // "B"
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{1.5cm}|P{4cm}|P{6.5cm}|}
+\hline
+\textbf{Unit} & \textbf{Relatif Terhadap} & \textbf{Contoh Penggunaan} \\
+\hline
+\code{vw} & 1\% lebar viewport & Hero section \code{font-size: calc(1rem + 2vw)} \\
+\hline
+\code{vh} & 1\% tinggi viewport & Full-height hero: \code{height: 100vh} \\
+\hline
+\code{vmin} & 1\% dimensi terkecil & Layout square responsif \\
+\hline
+\code{vmax} & 1\% dimensi terbesar & Jarang digunakan \\
+\hline
+\code{dvh} & Dynamic viewport height & Mengatasi masalah address bar mobile \\
+\hline
+\code{svh} & Small viewport height & Tinggi tanpa address bar \\
+\hline
+\end{tabular}
+\caption{Unit viewport CSS dan penggunaannya}
+\end{table}
 
-// switch (gunakan === untuk perbandingan)
-const day = "Senin";
-switch (day) {
-  case "Senin": case "Selasa":
-    console.log("Kerja"); break;
-  case "Sabtu": case "Minggu":
-    console.log("Libur"); break;
-  default:
-    console.log("Kerja juga");
-}
-\end{webcode}
-
-Operator ternary (\code{kondisi ? nilaiTrue : nilaiFalse}) adalah shorthand untuk \code{if/else} sederhana: \code{const status = age >= 17 ? "dewasa" : "anak";}. Cocok untuk satu ekspresi; hindari nesting ternary yang membuat kode sulit dibaca \cite{mdnJsGuide}.
+Perhatian khusus pada \code{100vh} di perangkat mobile: address bar browser yang muncul/hilang menyebabkan \code{100vh} kadang lebih tinggi dari area yang benar-benar terlihat. Unit modern \code{dvh} (dynamic viewport height) dan \code{svh} (small viewport height) mengatasi masalah ini. Fungsi \code{clamp(min, preferred, max)} sangat berguna untuk \textbf{fluid typography}: \code{font-size: clamp(1rem, 2.5vw, 2rem)} membuat teks yang otomatis menyesuaikan tanpa media query \cite{webdevCss}.
 
 \begin{konsep}
-\textbf{switch vs if/else.} Gunakan \code{switch} untuk membandingkan satu variabel dengan banyak nilai konstan (kasus diskret). Gunakan \code{if/else} untuk kondisi rentang, perbandingan kompleks, atau kondisi yang tidak terkait dengan satu variabel. Jangan lupa \code{break} setelah setiap \code{case}---tanpanya, eksekusi ``jatuh'' ke case berikutnya (fall-through), yang kadang disengaja tetapi sering menjadi bug \cite{jsInfo}.
+\textbf{Fluid Typography dengan clamp().} Alih-alih mendefinisikan \code{font-size} berbeda di setiap breakpoint, gunakan \code{clamp()} untuk tipografi yang mulus: \code{font-size: clamp(1rem, 1rem + 1vw, 2.5rem);} --- teks tumbuh secara proporsional dari minimum 1rem ke maksimum 2.5rem berdasarkan lebar viewport. Ini mengurangi jumlah media queries dan menghasilkan transisi ukuran teks yang lebih halus \cite{cssTricks}.
 \end{konsep}
 

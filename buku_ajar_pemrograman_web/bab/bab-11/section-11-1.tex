@@ -1,61 +1,25 @@
-\section{Pengenalan Pemrograman Berorientasi Objek (OOP) di PHP}
+\section{Timer: setTimeout dan setInterval}
 
-Pemrograman berorientasi objek (\textit{Object-Oriented Programming}, OOP) adalah paradigma pemrograman yang mengorganisasi kode ke dalam unit-unit yang disebut \textbf{class} dan \textbf{object}. Dalam paradigma ini, data dan fungsi yang beroperasi pada data tersebut digabungkan menjadi satu kesatuan. Class berfungsi sebagai cetak biru (\textit{blueprint}) yang mendefinisikan struktur dan perilaku, sedangkan object adalah instance konkret dari class yang hidup di memori saat program berjalan. PHP telah mendukung OOP secara penuh sejak versi 5.0 yang dirilis tahun 2004, dan terus disempurnakan hingga PHP 8 dengan fitur modern seperti \textit{constructor promotion}, \textit{named arguments}, dan \textit{union types} \cite{phpManual}.
+\code{setTimeout(callback, ms)} menjalankan callback \textbf{sekali} setelah jeda milidetik. \code{setInterval(callback, ms)} menjalankan callback \textbf{berulang} setiap interval. Keduanya mengembalikan ID yang dapat digunakan untuk membatalkan: \code{clearTimeout(id)} dan \code{clearInterval(id)}. Timer bersifat asinkron---kode setelah \code{setTimeout} dieksekusi langsung tanpa menunggu \cite{jsInfo}.
 
-Sebelum OOP populer, sebagian besar kode PHP ditulis secara \textbf{prosedural} --- yaitu serangkaian instruksi yang dieksekusi dari atas ke bawah, dengan fungsi-fungsi terpisah yang saling memanggil. Pendekatan prosedural cocok untuk skrip kecil, namun ketika aplikasi berkembang menjadi ratusan atau ribuan baris kode, pendekatan ini menyulitkan pemeliharaan karena data dan fungsi tersebar tanpa struktur yang jelas. OOP menawarkan solusi dengan mengelompokkan data dan perilaku terkait ke dalam class, sehingga kode lebih terorganisir, mudah dipahami, dan mudah diuji \cite{phpRightWay}.
-
-\begin{konsep}
-\textbf{Object-Oriented Programming (OOP)} adalah paradigma pemrograman yang memodelkan konsep dunia nyata ke dalam \textit{class} (cetak biru) dan \textit{object} (instance). OOP bertujuan meningkatkan modularitas, reusabilitas, dan kemudahan pemeliharaan kode.
-\end{konsep}
-
-OOP dibangun di atas empat pilar utama yang saling melengkapi. \textbf{Encapsulation} menggabungkan data dan metode ke dalam satu unit (class) serta membatasi akses langsung ke data internal melalui mekanisme \textit{visibility} (public, protected, private). \textbf{Inheritance} (pewarisan) memungkinkan sebuah class mewarisi properti dan metode dari class lain, mendukung penggunaan ulang kode dan hierarki logis. \textbf{Polymorphism} memungkinkan satu interface digunakan untuk berbagai tipe data --- method yang sama dapat berperilaku berbeda tergantung pada object yang memanggilnya. \textbf{Abstraction} menyembunyikan detail implementasi dan hanya mengekspos fungsionalitas yang diperlukan pengguna class \cite{phpManual}.
-
-Berikut adalah perbandingan pendekatan prosedural dan OOP dalam konteks PHP:
-
-\begin{table}[ht]
+\begin{table}[htbp]
 \centering
-\begin{tabular}{|P{3cm}|P{5cm}|P{5cm}|}
+\small
+\begin{tabular}{|P{4cm}|P{3.2cm}|P{2.8cm}|}
 \hline
-\textbf{Aspek} & \textbf{Prosedural} & \textbf{OOP} \\
+\textbf{Fungsi} & \textbf{Perilaku} & \textbf{Pembatalan} \\
 \hline
-Organisasi kode & Fungsi-fungsi terpisah & Dikelompokkan dalam class \\
+\code{setTimeout(fn, ms)} & Sekali, setelah jeda & \code{clearTimeout(id)} \\
 \hline
-Data \& fungsi & Terpisah & Digabung (encapsulation) \\
+\code{setInterval(fn, ms)} & Berulang, setiap interval & \code{clearInterval(id)} \\
 \hline
-Reusabilitas & Copy-paste fungsi & Inheritance \& komposisi \\
-\hline
-Skalabilitas & Sulit untuk proyek besar & Mudah di-scale \\
-\hline
-Pengujian & Sulit diisolasi & Mudah diuji per class \\
-\hline
-Contoh PHP & \code{mysqli\_connect()} & \code{new mysqli()} \\
+\code{requestAnimationFrame(fn)} & Sebelum repaint (60fps) & \code{cancel}\\[\medskipamount]\code{AnimationFrame(id)} \\
 \hline
 \end{tabular}
-\caption{Perbandingan pendekatan prosedural dan OOP di PHP}
+\caption{Timer JavaScript dan cara pembatalannya}
 \end{table}
 
-Diagram berikut mengilustrasikan empat pilar OOP dan hubungannya. Keempat pilar ini bekerja bersama untuk menghasilkan kode yang modular, fleksibel, dan mudah dipelihara.
-
-\begin{figure}[ht]
-\centering
-\begin{tikzpicture}[
-  pillar/.style={draw, rounded corners, minimum width=3cm, minimum height=1.5cm, align=center, font=\small\bfseries, fill=#1},
-  center/.style={draw, rounded corners, minimum width=3.5cm, minimum height=1.5cm, align=center, font=\normalsize\bfseries, fill=blue!20},
-  arrow/.style={-Stealth, thick, gray}
-]
-  \node[center] (oop) {OOP};
-  \node[pillar=green!20, above left=1.8cm and 1.5cm of oop] (enc) {Encapsulation};
-  \node[pillar=orange!20, above right=1.8cm and 1.5cm of oop] (inh) {Inheritance};
-  \node[pillar=red!15, below left=1.8cm and 1.5cm of oop] (pol) {Polymorphism};
-  \node[pillar=purple!15, below right=1.8cm and 1.5cm of oop] (abs) {Abstraction};
-
-  \draw[arrow] (oop) -- (enc);
-  \draw[arrow] (oop) -- (inh);
-  \draw[arrow] (oop) -- (pol);
-  \draw[arrow] (oop) -- (abs);
-\end{tikzpicture}
-\caption{Empat pilar pemrograman berorientasi objek}
-\end{figure}
-
-Dalam konteks pengembangan web dengan PHP, OOP sangat bermanfaat untuk membangun aplikasi yang terstruktur. Sebagai contoh, sebuah sistem informasi akademik dapat dimodelkan dengan class \code{Mahasiswa}, \code{Dosen}, \code{Matakuliah}, dan \code{Nilai}, masing-masing dengan properti dan metode yang relevan. Framework PHP modern seperti Laravel, Symfony, dan CodeIgniter semuanya dibangun di atas prinsip OOP, sehingga memahami OOP adalah prasyarat untuk menggunakan framework tersebut secara efektif \cite{phpRightWay}.
+\begin{konsep}
+\textbf{Debounce dan Throttle.} Untuk event yang sering terjadi (scroll, resize, input), gunakan \textit{debounce} (tunggu sampai event berhenti, lalu jalankan sekali) atau \textit{throttle} (jalankan maksimal sekali per interval). Debounce cocok untuk search-as-you-type; throttle untuk scroll handler. Keduanya menggunakan \code{setTimeout} secara internal \cite{mdnJsGuide}.
+\end{konsep}
 

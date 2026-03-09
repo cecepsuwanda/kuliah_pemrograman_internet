@@ -1,0 +1,32 @@
+\section{Pengenalan Keamanan Aplikasi Web dan Ancaman Umum}
+
+\textbf{Keamanan aplikasi web} (\textit{web application security}) adalah praktik melindungi aplikasi dari akses tidak sah, pencurian data, dan serangan. Setiap aplikasi yang terhubung ke internet berpotensi menjadi target. Prinsip fundamental: \textbf{jangan pernah percaya input dari client} --- semua data yang datang dari browser (form, URL, cookie, header) harus dianggap berbahaya sampai divalidasi. Defence-in-depth: terapkan keamanan berlapis, bukan hanya satu titik pertahanan \cite{phpRightWay}.
+
+\begin{konsep}
+\textbf{Tiga pilar keamanan web} --- \textbf{Confidentiality} (kerahasiaan data), \textbf{Integrity} (data tidak dimanipulasi), \textbf{Availability} (layanan tetap tersedia) --- dikenal sebagai \textbf{CIA Triad}. Setiap ancaman keamanan melanggar satu atau lebih pilar ini.
+\end{konsep}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners, minimum width=2.2cm, minimum height=0.9cm, align=center, font=\footnotesize, fill=#1},
+  arrow/.style={-Stealth, thick, red!60},
+  node distance=0.8cm
+]
+  \node[box=red!15] (sqli) {SQL Injection};
+  \node[box=orange!15, right=0.8cm of sqli] (xss) {XSS};
+  \node[box=yellow!15, right=0.8cm of xss] (csrf) {CSRF};
+  \node[box=purple!15, right=0.8cm of csrf] (sess) {Session\\Hijacking};
+  \node[box=gray!15, right=0.8cm of sess] (brute) {Brute Force};
+
+  \node[box=blue!15, below=1.5cm of xss, minimum width=9cm] (app) {Aplikasi Web};
+
+  \draw[arrow] (sqli) -- (app);
+  \draw[arrow] (xss) -- (app);
+  \draw[arrow] (csrf) -- (app);
+  \draw[arrow] (sess) -- (app);
+  \draw[arrow] (brute) -- (app);
+\end{tikzpicture}
+\caption{Ancaman keamanan umum yang menargetkan aplikasi web}
+\end{figure}
+

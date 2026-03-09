@@ -1,67 +1,115 @@
-\section{Debugging HTML: Menemukan dan Memperbaiki Error}
+\section{Elemen Semantik dan Struktur Halaman}
 
-Debugging HTML adalah proses menemukan dan memperbaiki kesalahan dalam kode markup. Berbeda dengan bahasa pemrograman yang menampilkan pesan error jelas saat terjadi kesalahan, HTML bersifat sangat permisif (``permissive'')---browser akan berusaha menampilkan halaman meskipun terdapat error dalam markup. Sifat ini, yang disebut \textbf{error recovery} oleh standar HTML, menjadikan debugging lebih menantang karena kesalahan mungkin tidak langsung terlihat secara visual namun menyebabkan masalah pada struktur DOM, aksesibilitas, atau tampilan di browser lain \cite{mdnHtmlIntro}.
+HTML5 memperkenalkan serangkaian elemen semantik baru yang merevolusi cara pengembang menandai struktur halaman web. Sebelum HTML5, pengembang sering menggunakan elemen \code{<div>} dengan atribut \code{id} atau \code{class} seperti \code{<div id="header">} atau \code{<div class="nav">} untuk membedakan bagian halaman. Pendekatan ini berfungsi untuk styling CSS namun tidak memberikan makna struktural bagi browser, mesin pencari, atau teknologi bantu. Elemen semantik HTML5 seperti \code{<header>}, \code{<nav>}, \code{<main>}, \code{<article>}, \code{<section>}, \code{<aside>}, dan \code{<footer>} menggantikan pola \code{<div>} generik dengan tag yang secara inheren menjelaskan makna dan peran konten di dalamnya \cite{webdevHtml}.
 
-Kesalahan HTML yang paling umum meliputi: (1) tag yang tidak ditutup---misalnya \code{<p>} tanpa \code{</p>} yang menyebabkan paragraf ``menelan'' konten berikutnya; (2) tag yang salah urutan penutupan---misalnya \code{<b><i>teks</b></i>} yang melanggar aturan nesting; (3) atribut yang hilang tanda kutip---misalnya \code{class=nama kelas} yang hanya mengambil ``nama'' sebagai nilai; (4) elemen yang salah tempat---misalnya elemen block di dalam elemen inline; dan (5) entitas karakter khusus yang tidak di-escape seperti \code{<}, \code{>}, \code{\&} di dalam konten teks \cite{whatwgHtml}.
+Elemen \code{<header>} merepresentasikan bagian pengantar konten atau bagian navigasi. Ini dapat digunakan sebagai header seluruh halaman atau sebagai header untuk elemen tertentu seperti \code{<article>} atau \code{<section>}. Elemen \code{<nav>} menandakan blok link navigasi mayor - biasanya menu utama website. Elemen \code{<main>} adalah tempat konten utama halaman yang unik dan spesifik untuk dokumen tersebut; setiap halaman hanya boleh memiliki satu elemen \code{<main>} dan tidak boleh menempatkannya di dalam elemen struktural lain seperti \code{<article>} atau \code{<header>}. Elemen \code{<article>} merujuk pada konten mandiri yang dapat berdiri sendiri dan didistribusikan secara independen, seperti posting blog, artikel berita, atau kartu produk \cite{mdnAccessibility}.
+
+Elemen \code{<section>} merepresentasikan bagian thematis dari dokumen, biasanya dengan heading sendiri. Elemen ini cocok untuk mengelompokkan konten terkait dalam satu bagian yang logis. Elemen \code{<aside>} berisi konten yang berkaitan secara tangensial dengan konten utama - sidebar, call-out boxes, atau iklan yang melengkapi tetapi terpisah dari alur utama. Elemen \code{<footer>} berisi informasi penutup untuk konten induknya atau untuk seluruh halaman, seperti informasi hak cipta, link legal, atau informasi kontak. Penggunaan semantik yang benar memungkinkan pembaca layar untuk menavigasi halaman dengan menu landmark, melompat langsung ke navigasi, konten utama, atau footer.
+
+Manfaat menggunakan elemen semantik meluas di berbagai aspek pengembangan web. Untuk \textbf{SEO}, mesin pencari menggunakan struktur semantik untuk lebih memahami hierarki dan konteks konten, berpotensi meningkatkan peringkat pencarian. Untuk \textbf{aksesibilitas}, teknologi bantu seperti pembaca layar dapat menggunakan landmark semantik untuk memberikan navigasi yang lebih efisien kepada pengguna dengan disabilitas. Untuk \textbf{maintainability}, kode dengan elemen semantik lebih mudah dibaca dan dipelihara oleh tim pengembang karena struktur halaman jelas tanpa harus memeriksa atribut class. Untuk \textbf{konsistensi}, struktur semantik yang standar memudahkan integrasi dengan framework dan sistem manajemen konten.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{3.5cm}|P{4cm}|P{4.5cm}|}
+\begin{tabular}{|P{3cm}|P{7cm}|}
 \hline
-\textbf{Kesalahan} & \textbf{Contoh} & \textbf{Solusi} \\
+\textbf{Elemen} & \textbf{Fungsi dan Penggunaan} \\
 \hline
-Tag tidak ditutup & \code{<p>Teks} & Tambahkan \code{</p>} \\
+\code{<header>} & Bagian pengantar: logo, judul, navigasi awal \\
 \hline
-Nesting salah urutan & \code{<b><i>x</b></i>} & Perbaiki: \code{<b><i>x</i></b>} \\
+\code{<nav>} & Blok link navigasi mayor \\
 \hline
-Atribut tanpa kutip & \code{class=nama kelas} & Gunakan \code{class="nama kelas"} \\
+\code{<main>} & Konten utama halaman (hanya satu per halaman) \\
 \hline
-Block di dalam inline & \code{<span><div>} & Gunakan block wrapper \\
+\code{<article>} & Konten mandiri yang dapat didistribusikan (blog post, berita) \\
 \hline
-Karakter tidak di-escape & \code{5 < 10} di teks & Gunakan \code{5 \&lt; 10} \\
+\code{<section>} & Bagian thematis dengan heading \\
 \hline
-\code{id} duplikat & Dua elemen \code{id="menu"} & Pastikan setiap \code{id} unik \\
+\code{<aside>} & Konten sampingan terkait (sidebar, call-out) \\
+\hline
+\code{<footer>} & Informasi penutup: copyright, link legal \\
 \hline
 \end{tabular}
-\caption{Kesalahan HTML umum dan cara memperbaikinya}
+\caption{Elemen Semantik Struktur Halaman HTML5}
+\label{tab:semantic-elements}
 \end{table}
 
 \begin{figure}[htbp]
 \centering
-\resizebox{\textwidth}{!}{%
-\begin{tikzpicture}[node distance=2.2cm, transform shape, every node/.style={font=\footnotesize}]
-  \node (problem) [class, fill=red!15] {Masalah\\terdeteksi};
-  \node (devtools) [class, right=of problem, fill=orange!15] {Buka DevTools\\(F12)};
-  \node (inspect) [class, right=of devtools, fill=yellow!15] {Inspect elemen\\di tab Elements};
-  \node (compare) [class, right=of inspect, fill=green!15] {Bandingkan DOM\\dengan source};
-  \node (fix) [class, below=1.5cm of compare, fill=blue!15] {Perbaiki\\kode sumber};
-  \node (validate) [class, left=of fix] {Jalankan\\validator W3C};
-  \node (test) [class, left=of validate] {Uji di\\beberapa browser};
-  \node (done) [class, left=of test, fill=green!25] {Selesai};
+\begin{tikzpicture}[
+  node distance=0.5cm,
+  every node/.style={font=\small},
+  header/.style={rectangle, draw, fill=blue!20, minimum width=10cm, minimum height=0.8cm, align=center},
+  nav/.style={rectangle, draw, fill=green!20, minimum width=10cm, minimum height=0.6cm, align=center},
+  main/.style={rectangle, draw, fill=orange!20, minimum width=6.5cm, minimum height=3cm, align=center},
+  aside/.style={rectangle, draw, fill=yellow!20, minimum width=3cm, minimum height=3cm, align=center},
+  footer/.style={rectangle, draw, fill=gray!30, minimum width=10cm, minimum height=0.8cm, align=center},
+  article/.style={rectangle, draw, fill=orange!30, minimum width=5.5cm, minimum height=1cm, align=center},
+  section/.style={rectangle, draw, fill=orange!25, minimum width=5.5cm, minimum height=1cm, align=center}
+]
 
-  \draw [arrow] (problem) -- (devtools);
-  \draw [arrow] (devtools) -- (inspect);
-  \draw [arrow] (inspect) -- (compare);
-  \draw [arrow] (compare) -- (fix);
-  \draw [arrow] (fix) -- (validate);
-  \draw [arrow] (validate) -- (test);
-  \draw [arrow] (test) -- (done);
-  \draw [arrow, dashed] (validate) to[bend left=30] node[above, font=\scriptsize] {masih error} (fix);
-\end{tikzpicture}%
-}
-\caption{Alur debugging HTML: dari deteksi masalah hingga verifikasi perbaikan}
+\node[header] (header) {\code{<header>} - Logo, Judul};
+\node[nav, below=of header] (nav) {\code{<nav>} - Menu Navigasi};
+\node[main, below=of nav, xshift=-1.7cm] (main) {};
+\node[aside, below=of nav, xshift=3.3cm] (aside) {\code{<aside>} - Sidebar};
+\node[article, below=0.3cm of nav.north, anchor=north, xshift=-1.7cm] (article1) {\code{<article>} - Konten 1};
+\node[section, below=0.2cm of article1] (section1) {\code{<section>} - Bagian A};
+\node[footer, below=of main.south, yshift=-0.5cm] (footer) {\code{<footer>} - Copyright, Link};
+
+\node at (main.center) [yshift=0.3cm] {\code{<main>}};
+\node at (main.center) [yshift=-0.3cm, font=\footnotesize] {Konten Utama};
+
+\end{tikzpicture}
+\caption{Struktur Halaman Tipikal dengan Elemen Semantik HTML5}
+\label{fig:semantic-structure}
 \end{figure}
 
-Browser DevTools (dibuka dengan F12 atau Ctrl+Shift+I) adalah alat debugging HTML yang paling penting. Tab \textbf{Elements} (Chrome) atau \textbf{Inspector} (Firefox) menampilkan struktur DOM yang dihasilkan oleh browser setelah proses parsing---ini mungkin berbeda dari source code asli jika browser melakukan error recovery. Dengan membandingkan DOM yang ditampilkan DevTools dengan kode sumber, pengembang dapat menemukan di mana browser melakukan ``perbaikan'' otomatis yang mungkin tidak sesuai dengan maksud asli. Fitur ``Inspect Element'' (klik kanan pada elemen) memungkinkan navigasi langsung ke elemen yang bermasalah \cite{mdnLearn}.
-
-\begin{konsep}
-\textbf{Strategi Debugging HTML yang Efektif:}
-\begin{enumerate}
-  \item \textbf{Validasi dulu}: Jalankan validator W3C untuk mendapatkan daftar error dan warning---ini adalah langkah tercepat untuk menemukan kesalahan sintaks.
-  \item \textbf{Periksa DevTools}: Bandingkan DOM hasil parse dengan kode sumber untuk menemukan perbedaan.
-  \item \textbf{Isolasi masalah}: Jika halaman kompleks, komentari bagian-bagian kode hingga masalah hilang---bagian terakhir yang dikomentari berisi error.
-  \item \textbf{Periksa konsol}: Tab Console di DevTools menampilkan pesan error terkait resource yang gagal dimuat (gambar, script, stylesheet).
-  \item \textbf{Uji lintas browser}: Tampilan yang benar di satu browser tidak menjamin kebenaran---uji di Chrome, Firefox, Safari, dan Edge \cite{mdnHtmlIntro}.
-\end{enumerate}
-\end{konsep}
+\begin{webcode}[language=HTML, caption={Contoh Struktur Halaman dengan Elemen Semantik}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <title>Contoh Struktur Semantik</title>
+</head>
+<body>
+  <header>
+    <h1>Nama Website</h1>
+    <nav>
+      <ul>
+        <li><a href="/">Beranda</a></li>
+        <li><a href="/tentang">Tentang</a></li>
+        <li><a href="/kontak">Kontak</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <main>
+    <article>
+      <header>
+        <h2>Judul Artikel</h2>
+        <p>Dipublikasikan: 3 Maret 2026</p>
+      </header>
+      <section>
+        <h3>Pendahuluan</h3>
+        <p>Isi pendahuluan artikel...</p>
+      </section>
+      <section>
+        <h3>Pembahasan</h3>
+        <p>Isi pembahasan...</p>
+      </section>
+    </article>
+  </main>
+  
+  <aside>
+    <h2>Artikel Terkait</h2>
+    <ul>
+      <li><a href="#">Link 1</a></li>
+      <li><a href="#">Link 2</a></li>
+    </ul>
+  </aside>
+  
+  <footer>
+    <p>&copy; 2026 Nama Website. Hak Cipta Dilindungi.</p>
+  </footer>
+</body>
+</html>
+\end{webcode}
 

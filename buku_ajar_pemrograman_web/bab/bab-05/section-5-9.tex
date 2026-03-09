@@ -1,87 +1,71 @@
-\section[Aksesibilitas: Prinsip dan Praktik]{Aksesibilitas (a11y): Prinsip dan Praktik}
+\section{Fitur Teks Lanjutan: Kutipan, Kode, Subscript, Superscript}
 
-Aksesibilitas web (sering disingkat \textbf{a11y}---``a'' diikuti 11 huruf dan ``y'') adalah praktik memastikan bahwa situs web dapat digunakan oleh \textbf{semua orang}, termasuk pengguna dengan disabilitas visual, auditori, motorik, atau kognitif. Menurut WHO, sekitar 16\% populasi dunia hidup dengan disabilitas, sehingga aksesibilitas bukan sekadar fitur tambahan melainkan kebutuhan fundamental. Di banyak negara, aksesibilitas web bahkan merupakan kewajiban hukum. Bagi pengembang web, membangun situs yang aksesibel juga berarti menjangkau audiens yang lebih luas dan meningkatkan kualitas keseluruhan produk \cite{mdnAccessibility}.
+HTML menyediakan elemen khusus untuk menandai berbagai jenis konten khusus seperti kutipan, blok kode, dan notasi matematika. Elemen \code{<blockquote>} digunakan untuk kutipan panjang yang mencakup satu atau lebih paragraf, biasanya ditampilkan browser dengan indentasi di kedua sisi. Atribut opsional \code{cite} pada \code{<blockquote>} dapat berisi URL yang menunjuk ke sumber kutipan tersebut. Untuk kutipan inline yang lebih pendek dan berada dalam aliran teks paragraf, gunakan elemen \code{<q>}. Browser biasanya secara otomatis menambahkan tanda kutip yang sesuai dengan bahasa dokumen (misalnya "..." untuk Inggris, «...» untuk beberapa bahasa Eropa) di sekitar konten \code{<q>}, menghindari kebutuhan menulis tanda kutip secara manual dalam markup \cite{mdnHtmlIntro}.
 
-Pedoman utama untuk aksesibilitas web adalah \textbf{Web Content Accessibility Guidelines (WCAG)}, yang dikembangkan oleh W3C. WCAG dibangun di atas empat prinsip dasar yang dikenal dengan akronim \textbf{POUR}: Perceivable (dapat dipersepsi), Operable (dapat dioperasikan), Understandable (dapat dipahami), dan Robust (tangguh). Setiap prinsip memiliki kriteria sukses yang dikelompokkan dalam tiga level konformitas: A (minimum), AA (standar yang direkomendasikan), dan AAA (optimal) \cite{wcagW3c}.
+Teks kode sumber dan output komputer ditandai menggunakan elemen \code{<code>} untuk inline code dan kombinasi \code{<pre>} dengan \code{<code>} untuk blok kode. Elemen \code{<code>} memberikan semantik bahwa konten adalah fragmen kode sumber atau output komputer, yang biasanya ditampilkan dengan font monospaced. Elemen \code{<pre>} (preformatted text) sangat penting untuk blok kode karena mempertahankan spasi, indentasi, dan jeda baris persis seperti dalam source code. Tanpa \code{<pre>}, browser akan mengabaikan spasi berlebih dan menjadikan kode sulit dibaca. Kombinasi \code{<pre><code>...</code></pre>} adalah pola standar untuk menampilkan blok kode dengan formatting terjaga.
 
-\begin{figure}[htbp]
-\centering
-\resizebox{0.85\textwidth}{!}{%
-\begin{tikzpicture}[node distance=1.8cm, transform shape, every node/.style={font=\footnotesize}]
-  \node (pour) [class, minimum width=4cm, fill=blue!25] {\textbf{POUR}\\Prinsip Aksesibilitas};
+Notasi matematika dan kimia sering memerlukan karakter yang diposisikan di atas atau di bawah garis dasar teks. \textbf{Subscript} (karakter rendah) menggunakan elemen \code{<sub>} dan cocok untuk rumus kimia seperti H\textsubscript{2}O atau indeks matematika. \textbf{Superscript} (karakter tinggi) menggunakan elemen \code{<sup>} dan berguna untuk eksponen matematika seperti x\textsuperscript{2}, notasi tanggal (1\textsuperscript{st}), atau catatan kaki. Kedua elemen ini menjaga semantik konten yang memerlukan penurunan atau penaikan posisi karakter, bukan sekadar styling visual.
 
-  \node (p) [class, below left=1.5cm and 2.5cm of pour, fill=orange!15, minimum width=3.5cm, minimum height=1.5cm]
-    {\textbf{Perceivable}\\Konten dapat\\dipersepsi indra};
-  \node (o) [class, below left=1.5cm and -0.5cm of pour, fill=green!15, minimum width=3.5cm, minimum height=1.5cm]
-    {\textbf{Operable}\\Antarmuka dapat\\dioperasikan};
-  \node (u) [class, below right=1.5cm and -0.5cm of pour, fill=yellow!15, minimum width=3.5cm, minimum height=1.5cm]
-    {\textbf{Understandable}\\Konten dapat\\dipahami};
-  \node (r) [class, below right=1.5cm and 2.5cm of pour, fill=purple!15, minimum width=3.5cm, minimum height=1.5cm]
-    {\textbf{Robust}\\Kompatibel dengan\\berbagai teknologi};
-
-  \draw [arrow] (pour) -- (p);
-  \draw [arrow] (pour) -- (o);
-  \draw [arrow] (pour) -- (u);
-  \draw [arrow] (pour) -- (r);
-\end{tikzpicture}%
-}
-\caption{Empat prinsip aksesibilitas POUR menurut WCAG}
-\end{figure}
+\textbf{HTML entities} adalah kode khusus untuk menampilkan karakter yang memiliki makna khusus dalam HTML atau karakter yang tidak mudah diketik. Karena karakter \code{<}, \code{>}, dan \code{\char38} memiliki makna khusus dalam HTML (membuka tag, menutup tag, dan memulai entity), mereka harus ditulis sebagai entity \code{\char38lt;}, \code{\char38gt;}, dan \code{\char38amp;} ketika ingin menampilkannya sebagai teks biasa. Entity \code{\char38nbsp;} (non-breaking space) membuat spasi yang tidak akan dipisahkan oleh pemisah baris, berguna untuk mencegah "janda" (kata tunggal di akhir paragraf) atau memisahkan angka dan satuan. Entity \code{\char38copy;} menghasilkan simbol copyright \textcopyright, dan \code{\char38reg;} menghasilkan trademark \textregistered.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{1.5cm}|P{3.5cm}|P{3.5cm}|P{3.5cm}|}
+\begin{tabular}{|P{3cm}|P{3cm}|P{5cm}|}
 \hline
-\textbf{Level} & \textbf{Deskripsi} & \textbf{Contoh Kriteria} & \textbf{Rekomendasi} \\
+\textbf{Entity} & \textbf{Hasil} & \textbf{Penggunaan} \\
 \hline
-A & Kebutuhan dasar & Teks alt pada gambar; konten navigable via keyboard & Wajib dipenuhi \\
+\code{\char38lt;} & $<$ & Menampilkan kurung sudut kiri \\
 \hline
-AA & Standar industri & Kontras warna minimum 4.5:1; resize teks hingga 200\% & Target utama \\
+\code{\char38gt;} & $>$ & Menampilkan kurung sudut kanan \\
 \hline
-AAA & Level optimal & Kontras 7:1; bahasa isyarat untuk media & Ideal namun tidak selalu feasible \\
+\code{\char38amp;} & \& & Menampilkan ampersand \\
+\hline
+\code{\char38nbsp;} & Spasi & Non-breaking space \\
+\hline
+\code{\char38copy;} & \textcopyright & Simbol copyright \\
+\hline
+\code{\char38reg;} & \textregistered & Simbol registered trademark \\
+\hline
+\code{\char38hellip;} & \ldots{} & Elipsis horizontal \\
+\hline
+\code{\char38mdash;} & --- & Em dash (panjang) \\
 \hline
 \end{tabular}
-\caption{Level konformitas WCAG dan contoh kriteria sukses}
+\caption{HTML Entities Umum}
+\label{tab:html-entities}
 \end{table}
 
-Dalam praktik HTML, aksesibilitas dimulai dengan penggunaan elemen semantik yang tepat. Elemen-elemen seperti \code{<nav>}, \code{<main>}, \code{<header>}, \code{<footer>}, \code{<button>}, dan \code{<a>} secara otomatis menyediakan informasi peran (role) dan perilaku (behavior) kepada teknologi bantu. Atribut \code{alt} pada \code{<img>} memberikan deskripsi teks untuk pengguna yang tidak dapat melihat gambar. Navigasi keyboard harus berfungsi untuk semua elemen interaktif, dan urutan fokus (tab order) harus logis \cite{webdevAccessibility}.
+\begin{webcode}[language=HTML, caption={Contoh Fitur Teks Lanjutan}]
+<!-- Kutipan panjang dengan sumber -->
+<blockquote cite="https://example.com/article">
+  <p>Web adalah medium universal. Semua yang terhubung 
+     ke internet di seluruh dunia dapat berkomunikasi 
+     tanpa hambatan.</p>
+</blockquote>
 
-Ketika elemen semantik HTML tidak cukup untuk menyampaikan makna antarmuka, atribut \textbf{ARIA} (Accessible Rich Internet Applications) dapat digunakan. ARIA menyediakan tiga jenis atribut: \code{role} (mendefinisikan peran elemen, misalnya \code{role="dialog"}), \code{aria-*} states (status, misalnya \code{aria-expanded="true"}), dan \code{aria-*} properties (properti, misalnya \code{aria-label="Menu utama"}). Namun, aturan pertama ARIA adalah: \textbf{``Jangan gunakan ARIA jika Anda bisa menggunakan elemen HTML semantik yang sudah memiliki makna dan perilaku bawaan''} \cite{mdnAccessibility}.
+<!-- Kutipan inline -->
+<p>Tim Berners-Lee berkata: 
+   <q>The Web does not just connect machines, 
+      it connects people</q>.</p>
 
-\begin{webcode}[language=HTML, caption={Contoh penggunaan ARIA untuk navigasi dan tombol}]
-<!-- Nav dengan aria-label untuk membedakan navigasi -->
-<nav aria-label="Menu Utama">
-  <ul>
-    <li><a href="/">Beranda</a></li>
-    <li><a href="/produk">Produk</a></li>
-    <li><a href="/kontak">Kontak</a></li>
-  </ul>
-</nav>
+<!-- Blok kode dengan pre dan code -->
+<pre><code>function sapa(nama) {
+  return "Halo, " + nama + "!";
+}
 
-<!-- Tombol toggle dengan ARIA state -->
-<button aria-expanded="false"
-        aria-controls="panel-info">
-  Tampilkan Info
-</button>
-<div id="panel-info" hidden>
-  <p>Informasi tambahan di sini.</p>
-</div>
+console.log(sapa("Dunia"));</code></pre>
 
-<!-- Gambar dekoratif (diabaikan screen reader) -->
-<img src="dekorasi.png" alt="" aria-hidden="true" />
+<!-- Inline code -->
+<p>Gunakan fungsi <code>console.log()</code> untuk 
+   debugging.</p>
 
-<!-- Gambar informatif (deskripsi wajib) -->
-<img src="grafik-penjualan.png"
-     alt="Grafik penjualan naik 25% di Q3 2026" />
+<!-- Rumus kimia dan matematika -->
+<p>Rumus air: H<sub>2</sub>O</p>
+<p>Rumus kuadrat: ax<sup>2</sup> + bx + c = 0</p>
+
+<!-- Karakter khusus dengan entity -->
+<p>5 &lt; 10 dan 15 &gt; 12</p>
+<p>&copy; 2026 Perusahaan Contoh &mdash; 
+   Hak Cipta Dilindungi</p>
 \end{webcode}
-
-\begin{konsep}
-\textbf{Aturan Pertama ARIA:} Sebelum menggunakan atribut ARIA, tanyakan: ``Apakah ada elemen HTML semantik yang sudah menyediakan makna ini?'' Misalnya:
-\begin{itemize}
-  \item Gunakan \code{<button>} alih-alih \code{<div role="button">}.
-  \item Gunakan \code{<nav>} alih-alih \code{<div role="navigation">}.
-  \item Gunakan \code{<input type="checkbox">} alih-alih \code{<span role="checkbox">}.
-\end{itemize}
-ARIA tidak mengubah perilaku elemen; ia hanya mengubah \textbf{informasi yang disampaikan ke teknologi bantu}. Elemen \code{<div role="button">} tidak akan bisa diklik atau difokuskan dengan keyboard kecuali Anda menambahkan \code{tabindex} dan event handler secara manual. Elemen \code{<button>} sudah menyediakan semua ini secara bawaan \cite{webdevAccessibility}.
-\end{konsep}
 

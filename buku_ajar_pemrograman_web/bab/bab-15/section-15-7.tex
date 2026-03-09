@@ -1,0 +1,26 @@
+\section{Pengukuran Performa: Metrik dan Alat}
+
+Performa aplikasi web diukur menggunakan \textbf{Core Web Vitals} dan metrik terkait yang dikembangkan oleh Google. Metrik utama: \textbf{FCP} (First Contentful Paint --- waktu sampai konten pertama muncul), \textbf{LCP} (Largest Contentful Paint --- waktu sampai elemen terbesar di-render), \textbf{FID/INP} (interaktivitas --- seberapa cepat halaman merespons interaksi), dan \textbf{CLS} (Cumulative Layout Shift --- seberapa banyak layout bergeser selama loading). Metrik ini mempengaruhi pengalaman pengguna dan peringkat SEO \cite{mdnToolsTesting}.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{1.8cm}|P{4cm}|P{2cm}|P{2cm}|P{2cm}|}
+\hline
+\textbf{Metrik} & \textbf{Deskripsi} & \textbf{Baik} & \textbf{Perlu Perbaikan} & \textbf{Buruk} \\
+\hline
+FCP & Konten pertama muncul & $\leq$ 1.8s & 1.8--3s & $>$ 3s \\
+\hline
+LCP & Elemen terbesar render & $\leq$ 2.5s & 2.5--4s & $>$ 4s \\
+\hline
+INP & Respons interaksi & $\leq$ 200ms & 200--500ms & $>$ 500ms \\
+\hline
+CLS & Stabilitas layout & $\leq$ 0.1 & 0.1--0.25 & $>$ 0.25 \\
+\hline
+TTFB & Respons server & $\leq$ 0.8s & 0.8--1.8s & $>$ 1.8s \\
+\hline
+\end{tabular}
+\caption{Metrik performa web dan ambang batasnya}
+\end{table}
+
+Alat utama: \textbf{Lighthouse} (terintegrasi di Chrome DevTools, menghasilkan skor 0--100 untuk performa, aksesibilitas, SEO, best practices), \textbf{PageSpeed Insights} (versi online Lighthouse dari Google), dan \textbf{WebPageTest} (pengujian dari berbagai lokasi dan device). Jalankan Lighthouse dari tab ``Lighthouse'' di DevTools, pilih kategori yang ingin diaudit, dan klik ``Analyze'' untuk mendapatkan laporan lengkap dengan rekomendasi perbaikan \cite{mdnToolsTesting}.
+

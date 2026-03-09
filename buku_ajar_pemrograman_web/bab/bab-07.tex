@@ -2,9 +2,9 @@
 \ifSubfilesClassLoaded{\setcounter{chapter}{6}}{}
 \begin{document}
 
-\chapter{CSS Layout Responsif}
+\chapter{CSS Dasar, Selector, Box Model, dan Tipografi}
 
-Bab ini melanjutkan penguasaan CSS dari Bab 6 ke tingkat layout dan responsif: positioning, Flexbox, Grid, media queries, animasi, dan organisasi kode.
+Bab ini membahas materi Pertemuan 6 sesuai RPS: CSS dasar, selector, box model, dan tipografi. Urutan materi mengikuti alur belajar CSS dari dasar: pengenalan, sintaks dan selector, warna dan teks, box model dan display, link serta list/tabel, satuan dan nilai. Materi Flexbox, Grid, dan desain responsif dilanjutkan di bab berikutnya.
 
 \begin{subcpmk}
   \item Sub-CPMK 2.2: Menerapkan CSS3 untuk styling, layout (Flexbox/Grid), dan desain responsif.
@@ -22,82 +22,74 @@ Bab ini melanjutkan penguasaan CSS dari Bab 6 ke tingkat layout dan responsif: p
 \input{bab/bab-07/section-7-10}
 \input{bab/bab-07/section-7-11}
 \input{bab/bab-07/section-7-12}
-\input{bab/bab-07/section-7-13}
-\input{bab/bab-07/section-7-14}
-\input{bab/bab-07/section-7-15}
-\input{bab/bab-07/section-7-16}
-\input{bab/bab-07/section-7-17}
-\input{bab/bab-07/section-7-18}
-\input{bab/bab-07/section-7-19}
-\input{bab/bab-07/section-7-20}
-\input{bab/bab-07/section-7-21}
-\input{bab/bab-07/section-7-22}
 
 \begin{aktivitas}
-  \item Buat halaman dengan positioning: fixed header, sticky sidebar, dan elemen absolute (tooltip atau badge).
-  \item Buat navbar horizontal dengan Flexbox: logo di kiri, menu di kanan, responsif menjadi vertikal di mobile.
-  \item Buat grid kartu produk responsif menggunakan \code{repeat(auto-fill, minmax(280px, 1fr))}; tambahkan halaman layout dengan \code{grid-template-areas}.
-  \item Terapkan pendekatan mobile-first dengan media queries: base style untuk mobile, lalu \code{min-width} breakpoint untuk tablet dan desktop.
-  \item Buat form yang di-styling konsisten (\code{font-family: inherit}) dengan indikator fokus jelas dan dropdown menu yang aksesibel.
-  \item Tambahkan transition hover pada tombol dan card; buat animasi entrance (\code{@keyframes slideIn}); gunakan custom properties untuk tema warna dan dark mode.
+  \item \textbf{Praktik:} Buat file CSS eksternal dan hubungkan ke halaman HTML; terapkan selector elemen, class, dan id untuk mengatur warna, tipografi, dan spasi.
+  \item \textbf{Praktik:} Buat komponen card produk menggunakan box model lengkap: atur \code{padding}, \code{border}, \code{border-radius}, \code{margin: auto} untuk centering, dan gunakan \code{box-sizing: border-box}.
+  \item \textbf{Praktik:} Buat menu navigasi horizontal dari \code{<ul>} dengan menghilangkan bullet, menggunakan \code{display: inline-block} atau Flexbox, dan styling state tautan (\code{:link}, \code{:visited}, \code{:hover}, \code{:focus}).
+  \item \textbf{Praktik:} Styling tabel data HTML: gunakan \code{border-collapse}, \code{padding} pada \code{th}/\code{td}, background header, dan zebra striping dengan \code{:nth-child(even)}.
+  \item \textbf{Proyek mini:} Buat stylesheet yang konsisten menggunakan satuan \code{rem} untuk font-size, \code{em} untuk spacing, dan \code{\%} untuk ukuran layout responsif; gunakan \code{calc()} untuk satu kasus; aplikasikan pada satu halaman produk lengkap.
+  \item \textbf{Studi kasus:} Analisis satu halaman web: identifikasi selector yang digunakan, tingkat specificity-nya, dan satuan yang dipakai; bandingkan dengan rekomendasi praktik terbaik.
 \end{aktivitas}
 
 \begin{latihan}
-  \item Jelaskan perbedaan \code{position: relative}, \code{absolute}, \code{fixed}, dan \code{sticky}. Kapan menggunakan masing-masing?
-  \item Apa perbedaan Flexbox dan CSS Grid? Berikan contoh komponen yang cocok untuk masing-masing.
-  \item Jelaskan cara kerja \code{repeat(auto-fill, minmax(250px, 1fr))} dan mengapa grid ini responsif tanpa media query.
-  \item Apa keunggulan pendekatan mobile-first dibanding desktop-first? Jelaskan dengan contoh media query.
-  \item Jelaskan perbedaan \code{transition} dan \code{animation} dalam CSS. Kapan menggunakan masing-masing?
-  \item Apa itu BEM? Berikan contoh penamaan Block, Element, dan Modifier untuk komponen card.
-  \item Mengapa animasi dengan \code{transform}/\code{opacity} lebih performan dari animasi dengan \code{width}/\code{margin}?
-  \item Jelaskan bagaimana \code{@media (prefers-reduced-motion: reduce)} meningkatkan aksesibilitas.
+  \item Jelaskan perbedaan antara \code{margin} dan \code{padding} serta berikan contoh situasi nyata di mana masing-masing lebih tepat digunakan.
+  \item Apa yang dimaksud dengan margin collapse? Berikan contoh kasus dan cara mengatasinya.
+  \item Buatlah tabel perbandingan \code{content-box} vs \code{border-box}. Mengapa \code{border-box} menjadi standar praktis?
+  \item Jelaskan perbedaan \code{display: block}, \code{inline}, dan \code{inline-block}. Kapan menggunakan masing-masing?
+  \item Mengapa urutan LVHA penting saat menytyling tautan? Apa yang terjadi jika urutan salah?
+  \item Bandingkan satuan \code{px}, \code{em}, dan \code{rem}. Mengapa \code{rem} direkomendasikan untuk \code{font-size}?
+  \item \textbf{Refleksi:} Dari materi bab ini, indikator Sub-CPMK 2.2 mana yang sudah Anda kuasai? Area mana yang masih perlu Anda tingkatkan untuk mencapai kompetensi penuh?
 \end{latihan}
 
 \begin{asesmen}
-Asesmen berupa proyek layout halaman web responsif yang menggabungkan seluruh konsep Bab 7:
+Asesmen Bab 7 merupakan \textbf{Evaluasi Kinerja} yang mengukur Sub-CPMK 2.2. Terkait RPS: Praktikum 3 (Pertemuan 6). Mahasiswa diminta membuat proyek styling halaman web lengkap yang menggabungkan seluruh konsep Bab 7:
 \begin{enumerate}
-  \item Buat halaman portfolio responsif dengan: layout Grid (\code{grid-template-areas}), navbar Flexbox dengan dropdown, sidebar sticky, dan card section responsif.
-  \item Terapkan pendekatan mobile-first: base style mobile, breakpoint 768px (tablet) dan 1024px (desktop).
-  \item Gunakan CSS custom properties untuk design system (warna, spacing, radius) dan implementasi dark mode.
-  \item Tambahkan transition pada hover dan animasi entrance untuk card.
-  \item Pastikan aksesibilitas: indikator fokus jelas, \code{prefers-reduced-motion}, kontras warna memadai.
-  \item Organisasi kode dengan konvensi BEM.
+  \item Buat halaman produk dengan: CSS eksternal, selector elemen/class/id, skema warna konsisten, tipografi menggunakan web font, dan background gradient. Mengukur Sub-CPMK 2.2.
+  \item Halaman harus memiliki: card produk yang menggunakan box model (\code{border-box}), menu navigasi horizontal dari list, tabel harga dengan zebra striping, dan tautan dengan styling state lengkap (LVHA). Mengukur Sub-CPMK 2.2.
+  \item Gunakan satuan \code{rem} untuk font-size dan spacing, \code{\%} untuk layout, dan \code{calc()} minimal satu kasus. Mengukur Sub-CPMK 2.2.
+  \item Fokus indikator (\code{:focus} / \code{:focus-visible}) harus terlihat pada semua elemen interaktif. Mengukur Sub-CPMK 2.2 (aksesibilitas).
 \end{enumerate}
-Penilaian: layout responsif (25\%), Flexbox/Grid (20\%), animasi/transition (15\%), custom properties dan organisasi (15\%), aksesibilitas (15\%), kode bersih (10\%).
+
+Komponen penilaian: ketepatan selector dan specificity (20\%), box model dan layout (25\%), warna dan tipografi (20\%), aksesibilitas dan kode bersih (20\%), konsistensi satuan (15\%).
+
+\textbf{Rubrik Penilaian (berbasis OBE):}
+\begin{itemize}
+  \item \textbf{A (85--100)}: Seluruh komponen lengkap, selector tepat, box model benar, satuan konsisten, indikator fokus jelas. Kompeten untuk Sub-CPMK 2.2.
+  \item \textbf{B (70--84)}: Sebagian besar komponen lengkap, beberapa detail satuan atau aksesibilitas kurang.
+  \item \textbf{C (55--69)}: Komponen dasar ada tetapi kurang mendalam.
+  \item \textbf{D ($<$55)}: Komponen tidak lengkap atau tidak memenuhi standar minimum.
+\end{itemize}
 \end{asesmen}
 
 \begin{checklist}
-  \item Saya memahami normal flow dan lima nilai \code{position} (static, relative, absolute, fixed, sticky).
-  \item Saya dapat membuat layout dengan Flexbox: \code{justify-content}, \code{align-items}, \code{flex-wrap}, \code{gap}.
-  \item Saya dapat membuat layout dengan CSS Grid: \code{grid-template-columns/rows/areas}, \code{fr}, \code{repeat()}, \code{minmax()}.
-  \item Saya memahami perbedaan Flexbox (1D) dan Grid (2D) serta kapan menggunakan masing-masing.
-  \item Saya dapat menulis media queries dengan pendekatan mobile-first (\code{min-width}).
-  \item Saya memahami unit viewport (vw, vh, dvh) dan fluid typography dengan \code{clamp()}.
-  \item Saya dapat menytyling form dan membuat dropdown menu yang aksesibel.
-  \item Saya memahami transition, animation/keyframes, dan transform; serta tahu mana yang performan (GPU-friendly).
-  \item Saya dapat menggunakan CSS custom properties untuk design system dan dark mode.
-  \item Saya memahami specificity, cascade, dan CSS Layers (\code{@layer}).
-  \item Saya dapat menggunakan pseudo-class lanjutan (\code{:nth-child}, \code{:has}, \code{:is}) dan pseudo-element (\code{::before}, \code{::after}).
-  \item Saya menerapkan aksesibilitas CSS: indikator fokus, \code{prefers-reduced-motion}, kontras warna.
-  \item Saya mengorganisasi kode dengan BEM dan menerapkan best practices performa CSS.
+  \item \textbf{Sub-CPMK 2.2:} Saya memahami peran CSS dan konsep cascading serta specificity.
+  \item \textbf{Sub-CPMK 2.2:} Saya dapat menyisipkan CSS dengan inline, internal, dan eksternal; serta tahu kapan menggunakan masing-masing.
+  \item \textbf{Sub-CPMK 2.2:} Saya dapat menulis selector elemen, class, id, descendant, child, dan grouping.
+  \item \textbf{Sub-CPMK 2.2:} Saya memahami format warna (hex, rgb, rgba, hsl) dan dapat membuat gradient.
+  \item \textbf{Sub-CPMK 2.2:} Saya dapat mengatur tipografi: font-family, font-size, line-height, text-align, dan web fonts.
+  \item \textbf{Sub-CPMK 2.2:} Saya memahami box model (content, padding, border, margin) dan dapat menjelaskan setiap lapisan.
+  \item \textbf{Sub-CPMK 2.2:} Saya menggunakan \code{box-sizing: border-box} secara global dan memahami perbedaan dari \code{content-box}.
+  \item \textbf{Sub-CPMK 2.2:} Saya memahami \code{display: block}, \code{inline}, dan \code{inline-block} serta perbedaan \code{display: none} vs \code{visibility: hidden}.
+  \item \textbf{Sub-CPMK 2.2:} Saya dapat menytyling tautan dengan urutan LVHA dan menyediakan indikator fokus yang aksesibel.
+  \item \textbf{Sub-CPMK 2.2:} Saya dapat menytyling daftar dan tabel, termasuk membuat menu navigasi dan zebra striping.
+  \item \textbf{Sub-CPMK 2.2:} Saya memahami satuan px, em, rem, \%, vw/vh, dan fungsi \code{calc()}, serta tahu kapan menggunakan masing-masing.
 \end{checklist}
 
 \begin{rangkuman}
-Bab ini membahas seluruh spektrum CSS layout dan responsif, dimulai dari normal flow dan positioning (static, relative, absolute, fixed, sticky) hingga sistem layout modern: Flexbox untuk komponen satu dimensi dan CSS Grid untuk layout dua dimensi. Float dibahas sebagai metode legacy yang tetap relevan untuk memahami kode lama.
+Bab ini membahas CSS dasar, selector, box model, dan tipografi sebagai \textbf{Unit Materi Inti} berbasis Sub-CPMK 2.2. CSS merupakan bahasa pengatur tampilan halaman web, dimulai dari konsep cascading dan specificity yang menentukan aturan mana yang diterapkan saat terjadi konflik. Tiga metode penyisipan CSS---inline, internal, dan eksternal---dibahas beserta kelebihan dan kekurangan masing-masing, dengan CSS eksternal sebagai praktik terbaik.
 
-Media queries dan pendekatan mobile-first menjadi fondasi desain responsif, dilengkapi unit viewport (vw, vh, dvh) dan teknik fluid typography dengan \code{clamp()}. Styling form dan navigasi (termasuk dropdown) dibahas dengan perhatian pada konsistensi dan aksesibilitas.
+Sintaks CSS dibangun dari selector, properti, dan nilai. Selector dasar (elemen, class, id) serta selector gabungan (descendant, child, grouping) memungkinkan targeting yang presisi. Warna dan background mencakup beragam format (hex, rgb, hsl, gradient), sementara tipografi dikontrol melalui font-family, font-size, line-height, dan web fonts.
 
-Transition dan animation memberikan interaksi yang halus; transform memungkinkan manipulasi visual tanpa mempengaruhi layout; ketiganya dioptimalkan oleh GPU untuk performa terbaik. CSS custom properties menciptakan design system yang konsisten dan mendukung fitur seperti dark mode.
-
-Spesifisitas, cascade, dan CSS Layers mengontrol prioritas aturan. Pseudo-class dan pseudo-element lanjutan memperluas kemampuan selector. Aksesibilitas, organisasi kode (BEM), dan best practices performa melengkapi penguasaan CSS profesional.
+Box model---terdiri dari content, padding, border, dan margin---adalah fondasi layout CSS. Properti \code{box-sizing: border-box} menyederhanakan perhitungan dimensi. Properti \code{display} mengontrol perilaku elemen dalam flow layout, dengan tiga mode utama: block, inline, dan inline-block. Styling tautan (pseudo-class LVHA) dan aksesibilitas fokus keyboard menjadi perhatian penting. Terakhir, pemilihan satuan yang tepat---rem untuk font-size, em/rem untuk spacing, \% untuk layout---memastikan styling yang skalabel dan mudah dirawat.
 
 \textbf{Poin Kunci:}
 \begin{itemize}
-  \item Flexbox (1D) dan Grid (2D) adalah fondasi layout modern; keduanya saling melengkapi.
-  \item Mobile-first (\code{min-width}) menghasilkan CSS lebih ringan dan direkomendasikan.
-  \item Animasikan hanya \code{transform}/\code{opacity} untuk performa optimal.
-  \item Custom properties menciptakan design system yang konsisten dan mendukung dark mode.
-  \item Aksesibilitas bukan opsional: indikator fokus, reduced motion, dan kontras warna wajib diperhatikan.
+  \item Cascading dan specificity menentukan aturan CSS mana yang berlaku; pahami untuk menghindari konflik.
+  \item Box model (content, padding, border, margin) mengontrol spasi dan ukuran; gunakan \code{border-box} secara global.
+  \item Selector class direkomendasikan untuk styling komponen modular; id untuk anchor dan JavaScript.
+  \item Satuan rem direkomendasikan untuk font-size demi aksesibilitas dan skalabilitas.
+  \item Selalu sediakan indikator fokus yang jelas pada elemen interaktif.
 \end{itemize}
 \end{rangkuman}
 

@@ -1,88 +1,61 @@
-\section{Box Model: Margin, Padding, dan Border}
+\section{Gambar Vektor (SVG) dalam HTML}
 
-Box model adalah konsep paling fundamental dalam CSS layout. Setiap elemen HTML divisualisasikan oleh browser sebagai sebuah \textbf{kotak} (box) yang terdiri dari empat lapisan konsentris: \textbf{content} (isi), \textbf{padding} (ruang dalam), \textbf{border} (garis batas), dan \textbf{margin} (ruang luar). Memahami box model adalah kunci untuk mengendalikan ukuran, spasi, dan posisi elemen di halaman web. Tanpa pemahaman ini, layout CSS akan terasa membingungkan dan tidak dapat diprediksi \cite{webdevCss}.
-
-\begin{figure}[htbp]
-\centering
-\resizebox{0.75\textwidth}{!}{%
-\begin{tikzpicture}[every node/.style={font=\footnotesize}]
-  % Margin (outermost)
-  \fill[orange!15] (0,0) rectangle (10,7);
-  \node[anchor=north west] at (0.2,6.8) {\textbf{margin}};
-
-  % Border
-  \fill[yellow!25] (1,1) rectangle (9,6);
-  \node[anchor=north west] at (1.2,5.8) {\textbf{border}};
-
-  % Padding
-  \fill[green!15] (1.5,1.5) rectangle (8.5,5.5);
-  \node[anchor=north west] at (1.7,5.3) {\textbf{padding}};
-
-  % Content
-  \fill[blue!15] (2.5,2.5) rectangle (7.5,4.5);
-  \node at (5,3.5) {\textbf{CONTENT}};
-  \node at (5,3) {\code{width} $\times$ \code{height}};
-
-  % Dimension labels
-  \draw[<->, thick] (2.5,2) -- node[below, font=\scriptsize] {width (content)} (7.5,2);
-  \draw[<->, thick] (1.5,1) -- node[below, font=\scriptsize] {width + padding} (8.5,1);
-  \draw[<->, thick] (1,0.3) -- node[below, font=\scriptsize] {width + padding + border} (9,0.3);
-\end{tikzpicture}%
-}
-\caption{Diagram Box Model CSS: lapisan content, padding, border, dan margin}
-\end{figure}
-
-\textbf{Content} adalah area tempat teks, gambar, atau konten lain ditampilkan. Ukurannya diatur oleh properti \code{width} dan \code{height}. \textbf{Padding} adalah ruang transparan antara content dan border---menambah jarak ``napas'' di dalam kotak. \textbf{Border} adalah garis yang membatasi elemen, diatur dengan properti \code{border-width}, \code{border-style} (solid, dashed, dotted, dll.), dan \code{border-color}. \textbf{Margin} adalah ruang transparan di luar border yang memisahkan elemen dari elemen lain \cite{mdnCss}.
+SVG (Scalable Vector Graphics) adalah format gambar berbasis XML yang mendefinisikan grafik menggunakan rumus matematika---bukan piksel seperti format raster (PNG, JPG, GIF). Keunggulan utama SVG adalah skalabilitas tanpa batas: gambar SVG dapat diperbesar atau diperkecil ke ukuran berapa pun tanpa kehilangan kualitas atau menjadi buram. Ini menjadikan SVG ideal untuk ikon, logo, ilustrasi, grafik data, dan elemen antarmuka yang harus tampil tajam di berbagai resolusi layar, termasuk layar Retina/HiDPI \cite{mdnHtmlIntro}.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{2cm}|P{5cm}|P{5cm}|}
+\begin{tabular}{|P{3cm}|P{4.5cm}|P{4.5cm}|}
 \hline
-\textbf{Lapisan} & \textbf{Properti} & \textbf{Fungsi} \\
+\textbf{Aspek} & \textbf{SVG (Vektor)} & \textbf{PNG/JPG (Raster)} \\
 \hline
-Content & \code{width}, \code{height} & Ukuran area isi \\
+Skalabilitas & Tanpa batas, selalu tajam & Pecah/blur jika diperbesar \\
 \hline
-Padding & \code{padding} (shorthand atau per sisi) & Ruang dalam antara content dan border \\
+Ukuran file & Kecil untuk grafik sederhana & Bisa besar untuk resolusi tinggi \\
 \hline
-Border & \code{border} (shorthand), \code{border-radius} & Garis batas elemen dan sudut membulat \\
+Animasi & Didukung (CSS \& SMIL) & Hanya GIF (terbatas) \\
 \hline
-Margin & \code{margin} (shorthand atau per sisi), \code{auto} & Ruang luar; \code{auto} untuk centering \\
+Styling CSS & Penuh (fill, stroke, dll.) & Tidak bisa \\
+\hline
+Interaksi JS & Penuh (klik, hover, dll.) & Terbatas \\
+\hline
+Cocok untuk & Ikon, logo, diagram, grafik & Foto, gambar kompleks \\
 \hline
 \end{tabular}
-\caption{Empat lapisan box model dan properti CSS terkait}
+\caption{Perbandingan SVG (vektor) vs PNG/JPG (raster)}
 \end{table}
 
-Nilai margin dan padding dapat diberikan per sisi secara individual atau menggunakan shorthand. Shorthand mengikuti urutan \textbf{searah jarum jam}: top, right, bottom, left. Jika dua nilai: vertikal dan horizontal. Jika tiga nilai: top, horizontal, bottom. Satu nilai berlaku untuk semua sisi. Margin juga mendukung nilai \code{auto} yang berguna untuk centering horizontal: \code{margin: 0 auto;} akan menempatkan elemen block di tengah kontainernya (asalkan elemen memiliki \code{width} yang ditentukan) \cite{webdevCss}.
+SVG dapat disisipkan di HTML dengan beberapa cara. Cara pertama: sebagai file eksternal melalui \code{<img src="file.svg" alt="...">}---cara paling sederhana namun SVG tidak dapat dimanipulasi dengan CSS/JS. Cara kedua: inline SVG, yaitu menuliskan kode SVG langsung di dalam dokumen HTML---cara ini memberikan kontrol penuh melalui CSS dan JavaScript. Cara ketiga: melalui CSS \code{background-image}. Cara keempat: menggunakan \code{<object>} yang memungkinkan fallback. Untuk ikon dan ilustrasi yang perlu distylish atau diinteraksi, inline SVG adalah pilihan terbaik \cite{webdevHtml}.
 
-\subsection{Margin Collapse}
+Elemen dasar SVG meliputi bentuk-bentuk primitif: \code{<rect>} untuk persegi panjang, \code{<circle>} untuk lingkaran, \code{<ellipse>} untuk elips, \code{<line>} untuk garis, \code{<polyline>} untuk garis bersambung, \code{<polygon>} untuk poligon tertutup, dan \code{<path>} untuk bentuk bebas yang didefinisikan dengan perintah jalur (path commands). Atribut visual utama adalah \code{fill} (warna isi), \code{stroke} (warna garis), \code{stroke-width} (ketebalan garis), dan \code{opacity} (transparansi) \cite{mdnHtmlIntro}.
 
-Fenomena \textbf{margin collapse} terjadi ketika margin vertikal (atas dan bawah) dari dua elemen yang bersebelahan ``bergabung'' menjadi satu margin yang lebih besar. Misalnya, jika paragraf pertama memiliki \code{margin-bottom: 20px} dan paragraf kedua memiliki \code{margin-top: 30px}, jarak antar keduanya bukan 50px melainkan 30px (nilai terbesar yang menang). Margin collapse hanya terjadi pada margin vertikal elemen block; margin horizontal, padding, dan border tidak pernah collapse \cite{cssTricks}.
-
-\begin{webcode}[language=CSS, caption={Box model: padding, border, margin, dan centering}]
-/* Card dengan box model lengkap */
-.card {
-  width: 300px;
-  padding: 20px;            /* semua sisi */
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  margin: 16px auto;        /* vertikal 16px, horizontal auto (center) */
-  background-color: #fff;
-}
-
-/* Border hanya bawah */
-.section-title {
-  padding-bottom: 8px;
-  border-bottom: 2px solid #2a6fb0;
-  margin-bottom: 16px;
-}
-
-/* Margin per sisi (shorthand 4 nilai) */
-.spaced {
-  margin: 10px 20px 30px 20px; /* top right bottom left */
-}
+\begin{webcode}[language=HTML, caption={SVG inline dengan berbagai bentuk dasar}]
+<svg width="300" height="200" viewBox="0 0 300 200"
+     role="img" aria-label="Contoh bentuk SVG">
+  <!-- Persegi panjang dengan sudut membulat -->
+  <rect x="10" y="10" width="80" height="60"
+        rx="10" fill="#3498db" />
+  <!-- Lingkaran -->
+  <circle cx="160" cy="40" r="30"
+          fill="#e74c3c" opacity="0.8" />
+  <!-- Garis -->
+  <line x1="220" y1="10" x2="290" y2="70"
+        stroke="#2ecc71" stroke-width="3" />
+  <!-- Poligon (segitiga) -->
+  <polygon points="50,120 10,190 90,190"
+           fill="#f39c12" />
+  <!-- Teks SVG -->
+  <text x="130" y="160" font-size="16"
+        fill="#333">Hello SVG!</text>
+</svg>
 \end{webcode}
 
 \begin{konsep}
-\textbf{Menggunakan DevTools untuk Inspeksi Box Model.} Setiap browser modern menyediakan visualisasi box model di DevTools. Buka DevTools (F12), pilih elemen dengan Inspect, dan lihat panel \textbf{Computed}---di sana terdapat diagram interaktif yang menunjukkan ukuran content, padding, border, dan margin secara visual dengan angka yang tepat. Ini adalah alat debugging layout yang paling efektif dan harus menjadi kebiasaan saat mengembangkan CSS \cite{mdnCss}.
+\textbf{Aksesibilitas SVG.} Untuk memastikan SVG dapat diakses oleh semua pengguna:
+\begin{itemize}
+  \item Pada \code{<img src="file.svg">}: gunakan atribut \code{alt} yang deskriptif.
+  \item Pada inline \code{<svg>}: tambahkan \code{role="img"} dan \code{aria-label} atau gunakan elemen \code{<title>} dan \code{<desc>} di dalam SVG.
+  \item Untuk SVG dekoratif (tidak mengandung informasi penting): gunakan \code{aria-hidden="true"} agar diabaikan oleh pembaca layar.
+  \item Pastikan warna dan kontras cukup untuk pengguna dengan gangguan penglihatan warna \cite{mdnAccessibility}.
+\end{itemize}
 \end{konsep}
 

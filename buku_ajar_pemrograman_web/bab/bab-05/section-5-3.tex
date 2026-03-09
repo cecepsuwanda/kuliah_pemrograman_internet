@@ -1,81 +1,63 @@
-\section{Form HTML: Elemen form, input, label, dan button}
+\section{Sintaks Dasar HTML: Tag, Elemen, dan Atribut}
 
-Formulir (form) HTML merupakan mekanisme utama untuk mengumpulkan masukan pengguna di web. Setiap kali pengguna mendaftar akun, mengirim pesan kontak, melakukan pencarian, atau mengisi survei, di balik antarmuka tersebut terdapat elemen \code{<form>}. Form memungkinkan data dari browser dikirim ke server untuk diproses, disimpan, atau ditanggapi. Pemahaman menyeluruh tentang elemen-elemen form adalah keterampilan fundamental yang dibutuhkan setiap pengembang web \cite{mdnHtmlIntro}.
+HTML dibangun dari tiga komponen fundamental: tag, elemen, dan atribut. Pemahaman mendalam tentang ketiga komponen ini menjadi dasar bagi setiap pengembang web untuk menulis markup yang valid, terstruktur, dan mudah dipelihara. \textbf{Tag} adalah penanda yang ditulis dalam tanda kurung sudut (angle brackets) seperti \code{<p>}, \code{<h1>}, atau \code{<div>}. Sebagian besar elemen HTML terdiri dari tag pembuka dan tag penutup yang membungkus konten; tag pembuka menandakan awal elemen, sementara tag penutup yang ditandai dengan garis miring (misalnya \code{</p>}) menandakan akhir elemen \cite{mdnHtmlIntro}.
 
-Elemen \code{<form>} berfungsi sebagai wadah yang membungkus semua kontrol input. Dua atribut penting pada \code{<form>} adalah \code{action} yang menentukan URL tujuan pengiriman data, dan \code{method} yang menentukan metode HTTP yang digunakan. Metode \code{GET} mengirim data melalui URL query string (cocok untuk pencarian), sedangkan \code{POST} mengirim data di body request (lebih aman untuk data sensitif). Atribut tambahan seperti \code{enctype} diperlukan saat form mengirim file \cite{webdevHtml}.
+\textbf{Elemen} adalah keseluruhan unit yang terdiri dari tag pembuka, konten di dalamnya, dan tag penutup. Sebagai contoh, dalam \code{<p>Ini paragraf.</p>}, keseluruhan unit dari awal \code{<p>} hingga akhir \code{</p>} disebut sebagai elemen paragraf. Terdapat juga kategori khusus yang disebut \textit{void elements} atau elemen kosong yang tidak memiliki konten dan oleh karena itu tidak memerlukan tag penutup. Contoh void elements meliputi \code{<img>}, \code{<br>}, \code{<hr>}, \code{<input>}, dan \code{<meta>}. Pada HTML5, void elements dapat ditulis dengan atau tanpa garis miring di akhir (misalnya \code{<img />} atau \code{<img>}), namun XHTML memerlukan garis miring untuk validitas \cite{whatwgHtml}.
+
+\textbf{Atribut} menyediakan informasi tambahan tentang elemen dan ditulis di dalam tag pembuka dengan format \code{nama="nilai"}. Atribut memungkinkan kita mengkustomisasi perilaku atau memberikan metadata pada elemen. Beberapa atribut bersifat global dan dapat digunakan pada semua elemen HTML, seperti \code{id} (identifier unik), \code{class} (untuk klasifikasi styling), \code{style} (CSS inline), \code{title} (tooltip), \code{lang} (bahasa konten), dan \code{data-*} (atribut data kustom). Atribut lain bersifat spesifik untuk elemen tertentu, seperti \code{href} untuk link, \code{src} untuk gambar, dan \code{type} untuk input.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{2.5cm}|P{4cm}|P{5.5cm}|}
+\begin{tabular}{|P{3cm}|P{3cm}|P{6cm}|}
 \hline
-\textbf{Atribut} & \textbf{Nilai} & \textbf{Fungsi} \\
+\textbf{Konsep} & \textbf{Contoh} & \textbf{Penjelasan} \\
 \hline
-\code{action} & URL tujuan & Menentukan ke mana data dikirim \\
+Tag & \code{<p>}, \code{</p>} & Penanda markup dalam tanda kurung sudut \\
 \hline
-\code{method} & \code{get} / \code{post} & Metode HTTP untuk pengiriman \\
+Elemen & \code{<p>Teks</p>} & Tag pembuka + konten + tag penutup \\
 \hline
-\code{enctype} & \code{multipart/form-data} & Diperlukan saat mengirim file \\
+Atribut & \code{<p class="intro">} & Informasi tambahan di tag pembuka \\
 \hline
-\code{novalidate} & (boolean) & Menonaktifkan validasi bawaan browser \\
-\hline
-\code{target} & \code{\_self}, \code{\_blank}, dll. & Di mana respons ditampilkan \\
-\hline
-\code{autocomplete} & \code{on} / \code{off} & Mengatur auto-fill browser \\
+Void Element & \code{<img />}, \code{<br />} & Elemen tanpa konten dan tag penutup \\
 \hline
 \end{tabular}
-\caption{Atribut penting elemen \code{<form>}}
+\caption{Perbandingan Tag, Elemen, dan Atribut dalam HTML}
+\label{tab:tag-element-attr}
 \end{table}
 
-Elemen \code{<label>} adalah pasangan wajib untuk setiap kontrol input. Label memberikan teks deskriptif yang menjelaskan apa yang harus diisi pengguna. Pengaitan label dengan input dilakukan melalui atribut \code{for} pada label yang nilainya sama dengan \code{id} pada input. Pengaitan ini penting bukan hanya untuk aksesibilitas (pembaca layar membacakan label saat input difokuskan), tetapi juga untuk kemudahan penggunaan---klik pada label akan memfokuskan atau mengaktifkan input terkait, memperbesar area klik terutama untuk checkbox dan radio button \cite{mdnAccessibility}.
+Aturan \textit{nesting} (penyusunan bersarang) adalah aspek penting dalam struktur HTML yang menentukan bagaimana elemen dapat berada di dalam elemen lain. HTML mengikuti model hierarki pohon (tree) di mana elemen dapat memiliki elemen anak (child elements). 
+\begin{sloppypar}
+Aturan nesting mengharuskan tag penutup ditulis dalam urutan terbalik dari tag pembuka - prinsip yang dikenal sebagai \textit{LIFO} (Last In, First Out). Misalnya, \code{<p><strong>Teks</strong></p>} adalah valid, sementara \code{<p><strong>Teks</p></strong>} adalah invalid karena tag ditutup dalam urutan yang salah. Nesting yang benar memastikan struktur DOM (Document Object Model) terbentuk dengan baik, yang sangat penting untuk CSS styling dan JavaScript manipulation \cite{mdnHtmlIntro}.
+\end{sloppypar}
 
-\begin{figure}[htbp]
-\centering
-\resizebox{\textwidth}{!}{%
-\begin{tikzpicture}[node distance=2cm, transform shape, every node/.style={font=\footnotesize}]
-  \node (user) [class, fill=orange!20] {Pengguna\\mengisi form};
-  \node (browser) [class, right=of user] {Browser\\validasi client};
-  \node (send) [class, right=of browser] {HTTP Request\\(GET/POST)};
-  \node (server) [class, right=of send] {Server\\memproses data};
-  \node (response) [class, right=of server] {Response\\(HTML/redirect)};
+\begin{webcode}[language=HTML, caption={Contoh Tag, Elemen, dan Atribut}]
+<!-- Elemen paragraf dengan atribut class -->
+<p class="intro" id="paragraf-utama">
+  Ini adalah paragraf dengan <strong>teks tebal</strong>.
+</p>
 
-  \draw [arrow] (user) -- (browser);
-  \draw [arrow] (browser) -- node[above, font=\scriptsize] {valid} (send);
-  \draw [arrow, dashed] (browser) to[bend right=30] node[below, font=\scriptsize] {invalid: tampil error} (user);
-  \draw [arrow] (send) -- (server);
-  \draw [arrow] (server) -- (response);
-  \draw [arrow, dashed] (response) to[bend right=25] node[below, font=\scriptsize] {halaman baru} (user);
-\end{tikzpicture}%
-}
-\caption{Alur pengiriman data form: dari pengguna ke server dan kembali}
-\end{figure}
+<!-- Link dengan multiple atribut -->
+<a href="https://example.com" 
+   target="_blank" 
+   rel="noopener noreferrer"
+   title="Kunjungi situs contoh">
+  Link ke Example.com
+</a>
 
-Elemen \code{<button>} digunakan untuk membuat tombol interaktif di dalam form. Terdapat tiga tipe button: \code{type="submit"} yang mengirim data form ke server (perilaku default jika \code{type} tidak ditentukan), \code{type="reset"} yang mengosongkan semua isian form ke nilai awal, dan \code{type="button"} yang tidak melakukan aksi form tetapi dapat diprogram dengan JavaScript. Sebaiknya selalu tentukan atribut \code{type} secara eksplisit untuk menghindari perilaku yang tidak diinginkan \cite{whatwgHtml}.
-
-\begin{webcode}[language=HTML, caption={Form kontak lengkap dengan label dan button}]
-<form action="/kirim-pesan" method="post">
-  <p>
-    <label for="nama">Nama Lengkap:</label>
-    <input type="text" id="nama" name="nama"
-           placeholder="Masukkan nama" required />
-  </p>
-  <p>
-    <label for="email">Alamat Email:</label>
-    <input type="email" id="email" name="email"
-           placeholder="nama@domain.com" required />
-  </p>
-  <p>
-    <label for="pesan">Pesan:</label>
-    <textarea id="pesan" name="pesan" rows="5"
-              placeholder="Tulis pesan Anda..."></textarea>
-  </p>
-  <p>
-    <button type="submit">Kirim Pesan</button>
-    <button type="reset">Batal</button>
-  </p>
-</form>
+<!-- Gambar (void element) dengan atribut lengkap -->
+<img src="foto.jpg" 
+     alt="Deskripsi foto" 
+     width="400" 
+     height="300" />
 \end{webcode}
 
-\begin{konsep}
-\textbf{Selalu Gunakan Label untuk Setiap Input.} Form tanpa label yang tepat menyulitkan pengguna pembaca layar dan mengurangi kemudahan penggunaan. Dua cara mengaitkan label: (1) \textbf{Eksplisit}: \code{<label for="email">} dengan \code{<input id="email">}; (2) \textbf{Implisit}: membungkus input di dalam label, misalnya \code{<label>Email: <input type="email"></label>}. Cara eksplisit lebih direkomendasikan karena lebih fleksibel dalam penataan layout \cite{webdevAccessibility}.
-\end{konsep}
+\begin{catatan}
+\textbf{Aturan Nesting yang Benar:}
+\begin{itemize}[leftmargin=*]
+  \item Selalu tutup tag dalam urutan terbalik dari pembukaan (LIFO - Last In, First Out).
+  \item Elemen blok (block-level) seperti \code{<div>} dapat berisi elemen inline dan blok lainnya.
+  \item Elemen inline seperti \code{<span>} atau \code{<a>} tidak boleh berisi elemen blok.
+  \item Gunakan indentasi konsisten (2 atau 4 spasi) untuk memudahkan pembacaan struktur bersarang.
+\end{itemize}
+\end{catatan}
 

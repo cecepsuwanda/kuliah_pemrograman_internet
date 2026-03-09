@@ -1,35 +1,28 @@
-\section{Pengenalan DOM (Document Object Model)}
+\section{Transform: translate, scale, rotate, skew}
 
-\textbf{DOM} (Document Object Model) adalah representasi terstruktur dari dokumen HTML sebagai pohon objek yang dapat dimanipulasi oleh JavaScript. Setiap elemen HTML menjadi \textbf{node} di pohon DOM: elemen (\code{<p>}, \code{<div>}), teks, atribut, dan komentar. Browser membangun DOM saat memproses HTML, dan JavaScript dapat membaca serta mengubah DOM secara dinamis---inilah yang membuat halaman web interaktif \cite{mdnJsGuide}.
+Properti \code{transform} mengubah tampilan visual elemen tanpa mempengaruhi layout---elemen yang di-transform tetap menempati ruang aslinya di normal flow. Ini menjadikan transform ideal untuk animasi dan efek hover karena tidak menyebabkan reflow pada elemen lain. CSS menyediakan empat fungsi transform utama yang dapat digabungkan dalam satu deklarasi \cite{mdnCss}.
 
-\begin{figure}[htbp]
+\begin{table}[htbp]
 \centering
-\resizebox{0.8\textwidth}{!}{%
-\begin{tikzpicture}[
-  every node/.style={font=\footnotesize, draw, rounded corners, minimum width=2cm, minimum height=0.7cm},
-  level 1/.style={sibling distance=5cm, level distance=1.5cm},
-  level 2/.style={sibling distance=2.5cm, level distance=1.5cm},
-  level 3/.style={sibling distance=2cm, level distance=1.5cm}
-]
-\node[fill=blue!15] {document}
-  child { node[fill=green!15] {html}
-    child { node[fill=orange!15] {head}
-      child { node[fill=yellow!10] {title} }
-    }
-    child { node[fill=orange!15] {body}
-      child { node[fill=yellow!10] {h1} }
-      child { node[fill=yellow!10] {p} }
-      child { node[fill=yellow!10] {div} }
-    }
-  };
-\end{tikzpicture}%
-}
-\caption{Pohon DOM: setiap elemen HTML menjadi node}
-\end{figure}
+\begin{tabular}{|P{3cm}|P{4cm}|P{5cm}|}
+\hline
+\textbf{Fungsi} & \textbf{Efek} & \textbf{Contoh} \\
+\hline
+\code{translate(x, y)} & Geser horizontal/vertikal & \code{translate(-50\%, -50\%)} \\
+\hline
+\code{scale(x, y)} & Perbesar/perkecil & \code{scale(1.1)} \\
+\hline
+\code{rotate(angle)} & Putar & \code{rotate(45deg)} \\
+\hline
+\code{skew(x, y)} & Miringkan & \code{skewX(5deg)} \\
+\hline
+\end{tabular}
+\caption{Empat fungsi transform CSS dan contoh penggunaannya}
+\end{table}
 
-Objek global \code{document} adalah titik masuk ke DOM. Dari \code{document}, JavaScript dapat mengakses elemen mana saja menggunakan metode seperti \code{getElementById()}, \code{querySelector()}, dan \code{querySelectorAll()}. Setelah mendapatkan referensi ke elemen, JavaScript dapat mengubah konten, atribut, style, dan bahkan menambah atau menghapus elemen dari halaman \cite{jsInfo}.
+Beberapa fungsi transform dapat digabung: \code{transform: translateY(-4px) scale(1.02);} menggeser ke atas sekaligus memperbesar. Urutan penulisan penting karena transform diaplikasikan dari kanan ke kiri. Properti \code{transform-origin} mengatur titik acuan transformasi (default: \code{center}); mengubahnya ke \code{top left} mengubah perilaku rotasi dan skala \cite{webdevCss}.
 
 \begin{konsep}
-\textbf{DOM Bukan HTML.} DOM adalah representasi \textit{live} dari halaman---ia mencerminkan keadaan saat ini, bukan isi file HTML asli. JavaScript yang mengubah DOM tidak mengubah file HTML di server. Browser DevTools (tab Elements) menampilkan DOM saat ini, yang mungkin berbeda dari source HTML jika JavaScript telah memodifikasinya. Memahami perbedaan ini kunci untuk debugging \cite{mdnJsGuide}.
+\textbf{Centering dengan Transform.} Teknik centering absolut paling andal menggunakan transform: \code{position: absolute; top: 50\%; left: 50\%; transform: translate(-50\%, -50\%);} --- ini menempatkan elemen tepat di tengah kontainernya tanpa mengetahui ukuran elemen. Meskipun Flexbox centering lebih modern, teknik ini tetap berguna untuk kasus positioning tertentu \cite{cssTricks}.
 \end{konsep}
 

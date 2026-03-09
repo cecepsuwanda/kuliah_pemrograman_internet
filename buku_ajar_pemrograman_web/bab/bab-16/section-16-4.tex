@@ -1,0 +1,8 @@
+\section{Pengenalan Basis Data dalam Konteks Produksi}
+
+Database di produksi memerlukan perhatian khusus dibandingkan di development. User database harus memiliki hak akses terbatas (prinsip \textit{least privilege}) --- buat user khusus untuk aplikasi yang hanya memiliki SELECT, INSERT, UPDATE, DELETE pada database tertentu; jangan gunakan root. Aktifkan koneksi SSL antara PHP dan MySQL jika server terpisah. Konfigurasi MySQL untuk produksi: atur \code{max\_connections} sesuai kapasitas, aktifkan \code{slow\_query\_log} untuk mendeteksi query lambat, dan pastikan charset \code{utf8mb4} \cite{mysqlDocs}.
+
+\begin{catatan}
+Checklist database produksi: (1) user non-root dengan hak terbatas; (2) password kuat di environment variable; (3) backup otomatis harian; (4) \code{slow\_query\_log} aktif; (5) koneksi dari PHP menggunakan \code{utf8mb4}; (6) akses hanya dari localhost atau IP tertentu; (7) firewall memblokir port 3306 dari publik.
+\end{catatan}
+

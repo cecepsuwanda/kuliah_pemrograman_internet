@@ -1,55 +1,28 @@
-\section{Echo dan Print: Menampilkan Output}
+\section{JSON: parse dan stringify}
 
-\textbf{Echo} dan \textbf{print} adalah dua cara utama untuk menampilkan output dari PHP ke browser. Meskipun fungsinya serupa, terdapat perbedaan teknis di antara keduanya. \code{echo} dapat menerima beberapa argumen yang dipisah koma dan tidak mengembalikan nilai (void), sedangkan \code{print} hanya menerima satu argumen dan selalu mengembalikan nilai \code{1}. Dalam praktik sehari-hari, \code{echo} lebih sering digunakan karena sedikit lebih cepat dan lebih fleksibel \cite{phpManual}.
+JSON (JavaScript Object Notation) adalah format pertukaran data berbasis teks yang ringan dan mudah dibaca. JSON digunakan secara luas untuk komunikasi antara client dan server (REST API). Sintaks JSON mirip objek literal JavaScript, tetapi key \textbf{harus} dalam kutip ganda dan tidak mendukung fungsi, \code{undefined}, atau komentar \cite{jsInfo}.
 
-Kedua perintah dapat dipakai dengan atau tanpa tanda kurung: \code{echo "Halo";} sama dengan \code{echo("Halo");}. Untuk menampilkan string yang mengandung variabel, cara paling mudah adalah menggunakan kutip ganda (\textit{double quotes}) yang menginterpretasikan variabel secara langsung, atau menggunakan operator konkatenasi (titik). String dengan kutip tunggal (\textit{single quotes}) tidak menginterpretasikan variabel dan hanya mengenali escape \code{\textbackslash\textbackslash} dan \code{\textbackslash'} \cite{w3schoolsPhp}.
+\begin{webcode}[language=JavaScript, caption={JSON parse dan stringify}]
+// Objek JS ke JSON string
+const user = { name: "Budi", age: 21, hobbies: ["coding", "gaming"] };
+const jsonStr = JSON.stringify(user);
+// '{"name":"Budi","age":21,"hobbies":["coding","gaming"]}'
 
-\begin{table}[ht]
-\centering
-\begin{tabular}{|P{3cm}|P{4.5cm}|P{4.5cm}|}
-\hline
-\textbf{Aspek} & \textbf{echo} & \textbf{print} \\
-\hline
-Jumlah argumen & Banyak (dipisah koma) & Satu saja \\
-\hline
-Nilai kembalian & Tidak ada (void) & Selalu \code{1} \\
-\hline
-Kecepatan & Sedikit lebih cepat & Sedikit lebih lambat \\
-\hline
-Penggunaan di ekspresi & Tidak bisa & Bisa (karena mengembalikan nilai) \\
-\hline
-Tanda kurung & Opsional & Opsional \\
-\hline
-\end{tabular}
-\caption{Perbandingan echo dan print di PHP}
-\end{table}
+// JSON string ke objek JS
+const parsed = JSON.parse(jsonStr);
+console.log(parsed.name); // "Budi"
 
-\begin{webcode}[language=PHP, caption={Berbagai cara menggunakan echo dan print}]
-<?php
-$nama = "Dewi";
-$umur = 22;
+// Pretty print
+console.log(JSON.stringify(user, null, 2));
 
-// echo: beberapa argumen
-echo "Nama: ", $nama, ", Umur: ", $umur, "\n";
-
-// echo: konkatenasi
-echo "Halo, " . $nama . "!\n";
-
-// echo: interpolasi variabel (kutip ganda)
-echo "Hai $nama, umur Anda $umur tahun.\n";
-
-// print: satu argumen, return 1
-$hasil = print "Ini print.\n";
-echo "Return print: $hasil\n";  // 1
-
-// echo shortcut di dalam HTML
-?>
-<p>Nama: <?= $nama ?></p>  <!-- sama dengan <?php echo $nama; ?> -->
+// Reviver function (transformasi saat parse)
+const data = JSON.parse('{"date":"2024-01-15"}', (key, val) => {
+  if (key === "date") return new Date(val);
+  return val;
+});
 \end{webcode}
 
-Untuk keperluan debugging, PHP menyediakan fungsi \code{var\_dump()} dan \code{print\_r()} yang menampilkan informasi lebih detail tentang variabel. Fungsi \code{var\_dump()} menampilkan tipe dan nilai variabel, sehingga sangat berguna saat mencari bug terkait tipe data. Fungsi \code{print\_r()} menampilkan nilai variabel dalam format yang lebih mudah dibaca, terutama untuk array dan objek. Kedua fungsi ini sebaiknya hanya digunakan saat pengembangan, bukan di lingkungan produksi \cite{phpRightWay}.
-
-\begin{catatan}
-\textbf{Keamanan Output:} Saat menampilkan data yang berasal dari input pengguna (misalnya dari form atau URL), \textbf{selalu} gunakan \code{htmlspecialchars(\$data, ENT\_QUOTES, 'UTF-8')} untuk mencegah serangan \textit{Cross-Site Scripting} (XSS). Tanpa sanitasi, penyerang dapat menyuntikkan kode JavaScript berbahaya melalui input form \cite{owaspXss}.
-\end{catatan}
+\begin{konsep}
+\textbf{JSON dan Deep Clone.} \code{JSON.parse(JSON.stringify(obj))} adalah cara cepat untuk deep-clone objek sederhana. Namun, ini gagal untuk \code{Date} (menjadi string), \code{undefined}, fungsi, dan referensi siklikal. Untuk deep clone yang handal, gunakan \code{structuredClone(obj)} (API modern) atau library seperti Lodash \code{\_.cloneDeep()} \cite{mdnJsGuide}.
+\end{konsep}
 

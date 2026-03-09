@@ -1,0 +1,52 @@
+\section{Integrasi API dan Pertukaran Data}
+
+\textbf{API} (\textit{Application Programming Interface}) adalah antarmuka yang memungkinkan dua sistem berkomunikasi dan bertukar data. Dalam konteks web, API umumnya menggunakan arsitektur \textbf{REST} dengan protokol HTTP: client mengirim \textit{request} (GET, POST, PUT, DELETE), server memproses dan mengembalikan \textit{response} --- biasanya dalam format \textbf{JSON}. Pendekatan ini memisahkan front-end (tampilan) dari back-end (logika dan data), memungkinkan keduanya dikembangkan secara independen dan mendukung multi-platform (web, mobile, desktop) dengan satu API \cite{mdnJsGuide}.
+
+JavaScript menyediakan \textbf{Fetch API} sebagai cara modern untuk melakukan HTTP request dari browser. Fetch menggantikan \code{XMLHttpRequest} yang lebih verbose. Fetch berbasis Promise, sehingga dapat menggunakan \code{.then()/.catch()} atau \code{async/await} untuk menangani respons secara asinkron. Request Fetch tidak me-reload halaman (\textit{AJAX}), memberikan pengalaman pengguna yang responsif \cite{mdnJsGuide}.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners, minimum width=2.2cm, minimum height=1cm, align=center, font=\small, fill=#1},
+  arrow/.style={-Stealth, thick},
+  node distance=1.5cm
+]
+  \node[box=blue!15] (fe) {Front-End\\(JavaScript)};
+  \node[box=orange!20, right=2.5cm of fe] (api) {API Endpoint\\(PHP/Node)};
+  \node[box=green!15, right=2.5cm of api] (db) {Database\\(MySQL)};
+
+  \draw[arrow] (fe) -- node[above, font=\footnotesize]{HTTP Request} (api);
+  \draw[arrow] (api) -- node[above, font=\footnotesize]{SQL Query} (db);
+  \draw[arrow] (db) -- node[below, font=\footnotesize]{Data} (api);
+  \draw[arrow] (api) -- node[below, font=\footnotesize]{JSON Response} (fe);
+\end{tikzpicture}
+\caption{Alur request-response pada integrasi API}
+\end{figure}
+
+\begin{webcode}[language=JavaScript, caption={Fetch API: GET dan POST dengan async/await}]
+// GET - Ambil data dari API
+async function ambilProduk() {
+  try {
+    const response = await fetch('/api/produk');
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    data.forEach(p => {
+      console.log(`${p.nama}: Rp ${p.harga}`);
+    });
+  } catch (error) {
+    console.error('Gagal mengambil data:', error);
+  }
+}
+
+// POST - Kirim data baru
+async function tambahProduk(nama, harga) {
+  const response = await fetch('/api/produk', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ nama, harga })
+  });
+  const result = await response.json();
+  console.log('Created:', result);
+}
+\end{webcode}
+

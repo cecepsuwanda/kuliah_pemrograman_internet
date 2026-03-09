@@ -2,11 +2,12 @@
 \ifSubfilesClassLoaded{\setcounter{chapter}{4}}{}
 \begin{document}
 
-\chapter{HTML Form, Media, dan Aksesibilitas}
+\chapter{HTML Dasar, Struktur Dokumen, dan Elemen Semantik}
+
+Bab ini membahas materi Pertemuan 4 sesuai RPS: HTML dasar, struktur dokumen, dan elemen semantik. Urutan materi mengikuti alur belajar HTML dari dasar: pengenalan, sintaks dan struktur, konten teks dan link, gambar, serta elemen semantik. Materi HTML form, media, dan aksesibilitas dilanjutkan di bab berikutnya.
 
 \begin{subcpmk}
   \item Sub-CPMK 2.1: Membuat halaman web dengan HTML5 (struktur, elemen semantik, form, media).
-  \item Sub-CPMK 1.3: Menerapkan prinsip aksesibilitas (a11y) dan pengalaman pengguna (UX) dalam desain antarmuka.
 \end{subcpmk}
 
 \input{bab/bab-05/section-5-1}
@@ -24,62 +25,73 @@
 \input{bab/bab-05/section-5-13}
 
 \begin{aktivitas}
-  \item Buat tabel data lengkap dengan \code{<thead>}, \code{<tbody>}, \code{<tfoot>}, \code{scope}, dan \code{<caption>}; pastikan aksesibel menggunakan pembaca layar atau navigasi keyboard.
-  \item Buat form pendaftaran dengan berbagai tipe input (text, email, date, radio, checkbox, select, textarea), validasi dasar (\code{required}, \code{pattern}, \code{minlength}), serta \code{<fieldset>} dan \code{<legend>} untuk pengelompokan.
-  \item Rancang satu halaman lengkap dengan elemen semantik (\code{header}, \code{nav}, \code{main}, \code{article}, \code{aside}, \code{footer}); sisipkan media audio/video dengan subtitle track, SVG inline, dan iframe yang aman (sandbox).
-  \item Jalankan W3C Markup Validation Service pada halaman Anda, perbaiki semua error, dan dokumentasikan peringatan yang tersisa beserta alasannya.
-  \item Lakukan audit aksesibilitas menggunakan Lighthouse atau aXe DevTools; identifikasi dan perbaiki masalah yang ditemukan.
+  \item \textbf{Praktik:} Buat folder proyek dan file \code{index.html} dengan struktur HTML5 lengkap (doctype, head dengan meta charset dan viewport, body).
+  \item \textbf{Praktik:} Tambahkan header dengan judul h1, navigasi dengan unordered list, dan main content dengan minimal 3 section.
+  \item \textbf{Praktik:} Buat halaman \code{tentang.html} yang menggunakan elemen semantik (article, aside, footer) dan link internal dari index.html.
+  \item \textbf{Praktik:} Sisipkan gambar dengan figure dan figcaption, pastikan atribut alt deskriptif dan dimensi width/height tersedia.
+  \item \textbf{Praktik:} Buat link eksternal ke 3 website berbeda dengan atribut \code{rel="noopener noreferrer"} dan \code{target="\_blank"}.
+  \item \textbf{Latihan:} Gunakan DevTools browser untuk inspeksi struktur DOM dan verifikasi hierarki heading.
 \end{aktivitas}
 
 \begin{latihan}
-  \item Jelaskan perbedaan antara \code{scope="col"} dan mekanisme \code{id}+\code{headers} pada tabel. Kapan sebaiknya menggunakan masing-masing pendekatan?
-  \item Buat tabel perbandingan antara validasi client-side (HTML5) dan server-side. Mengapa keduanya diperlukan?
-  \item Tambahkan \code{<fieldset>}/\code{<legend>} pada sebuah form dan uji hasilnya dengan navigasi keyboard saja. Catat perbedaan pengalaman sebelum dan sesudah penambahan.
-  \item Jelaskan mengapa atribut \code{alt} pada gambar, \code{<label>} pada form, dan \code{<caption>} pada tabel penting untuk aksesibilitas. Berikan contoh kasus di mana ketidakhadiran masing-masing elemen ini menyulitkan pengguna.
-  \item Apa yang dimaksud dengan prinsip POUR dalam WCAG? Berikan satu contoh penerapan untuk setiap prinsip.
+  \item Jelaskan perbedaan tag, elemen, dan atribut dalam HTML. Berikan masing-masing 2 contoh konkret.
+  \item Buat diagram hierarki heading yang benar untuk halaman artikel berita dengan struktur: judul utama, 2 subbagian masing-masing dengan 2 sub-subbagian.
+  \item Identifikasi 5 kesalahan struktural dalam kode HTML berikut dan jelaskan cara memperbaikinya (termasuk nesting yang salah dan elemen semantik yang hilang).
+  \item Buat tabel perbandingan antara \code{<em>} vs \code{<i>} dan \code{<strong>} vs \code{<b>}, jelaskan kapan menggunakan masing-masing.
+  \item Jelaskan mengapa atribut \code{alt} pada gambar penting untuk aksesibilitas dan berikan contoh alt text yang baik dan buruk untuk gambar yang sama.
+  \item Buat daftar berurutan (ol) untuk resep masakan dengan langkah-langkah yang jelas dan nested list untuk sub-langkah persiapan.
+  \item Buat description list (dl) untuk glosarium 5 istilah teknis web development dengan definisi yang komprehensif.
+  \item Desain struktur semantik HTML5 untuk halaman landing produk dengan: header, hero section dengan gambar, fitur produk (3 card), testimonial, dan footer dengan kontak.
+  \item \textbf{Refleksi:} Dari materi bab ini, manakah indikator Sub-CPMK 2.1 yang sudah Anda kuasai? Area mana yang masih perlu Anda tingkatkan?
 \end{latihan}
 
 \begin{asesmen}
-Asesmen berupa proyek mini yang menggabungkan seluruh materi Bab 5. Mahasiswa diminta membuat satu halaman web lengkap yang mengandung:
-\begin{enumerate}
-  \item Tabel data dengan pengelompokan (\code{thead}/\code{tbody}/\code{tfoot}), \code{scope}, dan \code{caption}.
-  \item Form pendaftaran dengan minimal 5 tipe input berbeda, \code{fieldset}/\code{legend}, validasi HTML5, dan atribut aksesibilitas (label, aria-describedby).
-  \item Elemen semantik yang tepat untuk struktur halaman.
-  \item Media (audio atau video) dengan subtitle track dan teks alternatif.
-  \item Hasil validasi W3C tanpa error dan skor aksesibilitas Lighthouse minimal 90.
-\end{enumerate}
-Penilaian berdasarkan: kelengkapan fitur (30\%), ketepatan semantik dan standar (25\%), aksesibilitas (25\%), serta kualitas kode dan dokumentasi (20\%).
+Asesmen Bab 5 merupakan \textbf{Evaluasi Kinerja} yang mengukur Sub-CPMK 2.1. Terkait RPS: Praktikum 1 (Pertemuan 4). Komponen penilaian meliputi:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Struktur Dokumen (30\%):} Keberadaan doctype, html, head lengkap dengan meta wajib (charset, viewport, title), dan body. Mengukur Sub-CPMK 2.1.
+  \item \textbf{Elemen Semantik (25\%):} Penggunaan header, nav, main, article/section, aside, footer sesuai konteks. Mengukur Sub-CPMK 2.1.
+  \item \textbf{Konten dan Format (20\%):} Hierarki heading yang benar, paragraf, daftar, dan elemen teks yang tepat. Mengukur Sub-CPMK 2.1.
+  \item \textbf{Link dan Gambar (15\%):} Atribut href yang valid, keamanan link eksternal (noopener noreferrer), atribut alt dan dimensi pada gambar. Mengukur Sub-CPMK 2.1.
+  \item \textbf{Validasi dan Best Practice (10\%):} Passing W3C Validator, kode rapi dengan indentasi konsisten. Mengukur Sub-CPMK 2.1.
+\end{itemize}
+
+\textbf{Rubrik Penilaian (berbasis OBE):}
+\begin{itemize}
+  \item \textbf{A (85--100)}: Seluruh komponen lengkap, struktur HTML5 valid, elemen semantik tepat, aksesibilitas terpenuhi. Kompeten untuk Sub-CPMK 2.1.
+  \item \textbf{B (70--84)}: Sebagian besar komponen lengkap, beberapa detail kurang.
+  \item \textbf{C (55--69)}: Komponen dasar ada tetapi kurang mendalam.
+  \item \textbf{D ($<$55)}: Komponen tidak lengkap atau tidak memenuhi standar minimum.
+\end{itemize}
+
+Rubrik penilaian detail tersedia di Lampiran untuk penilaian proyek halaman profil lengkap.
 \end{asesmen}
 
 \begin{checklist}
-  \item Saya bisa membuat tabel HTML dengan pengelompokan (thead, tbody, tfoot), scope, caption, dan aksesibilitas yang tepat.
-  \item Saya dapat membuat form dengan label, berbagai tipe input, fieldset/legend, dan validasi HTML5 dasar.
-  \item Saya memahami perbedaan validasi client-side dan server-side serta kapan menggunakan masing-masing.
-  \item Saya dapat menyisipkan media (audio/video) dengan kontrol, subtitle track, dan teks alternatif.
-  \item Saya memahami perbedaan SVG dan gambar raster serta dapat menyisipkan SVG inline yang aksesibel.
-  \item Saya dapat menggunakan iframe dengan atribut keamanan (sandbox, allow) dan aksesibilitas (title).
-  \item Saya memahami prinsip POUR dan level WCAG serta dapat menerapkan ARIA dengan tepat.
-  \item Saya dapat membuat form dan tabel yang aksesibel untuk pengguna pembaca layar dan keyboard.
-  \item Saya dapat memvalidasi HTML menggunakan W3C Validator dan memperbaiki error yang dilaporkan.
-  \item Saya menguasai teknik debugging HTML menggunakan DevTools browser.
-  \item Saya mengikuti best practices HTML dan memahami peran standar WHATWG/W3C.
+  \item \textbf{Sub-CPMK 2.1:} Saya dapat menulis struktur dasar HTML5 lengkap dengan doctype, head (meta charset, viewport, title), dan body.
+  \item \textbf{Sub-CPMK 2.1:} Saya memahami perbedaan tag, elemen, dan atribut serta dapat menggunakannya dengan benar.
+  \item \textbf{Sub-CPMK 2.1:} Saya dapat menggunakan elemen heading (h1-h6) dengan hierarki yang benar tanpa melompati level.
+  \item \textbf{Sub-CPMK 2.1:} Saya dapat membuat paragraf, daftar (ul, ol, dl), dan memformat teks dengan elemen semantik (em, strong, mark).
+  \item \textbf{Sub-CPMK 2.1:} Saya dapat membuat link internal, eksternal (dengan keamanan noopener), dan anchor dengan atribut yang lengkap.
+  \item \textbf{Sub-CPMK 2.1:} Saya dapat menyisipkan gambar dengan src, alt deskriptif, width/height, dan menggunakan figure/figcaption saat diperlukan.
+  \item \textbf{Sub-CPMK 2.1:} Saya dapat menggunakan elemen semantik HTML5 (header, nav, main, article, section, aside, footer) untuk struktur halaman.
+  \item \textbf{Sub-CPMK 2.1:} Saya dapat membuat halaman web sederhana yang terstruktur dengan baik, aksesibel, dan valid menurut standar W3C.
+  \item \textbf{Sub-CPMK 2.1:} Saya memahami praktik terbaik: alt text untuk aksesibilitas, keamanan link eksternal, dan layout viewport untuk mobile.
 \end{checklist}
 
 \begin{rangkuman}
-Bab ini membahas secara mendalam seluruh aspek HTML yang berkaitan dengan penyajian data, pengumpulan masukan pengguna, media, dan aksesibilitas. Tabel HTML (\code{table}, \code{tr}, \code{th}, \code{td}) dilengkapi dengan pengelompokan (\code{thead}, \code{tbody}, \code{tfoot}), atribut \code{scope}/\code{headers} untuk aksesibilitas, dan \code{caption} untuk deskripsi. Form HTML (\code{form}, \code{input}, \code{label}, \code{button}, \code{select}, \code{textarea}) didukung oleh beragam tipe input HTML5 dengan validasi bawaan browser, serta pengelompokan field menggunakan \code{fieldset}/\code{legend}.
-
-Struktur halaman menggunakan elemen semantik (header, nav, main, article, section, aside, footer) meningkatkan aksesibilitas, SEO, dan kemudahan pemeliharaan. Media HTML5 (audio/video) dengan subtitle track dan SVG sebagai format gambar vektor memperkaya konten. Embedding melalui iframe dengan atribut keamanan (sandbox) memungkinkan integrasi konten eksternal secara aman.
-
-Aksesibilitas web dibangun di atas prinsip POUR (WCAG): konten harus perceivable, operable, understandable, dan robust. Atribut ARIA melengkapi semantik HTML saat diperlukan, namun prioritas utama tetap pada penggunaan elemen HTML semantik yang tepat. Validasi dan debugging HTML menggunakan W3C Validator dan DevTools memastikan kode mengikuti standar. Best practices HTML---termasuk pemisahan concerns, aksesibilitas sejak awal, dan pengujian lintas browser---menjadi fondasi pembuatan halaman web berkualitas profesional.
+Bab ini membahas HTML dasar, struktur dokumen, dan elemen semantik sebagai \textbf{Unit Materi Inti} berbasis Sub-CPMK 2.1.
 
 \textbf{Poin Kunci:}
 \begin{itemize}
-  \item Tabel dan form membutuhkan struktur dan atribut yang mendukung aksesibilitas (scope, label, fieldset, ARIA).
-  \item Media dan embedding perlu teks alternatif, subtitle, dan kontrol keamanan yang sesuai.
-  \item Aksesibilitas (POUR/WCAG) memastikan web dapat digunakan oleh semua orang, termasuk pengguna dengan disabilitas.
-  \item Validasi dan debugging HTML memastikan dokumen mengikuti standar dan bebas error.
-  \item Best practices dan standar WHATWG/W3C menjadi panduan pembuatan kode HTML yang profesional dan interoperable.
+  \item \textbf{HTML} (Sub-CPMK 2.1): Bahasa markup deklaratif untuk struktur dan makna konten; struktur standar terdiri dari \code{head} (metadata) dan \code{body} (konten terlihat).
+  \item \textbf{Sintaks dasar}: Tag, elemen, atribut; doctype HTML5; hierarki heading yang benar; elemen semantik (em, strong, mark) vs presentasional (i, b).
+  \item \textbf{Link dan gambar}: href, link internal/eksternal/anchor; keamanan \code{rel="noopener noreferrer"}; alt untuk aksesibilitas, width/height untuk layout stability.
+  \item \textbf{Elemen semantik HTML5}: header, nav, main, article, section, aside, footer---meningkatkan aksesibilitas, SEO, dan maintainability kode.
+  \item \textbf{Aksesibilitas}: Alt text untuk gambar, hierarki heading logis, elemen semantik untuk screen readers.
 \end{itemize}
+
+\textbf{Refleksi:} Pastikan Anda dapat mencentang checklist di atas dan siap melanjutkan ke Bab 6 (HTML form, media, aksesibilitas form).
 \end{rangkuman}
 
 \ifSubfilesClassLoaded{

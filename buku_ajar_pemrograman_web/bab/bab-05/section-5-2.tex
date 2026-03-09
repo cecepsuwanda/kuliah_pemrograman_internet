@@ -1,93 +1,55 @@
-\section{Tabel: Pengelompokan, Scope, dan Aksesibilitas}
+\section{Memulai: Editor, Browser, dan File HTML}
 
-Tabel yang lebih besar dan kompleks memerlukan pengelompokan baris agar struktur data mudah dipahami, baik oleh pengguna visual maupun teknologi bantu (assistive technology). HTML menyediakan tiga elemen pengelompokan: \code{<thead>} untuk baris header, \code{<tbody>} untuk baris data utama, dan \code{<tfoot>} untuk baris ringkasan atau total. Pengelompokan ini memberikan makna semantik tambahan dan memungkinkan browser menerapkan perilaku khusus---misalnya, \code{<thead>} dapat diulang saat tabel dicetak di beberapa halaman \cite{mdnHtmlIntro}.
+Sebelum memulai pengembangan halaman web, Anda perlu menyiapkan peralatan dasar yang meliputi editor kode, browser modern, dan pemahaman tentang cara kerja file HTML. Editor kode adalah aplikasi yang digunakan untuk menulis dan mengedit file teks dengan fitur khusus untuk pemrograman seperti syntax highlighting, auto-completion, dan error detection. Beberapa editor populer yang banyak digunakan oleh pengembang web antara lain Visual Studio Code (VS Code) yang gratis dan open-source dengan ekosistem plugin yang kaya, Notepad++ yang ringan untuk Windows, dan Sublime Text yang dikenal dengan kecepatan dan kemudahan penggunaannya \cite{mdnHtmlIntro}.
 
-Atribut \code{scope} pada elemen \code{<th>} menjelaskan cakupan header terhadap sel-sel data yang terkait. Nilai \code{scope="col"} menunjukkan bahwa header berlaku untuk seluruh kolom di bawahnya, sedangkan \code{scope="row"} menunjukkan header berlaku untuk seluruh baris di sebelah kanannya. Untuk tabel yang sangat kompleks---misalnya dengan header multi-level---dapat digunakan atribut \code{id} pada \code{<th>} dan \code{headers} pada \code{<td>} untuk membuat hubungan eksplisit antara sel data dan headernya \cite{mdnAccessibility}.
+Browser modern adalah aplikasi yang tidak hanya menampilkan halaman web tetapi juga menyediakan alat pengembang (Developer Tools) yang sangat berguna untuk debugging dan inspeksi elemen. Browser yang direkomendasikan untuk pengembangan web meliputi Google Chrome dengan DevTools yang kuat, Mozilla Firefox yang unggul dalam standar web terbuka, Microsoft Edge yang dibangun di atas Chromium, dan Safari untuk pengujian di ekosistem Apple. Masing-masing browser memiliki karakteristik rendering yang sedikit berbeda, sehingga pengujian di beberapa browser merupakan praktik terbaik untuk memastikan kompatibilitas lintas-platform.
+
+File HTML adalah dokumen teks biasa yang disimpan dengan ekstensi \code{.html} atau \code{.htm}. Ekstensi ini memberitahu browser dan sistem operasi bahwa file tersebut berisi markup HTML yang perlu diinterpretasikan dan ditampilkan sebagai halaman web. Saat membuat file HTML pertama Anda, disarankan untuk membuat folder proyek khusus yang akan menampung semua file terkait seperti \code{index.html}, file CSS, gambar, dan aset lainnya. Struktur folder yang terorganisir sejak awal akan sangat membantu ketika proyek berkembang menjadi lebih kompleks.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{3.5cm}|P{4cm}|P{4.5cm}|}
+\begin{tabular}{|P{3.5cm}|P{3cm}|P{5.5cm}|}
 \hline
-\textbf{Mekanisme} & \textbf{Cara Kerja} & \textbf{Kapan Digunakan} \\
+\textbf{Editor} & \textbf{Platform} & \textbf{Keunggulan} \\
 \hline
-\code{scope="col"} & Header berlaku untuk kolom & Tabel sederhana, header di baris pertama \\
+Visual Studio Code & Windows, macOS, Linux & Gratis, ekstensi kaya, debugging terintegrasi \\
 \hline
-\code{scope="row"} & Header berlaku untuk baris & Tabel dengan header di kolom pertama \\
+Notepad++ & Windows & Ringan, cepat, syntax highlighting \\
 \hline
-\code{scope="colgroup"} & Header untuk grup kolom & Tabel dengan header multi-level \\
+Sublime Text & Windows, macOS, Linux & Kecepatan, multiple cursors \\
 \hline
-\code{id} + \code{headers} & Hubungan eksplisit sel--header & Tabel sangat kompleks, header tidak beraturan \\
+WebStorm & Windows, macOS, Linux & IDE lengkap, refactoring cerdas \\
 \hline
 \end{tabular}
-\caption{Perbandingan mekanisme penghubung header dan sel data}
+\caption{Perbandingan Editor Kode Populer untuk Pengembangan Web}
+\label{tab:editor-comparison}
 \end{table}
 
-Elemen \code{<caption>} memberikan judul deskriptif pada tabel dan sangat penting untuk aksesibilitas. Pembaca layar akan membacakan caption terlebih dahulu sehingga pengguna dapat memutuskan apakah tabel tersebut relevan sebelum mendengarkan seluruh isinya. Caption harus singkat namun informatif---menjelaskan apa yang disajikan tabel tanpa mengulangi data di dalamnya. Posisi visual caption dapat diatur dengan CSS menggunakan properti \code{caption-side} \cite{webdevAccessibility}.
+Workflow dasar pengembangan HTML melibatkan siklus edit-save-refresh yang berulang. Pertama, buka file HTML di editor kode dan lakukan perubahan. Kedua, simpan file dengan menekan Ctrl+S (atau Cmd+S di macOS). Ketiga, buka file di browser dengan mengklik dua kali file tersebut atau menggunakan menu \textit{File > Open File}. Keempat, setelah melakukan perubahan di editor, simpan file lalu muat ulang halaman di browser dengan menekan F5 atau Ctrl+R untuk melihat perubahan. Penggunaan alat pengembang browser (F12) memungkinkan Anda memeriksa struktur HTML, memodifikasi elemen secara real-time, dan melihat pesan error \cite{mdnHtmlIntro}.
 
-\begin{figure}[htbp]
-\centering
-\resizebox{0.9\textwidth}{!}{%
-\begin{tikzpicture}[node distance=1.2cm, transform shape, every node/.style={font=\footnotesize}]
-  \node (table) [class, minimum width=10cm] {\code{<table>}};
-  \node (caption) [object, below=0.5cm of table, minimum width=4cm] {\code{<caption>} Judul Tabel};
-  \node (thead) [class, below=0.5cm of caption, minimum width=10cm, fill=blue!20] {\code{<thead>}};
-  \node (th1) [object, below=0.4cm of thead, xshift=-2.5cm, minimum width=2cm] {\code{<th scope="col">}};
-  \node (th2) [object, below=0.4cm of thead, xshift=0cm, minimum width=2cm] {\code{<th scope="col">}};
-  \node (th3) [object, below=0.4cm of thead, xshift=2.5cm, minimum width=2cm] {\code{<th scope="col">}};
-  \node (tbody) [class, below=1.2cm of thead, minimum width=10cm, fill=green!15] {\code{<tbody>}};
-  \node (td1) [object, below=0.4cm of tbody, xshift=-2.5cm, minimum width=2cm] {\code{<td>} Data};
-  \node (td2) [object, below=0.4cm of tbody, xshift=0cm, minimum width=2cm] {\code{<td>} Data};
-  \node (td3) [object, below=0.4cm of tbody, xshift=2.5cm, minimum width=2cm] {\code{<td>} Data};
-  \node (tfoot) [class, below=1.2cm of tbody, minimum width=10cm, fill=yellow!20] {\code{<tfoot>}};
-
-  \draw [arrow] (table) -- (caption);
-  \draw [arrow] (table.south) +(-4,0) |- (thead);
-  \draw [arrow] (thead) -- (th1);
-  \draw [arrow] (thead) -- (th2);
-  \draw [arrow] (thead) -- (th3);
-  \draw [arrow] (table.south) +(-4,0) |- (tbody);
-  \draw [arrow] (tbody) -- (td1);
-  \draw [arrow] (tbody) -- (td2);
-  \draw [arrow] (tbody) -- (td3);
-  \draw [arrow] (table.south) +(-4,0) |- (tfoot);
-\end{tikzpicture}%
-}
-\caption{Struktur tabel HTML dengan pengelompokan thead, tbody, dan tfoot}
-\end{figure}
-
-Hindari penggunaan tabel bersarang (tabel di dalam tabel) karena sangat menyulitkan navigasi bagi pengguna pembaca layar. Jika data terlalu kompleks untuk satu tabel, pertimbangkan untuk memecahnya menjadi beberapa tabel yang lebih sederhana. Selalu pertimbangkan juga tampilan tabel di perangkat mobile---tabel yang lebar mungkin memerlukan scroll horizontal atau penyajian alternatif menggunakan CSS media queries \cite{mdnAccessibility}.
-
-\begin{webcode}[language=HTML, caption={Tabel lengkap dengan thead, tbody, tfoot, scope, dan caption}]
-<table>
-  <caption>Rekap Nilai Mata Kuliah Pemrograman Web</caption>
-  <thead>
-    <tr>
-      <th scope="col">NIM</th>
-      <th scope="col">Nama</th>
-      <th scope="col">UTS</th>
-      <th scope="col">UAS</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>001</td> <td>Budi</td>
-      <td>85</td>   <td>90</td>
-    </tr>
-    <tr>
-      <td>002</td> <td>Siti</td>
-      <td>78</td>   <td>88</td>
-    </tr>
-  </tbody>
-  <tfoot>
-    <tr>
-      <th scope="row" colspan="2">Rata-rata</th>
-      <td>81.5</td> <td>89</td>
-    </tr>
-  </tfoot>
-</table>
+\begin{webcode}[language=HTML, caption={File HTML Pertama: hello.html}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hello World - Halaman Pertama Saya</title>
+</head>
+<body>
+  <h1>Selamat Datang!</h1>
+  <p>Ini adalah halaman HTML pertama saya.</p>
+  <p>Dibuat pada: <strong>2026</strong></p>
+</body>
+</html>
 \end{webcode}
 
 \begin{catatan}
-Untuk memastikan tabel Anda aksesibel, lakukan pengecekan berikut: (1) setiap tabel memiliki \code{<caption>}; (2) semua header menggunakan \code{<th>} dengan \code{scope} yang tepat; (3) hindari colspan/rowspan yang berlebihan; (4) uji tabel dengan pembaca layar atau navigasi keyboard saja. Alat seperti WAVE (\url{https://wave.webaim.org/}) dan aXe DevTools dapat membantu mengidentifikasi masalah aksesibilitas tabel secara otomatis.
+\textbf{Tips Memulai:}
+\begin{itemize}[leftmargin=*]
+  \item Selalu simpan file dengan ekstensi \code{.html} agar browser mengenalinya sebagai dokumen HTML.
+  \item Gunakan nama \code{index.html} untuk halaman utama website, karena server web secara default akan mencari file ini.
+  \item Hindari menggunakan spasi dalam nama file; gunakan tanda hubung (-) atau garis bawah (\_) sebagai gantinya.
+  \item Aktifkan \textit{word wrap} di editor jika baris kode terlalu panjang untuk tampilan layar.
+\end{itemize}
 \end{catatan}
 

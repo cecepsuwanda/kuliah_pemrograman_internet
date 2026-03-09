@@ -2,14 +2,12 @@
 \ifSubfilesClassLoaded{\setcounter{chapter}{11}}{}
 \begin{document}
 
-\chapter{MySQL dan Operasi CRUD}
+\chapter{PHP Dasar, Pemrosesan Form, dan Include/Require}
 
-Urutan materi MySQL dalam bab ini mengikuti struktur judul materi MySQL (tingkat dasar, menengah, lanjut) seperti pada dokumen judul materi MySQL yang menjadi acuan mata kuliah.
+Bab ini membahas materi Pertemuan 12 sesuai RPS: PHP dasar, pemrosesan form, dan include/require. Materi meliputi instalasi lingkungan pengembangan, sintaks dasar, tipe data, operator, struktur kontrol, fungsi, array, pemrosesan form dengan validasi server-side, serta penggunaan include/require untuk organisasi kode.
 
 \begin{subcpmk}
-  \item Sub-CPMK 3.2: Mengelola basis data dan mengimplementasikan operasi CRUD dengan MySQL serta koneksi dari PHP.
-  \item Sub-CPMK 3.3: Mengintegrasikan API dan menghubungkan front-end dengan back-end (request/response, data terstruktur).
-  \item Sub-CPMK 4.2: Menerapkan prinsip keamanan web: validasi input, prepared statement, session, mitigasi XSS dan CSRF.
+  \item Sub-CPMK 3.1: Mengimplementasikan logika server-side dengan PHP (pemrosesan form, struktur dasar, OOP).
 \end{subcpmk}
 
 \input{bab/bab-12/section-12-1}
@@ -27,109 +25,74 @@ Urutan materi MySQL dalam bab ini mengikuti struktur judul materi MySQL (tingkat
 \input{bab/bab-12/section-12-13}
 \input{bab/bab-12/section-12-14}
 \input{bab/bab-12/section-12-15}
-\input{bab/bab-12/section-12-16}
-\input{bab/bab-12/section-12-17}
-\input{bab/bab-12/section-12-18}
-\input{bab/bab-12/section-12-19}
-\input{bab/bab-12/section-12-20}
-\input{bab/bab-12/section-12-21}
-\input{bab/bab-12/section-12-22}
-\input{bab/bab-12/section-12-23}
-\input{bab/bab-12/section-12-24}
-\input{bab/bab-12/section-12-25}
-\input{bab/bab-12/section-12-26}
-\input{bab/bab-12/section-12-27}
-\input{bab/bab-12/section-12-28}
-\input{bab/bab-12/section-12-29}
-\input{bab/bab-12/section-12-30}
-\input{bab/bab-12/section-12-31}
-\input{bab/bab-12/section-12-32}
-\input{bab/bab-12/section-12-33}
-\input{bab/bab-12/section-12-34}
-\input{bab/bab-12/section-12-35}
-\input{bab/bab-12/section-12-36}
-\input{bab/bab-12/section-12-37}
-\input{bab/bab-12/section-12-38}
-\input{bab/bab-12/section-12-39}
-\input{bab/bab-12/section-12-40}
-\input{bab/bab-12/section-12-41}
-\input{bab/bab-12/section-12-42}
-\input{bab/bab-12/section-12-43}
-\input{bab/bab-12/section-12-44}
-\input{bab/bab-12/section-12-45}
-\input{bab/bab-12/section-12-46}
 
 \begin{aktivitas}
-  \item Instalasi MySQL (via XAMPP); praktik akses CLI dan phpMyAdmin. Buat database dan tabel dengan berbagai tipe data.
-  \item Praktik DDL: ALTER TABLE. Praktik DML: SELECT dengan WHERE, operator, ORDER BY, LIMIT; INSERT, UPDATE, DELETE.
-  \item Gunakan fungsi agregat (COUNT, SUM, AVG, MIN, MAX), GROUP BY, HAVING, DISTINCT, alias. Tangani nilai NULL.
-  \item Desain relasi tabel: primary key, foreign key, normalisasi (1NF--3NF). Praktik JOIN (INNER, LEFT, RIGHT) dan subquery.
-  \item Buat index dan analisis performa query dengan EXPLAIN. Praktik backup/restore dengan mysqldump.
-  \item Koneksi PHP--MySQL dengan MySQLi (OOP). Praktik fetch: \code{fetch\_assoc()}, \code{fetch\_all()}. Bangun aplikasi CRUD lengkap.
-  \item Gunakan prepared statement (MySQLi dan PDO) untuk mencegah SQL injection. Bandingkan MySQLi vs PDO.
-  \item Praktik MySQL lanjut: VIEW, stored procedure, trigger, transaksi (BEGIN/COMMIT/ROLLBACK).
-  \item Kelola user dan hak akses MySQL. Rancang skema database lengkap dengan diagram ER.
-  \item Terapkan keamanan web: validasi input, sanitasi output, mitigasi XSS dan CSRF dengan token.
-  \item Pelajari exception, namespace, Composer, dan struktur proyek PHP sesuai PSR.
-  \item Bangun REST API sederhana dengan PHP; hubungkan front-end (Fetch API) dengan back-end.
-  \item Tulis unit test dengan PHPUnit. Siapkan checklist deployment untuk produksi.
+  \item \textbf{Praktik:} Instal XAMPP (atau server lokal lain) dan verifikasi instalasi PHP dengan membuat file \code{phpinfo()} lalu mengaksesnya melalui browser.
+  \item \textbf{Praktik:} Tulis skrip PHP yang menggunakan variabel, tipe data, operator aritmetika, dan operator perbandingan untuk membuat kalkulator sederhana.
+  \item \textbf{Praktik:} Praktikkan struktur kontrol: buat program yang menentukan grade (A/B/C/D/E) berdasarkan nilai numerik menggunakan \code{if-elseif-else} dan \code{switch}.
+  \item \textbf{Latihan:} Buat program yang menggunakan perulangan \code{for} dan \code{foreach} untuk menampilkan data array dalam format tabel HTML.
+  \item \textbf{Praktik:} Implementasikan form HTML lengkap (nama, email, pesan) dengan pemrosesan dan validasi server-side di PHP, termasuk sanitasi output dengan \code{htmlspecialchars()}.
+  \item \textbf{Praktik:} Organisasikan proyek PHP sederhana menggunakan \code{include}/\code{require} untuk memisahkan header, footer, konfigurasi, dan fungsi ke file-file terpisah.
 \end{aktivitas}
 
 \begin{latihan}
-  \item Jelaskan perbedaan DDL dan DML; berikan contoh minimal 2 perintah masing-masing.
-  \item Apa peran primary key dan foreign key dalam menjaga integritas data?
-  \item Tulis query dengan JOIN untuk menggabungkan data dari dua tabel; jelaskan perbedaan INNER, LEFT, dan RIGHT JOIN.
-  \item Apa itu normalisasi? Jelaskan 1NF, 2NF, dan 3NF dengan contoh.
-  \item Jelaskan bagaimana prepared statement mencegah SQL injection dibandingkan penggabungan string.
-  \item Bandingkan MySQLi dan PDO dari sisi portabilitas, fitur, dan gaya API.
-  \item Buat endpoint REST API sederhana yang mengembalikan data produk dalam format JSON.
-  \item Apa itu CSRF token dan mengapa diperlukan di setiap form? Jelaskan mekanismenya.
+  \item Jelaskan perbedaan mendasar antara metode GET dan POST, serta berikan contoh skenario kapan masing-masing metode sebaiknya digunakan.
+  \item Apa perbedaan antara operator \code{==} dan \code{===} di PHP? Berikan contoh kasus di mana penggunaan \code{==} dapat menyebabkan bug.
+  \item Buat fungsi PHP bernama \code{validasiEmail(\$email)} yang memeriksa apakah email tidak kosong dan memiliki format yang valid menggunakan \code{filter\_var()}.
+  \item Jelaskan perbedaan antara \code{include}, \code{require}, \code{include\_once}, dan \code{require\_once}, serta kapan sebaiknya menggunakan masing-masing.
+  \item Mengapa validasi server-side tetap diperlukan meskipun form sudah memiliki validasi HTML5 di sisi klien? Berikan contoh skenario keamanannya.
+  \item \textbf{Refleksi:} Dari materi bab ini, indikator Sub-CPMK 3.1 mana yang sudah Anda kuasai? Bagian mana yang masih perlu Anda tingkatkan?
 \end{latihan}
 
 \begin{asesmen}
-Asesmen berupa proyek: \textbf{Aplikasi Web CRUD Full-Stack} dengan komponen:
+Asesmen Bab 12 (Praktikum 6) merupakan \textbf{Evaluasi Kinerja} yang mengukur Sub-CPMK 3.1. Tugas berupa proyek membuat sistem form multi-halaman dengan PHP yang mencakup:
+\begin{enumerate}
+  \item \textbf{Form registrasi} (40\%): Halaman form registrasi (nama, email, password, konfirmasi password) dengan validasi server-side lengkap. Mengukur Sub-CPMK 3.1 (pemrosesan form, validasi).
+  \item \textbf{Halaman hasil} (25\%): Halaman hasil yang menampilkan data yang berhasil divalidasi dengan sanitasi output (\code{htmlspecialchars()}). Mengukur Sub-CPMK 3.1.
+  \item \textbf{Organisasi kode} (25\%): Penggunaan \code{include}/\code{require} untuk memisahkan header, footer, konfigurasi, dan fungsi validasi ke file terpisah. Mengukur Sub-CPMK 3.1.
+  \item \textbf{Sticky form} (10\%): Implementasi teknik \textit{sticky form} agar data tidak hilang jika validasi gagal. Mengukur Sub-CPMK 3.1.
+\end{enumerate}
+
+\textbf{Rubrik Penilaian (berbasis OBE):}
 \begin{itemize}
-  \item Desain database ternormalisasi (minimal 3 tabel dengan relasi FK) dan diagram ER.
-  \item Implementasi CRUD dengan PHP dan MySQLi/PDO menggunakan prepared statement.
-  \item REST API minimal 2 endpoint (GET dan POST) dengan respons JSON.
-  \item Integrasi front-end menggunakan JavaScript Fetch API.
-  \item Keamanan: validasi input, sanitasi output, CSRF token, password hashing.
-  \item (Opsional) Pengujian unit dengan PHPUnit; deployment checklist.
+  \item \textbf{A (85--100)}: Seluruh komponen lengkap, validasi server-side benar, sanitasi output diterapkan, organisasi kode rapi. Kompeten untuk Sub-CPMK 3.1.
+  \item \textbf{B (70--84)}: Sebagian besar komponen lengkap, beberapa detail kurang.
+  \item \textbf{C (55--69)}: Komponen dasar ada tetapi kurang mendalam.
+  \item \textbf{D ($<$55)}: Komponen tidak lengkap atau tidak memenuhi standar minimum.
 \end{itemize}
-Penilaian: desain database (20\%), implementasi CRUD (25\%), API (15\%), keamanan (25\%), dokumentasi (15\%).
 \end{asesmen}
 
 \begin{checklist}
-  \item Saya memahami database relasional, SQL, DDL (CREATE, ALTER, DROP), dan DML (SELECT, INSERT, UPDATE, DELETE).
-  \item Saya dapat menggunakan WHERE, operator, ORDER BY, LIMIT, fungsi agregat, GROUP BY, HAVING, DISTINCT, alias, dan NULL.
-  \item Saya memahami relasi tabel, primary key, foreign key, JOIN (INNER/LEFT/RIGHT), subquery, dan normalisasi (1NF--3NF).
-  \item Saya dapat membuat dan menggunakan index; menganalisis query dengan EXPLAIN; melakukan backup/restore.
-  \item Saya dapat membuat koneksi MySQLi (OOP), menjalankan query, dan menggunakan metode fetch.
-  \item Saya mampu membangun aplikasi CRUD dengan prepared statement dan memahami pencegahan SQL injection.
-  \item Saya dapat menggunakan PDO dan memahami perbedaannya dengan MySQLi.
-  \item Saya mengenal VIEW, stored procedure, trigger, transaksi, dan keamanan user MySQL.
-  \item Saya mampu menerapkan validasi input, sanitasi output, dan mitigasi XSS/CSRF.
-  \item Saya memahami exception, namespace, Composer, dan struktur proyek PHP (PSR).
-  \item Saya dapat membangun REST API sederhana dan menghubungkan front-end (Fetch API) dengan back-end.
-  \item Saya mengetahui dasar pengujian (PHPUnit) dan checklist deployment produksi.
+  \item \textbf{Sub-CPMK 3.1:} Saya dapat menginstal dan menjalankan PHP menggunakan XAMPP atau server lokal lainnya.
+  \item \textbf{Sub-CPMK 3.1:} Saya memahami sintaks dasar PHP: tag, komentar, variabel, dan aturan penulisan.
+  \item \textbf{Sub-CPMK 3.1:} Saya memahami tipe data PHP dan perbedaan antara \code{==} dan \code{===}.
+  \item \textbf{Sub-CPMK 3.1:} Saya dapat menggunakan operator aritmetika, perbandingan, logika, dan string.
+  \item \textbf{Sub-CPMK 3.1:} Saya mampu menulis output dengan \code{echo}/\code{print} dan memahami pentingnya \code{htmlspecialchars()}.
+  \item \textbf{Sub-CPMK 3.1:} Saya dapat mengimplementasikan percabangan (\code{if/elseif/else}, \code{switch}) dan perulangan (\code{for}, \code{while}, \code{foreach}).
+  \item \textbf{Sub-CPMK 3.1:} Saya mampu membuat dan menggunakan fungsi dengan parameter, default, dan return.
+  \item \textbf{Sub-CPMK 3.1:} Saya memahami array terindeks, asosiatif, dan fungsi-fungsi array dasar.
+  \item \textbf{Sub-CPMK 3.1:} Saya mampu membaca data dari \code{\$\_GET}, \code{\$\_POST}, dan \code{\$\_SERVER} dengan aman.
+  \item \textbf{Sub-CPMK 3.1:} Saya dapat membuat form HTML dan memprosesnya dengan PHP termasuk validasi server-side.
+  \item \textbf{Sub-CPMK 3.1:} Saya dapat mengorganisasi kode PHP menggunakan \code{include}/\code{require} dengan struktur folder yang baik.
 \end{checklist}
 
 \begin{rangkuman}
-Bab ini membahas MySQL dan operasi CRUD secara komprehensif dalam empat area utama. \textbf{MySQL Dasar} (section 1--14) mencakup pengenalan database dan SQL, instalasi MySQL, akses CLI dan GUI, DDL (CREATE DATABASE, CREATE TABLE, ALTER TABLE), DML (SELECT, INSERT, UPDATE, DELETE), operator, ORDER BY/LIMIT, fungsi agregat, GROUP BY/HAVING, DISTINCT/alias, serta penanganan NULL.
+Bab ini membahas PHP dasar, pemrosesan form, dan include/require sebagai \textbf{Unit Materi Inti} berbasis Sub-CPMK 3.1. Dimulai dari instalasi lingkungan (XAMPP), sintaks dasar (tag, komentar, aturan penulisan), variabel (penamaan, tipe dinamis, scope), tipe data (string, integer, float, boolean, null), dan operator (aritmetika, perbandingan, logika, penugasan).
 
-\textbf{Relasi dan Lanjut} (section 15--22) membahas relasi tabel dan konsep kunci (PK/FK), JOIN (INNER, LEFT, RIGHT), subquery, PRIMARY KEY vs UNIQUE, FOREIGN KEY dan referential integrity, normalisasi (1NF/2NF/3NF), index, serta backup dan restore dengan mysqldump.
+Selanjutnya dibahas cara menampilkan output (echo/print), manipulasi string (literal, escape, heredoc, fungsi string), struktur kontrol percabangan (if/elseif/else, switch, ternary), dan perulangan (for, while, do-while, foreach). Fungsi memungkinkan penggunaan ulang kode dengan dukungan parameter default, type hinting, dan variadic arguments. Array (terindeks, asosiatif, bersarang) menjadi struktur data fundamental di PHP.
 
-\textbf{Integrasi PHP--MySQL} (section 23--27) mengajarkan koneksi MySQLi (OOP), metode fetch, CRUD aplikasi web dengan prepared statement, pencegahan SQL injection, serta PDO sebagai alternatif yang portable.
-
-\textbf{MySQL Advanced dan PHP Lanjut} (section 28--46) meliputi VIEW, stored procedure, trigger, transaksi (ACID), optimasi EXPLAIN, keamanan user, perancangan database, keamanan web (validasi/sanitasi, XSS, CSRF), exception, namespace, Composer, struktur proyek, PHP CLI, REST API, integrasi front-back dengan Fetch API, pengujian PHPUnit, dan deployment.
+Bab ini ditutup dengan pembahasan superglobal (\code{\$\_GET}, \code{\$\_POST}, \code{\$\_SERVER}), pemrosesan form HTML dengan PHP, validasi server-side, dan pengorganisasian kode menggunakan \code{include}/\code{require}.
 
 \textbf{Poin Kunci:}
 \begin{itemize}
-  \item SQL DDL/DML, relasi, JOIN, normalisasi, dan index adalah fondasi pengelolaan basis data.
-  \item Prepared statement (MySQLi/PDO) wajib untuk keamanan; jangan pernah gabungkan input ke query.
-  \item REST API dengan JSON menjadi standar komunikasi front-end dan back-end modern.
-  \item Keamanan, pengujian, dan deployment yang baik melengkapi siklus pengembangan full-stack.
+  \item PHP berjalan di server dan menghasilkan output HTML yang dikirim ke browser.
+  \item Validasi server-side \textbf{wajib} dilakukan karena validasi klien dapat dilewati.
+  \item Selalu sanitasi output dengan \code{htmlspecialchars()} untuk mencegah XSS.
+  \item Gunakan \code{===} (identik) alih-alih \code{==} untuk perbandingan yang aman.
+  \item Organisasikan kode dengan \code{include}/\code{require} mengikuti prinsip DRY.
 \end{itemize}
+
+\textbf{Refleksi:} Pastikan Anda dapat mencentang checklist di atas dan siap melanjutkan ke Bab 13 (PHP OOP, session, validasi input).
 \end{rangkuman}
 
 \ifSubfilesClassLoaded{

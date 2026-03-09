@@ -2,13 +2,12 @@
 \ifSubfilesClassLoaded{\setcounter{chapter}{8}}{}
 \begin{document}
 
-\chapter{Event Handling, Validasi, dan Library Front-End}
+\chapter{JavaScript Dasar, DOM, dan Manipulasi Elemen}
 
-Bab ini melanjutkan penguasaan JavaScript dari Bab 8 ke level menengah-lanjut: fungsi dan struktur data lanjutan, DOM manipulation, event handling, asynchronous programming, ES6+, OOP, keamanan, dan pengenalan ekosistem front-end modern.
+Bab ini membahas materi Pertemuan 9 sesuai RPS: JavaScript dasar, DOM, dan manipulasi elemen. Urutan materi mengikuti alur belajar JavaScript dari dasar: sintaks dan tipe data, control flow, fungsi dan scope, struktur data, hingga manipulasi DOM dan event handling.
 
 \begin{subcpmk}
   \item Sub-CPMK 2.3: Mengimplementasikan interaktivitas dengan JavaScript (DOM, event handling, validasi form).
-  \item Sub-CPMK 2.4: Menggunakan library atau framework front-end untuk antarmuka dinamis.
 \end{subcpmk}
 
 \input{bab/bab-09/section-9-1}
@@ -28,83 +27,76 @@ Bab ini melanjutkan penguasaan JavaScript dari Bab 8 ke level menengah-lanjut: f
 \input{bab/bab-09/section-9-15}
 \input{bab/bab-09/section-9-16}
 \input{bab/bab-09/section-9-17}
-\input{bab/bab-09/section-9-18}
-\input{bab/bab-09/section-9-19}
-\input{bab/bab-09/section-9-20}
-\input{bab/bab-09/section-9-21}
-\input{bab/bab-09/section-9-22}
-\input{bab/bab-09/section-9-23}
-\input{bab/bab-09/section-9-24}
-\input{bab/bab-09/section-9-25}
-\input{bab/bab-09/section-9-26}
-\input{bab/bab-09/section-9-27}
-\input{bab/bab-09/section-9-28}
-\input{bab/bab-09/section-9-29}
 
 \begin{aktivitas}
-  \item Gunakan fungsi lanjutan (arrow, default, rest); praktik \code{map}, \code{filter}, \code{reduce} untuk transformasi data array.
-  \item Manipulasi DOM: buat elemen, tambah/hapus node, traversing; implementasi event delegation pada daftar dinamis.
-  \item Buat form registrasi dengan validasi real-time (event \code{input}): email, password, konfirmasi; tampilkan pesan error.
-  \item Implementasi Fetch API: ambil data dari public API, tampilkan di halaman dengan loading dan error state.
-  \item Tulis class \code{Product} dengan constructor dan method; gunakan \code{extends} untuk pewarisan.
-  \item Eksplorasi closure (counter privat), RegExp (validasi format), dan Promise/async-await (fetch berurutan).
+  \item Buka DevTools Console (F12); jalankan \code{console.log()}, \code{typeof}, dan operasi aritmetika; eksplorasi error message.
+  \item Deklarasikan variabel dengan \code{let} dan \code{const}; buat string dengan template literal; gunakan operator perbandingan \code{===} dan logika.
+  \item Tulis fungsi \code{hitungRataRata(arr)} dengan parameter array dan return; gunakan arrow function.
+  \item Buat percabangan (konversi nilai ke grade) dan perulangan (tampilkan elemen array dengan \code{for...of}).
+  \item Buat objek \code{mahasiswa} dengan properti dan metode; akses properti dengan dot dan bracket notation.
+  \item Akses elemen DOM dengan \code{querySelector}; ubah \code{textContent} dan \code{classList}; tangani event \code{click} dan \code{submit}.
+  \item Pelajari dokumentasi MDN Web Docs tentang DOM API dan Event reference; buat catatan untuk referensi.
+  \item Identifikasi materi yang masih sulit (mis. closure, event delegation); buat catatan untuk konsultasi dengan pengampu.
 \end{aktivitas}
 
 \begin{latihan}
-  \item Jelaskan perbedaan \code{map()}, \code{filter()}, dan \code{reduce()}. Beri contoh chaining ketiganya.
-  \item Apa yang dimaksud event bubbling dan event delegation? Beri contoh implementasi.
-  \item Tulis validasi form: nama tidak kosong, email valid (regex), password min 8 karakter, konfirmasi cocok.
-  \item Jelaskan perbedaan callback, Promise, dan async/await. Mengapa async/await lebih direkomendasikan?
-  \item Apa itu XSS? Bagaimana mencegahnya di sisi client dan server?
-  \item Jelaskan perbedaan library dan framework. Sebutkan 3 framework/library front-end populer dan kelebihannya.
-  \item Buat fungsi \code{fetchAndDisplay(url)} yang mengambil JSON dari API, menangani error, dan menampilkan data di halaman.
-  \item Jelaskan apa itu closure dan berikan contoh counter privat menggunakan closure.
+  \item Jelaskan perbedaan \code{var}, \code{let}, dan \code{const} dalam hal scope, hoisting, dan re-assignment.
+  \item Apa yang dimaksud dengan type coercion? Berikan contoh berbahaya dan cara mengatasinya dengan \code{===}.
+  \item Jelaskan perbedaan function declaration, function expression, dan arrow function. Kapan menggunakan masing-masing?
+  \item Apa itu closure? Berikan contoh sederhana dan jelaskan mengapa closure berguna.
+  \item Bandingkan \code{textContent} dan \code{innerHTML}. Mengapa \code{innerHTML} berisiko untuk input pengguna?
+  \item Jelaskan event bubbling dan event delegation. Berikan contoh penggunaan event delegation pada daftar item.
+  \item Buat fungsi validasi form yang memeriksa nama (tidak kosong), email (mengandung ``@''), dan password (minimal 8 karakter).
+  \item Buat counter interaktif dengan tombol + dan - yang mengubah angka di halaman menggunakan DOM.
+  \item Identifikasi tiga konsep JavaScript (DOM, event, validasi form) yang paling Anda kuasai dan satu yang masih perlu dilatih.
 \end{latihan}
 
 \begin{asesmen}
-Asesmen berupa proyek aplikasi web interaktif yang menggabungkan konsep Bab 9:
+Asesmen berupa proyek aplikasi web interaktif yang menggabungkan seluruh konsep Bab 9 dan mengukur pencapaian Sub-CPMK 2.3 (interaktivitas dengan DOM, event handling, validasi form):
 \begin{enumerate}
-  \item Buat SPA (Single Page Application) sederhana: daftar produk yang diambil dari public API.
-  \item Implementasi: Fetch + async/await, loading state, error handling, DOM manipulation dinamis.
-  \item Tambahkan form pencarian/filter dengan validasi input dan event handling.
-  \item Organisasi kode: ES6 modules, class untuk model data, closure untuk state management.
-  \item Perhatikan keamanan (gunakan \code{textContent}, bukan \code{innerHTML} untuk data dari API/user).
+  \item Buat halaman pendaftaran dengan form yang memiliki validasi JavaScript: nama, email, password, dan konfirmasi password.
+  \item Validasi harus bersifat real-time (event \code{input}) dan saat submit (event \code{submit} + \code{preventDefault()}).
+  \item Tampilkan pesan error di bawah setiap field menggunakan \code{textContent} (bukan \code{innerHTML}).
+  \item Gunakan array objek untuk menyimpan data pendaftar; tampilkan dalam tabel HTML yang dibangun secara dinamis dengan DOM API.
+  \item Tambahkan fitur toggle dark mode menggunakan \code{classList.toggle()}.
 \end{enumerate}
-Penilaian: Fetch/async (25\%), DOM dan event (25\%), validasi dan keamanan (20\%), ES6+/OOP (15\%), kode bersih (15\%).
+Penilaian: validasi form (25\%), manipulasi DOM (25\%), JavaScript dasar (20\%), keamanan (15\%), kode bersih (15\%). Kriteria terhubung ke indikator Sub-CPMK 2.3.
 \end{asesmen}
 
 \begin{checklist}
-  \item Saya menguasai fungsi lanjutan (arrow, default, rest) dan higher-order functions.
-  \item Saya dapat menggunakan \code{map}, \code{filter}, \code{reduce}, dan chaining untuk transformasi data.
-  \item Saya memahami \code{this} dalam berbagai konteks dan operasi objek lanjutan.
-  \item Saya dapat menggunakan JSON (\code{parse}/\code{stringify}), Date, dan error handling (\code{try/catch}).
-  \item Saya menguasai DOM traversing, membuat/menghapus elemen, dan event (addEventListener, propagation, delegation).
-  \item Saya dapat membuat validasi form real-time dan memahami perbedaan validasi client vs server.
-  \item Saya memahami asynchronous JavaScript: callback, Promise, async/await.
-  \item Saya dapat menggunakan Fetch API untuk GET dan POST request dengan error handling.
-  \item Saya menguasai ES6+ (destructuring, spread, modules), class/pewarisan, dan RegExp dasar.
-  \item Saya memahami closure, prototype chain, dan pola desain dasar (module, singleton).
-  \item Saya dapat debugging dengan DevTools dan memahami konsep unit test.
-  \item Saya memahami ancaman XSS dan cara pencegahannya.
-  \item Saya mengenal ekosistem front-end: library/framework (React, Vue, Angular) dan tooling (bundler, linter).
+  \item Saya memahami peran JavaScript di web dan cara menjalankannya di browser (konsol, script tag, file eksternal).
+  \item Saya menggunakan \code{let}/\code{const} (bukan \code{var}) dan memahami perbedaan scope-nya.
+  \item Saya memahami tipe data primitif, operator (termasuk \code{===}), dan konversi tipe.
+  \item Saya dapat memanipulasi string dengan metode dasar dan template literal.
+  \item Saya dapat menulis percabangan (\code{if/else}, \code{switch}) dan perulangan (\code{for}, \code{while}, \code{for...of}).
+  \item Saya dapat mendefinisikan fungsi (declaration, expression, arrow) dengan parameter, default parameter, dan return.
+  \item Saya memahami scope (global, function, block) dan konsep closure.
+  \item Saya dapat membuat dan memanipulasi array (push, pop, map, filter, reduce) dan objek (literal, properti, metode).
+  \item Saya memahami DOM sebagai pohon objek dan dapat mengakses elemen dengan \code{querySelector}.
+  \item Saya dapat mengubah konten DOM (\code{textContent}, \code{classList}) dan memahami risiko \code{innerHTML}.
+  \item Saya dapat menangani event (click, submit, input) dengan \code{addEventListener} dan \code{preventDefault()}.
+  \item Saya dapat memvalidasi form menggunakan JavaScript (event \code{input} dan \code{submit}).
+  \item Saya memahami event bubbling dan dapat menerapkan event delegation.
 \end{checklist}
 
 \begin{rangkuman}
-Bab ini memperluas penguasaan JavaScript dari dasar ke tingkat menengah-lanjut. Materi fungsi lanjutan (arrow, default, rest, higher-order) dan metode array fungsional (map, filter, reduce) menjadi fondasi pemrograman modern. Pendalaman objek (this, constructor, bind/call/apply) dan OOP (class, prototype, pewarisan) memperkuat kemampuan abstraksi.
+Setelah menyelesaikan bab ini, mahasiswa diharapkan mampu mengimplementasikan interaktivitas web dengan JavaScript sesuai Sub-CPMK 2.3: sintaks dasar, struktur data, manipulasi DOM, dan event handling.
 
-Manipulasi DOM lanjutan (traversing, createElement, DocumentFragment) dan event handling (addEventListener, propagation, delegation) memungkinkan pembuatan antarmuka yang responsif dan efisien. Validasi form real-time menghubungkan event, DOM, dan logika bisnis. Timer, debounce, dan throttle mengoptimalkan respons terhadap event yang sering terjadi.
+Bab ini membahas JavaScript dasar dan pengenalan DOM. Materi dimulai dari pengenalan JavaScript dan ekosistemnya, cara menjalankan kode di browser (konsol, script tag, file eksternal), dan sintaks dasar (statement, komentar, strict mode).
 
-Asynchronous JavaScript---dari callback ke Promise ke async/await---dan Fetch API memungkinkan komunikasi dengan server tanpa reload. ES6+ (destructuring, spread, modules) dan fitur modern (RegExp, JSON, Date, error handling) melengkapi toolkit pengembang.
+Fondasi bahasa meliputi variabel (\code{let}/\code{const} sebagai standar modern, \code{var} sebagai legacy), lima tipe data primitif, operator (dengan penekanan pada \code{===} untuk perbandingan aman), dan konversi tipe. String dibahas dengan metode umum dan template literal ES6.
 
-Debugging dengan DevTools, pengujian dasar, performa, dan keamanan (XSS) mempersiapkan praktik profesional. Pengenalan library/framework (React, Vue, Angular) dan tooling (bundler, linter) membuka jalan ke pengembangan front-end modern.
+Control flow mencakup percabangan (\code{if/else}, \code{switch}, ternary) dan perulangan (\code{for}, \code{while}, \code{for...of}). Fungsi sebagai first-class citizens dibahas dalam tiga bentuk (declaration, expression, arrow function) beserta default parameter. Scope (global, function, block) dan closure melengkapi pemahaman tentang visibilitas variabel.
+
+Struktur data meliputi array (dengan metode fungsional: \code{map}, \code{filter}, \code{reduce}) dan objek literal (properti, metode, destructuring). DOM diperkenalkan sebagai pohon objek yang merepresentasikan halaman; akses elemen, manipulasi konten (\code{textContent} vs \code{innerHTML} dengan pertimbangan keamanan), dan event handling (\code{addEventListener}, event bubbling, \code{preventDefault()}) melengkapi kemampuan membangun halaman web interaktif. Di akhir bab, mahasiswa diharapkan dapat memvalidasi form dan membangun antarmuka dinamis dengan DOM dan event.
 
 \textbf{Poin Kunci:}
 \begin{itemize}
-  \item Metode array fungsional (map/filter/reduce) dan ES6+ membuat kode lebih deklaratif dan bersih.
-  \item Event delegation dan DOM manipulation efisien untuk antarmuka dinamis.
-  \item async/await + Fetch API adalah standar modern untuk komunikasi async dengan server.
-  \item Keamanan (XSS) dan validasi bukan opsional; selalu sanitasi input dan gunakan \code{textContent}.
-  \item Framework mempercepat development, tetapi fondasi JavaScript yang kuat adalah prasyaratnya.
+  \item Gunakan \code{const} sebagai default; \code{let} jika perlu re-assign; hindari \code{var}.
+  \item Selalu gunakan \code{===} untuk perbandingan; waspadai type coercion.
+  \item Fungsi adalah first-class citizens; arrow function untuk callback, function declaration untuk method.
+  \item DOM memungkinkan JavaScript memanipulasi halaman; gunakan \code{textContent} (bukan \code{innerHTML}) untuk keamanan.
+  \item Event handling dengan \code{addEventListener}; event delegation untuk efisiensi.
 \end{itemize}
 \end{rangkuman}
 

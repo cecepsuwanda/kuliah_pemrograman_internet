@@ -1,0 +1,32 @@
+\section{Pengenalan Environment Variable dan Konfigurasi Per Lingkungan}
+
+\textbf{Environment variable} menyimpan konfigurasi yang berbeda antar lingkungan (dev, staging, prod) di luar kode sumber. Kredensial database, API key, mode debug, dan URL aplikasi disimpan dalam file \code{.env} yang \textbf{tidak boleh masuk ke version control} (tambahkan di \code{.gitignore}). Library \code{vlucas/phpdotenv} membaca file \code{.env} dan menyediakannya via \code{\$\_ENV} atau \code{getenv()}. Di server produksi, environment variable bisa diatur langsung di level server (Apache/Nginx) atau OS \cite{phpRightWay}.
+
+\begin{webcode}[language=PHP, caption={File .env dan penggunaannya di PHP}]
+# File: .env (JANGAN commit ke Git!)
+APP_ENV=production
+APP_DEBUG=false
+DB_HOST=localhost
+DB_NAME=toko_online
+DB_USER=app_user
+DB_PASS=p@ssw0rd_Kuat!123
+DB_PORT=3306
+
+# File: config.php
+# <?php
+# require 'vendor/autoload.php';
+# $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+# $dotenv->load();
+#
+# $db_host = $_ENV['DB_HOST'];
+# $db_name = $_ENV['DB_NAME'];
+# $db_user = $_ENV['DB_USER'];
+# $db_pass = $_ENV['DB_PASS'];
+# $debug   = $_ENV['APP_DEBUG'] === 'true';
+
+# File: .gitignore
+# .env
+# vendor/
+# *.log
+\end{webcode}
+

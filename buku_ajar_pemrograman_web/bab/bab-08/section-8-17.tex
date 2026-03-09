@@ -1,64 +1,30 @@
-\section{Event Dasar: click, load, submit}
+\section{Spesifisitas dan Cascade (Review Lanjut)}
 
-\textbf{Event} adalah sinyal bahwa sesuatu telah terjadi di halaman---pengguna mengklik tombol, form dikirim, halaman selesai dimuat, atau kursor diarahkan ke elemen. JavaScript menangani event menggunakan \code{addEventListener()}: mendaftarkan fungsi (event handler/listener) yang dipanggil saat event terjadi. Ini adalah mekanisme utama yang membuat halaman web interaktif \cite{jsInfo}.
+Cascade dan specificity adalah mekanisme inti CSS yang menentukan aturan mana yang ``menang'' ketika beberapa selector menargetkan elemen yang sama. Meskipun sudah diperkenalkan di Bab 6, pemahaman mendalam diperlukan saat proyek CSS menjadi besar dan konflik aturan sering terjadi. Kegagalan memahami cascade sering menyebabkan penggunaan \code{!important} yang berlebihan \cite{mdnCss}.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{2.5cm}|P{3.5cm}|P{6cm}|}
+\begin{tabular}{|P{3cm}|P{3.5cm}|P{2cm}|P{3.5cm}|}
 \hline
-\textbf{Event} & \textbf{Kapan Terjadi} & \textbf{Contoh Penggunaan} \\
+\textbf{Level} & \textbf{Sumber} & \textbf{Prioritas} & \textbf{Contoh} \\
 \hline
-\code{click} & Elemen diklik & Tombol, link, toggle \\
+Inline & Atribut \code{style} & Tertinggi & \code{style="color:red"} \\
 \hline
-\code{submit} & Form dikirim & Validasi sebelum kirim \\
+ID selectors & \code{\#id} & Tinggi & \code{\#nav \{ ... \}} \\
 \hline
-\code{load} & Halaman/gambar selesai dimuat & Inisialisasi aplikasi \\
+Class/pseudo & \code{.class}, \code{:hover} & Sedang & \code{.btn:hover} \\
 \hline
-\code{input} & Nilai input berubah & Live search, validasi real-time \\
+Element/pseudo-el & \code{p}, \code{::before} & Rendah & \code{p \{ ... \}} \\
 \hline
-\code{keydown} & Tombol keyboard ditekan & Shortcut, navigasi keyboard \\
-\hline
-\code{change} & Nilai input berubah (setelah blur) & Select, checkbox, radio \\
+\code{!important} & Apapun & Override semua & Hindari jika mungkin \\
 \hline
 \end{tabular}
-\caption{Event DOM yang paling sering digunakan}
+\caption{Hierarki specificity CSS (dari tinggi ke rendah)}
 \end{table}
 
-\begin{contoh}
-\textbf{Studi Kasus: Validasi Form dengan JavaScript}
-
-Form pendaftaran dengan validasi sebelum submit:
-\begin{enumerate}
-  \item Tangani event \code{submit} dengan \code{addEventListener}
-  \item Panggil \code{event.preventDefault()} untuk mencegah pengiriman jika validasi gagal
-  \item Akses nilai input: \code{document.querySelector("\#email").value}
-  \item Cek kondisi: nama tidak kosong, email mengandung ``@'', password minimal 8 karakter
-  \item Tampilkan pesan error di elemen \code{<span>} menggunakan \code{textContent}
-\end{enumerate}
-\end{contoh}
-
-\begin{webcode}[language=JavaScript, caption={Event listener dan validasi form}]
-const form = document.querySelector("#registerForm");
-form.addEventListener("submit", function(event) {
-  const email = document.querySelector("#email").value;
-  const password = document.querySelector("#password").value;
-  const errorEl = document.querySelector("#error");
-
-  if (!email.includes("@")) {
-    errorEl.textContent = "Email tidak valid";
-    event.preventDefault();
-    return;
-  }
-  if (password.length < 8) {
-    errorEl.textContent = "Password minimal 8 karakter";
-    event.preventDefault();
-    return;
-  }
-  errorEl.textContent = ""; // clear error
-});
-\end{webcode}
+Praktik baik untuk mengelola specificity: (1) gunakan class sebagai selector utama (specificity konsisten); (2) hindari nesting selector terlalu dalam (\code{nav ul li a}---specificity tinggi, sulit di-override); (3) hindari ID selector untuk styling (specificity terlalu tinggi); (4) gunakan \code{!important} hanya sebagai pilihan terakhir; (5) pertimbangkan menggunakan CSS Layers (\code{@layer}) untuk mengontrol cascade di proyek besar \cite{webdevCss}.
 
 \begin{konsep}
-\textbf{Event Bubbling dan event.target.} Saat event terjadi pada elemen, ia ``naik'' (\textit{bubbles}) dari elemen target ke parent, grandparent, hingga \code{document}. Properti \code{event.target} merujuk elemen yang sebenarnya diklik (target asli), sedangkan \code{event.currentTarget} merujuk elemen yang memiliki listener. Ini memungkinkan \textit{event delegation}: memasang satu listener di parent untuk menangani klik pada banyak child, sangat efisien untuk daftar dinamis \cite{mdnJsGuide}.
+\textbf{CSS Layers (\code{@layer}).} Fitur baru CSS Cascade Layers memungkinkan pengelompokan aturan CSS ke dalam layer yang memiliki urutan prioritas eksplisit: \code{@layer base, components, utilities;}. Aturan di layer terakhir menang atas layer sebelumnya, terlepas dari specificity selector. Ini mengatasi masalah specificity war di proyek besar dan mempermudah integrasi library CSS pihak ketiga \cite{w3cCss}.
 \end{konsep}
 

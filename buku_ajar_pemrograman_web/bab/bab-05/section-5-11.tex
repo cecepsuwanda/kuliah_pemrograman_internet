@@ -1,70 +1,71 @@
-\section{Validasi HTML dan Alat Validator}
+\section{Gambar: Elemen img dan figure}
 
-Validasi HTML adalah proses memeriksa apakah dokumen HTML mengikuti aturan sintaks dan semantik yang ditetapkan oleh standar (WHATWG HTML Living Standard atau rekomendasi W3C). Dokumen yang valid cenderung berperilaku lebih konsisten di berbagai browser, lebih mudah dirawat, dan lebih aksesibel. Meskipun browser modern sangat toleran terhadap kesalahan HTML (mereka mencoba ``memperbaiki'' markup secara otomatis), ketergantungan pada toleransi ini dapat menghasilkan perilaku yang tidak terduga dan sulit dideteksi \cite{w3cValidator}.
+Gambar merupakan elemen visual yang esensial dalam desain web modern, digunakan untuk menyampaikan informasi, meningkatkan estetika, dan memperkaya pengalaman pengguna. Elemen \code{<img>} adalah elemen kosong (void element) yang menyisipkan gambar ke dalam halaman. Atribut \code{src} (source) menentukan lokasi file gambar, yang dapat berupa URL absolut, path relatif, atau bahasa data (data URI). Atribut \code{alt} (alternative text) menyediakan deskripsi tekstual gambar yang ditampilkan saat gambar gagal dimuat dan dibaca oleh pembaca layar untuk pengguna dengan disabilitas visual. Atribut \code{alt} secara teknis opsional dalam HTML, namun dari perspektif aksesibilitas dan SEO, ia dianggap wajib untuk setiap gambar yang memiliki makna konten \cite{mdnAccessibility}.
 
-Terdapat beberapa jenis kesalahan yang dideteksi validator. Kesalahan sintaks meliputi tag yang tidak ditutup, atribut tanpa tanda kutip, dan karakter khusus yang tidak di-escape. Kesalahan struktural termasuk elemen yang ditempatkan di lokasi yang tidak diizinkan (misalnya \code{<p>} di dalam \code{<p>}), atau elemen yang hilang (misalnya \code{<title>} di dalam \code{<head>}). Peringatan (warnings) biasanya terkait praktik yang kurang optimal namun tidak melanggar standar secara teknis \cite{whatwgHtml}.
+Atribut dimensi \code{width} dan \code{height} pada elemen \code{<img>} memiliki fungsi penting yang melampaui sekadar mengatur ukuran tampilan. Ketika browser memuat halaman, ia perlu mengetahui berapa ruang yang harus dialokasikan untuk gambar sebelum gambar sebenarnya selesai diunduh. Tanpa atribut dimensi, browser mengalokasikan ruang minimal dan kemudian melakukan reflow (perhitungan ulang layout) saat gambar dimuat, menyebabkan \textit{layout shift} yang mengganggu pengalaman pengguna - konten dapat tiba-tiba bergerak saat pengguna sedang membaca atau berinteraksi. Menyediakan dimensi memungkinkan browser mereservasi ruang yang tepat, menciptakan pengalaman yang lebih mulus.
+
+HTML5 memperkenalkan elemen \code{<figure>} dan \code{<figcaption>} untuk mengelompokkan konten yang mandiri dengan keterangan yang sesuai. Elemen \code{<figure>} dapat berisi gambar, diagram, cuplikan kode, atau konten mandiri lainnya yang dirujuk dari aliran dokumen utama. Elemen \code{<figcaption>} berisi keterangan atau penjelasan untuk konten dalam \code{<figure>}. Kombinasi ini memberikan semantik yang jelas bahwa keterangan terkait dengan konten spesifik di dalamnya, bukan sekadar teks yang kebetulan berada di dekat gambar. Struktur \code{<figure>} dengan \code{<figcaption>} meningkatkan aksesibilitas karena pembaca layar dapat mengasosiasikan keterangan dengan konten secara eksplisit \cite{webdevAccessibility}.
+
+Format gambar web memiliki karakteristik berbeda yang mempengaruhi kualitas, ukuran file, dan kasus penggunaan. \textbf{JPEG} ideal untuk foto dengan banyak warna dan gradasi, menawarkan kompresi lossy yang efisien. \textbf{PNG} mendukung transparansi dan cocok untuk grafik dengan area warna solid, logo, dan screenshot. \textbf{SVG} (Scalable Vector Graphics) adalah format vektor yang dapat diskalakan tanpa kehilangan kualitas, sempurna untuk ikon, logo, dan diagram. \textbf{WebP} adalah format modern yang menawarkan kompresi superior dibanding JPEG dan PNG dengan dukungan transparansi dan animasi, didukung oleh browser modern. Memilih format yang tepat dapat secara dramatis mengurangi ukuran file dan meningkatkan waktu muat halaman.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{2.5cm}|P{4cm}|P{5.5cm}|}
+\begin{tabular}{|P{2.5cm}|P{2.5cm}|P{3cm}|P{4cm}|}
 \hline
-\textbf{Jenis} & \textbf{Contoh Masalah} & \textbf{Dampak} \\
+\textbf{Atribut} & \textbf{Wajib?} & \textbf{Tipe} & \textbf{Fungsi} \\
 \hline
-Error fatal & Tag tidak ditutup & Struktur DOM berbeda dari yang dimaksud \\
+\code{src} & Ya & URL & Lokasi file gambar \\
 \hline
-Error sintaks & Atribut tanpa tanda kutip & Nilai atribut mungkin salah terbaca \\
+\code{alt} & Rekomendasi kuat & Teks & Deskripsi untuk aksesibilitas \\
 \hline
-Error struktural & \code{<div>} di dalam \code{<p>} & Browser memperbaiki secara otomatis, hasilnya tidak terduga \\
+\code{width} & Opsional & Angka (px) & Lebar tampilan \\
 \hline
-Warning & Elemen deprecated & Mungkin tidak didukung di browser masa depan \\
+\code{height} & Opsional & Angka (px) & Tinggi tampilan \\
 \hline
-Info & Encoding tidak eksplisit & Sebaiknya ditambahkan \code{<meta charset>} \\
+\code{loading} & Opsional & \code{lazy}, \code{eager} & Strategi loading \\
 \hline
 \end{tabular}
-\caption{Jenis error dan peringatan yang dideteksi validator HTML}
+\caption{Atribut Elemen Gambar (\code{<img>})}
+\label{tab:img-attributes}
 \end{table}
 
-Alat validator utama adalah \textbf{W3C Markup Validation Service} di \url{https://validator.w3.org/}. Layanan ini menerima input dalam tiga cara: memasukkan URL halaman web, mengunggah file HTML, atau menempelkan kode HTML secara langsung. Validator akan menampilkan daftar error dan warning beserta nomor baris dan penjelasan masalah. Alat lain yang berguna termasuk Nu HTML Checker (\url{https://validator.w3.org/nu/}), ekstensi browser seperti HTML Validator, dan fitur audit pada browser DevTools (Lighthouse) \cite{w3cValidator}.
+\begin{webcode}[language=HTML, caption={Contoh Penggunaan Gambar}]
+<!-- Gambar dasar dengan alt text -->
+<img src="images/foto-profil.jpg" 
+     alt="Foto profil John Doe tersenyum di kantor" 
+     width="200" height="200" />
 
-\begin{webcode}[language=HTML, caption={Contoh HTML invalid dan versi yang diperbaiki}]
-<!-- SALAH: banyak kesalahan -->
-<html>
-<body>
-<p>Paragraf pertama
-<p>Paragraf <b>kedua</p></b>
-<img src=foto.jpg>
-<div>
-  <p>Teks di dalam div
-    <div>Div bersarang di dalam p</div>
-  </p>
-</div>
+<!-- Gambar dengan figure dan figcaption -->
+<figure>
+  <img src="diagram/alur-proses.png" 
+       alt="Diagram alur proses pendaftaran: 
+            mulai dari form, verifikasi, sampai aktivasi" 
+       width="600" height="400" />
+  <figcaption>
+    Gambar 1: Diagram alur proses pendaftaran pengguna baru
+  </figcaption>
+</figure>
 
-<!-- BENAR: tervalidasi -->
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8" />
-  <title>Halaman Valid</title>
-</head>
-<body>
-  <p>Paragraf pertama</p>
-  <p>Paragraf <b>kedua</b></p>
-  <img src="foto.jpg" alt="Deskripsi foto" />
-  <div>
-    <p>Teks di dalam div</p>
-    <div>Div terpisah dari p</div>
-  </div>
-</body>
-</html>
+<!-- Gambar dengan lazy loading -->
+<img src="images/galeri/banyak.jpg" 
+     alt="Galeri foto acara" 
+     loading="lazy" 
+     width="800" height="600" />
+
+<!-- Gambar dekoratif (alt kosong) -->
+<img src="images/dekorasi.png" 
+     alt="" 
+     role="presentation" />
 \end{webcode}
 
-\begin{konsep}
-\textbf{Jadikan Validasi Bagian dari Alur Kerja.} Validasi HTML sebaiknya dilakukan secara rutin, bukan hanya di akhir pengembangan. Langkah praktis:
-\begin{enumerate}
-  \item Pasang ekstensi validator di editor kode (misalnya HTMLHint untuk VS Code).
-  \item Jalankan validator W3C setelah setiap perubahan signifikan.
-  \item Integrasikan pengecekan HTML dalam pipeline CI/CD (continuous integration).
-  \item Perbaiki error terlebih dahulu; warning dapat ditangani sesuai prioritas \cite{mdnLearn}.
-\end{enumerate}
-\end{konsep}
+\begin{catatan}
+\textbf{Praktik Aksesibilitas Gambar:}
+\begin{itemize}[leftmargin=*]
+  \item Selalu gunakan \code{alt} yang deskriptif untuk gambar bermakna.
+  \item Gunakan \code{alt=""} untuk gambar murni dekoratif (tambahkan \code{role="presentation"}).
+  \item Jangan gunakan kata "gambar" atau "foto" di alt text - screen reader sudah mengumumkan ini.
+  \item Deskripsikan informasi yang relevan, bukan setiap detail visual.
+  \item Untuk grafik kompleks, pertimbangkan deskripsi panjang dengan \code{longdesc} atau \code{aria-describedby}.
+\end{itemize}
+\end{catatan}
 

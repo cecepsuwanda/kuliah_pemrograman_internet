@@ -1,55 +1,74 @@
-\section{Memulai: Editor, Browser, dan File HTML}
+\section{Prinsip Desain Visual: Layout, Hierarki, Tipografi, dan Warna}
 
-Sebelum memulai pengembangan halaman web, Anda perlu menyiapkan peralatan dasar yang meliputi editor kode, browser modern, dan pemahaman tentang cara kerja file HTML. Editor kode adalah aplikasi yang digunakan untuk menulis dan mengedit file teks dengan fitur khusus untuk pemrograman seperti syntax highlighting, auto-completion, dan error detection. Beberapa editor populer yang banyak digunakan oleh pengembang web antara lain Visual Studio Code (VS Code) yang gratis dan open-source dengan ekosistem plugin yang kaya, Notepad++ yang ringan untuk Windows, dan Sublime Text yang dikenal dengan kecepatan dan kemudahan penggunaannya \cite{mdnHtmlIntro}.
+Desain visual yang baik bukan hanya tentang estetika---melainkan tentang \textbf{komunikasi yang efektif}. Prinsip desain visual membantu desainer dan pengembang menyusun elemen-elemen antarmuka agar informasi mudah dipahami, navigasi intuitif, dan pengalaman pengguna menyenangkan. Empat pilar utama desain visual untuk web adalah \textbf{layout}, \textbf{hierarki visual}, \textbf{tipografi}, dan \textbf{warna} \cite{mdnCss}.
 
-Browser modern adalah aplikasi yang tidak hanya menampilkan halaman web tetapi juga menyediakan alat pengembang (Developer Tools) yang sangat berguna untuk debugging dan inspeksi elemen. Browser yang direkomendasikan untuk pengembangan web meliputi Google Chrome dengan DevTools yang kuat, Mozilla Firefox yang unggul dalam standar web terbuka, Microsoft Edge yang dibangun di atas Chromium, dan Safari untuk pengujian di ekosistem Apple. Masing-masing browser memiliki karakteristik rendering yang sedikit berbeda, sehingga pengujian di beberapa browser merupakan praktik terbaik untuk memastikan kompatibilitas lintas-platform.
+\subsection{Layout dan Grid System}
 
-File HTML adalah dokumen teks biasa yang disimpan dengan ekstensi \code{.html} atau \code{.htm}. Ekstensi ini memberitahu browser dan sistem operasi bahwa file tersebut berisi markup HTML yang perlu diinterpretasikan dan ditampilkan sebagai halaman web. Saat membuat file HTML pertama Anda, disarankan untuk membuat folder proyek khusus yang akan menampung semua file terkait seperti \code{index.html}, file CSS, gambar, dan aset lainnya. Struktur folder yang terorganisir sejak awal akan sangat membantu ketika proyek berkembang menjadi lebih kompleks.
+\textbf{Layout} menentukan bagaimana elemen-elemen disusun di halaman. Layout yang baik menciptakan ketertiban visual dan membantu pengguna menemukan informasi dengan cepat. Dalam desain web modern, \textbf{grid system} adalah fondasi layout---halaman dibagi menjadi kolom-kolom yang konsisten sehingga elemen-elemen tersusun rapi dan selaras. Grid 12-kolom adalah standar yang paling umum digunakan karena fleksibilitasnya (bisa dibagi menjadi 1, 2, 3, 4, 6, atau 12 kolom) \cite{webdevLearn}.
+
+Dua teknologi CSS utama untuk layout modern adalah \textbf{Flexbox} (ideal untuk layout satu dimensi---baris atau kolom) dan \textbf{CSS Grid} (ideal untuk layout dua dimensi---baris dan kolom sekaligus). Memahami kapan menggunakan Flexbox dan kapan menggunakan Grid sangat penting bagi pengembang web.
+
+\subsection{Hierarki Visual}
+
+\textbf{Hierarki visual} adalah pengaturan elemen-elemen sehingga pengguna secara alami memperhatikan elemen terpenting terlebih dahulu. Hierarki diciptakan melalui variasi \textbf{ukuran}, \textbf{warna}, \textbf{kontras}, \textbf{posisi}, dan \textbf{whitespace}. Judul yang besar dan tebal secara otomatis menarik perhatian lebih dari teks paragraf biasa. Tombol berwarna cerah di atas latar belakang netral akan langsung menjadi \textit{focal point} \cite{mdnCss}.
+
+\begin{konsep}
+\textbf{Prinsip F-Pattern dan Z-Pattern:} Riset eye-tracking menunjukkan bahwa pengguna web membaca halaman dalam pola ``F'' (untuk halaman berisi teks banyak) atau ``Z'' (untuk halaman sederhana). Desainer yang memahami pola ini menempatkan informasi terpenting di area yang pertama kali dilihat: pojok kiri atas, baris pertama, dan sisi kiri halaman. Tombol CTA (\textit{Call to Action}) yang penting ditempatkan di area yang secara alami menjadi akhir pola scanning.
+\end{konsep}
+
+\subsection{Tipografi}
+
+\textbf{Tipografi} adalah seni memilih dan mengatur huruf agar teks terbaca dengan nyaman dan mendukung hierarki visual. Untuk web, pemilihan font harus mempertimbangkan: (1) \textbf{keterbacaan} (\textit{readability})---apakah teks mudah dibaca dalam berbagai ukuran; (2) \textbf{ketersediaan}---apakah font tersedia di berbagai perangkat (gunakan \textit{web-safe fonts} atau Google Fonts); dan (3) \textbf{konsistensi}---batasi penggunaan maksimal 2--3 jenis font per situs \cite{mdnCss}.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{3.5cm}|P{3cm}|P{5.5cm}|}
+\begin{tabular}{|P{3cm}|P{3.5cm}|P{5.5cm}|}
 \hline
-\textbf{Editor} & \textbf{Platform} & \textbf{Keunggulan} \\
+\textbf{Prinsip} & \textbf{Panduan} & \textbf{Contoh Implementasi Web} \\
 \hline
-Visual Studio Code & Windows, macOS, Linux & Gratis, ekstensi kaya, debugging terintegrasi \\
+Ukuran font & Body minimal 16px & \code{font-size: 1rem} (16px default) \\
 \hline
-Notepad++ & Windows & Ringan, cepat, syntax highlighting \\
+Line height & 1.4--1.6$\times$ ukuran font & \code{line-height: 1.5} \\
 \hline
-Sublime Text & Windows, macOS, Linux & Kecepatan, multiple cursors \\
+Jumlah font & Maksimal 2--3 jenis & Heading: Inter, Body: Roboto \\
 \hline
-WebStorm & Windows, macOS, Linux & IDE lengkap, refactoring cerdas \\
+Kontras teks & Rasio minimal 4.5:1 & Teks gelap (\code{\#333}) di latar terang \\
+\hline
+Panjang baris & 45--75 karakter per baris & \code{max-width: 65ch} \\
 \hline
 \end{tabular}
-\caption{Perbandingan Editor Kode Populer untuk Pengembangan Web}
-\label{tab:editor-comparison}
+\caption{Panduan tipografi untuk desain web}
 \end{table}
 
-Workflow dasar pengembangan HTML melibatkan siklus edit-save-refresh yang berulang. Pertama, buka file HTML di editor kode dan lakukan perubahan. Kedua, simpan file dengan menekan Ctrl+S (atau Cmd+S di macOS). Ketiga, buka file di browser dengan mengklik dua kali file tersebut atau menggunakan menu \textit{File > Open File}. Keempat, setelah melakukan perubahan di editor, simpan file lalu muat ulang halaman di browser dengan menekan F5 atau Ctrl+R untuk melihat perubahan. Penggunaan alat pengembang browser (F12) memungkinkan Anda memeriksa struktur HTML, memodifikasi elemen secara real-time, dan melihat pesan error \cite{mdnHtmlIntro}.
+\subsection{Warna}
 
-\begin{webcode}[language=HTML, caption={File HTML Pertama: hello.html}]
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hello World - Halaman Pertama Saya</title>
-</head>
-<body>
-  <h1>Selamat Datang!</h1>
-  <p>Ini adalah halaman HTML pertama saya.</p>
-  <p>Dibuat pada: <strong>2026</strong></p>
-</body>
-</html>
+\textbf{Warna} memiliki peran penting dalam desain: menyampaikan emosi, membedakan elemen, menunjukkan status, dan membangun identitas merek. Pemilihan palet warna yang tepat harus mempertimbangkan: (1) \textbf{psikologi warna}---biru memberikan kesan profesional dan terpercaya, merah menunjukkan urgensi; (2) \textbf{aksesibilitas}---kontras warna harus memenuhi standar WCAG (rasio minimal 4.5:1 untuk teks normal); dan (3) \textbf{konsistensi}---gunakan palet warna terbatas yang sudah ditentukan dalam design system \cite{webdevAccessibility}.
+
+\begin{webcode}[language=CSS, caption={Contoh CSS design tokens untuk warna dan tipografi}]
+:root {
+  /* Palet Warna */
+  --color-primary: #1A237E;
+  --color-secondary: #4CAF50;
+  --color-bg: #FAFAFA;
+  --color-text: #333333;
+  --color-error: #D32F2F;
+  --color-success: #388E3C;
+  
+  /* Tipografi */
+  --font-heading: 'Inter', sans-serif;
+  --font-body: 'Roboto', sans-serif;
+  --font-size-base: 1rem;
+  --line-height-base: 1.5;
+  
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+}
 \end{webcode}
 
 \begin{catatan}
-\textbf{Tips Memulai:}
-\begin{itemize}[leftmargin=*]
-  \item Selalu simpan file dengan ekstensi \code{.html} agar browser mengenalinya sebagai dokumen HTML.
-  \item Gunakan nama \code{index.html} untuk halaman utama website, karena server web secara default akan mencari file ini.
-  \item Hindari menggunakan spasi dalam nama file; gunakan tanda hubung (-) atau garis bawah (\_) sebagai gantinya.
-  \item Aktifkan \textit{word wrap} di editor jika baris kode terlalu panjang untuk tampilan layar.
-\end{itemize}
+Selalu uji kombinasi warna untuk aksesibilitas menggunakan alat seperti WebAIM Contrast Checker atau built-in contrast checker di Chrome DevTools. Warna yang terlihat bagus di monitor desainer mungkin tidak terbaca oleh pengguna dengan buta warna parsial (deuteranopia, protanopia). Aturan praktisnya: jangan hanya mengandalkan warna untuk menyampaikan informasi---tambahkan ikon, teks, atau pola sebagai indikator tambahan.
 \end{catatan}
-

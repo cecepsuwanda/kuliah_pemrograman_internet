@@ -1,72 +1,42 @@
-\section{Session: Memulai, Menyimpan, dan Menghapus Session}
+\section{Fetch API dan Permintaan HTTP dari Browser}
 
-\textbf{Session} adalah mekanisme server-side untuk menyimpan data pengguna selama interaksi dengan aplikasi web. Karena HTTP bersifat \textit{stateless} (setiap request independen), session menjembatani kebutuhan untuk ``mengingat'' pengguna antar halaman. Saat session dimulai, PHP menghasilkan \textbf{Session ID} unik yang dikirim ke browser sebagai cookie (biasanya bernama \code{PHPSESSID}). Pada request berikutnya, browser mengirimkan cookie ini kembali sehingga PHP dapat mengidentifikasi pengguna dan mengakses data session yang disimpan di server \cite{phpManual}.
+\textbf{Fetch API} adalah interface modern untuk melakukan permintaan HTTP dari JavaScript di browser. \code{fetch(url)} mengembalikan Promise yang resolve ke objek \code{Response}. Metode \code{.json()} pada Response juga mengembalikan Promise. Fetch mendukung semua metode HTTP (GET, POST, PUT, DELETE) melalui objek opsi \cite{jsInfo}.
 
-Untuk menggunakan session, panggil \code{session\_start()} di awal skrip --- \textbf{sebelum} output apa pun (termasuk spasi atau baris kosong sebelum tag \code{<?php}). Data disimpan dalam superglobal \code{\$\_SESSION} sebagai array asosiatif. Menyimpan: \code{\$\_SESSION['user'] = 'cecep'}; membaca: \code{echo \$\_SESSION['user']}; menghapus satu key: \code{unset(\$\_SESSION['user'])}. Untuk mengakhiri session secara penuh (logout), gunakan kombinasi \code{session\_unset()} dan \code{session\_destroy()} \cite{phpRightWay}.
+\begin{contoh}
+\textbf{Studi Kasus: Menampilkan Data Produk dari API}
 
-\begin{figure}[ht]
-\centering
-\begin{tikzpicture}[
-  box/.style={draw, rounded corners, minimum width=3cm, minimum height=1cm, align=center, font=\small, fill=#1},
-  arrow/.style={-Stealth, thick},
-  node distance=1.2cm
-]
-  \node[box=blue!15] (start) {User mengakses\\halaman};
-  \node[box=green!15, below=of start] (sess) {\code{session\_start()}};
-  \node[box=orange!15, below=of sess] (check) {Session ID\\ada?};
-  \node[box=yellow!15, below left=1.5cm and 2cm of check] (new) {Buat Session ID\\baru (server)};
-  \node[box=yellow!15, below right=1.5cm and 2cm of check] (load) {Muat data\\session lama};
-  \node[box=purple!15, below=2.5cm of check] (use) {Gunakan\\{\footnotesize\code{\$\_SESSION}}};
-  \node[box=red!15, below=of use] (end) {Akhir skrip /\\\code{session\_destroy()}};
+Aplikasi yang mengambil daftar produk dari REST API dan menampilkannya di halaman:
+\begin{enumerate}
+  \item Tampilkan loading indicator
+  \item \code{const res = await fetch("/api/products")}
+  \item \code{const products = await res.json()}
+  \item Loop products; buat elemen DOM untuk setiap produk
+  \item Sembunyikan loading; tampilkan daftar produk
+  \item Tangani error: tampilkan pesan jika network gagal
+\end{enumerate}
+\end{contoh}
 
-  \draw[arrow] (start) -- (sess);
-  \draw[arrow] (sess) -- (check);
-  \draw[arrow] (check) -- node[above left, font=\footnotesize]{Tidak} (new);
-  \draw[arrow] (check) -- node[above right, font=\footnotesize]{Ya} (load);
-  \draw[arrow] (new) |- (use);
-  \draw[arrow] (load) |- (use);
-  \draw[arrow] (use) -- (end);
-\end{tikzpicture}
-\caption{Flowchart siklus hidup session di PHP}
-\end{figure}
-
-Keamanan session sangat penting karena \textit{session hijacking} (pencurian Session ID) dapat memberikan akses tidak sah ke akun pengguna. Beberapa praktik keamanan yang direkomendasikan: (1) panggil \code{session\_regenerate\_id(true)} setelah login berhasil untuk mencegah \textit{session fixation}; (2) simpan Session ID di cookie dengan atribut \code{HttpOnly} dan \code{Secure}; (3) atur \code{session.cookie\_samesite = 'Strict'} untuk mencegah pengiriman cookie lintas situs; (4) batasi masa berlaku session; (5) periksa IP atau \textit{user-agent} untuk deteksi anomali. Konfigurasi ini dapat diatur melalui \code{php.ini} atau fungsi \code{session\_set\_cookie\_params()} \cite{owaspCsrf}.
-
-\begin{webcode}[language=PHP, caption={Login sederhana dengan session dan keamanan}]
-<?php
-// login.php
-session_start();
-
-// Pengaturan keamanan cookie session
-session_set_cookie_params([
-  'lifetime' => 3600,        // 1 jam
-  'path'     => '/',
-  'secure'   => true,        // hanya HTTPS
-  'httponly'  => true,        // tidak diakses JS
-  'samesite' => 'Strict'     // cegah CSRF
-]);
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $user = htmlspecialchars($_POST['username'] ?? '');
-  $pass = $_POST['password'] ?? '';
-
-  // Simulasi: di produksi, cek dari database dengan password_verify()
-  if ($user === 'admin' && $pass === 'rahasia123') {
-    session_regenerate_id(true); // cegah session fixation
-    $_SESSION['username']  = $user;
-    $_SESSION['login_time'] = time();
-    header("Location: dashboard.php");
-    exit;
-  } else {
-    $error = "Username atau password salah.";
-  }
+\begin{webcode}[language=JavaScript, caption={Fetch API: GET dan POST}]
+// GET request
+async function getProducts() {
+  const res = await fetch("/api/products");
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
 }
-?>
+
+// POST request (kirim data)
+async function createProduct(data) {
+  const res = await fetch("/api/products", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
 \end{webcode}
 
 \begin{catatan}
-Di lingkungan produksi, jangan pernah menyimpan password dalam teks biasa (\textit{plain text}). Gunakan \code{password\_hash(\$pass, PASSWORD\_DEFAULT)} untuk menyimpan dan \code{password\_verify(\$input, \$hash)} untuk memverifikasi. Session data disimpan di server (biasanya di folder \code{/tmp/}), sehingga lebih aman daripada cookie yang tersimpan di browser.
+\textbf{fetch() Tidak Reject pada HTTP Error.} Berbeda dari XMLHttpRequest, \code{fetch()} hanya reject pada network error (tidak ada koneksi). Response 404 atau 500 tetap resolve---periksa \code{res.ok} atau \code{res.status} untuk mendeteksi error HTTP. Ini adalah ``gotcha'' paling umum saat menggunakan Fetch API \cite{mdnJsGuide}.
 \end{catatan}
-
-Untuk proses logout, tiga langkah diperlukan: (1) panggil \code{session\_start()} untuk mengakses session aktif; (2) hapus semua variabel session dengan \code{\$\_SESSION = []} atau \code{session\_unset()}; (3) hancurkan session di server dengan \code{session\_destroy()}. Opsional, hapus juga cookie session di browser dengan \code{setcookie(session\_name(), '', time()-3600)}. Langkah ini memastikan session benar-benar berakhir dan tidak dapat digunakan kembali \cite{phpManual}.
 

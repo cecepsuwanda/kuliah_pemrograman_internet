@@ -1,72 +1,27 @@
-\section{Query Dasar: SELECT, INSERT, UPDATE, DELETE}
+\section{Pengujian Dasar (Konsep Unit Test)}
 
-Setelah koneksi MySQLi terbentuk, operasi data pada database dilakukan melalui \textbf{query SQL}. Empat operasi dasar yang dikenal sebagai \textbf{CRUD} (\textit{Create, Read, Update, Delete}) dipetakan ke perintah SQL: \code{INSERT} (create), \code{SELECT} (read), \code{UPDATE} (update), dan \code{DELETE} (delete). Query dijalankan menggunakan metode \code{\$conn->query(\$sql)} untuk query tanpa parameter, atau menggunakan \textit{prepared statement} untuk query yang melibatkan input pengguna --- ini penting untuk mencegah \textbf{SQL injection} \cite{phpManual}.
+\textbf{Unit test} memeriksa unit kode terkecil (fungsi, modul) secara terisolasi untuk memastikan perilaku yang benar. Test bersifat otomatis, repeatable, dan memberikan confidence saat refactoring: jika test tetap hijau, perubahan tidak merusak fungsionalitas. Framework test JavaScript populer: \textbf{Jest}, \textbf{Vitest}, dan \textbf{Mocha} \cite{mdnToolsTesting}.
 
-\code{SELECT} digunakan untuk membaca data dari tabel. Hasilnya berupa \textit{result set} yang dapat diiterasi menggunakan metode \code{fetch\_assoc()} (mengembalikan satu baris sebagai array asosiatif), \code{fetch\_all(MYSQLI\_ASSOC)} (semua baris sekaligus), atau \code{fetch\_object()}. Properti \code{\$result->num\_rows} menunjukkan jumlah baris. Untuk operasi \code{INSERT}, \code{UPDATE}, dan \code{DELETE}, metode \code{query()} mengembalikan boolean, dan \code{\$conn->affected\_rows} menunjukkan jumlah baris yang terpengaruh. Setelah \code{INSERT}, \code{\$conn->insert\_id} berisi ID yang baru digenerate (auto-increment) \cite{mysqlDocs}.
-
-\begin{webcode}[language=PHP, caption={CRUD dengan prepared statement (MySQLi OOP)}]
-<?php
-$conn = new mysqli('localhost', 'root', '', 'belajar_php');
-$conn->set_charset("utf8mb4");
-
-// CREATE - INSERT dengan prepared statement
-$stmt = $conn->prepare("INSERT INTO tugas (judul, deskripsi) VALUES (?, ?)");
-$stmt->bind_param("ss", $judul, $deskripsi);
-$judul     = "Belajar PHP OOP";
-$deskripsi = "Memahami class, object, dan inheritance";
-$stmt->execute();
-echo "Data ditambahkan, ID: " . $stmt->insert_id . "\n";
-$stmt->close();
-
-// READ - SELECT
-$result = $conn->query("SELECT id, judul, deskripsi FROM tugas ORDER BY id");
-while ($row = $result->fetch_assoc()) {
-  echo "#{$row['id']} {$row['judul']}: {$row['deskripsi']}\n";
+\begin{webcode}[language=JavaScript, caption={Contoh unit test sederhana (konsep Jest)}]
+// fungsi yang diuji
+function hitungDiskon(harga, persen) {
+  if (persen < 0 || persen > 100) throw new Error("Invalid");
+  return harga - (harga * persen / 100);
 }
-$result->free();
 
-// UPDATE dengan prepared statement
-$stmt = $conn->prepare("UPDATE tugas SET judul = ? WHERE id = ?");
-$stmt->bind_param("si", $judulBaru, $id);
-$judulBaru = "Belajar PHP OOP Lanjutan";
-$id = 1;
-$stmt->execute();
-echo "Baris diupdate: " . $stmt->affected_rows . "\n";
-$stmt->close();
-
-// DELETE dengan prepared statement
-$stmt = $conn->prepare("DELETE FROM tugas WHERE id = ?");
-$stmt->bind_param("i", $id);
-$id = 1;
-$stmt->execute();
-echo "Baris dihapus: " . $stmt->affected_rows . "\n";
-$stmt->close();
-
-$conn->close();
-?>
+// test cases (pola AAA: Arrange-Act-Assert)
+test("diskon 20%", () => {
+  expect(hitungDiskon(100000, 20)).toBe(80000);
+});
+test("diskon 0%", () => {
+  expect(hitungDiskon(100000, 0)).toBe(100000);
+});
+test("persen negatif throws", () => {
+  expect(() => hitungDiskon(100000, -5)).toThrow();
+});
 \end{webcode}
 
-\begin{table}[ht]
-\centering
-\begin{tabular}{|P{2cm}|P{3cm}|P{3cm}|P{4cm}|}
-\hline
-\textbf{Operasi} & \textbf{SQL} & \textbf{Return} & \textbf{Info tambahan} \\
-\hline
-Create & \code{INSERT} & Boolean & \code{\$conn->insert\_id} \\
-\hline
-Read & \code{SELECT} & Result set & \code{fetch\_assoc()}, \code{num\_rows} \\
-\hline
-Update & \code{UPDATE} & Boolean & \code{\$conn->affected\_rows} \\
-\hline
-Delete & \code{DELETE} & Boolean & \code{\$conn->affected\_rows} \\
-\hline
-\end{tabular}
-\caption{Ringkasan operasi CRUD dengan MySQLi}
-\end{table}
-
-\textbf{Prepared statement} adalah mekanisme yang memisahkan query SQL dari data. Langkahnya: (1) \textit{prepare} template query dengan placeholder \code{?}; (2) \textit{bind} parameter ke placeholder menggunakan \code{bind\_param()} dengan indikator tipe (\code{"s"} = string, \code{"i"} = integer, \code{"d"} = double, \code{"b"} = blob); (3) \textit{execute} query. Prepared statement mencegah SQL injection karena data diperlakukan sebagai literal, bukan bagian dari perintah SQL. Selain keamanan, prepared statement juga memberikan keuntungan performa saat query yang sama dieksekusi berulang kali dengan data berbeda \cite{phpRightWay}.
-
 \begin{catatan}
-Jangan pernah menggabungkan string input langsung ke SQL seperti \code{"SELECT * FROM user WHERE id = \$id"}. Ini membuka celah SQL injection. Selalu gunakan prepared statement atau minimal \code{\$conn->real\_escape\_string()}, meskipun prepared statement jauh lebih aman dan direkomendasikan.
+\textbf{Test Coverage Bukan Segalanya.} 100\% coverage bukan jaminan kode bebas bug---test bisa saja tidak menguji edge case yang tepat. Fokus pada test yang bermakna: happy path (kasus normal), edge cases (batas, kosong, null), dan error cases. Test yang baik juga berfungsi sebagai dokumentasi: membaca test menjelaskan apa yang dilakukan fungsi \cite{mdnToolsTesting}.
 \end{catatan}
 

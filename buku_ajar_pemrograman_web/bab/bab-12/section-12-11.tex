@@ -1,46 +1,62 @@
-\section{Fungsi Agregat: COUNT, SUM, AVG, MIN, MAX}
+\section{Fungsi: Deklarasi, Parameter, Return, dan Nilai Default}
 
-\textbf{Fungsi agregat} mengolah sekumpulan baris dan mengembalikan satu nilai ringkasan. Fungsi ini sangat berguna untuk analisis data: menghitung jumlah record, total penjualan, rata-rata harga, nilai minimum, dan maksimum. Fungsi agregat biasanya digunakan bersama \code{GROUP BY} untuk menghasilkan ringkasan per kelompok, namun juga dapat digunakan sendiri untuk ringkasan seluruh tabel \cite{mysqlDocs}.
+Fungsi adalah blok kode yang dapat digunakan kembali (\textit{reusable}) untuk melakukan tugas tertentu. Dengan mendefinisikan fungsi, Anda menghindari pengulangan kode yang sama di banyak tempat. Fungsi di PHP dideklarasikan menggunakan kata kunci \code{function}, diikuti nama fungsi, daftar parameter dalam tanda kurung, dan blok kode dalam kurung kurawal. Nama fungsi bersifat \textbf{case-insensitive} (meskipun disarankan konsisten) dan mengikuti aturan penamaan yang sama dengan variabel (huruf/underscore di awal) \cite{phpManual}.
+
+Parameter adalah variabel yang diterima fungsi sebagai input. PHP mendukung \textbf{nilai default} untuk parameter, yang digunakan jika argumen tidak diberikan saat pemanggilan. Parameter dengan nilai default harus diletakkan di akhir daftar parameter. Kata kunci \code{return} mengembalikan nilai dari fungsi dan menghentikan eksekusinya; fungsi tanpa \code{return} mengembalikan \code{null} secara implisit \cite{phpRightWay}.
+
+\begin{webcode}[language=PHP, caption={Fungsi dengan parameter, default, dan return}]
+<?php
+// Fungsi sederhana tanpa parameter
+function salam() {
+    return "Selamat datang di PHP!";
+}
+
+// Fungsi dengan parameter dan nilai default
+function hitungLuas($panjang, $lebar = 10) {
+    return $panjang * $lebar;
+}
+
+// Fungsi dengan type hinting (PHP 7+)
+function tambah(int $a, int $b): int {
+    return $a + $b;
+}
+
+echo salam() . "\n";           // Selamat datang di PHP!
+echo hitungLuas(5) . "\n";     // 50 (lebar default 10)
+echo hitungLuas(5, 3) . "\n";  // 15
+echo tambah(10, 20) . "\n";    // 30
+?>
+\end{webcode}
+
+PHP 7 dan versi lebih baru mendukung \textbf{type hinting} (deklarasi tipe) untuk parameter dan nilai kembalian fungsi. Ini membantu memastikan bahwa fungsi menerima dan mengembalikan tipe data yang diharapkan. Jika tipe tidak sesuai, PHP akan melemparkan TypeError. Fitur ini sangat berguna untuk mencegah bug dan membuat kode lebih terdokumentasi secara mandiri (\textit{self-documenting}).
+
+PHP juga mendukung \textbf{variadic functions} dengan sintaks \code{...\$args}, yang memungkinkan fungsi menerima jumlah argumen yang tidak tetap. Semua argumen tambahan dikumpulkan ke dalam array \code{\$args}. Ini berguna untuk fungsi seperti penjumlahan atau penggabungan string yang jumlah inputnya bervariasi.
 
 \begin{table}[ht]
 \centering
-\begin{tabular}{|P{2.5cm}|P{5cm}|P{5cm}|}
+\begin{tabular}{|P{3.5cm}|P{4cm}|P{4.5cm}|}
 \hline
-\textbf{Fungsi} & \textbf{Deskripsi} & \textbf{Contoh} \\
+\textbf{Fitur} & \textbf{Sintaks} & \textbf{Keterangan} \\
 \hline
-\code{COUNT()} & Jumlah baris & \code{COUNT(*)} atau \code{COUNT(kolom)} \\
+Deklarasi dasar & \code{function nama() \{\}} & Tanpa parameter \\
 \hline
-\code{SUM()} & Total nilai & \code{SUM(harga * stok)} \\
+Parameter & \code{function f(\$a, \$b)} & Dua parameter wajib \\
 \hline
-\code{AVG()} & Rata-rata nilai & \code{AVG(harga)} \\
+Nilai default & \code{function f(\$a, \$b = 0)} & \code{\$b} opsional \\
 \hline
-\code{MIN()} & Nilai terkecil & \code{MIN(harga)} \\
+Type hinting & \code{function f(int \$a): string} & Tipe parameter dan return \\
 \hline
-\code{MAX()} & Nilai terbesar & \code{MAX(harga)} \\
+Variadic & \code{function f(...\$args)} & Argumen tidak tetap \\
+\hline
+Nullable type & \code{function f(?int \$a)} & Boleh null atau int \\
+\hline
+Arrow function & \code{fn(\$x) => \$x * 2} & Fungsi singkat (PHP 7.4+) \\
 \hline
 \end{tabular}
-\caption{Fungsi agregat utama di MySQL}
+\caption{Fitur-fitur fungsi di PHP}
 \end{table}
 
-\begin{webcode}[language=SQL, caption={Penggunaan fungsi agregat}]
--- Jumlah total produk
-SELECT COUNT(*) AS total_produk FROM produk;
-
--- Total nilai inventaris
-SELECT SUM(harga * stok) AS total_inventaris FROM produk;
-
--- Rata-rata harga produk elektronik
-SELECT AVG(harga) AS rata_harga
-  FROM produk WHERE kategori = 'elektronik';
-
--- Produk termurah dan termahal
-SELECT MIN(harga) AS termurah, MAX(harga) AS termahal FROM produk;
-
--- Ringkasan per kategori
-SELECT kategori,
-       COUNT(*) AS jumlah,
-       AVG(harga) AS rata_harga,
-       SUM(stok) AS total_stok
-FROM produk GROUP BY kategori;
-\end{webcode}
+\begin{konsep}
+\textbf{Fungsi Bawaan PHP:} PHP menyediakan ribuan fungsi bawaan (\textit{built-in functions}) yang siap pakai. Anda sudah melihat beberapa di antaranya: \code{strlen()}, \code{strtoupper()}, \code{array\_push()}, \code{var\_dump()}, \code{htmlspecialchars()}, dan lain-lain. Sebelum membuat fungsi sendiri, periksa apakah PHP sudah menyediakan fungsi yang sesuai --- ini menghemat waktu dan biasanya lebih optimal \cite{phpManual}.
+\end{konsep}
 

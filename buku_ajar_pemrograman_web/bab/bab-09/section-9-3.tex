@@ -1,30 +1,23 @@
-\section{Objek Lanjutan: this, Constructor, dan Iterasi}
+\section{Sintaks Dasar: Statement, Komentar, dan Aturan Penulisan}
 
-Keyword \code{this} di JavaScript merujuk ke objek yang ``memiliki'' konteks eksekusi saat ini. Dalam metode objek, \code{this} merujuk ke objek tersebut. Dalam fungsi biasa (non-strict), \code{this} merujuk ke \code{window}; di strict mode, \code{this} adalah \code{undefined}. Arrow function tidak memiliki \code{this} sendiri---ia mewarisi dari scope luar \cite{jsInfo}.
+Program JavaScript terdiri dari urutan \textbf{statement}---instruksi yang dieksekusi satu per satu dari atas ke bawah. Setiap statement biasanya diakhiri dengan titik koma (\code{;}), meskipun JavaScript memiliki fitur \textit{automatic semicolon insertion} (ASI) yang menambahkan titik koma secara otomatis di beberapa kasus. Praktik terbaik: \textbf{selalu tulis titik koma secara eksplisit} untuk menghindari bug yang sulit dilacak \cite{jsInfo}.
 
-\begin{table}[htbp]
-\centering
-\begin{tabular}{|P{3.5cm}|P{4cm}|P{4.5cm}|}
-\hline
-\textbf{Konteks} & \textbf{Nilai this} & \textbf{Catatan} \\
-\hline
-Metode objek & Objek pemilik & \code{obj.method()} \\
-\hline
-Fungsi biasa & \code{window} / \code{undefined} & Strict mode: undefined \\
-\hline
-Arrow function & Dari scope luar & Lexical this \\
-\hline
-Constructor & Objek baru & \code{new MyObj()} \\
-\hline
-Event handler & Elemen target & \code{el.addEventListener(...)} \\
-\hline
-\end{tabular}
-\caption{Nilai this dalam berbagai konteks JavaScript}
-\end{table}
+JavaScript bersifat \textbf{case-sensitive}: \code{myVariable} dan \code{myvariable} adalah dua identifier berbeda. Nama variabel dan fungsi harus dimulai dengan huruf, underscore (\code{\_}), atau dollar sign (\code{\$}), dan tidak boleh menggunakan kata kunci reserved (\code{if}, \code{for}, \code{function}, dll.). Konvensi penamaan yang umum adalah \textbf{camelCase} untuk variabel dan fungsi (\code{firstName}), \textbf{PascalCase} untuk class (\code{UserProfile}), dan \textbf{UPPER\_SNAKE\_CASE} untuk konstanta (\code{MAX\_SIZE}) \cite{mdnJsGuide}.
 
-Fungsi \textbf{constructor} membuat objek baru dengan operator \code{new}. Konvensi: nama PascalCase. Di dalam constructor, \code{this} merujuk ke objek baru. Metode \code{Object.keys()}, \code{Object.values()}, dan \code{Object.entries()} memungkinkan iterasi objek; \code{for...in} mengiterasi key (termasuk inherited---gunakan \code{hasOwnProperty()} untuk filter) \cite{mdnJsGuide}.
+\begin{webcode}[language=JavaScript, caption={Statement, komentar, dan penamaan}]
+// Komentar satu baris
+/* Komentar
+   multi-baris */
+
+let firstName = "Budi";      // camelCase
+const MAX_RETRIES = 3;        // UPPER_SNAKE_CASE
+let isLoggedIn = true;        // boolean
+
+console.log(firstName);       // Output: Budi
+console.log(typeof isLoggedIn); // Output: boolean
+\end{webcode}
 
 \begin{konsep}
-\textbf{Metode bind, call, dan apply.} Untuk mengontrol \code{this} secara eksplisit: \code{fn.call(obj, arg1, arg2)} memanggil \code{fn} dengan \code{this} = \code{obj}; \code{fn.apply(obj, [args])} sama tapi argumen dalam array; \code{fn.bind(obj)} mengembalikan fungsi baru dengan \code{this} terikat permanen. Berguna untuk callback yang kehilangan konteks \code{this} \cite{jsInfo}.
+\textbf{Strict Mode.} Menambahkan \code{"use strict";} di awal file atau fungsi mengaktifkan mode ketat yang melarang beberapa praktik rawan error: variabel tanpa deklarasi menjadi error, assignment ke properti read-only gagal, dan beberapa sintaks yang deprecated dilarang. ES6 modules secara otomatis berjalan di strict mode. Gunakan strict mode untuk kode yang lebih aman dan mudah di-debug \cite{jsInfo}.
 \end{konsep}
 

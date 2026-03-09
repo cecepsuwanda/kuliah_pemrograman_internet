@@ -1,89 +1,31 @@
-\section{Perulangan: for, while, do-while, foreach, break, dan continue}
+\section{DOM: Traversing, Membuat Node, dan Menghapus Elemen}
 
-Perulangan (\textit{loop}) adalah struktur kontrol yang memungkinkan eksekusi blok kode secara berulang selama kondisi tertentu terpenuhi. Tanpa perulangan, tugas seperti menampilkan 100 baris data atau memproses setiap elemen array harus ditulis sebagai 100 baris perintah terpisah. PHP menyediakan empat jenis perulangan: \code{for}, \code{while}, \code{do-while}, dan \code{foreach}, masing-masing cocok untuk skenario yang berbeda \cite{phpManual}.
+\textbf{DOM traversing} memungkinkan navigasi dari satu elemen ke elemen lain melalui hubungan parent-child-sibling. Properti traversing: \code{parentElement} (naik ke parent), \code{children} (turun ke anak-anak elemen), \code{firstElementChild}, \code{lastElementChild}, \code{nextElementSibling}, \code{previousElementSibling}. Versi tanpa ``Element'' (\code{childNodes}, \code{firstChild}) juga menyertakan text nodes dan komentar \cite{jsInfo}.
 
-Perulangan \code{for} paling cocok ketika jumlah iterasi sudah diketahui sebelumnya. Sintaksnya terdiri dari tiga bagian: inisialisasi, kondisi, dan increment/decrement. Perulangan \code{while} memeriksa kondisi di awal setiap iterasi; cocok ketika jumlah iterasi tidak diketahui. Perulangan \code{do-while} mirip dengan \code{while}, tetapi kondisi diperiksa di akhir, sehingga blok kode dieksekusi \textbf{minimal satu kali} meskipun kondisi awalnya sudah \code{false} \cite{w3schoolsPhp}.
-
-\begin{figure}[ht]
+\begin{table}[htbp]
 \centering
-\begin{tikzpicture}[
-  node distance=1cm,
-  decision/.style={diamond, draw, fill=orange!20, text width=2cm, text badly centered, inner sep=1pt, aspect=2, font=\small},
-  block/.style={rectangle, draw, fill=blue!15, rounded corners, text width=2.5cm, minimum height=0.7cm, text centered, font=\small},
-  line/.style={draw, -Stealth, thick},
-  startstop/.style={rectangle, draw, fill=green!15, rounded corners, minimum width=1.5cm, minimum height=0.6cm, text centered, font=\small},
-  title/.style={font=\small\bfseries}
-]
-  % FOR loop
-  \node[title] (tfor) {for};
-  \node[block, below=0.5cm of tfor] (init) {Inisialisasi};
-  \node[decision, below=of init] (cond) {Kondisi?};
-  \node[block, below=of cond] (body) {Eksekusi blok};
-  \node[block, right=1.5cm of body] (incr) {Increment};
-
-  \path[line] (init) -- (cond);
-  \path[line] (cond) -- node[right, font=\scriptsize]{Ya} (body);
-  \path[line] (body) -- (incr);
-  \path[line] (incr) |- (cond);
-
-  % WHILE loop
-  \node[title, right=5cm of tfor] (twhile) {while};
-  \node[decision, below=0.8cm of twhile] (wcond) {Kondisi?};
-  \node[block, below=of wcond] (wbody) {Eksekusi blok};
-
-  \path[line] (wcond) -- node[right, font=\scriptsize]{Ya} (wbody);
-  \path[line] (wbody.west) -- ++(-0.8,0) |- (wcond.west);
-\end{tikzpicture}
-\caption{Flowchart perulangan for dan while}
-\end{figure}
-
-\begin{webcode}[language=PHP, caption={Perulangan for, while, dan do-while}]
-<?php
-// for: jumlah iterasi diketahui
-echo "Perulangan for:\n";
-for ($i = 1; $i <= 5; $i++) {
-    echo "Iterasi ke-$i\n";
-}
-
-// while: kondisi diperiksa di awal
-echo "\nPerulangan while:\n";
-$j = 1;
-while ($j <= 3) {
-    echo "j = $j\n";
-    $j++;
-}
-
-// do-while: minimal 1 kali eksekusi
-echo "\nPerulangan do-while:\n";
-$k = 10;
-do {
-    echo "k = $k\n";  // dieksekusi 1 kali
-    $k++;
-} while ($k < 5);     // kondisi false, tapi sudah dieksekusi
-?>
-\end{webcode}
-
-Perulangan \code{foreach} dirancang khusus untuk mengiterasi array dan merupakan cara paling idiomatik untuk memproses setiap elemen array di PHP. Sintaks \code{foreach (\$array as \$nilai)} mengambil nilai saja, sedangkan \code{foreach (\$array as \$kunci => \$nilai)} mengambil kunci dan nilai. Perulangan ini lebih aman daripada \code{for} karena tidak memerlukan pengelolaan indeks secara manual dan tidak risiko \textit{index out of bounds} \cite{phpManual}.
-
-\begin{webcode}[language=PHP, caption={Perulangan foreach untuk array}]
-<?php
-// Array terindeks
-$buah = ["Apel", "Mangga", "Jeruk"];
-foreach ($buah as $item) {
-    echo "Buah: $item\n";
-}
-
-// Array asosiatif
-$mahasiswa = ["nama" => "Rizki", "nim" => "2023001", "ipk" => 3.5];
-foreach ($mahasiswa as $kunci => $nilai) {
-    echo "$kunci: $nilai\n";
-}
-?>
-\end{webcode}
-
-Kata kunci \code{break} dan \code{continue} memberikan kontrol tambahan di dalam perulangan. \code{break} menghentikan seluruh perulangan dan langsung keluar dari loop. \code{continue} melompati sisa kode di iterasi saat ini dan langsung menuju iterasi berikutnya. Keduanya sangat berguna untuk mengoptimalkan logika loop, misalnya menghentikan pencarian setelah item ditemukan atau melewati elemen yang tidak memenuhi kriteria \cite{phpRightWay}.
+\small
+\begin{tabular}{|P{4.2cm}|P{3.8cm}|P{2.6cm}|}
+\hline
+\textbf{Operasi} & \textbf{Metode} & \textbf{Catatan} \\
+\hline
+Buat elemen & \raggedright\raggedright\code{document.}\linebreak[0]\code{createElement(tag)} & Belum ada di DOM \\
+\hline
+Isi teks & \code{el.textContent = "..."} & Aman dari XSS \\
+\hline
+Tambah anak & \raggedright\code{parent.}\linebreak[0]\code{appendChild(el)} & Di akhir parent \\
+\hline
+Sisip sebelum & \raggedright\raggedright\code{parent.}\linebreak[0]\code{insertBefore(el, ref)} & Sebelum elemen ref \\
+\hline
+Hapus elemen & \code{el.remove()} & Hapus dari DOM \\
+\hline
+Clone & \code{el.cloneNode\allowbreak(true)} & deep clone \\
+\hline
+\end{tabular}
+\caption{Operasi DOM untuk membuat dan menghapus elemen}
+\end{table}
 
 \begin{catatan}
-\textbf{Hindari Infinite Loop:} Pastikan kondisi perulangan pasti akan bernilai \code{false} pada suatu saat. Jika lupa menginkrementasi counter atau kondisi tidak pernah terpenuhi, program akan berjalan tanpa henti dan server PHP akan timeout. Gunakan \code{set\_time\_limit()} untuk membatasi waktu eksekusi saat debugging.
+\textbf{Minimalisir Manipulasi DOM.} Setiap perubahan DOM memicu layout recalculation oleh browser (reflow). Untuk menambah banyak elemen, kumpulkan di \code{DocumentFragment} terlebih dahulu lalu tambahkan sekali: \code{const frag = document.createDocumentFragment(); frag.appendChild(el1); frag.appendChild(el2); parent.appendChild(frag);}. Ini jauh lebih efisien daripada \code{appendChild()} berulang \cite{mdnJsGuide}.
 \end{catatan}
 

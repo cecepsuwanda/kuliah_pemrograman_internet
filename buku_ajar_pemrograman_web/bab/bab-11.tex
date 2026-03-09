@@ -2,11 +2,12 @@
 \ifSubfilesClassLoaded{\setcounter{chapter}{10}}{}
 \begin{document}
 
-\chapter{PHP OOP, Session, dan Keamanan Dasar}
+\chapter{Library/Framework Front-End (jQuery/Bootstrap/Vue/React) untuk UI Dinamis}
+
+Bab ini membahas materi Pertemuan 11 sesuai RPS: library/framework front-end (jQuery/Bootstrap/Vue/React) untuk UI dinamis. Materi meliputi JavaScript lanjutan (Timer, Asynchronous, Fetch, ES6+, OOP, Closure), pengujian, performa, keamanan, serta pengenalan ekosistem front-end modern dan tooling.
 
 \begin{subcpmk}
-  \item Sub-CPMK 3.1: Mengimplementasikan logika server-side dengan PHP (pemrosesan form, struktur dasar, OOP).
-  \item Sub-CPMK 4.2: Menerapkan prinsip keamanan web: validasi input, prepared statement, session, mitigasi XSS dan CSRF.
+  \item Sub-CPMK 2.4: Menggunakan library atau framework front-end untuk antarmuka dinamis.
 \end{subcpmk}
 
 \input{bab/bab-11/section-11-1}
@@ -23,66 +24,74 @@
 \input{bab/bab-11/section-11-12}
 \input{bab/bab-11/section-11-13}
 \input{bab/bab-11/section-11-14}
+\input{bab/bab-11/section-11-15}
+\input{bab/bab-11/section-11-16}
+\input{bab/bab-11/section-11-17}
 
 \begin{aktivitas}
-  \item Buat class PHP (\code{Mahasiswa}, \code{Produk}) dengan constructor, properti (typed), metode, dan demonstrasi visibility (public, protected, private).
-  \item Praktikkan inheritance: buat hierarki class (misal \code{Hewan} $\to$ \code{Kucing}, \code{Anjing}) dengan method overriding dan \code{parent::}. Buat juga class dengan static property dan factory method.
-  \item Bangun sistem login sederhana menggunakan session: \code{session\_start()}, \code{session\_regenerate\_id()}, \code{session\_destroy()}. Terapkan atribut keamanan cookie session (HttpOnly, Secure, SameSite).
-  \item Implementasikan form upload file dengan validasi lengkap (ukuran, ekstensi whitelist, MIME type) dan \code{move\_uploaded\_file()}.
-  \item Buat koneksi MySQLi (OOP) dan jalankan query CRUD menggunakan prepared statement (\code{prepare()}, \code{bind\_param()}, \code{execute()}).
-  \item Bangun form lanjutan dengan validasi server-side (\code{filter\_var()}, regex) dan sanitasi (\code{htmlspecialchars()}, \code{trim()}, \code{strip\_tags()}). Tambahkan CSRF token.
-  \item Integrasikan semua materi dalam studi kasus Aplikasi Daftar Tugas (CRUD + Login + Session).
+  \item \textbf{Praktik:} Implementasi Fetch API: ambil data dari public API, tampilkan di halaman dengan loading dan error state.
+  \item \textbf{Praktik:} Tulis class \code{Product} dengan constructor dan method; gunakan \code{extends} untuk pewarisan.
+  \item \textbf{Eksplorasi:} Closure (counter privat), RegExp (validasi format), dan Promise/async-await (fetch berurutan).
+  \item \textbf{Latihan:} Gunakan Bootstrap atau Tailwind CSS untuk membuat layout responsif dan komponen UI.
+  \item \textbf{Eksplorasi:} jQuery atau framework (Vue/React) untuk membuat UI dinamis sederhana; bandingkan kelebihan masing-masing.
+  \item \textbf{Diskusi:} Presentasikan proyek SPA sederhana di depan kelompok; terima umpan balik tentang Fetch, keamanan XSS, dan penggunaan library/framework.
 \end{aktivitas}
 
 \begin{latihan}
-  \item Jelaskan empat pilar OOP (encapsulation, inheritance, polymorphism, abstraction) dan berikan contoh masing-masing dalam konteks PHP.
-  \item Apa perbedaan antara \code{public}, \code{protected}, dan \code{private}? Mengapa encapsulation penting?
-  \item Jelaskan perbedaan session dan cookie, serta sebutkan kapan masing-masing sebaiknya digunakan.
-  \item Apa itu \textit{prepared statement}? Mengapa lebih aman daripada menggabungkan string langsung ke query SQL?
-  \item Terapkan \code{htmlspecialchars()} saat menampilkan input pengguna. Jelaskan risiko XSS dan bagaimana cara mitigasinya.
-  \item Apa itu CSRF token dan bagaimana cara kerjanya untuk melindungi form dari serangan CSRF?
+  \item Jelaskan perbedaan callback, Promise, dan async/await. Mengapa async/await lebih direkomendasikan?
+  \item Apa itu XSS? Bagaimana mencegahnya di sisi client dan server?
+  \item Jelaskan perbedaan library dan framework. Sebutkan 3 framework/library front-end populer dan kelebihannya.
+  \item Buat fungsi \code{fetchAndDisplay(url)} yang mengambil JSON dari API, menangani error, dan menampilkan data di halaman.
+  \item Jelaskan apa itu closure dan berikan contoh counter privat menggunakan closure.
+  \item \textbf{Refleksi:} Dari materi bab ini, manakah indikator Sub-CPMK 2.4 yang sudah Anda kuasai? Area mana yang masih perlu Anda tingkatkan?
 \end{latihan}
 
 \begin{asesmen}
-Asesmen berupa tugas proyek: membangun \textbf{Aplikasi Web CRUD} dengan fitur berikut:
-\begin{itemize}
-  \item Sistem login dan registrasi menggunakan session dan \code{password\_hash()}/\code{password\_verify()}.
-  \item Operasi CRUD (Create, Read, Update, Delete) pada satu entitas menggunakan MySQLi dengan prepared statement.
-  \item Validasi input server-side menggunakan \code{filter\_var()} dan sanitasi output dengan \code{htmlspecialchars()}.
-  \item CSRF token pada setiap form.
-  \item File upload dengan validasi tipe dan ukuran (opsional).
-  \item Penanganan error yang baik (try-catch, pesan informatif).
+Asesmen Bab 11 merupakan \textbf{Evaluasi Kinerja} yang mengukur Sub-CPMK 2.4. Terkait RPS: Tugas 4 (Pertemuan 11). Komponen penilaian meliputi:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Library/Framework (30\%):} Penggunaan Bootstrap/jQuery atau Vue/React untuk UI dinamis; layout responsif dan komponen. Mengukur Sub-CPMK 2.4.
+  \item \textbf{Fetch dan Async (25\%):} Implementasi Fetch + async/await, loading state, error handling; mengambil data dari public API. Mengukur Sub-CPMK 2.4.
+  \item \textbf{UI Dinamis (25\%):} SPA sederhana; daftar produk dari API ditampilkan dinamis; manipulasi DOM atau komponen framework. Mengukur Sub-CPMK 2.4.
+  \item \textbf{Keamanan (20\%):} Penggunaan \code{textContent} (bukan \code{innerHTML}) untuk data dari API/user; mitigasi XSS. Mengukur Sub-CPMK 2.4.
 \end{itemize}
-Penilaian meliputi: fungsionalitas (40\%), keamanan (30\%), struktur kode OOP (20\%), dan tampilan (10\%).
+
+\textbf{Rubrik Penilaian (berbasis OBE):}
+\begin{itemize}
+  \item \textbf{A (85--100)}: Seluruh komponen lengkap, library/framework terintegrasi baik, Fetch dan keamanan benar. Kompeten untuk Sub-CPMK 2.4.
+  \item \textbf{B (70--84)}: Sebagian besar komponen lengkap, beberapa detail kurang.
+  \item \textbf{C (55--69)}: Komponen dasar ada tetapi kurang mendalam.
+  \item \textbf{D ($<$55)}: Komponen tidak lengkap atau tidak memenuhi standar minimum.
+\end{itemize}
+
+Rubrik penilaian detail tersedia di Lampiran untuk penilaian proyek aplikasi web interaktif lengkap.
 \end{asesmen}
 
 \begin{checklist}
-  \item Saya memahami konsep OOP di PHP: class, object, properti, metode, \code{\$this}.
-  \item Saya dapat membuat constructor (termasuk constructor promotion PHP 8) dan memahami destructor.
-  \item Saya memahami inheritance (\code{extends}), method overriding (\code{parent::}), dan \code{final}.
-  \item Saya dapat menerapkan visibility (public, protected, private) dengan getter/setter.
-  \item Saya memahami static property/method dan perbedaan \code{self::} vs \code{static::}.
-  \item Saya dapat menggunakan session dengan aman: \code{session\_start()}, \code{session\_regenerate\_id()}, \code{session\_destroy()}.
-  \item Saya memahami cookie: \code{setcookie()} dengan atribut HttpOnly, Secure, SameSite.
-  \item Saya dapat menangani file upload dengan validasi lengkap (error, ukuran, tipe, MIME).
-  \item Saya mampu menangani error dengan \code{try-catch} dan menggunakan custom exception.
-  \item Saya dapat melakukan koneksi MySQLi (OOP) dan menjalankan CRUD dengan prepared statement.
-  \item Saya memahami validasi (\code{filter\_var()}) dan sanitasi (\code{htmlspecialchars()}, \code{trim()}).
-  \item Saya mengetahui risiko XSS dan CSRF serta cara mitigasinya.
+  \item \textbf{Sub-CPMK 2.4:} Saya memahami asynchronous JavaScript: callback, Promise, async/await.
+  \item \textbf{Sub-CPMK 2.4:} Saya dapat menggunakan Fetch API untuk GET dan POST request dengan error handling.
+  \item \textbf{Sub-CPMK 2.4:} Saya menguasai ES6+ (destructuring, spread, modules), class/pewarisan, dan RegExp dasar.
+  \item \textbf{Sub-CPMK 2.4:} Saya memahami closure, prototype chain, dan pola desain dasar (module, singleton).
+  \item \textbf{Sub-CPMK 2.4:} Saya dapat debugging dengan DevTools dan memahami konsep unit test.
+  \item \textbf{Sub-CPMK 2.4:} Saya memahami ancaman XSS dan cara pencegahannya (sanitasi, \code{textContent}).
+  \item \textbf{Sub-CPMK 2.4:} Saya dapat menggunakan library/framework (jQuery, Bootstrap, Vue/React) untuk antarmuka dinamis.
+  \item \textbf{Sub-CPMK 2.4:} Saya mengenal ekosistem front-end: tooling (bundler, linter).
 \end{checklist}
 
 \begin{rangkuman}
-Bab ini membahas PHP tingkat menengah yang mencakup tiga area utama: OOP, session/cookie, dan keamanan dasar. Pada bagian OOP, dibahas pengenalan paradigma OOP dan empat pilarnya, class dan object (properti, metode, typed properties), constructor (termasuk constructor promotion PHP 8) dan destructor, inheritance dan method overriding, visibility (public, protected, private) dengan prinsip encapsulation, serta static property dan method.
-
-Pada bagian session dan cookie, dibahas mekanisme session (siklus hidup, penyimpanan, dan keamanan termasuk \code{session\_regenerate\_id()}), perbedaan session vs cookie, serta atribut keamanan cookie (HttpOnly, Secure, SameSite). Pada bagian keamanan, dibahas file upload dengan validasi ketat, penanganan error modern (try-catch, custom exception), koneksi database MySQLi (OOP), query CRUD dengan prepared statement, serta validasi dan sanitasi input (termasuk mitigasi XSS dan CSRF).
+Bab ini membahas JavaScript lanjutan serta library/framework front-end untuk UI dinamis sebagai \textbf{Unit Materi Inti} berbasis Sub-CPMK 2.4. Materi Timer, asynchronous (callback, Promise, async/await), dan Fetch API memungkinkan komunikasi dengan server. ES6+ (destructuring, spread, modules), class/pewarisan, closure, dan prototype menjadi fondasi OOP. Library/framework (jQuery, Bootstrap, Vue, React) dan tooling (bundler, linter) mempercepat pengembangan UI dinamis. Keamanan (XSS) dan performa harus diperhatikan sejak awal.
 
 \textbf{Poin Kunci:}
 \begin{itemize}
-  \item OOP mengorganisasi kode PHP ke dalam class dan object; empat pilar: encapsulation, inheritance, polymorphism, abstraction.
-  \item Session menyimpan data di server (aman), cookie di client (ringan); keduanya perlu pengaturan keamanan.
-  \item Prepared statement mencegah SQL injection; \code{htmlspecialchars()} mencegah XSS; CSRF token mencegah request palsu.
-  \item Validasi input dan sanitasi output adalah prinsip fundamental keamanan web (OWASP).
+  \item \textbf{Timer dan Async} (Sub-CPMK 2.4): setTimeout, setInterval; callback, Promise, async/await untuk operasi asinkron.
+  \item \textbf{Fetch API}: GET/POST request, error handling, loading state; standar modern komunikasi dengan server.
+  \item \textbf{ES6+ dan OOP}: destructuring, spread, modules; class, pewarisan, closure, prototype, pola desain (module, singleton).
+  \item \textbf{Library dan framework}: jQuery, Bootstrap, Vue, React untuk UI dinamis; perbedaan library vs framework.
+  \item \textbf{Keamanan dan performa}: XSS dan pencegahan (gunakan \code{textContent}, sanitasi input); profiling dan praktik baik.
+  \item Framework mempercepat development; fondasi JavaScript yang kuat (async, Fetch, ES6+) adalah prasyaratnya.
 \end{itemize}
+
+\textbf{Refleksi:} Pastikan Anda dapat mencentang checklist di atas dan siap melanjutkan ke Bab 12 (PHP dasar, pemrosesan form).
 \end{rangkuman}
 
 \ifSubfilesClassLoaded{
@@ -91,4 +100,3 @@ Pada bagian session dan cookie, dibahas mekanisme session (siklus hidup, penyimp
   \bibliography{../references}
 }{}
 \end{document}
-

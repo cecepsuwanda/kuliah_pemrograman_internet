@@ -1,27 +1,74 @@
-\section{GROUP BY dan HAVING}
+\section{Array: Array Terindeks dan Asosiatif, Fungsi Array Dasar}
 
-Klausa \code{GROUP BY} mengelompokkan baris yang memiliki nilai sama pada kolom tertentu, lalu fungsi agregat diterapkan pada setiap kelompok. Misalnya, \code{GROUP BY kategori} mengelompokkan produk berdasarkan kategori, dan \code{COUNT(*)} menghitung jumlah produk di setiap kategori. Kolom yang muncul di \code{SELECT} harus berupa kolom yang ada di \code{GROUP BY} atau hasil fungsi agregat --- jika tidak, hasilnya tidak terdefinisi dengan jelas \cite{mysqlDocs}.
+Array adalah struktur data yang menyimpan banyak nilai dalam satu variabel. Bayangkan array sebagai sebuah lemari dengan banyak laci: setiap laci memiliki nomor (indeks) atau label (kunci) dan menyimpan satu nilai. Array sangat penting dalam pemrograman web karena data dari form, database, dan API sering kali berbentuk kumpulan nilai yang perlu diproses secara bersamaan. PHP mendukung dua jenis array utama: \textbf{array terindeks} (indeks numerik) dan \textbf{array asosiatif} (kunci string) \cite{phpManual}.
 
-\code{HAVING} memfilter hasil setelah pengelompokan, berbeda dengan \code{WHERE} yang memfilter baris sebelum pengelompokan. Gunakan \code{HAVING} untuk kondisi yang melibatkan fungsi agregat. Misalnya, ``tampilkan kategori yang memiliki lebih dari 5 produk'' ditulis: \code{HAVING COUNT(*) > 5}. Urutan eksekusi: FROM $\to$ WHERE $\to$ GROUP BY $\to$ HAVING $\to$ SELECT $\to$ ORDER BY $\to$ LIMIT \cite{mysqlGettingStarted}.
+\textbf{Array terindeks} menggunakan indeks numerik yang dimulai dari 0. Anda dapat membuat array terindeks dengan sintaks pendek \code{[...]} atau fungsi \code{array(...)}. Elemen dapat ditambahkan dengan \code{\$arr[] = nilai;} (indeks otomatis) atau \code{\$arr[5] = nilai;} (indeks spesifik). \textbf{Array asosiatif} menggunakan string sebagai kunci, sangat berguna untuk merepresentasikan data terstruktur seperti profil pengguna atau konfigurasi. PHP juga mendukung array bersarang (\textit{nested array}) --- array di dalam array --- untuk merepresentasikan data multi-dimensi \cite{w3schoolsPhp}.
 
-\begin{webcode}[language=SQL, caption={GROUP BY dan HAVING}]
--- Jumlah produk per kategori
-SELECT kategori, COUNT(*) AS jumlah
-FROM produk
-GROUP BY kategori;
+\begin{webcode}[language=PHP, caption={Array terindeks, asosiatif, dan bersarang}]
+<?php
+// Array terindeks
+$buah = ["Apel", "Mangga", "Jeruk", "Durian"];
+echo $buah[0];   // Apel
+echo count($buah); // 4
 
--- Kategori dengan rata-rata harga di atas 100 ribu
-SELECT kategori, AVG(harga) AS rata_harga
-FROM produk
-GROUP BY kategori
-HAVING AVG(harga) > 100000;
+// Array asosiatif
+$mhs = [
+    "nama" => "Rina",
+    "nim"  => "2024001",
+    "ipk"  => 3.75
+];
+echo $mhs["nama"];  // Rina
 
--- Kombinasi WHERE + GROUP BY + HAVING + ORDER BY
-SELECT kategori, COUNT(*) AS jumlah, SUM(stok) AS total_stok
-FROM produk
-WHERE aktif = TRUE
-GROUP BY kategori
-HAVING COUNT(*) >= 2
-ORDER BY total_stok DESC;
+// Array bersarang (multi-dimensi)
+$kelas = [
+    ["Andi", 85],
+    ["Budi", 92],
+    ["Cici", 78]
+];
+echo $kelas[1][0];  // Budi
+echo $kelas[1][1];  // 92
+
+// Menambah elemen
+$buah[] = "Semangka";       // indeks otomatis (4)
+$mhs["email"] = "rina@mail.com";  // kunci baru
+?>
 \end{webcode}
+
+PHP menyediakan puluhan fungsi bawaan untuk memanipulasi array. Berikut adalah fungsi-fungsi array yang paling sering digunakan.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{3.5cm}|P{4cm}|P{4.5cm}|}
+\hline
+\textbf{Fungsi} & \textbf{Kegunaan} & \textbf{Contoh Hasil} \\
+\hline
+\code{count(\$arr)} & Jumlah elemen & \code{count([1,2,3])} $\rightarrow$ \code{3} \\
+\hline
+\code{array\_push(\$a, v)} & Tambah di akhir & Menambah elemen baru \\
+\hline
+\code{array\_pop(\$a)} & Hapus dari akhir & Mengembalikan elemen terakhir \\
+\hline
+\code{array\_shift(\$a)} & Hapus dari awal & Mengembalikan elemen pertama \\
+\hline
+\code{in\_array(v, \$a)} & Cek keberadaan & Mengembalikan \code{true}/\code{false} \\
+\hline
+\code{array\_merge(a, b)} & Gabung dua array & Array baru yang digabung \\
+\hline
+\code{array\_keys(\$a)} & Ambil semua kunci & Array berisi kunci \\
+\hline
+\code{array\_values(\$a)} & Ambil semua nilai & Array berisi nilai \\
+\hline
+\code{sort(\$a)} & Urutkan naik & Mengubah array langsung \\
+\hline
+\code{array\_map(f, \$a)} & Terapkan fungsi & Array baru hasil transformasi \\
+\hline
+\end{tabular}
+\caption{Fungsi array PHP yang sering digunakan}
+\end{table}
+
+Iterasi array paling idiomatik menggunakan \code{foreach}, seperti yang telah dibahas di section perulangan. Untuk memproses setiap elemen dan menghasilkan array baru, fungsi \code{array\_map()} sangat berguna karena menerapkan fungsi callback ke setiap elemen. Fungsi \code{array\_filter()} menyaring elemen berdasarkan kondisi, sedangkan \code{array\_reduce()} mengakumulasikan seluruh elemen menjadi satu nilai. Ketiga fungsi ini merupakan pola pemrograman fungsional yang semakin populer di PHP modern \cite{phpRightWay}.
+
+\begin{catatan}
+\textbf{Array di PHP Bukan Array Sebenarnya:} Secara internal, array PHP adalah \textit{ordered hash map} (peta hash terurut). Ini berarti array PHP dapat sekaligus memiliki kunci numerik \textbf{dan} string, serta urutan elemen selalu terjaga. Fleksibilitas ini membuat array PHP sangat powerful tetapi berbeda dari array di bahasa lain seperti Java atau C.
+\end{catatan}
 

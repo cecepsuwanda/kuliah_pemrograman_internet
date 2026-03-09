@@ -1,40 +1,36 @@
-\section{Mengakses Elemen DOM dan Mengubah Konten}
+\section{CSS Custom Properties (Variabel)}
 
-JavaScript menyediakan beberapa metode untuk mengakses elemen di DOM. Metode modern yang paling direkomendasikan adalah \code{querySelector()} (mengembalikan elemen pertama yang cocok) dan \code{querySelectorAll()} (mengembalikan semua elemen yang cocok). Keduanya menggunakan CSS selector sebagai argumen, sehingga sangat fleksibel \cite{mdnJsGuide}.
+\textbf{Custom properties} (variabel CSS) memungkinkan penyimpanan nilai yang dapat dipakai ulang di seluruh stylesheet. Dideklarasikan dengan sintaks \code{--nama: nilai;} dan diakses dengan fungsi \code{var(--nama)}. Biasanya didefinisikan pada \code{:root} agar tersedia secara global, tetapi dapat juga di-scope ke selector tertentu dan di-override di elemen turunan---mengikuti aturan cascade seperti properti CSS biasa \cite{mdnCss}.
 
-\begin{table}[htbp]
-\centering
-\begin{tabular}{|P{5cm}|P{2.5cm}|P{4.5cm}|}
-\hline
-\textbf{Metode} & \textbf{Hasil} & \textbf{Catatan} \\
-\hline
-\code{getElementById("id")} & 1 elemen & Cepat; hanya by id \\
-\hline
-\code{querySelector(".css")} & 1 elemen & CSS selector; fleksibel \\
-\hline
-\code{querySelectorAll("p")} & NodeList & Semua yang cocok \\
-\hline
-\code{getElementsByClassName()} & HTMLCollection & Live collection; legacy \\
-\hline
-\end{tabular}
-\caption{Metode akses elemen DOM}
-\end{table}
+\begin{webcode}[language=CSS, caption={Custom properties untuk design system}]
+:root {
+  --color-primary: #2a6fb0;
+  --color-secondary: #1a4f80;
+  --color-bg: #ffffff;
+  --color-text: #333333;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+  --radius: 8px;
+}
+/* Dark theme override */
+[data-theme="dark"] {
+  --color-bg: #1a1a2e;
+  --color-text: #e0e0e0;
+  --color-primary: #4da6ff;
+}
+.card {
+  background: var(--color-bg);
+  color: var(--color-text);
+  padding: var(--spacing-md);
+  border-radius: var(--radius);
+  border: 1px solid var(--color-primary);
+}
+\end{webcode}
 
-Setelah mendapatkan elemen, konten dapat diubah: \code{textContent} mengubah teks (aman dari XSS), \code{innerHTML} mengubah HTML di dalam elemen (hati-hati: rentan XSS jika menyisipkan input pengguna tanpa sanitasi). Atribut diubah dengan \code{setAttribute()} atau properti langsung (\code{el.src = "..."}). Style diubah dengan \code{el.style.color = "red"} atau lebih baik menggunakan class: \code{el.classList.add("active")} \cite{jsInfo}.
+Custom properties memiliki beberapa keunggulan dibanding variabel preprocessor (Sass/Less): (1) bersifat \textbf{runtime}---dapat diubah melalui JavaScript atau media query; (2) mengikuti \textbf{cascade dan inheritance}---nilai berbeda di konteks berbeda; (3) mendukung \textbf{fallback}: \code{var(--warna, blue)} menggunakan \code{blue} jika variabel tidak terdefinisi. Ini menjadikannya ideal untuk tema dinamis (dark mode) yang dapat diubah tanpa reload halaman \cite{webdevCss}.
 
-\begin{contoh}
-\textbf{Studi Kasus: Counter Interaktif}
-
-Tombol + dan - mengubah angka yang ditampilkan di halaman:
-\begin{enumerate}
-  \item HTML: \code{<span id="count">0</span>} dan dua \code{<button>}
-  \item JavaScript: variabel \code{let count = 0;} dan dua event listener
-  \item Klik +: \code{count++; document.getElementById("count").textContent = count;}
-  \item Klik -: \code{count--; ...} (1 baris)
-\end{enumerate}
-\end{contoh}
-
-\begin{catatan}
-\textbf{textContent vs innerHTML.} \code{textContent} mengubah teks polos---aman karena HTML tag akan di-escape (ditampilkan sebagai teks, bukan dirender). \code{innerHTML} menyisipkan HTML yang akan dirender oleh browser---\textbf{jangan} gunakan untuk menyisipkan input pengguna tanpa sanitasi (risiko XSS). Untuk menambah elemen secara aman, gunakan \code{createElement()} + \code{appendChild()} \cite{owaspXss}.
-\end{catatan}
+\begin{konsep}
+\textbf{Design Token dengan Custom Properties.} Praktik modern mendefinisikan semua nilai desain (warna, spacing, tipografi, shadow, radius) sebagai custom properties di \code{:root}. Ini menciptakan \textit{design system} yang konsisten: mengubah satu variabel mengubah seluruh situs. Framework seperti Open Props menyediakan set variabel siap pakai. Untuk dark mode, cukup override variabel di \code{[data-theme="dark"]} atau \code{@media (prefers-color-scheme: dark)} \cite{cssTricks}.
+\end{konsep}
 

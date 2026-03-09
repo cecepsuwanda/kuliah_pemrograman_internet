@@ -1,73 +1,10 @@
-\section{Penanganan Error: Error Reporting dan Exception}
+\section{Pola Desain Dasar: Module Pattern dan Singleton}
 
-PHP memiliki sistem penanganan error yang fleksibel untuk mendeteksi, melaporkan, dan menangani masalah yang terjadi saat eksekusi. Tingkat error yang ditampilkan diatur melalui konfigurasi \code{error\_reporting} di \code{php.ini} atau secara runtime dengan fungsi \code{error\_reporting()}. Nilai umum: \code{E\_ALL} menampilkan semua error, \code{E\_ERROR} hanya error fatal, \code{E\_WARNING} untuk peringatan. Selama pengembangan (\textit{development}), aktifkan semua error: \code{error\_reporting(E\_ALL)} dan \code{ini\_set('display\_errors', 1)}. Di lingkungan produksi, matikan tampilan error dan arahkan ke file log untuk mencegah bocornya informasi sensitif \cite{phpManual}.
+\textbf{Module pattern} membungkus kode dalam IIFE (Immediately Invoked Function Expression) atau closure untuk menciptakan scope privat. Variabel dan fungsi di dalam module tidak mencemari scope global. Hanya API publik yang di-return. Dengan ES6 modules (\code{import}/\code{export}), module pattern native sudah tersedia, tetapi IIFE pattern masih relevan untuk pemahaman konsep \cite{eloquentJs}.
 
-\begin{table}[ht]
-\centering
-\begin{tabular}{|P{3cm}|P{2cm}|P{7cm}|}
-\hline
-\textbf{Konstanta} & \textbf{Nilai} & \textbf{Deskripsi} \\
-\hline
-\code{E\_ERROR} & 1 & Error fatal; skrip berhenti \\
-\hline
-\code{E\_WARNING} & 2 & Peringatan; skrip tetap berjalan \\
-\hline
-\code{E\_NOTICE} & 8 & Pemberitahuan minor (variabel belum didefinisikan) \\
-\hline
-\code{E\_PARSE} & 4 & Error sintaks saat kompilasi \\
-\hline
-\code{E\_DEPRECATED} & 8192 & Fitur yang akan dihapus di versi mendatang \\
-\hline
-\code{E\_ALL} & --- & Semua error dan peringatan \\
-\hline
-\end{tabular}
-\caption{Level error utama di PHP}
-\end{table}
+\textbf{Singleton pattern} memastikan hanya ada satu instance dari suatu objek di seluruh aplikasi---berguna untuk konfigurasi, state global, atau koneksi database. Dalam JavaScript, singleton sering di-implementasi sebagai objek literal atau modul yang mengexport satu instance \cite{jsInfo}.
 
-Sejak PHP 5, penanganan error modern menggunakan mekanisme \textbf{exception} dengan blok \code{try-catch-finally}. Exception adalah object yang merepresentasikan kesalahan yang terjadi saat runtime. Kode yang berpotensi gagal ditempatkan di blok \code{try}; jika terjadi exception, eksekusi melompat ke blok \code{catch} yang sesuai. Blok \code{finally} (opsional) selalu dijalankan, baik terjadi exception maupun tidak. PHP menyediakan beberapa class exception bawaan seperti \code{Exception}, \code{RuntimeException}, \code{InvalidArgumentException}, dan \code{TypeError} \cite{phpRightWay}.
-
-\begin{webcode}[language=PHP, caption={Penanganan error dengan try-catch dan custom exception}]
-<?php
-// Custom exception
-class ValidationException extends Exception {
-  private array $errors;
-
-  public function __construct(array $errors, int $code = 0) {
-    $this->errors = $errors;
-    parent::__construct("Validasi gagal", $code);
-  }
-
-  public function getErrors(): array {
-    return $this->errors;
-  }
-}
-
-function simpanData(string $nama, string $email): void {
-  $errors = [];
-  if (empty($nama))  $errors[] = "Nama wajib diisi.";
-  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $errors[] = "Format email tidak valid.";
-  }
-  if (!empty($errors)) {
-    throw new ValidationException($errors);
-  }
-  echo "Data '{$nama}' berhasil disimpan.\n";
-}
-
-try {
-  simpanData("", "bukan-email");
-} catch (ValidationException $e) {
-  echo $e->getMessage() . "\n";
-  foreach ($e->getErrors() as $err) {
-    echo "- {$err}\n";
-  }
-} catch (\Exception $e) {
-  echo "Error umum: " . $e->getMessage();
-} finally {
-  echo "Proses selesai.\n";
-}
-?>
-\end{webcode}
-
-PHP juga menyediakan fungsi \code{set\_error\_handler()} untuk menangani error tradisional (E\_WARNING, E\_NOTICE) dengan cara khusus, dan \code{set\_exception\_handler()} untuk menangkap exception yang tidak di-catch. Fungsi \code{trigger\_error()} dapat digunakan untuk memicu error buatan. Pada PHP 8, banyak error yang sebelumnya hanya menghasilkan warning kini menghasilkan exception (misalnya, \code{TypeError} atau \code{ValueError}), membuat penanganan error menjadi lebih konsisten dan prediktabel. Praktik terbaik: selalu tangani error secara eksplisit, log error untuk analisis, dan berikan pesan error yang informatif namun tidak membocorkan detail implementasi \cite{phpManual}.
+\begin{catatan}
+\textbf{Pola Desain Bukan Harga Mati.} Pola desain adalah solusi terbukti untuk masalah umum, bukan aturan wajib. Gunakan pola ketika masalah sesuai; jangan memaksakan pola demi pola. Untuk proyek JavaScript modern, ES6 modules sudah menyelesaikan banyak masalah yang dulu memerlukan module pattern manual. Observer pattern diimplementasikan oleh \code{addEventListener}; Iterator pattern oleh \code{for...of} \cite{mdnJsGuide}.
+\end{catatan}
 

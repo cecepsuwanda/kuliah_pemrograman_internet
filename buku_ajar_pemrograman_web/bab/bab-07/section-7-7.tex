@@ -1,30 +1,88 @@
-\section{Overflow}
+\section{Box Model: Margin, Padding, dan Border}
 
-Properti \code{overflow} mengontrol perilaku konten yang melebihi dimensi kotak elemen. Situasi ini sering terjadi ketika elemen memiliki \code{height} atau \code{width} yang tetap sementara kontennya lebih besar. Memahami overflow penting untuk mencegah layout yang rusak dan menyediakan pengalaman pengguna yang baik pada konten dinamis \cite{mdnCss}.
+Box model adalah konsep paling fundamental dalam CSS layout. Setiap elemen HTML divisualisasikan oleh browser sebagai sebuah \textbf{kotak} (box) yang terdiri dari empat lapisan konsentris: \textbf{content} (isi), \textbf{padding} (ruang dalam), \textbf{border} (garis batas), dan \textbf{margin} (ruang luar). Memahami box model adalah kunci untuk mengendalikan ukuran, spasi, dan posisi elemen di halaman web. Tanpa pemahaman ini, layout CSS akan terasa membingungkan dan tidak dapat diprediksi \cite{webdevCss}.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{0.75\textwidth}{!}{%
+\begin{tikzpicture}[every node/.style={font=\footnotesize}]
+  % Margin (outermost)
+  \fill[orange!15] (0,0) rectangle (10,7);
+  \node[anchor=north west] at (0.2,6.8) {\textbf{margin}};
+
+  % Border
+  \fill[yellow!25] (1,1) rectangle (9,6);
+  \node[anchor=north west] at (1.2,5.8) {\textbf{border}};
+
+  % Padding
+  \fill[green!15] (1.5,1.5) rectangle (8.5,5.5);
+  \node[anchor=north west] at (1.7,5.3) {\textbf{padding}};
+
+  % Content
+  \fill[blue!15] (2.5,2.5) rectangle (7.5,4.5);
+  \node at (5,3.5) {\textbf{CONTENT}};
+  \node at (5,3) {\code{width} $\times$ \code{height}};
+
+  % Dimension labels
+  \draw[<->, thick] (2.5,2) -- node[below, font=\scriptsize] {width (content)} (7.5,2);
+  \draw[<->, thick] (1.5,1) -- node[below, font=\scriptsize] {width + padding} (8.5,1);
+  \draw[<->, thick] (1,0.3) -- node[below, font=\scriptsize] {width + padding + border} (9,0.3);
+\end{tikzpicture}%
+}
+\caption{Diagram Box Model CSS: lapisan content, padding, border, dan margin}
+\end{figure}
+
+\textbf{Content} adalah area tempat teks, gambar, atau konten lain ditampilkan. Ukurannya diatur oleh properti \code{width} dan \code{height}. \textbf{Padding} adalah ruang transparan antara content dan border---menambah jarak ``napas'' di dalam kotak. \textbf{Border} adalah garis yang membatasi elemen, diatur dengan properti \code{border-width}, \code{border-style} (solid, dashed, dotted, dll.), dan \code{border-color}. \textbf{Margin} adalah ruang transparan di luar border yang memisahkan elemen dari elemen lain \cite{mdnCss}.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{3cm}|P{9cm}|}
+\begin{tabular}{|P{2cm}|P{5cm}|P{5cm}|}
 \hline
-\textbf{Nilai} & \textbf{Perilaku} \\
+\textbf{Lapisan} & \textbf{Properti} & \textbf{Fungsi} \\
 \hline
-\code{visible} (default) & Konten meluap keluar kotak; dapat menutupi elemen lain \\
+Content & \code{width}, \code{height} & Ukuran area isi \\
 \hline
-\code{hidden} & Konten yang meluap dipotong; tidak ada scrollbar \\
+Padding & \code{padding} (shorthand atau per sisi) & Ruang dalam antara content dan border \\
 \hline
-\code{scroll} & Scrollbar selalu ditampilkan, meskipun konten tidak meluap \\
+Border & \code{border} (shorthand), \code{border-radius} & Garis batas elemen dan sudut membulat \\
 \hline
-\code{auto} & Scrollbar hanya muncul jika konten meluap \\
-\hline
-\code{clip} & Seperti hidden, tetapi melarang scroll programatis \\
+Margin & \code{margin} (shorthand atau per sisi), \code{auto} & Ruang luar; \code{auto} untuk centering \\
 \hline
 \end{tabular}
-\caption{Nilai properti overflow dan perilakunya}
+\caption{Empat lapisan box model dan properti CSS terkait}
 \end{table}
 
-Properti \code{overflow-x} dan \code{overflow-y} mengontrol overflow secara terpisah untuk sumbu horizontal dan vertikal. Kombinasi \code{overflow-x: hidden; overflow-y: auto;} sering digunakan pada sidebar atau panel navigasi. Teknik \code{text-overflow: ellipsis} dengan \code{overflow: hidden; white-space: nowrap;} memotong teks panjang dengan tanda elipsis (``...'') \cite{webdevCss}.
+Nilai margin dan padding dapat diberikan per sisi secara individual atau menggunakan shorthand. Shorthand mengikuti urutan \textbf{searah jarum jam}: top, right, bottom, left. Jika dua nilai: vertikal dan horizontal. Jika tiga nilai: top, horizontal, bottom. Satu nilai berlaku untuk semua sisi. Margin juga mendukung nilai \code{auto} yang berguna untuk centering horizontal: \code{margin: 0 auto;} akan menempatkan elemen block di tengah kontainernya (asalkan elemen memiliki \code{width} yang ditentukan) \cite{webdevCss}.
+
+\subsection{Margin Collapse}
+
+Fenomena \textbf{margin collapse} terjadi ketika margin vertikal (atas dan bawah) dari dua elemen yang bersebelahan ``bergabung'' menjadi satu margin yang lebih besar. Misalnya, jika paragraf pertama memiliki \code{margin-bottom: 20px} dan paragraf kedua memiliki \code{margin-top: 30px}, jarak antar keduanya bukan 50px melainkan 30px (nilai terbesar yang menang). Margin collapse hanya terjadi pada margin vertikal elemen block; margin horizontal, padding, dan border tidak pernah collapse \cite{cssTricks}.
+
+\begin{webcode}[language=CSS, caption={Box model: padding, border, margin, dan centering}]
+/* Card dengan box model lengkap */
+.card {
+  width: 300px;
+  padding: 20px;            /* semua sisi */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 16px auto;        /* vertikal 16px, horizontal auto (center) */
+  background-color: #fff;
+}
+
+/* Border hanya bawah */
+.section-title {
+  padding-bottom: 8px;
+  border-bottom: 2px solid #2a6fb0;
+  margin-bottom: 16px;
+}
+
+/* Margin per sisi (shorthand 4 nilai) */
+.spaced {
+  margin: 10px 20px 30px 20px; /* top right bottom left */
+}
+\end{webcode}
 
 \begin{konsep}
-\textbf{Overflow dan Block Formatting Context.} Elemen dengan \code{overflow} selain \code{visible} menciptakan \textbf{Block Formatting Context} (BFC) baru. Ini berarti elemen tersebut akan memuat float di dalamnya dan margin-nya tidak akan collapse dengan elemen luar. Properti \code{display: flow-root} menciptakan BFC tanpa efek samping overflow \cite{mdnCss}.
+\textbf{Menggunakan DevTools untuk Inspeksi Box Model.} Setiap browser modern menyediakan visualisasi box model di DevTools. Buka DevTools (F12), pilih elemen dengan Inspect, dan lihat panel \textbf{Computed}---di sana terdapat diagram interaktif yang menunjukkan ukuran content, padding, border, dan margin secara visual dengan angka yang tepat. Ini adalah alat debugging layout yang paling efektif dan harus menjadi kebiasaan saat mengembangkan CSS \cite{mdnCss}.
 \end{konsep}
 

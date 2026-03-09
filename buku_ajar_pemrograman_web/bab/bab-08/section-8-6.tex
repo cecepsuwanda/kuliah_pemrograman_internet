@@ -1,42 +1,26 @@
-\section{Operator: Aritmetika, Perbandingan, Logika, dan Penugasan}
+\section{Float dan Clear}
 
-Operator adalah simbol yang melakukan operasi pada nilai (operand). JavaScript menyediakan beberapa kategori operator: aritmetika untuk perhitungan matematika, perbandingan untuk membandingkan nilai, logika untuk operasi boolean, dan penugasan untuk mengubah nilai variabel \cite{jsInfo}.
+\code{float} adalah metode layout CSS klasik yang awalnya dirancang untuk membuat teks mengalir mengelilingi gambar. Elemen yang di-float (\code{float: left} atau \code{float: right}) dikeluarkan dari normal flow dan ditempatkan di sisi kiri atau kanan kontainernya, sementara konten di sekitarnya mengalir mengelilinginya. Meskipun Flexbox dan Grid telah menggantikan float untuk layout modern, pemahaman float tetap penting untuk memelihara kode lama \cite{mdnCss}.
+
+Properti \code{clear} menghentikan efek float: \code{clear: left} memastikan elemen dimulai di bawah elemen yang di-float kiri; \code{clear: both} di bawah semua float. Masalah klasik float adalah \textbf{kontainer yang collapse}---kontainer tidak memperhitungkan tinggi elemen float di dalamnya. Solusi modern: gunakan \code{display: flow-root} pada kontainer (menciptakan Block Formatting Context baru) atau teknik clearfix dengan \code{::after} \cite{webdevCss}.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{2.5cm}|P{4.5cm}|P{5cm}|}
+\begin{tabular}{|P{3cm}|P{4cm}|P{5cm}|}
 \hline
-\textbf{Kategori} & \textbf{Operator} & \textbf{Catatan} \\
+\textbf{Properti} & \textbf{Nilai} & \textbf{Efek} \\
 \hline
-Aritmetika & \code{+}, \code{-}, \code{*}, \code{/}, \code{\%}, \code{**} & \code{\%} modulo, \code{**} pangkat \\
+\code{float} & \code{left}, \code{right}, \code{none} & Elemen di sisi kiri/kanan; konten mengalir \\
 \hline
-Perbandingan & \code{==}, \code{===}, \code{!=}, \code{!==}, \code{<}, \code{>} & \code{===} tanpa konversi tipe \\
+\code{clear} & \code{left}, \code{right}, \code{both} & Memulai di bawah elemen float \\
 \hline
-Logika & \code{\&\&} (AND), \code{||} (OR), \code{!} (NOT) & Short-circuit evaluation \\
-\hline
-Penugasan & \code{=}, \code{+=}, \code{-=}, \code{*=}, \code{/=} & Shorthand operasi + assign \\
-\hline
-Increment & \code{++}, \code{--} & Pre (\code{++x}) vs post (\code{x++}) \\
+\code{display: flow-root} & --- & Kontainer mencakup float (BFC baru) \\
 \hline
 \end{tabular}
-\caption{Kategori operator JavaScript}
+\caption{Properti float dan clear}
 \end{table}
 
-\begin{webcode}[language=JavaScript, caption={Operator perbandingan dan logika}]
-// == vs === (ketat)
-console.log(5 == "5");    // true  (konversi tipe)
-console.log(5 === "5");   // false (tipe berbeda)
-console.log(null == undefined); // true (kasus khusus)
-
-// Short-circuit evaluation
-const name = userName || "Guest"; // jika userName falsy, pakai "Guest"
-const display = isAdmin && "Admin Panel"; // jika true, kembalikan string
-
-// Nullish coalescing (??)
-const port = config.port ?? 3000; // hanya null/undefined yang diganti
-\end{webcode}
-
-\begin{konsep}
-\textbf{Selalu Gunakan \code{===} (Strict Equality).} Operator \code{==} melakukan konversi tipe sebelum membandingkan, yang sering menghasilkan perilaku tak terduga (\code{0 == ""} adalah \code{true}). Operator \code{===} membandingkan tanpa konversi---lebih aman dan lebih prediktif. Satu-satunya pengecualian yang wajar: \code{value == null} untuk memeriksa null atau undefined sekaligus \cite{mdnJsGuide}.
-\end{konsep}
+\begin{catatan}
+\textbf{Float untuk Layout: Sudah Usang.} Penggunaan float untuk membuat layout kolom (dua kolom, tiga kolom) sudah \textbf{tidak direkomendasikan}. Gunakan Flexbox atau CSS Grid yang dirancang khusus untuk layout dan jauh lebih mudah digunakan. Float tetap valid untuk use case aslinya: membuat teks mengalir mengelilingi gambar atau elemen lain \cite{cssTricks}.
+\end{catatan}
 

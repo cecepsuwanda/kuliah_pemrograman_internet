@@ -1,76 +1,81 @@
-\section{Sintaks Dasar CSS: Selector, Properti, dan Nilai}
+\section{Form HTML: Elemen form, input, label, dan button}
 
-Sintaks CSS memiliki struktur yang sederhana dan konsisten. Setiap \textbf{blok aturan} (rule block) terdiri dari sebuah \textbf{selector} yang menentukan elemen target, diikuti oleh kurung kurawal \code{\{\}} yang membungkus satu atau lebih \textbf{deklarasi}. Setiap deklarasi berisi pasangan \textbf{properti} dan \textbf{nilai} yang dipisahkan oleh titik dua (\code{:}), dan diakhiri dengan titik koma (\code{;}). Meskipun titik koma pada deklarasi terakhir bersifat opsional, praktik terbaik adalah selalu menulisnya untuk menghindari error saat menambah deklarasi baru \cite{mdnCss}.
+Formulir (form) HTML merupakan mekanisme utama untuk mengumpulkan masukan pengguna di web. Setiap kali pengguna mendaftar akun, mengirim pesan kontak, melakukan pencarian, atau mengisi survei, di balik antarmuka tersebut terdapat elemen \code{<form>}. Form memungkinkan data dari browser dikirim ke server untuk diproses, disimpan, atau ditanggapi. Pemahaman menyeluruh tentang elemen-elemen form adalah keterampilan fundamental yang dibutuhkan setiap pengembang web \cite{mdnHtmlIntro}.
 
-\begin{figure}[htbp]
-\centering
-\resizebox{0.85\textwidth}{!}{%
-\begin{tikzpicture}[node distance=0.8cm, transform shape, every node/.style={font=\footnotesize}]
-  \node (selector) [class, fill=orange!20, minimum width=3cm] {\textbf{Selector}\\misal: \code{h1}};
-  \node (brace) [right=0.5cm of selector, font=\Large\bfseries] {\{};
-  \node (prop1) [class, right=0.5cm of brace, fill=blue!15, minimum width=2.5cm] {\textbf{Properti}\\misal: \code{color}};
-  \node (colon) [right=0.3cm of prop1, font=\Large\bfseries] {:};
-  \node (val1) [class, right=0.3cm of colon, fill=green!15, minimum width=2.5cm] {\textbf{Nilai}\\misal: \code{navy}};
-  \node (semi) [right=0.3cm of val1, font=\Large\bfseries] {;};
-  \node (brace2) [right=0.3cm of semi, font=\Large\bfseries] {\}};
-
-  \draw [arrow] (selector) -- (brace);
-  \draw [arrow] (brace) -- (prop1);
-  \draw [arrow] (prop1) -- (colon);
-  \draw [arrow] (colon) -- (val1);
-\end{tikzpicture}%
-}
-\caption{Anatomi blok aturan CSS: selector, properti, dan nilai}
-\end{figure}
-
-Komentar dalam CSS ditulis menggunakan \code{/* ... */} dan dapat membentang beberapa baris. Komentar berguna untuk menjelaskan keputusan desain, menandai bagian kode, atau menonaktifkan aturan sementara saat debugging. CSS tidak mengenal komentar satu baris (\code{//}) seperti JavaScript \cite{webdevCss}.
-
-Beberapa properti CSS mendukung penulisan \textbf{shorthand}---menggabungkan beberapa properti terkait dalam satu deklarasi. Misalnya, \code{margin: 10px 20px 10px 20px;} adalah shorthand untuk \code{margin-top}, \code{margin-right}, \code{margin-bottom}, \code{margin-left} (searah jarum jam dari atas). Shorthand mempercepat penulisan namun perlu dipahami agar tidak secara tidak sengaja me-reset nilai yang tidak dimaksud. Jika hanya dua nilai diberikan (\code{margin: 10px 20px;}), nilai pertama berlaku vertikal dan kedua berlaku horizontal \cite{cssTricks}.
+Elemen \code{<form>} berfungsi sebagai wadah yang membungkus semua kontrol input. Dua atribut penting pada \code{<form>} adalah \code{action} yang menentukan URL tujuan pengiriman data, dan \code{method} yang menentukan metode HTTP yang digunakan. Metode \code{GET} mengirim data melalui URL query string (cocok untuk pencarian), sedangkan \code{POST} mengirim data di body request (lebih aman untuk data sensitif). Atribut tambahan seperti \code{enctype} diperlukan saat form mengirim file \cite{webdevHtml}.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{3cm}|P{4.5cm}|P{4.5cm}|}
+\begin{tabular}{|P{2.5cm}|P{4cm}|P{5.5cm}|}
 \hline
-\textbf{Shorthand} & \textbf{Properti Individual} & \textbf{Contoh} \\
+\textbf{Atribut} & \textbf{Nilai} & \textbf{Fungsi} \\
 \hline
-\code{margin} & top, right, bottom, left & \code{margin: 10px 20px;} \\
+\code{action} & URL tujuan & Menentukan ke mana data dikirim \\
 \hline
-\code{padding} & top, right, bottom, left & \code{padding: 8px 16px 8px 16px;} \\
+\code{method} & \code{get} / \code{post} & Metode HTTP untuk pengiriman \\
 \hline
-\code{border} & width, style, color & \code{border: 1px solid \#333;} \\
+\code{enctype} & \code{multipart/form-data} & Diperlukan saat mengirim file \\
 \hline
-\code{font} & style, weight, size/line-height, family & \code{font: italic bold 1rem/1.5 Arial;} \\
+\code{novalidate} & (boolean) & Menonaktifkan validasi bawaan browser \\
 \hline
-\code{background} & color, image, repeat, position, size & \code{background: \#fff url(bg.png) no-repeat;} \\
+\code{target} & \code{\_self}, \code{\_blank}, dll. & Di mana respons ditampilkan \\
+\hline
+\code{autocomplete} & \code{on} / \code{off} & Mengatur auto-fill browser \\
 \hline
 \end{tabular}
-\caption{Properti shorthand CSS yang umum digunakan}
+\caption{Atribut penting elemen \code{<form>}}
 \end{table}
 
-\begin{webcode}[language=CSS, caption={Sintaks CSS: aturan, komentar, dan shorthand}]
-/* === Header Styling === */
-h1 {
-  color: #2a6fb0;       /* Warna teks */
-  font-size: 2rem;
-  margin: 0 0 1rem 0;   /* shorthand: atas kanan bawah kiri */
-}
+Elemen \code{<label>} adalah pasangan wajib untuk setiap kontrol input. Label memberikan teks deskriptif yang menjelaskan apa yang harus diisi pengguna. Pengaitan label dengan input dilakukan melalui atribut \code{for} pada label yang nilainya sama dengan \code{id} pada input. Pengaitan ini penting bukan hanya untuk aksesibilitas (pembaca layar membacakan label saat input difokuskan), tetapi juga untuk kemudahan penggunaan---klik pada label akan memfokuskan atau mengaktifkan input terkait, memperbesar area klik terutama untuk checkbox dan radio button \cite{mdnAccessibility}.
 
-/* Card component */
-.card {
-  padding: 16px;         /* shorthand: semua sisi */
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #fff;
-}
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[node distance=2cm, transform shape, every node/.style={font=\footnotesize}]
+  \node (user) [class, fill=orange!20] {Pengguna\\mengisi form};
+  \node (browser) [class, right=of user] {Browser\\validasi client};
+  \node (send) [class, right=of browser] {HTTP Request\\(GET/POST)};
+  \node (server) [class, right=of send] {Server\\memproses data};
+  \node (response) [class, right=of server] {Response\\(HTML/redirect)};
 
-/* Aturan tidak valid (akan diabaikan browser) */
-p {
-  colour: red;  /* SALAH: typo 'colour' */
-  font-size: ;  /* SALAH: nilai kosong */
+  \draw [arrow] (user) -- (browser);
+  \draw [arrow] (browser) -- node[above, font=\scriptsize] {valid} (send);
+  \draw [arrow, dashed] (browser) to[bend right=30] node[below, font=\scriptsize] {invalid: tampil error} (user);
+  \draw [arrow] (send) -- (server);
+  \draw [arrow] (server) -- (response);
+  \draw [arrow, dashed] (response) to[bend right=25] node[below, font=\scriptsize] {halaman baru} (user);
+\end{tikzpicture}%
 }
+\caption{Alur pengiriman data form: dari pengguna ke server dan kembali}
+\end{figure}
+
+Elemen \code{<button>} digunakan untuk membuat tombol interaktif di dalam form. Terdapat tiga tipe button: \code{type="submit"} yang mengirim data form ke server (perilaku default jika \code{type} tidak ditentukan), \code{type="reset"} yang mengosongkan semua isian form ke nilai awal, dan \code{type="button"} yang tidak melakukan aksi form tetapi dapat diprogram dengan JavaScript. Sebaiknya selalu tentukan atribut \code{type} secara eksplisit untuk menghindari perilaku yang tidak diinginkan \cite{whatwgHtml}.
+
+\begin{webcode}[language=HTML, caption={Form kontak lengkap dengan label dan button}]
+<form action="/kirim-pesan" method="post">
+  <p>
+    <label for="nama">Nama Lengkap:</label>
+    <input type="text" id="nama" name="nama"
+           placeholder="Masukkan nama" required />
+  </p>
+  <p>
+    <label for="email">Alamat Email:</label>
+    <input type="email" id="email" name="email"
+           placeholder="nama@domain.com" required />
+  </p>
+  <p>
+    <label for="pesan">Pesan:</label>
+    <textarea id="pesan" name="pesan" rows="5"
+              placeholder="Tulis pesan Anda..."></textarea>
+  </p>
+  <p>
+    <button type="submit">Kirim Pesan</button>
+    <button type="reset">Batal</button>
+  </p>
+</form>
 \end{webcode}
 
 \begin{konsep}
-\textbf{CSS yang Tidak Valid Tidak Merusak Halaman.} Berbeda dengan bahasa pemrograman yang menghentikan eksekusi saat ada error, CSS bersifat \textit{forgiving}. Jika browser menemukan properti yang tidak dikenal, nilai yang tidak valid, atau sintaks yang salah, ia akan \textbf{mengabaikan} deklarasi tersebut dan melanjutkan ke deklarasi berikutnya. Ini menjadikan debugging CSS lebih menantang; gunakan DevTools browser untuk memeriksa properti mana yang diterapkan dan mana yang dicoret (invalid) \cite{mdnCss}.
+\textbf{Selalu Gunakan Label untuk Setiap Input.} Form tanpa label yang tepat menyulitkan pengguna pembaca layar dan mengurangi kemudahan penggunaan. Dua cara mengaitkan label: (1) \textbf{Eksplisit}: \code{<label for="email">} dengan \code{<input id="email">}; (2) \textbf{Implisit}: membungkus input di dalam label, misalnya \code{<label>Email: <input type="email"></label>}. Cara eksplisit lebih direkomendasikan karena lebih fleksibel dalam penataan layout \cite{webdevAccessibility}.
 \end{konsep}
 

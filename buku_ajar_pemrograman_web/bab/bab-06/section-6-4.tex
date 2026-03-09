@@ -1,65 +1,112 @@
-\section{Selector Dasar: Elemen, Class, dan Id}
+\section{Form: Tipe input, select, textarea, dan validasi dasar}
 
-Selector adalah mekanisme CSS untuk menentukan elemen HTML mana yang akan menerima gaya tertentu. Pemilihan selector yang tepat adalah keterampilan fundamental karena menentukan jangkauan dan specificity aturan CSS. CSS menyediakan berbagai jenis selector---dari yang paling sederhana (elemen tunggal) hingga yang sangat spesifik (kombinasi bertingkat). Pada section ini, fokus pada tiga selector dasar yang paling sering digunakan: selector elemen, class, dan id \cite{mdnCss}.
-
-\textbf{Selector elemen} (type selector) menargetkan semua elemen HTML dengan nama tag tertentu. Misalnya, \code{p \{ color: navy; \}} akan mengubah warna teks semua elemen \code{<p>} di halaman. Selector ini memiliki specificity rendah dan cocok untuk mengatur gaya dasar (base style) yang berlaku secara global. \textbf{Selector class} menggunakan tanda titik (\code{.}) diikuti nama class, misalnya \code{.card}. Sebuah class dapat diterapkan pada banyak elemen berbeda, menjadikannya selector paling serbaguna dan paling direkomendasikan untuk styling komponen modular \cite{webdevCss}.
-
-\textbf{Selector id} menggunakan tanda pagar (\code{\#}) diikuti nama id, misalnya \code{\#header}. Karena id harus unik per halaman, selector ini hanya menargetkan satu elemen. Specificity id sangat tinggi, yang membuatnya sulit di-override. Oleh karena itu, praktik modern merekomendasikan penggunaan class daripada id untuk styling; id lebih cocok digunakan untuk anchor link dan atribut JavaScript (\code{getElementById}) \cite{cssTricks}.
+HTML5 memperkenalkan banyak tipe input baru yang melampaui \code{type="text"} dan \code{type="password"} tradisional. Tipe-tipe ini memberikan petunjuk kepada browser tentang format data yang diharapkan, sehingga browser dapat menampilkan kontrol yang sesuai---misalnya kalender untuk \code{type="date"}, slider untuk \code{type="range"}, atau keyboard numerik di perangkat mobile untuk \code{type="tel"}. Penggunaan tipe yang tepat meningkatkan pengalaman pengguna dan mengaktifkan validasi bawaan browser tanpa memerlukan JavaScript tambahan \cite{mdnHtmlIntro}.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{2.5cm}|P{2.5cm}|P{3cm}|P{4cm}|}
+\begin{tabular}{|P{2.2cm}|P{3.5cm}|P{3cm}|P{3cm}|}
 \hline
-\textbf{Jenis Selector} & \textbf{Sintaks} & \textbf{Specificity} & \textbf{Kapan Digunakan} \\
+\textbf{Tipe Input} & \textbf{Fungsi} & \textbf{Contoh Nilai} & \textbf{Kontrol UI} \\
 \hline
-Elemen & \code{p}, \code{h1} & 0-0-0-1 & Base style untuk seluruh tag \\
+\code{text} & Teks satu baris & ``Budi Santoso'' & Text field \\
 \hline
-Class & \code{.card} & 0-0-1-0 & Komponen modular; paling direkomendasikan \\
+\code{email} & Alamat email & ``budi@mail.com'' & Validasi format @ \\
 \hline
-Id & \code{\#header} & 0-1-0-0 & Elemen unik; hindari untuk styling \\
+\code{password} & Kata sandi & ``********'' & Teks tersembunyi \\
 \hline
-Universal & \code{*} & 0-0-0-0 & Reset global \\
+\code{number} & Angka & ``25'' & Spinner +/-- \\
 \hline
-Gabungan & \code{p.highlight} & Jumlah komponen & Target lebih spesifik \\
+\code{date} & Tanggal & ``2026-01-15'' & Date picker \\
 \hline
-Descendant & \code{nav a} & Jumlah komponen & Elemen di dalam konteks \\
+\code{time} & Waktu & ``14:30'' & Time picker \\
 \hline
-Child & \code{ul > li} & Jumlah komponen & Anak langsung saja \\
+\code{url} & URL & ``https://...'' & Validasi format URL \\
+\hline
+\code{tel} & Nomor telepon & ``08123456789'' & Keyboard telepon \\
+\hline
+\code{range} & Slider rentang & ``50'' & Slider \\
+\hline
+\code{color} & Warna & ``\#ff0000'' & Color picker \\
+\hline
+\code{checkbox} & Pilihan ganda & on/off & Kotak centang \\
+\hline
+\code{radio} & Pilihan tunggal & satu dari grup & Tombol radio \\
+\hline
+\code{file} & Unggah file & (path file) & Tombol browse \\
+\hline
+\code{hidden} & Data tersembunyi & (tidak terlihat) & Tidak ada UI \\
 \hline
 \end{tabular}
-\caption{Jenis-jenis selector CSS dan tingkat specificity-nya}
+\caption{Tipe-tipe input HTML5 dan karakteristiknya}
 \end{table}
 
-Selain tiga selector dasar, CSS mendukung \textbf{selector gabungan} untuk targeting yang lebih presisi. \textbf{Descendant selector} (\code{nav a}) menargetkan semua \code{<a>} di dalam \code{<nav>}, termasuk yang bersarang dalam. \textbf{Child selector} (\code{ul > li}) hanya menargetkan anak langsung. \textbf{Grouping selector} (\code{h1, h2, h3}) menerapkan gaya yang sama ke beberapa selector sekaligus. \textbf{Adjacent sibling} (\code{h2 + p}) menargetkan elemen yang langsung mengikuti elemen lain. Penggunaan selector gabungan yang tepat mengurangi kebutuhan menambah class berlebihan di HTML \cite{mdnCss}.
+Elemen \code{<select>} digunakan untuk membuat daftar pilihan dropdown. Setiap pilihan didefinisikan dengan \code{<option>} dan dapat dikelompokkan menggunakan \code{<optgroup>}. Atribut \code{multiple} memungkinkan pengguna memilih lebih dari satu opsi (biasanya dengan Ctrl+klik). Untuk teks panjang seperti komentar atau deskripsi, gunakan \code{<textarea>} yang menyediakan area input multi-baris. Ukuran awal textarea dapat diatur dengan atribut \code{rows} dan \code{cols}, dan pengguna umumnya dapat mengubah ukurannya secara interaktif \cite{webdevHtml}.
 
-\begin{webcode}[language=CSS, caption={Selector elemen, class, id, dan gabungan}]
-/* Selector elemen: semua paragraf */
-p { line-height: 1.6; }
+Validasi form di sisi klien (client-side) membantu pengguna mengisi data dengan benar sebelum dikirim ke server. HTML5 menyediakan beberapa atribut validasi bawaan: \code{required} mewajibkan field diisi, \code{minlength} dan \code{maxlength} membatasi panjang karakter, \code{min} dan \code{max} membatasi rentang numerik, dan \code{pattern} mencocokkan input dengan pola regular expression. Browser akan menampilkan pesan error otomatis saat validasi gagal. Perlu diingat bahwa validasi klien hanya untuk kenyamanan pengguna; \textbf{validasi server tetap wajib} untuk keamanan karena data dari browser dapat dimanipulasi \cite{whatwgHtml}.
 
-/* Selector class: komponen card */
-.card {
-  padding: 16px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-}
+\begin{konsep}
+\textbf{Validasi Client-side vs Server-side.}
+\begin{itemize}
+  \item \textbf{Client-side} (HTML/JS): Memberikan umpan balik instan kepada pengguna; mengurangi request ke server yang tidak perlu; tetapi dapat dilewati (bypass) oleh pengguna.
+  \item \textbf{Server-side} (PHP/Node.js/dll.): Menjamin keamanan data; tidak dapat dilewati; wajib untuk semua form yang menerima data publik.
+\end{itemize}
+Pendekatan terbaik: gunakan keduanya secara bersamaan. Client-side untuk UX, server-side untuk keamanan \cite{mdnHtmlIntro}.
+\end{konsep}
 
-/* Selector id: elemen unik */
-#hero-banner { background-color: #2a6fb0; }
+Elemen \code{<fieldset>} dan \code{<legend>} digunakan untuk mengelompokkan kontrol form yang saling terkait. \code{<fieldset>} membungkus sekumpulan field dan secara visual menampilkan bingkai, sedangkan \code{<legend>} memberikan judul untuk grup tersebut. Pengelompokan ini sangat penting untuk aksesibilitas---khususnya pada grup radio button dan checkbox yang membutuhkan konteks agar pembaca layar dapat menjelaskan pilihan yang tersedia \cite{webdevAccessibility}.
 
-/* Gabungan: paragraf dengan class 'highlight' */
-p.highlight { background-color: yellow; }
+\begin{webcode}[language=HTML, caption={Form pendaftaran dengan fieldset, select, dan validasi}]
+<form action="/daftar" method="post">
+  <fieldset>
+    <legend>Data Pribadi</legend>
+    <label for="nama">Nama:</label>
+    <input type="text" id="nama" name="nama"
+           required minlength="3" />
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required />
+    <label for="tgl">Tanggal Lahir:</label>
+    <input type="date" id="tgl" name="tgl_lahir" />
+  </fieldset>
 
-/* Descendant: tautan di dalam nav */
-nav a { text-decoration: none; }
+  <fieldset>
+    <legend>Informasi Akademik</legend>
+    <label for="jurusan">Jurusan:</label>
+    <select id="jurusan" name="jurusan" required>
+      <option value="">-- Pilih Jurusan --</option>
+      <optgroup label="Fakultas Teknik">
+        <option value="if">Teknik Informatika</option>
+        <option value="si">Sistem Informasi</option>
+      </optgroup>
+      <optgroup label="Fakultas Ekonomi">
+        <option value="mn">Manajemen</option>
+        <option value="ak">Akuntansi</option>
+      </optgroup>
+    </select>
+    <label for="bio">Motivasi:</label>
+    <textarea id="bio" name="bio" rows="4"
+              maxlength="500"
+              placeholder="Ceritakan motivasi Anda...">
+    </textarea>
+  </fieldset>
 
-/* Child: hanya li langsung di bawah ul */
-ul.menu > li { display: inline-block; }
+  <fieldset>
+    <legend>Jenis Kelamin</legend>
+    <label>
+      <input type="radio" name="gender" value="L" required />
+      Laki-laki
+    </label>
+    <label>
+      <input type="radio" name="gender" value="P" />
+      Perempuan
+    </label>
+  </fieldset>
 
-/* Grouping: heading yang sama */
-h1, h2, h3 { font-family: 'Segoe UI', sans-serif; }
+  <label>
+    <input type="checkbox" name="setuju" required />
+    Saya menyetujui syarat dan ketentuan
+  </label>
+
+  <button type="submit">Daftar</button>
+</form>
 \end{webcode}
-
-\begin{catatan}
-\textbf{Class vs Id untuk Styling.} Meskipun id memiliki specificity lebih tinggi, praktik modern merekomendasikan penggunaan class untuk hampir semua styling. Alasan: (1) class dapat dipakai berulang, id tidak; (2) specificity id terlalu tinggi---sulit di-override tanpa \code{!important}; (3) banyak framework CSS (Bootstrap, Tailwind) dibangun sepenuhnya berbasis class. Gunakan id untuk atribut \code{for} pada label, anchor navigation (\code{href="\#section"}), dan JavaScript \cite{cssTricks}.
-\end{catatan}
 

@@ -1,23 +1,48 @@
-\section{Sintaks Dasar: Statement, Komentar, dan Aturan Penulisan}
+\section{Flexbox: Praktik Layout}
 
-Program JavaScript terdiri dari urutan \textbf{statement}---instruksi yang dieksekusi satu per satu dari atas ke bawah. Setiap statement biasanya diakhiri dengan titik koma (\code{;}), meskipun JavaScript memiliki fitur \textit{automatic semicolon insertion} (ASI) yang menambahkan titik koma secara otomatis di beberapa kasus. Praktik terbaik: \textbf{selalu tulis titik koma secara eksplisit} untuk menghindari bug yang sulit dilacak \cite{jsInfo}.
+Setelah memahami konsep dasar Flexbox, section ini mendemonstrasikan penerapannya pada komponen UI nyata. Flexbox unggul untuk layout satu dimensi: menyusun elemen secara horizontal atau vertikal dengan distribusi ruang yang fleksibel dan alignment yang presisi. Pola-pola berikut menjadi fondasi untuk membangun hampir semua komponen antarmuka modern \cite{mdnCss}.
 
-JavaScript bersifat \textbf{case-sensitive}: \code{myVariable} dan \code{myvariable} adalah dua identifier berbeda. Nama variabel dan fungsi harus dimulai dengan huruf, underscore (\code{\_}), atau dollar sign (\code{\$}), dan tidak boleh menggunakan kata kunci reserved (\code{if}, \code{for}, \code{function}, dll.). Konvensi penamaan yang umum adalah \textbf{camelCase} untuk variabel dan fungsi (\code{firstName}), \textbf{PascalCase} untuk class (\code{UserProfile}), dan \textbf{UPPER\_SNAKE\_CASE} untuk konstanta (\code{MAX\_SIZE}) \cite{mdnJsGuide}.
+\begin{contoh}
+\textbf{Studi Kasus: Navbar Responsif dengan Flexbox}
 
-\begin{webcode}[language=JavaScript, caption={Statement, komentar, dan penamaan}]
-// Komentar satu baris
-/* Komentar
-   multi-baris */
+Navbar desktop menampilkan logo di kiri dan menu di kanan. Pada layar kecil, menu berubah menjadi vertikal.
+\begin{enumerate}
+  \item HTML: \code{<nav>} berisi \code{<div class="logo">} dan \code{<ul class="menu">}
+  \item CSS Desktop: \code{nav \{ display: flex; justify-content: space-between; align-items: center; \}}
+  \item Item \code{<ul>} juga flex: \code{.menu \{ display: flex; gap: 1rem; list-style: none; \}}
+  \item Media query mobile: \code{flex-direction: column} pada \code{.menu}
+\end{enumerate}
+\end{contoh}
 
-let firstName = "Budi";      // camelCase
-const MAX_RETRIES = 3;        // UPPER_SNAKE_CASE
-let isLoggedIn = true;        // boolean
+\begin{webcode}[language=CSS, caption={Navbar Flexbox responsif}]
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: #2a6fb0;
+}
+.menu {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  margin: 0; padding: 0;
+}
+.menu a { color: white; text-decoration: none; }
 
-console.log(firstName);       // Output: Budi
-console.log(typeof isLoggedIn); // Output: boolean
+@media (max-width: 768px) {
+  nav { flex-direction: column; }
+  .menu { flex-direction: column; text-align: center; }
+}
 \end{webcode}
 
 \begin{konsep}
-\textbf{Strict Mode.} Menambahkan \code{"use strict";} di awal file atau fungsi mengaktifkan mode ketat yang melarang beberapa praktik rawan error: variabel tanpa deklarasi menjadi error, assignment ke properti read-only gagal, dan beberapa sintaks yang deprecated dilarang. ES6 modules secara otomatis berjalan di strict mode. Gunakan strict mode untuk kode yang lebih aman dan mudah di-debug \cite{jsInfo}.
+\textbf{Pattern Flexbox yang Sering Digunakan:}
+\begin{itemize}
+  \item \textbf{Centering}: \code{display: flex; justify-content: center; align-items: center;} --- cara termudah untuk centering vertikal dan horizontal.
+  \item \textbf{Space between}: \code{justify-content: space-between} --- logo kiri, menu kanan.
+  \item \textbf{Equal columns}: setiap item \code{flex: 1} --- kolom sama rata.
+  \item \textbf{Sticky footer}: body flex column + main \code{flex: 1} --- footer selalu di bawah \cite{cssTricks}.
+\end{itemize}
 \end{konsep}
 

@@ -1,38 +1,57 @@
-\section{Prepared Statement dan Parameterized Query: Mencegah SQL Injection}
+\section{Koneksi Database: Pengenalan MySQL dan MySQLi}
 
-\textbf{SQL injection} adalah serangan paling berbahaya pada aplikasi web yang menggunakan database. Penyerang menyisipkan kode SQL melalui input pengguna, memanipulasi query untuk mengakses, mengubah, atau menghapus data yang tidak seharusnya. \textbf{Prepared statement} adalah pertahanan utama: query dikirim ke database sebagai template dengan placeholder (\code{?}), lalu data dikirim terpisah. Database memperlakukan data sebagai literal, bukan perintah SQL \cite{phpManual}.
+\textbf{MySQL} adalah sistem manajemen basis data relasional (\textit{RDBMS}) open-source yang paling banyak digunakan bersama PHP. MySQL menggunakan bahasa SQL (\textit{Structured Query Language}) untuk operasi data dan mendukung fitur seperti \textit{stored procedures}, \textit{triggers}, \textit{views}, dan \textit{transactions}. Kombinasi PHP dan MySQL (sering disebut sebagai bagian dari stack \textbf{LAMP} --- Linux, Apache, MySQL, PHP) telah menjadi fondasi ribuan aplikasi web, dari blog sederhana hingga platform e-commerce berskala besar \cite{mysqlDocs}.
 
-\begin{contoh}
-\textbf{Studi Kasus: SQL Injection pada Form Login}
+PHP menyediakan ekstensi \textbf{MySQLi} (MySQL Improved) sebagai pengganti ekstensi \code{mysql\_*} yang sudah dihapus sejak PHP 7.0. MySQLi menawarkan dua gaya pemrograman: \textbf{prosedural} (mirip fungsi lama) dan \textbf{OOP} (menggunakan class dan object). Gaya OOP lebih direkomendasikan karena lebih bersih, konsisten, dan sejalan dengan paradigma OOP yang dipelajari di bab ini. MySQLi mendukung \textit{prepared statements}, \textit{multiple statements}, dan \textit{transactions} --- fitur yang tidak ada di ekstensi lama \cite{phpManual}.
 
-\textbf{Query rentan}: \code{"SELECT * FROM users WHERE user='\$u' AND pass='\$p'"}.
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners, minimum width=3.2cm, minimum height=1.2cm, align=center, font=\small, fill=#1},
+  arrow/.style={-Stealth, thick}
+]
+  \node[box=blue!15] (php) {Aplikasi PHP\\{\footnotesize (server-side)}};
+  \node[box=orange!20, right=2cm of php] (mysqli) {Ekstensi\\MySQLi};
+  \node[box=green!15, right=2cm of mysqli] (mysql) {MySQL\\Server};
+  \node[box=yellow!20, below=1.5cm of mysql] (db) {Database\\{\footnotesize (tabel, data)}};
 
-Jika penyerang memasukkan \code{admin' OR '1'='1} sebagai username, query menjadi: \code{SELECT * FROM users WHERE user='admin' OR '1'='1' AND pass='...'} --- kondisi \code{'1'='1'} selalu benar, sehingga autentikasi terlewati.
+  \draw[arrow] (php) -- node[above, font=\footnotesize]{\$conn = new mysqli()} (mysqli);
+  \draw[arrow] (mysqli) -- node[above, font=\footnotesize]{TCP/Socket} (mysql);
+  \draw[arrow] (mysql) -- (db);
+  \draw[arrow] (db) -- (mysql);
+  \draw[arrow] (mysql) -- node[below, font=\footnotesize]{Result set} (mysqli);
+  \draw[arrow] (mysqli) -- node[below, font=\footnotesize]{\$result} (php);
+\end{tikzpicture}
+\caption{Arsitektur koneksi PHP -- MySQLi -- MySQL}
+\end{figure}
 
-\textbf{Solusi}: prepared statement memisahkan template dari data, sehingga input berbahaya diperlakukan sebagai string biasa, bukan perintah SQL.
-\end{contoh}
-
-\begin{webcode}[language=PHP, caption={Prepared statement untuk login aman}]
+\begin{webcode}[language=PHP, caption={Koneksi MySQLi gaya OOP dengan error handling}]
 <?php
-$email    = $_POST['email'] ?? '';
-$password = $_POST['password'] ?? '';
+// Konfigurasi - idealnya di file terpisah (config.php)
+$host     = 'localhost';
+$username = 'root';
+$password = '';
+$database = 'belajar_php';
 
-// AMAN: prepared statement
-$stmt = $conn->prepare("SELECT id, nama, password FROM users WHERE email = ?");
-$stmt->bind_param("s", $email);
-$stmt->execute();
-$result = $stmt->get_result();
-$user   = $result->fetch_assoc();
+// Membuat koneksi (OOP)
+$conn = new mysqli($host, $username, $password, $database);
 
-if ($user && password_verify($password, $user['password'])) {
-  session_regenerate_id(true);
-  $_SESSION['user_id'] = $user['id'];
-  $_SESSION['nama']    = $user['nama'];
-  header("Location: dashboard.php");
-} else {
-  echo "Email atau password salah.";
+// Cek koneksi
+if ($conn->connect_error) {
+  die("Koneksi gagal: " . $conn->connect_error);
 }
-$stmt->close();
+
+// Set charset UTF-8 (penting untuk karakter Indonesia)
+$conn->set_charset("utf8mb4");
+
+echo "Koneksi ke database '{$database}' berhasil!";
+
+// ... lakukan query ...
+
+// Tutup koneksi setelah selesai
+$conn->close();
 ?>
 \end{webcode}
+
+Beberapa praktik terbaik dalam mengelola koneksi database: (1) simpan kredensial database di file konfigurasi terpisah yang tidak dapat diakses dari web (misalnya di luar \code{public\_html/}); (2) selalu set charset ke \code{utf8mb4} untuk mendukung karakter Unicode penuh; (3) cek \code{connect\_error} setelah koneksi dan berikan pesan error yang informatif; (4) tutup koneksi dengan \code{\$conn->close()} setelah selesai (meskipun PHP menutupnya otomatis di akhir skrip); (5) di lingkungan produksi, gunakan \textit{connection pooling} atau \textit{persistent connections} untuk performa yang lebih baik. Jangan pernah menampilkan detail koneksi database (host, username) ke pengguna jika koneksi gagal \cite{phpRightWay}.
 

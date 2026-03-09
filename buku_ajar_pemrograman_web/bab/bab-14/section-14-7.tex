@@ -1,23 +1,30 @@
-\section{Deployment ke Server: Upload, Permissions, dan Environment}
+\section{SELECT Dasar dan WHERE}
 
-Deployment melibatkan transfer kode ke server, pengaturan permission file, dan konfigurasi environment. Dua metode utama: \textbf{Git-based} (\code{git clone}/\code{git pull} di server --- lebih modern dan terlacak) dan \textbf{SFTP/SCP} (upload file manual --- sederhana namun rawan human error). Setelah upload, atur permission: folder \code{755} (\code{rwxr-xr-x}), file \code{644} (\code{rw-r--r--}), dan folder upload/cache \code{775}. File sensitif (\code{.env}, \code{config.php}) tidak boleh berada di web root \cite{mdnDeploy}.
+Perintah \code{SELECT} adalah perintah SQL yang paling sering digunakan --- berfungsi untuk mengambil (membaca) data dari satu atau lebih tabel. Sintaks dasar: \code{SELECT kolom1, kolom2 FROM tabel;} untuk memilih kolom tertentu, atau \code{SELECT * FROM tabel;} untuk mengambil semua kolom. Meskipun \code{SELECT *} praktis untuk eksplorasi, di aplikasi produksi sebaiknya disebutkan kolom secara eksplisit agar query lebih efisien dan tidak mengambil data yang tidak diperlukan \cite{mysqlDocs}.
 
-\begin{contoh}
-\textbf{Studi Kasus: Deploy Aplikasi Toko Online ke VPS}
+Klausa \code{WHERE} memfilter baris yang dikembalikan berdasarkan kondisi. Kondisi dapat menggunakan operator perbandingan (\code{=}, \code{<>}, \code{<}, \code{>}, \code{<=}, \code{>=}), operator logika (\code{AND}, \code{OR}, \code{NOT}), serta operator khusus seperti \code{BETWEEN}, \code{IN}, \code{LIKE}, dan \code{IS NULL}. Operator \code{LIKE} mendukung wildcard: \code{\%} untuk nol atau lebih karakter, \code{\_} untuk satu karakter. Kombinasi \code{WHERE} dengan operator ini memungkinkan pencarian data yang sangat fleksibel \cite{mysqlGettingStarted}.
 
-Langkah-langkah deploy ke VPS (Ubuntu + Apache):
-\begin{enumerate}
-  \item SSH ke server: \code{ssh user@ip\_server}
-  \item Install stack: \code{apt install apache2 php mysql-server php-mysql}
-  \item Clone proyek: \code{git clone repo.git /var/www/toko}
-  \item Install dependency: \code{cd /var/www/toko \&\& composer install --no-dev}
-  \item Buat file \code{.env} dengan konfigurasi produksi
-  \item Import database: \code{mysql -u root -p toko < database.sql}
-  \item Atur permission: \code{chown -R www-data:www-data /var/www/toko}
-  \item Konfigurasi virtual host Apache (arahkan ke \code{public/})
-  \item Aktifkan HTTPS dengan Let's Encrypt: \code{certbot --apache}
-  \item Atur \code{php.ini}: matikan \code{display\_errors}, aktifkan OPcache
-  \item Uji semua fitur utama di browser
-\end{enumerate}
-\end{contoh}
+\begin{webcode}[language=SQL, caption={Contoh SELECT dengan WHERE}]
+-- Semua produk
+SELECT * FROM produk;
+
+-- Kolom tertentu
+SELECT nama, harga FROM produk;
+
+-- Filter dengan WHERE
+SELECT nama, harga FROM produk WHERE harga > 100000;
+
+-- Kombinasi kondisi
+SELECT nama, harga, stok FROM produk
+  WHERE kategori = 'elektronik' AND stok > 0;
+
+-- Pencarian teks dengan LIKE
+SELECT * FROM produk WHERE nama LIKE '%laptop%';
+
+-- Nilai dalam daftar
+SELECT * FROM produk WHERE kategori IN ('elektronik', 'pakaian');
+
+-- Rentang nilai
+SELECT * FROM produk WHERE harga BETWEEN 50000 AND 200000;
+\end{webcode}
 

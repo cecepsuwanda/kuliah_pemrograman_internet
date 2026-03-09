@@ -1,32 +1,51 @@
-\section{Pengenalan Lingkungan Development vs Produksi}
+\section{Pengenalan Database dan SQL}
 
-Dalam pengembangan aplikasi web, terdapat beberapa \textbf{lingkungan} (\textit{environment}) yang masing-masing memiliki tujuan dan konfigurasi berbeda. \textbf{Development} (lokal) adalah tempat developer menulis dan menguji kode --- error ditampilkan, debugging aktif, data bersifat dummy. \textbf{Staging} adalah replika produksi untuk pengujian akhir sebelum rilis. \textbf{Production} (produksi) adalah lingkungan yang diakses pengguna nyata --- prioritas utama adalah keamanan, stabilitas, dan performa. Kesalahan konfigurasi di produksi dapat mengakibatkan kebocoran data atau downtime \cite{mdnDeploy}.
+\textbf{Basis data} (\textit{database}) adalah kumpulan data yang terorganisasi secara sistematis sehingga dapat disimpan, dikelola, dan diambil kembali secara efisien. Dalam konteks aplikasi web, basis data menyimpan informasi seperti data pengguna, produk, transaksi, dan konten halaman. Tanpa basis data, aplikasi web hanya dapat menampilkan konten statis --- tidak dapat mengingat pengguna, menyimpan formulir, atau menampilkan data yang berubah. Sistem yang mengelola basis data disebut \textbf{DBMS} (\textit{Database Management System}), dan yang paling umum digunakan di web adalah DBMS relasional (RDBMS) yang mengorganisasi data dalam bentuk tabel dengan baris dan kolom \cite{mysqlDocs}.
+
+\textbf{SQL} (\textit{Structured Query Language}) adalah bahasa standar untuk berkomunikasi dengan RDBMS. SQL digunakan untuk mendefinisikan struktur data (\textbf{DDL} --- \textit{Data Definition Language}: CREATE, ALTER, DROP), memanipulasi data (\textbf{DML} --- \textit{Data Manipulation Language}: SELECT, INSERT, UPDATE, DELETE), dan mengontrol akses (\textbf{DCL} --- \textit{Data Control Language}: GRANT, REVOKE). SQL bersifat deklaratif --- Anda menyatakan \textit{apa} yang ingin dilakukan, bukan \textit{bagaimana} melakukannya. Hampir semua RDBMS (MySQL, PostgreSQL, SQLite, SQL Server, Oracle) menggunakan SQL dengan variasi minor \cite{mysqlGettingStarted}.
+
+\begin{konsep}
+\textbf{Database Relasional} menyimpan data dalam \textit{tabel} (relasi) yang terdiri dari \textit{baris} (record/tuple) dan \textit{kolom} (field/attribute). Hubungan antar tabel dibangun melalui \textit{kunci} (primary key dan foreign key), memungkinkan data yang saling terkait disimpan secara terpisah namun dapat digabungkan kembali dengan operasi JOIN.
+\end{konsep}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners, minimum width=2.8cm, minimum height=1.2cm, align=center, font=\small, fill=#1},
+  arrow/.style={-Stealth, thick}
+]
+  \node[box=blue!15] (app) {Aplikasi Web\\(PHP)};
+  \node[box=orange!20, right=2cm of app] (sql) {Query SQL};
+  \node[box=green!15, right=2cm of sql] (dbms) {DBMS\\(MySQL)};
+  \node[box=yellow!20, below=1.5cm of dbms] (storage) {Penyimpanan\\(File/Disk)};
+
+  \draw[arrow] (app) -- node[above, font=\footnotesize]{Kirim query} (sql);
+  \draw[arrow] (sql) -- node[above, font=\footnotesize]{Eksekusi} (dbms);
+  \draw[arrow] (dbms) -- (storage);
+  \draw[arrow] (storage) -- (dbms);
+  \draw[arrow] (dbms) -- node[below, font=\footnotesize]{Hasil data} (sql);
+  \draw[arrow] (sql) -- node[below, font=\footnotesize]{Return} (app);
+\end{tikzpicture}
+\caption{Arsitektur interaksi aplikasi web dengan database melalui SQL}
+\end{figure}
 
 \begin{table}[ht]
 \centering
-\begin{tabular}{|P{3cm}|P{4cm}|P{4cm}|}
+\begin{tabular}{|P{2.5cm}|P{2cm}|P{2.5cm}|P{2.5cm}|P{2.5cm}|}
 \hline
-\textbf{Aspek} & \textbf{Development} & \textbf{Production} \\
+\textbf{DBMS} & \textbf{Tipe} & \textbf{Lisensi} & \textbf{Keunggulan} & \textbf{Penggunaan} \\
 \hline
-\code{display\_errors} & On (tampilkan error) & Off (sembunyikan) \\
+MySQL & Relasional & Open-source & Cepat, populer & WordPress, PHP apps \\
 \hline
-\code{error\_reporting} & E\_ALL & E\_ALL (log saja) \\
+PostgreSQL & Relasional & Open-source & Fitur lengkap & Enterprise, GIS \\
 \hline
-Database & Lokal, data dummy & Server terpisah, data asli \\
+SQLite & Relasional & Public domain & Ringan, file-based & Mobile, embedded \\
 \hline
-HTTPS & Tidak wajib & Wajib \\
-\hline
-Debug tools & Aktif & Nonaktif \\
-\hline
-Password & Sederhana (root/root) & Kuat dan unik \\
-\hline
-Backup & Tidak perlu & Rutin dan otomatis \\
+MongoDB & NoSQL & Open-source & Fleksibel (JSON) & Real-time, big data \\
 \hline
 \end{tabular}
-\caption{Perbedaan lingkungan development dan production}
+\caption{Perbandingan beberapa DBMS populer}
 \end{table}
 
-\begin{catatan}
-Jangan pernah menggunakan konfigurasi development di produksi. Kesalahan umum: lupa mematikan \code{display\_errors}, menggunakan password database default, atau meninggalkan file debug (phpinfo.php) di server. Gunakan environment variable untuk membedakan konfigurasi per lingkungan.
-\end{catatan}
+MySQL dipilih sebagai DBMS utama dalam mata kuliah ini karena beberapa alasan: (1) open-source dan gratis untuk penggunaan akademik; (2) mudah diinstal sebagai bagian dari paket XAMPP bersama Apache dan PHP; (3) dokumentasi resmi yang sangat lengkap; (4) kompatibilitas tinggi dengan PHP melalui ekstensi MySQLi dan PDO; (5) digunakan secara luas di industri --- dari startup hingga perusahaan besar. Memahami MySQL memberikan fondasi kuat untuk mempelajari RDBMS lain karena SQL bersifat lintas platform \cite{mysqlDocs}.
 

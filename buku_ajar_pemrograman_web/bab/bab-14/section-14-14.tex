@@ -1,17 +1,24 @@
-\section{Evaluasi Akhir dan Integrasi Kompetensi}
+\section{Nilai NULL dan Penanganannya}
 
-Bab terakhir ini merupakan titik di mana seluruh kompetensi dari bab-bab sebelumnya diintegrasikan dalam proyek akhir yang di-deploy ke lingkungan produksi. Evaluasi akhir mengukur pencapaian seluruh Sub-CPMK: kemampuan membangun front-end (HTML/CSS/JS), back-end (PHP, MySQL), integrasi API, keamanan web, pengujian, dan deployment. Proyek akhir bukan sekadar tugas teknis --- ini adalah simulasi proses pengembangan web yang sesungguhnya \cite{mdnDeploy}.
+\textbf{NULL} dalam SQL menyatakan ketiadaan nilai --- artinya data tidak ada, tidak diketahui, atau belum diisi. NULL \textbf{berbeda} dari angka nol (0), string kosong (''), atau spasi. Kolom yang bernilai NULL berarti tidak memiliki data sama sekali. Pemahaman NULL penting karena perilakunya berbeda dari nilai biasa: perbandingan dengan NULL selalu menghasilkan \code{UNKNOWN} (bukan TRUE atau FALSE), sehingga \code{kolom = NULL} tidak pernah benar --- gunakan \code{IS NULL} atau \code{IS NOT NULL} \cite{mysqlDocs}.
 
-\begin{konsep}
-\textbf{Kompetensi Terintegrasi}: Proyek akhir harus menunjukkan kemampuan menyeluruh:
-\begin{itemize}
-  \item \textbf{Front-end}: layout responsive, form validation, Fetch API
-  \item \textbf{Back-end}: PHP OOP, session, CRUD dengan prepared statement
-  \item \textbf{Database}: desain ternormalisasi, relasi FK, backup
-  \item \textbf{Keamanan}: validasi input, XSS/CSRF prevention, HTTPS
-  \item \textbf{Deployment}: konfigurasi produksi, permission, monitoring
-\end{itemize}
-\end{konsep}
+Fungsi bawaan MySQL untuk menangani NULL: \code{IFNULL(kolom, nilai\_default)} mengembalikan \code{nilai\_default} jika kolom NULL; \code{COALESCE(a, b, c)} mengembalikan argumen pertama yang bukan NULL; \code{NULLIF(a, b)} mengembalikan NULL jika \code{a = b}. Saat melakukan fungsi agregat, NULL biasanya diabaikan --- misalnya \code{AVG()} tidak menyertakan baris NULL dalam perhitungan. Untuk kolom yang wajib diisi, gunakan constraint \code{NOT NULL} saat membuat tabel \cite{mysqlGettingStarted}.
 
-Refleksi kompetensi: review checklist di setiap bab; identifikasi area yang masih perlu dikembangkan; buat rencana belajar lanjutan. Kelulusan mata kuliah menandai awal perjalanan --- teknologi web terus berkembang, dan seorang developer harus terus belajar.
+\begin{webcode}[language=SQL, caption={Penanganan nilai NULL}]
+-- Mencari baris dengan nilai NULL
+SELECT * FROM produk WHERE deskripsi IS NULL;
+SELECT * FROM produk WHERE deskripsi IS NOT NULL;
+
+-- Mengganti NULL dengan nilai default saat menampilkan
+SELECT nama, IFNULL(deskripsi, 'Belum ada deskripsi') AS deskripsi
+FROM produk;
+
+-- COALESCE: ambil nilai pertama yang tidak NULL
+SELECT nama, COALESCE(deskripsi, kategori, 'N/A') AS info
+FROM produk;
+\end{webcode}
+
+\begin{catatan}
+Hati-hati saat menggunakan \code{NOT IN} dengan subquery yang mungkin mengandung NULL. Jika subquery mengembalikan NULL, seluruh \code{NOT IN} menghasilkan UNKNOWN dan tidak ada baris yang dikembalikan. Gunakan \code{NOT EXISTS} sebagai alternatif yang lebih aman.
+\end{catatan}
 

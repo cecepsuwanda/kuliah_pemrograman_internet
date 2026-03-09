@@ -1,26 +1,72 @@
-\section{Pengukuran Performa: Metrik dan Alat}
+\section{Session: Memulai, Menyimpan, dan Menghapus Session}
 
-Performa aplikasi web diukur menggunakan \textbf{Core Web Vitals} dan metrik terkait yang dikembangkan oleh Google. Metrik utama: \textbf{FCP} (First Contentful Paint --- waktu sampai konten pertama muncul), \textbf{LCP} (Largest Contentful Paint --- waktu sampai elemen terbesar di-render), \textbf{FID/INP} (interaktivitas --- seberapa cepat halaman merespons interaksi), dan \textbf{CLS} (Cumulative Layout Shift --- seberapa banyak layout bergeser selama loading). Metrik ini mempengaruhi pengalaman pengguna dan peringkat SEO \cite{mdnToolsTesting}.
+\textbf{Session} adalah mekanisme server-side untuk menyimpan data pengguna selama interaksi dengan aplikasi web. Karena HTTP bersifat \textit{stateless} (setiap request independen), session menjembatani kebutuhan untuk ``mengingat'' pengguna antar halaman. Saat session dimulai, PHP menghasilkan \textbf{Session ID} unik yang dikirim ke browser sebagai cookie (biasanya bernama \code{PHPSESSID}). Pada request berikutnya, browser mengirimkan cookie ini kembali sehingga PHP dapat mengidentifikasi pengguna dan mengakses data session yang disimpan di server \cite{phpManual}.
 
-\begin{table}[ht]
+Untuk menggunakan session, panggil \code{session\_start()} di awal skrip --- \textbf{sebelum} output apa pun (termasuk spasi atau baris kosong sebelum tag \code{<?php}). Data disimpan dalam superglobal \code{\$\_SESSION} sebagai array asosiatif. Menyimpan: \code{\$\_SESSION['user'] = 'cecep'}; membaca: \code{echo \$\_SESSION['user']}; menghapus satu key: \code{unset(\$\_SESSION['user'])}. Untuk mengakhiri session secara penuh (logout), gunakan kombinasi \code{session\_unset()} dan \code{session\_destroy()} \cite{phpRightWay}.
+
+\begin{figure}[ht]
 \centering
-\begin{tabular}{|P{1.8cm}|P{4cm}|P{2cm}|P{2cm}|P{2cm}|}
-\hline
-\textbf{Metrik} & \textbf{Deskripsi} & \textbf{Baik} & \textbf{Perlu Perbaikan} & \textbf{Buruk} \\
-\hline
-FCP & Konten pertama muncul & $\leq$ 1.8s & 1.8--3s & $>$ 3s \\
-\hline
-LCP & Elemen terbesar render & $\leq$ 2.5s & 2.5--4s & $>$ 4s \\
-\hline
-INP & Respons interaksi & $\leq$ 200ms & 200--500ms & $>$ 500ms \\
-\hline
-CLS & Stabilitas layout & $\leq$ 0.1 & 0.1--0.25 & $>$ 0.25 \\
-\hline
-TTFB & Respons server & $\leq$ 0.8s & 0.8--1.8s & $>$ 1.8s \\
-\hline
-\end{tabular}
-\caption{Metrik performa web dan ambang batasnya}
-\end{table}
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners, minimum width=3cm, minimum height=1cm, align=center, font=\small, fill=#1},
+  arrow/.style={-Stealth, thick},
+  node distance=1.2cm
+]
+  \node[box=blue!15] (start) {User mengakses\\halaman};
+  \node[box=green!15, below=of start] (sess) {\code{session\_start()}};
+  \node[box=orange!15, below=of sess] (check) {Session ID\\ada?};
+  \node[box=yellow!15, below left=1.5cm and 2cm of check] (new) {Buat Session ID\\baru (server)};
+  \node[box=yellow!15, below right=1.5cm and 2cm of check] (load) {Muat data\\session lama};
+  \node[box=purple!15, below=2.5cm of check] (use) {Gunakan\\{\footnotesize\code{\$\_SESSION}}};
+  \node[box=red!15, below=of use] (end) {Akhir skrip /\\\code{session\_destroy()}};
 
-Alat utama: \textbf{Lighthouse} (terintegrasi di Chrome DevTools, menghasilkan skor 0--100 untuk performa, aksesibilitas, SEO, best practices), \textbf{PageSpeed Insights} (versi online Lighthouse dari Google), dan \textbf{WebPageTest} (pengujian dari berbagai lokasi dan device). Jalankan Lighthouse dari tab ``Lighthouse'' di DevTools, pilih kategori yang ingin diaudit, dan klik ``Analyze'' untuk mendapatkan laporan lengkap dengan rekomendasi perbaikan \cite{mdnToolsTesting}.
+  \draw[arrow] (start) -- (sess);
+  \draw[arrow] (sess) -- (check);
+  \draw[arrow] (check) -- node[above left, font=\footnotesize]{Tidak} (new);
+  \draw[arrow] (check) -- node[above right, font=\footnotesize]{Ya} (load);
+  \draw[arrow] (new) |- (use);
+  \draw[arrow] (load) |- (use);
+  \draw[arrow] (use) -- (end);
+\end{tikzpicture}
+\caption{Flowchart siklus hidup session di PHP}
+\end{figure}
+
+Keamanan session sangat penting karena \textit{session hijacking} (pencurian Session ID) dapat memberikan akses tidak sah ke akun pengguna. Beberapa praktik keamanan yang direkomendasikan: (1) panggil \code{session\_regenerate\_id(true)} setelah login berhasil untuk mencegah \textit{session fixation}; (2) simpan Session ID di cookie dengan atribut \code{HttpOnly} dan \code{Secure}; (3) atur \code{session.cookie\_samesite = 'Strict'} untuk mencegah pengiriman cookie lintas situs; (4) batasi masa berlaku session; (5) periksa IP atau \textit{user-agent} untuk deteksi anomali. Konfigurasi ini dapat diatur melalui \code{php.ini} atau fungsi \code{session\_set\_cookie\_params()} \cite{owaspCsrf}.
+
+\begin{webcode}[language=PHP, caption={Login sederhana dengan session dan keamanan}]
+<?php
+// login.php
+session_start();
+
+// Pengaturan keamanan cookie session
+session_set_cookie_params([
+  'lifetime' => 3600,        // 1 jam
+  'path'     => '/',
+  'secure'   => true,        // hanya HTTPS
+  'httponly'  => true,        // tidak diakses JS
+  'samesite' => 'Strict'     // cegah CSRF
+]);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $user = htmlspecialchars($_POST['username'] ?? '');
+  $pass = $_POST['password'] ?? '';
+
+  // Simulasi: di produksi, cek dari database dengan password_verify()
+  if ($user === 'admin' && $pass === 'rahasia123') {
+    session_regenerate_id(true); // cegah session fixation
+    $_SESSION['username']  = $user;
+    $_SESSION['login_time'] = time();
+    header("Location: dashboard.php");
+    exit;
+  } else {
+    $error = "Username atau password salah.";
+  }
+}
+?>
+\end{webcode}
+
+\begin{catatan}
+Di lingkungan produksi, jangan pernah menyimpan password dalam teks biasa (\textit{plain text}). Gunakan \code{password\_hash(\$pass, PASSWORD\_DEFAULT)} untuk menyimpan dan \code{password\_verify(\$input, \$hash)} untuk memverifikasi. Session data disimpan di server (biasanya di folder \code{/tmp/}), sehingga lebih aman daripada cookie yang tersimpan di browser.
+\end{catatan}
+
+Untuk proses logout, tiga langkah diperlukan: (1) panggil \code{session\_start()} untuk mengakses session aktif; (2) hapus semua variabel session dengan \code{\$\_SESSION = []} atau \code{session\_unset()}; (3) hancurkan session di server dengan \code{session\_destroy()}. Opsional, hapus juga cookie session di browser dengan \code{setcookie(session\_name(), '', time()-3600)}. Langkah ini memastikan session benar-benar berakhir dan tidak dapat digunakan kembali \cite{phpManual}.
 

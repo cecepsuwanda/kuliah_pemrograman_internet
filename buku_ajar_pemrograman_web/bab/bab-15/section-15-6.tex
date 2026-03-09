@@ -1,0 +1,37 @@
+\section{Pengujian Fungsional Aplikasi Web (Form, Alur, Respons)}
+
+Pengujian fungsional memverifikasi bahwa setiap fitur bekerja sesuai spesifikasi. Untuk form, uji \textbf{skenario positif} (input valid menghasilkan output yang benar) dan \textbf{skenario negatif} (input tidak valid ditolak dengan pesan error yang jelas). Uji juga \textbf{boundary values} --- nilai di batas minimum dan maksimum. Untuk alur multi-langkah (misalnya registrasi $\to$ login $\to$ dashboard), pastikan setiap langkah berfungsi dan data mengalir dengan benar \cite{mdnToolsTesting}.
+
+\begin{contoh}
+\textbf{Skenario Pengujian Form Registrasi:}
+\begin{itemize}
+  \item \textbf{Positif}: isi semua field valid $\to$ data tersimpan, redirect ke login.
+  \item \textbf{Negatif}: email tidak valid $\to$ pesan error ``Format email salah''.
+  \item \textbf{Negatif}: password kurang dari 8 karakter $\to$ pesan error muncul.
+  \item \textbf{Boundary}: nama tepat 1 karakter $\to$ apakah diterima atau ditolak?
+  \item \textbf{Duplikasi}: email yang sudah terdaftar $\to$ pesan ``Email sudah digunakan''.
+\end{itemize}
+\end{contoh}
+
+\begin{webcode}[language=PHP, caption={Validasi form registrasi untuk pengujian}]
+<?php
+$errors = [];
+$nama  = trim($_POST['nama'] ?? '');
+$email = trim($_POST['email'] ?? '');
+$pass  = $_POST['password'] ?? '';
+
+if (strlen($nama) < 3) $errors[] = "Nama minimal 3 karakter.";
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+  $errors[] = "Format email tidak valid.";
+}
+if (strlen($pass) < 8) $errors[] = "Password minimal 8 karakter.";
+
+if (empty($errors)) {
+  // Simpan ke database dengan prepared statement
+  echo "Registrasi berhasil.";
+} else {
+  foreach ($errors as $e) echo htmlspecialchars($e) . "\n";
+}
+?>
+\end{webcode}
+

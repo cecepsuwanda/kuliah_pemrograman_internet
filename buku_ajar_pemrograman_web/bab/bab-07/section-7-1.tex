@@ -1,32 +1,34 @@
-\section{Normal Flow dan Positioning}
+\section{Pengenalan CSS dan Perannya dalam Styling Halaman Web}
 
-\textbf{Normal flow} adalah model tata letak default browser di mana elemen HTML disusun berdasarkan urutan kemunculannya di dokumen. Elemen block (seperti \code{div}, \code{p}, \code{h1}) ditumpuk secara vertikal---masing-masing memulai baris baru dan mengisi lebar penuh kontainer. Elemen inline (seperti \code{span}, \code{a}, \code{strong}) mengalir horizontal dalam baris teks. Memahami normal flow adalah prasyarat untuk memahami bagaimana positioning CSS memodifikasi perilaku ini \cite{mdnCss}.
+CSS (Cascading Style Sheets) adalah bahasa yang mengatur tampilan dan tata letak elemen HTML di halaman web. Jika HTML berfungsi sebagai kerangka struktur---mendefinisikan paragraf, heading, tabel, dan form---maka CSS berperan sebagai ``dekorator'' yang menentukan bagaimana struktur tersebut ditampilkan secara visual. Tanpa CSS, halaman web hanya menampilkan teks polos dengan format default browser: heading hitam tebal, tautan biru bergaris bawah, dan paragraf tanpa jarak yang menarik. Dengan CSS, pengembang memiliki kendali penuh atas warna, tipografi, spasi, layout, animasi, dan responsivitas halaman \cite{mdnCss}.
 
-Properti \code{position} mengontrol bagaimana elemen diposisikan relatif terhadap normal flow. CSS menyediakan lima nilai positioning: \code{static} (default), \code{relative}, \code{absolute}, \code{fixed}, dan \code{sticky}. Setiap nilai memiliki konteks referensi dan perilaku yang berbeda terhadap layout elemen lain. Properti pendamping \code{top}, \code{right}, \code{bottom}, dan \code{left} menentukan offset dari posisi referensi; properti ini hanya berlaku jika \code{position} bukan \code{static} \cite{webdevCss}.
+Peran CSS dalam pengembangan web modern sangat sentral karena menerapkan prinsip \textbf{separation of concerns}---pemisahan antara struktur (HTML), presentasi (CSS), dan perilaku (JavaScript). Pemisahan ini menghasilkan beberapa keuntungan penting: desain visual yang konsisten di seluruh halaman situs, kemudahan pemeliharaan karena perubahan tampilan cukup dilakukan di satu tempat, dan kemampuan membuat tampilan berbeda untuk perangkat yang berbeda tanpa mengubah HTML. Penguasaan CSS dasar menjadi fondasi mutlak sebelum mempelajari teknik layout modern seperti Flexbox dan Grid \cite{webdevCss}.
+
+\subsection{Konsep Cascading dan Specificity}
+
+Nama ``Cascading'' dalam CSS mengacu pada mekanisme penentuan gaya mana yang berlaku ketika beberapa aturan CSS menargetkan elemen yang sama. Tiga faktor utama yang menentukan prioritas aturan CSS adalah: (1) \textbf{Specificity}---selector yang lebih spesifik menang atas yang lebih umum; (2) \textbf{Source order}---jika specificity sama, aturan yang ditulis terakhir menang; dan (3) \textbf{Importance}---deklarasi dengan \code{!important} mengalahkan aturan lain (namun penggunaannya tidak disarankan). Memahami cascading adalah kunci untuk menghindari kebingungan saat styling tidak bekerja sesuai harapan \cite{webdevCss}.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{2cm}|P{3cm}|P{3.5cm}|P{3.5cm}|}
+\begin{tabular}{|P{3cm}|P{2.5cm}|P{3cm}|P{3.5cm}|}
 \hline
-\textbf{Nilai} & \textbf{Referensi} & \textbf{Efek pada Flow} & \textbf{Kasus Penggunaan} \\
+\textbf{Selector} & \textbf{Contoh} & \textbf{Specificity} & \textbf{Keterangan} \\
 \hline
-\code{static} & Normal flow & Tetap di flow & Default; tidak perlu diset \\
+Inline style & \code{style="..."} & 1-0-0-0 & Tertinggi (hindari) \\
 \hline
-\code{relative} & Posisi asal sendiri & Tetap di flow; ruang asli dipertahankan & Konteks untuk \code{absolute} child \\
+ID & \code{\#header} & 0-1-0-0 & Tinggi; unik per halaman \\
 \hline
-\code{absolute} & Ancestor terdekat non-static & Keluar dari flow & Tooltip, dropdown, badge \\
+Class / pseudo-class & \code{.card}, \code{:hover} & 0-0-1-0 & Sedang; dapat dipakai ulang \\
 \hline
-\code{fixed} & Viewport & Keluar dari flow; tetap saat scroll & Header/navbar tetap \\
+Elemen / pseudo-element & \code{p}, \code{::before} & 0-0-0-1 & Rendah; berlaku semua tag \\
 \hline
-\code{sticky} & Viewport + scroll threshold & Di flow sampai threshold & Header sticky saat scroll \\
+Universal & \code{*} & 0-0-0-0 & Tidak berkontribusi \\
 \hline
 \end{tabular}
-\caption{Lima nilai CSS position dan karakteristiknya}
+\caption{Tingkat specificity selector CSS (dari tinggi ke rendah)}
 \end{table}
 
-Elemen \code{relative} tetap di posisi normal flow-nya, tetapi dapat digeser menggunakan \code{top}/\code{left}/\code{right}/\code{bottom} tanpa mempengaruhi elemen lain. Kegunaan utamanya adalah sebagai \textbf{containing block} untuk elemen \code{absolute} di dalamnya. Elemen \code{absolute} keluar sepenuhnya dari normal flow dan diposisikan relatif terhadap ancestor terdekat yang memiliki \code{position} non-static. Jika tidak ada ancestor seperti itu, elemen absolute merujuk ke viewport. Properti \code{z-index} mengontrol urutan tumpukan saat elemen overlap \cite{cssTricks}.
-
 \begin{konsep}
-\textbf{Stacking Context dan z-index.} Properti \code{z-index} hanya berlaku pada elemen yang memiliki \code{position} non-static (atau elemen flex/grid child). Nilai lebih tinggi ditempatkan di atas. Setiap elemen dengan \code{z-index} menciptakan \textit{stacking context} baru---elemen di dalam konteks tersebut tidak dapat ``menembus'' keluar. Ini menjelaskan mengapa kadang \code{z-index: 9999} pun tidak berhasil: elemen berada di stacking context yang lebih rendah dari elemen lain \cite{mdnCss}.
+\textbf{Sebelum dan Sesudah CSS.} Sebelum CSS diadopsi secara luas (era awal 1990-an), tampilan halaman web diatur langsung di dalam HTML menggunakan elemen seperti \code{<font>}, \code{<center>}, dan atribut \code{bgcolor}. Pendekatan ini membuat kode sulit dirawat, tidak konsisten, dan tidak responsif. Dengan CSS, satu file stylesheet dapat mengatur tampilan ratusan halaman secara konsisten, dan perubahan desain cukup dilakukan di satu tempat \cite{cssTricks}.
 \end{konsep}
 

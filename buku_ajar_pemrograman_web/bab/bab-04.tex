@@ -2,12 +2,13 @@
 \ifSubfilesClassLoaded{\setcounter{chapter}{3}}{}
 \begin{document}
 
-\chapter{HTML Dasar dan Struktur Dokumen}
+\chapter{Mockup, Prototyping, Aksesibilitas, dan Prinsip UX}
 
-Urutan materi dalam bab ini dan bab berikutnya (HTML Form, Media, dan Aksesibilitas) mengikuti alur belajar HTML dari dasar sampai mahir: pengenalan, sintaks dan struktur, konten teks dan link, gambar, tabel, form, semantik, media, aksesibilitas, serta validasi dan standar.
+Bab ini melanjutkan materi Bab 3 dengan fokus pada mockup high-fidelity, prototyping, prinsip desain visual dan UX, aksesibilitas web (WCAG, HTML semantik, ARIA), design system, serta UX research dan usability testing. Materi ini mendukung pencapaian Sub-CPMK 1.2 dan 1.3 sesuai rencana pembelajaran pertemuan ketiga.
 
 \begin{subcpmk}
-  \item Sub-CPMK 2.1: Membuat halaman web dengan HTML5 (struktur, elemen semantik, form, media).
+  \item Sub-CPMK 1.2: Membuat wireframe dan mockup antarmuka web yang mendukung alur pengguna (user flow).
+  \item Sub-CPMK 1.3: Menerapkan prinsip aksesibilitas (a11y) dan pengalaman pengguna (UX) dalam desain antarmuka.
 \end{subcpmk}
 
 \input{bab/bab-04/section-4-1}
@@ -17,85 +18,73 @@ Urutan materi dalam bab ini dan bab berikutnya (HTML Form, Media, dan Aksesibili
 \input{bab/bab-04/section-4-5}
 \input{bab/bab-04/section-4-6}
 \input{bab/bab-04/section-4-7}
-\input{bab/bab-04/section-4-8}
-\input{bab/bab-04/section-4-9}
-\input{bab/bab-04/section-4-10}
-\input{bab/bab-04/section-4-11}
-\input{bab/bab-04/section-4-12}
-\input{bab/bab-04/section-4-13}
 
 \begin{aktivitas}
-  \item Buat folder proyek dan file \code{index.html} dengan struktur HTML5 lengkap (doctype, head dengan meta charset dan viewport, body).
-  \item Tambahkan header dengan judul h1, navigasi dengan unordered list, dan main content dengan minimal 3 section.
-  \item Buat halaman \code{tentang.html} yang menggunakan elemen semantik (article, aside, footer) dan link internal dari index.html.
-  \item Sisipkan gambar dengan figure dan figcaption, pastikan atribut alt deskriptif dan dimensi width/height tersedia.
-  \item Buat link eksternal ke 3 website berbeda dengan atribut \code{rel="noopener noreferrer"} dan \code{target="\_blank"}.
-  \item Gunakan DevTools browser untuk inspeksi struktur DOM dan verifikasi hierarki heading.
+  \item \textbf{Praktik:} Kembangkan wireframe (dari Bab 3) menjadi mockup high-fidelity menggunakan Figma, termasuk palet warna, tipografi, dan spacing.
+  \item \textbf{Praktik:} Buat prototipe interaktif dari mockup dengan minimal tiga halaman terhubung (navigasi klik).
+  \item \textbf{Studi kasus:} Lakukan evaluasi heuristik (10 heuristik Nielsen) terhadap satu situs web pilihan dan dokumentasikan temuannya.
+  \item \textbf{Praktik:} Audit aksesibilitas halaman web menggunakan Lighthouse dan perbaiki minimal tiga temuan (HTML semantik atau ARIA).
+  \item \textbf{Praktik:} Lakukan usability testing sederhana dengan 3 rekan: siapkan tugas, amati, dan buat laporan temuan.
+  \item \textbf{Latihan:} Buat dokumen design system sederhana: design tokens (warna, font, spacing), tiga komponen (tombol, input, kartu), dan panduan penggunaan.
+  \item \textbf{Diskusi:} Presentasikan mockup dan prototipe di depan kelompok; terima umpan balik dan lakukan iterasi.
 \end{aktivitas}
 
 \begin{latihan}
-  \item Jelaskan perbedaan tag, elemen, dan atribut dalam HTML. Berikan masing-masing 2 contoh konkret.
-  \item Buat diagram hierarki heading yang benar untuk halaman artikel berita dengan struktur: judul utama, 2 subbagian masing-masing dengan 2 sub-subbagian.
-  \item Identifikasi 5 kesalahan struktural dalam kode HTML berikut dan jelaskan cara memperbaikinya (termasuk nesting yang salah dan elemen semantik yang hilang).
-  \item Buat tabel perbandingan antara \code{<em>} vs \code{<i>} dan \code{<strong>} vs \code{<b>}, jelaskan kapan menggunakan masing-masing.
-  \item Jelaskan mengapa atribut \code{alt} pada gambar penting untuk aksesibilitas dan berikan contoh alt text yang baik dan buruk untuk gambar yang sama.
-  \item Buat daftar berurutan (ol) untuk resep masakan dengan langkah-langkah yang jelas dan nested list untuk sub-langkah persiapan.
-  \item Buat description list (dl) untuk glosarium 5 istilah teknis web development dengan definisi yang komprehensif.
-  \item Desain struktur semantik HTML5 untuk halaman landing produk dengan: header, hero section dengan gambar, fitur produk (3 card), testimonial, dan footer dengan kontak.
+  \item Jelaskan perbedaan wireframe dan mockup serta kapan masing-masing dibuat dalam alur desain.
+  \item Identifikasi tiga pelanggaran heuristik Nielsen pada halaman web yang sering Anda kunjungi.
+  \item Tuliskan kode HTML semantik untuk halaman kontak yang aksesibel (gunakan \code{<form>}, \code{<label>}, dan \code{aria-describedby}).
+  \item Jelaskan empat prinsip POUR dalam WCAG dan berikan satu contoh implementasi untuk masing-masing.
+  \item Apa itu design token? Tuliskan lima design token (variabel CSS) untuk sebuah design system sederhana.
+  \item Rancang skenario usability testing sederhana: tentukan tujuan, tiga tugas untuk partisipan, dan metrik yang diukur.
+  \item \textbf{Refleksi:} Dari materi bab ini, manakah indikator Sub-CPMK 1.2 dan 1.3 yang sudah Anda kuasai? Area mana yang masih perlu Anda tingkatkan?
 \end{latihan}
 
 \begin{asesmen}
-Asesmen Bab 4 mengevaluasi penguasaan struktur HTML, ketepatan penggunaan elemen, aksesibilitas, dan praktik terbaik. Komponen penilaian meliputi:
+Asesmen Bab 4 (Tugas 2) merupakan \textbf{Evaluasi Kinerja} yang mengukur Sub-CPMK 1.2 dan Sub-CPMK 1.3. Tugas berupa portofolio yang mencakup:
+\begin{enumerate}
+  \item \textbf{Mockup High-Fidelity} (25\%): Satu halaman utama dari wireframe Bab 3 dikembangkan menjadi mockup di Figma dengan palet warna, tipografi, dan spacing yang konsisten. Mengukur Sub-CPMK 1.2.
+  \item \textbf{Prototipe Interaktif} (15\%): Prototipe klik minimal tiga halaman dengan transisi yang jelas. Mengukur Sub-CPMK 1.2.
+  \item \textbf{Laporan Aksesibilitas} (25\%): Audit WCAG menggunakan Lighthouse, identifikasi masalah, dan implementasi perbaikan (kode HTML semantik + ARIA). Mengukur Sub-CPMK 1.3.
+  \item \textbf{Evaluasi Heuristik} (15\%): Laporan evaluasi 10 heuristik Nielsen terhadap satu situs dengan severity rating. Mengukur Sub-CPMK 1.2 dan 1.3.
+  \item \textbf{Laporan Usability Testing} (20\%): Protokol testing, temuan dari minimal 3 partisipan, dan rekomendasi perbaikan. Mengukur Sub-CPMK 1.3.
+\end{enumerate}
 
-\begin{itemize}[leftmargin=*]
-  \item \textbf{Struktur Dokumen (30\%):} Keberadaan doctype, html, head lengkap dengan meta wajib (charset, viewport, title), dan body.
-  \item \textbf{Elemen Semantik (25\%):} Penggunaan header, nav, main, article/section, aside, footer sesuai konteks.
-  \item \textbf{Konten dan Format (20\%):} Hierarki heading yang benar, paragraf, daftar, dan elemen teks yang tepat.
-  \item \textbf{Link dan Gambar (15\%):} Atribut href yang valid, keamanan link eksternal (noopener noreferrer), atribut alt dan dimensi pada gambar.
-  \item \textbf{Validasi dan Best Practice (10\%):} Passing W3C Validator, tidak ada overfull/underfull hbox parah, kode rapi dengan indentasi konsisten.
+\textbf{Rubrik Penilaian (berbasis OBE):}
+\begin{itemize}
+  \item \textbf{A (85--100)}: Seluruh komponen lengkap, mockup dan prototipe profesional, aksesibilitas terimplementasi dengan baik. Kompeten untuk Sub-CPMK 1.2 dan 1.3.
+  \item \textbf{B (70--84)}: Sebagian besar komponen lengkap, beberapa detail kurang.
+  \item \textbf{C (55--69)}: Komponen dasar ada tetapi kurang mendalam.
+  \item \textbf{D ($<$55)}: Komponen tidak lengkap atau tidak memenuhi standar minimum.
 \end{itemize}
-
-Rubrik penilaian detail tersedia di Lampiran untuk penilaian proyek halaman profil lengkap.
 \end{asesmen}
 
 \begin{checklist}
-  \item Saya dapat menulis struktur dasar HTML5 lengkap dengan doctype, head (meta charset, viewport, title), dan body.
-  \item Saya memahami perbedaan tag, elemen, dan atribut serta dapat menggunakannya dengan benar.
-  \item Saya dapat menggunakan elemen heading (h1-h6) dengan hierarki yang benar tanpa melompati level.
-  \item Saya dapat membuat paragraf, daftar (ul, ol, dl), dan memformat teks dengan elemen semantik (em, strong, mark).
-  \item Saya dapat membuat link internal, eksternal (dengan keamanan noopener), dan anchor dengan atribut yang lengkap.
-  \item Saya dapat menyisipkan gambar dengan src, alt deskriptif, width/height, dan menggunakan figure/figcaption saat diperlukan.
-  \item Saya dapat menggunakan elemen semantik HTML5 (header, nav, main, article, section, aside, footer) untuk struktur halaman.
-  \item Saya dapat membuat halaman web sederhana yang terstruktur dengan baik, aksesibel, dan valid menurut standar W3C.
-  \item Saya memahami praktik terbaik: alt text untuk aksesibilitas, keamanan link eksternal, dan layout viewport untuk mobile.
+  \item \textbf{Sub-CPMK 1.2:} Saya dapat membuat mockup high-fidelity dari wireframe dan memahami alur wireframe $\to$ mockup $\to$ prototipe.
+  \item \textbf{Sub-CPMK 1.2:} Saya memahami prinsip desain visual: layout (grid), hierarki, tipografi, dan warna.
+  \item \textbf{Sub-CPMK 1.2:} Saya dapat menerapkan 10 heuristik Nielsen untuk mengevaluasi usability antarmuka.
+  \item \textbf{Sub-CPMK 1.2:} Saya dapat membuat prototipe interaktif dan memahami proses iterasi desain.
+  \item \textbf{Sub-CPMK 1.2:} Saya mengenal Figma dan fitur-fitur utamanya untuk desain antarmuka.
+  \item \textbf{Sub-CPMK 1.3:} Saya memahami prinsip aksesibilitas WCAG (POUR) dan dapat menulis HTML semantik + ARIA.
+  \item \textbf{Sub-CPMK 1.3:} Saya dapat melakukan audit aksesibilitas menggunakan Lighthouse atau axe.
+  \item \textbf{Sub-CPMK 1.3:} Saya memahami konsep design system, design tokens, dan konsistensi antarmuka.
+  \item \textbf{Sub-CPMK 1.3:} Saya memahami proses handoff desain ke pengembang.
+  \item \textbf{Sub-CPMK 1.3:} Saya dapat merancang dan melaksanakan usability testing sederhana.
 \end{checklist}
 
 \begin{rangkuman}
-Bab ini telah membahas fondasi pembuatan halaman web dengan HTML5, mulai dari pengenalan peran HTML di ekosistem web hingga implementasi elemen semantik untuk struktur halaman modern. Materi yang dipelajari meliputi:
-
-\begin{itemize}[leftmargin=*]
-  \item \textbf{Pengenalan HTML:} HTML sebagai bahasa markup deklaratif untuk struktur dan makna konten, evolusi dari HTML 1.0 hingga HTML5 Living Standard, dan perannya bersama CSS dan JavaScript dalam triad teknologi web.
-  \item \textbf{Setup dan Alat:} Editor kode (VS Code, Notepad++), browser modern dengan DevTools, workflow edit-save-refresh, dan struktur folder proyek.
-  \item \textbf{Sintaks Dasar:} Perbedaan tag, elemen, dan atribut; void elements; aturan nesting; dan atribut global (id, class, lang, data-*).
-  \item \textbf{Struktur Dokumen:} Doctype HTML5, elemen root html, bagian head (metadata, charset, viewport, title, link), dan bagian body (konten terlihat).
-  \item \textbf{Konten Teks:} Heading h1-h6 dengan hierarki aksesibel, paragraf p, elemen semantik (em, strong, mark, del, ins), dan perbandingan dengan elemen presentasional (i, b).
-  \item \textbf{Daftar:} Unordered list (ul, li), ordered list (ol dengan type, start, reversed), description list (dl, dt, dd), dan nested lists.
-  \item \textbf{Fitur Lanjutan:} Kutipan (blockquote, q), blok kode (pre, code), subscript dan superscript (sub, sup), serta HTML entities (\&lt;, \&gt;, \&amp;, \&nbsp;, \&copy;).
-  \item \textbf{Link:} Elemen a dengan href, link internal/eksternal/anchor, keamanan link (noopener noreferrer), dan praktik teks link deskriptif.
-  \item \textbf{Gambar:} Elemen img dengan src, alt (penting untuk aksesibilitas), width/height (layout stability), dan figure/figcaption untuk keterangan semantik.
-  \item \textbf{Elemen Semantik:} Header, nav, main, article, section, aside, footer untuk struktur halaman yang bermakna, aksesibel, dan SEO-friendly.
-\end{itemize}
+Bab ini membahas mockup, prototyping, prinsip UX, aksesibilitas, design system, dan validasi desain melalui UX research sebagai Unit Materi Inti berbasis Sub-CPMK 1.2 dan 1.3.
 
 \textbf{Poin Kunci:}
-\begin{enumerate}[leftmargin=*]
-  \item HTML mendefinisikan struktur dan makna konten; struktur standar terdiri dari \code{head} (metadata) dan \code{body} (konten terlihat).
-  \item Gunakan elemen yang tepat dengan atribut yang lengkap; prioritas elemen semantik (em, strong) atas elemen presentasional (i, b).
-  \item Aksesibilitas adalah tanggung jawab pengembang: alt text untuk gambar, hierarki heading yang logis, dan elemen semantik untuk screen readers.
-  \item Keamanan web dimulai dari detail kecil seperti \code{rel="noopener noreferrer"} pada link eksternal.
-  \item Elemen semantik HTML5 meningkatkan SEO, aksesibilitas, dan maintainability kode secara signifikan dibanding div generik.
-\end{enumerate}
+\begin{itemize}
+  \item \textbf{Mockup} (Sub-CPMK 1.2): high-fi memvalidasi tampilan akhir; dibuat setelah wireframe disetujui dengan alat seperti Figma.
+  \item \textbf{Prinsip desain visual} (layout, hierarki, tipografi, warna) dan \textbf{10 heuristik Nielsen} menjadi panduan evaluasi antarmuka.
+  \item \textbf{Aksesibilitas} (Sub-CPMK 1.3): WCAG/POUR, HTML semantik, ARIA memastikan web inklusif untuk semua pengguna.
+  \item \textbf{Prototyping dan iterasi} menghasilkan desain yang terus membaik berdasarkan umpan balik pengguna.
+  \item \textbf{Design system} menjaga konsistensi; \textbf{handoff} yang baik memperlancar transisi dari desain ke kode.
+  \item \textbf{UX research dan usability testing} memvalidasi desain dengan pengguna nyata---cukup 5 partisipan untuk menemukan 85\% masalah.
+\end{itemize}
 
-Dengan menguasai konsep-konsep ini, Anda telah membangun fondasi yang kuat untuk melanjutkan pembelajaran ke topik HTML lanjutan (form, media, tabel) dan integrasi dengan CSS untuk styling.
+\textbf{Refleksi:} Pastikan Anda dapat mencentang checklist di atas dan siap melanjutkan ke Bab 5 (HTML dasar, struktur dokumen, elemen semantik).
 \end{rangkuman}
 
 \ifSubfilesClassLoaded{
@@ -104,4 +93,3 @@ Dengan menguasai konsep-konsep ini, Anda telah membangun fondasi yang kuat untuk
   \bibliography{../references}
 }{}
 \end{document}
-

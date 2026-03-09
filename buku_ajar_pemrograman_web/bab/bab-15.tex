@@ -1,0 +1,151 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{14}}{}
+\begin{document}
+
+\chapter{Integrasi API, Pengujian, Performa, Keamanan (XSS/CSRF), Deployment Dasar, Administrasi Web, dan Presentasi Hasil}
+
+Bab ini membahas materi Pertemuan 15 sesuai RPS: integrasi API, pengujian, performa, keamanan (XSS/CSRF), deployment dasar, administrasi web, dan presentasi hasil. Materi meliputi integrasi API, pengujian aplikasi web (fungsional, performa, load testing), keamanan web (validasi input, SQL injection, XSS, CSRF, session management), deployment ke produksi, konfigurasi server/database, hardening, CI/CD, pemantauan, serta presentasi hasil proyek.
+
+\begin{subcpmk}
+  \item Sub-CPMK 3.3: Mengintegrasikan API dan menghubungkan front-end dengan back-end (request/response, data terstruktur).
+  \item Sub-CPMK 4.1: Melakukan pengujian dan evaluasi performa aplikasi web.
+  \item Sub-CPMK 4.2: Menerapkan prinsip keamanan web: validasi input, prepared statement, session, mitigasi XSS dan CSRF.
+  \item Sub-CPMK 4.3: Melakukan deployment ke lingkungan produksi dan administrasi dasar (server/web, basis data).
+\end{subcpmk}
+
+\input{bab/bab-15/section-15-1}
+\input{bab/bab-15/section-15-2}
+\input{bab/bab-15/section-15-3}
+\input{bab/bab-15/section-15-4}
+\input{bab/bab-15/section-15-5}
+\input{bab/bab-15/section-15-6}
+\input{bab/bab-15/section-15-7}
+\input{bab/bab-15/section-15-8}
+\input{bab/bab-15/section-15-9}
+\input{bab/bab-15/section-15-10}
+\input{bab/bab-15/section-15-11}
+\input{bab/bab-15/section-15-12}
+\input{bab/bab-15/section-15-13}
+\input{bab/bab-15/section-15-14}
+\input{bab/bab-15/section-15-15}
+\input{bab/bab-15/section-15-16}
+\input{bab/bab-15/section-15-17}
+\input{bab/bab-15/section-15-18}
+\input{bab/bab-15/section-15-19}
+\input{bab/bab-15/section-15-20}
+\input{bab/bab-15/section-15-21}
+\input{bab/bab-15/section-15-22}
+\input{bab/bab-15/section-15-23}
+\input{bab/bab-15/section-15-24}
+\input{bab/bab-15/section-15-25}
+\input{bab/bab-15/section-15-26}
+\input{bab/bab-15/section-15-27}
+\input{bab/bab-15/section-15-28}
+\input{bab/bab-15/section-15-29}
+\input{bab/bab-15/section-15-30}
+\input{bab/bab-15/section-15-31}
+\input{bab/bab-15/section-15-32}
+\input{bab/bab-15/section-15-33}
+
+\begin{aktivitas}
+  \item \textbf{Praktik:} Buat endpoint sederhana yang mengembalikan JSON dan tampilkan di halaman web menggunakan Fetch API.
+  \item \textbf{Praktik:} Lakukan pengujian fungsional pada form yang dibuat: skenario positif dan negatif.
+  \item \textbf{Praktik:} Ukur performa halaman menggunakan Lighthouse (DevTools) dan catat skor serta rekomendasi.
+  \item \textbf{Praktik:} Terapkan validasi input di server (PHP) pada form yang sudah dibuat.
+  \item \textbf{Praktik:} Ganti query biasa menjadi prepared statement pada kode PHP yang mengakses database.
+  \item \textbf{Praktik:} Implementasikan CSRF token pada form submit.
+  \item \textbf{Praktik:} Terapkan \code{htmlspecialchars()} pada semua output yang berasal dari input pengguna.
+  \item \textbf{Studi kasus:} Lakukan audit keamanan sederhana menggunakan checklist OWASP Top 10.
+  \item \textbf{Praktik:} Bandingkan konfigurasi PHP di lingkungan lokal (XAMPP) dan produksi; catat perbedaannya.
+  \item \textbf{Praktik:} Siapkan file \code{.env} untuk menyimpan konfigurasi database dan mode aplikasi.
+  \item \textbf{Praktik:} Lakukan deployment sederhana ke server (atau simulasi lokal) dan dokumentasikan langkahnya.
+  \item \textbf{Praktik:} Atur konfigurasi PHP produksi: nonaktifkan \code{display\_errors}, aktifkan \code{log\_errors}.
+  \item \textbf{Praktik:} Buat skrip backup database menggunakan \code{mysqldump} dan uji restore-nya.
+  \item \textbf{Latihan:} Jelaskan konsep reverse proxy dan HTTPS; identifikasi manfaatnya.
+  \item \textbf{Latihan:} Buat checklist hardening server sederhana berdasarkan materi bab ini.
+  \item \textbf{Diskusi:} Presentasikan proyek akhir dan lakukan refleksi kompetensi.
+\end{aktivitas}
+
+\begin{latihan}
+  \item Jelaskan perbedaan pengujian fungsional, kompatibilitas, dan performa.
+  \item Sebutkan tiga metrik performa web dan alat untuk mengukurnya.
+  \item Jelaskan mengapa validasi di client saja tidak cukup untuk keamanan.
+  \item Tulis contoh prepared statement dengan MySQLi untuk query INSERT.
+  \item Jelaskan perbedaan XSS dan CSRF beserta cara pencegahannya.
+  \item Sebutkan tiga atribut cookie untuk keamanan dan fungsi masing-masing.
+  \item Jelaskan tiga perbedaan utama antara lingkungan development dan produksi.
+  \item Buat checklist langkah deployment dari lokal ke server.
+  \item Sebutkan lima pengaturan \code{php.ini} yang harus diubah untuk produksi.
+  \item Jelaskan fungsi environment variable dan mengapa file \code{.env} tidak boleh masuk ke Git.
+  \item Jelaskan konsep CI/CD dan sebutkan dua alat yang mendukungnya.
+  \item Sebutkan tiga hal yang harus dipantau pada aplikasi di produksi.
+  \item \textbf{Refleksi:} Dari materi bab ini, manakah indikator Sub-CPMK 3.3, 4.1, 4.2, dan 4.3 yang sudah Anda kuasai? Area mana yang masih perlu Anda tingkatkan sebelum UAS dan Project?
+\end{latihan}
+
+\begin{asesmen}
+Asesmen Bab 15 (Proyek Pertemuan 15) merupakan \textbf{Evaluasi Kinerja} yang mengukur Sub-CPMK 3.3, 4.1, 4.2, dan 4.3. Proyek berupa aplikasi web terintegrasi yang mencakup:
+\begin{enumerate}
+  \item \textbf{Integrasi API} (Sub-CPMK 3.3): Endpoint JSON, Fetch API, request/response terstruktur.
+  \item \textbf{Laporan Pengujian} (Sub-CPMK 4.1): Pengujian fungsional dan evaluasi performa (Lighthouse/DevTools).
+  \item \textbf{Implementasi Keamanan} (Sub-CPMK 4.2): Prepared statement, CSRF token, output encoding (\code{htmlspecialchars}).
+  \item \textbf{Deployment} (Sub-CPMK 4.3): Konfigurasi produksi, environment variable, backup/restore, dokumentasi.
+  \item \textbf{Presentasi Hasil}: Presentasi proyek dan refleksi kompetensi.
+\end{enumerate}
+
+\textbf{Rubrik Penilaian (berbasis OBE):}
+\begin{itemize}
+  \item \textbf{A (85--100)}: Seluruh komponen lengkap, API terintegrasi dengan baik, keamanan dan deployment memenuhi standar. Kompeten untuk Sub-CPMK 3.3, 4.1, 4.2, 4.3.
+  \item \textbf{B (70--84)}: Sebagian besar komponen lengkap, beberapa detail kurang.
+  \item \textbf{C (55--69)}: Komponen dasar ada tetapi kurang mendalam.
+  \item \textbf{D ($<$55)}: Komponen tidak lengkap atau tidak memenuhi standar minimum.
+\end{itemize}
+\end{asesmen}
+
+\begin{checklist}
+  \item \textbf{Sub-CPMK 3.3:} Saya dapat melakukan request API menggunakan fetch dan menampilkan hasilnya.
+  \item \textbf{Sub-CPMK 3.3:} Saya dapat membuat endpoint yang mengembalikan JSON dan menghubungkan front-end dengan back-end.
+  \item \textbf{Sub-CPMK 4.1:} Saya memahami jenis-jenis pengujian: fungsional, kompatibilitas, dan performa.
+  \item \textbf{Sub-CPMK 4.1:} Saya dapat menggunakan DevTools untuk debugging dan pengukuran performa.
+  \item \textbf{Sub-CPMK 4.1:} Saya memahami strategi pengujian: manual vs otomatis, unit vs integrasi vs E2E.
+  \item \textbf{Sub-CPMK 4.1:} Saya mengetahui metrik performa web (FCP, LCP) dan alat pengukurnya.
+  \item \textbf{Sub-CPMK 4.2:} Saya memahami ancaman keamanan web umum (SQL injection, XSS, CSRF).
+  \item \textbf{Sub-CPMK 4.2:} Saya dapat menerapkan validasi input dan sanitasi data di server (PHP).
+  \item \textbf{Sub-CPMK 4.2:} Saya dapat menggunakan prepared statement untuk mencegah SQL injection.
+  \item \textbf{Sub-CPMK 4.2:} Saya memahami pengelolaan session dan cookie yang aman.
+  \item \textbf{Sub-CPMK 4.2:} Saya dapat menerapkan pencegahan XSS (output encoding) dan CSRF (token).
+  \item \textbf{Sub-CPMK 4.2:} Saya mengenal OWASP Top 10 dan checklist audit keamanan.
+  \item \textbf{Sub-CPMK 4.3:} Saya memahami perbedaan lingkungan development dan produksi.
+  \item \textbf{Sub-CPMK 4.3:} Saya mengetahui siklus rilis dan langkah deployment dasar.
+  \item \textbf{Sub-CPMK 4.3:} Saya memahami peran server web (Apache/Nginx) dan PHP di produksi.
+  \item \textbf{Sub-CPMK 4.3:} Saya dapat mengelola konfigurasi menggunakan environment variable.
+  \item \textbf{Sub-CPMK 4.3:} Saya dapat mengonfigurasi PHP untuk produksi (error logging, session security).
+  \item \textbf{Sub-CPMK 4.3:} Saya memahami proses upload, permissions, dan konfigurasi deployment.
+  \item \textbf{Sub-CPMK 4.3:} Saya memahami konsep reverse proxy dan HTTPS.
+  \item \textbf{Sub-CPMK 4.3:} Saya mengetahui langkah hardening server dasar.
+  \item \textbf{Sub-CPMK 4.3:} Saya dapat melakukan backup dan restore database.
+  \item \textbf{Sub-CPMK 4.3:} Saya memahami konsep CI/CD untuk otomasi deployment.
+  \item \textbf{Sub-CPMK 4.3:} Saya memahami pentingnya pemantauan (log, error tracking, uptime) di produksi.
+  \item Saya mengenal referensi standar: MDN, OWASP, web.dev, PHP The Right Way.
+\end{checklist}
+
+\begin{rangkuman}
+Bab ini merupakan \textbf{Unit Materi Inti} berbasis Sub-CPMK 3.3, 4.1, 4.2, dan 4.3 yang membahas integrasi API, pengujian, keamanan web, deployment, dan administrasi web secara menyeluruh. Keamanan dan pengujian bukan langkah terakhir; keduanya harus terintegrasi di setiap tahap pengembangan. Deployment ke produksi membutuhkan konfigurasi yang berbeda dari lingkungan lokal.
+
+\textbf{Poin Kunci:}
+\begin{itemize}
+  \item \textbf{Integrasi API} (Sub-CPMK 3.3): API memudahkan pertukaran data antara front-end dan back-end; Fetch API dan endpoint JSON menghubungkan kedua layer.
+  \item \textbf{Pengujian} (Sub-CPMK 4.1): Fungsional, kompatibilitas, performa; metrik FCP, LCP; Lighthouse dan DevTools.
+  \item \textbf{Keamanan} (Sub-CPMK 4.2): Validasi input di server, prepared statement, output encoding, session/cookie aman, CSRF token, OWASP Top 10.
+  \item \textbf{Deployment dan Administrasi} (Sub-CPMK 4.3): Environment variable, konfigurasi PHP produksi, reverse proxy/HTTPS, hardening, backup/restore, CI/CD, pemantauan.
+\end{itemize}
+
+\textbf{Refleksi:} Pastikan Anda dapat mencentang checklist di atas dan siap menghadapi UAS serta Project (Bab 16).
+\end{rangkuman}
+
+\ifSubfilesClassLoaded{
+  \renewcommand{\bibname}{Daftar Pustaka}
+  \bibliographystyle{plain}
+  \bibliography{../references}
+}{}
+\end{document}
+

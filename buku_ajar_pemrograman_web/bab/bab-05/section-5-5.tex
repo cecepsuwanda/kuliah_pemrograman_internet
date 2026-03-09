@@ -1,110 +1,73 @@
-\section[Struktur Halaman dengan Elemen Semantik]{Struktur Halaman dengan Elemen Semantik}
+\section{Bagian Head dan Metadata Halaman}
 
-Bab 4 telah memperkenalkan elemen-elemen semantik HTML5 secara konseptual. Pada section ini, fokus diarahkan pada \textbf{praktik merancang} struktur halaman web menggunakan elemen-elemen tersebut. Struktur semantik yang baik bukan sekadar tentang tampilan visual, melainkan tentang memberikan \textbf{makna} pada setiap bagian halaman sehingga browser, mesin pencari, dan teknologi bantu dapat memahami peran masing-masing konten. Halaman yang terstruktur dengan baik lebih mudah dirawat, lebih aksesibel, dan mendapat peringkat SEO yang lebih baik \cite{webdevHtml}.
+Bagian \code{<head>} dalam dokumen HTML adalah container untuk metadata dan instruksi yang tidak ditampilkan langsung kepada pengguna, namun sangat penting untuk fungsionalitas, performa, dan optimasi halaman web. Metadata adalah data tentang data - dalam konteks ini, informasi tentang dokumen HTML itu sendiri seperti judul, pengarang, deskripsi, dan pengaturan teknis. Browser menggunakan informasi dalam \code{<head>} untuk menentukan cara memproses dan menampilkan halaman, sementara mesin pencari menggunakan metadata untuk mengindeks dan menampilkan hasil pencarian yang relevan \cite{mdnHtmlIntro}.
 
-HTML5 menyediakan elemen semantik yang menggantikan penggunaan \code{<div>} generik untuk bagian-bagian halaman yang umum. Setiap elemen memiliki makna spesifik: \code{<header>} untuk kepala halaman atau section, \code{<nav>} untuk navigasi utama, \code{<main>} untuk konten utama (hanya satu per halaman), \code{<article>} untuk konten mandiri, \code{<section>} untuk pengelompokan tematik, \code{<aside>} untuk konten pendukung, dan \code{<footer>} untuk penutup halaman. Penggunaan elemen yang tepat membantu pembaca layar membuat peta navigasi otomatis bagi penggunanya \cite{mdnHtmlIntro}.
+Encoding karakter adalah aspek fundamental yang ditentukan dalam \code{<head>} melalui elemen \code{<meta charset="UTF-8">}. UTF-8 adalah encoding standar yang mendukung hampir semua karakter dari semua bahasa dunia, termasuk karakter khas bahasa Indonesia seperti 'é' dalam 'résumé' atau karakter lokal lainnya. Pengaturan encoding yang benar mencegah masalah karakter mojibake (tanda tanya atau karakter aneh yang muncul karena encoding salah) dan memastikan teks ditampilkan dengan benar di semua perangkat. Elemen \code{<meta>} ini harus ditempatkan dalam 1024 byte pertama dokumen untuk memastikan browser membaca encoding sebelum parsing konten.
+
+\begin{sloppypar}
+Meta viewport adalah elemen penting lainnya untuk pengalaman mobile yang optimal: \code{<meta name="viewport" content="width=device-width, initial-scale=1.0">}. Tanpa tag ini, browser mobile akan mengasumsikan halaman dirancang untuk desktop dan menskalakan halaman kecil, memaksa pengguna untuk melakukan zoom dan scroll horizontal. Atribut \code{width=device-width} memberitahu browser untuk menggunakan lebar layar perangkat sebagai lebar viewport, sementara \code{initial-scale=1.0} mengatur level zoom awal menjadi 100\%. Dalam era mobile-first, elemen ini menjadi wajib untuk setiap halaman web yang responsif \cite{webdevHtml}.
+\end{sloppypar}
+
+SEO (Search Engine Optimization) dasar dimulai dari \code{<head>} dengan elemen \code{<title>} dan \code{<meta name="description">}. Elemen \code{<title>} menentukan teks yang muncul di tab browser, hasil pencarian Google, dan bookmark. Judul yang baik harus deskriptif, mengandung kata kunci relevan, dan tidak lebih dari 60 karakter agar tidak terpotong. Meta description memberikan ringkasan halaman yang ditampilkan di hasil pencarian di bawah judul; deskripsi yang menarik dapat meningkatkan click-through rate dari hasil pencarian.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{2.2cm}|P{4cm}|P{5.5cm}|}
+\begin{tabular}{|P{4cm}|P{2.5cm}|P{5cm}|}
 \hline
-\textbf{Elemen} & \textbf{Makna Semantik} & \textbf{Contoh Penggunaan} \\
+\textbf{Meta Tag} & \textbf{Wajib?} & \textbf{Fungsi} \\
 \hline
-\code{<header>} & Kepala halaman/section & Logo, judul situs, navigasi utama \\
+\code{charset="UTF-8"} & Ya & Encoding karakter universal \\
 \hline
-\code{<nav>} & Blok navigasi & Menu utama, breadcrumb, sidebar link \\
+\code{viewport} & Ya & Responsif di perangkat mobile \\
 \hline
-\code{<main>} & Konten utama & Area isi utama (satu per halaman) \\
+\code{<title>} & Ya & Judul halaman di tab/browser \\
 \hline
-\code{<article>} & Konten mandiri & Blog post, berita, komentar \\
+\code{description} & Rekomendasi & Ringkasan untuk SEO \\
 \hline
-\code{<section>} & Grup tematik & Bab, tab panel, bagian konten \\
+\code{author} & Opsional & Nama pembuat dokumen \\
 \hline
-\code{<aside>} & Konten pendukung & Sidebar, iklan, info terkait \\
-\hline
-\code{<footer>} & Penutup halaman & Hak cipta, link kebijakan, kontak \\
+\code{keywords} & Opsional & Kata kunci (kurang relevan untuk SEO modern) \\
 \hline
 \end{tabular}
-\caption{Elemen semantik HTML5 dan konteks penggunaannya}
+\caption{Meta Tag Penting dalam Bagian Head}
+\label{tab:meta-tags}
 \end{table}
 
-\begin{figure}[htbp]
-\centering
-\resizebox{0.85\textwidth}{!}{%
-\begin{tikzpicture}[node distance=0.6cm, transform shape, every node/.style={font=\footnotesize}]
-  % Body container
-  \node (body) [class, minimum width=12cm, minimum height=0.8cm] {\code{<body>}};
-
-  % Header
-  \node (header) [class, below=of body, minimum width=11cm, fill=orange!15] {\code{<header>} --- Logo, Judul Situs};
-
-  % Nav
-  \node (nav) [class, below=of header, minimum width=11cm, fill=yellow!15] {\code{<nav>} --- Menu Navigasi Utama};
-
-  % Main + Aside row
-  \node (main) [class, below=of nav, minimum width=7.5cm, xshift=-1.75cm, minimum height=3cm, fill=green!10] {\code{<main>}};
-
-  % Article inside main
-  \node (article) [object, below=0.3cm of main.north, minimum width=6.5cm, fill=green!20] {\code{<article>} --- Konten Artikel};
-  \node (section) [object, below=0.3cm of article, minimum width=6.5cm, fill=green!25] {\code{<section>} --- Bagian Konten};
-
-  % Aside
-  \node (aside) [class, right=0.5cm of main, minimum width=3cm, minimum height=3cm, fill=purple!10] {\code{<aside>}\\Sidebar};
-
-  % Footer
-  \node (footer) [class, below=0.6cm of main.south east, minimum width=11cm, xshift=-0.5cm, fill=gray!15] {\code{<footer>} --- Hak Cipta, Kontak};
-\end{tikzpicture}%
-}
-\caption{Diagram struktur halaman web dengan elemen semantik HTML5}
-\end{figure}
-
-Hierarki heading (\code{<h1>} sampai \code{<h6>}) di dalam elemen semantik sangat penting untuk aksesibilitas dan SEO. Praktik terbaik: gunakan satu \code{<h1>} per halaman untuk judul utama, lalu \code{<h2>} untuk judul section, \code{<h3>} untuk sub-section, dan seterusnya. Jangan melewatkan level heading (misalnya langsung dari \code{<h2>} ke \code{<h4>}) karena akan membingungkan pembaca layar yang menggunakan heading untuk navigasi cepat. Setiap \code{<section>} dan \code{<article>} sebaiknya diawali dengan heading yang sesuai \cite{mdnAccessibility}.
-
-\begin{webcode}[language=HTML, caption={Struktur halaman lengkap dengan elemen semantik}]
-<!DOCTYPE html>
-<html lang="id">
+\begin{webcode}[language=HTML, caption={Contoh Bagian Head yang Lengkap}]
 <head>
+  <!-- Encoding karakter -->
   <meta charset="UTF-8" />
-  <title>Blog Pemrograman Web</title>
+  
+  <!-- Viewport untuk mobile -->
+  <meta name="viewport" 
+        content="width=device-width, initial-scale=1.0" />
+  
+  <!-- SEO Metadata -->
+  <title>Belajar HTML Dasar - Panduan Lengkap</title>
+  <meta name="description" 
+        content="Panduan lengkap belajar HTML dari nol hingga mahir. 
+                 Cocok untuk pemula yang ingin memulai karir web development." />
+  <meta name="author" content="Nama Penulis" />
+  
+  <!-- Link ke resource eksternal -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  
+  <!-- Open Graph untuk media sosial -->
+  <meta property="og:title" content="Belajar HTML Dasar" />
+  <meta property="og:description" content="Panduan lengkap HTML" />
+  <meta property="og:image" content="images/thumbnail.jpg" />
 </head>
-<body>
-  <header>
-    <h1>Blog Pemrograman Web</h1>
-    <nav>
-      <ul>
-        <li><a href="/">Beranda</a></li>
-        <li><a href="/artikel">Artikel</a></li>
-        <li><a href="/tentang">Tentang</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main>
-    <article>
-      <h2>Mengenal HTML5 Semantik</h2>
-      <p>HTML5 memperkenalkan elemen semantik...</p>
-      <section>
-        <h3>Mengapa Semantik Penting?</h3>
-        <p>Elemen semantik memberikan makna...</p>
-      </section>
-    </article>
-    <aside>
-      <h2>Artikel Terkait</h2>
-      <ul>
-        <li><a href="/css-dasar">CSS Dasar</a></li>
-        <li><a href="/js-intro">Pengenalan JS</a></li>
-      </ul>
-    </aside>
-  </main>
-
-  <footer>
-    <p>&copy; 2026 Blog Pemrograman Web</p>
-  </footer>
-</body>
-</html>
 \end{webcode}
 
 \begin{catatan}
-Jangan menggunakan elemen semantik hanya untuk mendapatkan styling default (misalnya \code{<nav>} agar terlihat seperti menu). Gunakan elemen berdasarkan \textbf{maknanya}, bukan tampilannya. Tampilan dapat selalu diubah dengan CSS. Sebaliknya, jangan menggunakan \code{<div>} untuk konten yang memiliki makna semantik yang jelas---gunakan elemen semantik yang tepat agar halaman Anda aksesibel dan mudah dirawat \cite{webdevHtml}.
+\textbf{Praktik Terbaik SEO untuk Head:}
+\begin{itemize}[leftmargin=*]
+  \item Setiap halaman harus memiliki \code{<title>} yang unik dan deskriptif.
+  \item Meta description sebaiknya 150-160 karakter untuk tampilan optimal di Google.
+  \item Gunakan Open Graph tags (\code{og:}) untuk kontrol tampilan saat dibagikan di media sosial.
+  \item Letakkan elemen \code{<meta charset>} di awal \code{<head>} untuk performance optimal.
+  \item Hindari duplikasi meta tags antara halaman - setiap halaman harus unik.
+\end{itemize}
 \end{catatan}
 

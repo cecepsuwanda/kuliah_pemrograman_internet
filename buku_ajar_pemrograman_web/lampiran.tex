@@ -4,9 +4,36 @@
 % ============================================================
 % Lampiran A: Rubrik Penilaian
 % ============================================================
-\section*{Lampiran A: Rubrik Penilaian Tugas Praktik Web}
+\section*{Lampiran A: Bobot Penilaian dan Rubrik Komprehensif}
 
-Rubrik berikut terhubung dengan CPMK dan Sub-CPMK RPS Pemrograman Web. Setiap kriteria memetakan ke capaian pembelajaran yang dapat diukur.
+\subsection*{A.1 Bobot Penilaian (Sesuai RPS)}
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{|>{\raggedright\arraybackslash}p{3.2cm}|>{\raggedright\arraybackslash}p{5.5cm}|>{\raggedright\arraybackslash}p{3.8cm}|c|}
+\hline
+\textbf{Komponen} & \textbf{Teknik Asesmen} & \textbf{CPMK yang Diuji} & \textbf{Bobot (\%)} \\
+\hline
+Tugas/Praktikum & Lab exercise, Tugas 1--4 & Sub-CPMK 1.1--3.2 & 35 \\
+\hline
+Kuis (Quiz 1--4) & Quiz 1 (CPMK-1), Quiz 2 (CPMK-2), Quiz 3 (CPMK-3), Quiz 4 (CPMK-4) & CPMK-1 s.d. CPMK-4 & 10 \\
+\hline
+UTS & Ujian tengah (teori dan praktik, pilihan ganda) & CPMK-1, CPMK-2 & 20 \\
+\hline
+Proyek & Project: aplikasi web SIA sederhana & CPMK-3 (Sub-CPMK 3.1, 3.2, 3.3) & 20 \\
+\hline
+UAS & Ujian akhir dan presentasi (pilihan ganda) & CPMK-3, CPMK-4 & 15 \\
+\hline
+\textbf{Total} & & & \textbf{100} \\
+\hline
+\end{tabular}
+\caption{Bobot Penilaian Mata Kuliah Pemrograman Web}
+\end{table}
+
+\subsection*{A.2 Rubrik Penilaian Tugas Praktik Web}
+
+Rubrik berikut terhubung dengan CPMK dan Sub-CPMK RPS. Setiap kriteria memetakan ke capaian pembelajaran yang dapat diukur.
 
 \begin{table}[htbp]
 \centering
@@ -15,21 +42,43 @@ Rubrik berikut terhubung dengan CPMK dan Sub-CPMK RPS Pemrograman Web. Setiap kr
 \hline
 \textbf{Kriteria} & \textbf{Sub-CPMK} & \textbf{Sangat Baik} & \textbf{Baik} & \textbf{Perlu Perbaikan} \\
 \hline
+Analisis Kebutuhan & 1.1, 1.2, 1.3 & Kebutuhan terdokumentasi jelas, wireframe/mockup profesional & Sebagian besar lengkap & Kurang lengkap \\
+\hline
 Struktur HTML & 2.1 & Semantik tepat, aksesibel & Semantik cukup baik & Banyak elemen tidak tepat \\
 \hline
 CSS dan Layout & 2.2 & Responsif, rapi, konsisten & Cukup responsif & Layout berantakan \\
 \hline
 Interaktivitas JS & 2.3 & Validasi dan event tepat & Ada fitur utama & Banyak error/interaksi minim \\
 \hline
-Back-end & 3.1, 3.2 & CRUD lengkap, aman & CRUD sebagian & Banyak error/fungsi hilang \\
+Library\slash Framework & 2.4 & Penggunaan tepat dan efektif & Penggunaan dasar & Tidak memadai \\
 \hline
-Keamanan Dasar & 4.2 & Validasi input dan sanitasi & Validasi sebagian & Tidak ada validasi \\
+Back-end PHP & 3.1 & Logika server tepat, OOP & Sebagian fitur & Banyak error \\
+\hline
+Database & 3.2 & CRUD lengkap, ternormalisasi & CRUD sebagian & Banyak error \\
+\hline
+Integrasi API & 3.3 & Request/response terstruktur & Integrasi dasar & Tidak terintegrasi \\
+\hline
+Pengujian & 4.1 & Laporan lengkap, metrik terukur & Pengujian dasar & Minim pengujian \\
+\hline
+Keamanan & 4.2 & Validasi, prepared statement, XSS/CSRF & Validasi sebagian & Tidak ada validasi \\
+\hline
+Deployment & 4.3 & Konfigurasi produksi, dokumentasi & Dokumentasi dasar & Tidak ada \\
 \hline
 \end{tabular}
-\caption{Rubrik Penilaian Tugas Praktik Web (terhubung CPMK/Sub-CPMK)}
+\caption{Rubrik Penilaian Tugas Praktik dan Proyek (terhubung Sub-CPMK)}
 \end{table}
 
-\textbf{Pemetaan ke CPMK:} Struktur HTML $\to$ Sub-CPMK 2.1 (HTML5); CSS dan Layout $\to$ Sub-CPMK 2.2 (CSS3, responsif); Interaktivitas JS $\to$ Sub-CPMK 2.3 (DOM, event, validasi form); Back-end $\to$ Sub-CPMK 3.1 (PHP), 3.2 (MySQL, CRUD); Keamanan Dasar $\to$ Sub-CPMK 4.2 (validasi, sanitasi, XSS/CSRF). Asesmen UTS mengacu CPMK-1 dan CPMK-2; UAS dan proyek mengacu CPMK-1 s.d. CPMK-4 sesuai bobot RPS.
+\subsection*{A.3 Rubrik Project SIA (CPMK-3)}
+
+Project aplikasi web sistem informasi akademik sederhana dinilai berdasarkan:
+
+\begin{itemize}
+  \item \textbf{Sub-CPMK 3.1}: PHP OOP, session, validasi input --- back-end berfungsi dengan baik.
+  \item \textbf{Sub-CPMK 3.2}: Database MySQL, CRUD, koneksi PHP--MySQL (MySQLi/PDO) --- data tersimpan dan terbaca benar.
+  \item \textbf{Sub-CPMK 3.3}: Integrasi API front-end--back-end --- Fetch API mengonsumsi endpoint JSON.
+\end{itemize}
+
+Skala: A (85--100), B (70--84), C (55--69), D ($<$55). Rubrik detail mengacu tabel A.2.
 
 % ============================================================
 % Lampiran B: Contoh Template Laporan

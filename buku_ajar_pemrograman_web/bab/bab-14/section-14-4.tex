@@ -1,8 +1,26 @@
-\section{Pengenalan Basis Data dalam Konteks Produksi}
+\section{CREATE DATABASE dan USE}
 
-Database di produksi memerlukan perhatian khusus dibandingkan di development. User database harus memiliki hak akses terbatas (prinsip \textit{least privilege}) --- buat user khusus untuk aplikasi yang hanya memiliki SELECT, INSERT, UPDATE, DELETE pada database tertentu; jangan gunakan root. Aktifkan koneksi SSL antara PHP dan MySQL jika server terpisah. Konfigurasi MySQL untuk produksi: atur \code{max\_connections} sesuai kapasitas, aktifkan \code{slow\_query\_log} untuk mendeteksi query lambat, dan pastikan charset \code{utf8mb4} \cite{mysqlDocs}.
+Sebelum menyimpan data, langkah pertama adalah membuat \textbf{database} --- wadah logis yang menampung kumpulan tabel terkait. Perintah \code{CREATE DATABASE nama\_database;} membuat database baru; tambahkan \code{IF NOT EXISTS} agar tidak error jika database sudah ada. Konvensi penamaan: gunakan huruf kecil, tanpa spasi (gunakan underscore), dan nama yang deskriptif --- misalnya \code{toko\_online}, \code{sistem\_akademik}, atau \code{blog\_pribadi}. Setelah dibuat, database dapat dilihat dengan \code{SHOW DATABASES;} \cite{mysqlDocs}.
+
+Untuk bekerja dengan database tertentu, gunakan perintah \code{USE nama\_database;}. Semua perintah SQL berikutnya (CREATE TABLE, SELECT, INSERT, dll.) akan beroperasi pada database yang sedang aktif. Untuk menghapus database (beserta seluruh tabel dan datanya), gunakan \code{DROP DATABASE nama\_database;} --- perintah ini \textbf{permanen dan tidak dapat di-undo}, sehingga harus digunakan dengan sangat hati-hati \cite{mysqlGettingStarted}.
+
+\begin{webcode}[language=SQL, caption={Membuat dan menggunakan database}]
+-- Membuat database dengan charset UTF-8
+CREATE DATABASE IF NOT EXISTS toko_online
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+-- Menggunakan database
+USE toko_online;
+
+-- Melihat database yang sedang aktif
+SELECT DATABASE();
+
+-- Menghapus database (HATI-HATI!)
+-- DROP DATABASE toko_online;
+\end{webcode}
 
 \begin{catatan}
-Checklist database produksi: (1) user non-root dengan hak terbatas; (2) password kuat di environment variable; (3) backup otomatis harian; (4) \code{slow\_query\_log} aktif; (5) koneksi dari PHP menggunakan \code{utf8mb4}; (6) akses hanya dari localhost atau IP tertentu; (7) firewall memblokir port 3306 dari publik.
+Selalu gunakan charset \code{utf8mb4} dan collation \code{utf8mb4\_unicode\_ci} saat membuat database baru. Charset \code{utf8mb4} mendukung seluruh karakter Unicode termasuk emoji, sedangkan \code{utf8} bawaan MySQL hanya mendukung 3 byte (tidak lengkap). Pengaturan ini dapat dilakukan saat CREATE DATABASE atau di level server melalui \code{my.cnf}/\code{my.ini}.
 \end{catatan}
 

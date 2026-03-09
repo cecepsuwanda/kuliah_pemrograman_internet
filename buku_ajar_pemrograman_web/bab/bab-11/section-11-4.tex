@@ -1,83 +1,30 @@
-\section{Pewarisan (Inheritance) dan Overriding}
+\section{Class dan Pewarisan (ES6)}
 
-\textbf{Inheritance} (pewarisan) adalah mekanisme OOP yang memungkinkan sebuah class (\textit{child class} atau \textit{subclass}) mewarisi seluruh properti dan metode dari class lain (\textit{parent class} atau \textit{superclass}). Dengan pewarisan, kode yang sudah ditulis di class induk tidak perlu ditulis ulang di class anak --- cukup diwariskan dan digunakan langsung. Di PHP, pewarisan dideklarasikan menggunakan kata kunci \code{extends}. Satu class hanya dapat mewarisi dari satu class induk (\textit{single inheritance}), berbeda dengan bahasa seperti C++ yang mendukung multiple inheritance \cite{phpManual}.
+Sintaks \code{class} (ES6) menyediakan cara yang lebih jelas untuk mendefinisikan constructor dan method dibanding function constructor langsung. \code{constructor()} dipanggil saat \code{new}; method didefinisikan tanpa keyword \code{function}. Pewarisan menggunakan \code{extends} dan \code{super()} untuk memanggil constructor parent \cite{jsInfo}.
 
-Pewarisan sangat berguna untuk memodelkan hubungan ``is-a'' (adalah). Misalnya, \code{Kucing} adalah \code{Hewan}, \code{Dosen} adalah \code{Pengguna}, atau \code{Sedan} adalah \code{Mobil}. Class anak secara otomatis memiliki semua properti dan metode \code{public} dan \code{protected} dari class induk. Class anak juga dapat menambahkan properti dan metode baru yang spesifik untuknya. Pendekatan ini mendukung prinsip \textit{DRY} (Don't Repeat Yourself) dan membuat hierarki class yang logis \cite{phpRightWay}.
+\begin{webcode}[language=JavaScript, caption={Class dan pewarisan}]
+class Shape {
+  constructor(color) { this.color = color; }
+  describe() { return `Shape: ${this.color}`; }
+}
 
-\textbf{Method overriding} terjadi ketika class anak mendefinisikan ulang metode yang sudah ada di class induk. Metode override harus memiliki nama dan kompatibilitas signature yang sama. Saat method dipanggil pada object class anak, versi anak yang dijalankan --- bukan versi induk. Ini adalah implementasi dari prinsip \textit{polymorphism}. Jika class anak tetap ingin memanggil versi metode dari class induk, dapat digunakan \code{parent::namaMetode()} \cite{phpManual}.
-
-\begin{webcode}[language=PHP, caption={Inheritance dan method overriding}]
-<?php
-class Hewan {
-  public function __construct(
-    protected string $nama,
-    protected int $umur
-  ) {}
-
-  public function suara(): string {
-    return "{$this->nama} mengeluarkan suara.";
+class Circle extends Shape {
+  constructor(color, radius) {
+    super(color);      // panggil constructor parent
+    this.radius = radius;
   }
-
-  public function info(): string {
-    return "{$this->nama} (umur {$this->umur} tahun)";
+  area() { return Math.PI * this.radius ** 2; }
+  describe() {
+    return `${super.describe()}, radius ${this.radius}`;
   }
 }
 
-class Kucing extends Hewan {
-  public function __construct(
-    string $nama,
-    int $umur,
-    private string $warna
-  ) {
-    parent::__construct($nama, $umur);
-  }
-
-  // Override metode suara()
-  public function suara(): string {
-    return "{$this->nama} berkata: Meow!";
-  }
-
-  public function info(): string {
-    return parent::info() . ", warna: {$this->warna}";
-  }
-}
-
-class Anjing extends Hewan {
-  public function suara(): string {
-    return "{$this->nama} berkata: Guk guk!";
-  }
-}
-
-$kucing = new Kucing("Kitty", 3, "putih");
-$anjing = new Anjing("Buddy", 5);
-
-echo $kucing->suara() . "\n"; // Kitty berkata: Meow!
-echo $anjing->suara() . "\n"; // Buddy berkata: Guk guk!
-echo $kucing->info()  . "\n"; // Kitty (umur 3 tahun), warna: putih
-?>
+const c = new Circle("red", 5);
+console.log(c.area());     // 78.54...
+console.log(c.describe()); // "Shape: red, radius 5"
 \end{webcode}
 
-Diagram berikut mengilustrasikan hierarki inheritance antara class \code{Hewan}, \code{Kucing}, dan \code{Anjing}. Panah mengarah dari class anak ke class induk, menunjukkan hubungan pewarisan.
-
-\begin{figure}[ht]
-\centering
-\begin{tikzpicture}[
-  classbox/.style={draw, rectangle, rounded corners, minimum width=3.5cm, minimum height=1.2cm, align=center, font=\small\bfseries, fill=#1},
-  arrow/.style={-Stealth, thick}
-]
-  \node[classbox=blue!15] (hewan) {Hewan\\{\footnotesize\texttt{\#nama, \#umur}}\\{\footnotesize\texttt{+suara(), +info()}}};
-  \node[classbox=green!15, below left=2cm and 0.5cm of hewan] (kucing) {Kucing\\{\footnotesize\texttt{-warna}}\\{\footnotesize\texttt{+suara(), +info()}}};
-  \node[classbox=orange!15, below right=2cm and 0.5cm of hewan] (anjing) {Anjing\\{\footnotesize\texttt{+suara()}}};
-
-  \draw[arrow] (kucing) -- node[left, font=\footnotesize]{extends} (hewan);
-  \draw[arrow] (anjing) -- node[right, font=\footnotesize]{extends} (hewan);
-\end{tikzpicture}
-\caption{Diagram hierarki inheritance: Hewan, Kucing, Anjing}
-\end{figure}
-
 \begin{catatan}
-Hindari pewarisan yang terlalu dalam (lebih dari 3--4 level) karena membuat kode sulit dipahami dan di-debug. Pertimbangkan \textit{composition over inheritance}: alih-alih membuat hierarki class yang rumit, gunakan komposisi --- simpan object lain sebagai properti. Misalnya, daripada \code{class Motor extends Kendaraan extends Mesin}, lebih baik \code{Motor} memiliki properti \code{private Mesin \$mesin}.
+\textbf{Class = Syntactic Sugar.} Di balik layar, \code{class} tetap menggunakan prototype-based inheritance. \code{class Circle extends Shape} secara internal mengatur prototype chain. Memahami prototype (section 9-21) membantu debug perilaku \code{class} yang tidak terduga. Modifier \code{static} membuat method milik class itu sendiri (bukan instance): \code{static create() \{ ... \}} \cite{mdnJsGuide}.
 \end{catatan}
-
-PHP juga menyediakan kata kunci \code{final} yang dapat digunakan di depan class atau metode. Class yang dideklarasikan \code{final} tidak dapat diwariskan (\textit{di-extends}), sedangkan metode \code{final} tidak dapat di-override oleh class anak. Ini berguna untuk memastikan bahwa class atau metode tertentu tidak diubah perilakunya oleh class turunan, terutama untuk class yang berhubungan dengan keamanan atau konfigurasi kritis \cite{phpManual}.
 

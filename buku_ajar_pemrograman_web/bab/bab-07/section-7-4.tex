@@ -1,39 +1,65 @@
-\section{CSS Grid: Grid Container, Track, dan Area}
+\section{Selector Dasar: Elemen, Class, dan Id}
 
-CSS Grid Layout adalah sistem layout dua dimensi yang memungkinkan pengaturan elemen di baris \textbf{dan} kolom secara bersamaan. Berbeda dari Flexbox yang bersifat satu dimensi, Grid dirancang untuk layout halaman secara keseluruhan: membagi ruang menjadi region yang dapat diisi oleh konten. Grid diaktifkan dengan \code{display: grid} pada kontainer, kemudian didefinisikan kolom dan baris menggunakan \code{grid-template-columns} dan \code{grid-template-rows} \cite{mdnCss}.
+Selector adalah mekanisme CSS untuk menentukan elemen HTML mana yang akan menerima gaya tertentu. Pemilihan selector yang tepat adalah keterampilan fundamental karena menentukan jangkauan dan specificity aturan CSS. CSS menyediakan berbagai jenis selector---dari yang paling sederhana (elemen tunggal) hingga yang sangat spesifik (kombinasi bertingkat). Pada section ini, fokus pada tiga selector dasar yang paling sering digunakan: selector elemen, class, dan id \cite{mdnCss}.
+
+\textbf{Selector elemen} (type selector) menargetkan semua elemen HTML dengan nama tag tertentu. Misalnya, \code{p \{ color: navy; \}} akan mengubah warna teks semua elemen \code{<p>} di halaman. Selector ini memiliki specificity rendah dan cocok untuk mengatur gaya dasar (base style) yang berlaku secara global. \textbf{Selector class} menggunakan tanda titik (\code{.}) diikuti nama class, misalnya \code{.card}. Sebuah class dapat diterapkan pada banyak elemen berbeda, menjadikannya selector paling serbaguna dan paling direkomendasikan untuk styling komponen modular \cite{webdevCss}.
+
+\textbf{Selector id} menggunakan tanda pagar (\code{\#}) diikuti nama id, misalnya \code{\#header}. Karena id harus unik per halaman, selector ini hanya menargetkan satu elemen. Specificity id sangat tinggi, yang membuatnya sulit di-override. Oleh karena itu, praktik modern merekomendasikan penggunaan class daripada id untuk styling; id lebih cocok digunakan untuk anchor link dan atribut JavaScript (\code{getElementById}) \cite{cssTricks}.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{5cm}|P{3.5cm}|P{3.5cm}|}
+\begin{tabular}{|P{2.5cm}|P{2.5cm}|P{3cm}|P{4cm}|}
 \hline
-\textbf{Properti Container} & \textbf{Fungsi} & \textbf{Contoh Nilai} \\
+\textbf{Jenis Selector} & \textbf{Sintaks} & \textbf{Specificity} & \textbf{Kapan Digunakan} \\
 \hline
-\code{grid-template-columns} & Definisi kolom & \code{1fr 2fr 1fr}, \code{repeat(3, 1fr)} \\
+Elemen & \code{p}, \code{h1} & 0-0-0-1 & Base style untuk seluruh tag \\
 \hline
-\code{grid-template-rows} & Definisi baris & \code{auto 1fr auto} \\
+Class & \code{.card} & 0-0-1-0 & Komponen modular; paling direkomendasikan \\
 \hline
-\code{grid-template-areas} & Named areas & \code{"header header" "side main"} \\
+Id & \code{\#header} & 0-1-0-0 & Elemen unik; hindari untuk styling \\
 \hline
-\code{gap} / \code{row-gap} & Jarak antar track & \code{1rem}, \code{16px 24px} \\
+Universal & \code{*} & 0-0-0-0 & Reset global \\
 \hline
-\code{justify-items} & Alignment horizontal items & \code{start}, \code{center}, \code{stretch} \\
+Gabungan & \code{p.highlight} & Jumlah komponen & Target lebih spesifik \\
 \hline
-\code{align-items} & Alignment vertikal items & \code{start}, \code{center}, \code{stretch} \\
+Descendant & \code{nav a} & Jumlah komponen & Elemen di dalam konteks \\
+\hline
+Child & \code{ul > li} & Jumlah komponen & Anak langsung saja \\
 \hline
 \end{tabular}
-\caption{Properti utama CSS Grid container}
+\caption{Jenis-jenis selector CSS dan tingkat specificity-nya}
 \end{table}
 
-Satuan \code{fr} (fraction) adalah satuan khusus Grid yang membagi ruang tersedia secara proporsional. \code{1fr 2fr 1fr} membuat tiga kolom dengan kolom tengah dua kali lebih lebar. Fungsi \code{repeat(n, ukuran)} menghindari pengulangan manual; \code{minmax(min, max)} mendefinisikan ukuran minimum dan maksimum track. Kombinasi \code{repeat(auto-fill, minmax(250px, 1fr))} menciptakan grid responsif yang otomatis menyesuaikan jumlah kolom berdasarkan lebar kontainer---tanpa memerlukan media query \cite{webdevCss}.
+Selain tiga selector dasar, CSS mendukung \textbf{selector gabungan} untuk targeting yang lebih presisi. \textbf{Descendant selector} (\code{nav a}) menargetkan semua \code{<a>} di dalam \code{<nav>}, termasuk yang bersarang dalam. \textbf{Child selector} (\code{ul > li}) hanya menargetkan anak langsung. \textbf{Grouping selector} (\code{h1, h2, h3}) menerapkan gaya yang sama ke beberapa selector sekaligus. \textbf{Adjacent sibling} (\code{h2 + p}) menargetkan elemen yang langsung mengikuti elemen lain. Penggunaan selector gabungan yang tepat mengurangi kebutuhan menambah class berlebihan di HTML \cite{mdnCss}.
 
-\textbf{Grid areas} memungkinkan penamaan region layout secara visual. Setiap grid item diberi nama area dengan \code{grid-area: nama;}, kemudian tata letak didefinisikan di kontainer menggunakan \code{grid-template-areas} dengan notasi string yang menggambarkan posisi setiap area secara intuitif. Titik (\code{.}) menandai sel kosong. Pendekatan ini sangat membantu untuk membuat layout halaman yang kompleks dengan kode yang mudah dibaca \cite{cssTricks}.
+\begin{webcode}[language=CSS, caption={Selector elemen, class, id, dan gabungan}]
+/* Selector elemen: semua paragraf */
+p { line-height: 1.6; }
 
-\begin{konsep}
-\textbf{Kapan Grid vs Flexbox?}
-\begin{itemize}
-  \item \textbf{Grid}: layout 2D (baris DAN kolom)---halaman utama, dashboard, galeri foto, form multi-kolom.
-  \item \textbf{Flexbox}: layout 1D (baris ATAU kolom)---navbar, toolbar, card row, centering.
-  \item Keduanya dapat digabungkan: Grid untuk layout halaman, Flexbox untuk komponen di dalam grid area \cite{cssTricks}.
-\end{itemize}
-\end{konsep}
+/* Selector class: komponen card */
+.card {
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+/* Selector id: elemen unik */
+#hero-banner { background-color: #2a6fb0; }
+
+/* Gabungan: paragraf dengan class 'highlight' */
+p.highlight { background-color: yellow; }
+
+/* Descendant: tautan di dalam nav */
+nav a { text-decoration: none; }
+
+/* Child: hanya li langsung di bawah ul */
+ul.menu > li { display: inline-block; }
+
+/* Grouping: heading yang sama */
+h1, h2, h3 { font-family: 'Segoe UI', sans-serif; }
+\end{webcode}
+
+\begin{catatan}
+\textbf{Class vs Id untuk Styling.} Meskipun id memiliki specificity lebih tinggi, praktik modern merekomendasikan penggunaan class untuk hampir semua styling. Alasan: (1) class dapat dipakai berulang, id tidak; (2) specificity id terlalu tinggi---sulit di-override tanpa \code{!important}; (3) banyak framework CSS (Bootstrap, Tailwind) dibangun sepenuhnya berbasis class. Gunakan id untuk atribut \code{for} pada label, anchor navigation (\code{href="\#section"}), dan JavaScript \cite{cssTricks}.
+\end{catatan}
 

@@ -2,13 +2,12 @@
 \ifSubfilesClassLoaded{\setcounter{chapter}{12}}{}
 \begin{document}
 
-\chapter{Integrasi API, Evaluasi, dan Keamanan Web}
+\chapter{PHP OOP Dasar, Session/Cookie, dan Validasi Input}
 
-Bab ini membahas integrasi API, pengujian aplikasi web (fungsional, performa, load testing), serta keamanan web (validasi input, SQL injection, XSS, CSRF, session management) secara menyeluruh dari dasar hingga lanjut.
+Bab ini membahas materi Pertemuan 13 sesuai RPS: PHP OOP dasar, session/cookie, dan validasi input.
 
 \begin{subcpmk}
-  \item Sub-CPMK 3.3: Mengintegrasikan API dan menghubungkan front-end dengan back-end (request/response, data terstruktur).
-  \item Sub-CPMK 4.1: Melakukan pengujian dan evaluasi performa aplikasi web.
+  \item Sub-CPMK 3.1: Mengimplementasikan logika server-side dengan PHP (pemrosesan form, struktur dasar, OOP).
   \item Sub-CPMK 4.2: Menerapkan prinsip keamanan web: validasi input, prepared statement, session, mitigasi XSS dan CSRF.
 \end{subcpmk}
 
@@ -26,66 +25,75 @@ Bab ini membahas integrasi API, pengujian aplikasi web (fungsional, performa, lo
 \input{bab/bab-13/section-13-12}
 \input{bab/bab-13/section-13-13}
 \input{bab/bab-13/section-13-14}
-\input{bab/bab-13/section-13-15}
-\input{bab/bab-13/section-13-16}
-\input{bab/bab-13/section-13-17}
-\input{bab/bab-13/section-13-18}
-\input{bab/bab-13/section-13-19}
-\input{bab/bab-13/section-13-20}
 
 \begin{aktivitas}
-  \item Buat endpoint sederhana yang mengembalikan JSON dan tampilkan di halaman web.
-  \item Lakukan pengujian fungsional pada form yang dibuat: skenario positif dan negatif.
-  \item Ukur performa halaman menggunakan Lighthouse (DevTools) dan catat skor serta rekomendasi.
-  \item Terapkan validasi input di server (PHP) pada form yang sudah dibuat.
-  \item Ganti query biasa menjadi prepared statement pada kode PHP yang mengakses database.
-  \item Implementasikan CSRF token pada form submit.
-  \item Terapkan \code{htmlspecialchars()} pada semua output yang berasal dari input pengguna.
-  \item Lakukan audit keamanan sederhana menggunakan checklist OWASP Top 10.
+  \item \textbf{Praktik:} Buat class PHP (\code{Mahasiswa}, \code{Produk}) dengan constructor, properti (typed), metode, dan demonstrasi visibility (public, protected, private).
+  \item \textbf{Praktik:} Praktikkan inheritance: buat hierarki class (misal \code{Hewan} $\to$ \code{Kucing}, \code{Anjing}) dengan method overriding dan \code{parent::}. Buat juga class dengan static property dan factory method.
+  \item \textbf{Praktik:} Bangun sistem login sederhana menggunakan session: \code{session\_start()}, \code{session\_regenerate\_id()}, \code{session\_destroy()}. Terapkan atribut keamanan cookie session (HttpOnly, Secure, SameSite).
+  \item \textbf{Praktik:} Implementasikan form upload file dengan validasi lengkap (ukuran, ekstensi whitelist, MIME type) dan \code{move\_uploaded\_file()}.
+  \item \textbf{Praktik:} Buat koneksi MySQLi (OOP) dan jalankan query CRUD menggunakan prepared statement (\code{prepare()}, \code{bind\_param()}, \code{execute()}).
+  \item \textbf{Praktik:} Bangun form lanjutan dengan validasi server-side (\code{filter\_var()}, regex) dan sanitasi (\code{htmlspecialchars()}, \code{trim()}, \code{strip\_tags()}). Tambahkan CSRF token.
+  \item \textbf{Studi kasus:} Integrasikan semua materi dalam Aplikasi Daftar Tugas (CRUD + Login + Session).
 \end{aktivitas}
 
 \begin{latihan}
-  \item Jelaskan perbedaan pengujian fungsional, kompatibilitas, dan performa.
-  \item Sebutkan tiga metrik performa web dan alat untuk mengukurnya.
-  \item Jelaskan mengapa validasi di client saja tidak cukup untuk keamanan.
-  \item Tulis contoh prepared statement dengan MySQLi untuk query INSERT.
-  \item Jelaskan perbedaan XSS dan CSRF beserta cara pencegahannya.
-  \item Sebutkan tiga atribut cookie untuk keamanan dan fungsi masing-masing.
+  \item Jelaskan empat pilar OOP (encapsulation, inheritance, polymorphism, abstraction) dan berikan contoh masing-masing dalam konteks PHP.
+  \item Apa perbedaan antara \code{public}, \code{protected}, dan \code{private}? Mengapa encapsulation penting?
+  \item Jelaskan perbedaan session dan cookie, serta sebutkan kapan masing-masing sebaiknya digunakan.
+  \item Apa itu \textit{prepared statement}? Mengapa lebih aman daripada menggabungkan string langsung ke query SQL?
+  \item Terapkan \code{htmlspecialchars()} saat menampilkan input pengguna. Jelaskan risiko XSS dan bagaimana cara mitigasinya.
+  \item Apa itu CSRF token dan bagaimana cara kerjanya untuk melindungi form dari serangan CSRF?
+  \item \textbf{Refleksi:} Dari materi bab ini, indikator Sub-CPMK 3.1 dan 4.2 mana yang sudah Anda kuasai? Area mana yang masih perlu Anda tingkatkan?
 \end{latihan}
 
 \begin{asesmen}
-Asesmen berupa tugas integrasi API, laporan pengujian fungsional dan performa, serta implementasi keamanan (prepared statement, CSRF token, output encoding) pada aplikasi web yang telah dibuat. Dinilai kelengkapan implementasi dan pemahaman konsep keamanan.
+Asesmen Bab 13 (Praktikum 7) merupakan \textbf{Evaluasi Kinerja} yang mengukur Sub-CPMK 3.1 dan Sub-CPMK 4.2. Tugas berupa proyek membangun \textbf{Aplikasi Web CRUD} dengan fitur berikut:
+\begin{enumerate}
+  \item \textbf{Sistem login dan registrasi} (25\%): Menggunakan session dan \code{password\_hash()}/\code{password\_verify()}. Mengukur Sub-CPMK 3.1 dan 4.2.
+  \item \textbf{Operasi CRUD} (30\%): Create, Read, Update, Delete pada satu entitas menggunakan MySQLi dengan prepared statement. Mengukur Sub-CPMK 3.1 dan 4.2.
+  \item \textbf{Validasi dan sanitasi} (20\%): Validasi input server-side menggunakan \code{filter\_var()}, sanitasi output dengan \code{htmlspecialchars()}, CSRF token pada setiap form. Mengukur Sub-CPMK 4.2.
+  \item \textbf{Struktur kode OOP} (15\%): Penggunaan class, properti, metode, visibility yang tepat. Mengukur Sub-CPMK 3.1.
+  \item \textbf{File upload} (5\%) (opsional): Validasi tipe dan ukuran. \textbf{Penanganan error} (5\%): try-catch, pesan informatif. Mengukur Sub-CPMK 4.2.
+\end{enumerate}
+
+\textbf{Rubrik Penilaian (berbasis OBE):}
+\begin{itemize}
+  \item \textbf{A (85--100)}: Seluruh komponen lengkap, keamanan diterapkan dengan benar (session, prepared statement, CSRF, sanitasi), struktur OOP rapi. Kompeten untuk Sub-CPMK 3.1 dan 4.2.
+  \item \textbf{B (70--84)}: Sebagian besar komponen lengkap, beberapa detail keamanan kurang.
+  \item \textbf{C (55--69)}: Komponen dasar ada tetapi kurang mendalam.
+  \item \textbf{D ($<$55)}: Komponen tidak lengkap atau tidak memenuhi standar minimum.
+\end{itemize}
 \end{asesmen}
 
 \begin{checklist}
-  \item Saya dapat melakukan request API menggunakan fetch dan menampilkan hasilnya.
-  \item Saya memahami jenis-jenis pengujian: fungsional, kompatibilitas, dan performa.
-  \item Saya dapat menggunakan DevTools untuk debugging dan pengukuran performa.
-  \item Saya memahami strategi pengujian: manual vs otomatis, unit vs integrasi vs E2E.
-  \item Saya mengetahui metrik performa web (FCP, LCP) dan alat pengukurnya.
-  \item Saya memahami ancaman keamanan web umum (SQL injection, XSS, CSRF).
-  \item Saya dapat menerapkan validasi input dan sanitasi data di server (PHP).
-  \item Saya dapat menggunakan prepared statement untuk mencegah SQL injection.
-  \item Saya memahami pengelolaan session dan cookie yang aman.
-  \item Saya dapat menerapkan pencegahan XSS (output encoding) dan CSRF (token).
-  \item Saya memahami konsep load testing dan optimasi performa.
-  \item Saya mengenal OWASP Top 10 dan checklist audit keamanan.
-  \item Saya memahami session management lanjutan dan mitigasi serangannya.
+  \item \textbf{Sub-CPMK 3.1:} Saya memahami konsep OOP di PHP: class, object, properti, metode, \code{\$this}.
+  \item \textbf{Sub-CPMK 3.1:} Saya dapat membuat constructor (termasuk constructor promotion PHP 8) dan memahami destructor.
+  \item \textbf{Sub-CPMK 3.1:} Saya memahami inheritance (\code{extends}), method overriding (\code{parent::}), dan \code{final}.
+  \item \textbf{Sub-CPMK 3.1:} Saya dapat menerapkan visibility (public, protected, private) dengan getter/setter.
+  \item \textbf{Sub-CPMK 3.1:} Saya memahami static property/method dan perbedaan \code{self::} vs \code{static::}.
+  \item \textbf{Sub-CPMK 4.2:} Saya dapat menggunakan session dengan aman: \code{session\_start()}, \code{session\_regenerate\_id()}, \code{session\_destroy()}.
+  \item \textbf{Sub-CPMK 4.2:} Saya memahami cookie: \code{setcookie()} dengan atribut HttpOnly, Secure, SameSite.
+  \item \textbf{Sub-CPMK 4.2:} Saya dapat menangani file upload dengan validasi lengkap (error, ukuran, tipe, MIME).
+  \item \textbf{Sub-CPMK 3.1:} Saya mampu menangani error dengan \code{try-catch} dan menggunakan custom exception.
+  \item \textbf{Sub-CPMK 3.1, 4.2:} Saya dapat melakukan koneksi MySQLi (OOP) dan menjalankan CRUD dengan prepared statement.
+  \item \textbf{Sub-CPMK 4.2:} Saya memahami validasi (\code{filter\_var()}) dan sanitasi (\code{htmlspecialchars()}, \code{trim()}).
+  \item \textbf{Sub-CPMK 4.2:} Saya mengetahui risiko XSS dan CSRF serta cara mitigasinya.
 \end{checklist}
 
 \begin{rangkuman}
-Bab ini membahas integrasi API, pengujian aplikasi web secara menyeluruh (fungsional, performa, load testing), serta keamanan web dari dasar hingga lanjut. Keamanan dan pengujian bukan langkah terakhir; keduanya harus terintegrasi di setiap tahap pengembangan.
+Bab ini membahas PHP tingkat menengah sebagai \textbf{Unit Materi Inti} berbasis Sub-CPMK 3.1 dan 4.2: OOP, session/cookie, dan keamanan dasar. Pada bagian OOP, dibahas pengenalan paradigma OOP dan empat pilarnya, class dan object (properti, metode, typed properties), constructor (termasuk constructor promotion PHP 8) dan destructor, inheritance dan method overriding, visibility (public, protected, private) dengan prinsip encapsulation, serta static property dan method.
+
+Pada bagian session dan cookie, dibahas mekanisme session (siklus hidup, penyimpanan, dan keamanan termasuk \code{session\_regenerate\_id()}), perbedaan session vs cookie, serta atribut keamanan cookie (HttpOnly, Secure, SameSite). Pada bagian keamanan, dibahas file upload dengan validasi ketat, penanganan error modern (try-catch, custom exception), koneksi database MySQLi (OOP), query CRUD dengan prepared statement, serta validasi dan sanitasi input (termasuk mitigasi XSS dan CSRF).
 
 \textbf{Poin Kunci:}
 \begin{itemize}
-  \item API memudahkan pertukaran data antara front-end dan back-end.
-  \item Pengujian (fungsional, kompatibilitas, performa) memastikan aplikasi andal dan cepat.
-  \item Validasi input di server, prepared statement, dan output encoding adalah pertahanan utama terhadap serangan.
-  \item Session dan cookie harus dikelola dengan atribut keamanan (HttpOnly, Secure, SameSite).
-  \item CSRF token dan regenerasi session ID melindungi dari serangan lintas situs.
-  \item Load testing mengidentifikasi bottleneck sebelum deployment; optimasi (caching, minifikasi, lazy loading) mempercepat aplikasi.
-  \item Audit keamanan berbasis OWASP Top 10 menjaga aplikasi tetap aman di produksi.
+  \item OOP mengorganisasi kode PHP ke dalam class dan object; empat pilar: encapsulation, inheritance, polymorphism, abstraction.
+  \item Session menyimpan data di server (aman), cookie di client (ringan); keduanya perlu pengaturan keamanan.
+  \item Prepared statement mencegah SQL injection; \code{htmlspecialchars()} mencegah XSS; CSRF token mencegah request palsu.
+  \item Validasi input dan sanitasi output adalah prinsip fundamental keamanan web (OWASP).
 \end{itemize}
+
+\textbf{Refleksi:} Pastikan Anda dapat mencentang checklist di atas dan siap melanjutkan ke Bab 14 (MySQL dasar, CRUD, koneksi PHP-MySQL).
 \end{rangkuman}
 
 \ifSubfilesClassLoaded{

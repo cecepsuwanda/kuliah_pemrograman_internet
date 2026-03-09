@@ -1,114 +1,74 @@
-\section{Aksesibilitas Tabel dan Form}
+\section{Membuat Link (Hyperlink) dan Praktik Terbaik}
 
-Tabel dan form adalah dua elemen HTML yang paling sering menimbulkan masalah aksesibilitas jika tidak diimplementasikan dengan benar. Pengguna pembaca layar menavigasi tabel sel per sel dan mengandalkan header untuk memahami konteks setiap nilai data. Tanpa pengaitan header yang tepat, sebuah angka ``85'' di dalam tabel tidak memberikan informasi apakah itu nilai ujian, usia, atau harga. Demikian pula, form tanpa label yang tepat menjadikan proses pengisian sangat sulit bagi pengguna yang tidak dapat melihat tata letak visual \cite{mdnAccessibility}.
+\textbf{Hyperlink} adalah elemen fundamental yang membuat web menjadi "web" - jaringan dokumen yang saling terhubung. Dalam HTML, link dibuat menggunakan elemen \code{<a>} (anchor) dengan atribut \code{href} (hypertext reference) yang menentukan tujuan link. Atribut \code{href} dapat berisi berbagai jenis URL: URL absolut lengkap dengan protokol dan domain (misalnya \code{https://example.com/halaman}), path relatif ke file dalam direktori yang sama atau subdirektori (misalnya \code{tentang.html} atau \code{css/style.css}), atau bahkan protokol lain seperti \code{mailto:} untuk email atau \code{tel:} untuk nomor telepon. Pemahaman tentang jenis URL yang berbeda sangat penting untuk membangun struktur website yang terorganisir \cite{webdevHtml}.
 
-\subsection{Tabel Aksesibel}
+\textbf{Link internal} mengarah ke halaman lain dalam website yang sama dan menggunakan path relatif. Path relatif dapat bersifat relatif terhadap dokumen saat ini (misalnya \code{./kontak.html}) atau terhadap root domain (misalnya \code{/kontak.html} dengan awalan garis miring). Link internal membentuk arsitektur informasi website dan memudahkan navigasi pengguna. \textbf{Link eksternal} mengarah ke website lain dan memerlukan URL absolut lengkap dengan protokol \code{http://} atau \code{https://}. \textbf{Anchor links} (atau fragment links) menggunakan tanda pagar \code{\#} diikuti ID elemen target untuk membuat link ke bagian spesifik dalam halaman yang sama (misalnya \code{\#bagian-bawah}) atau halaman lain (misalnya \code{halaman.html\#section-2}).
 
-Tabel yang aksesibel memerlukan beberapa komponen kunci. Pertama, setiap tabel harus memiliki \code{<caption>} yang mendeskripsikan isi tabel secara ringkas. Kedua, gunakan \code{<th>} untuk semua sel header, bukan \code{<td>} yang dicetak tebal dengan CSS. Ketiga, tambahkan atribut \code{scope="col"} atau \code{scope="row"} pada setiap \code{<th>} untuk menjelaskan arah cakupan header. Keempat, untuk tabel dengan header kompleks atau multi-level, gunakan pasangan \code{id} pada \code{<th>} dan \code{headers} pada \code{<td>}. Kelima, hindari penggunaan \code{colspan} dan \code{rowspan} yang berlebihan karena mempersulit navigasi sel \cite{webdevAccessibility}.
+\textbf{Keamanan} adalah pertimbangan penting ketika membuat link ke website eksternal. Atribut \code{target="\_blank"} memerintahkan browser membuka link di tab atau jendela baru. Namun, ini menciptakan kerentanan keamanan yang disebut \textit{tabnabbing} di mana halaman yang dibuka dapat memanipulasi halaman asal melalui properti \code{window.opener}. Untuk mencegah ini, selalu gunakan atribut \code{rel="noopener noreferrer"} bersama dengan \code{target="\_blank"}. Nilai \code{noopener} mencegah halaman baru mengakses \code{window.opener}, sementara \code{noreferrer} mencegah browser mengirim informasi referrer ke halaman tujuan, melindungi privasi pengguna \cite{mdnHtmlIntro}.
 
-\subsection{Form Aksesibel}
-
-Form yang aksesibel dibangun di atas tiga pilar utama: pelabelan yang tepat, pengelompokan yang logis, dan umpan balik error yang jelas. Setiap kontrol input \textbf{wajib} memiliki label yang terasosiasi---baik melalui \code{<label for="id">} secara eksplisit maupun melalui \code{aria-label} atau \code{aria-labelledby}. Grup field yang terkait (misalnya radio button untuk jenis kelamin) harus dibungkus dengan \code{<fieldset>} dan \code{<legend>} agar pembaca layar menjelaskan konteks pilihan. Pesan error harus dihubungkan dengan input yang bermasalah menggunakan \code{aria-describedby} \cite{mdnAccessibility}.
+\textbf{Teks link yang deskriptif} adalah praktik aksesibilitas dan SEO yang penting. Hindari teks link generik seperti "klik di sini", "baca selengkapnya", atau "link" karena mereka tidak memberikan konteks tentang tujuan link. Pengguna pembaca layar sering menavigasi halaman dengan melompat dari link ke link; tanpa konteks deskriptif, mereka tidak dapat membuat keputusan yang informatif. Teks link yang baik menjelaskan dengan jelas apa yang akan ditemukan pengguna ketika mengklik link tersebut. Misalnya, "Panduan lengkap belajar HTML" jauh lebih baik daripada "Klik di sini untuk mempelajari lebih lanjut".
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{3.5cm}|P{3.5cm}|P{5cm}|}
+\begin{tabular}{|P{3cm}|P{2.5cm}|P{6cm}|}
 \hline
-\textbf{Teknik} & \textbf{Penerapan} & \textbf{Manfaat Aksesibilitas} \\
+\textbf{Atribut} & \textbf{Nilai Umum} & \textbf{Fungsi} \\
 \hline
-\code{<label for>} & Mengaitkan label ke input & Screen reader membaca label saat input difokuskan \\
+\code{href} & URL & Tujuan link (wajib) \\
 \hline
-\code{<fieldset>} + \code{<legend>} & Mengelompokkan field terkait & Memberikan konteks grup pada radio/checkbox \\
+\code{target} & \code{\_blank}, \code{\_self} & Jendela/tab target \\
 \hline
-\code{aria-required} & Menandai field wajib & Screen reader mengumumkan ``required'' \\
+\code{rel} & \code{noopener}, \code{noreferrer}, \code{nofollow} & Hubungan dengan halaman tujuan \\
 \hline
-\code{aria-invalid} & Menandai input yang salah & Screen reader mengumumkan ``invalid'' \\
+\code{title} & Teks & Tooltip saat hover \\
 \hline
-\code{aria-describedby} & Hubungkan pesan error & Screen reader membaca pesan error \\
-\hline
-\code{autocomplete} & Petunjuk auto-fill & Mempercepat pengisian form \\
+\code{download} & Nama file (opsional) & Memicu unduhan file \\
 \hline
 \end{tabular}
-\caption{Teknik aksesibilitas form HTML}
+\caption{Atribut Elemen Link (\code{<a>})}
+\label{tab:link-attributes}
 \end{table}
 
-\begin{contoh}
-\textbf{Studi Kasus: Form Pendaftaran Mahasiswa yang Aksesibel}
+\begin{webcode}[language=HTML, caption={Contoh Berbagai Jenis Link}]
+<!-- Link internal relatif -->
+<a href="tentang.html">Tentang Kami</a>
+<a href="produk/laptop.html">Katalog Laptop</a>
 
-Berikut adalah contoh form pendaftaran yang menerapkan semua prinsip aksesibilitas: setiap input memiliki label, field dikelompokkan dengan fieldset/legend, radio button memiliki konteks, pesan error ditautkan dengan \code{aria-describedby}, dan field wajib ditandai secara visual maupun untuk pembaca layar.
-\end{contoh}
+<!-- Link eksternal dengan keamanan -->
+<a href="https://developer.mozilla.org" 
+   target="_blank" 
+   rel="noopener noreferrer">
+   MDN Web Docs (buka di tab baru)
+</a>
 
-\begin{webcode}[language=HTML, caption={Studi kasus: form pendaftaran aksesibel lengkap}]
-<form action="/daftar" method="post" novalidate>
-  <fieldset>
-    <legend>Data Diri</legend>
+<!-- Anchor link ke bagian halaman -->
+<a href="#bagian-bawah">Lompat ke Bagian Bawah</a>
+<!-- Di tempat lain dalam halaman: -->
+<h2 id="bagian-bawah">Bagian Bawah</h2>
 
-    <label for="nama">Nama Lengkap
-      <span aria-hidden="true">*</span></label>
-    <input type="text" id="nama" name="nama"
-           required aria-required="true"
-           aria-describedby="err-nama"
-           autocomplete="name" />
-    <span id="err-nama" role="alert"></span>
+<!-- Link email dan telepon -->
+<a href="mailto:kontak@example.com">Email Kami</a>
+<a href="tel:+628123456789">Hubungi: 0812-3456-789</a>
 
-    <label for="email">Alamat Email
-      <span aria-hidden="true">*</span></label>
-    <input type="email" id="email" name="email"
-           required aria-required="true"
-           aria-describedby="err-email"
-           autocomplete="email" />
-    <span id="err-email" role="alert"></span>
+<!-- Link dengan tooltip -->
+<a href="panduan.html" title="Panduan lengkap HTML untuk pemula">
+   Baca Panduan
+</a>
 
-    <label for="pass">Password
-      <span aria-hidden="true">*</span></label>
-    <input type="password" id="pass" name="pass"
-           required minlength="8"
-           aria-required="true"
-           aria-describedby="hint-pass"
-           autocomplete="new-password" />
-    <span id="hint-pass">Minimal 8 karakter</span>
-  </fieldset>
-
-  <fieldset>
-    <legend>Jenis Kelamin</legend>
-    <label>
-      <input type="radio" name="gender"
-             value="L" required /> Laki-laki
-    </label>
-    <label>
-      <input type="radio" name="gender"
-             value="P" /> Perempuan
-    </label>
-  </fieldset>
-
-  <fieldset>
-    <legend>Jurusan</legend>
-    <label for="jurusan">Pilih Jurusan:</label>
-    <select id="jurusan" name="jurusan" required
-            aria-required="true">
-      <option value="">-- Pilih --</option>
-      <option value="if">Teknik Informatika</option>
-      <option value="si">Sistem Informasi</option>
-    </select>
-  </fieldset>
-
-  <label>
-    <input type="checkbox" name="agree" required
-           aria-required="true" />
-    Saya menyetujui syarat dan ketentuan
-  </label>
-
-  <button type="submit">Daftar Sekarang</button>
-</form>
+<!-- Link download -->
+<a href="dokumen/brosur.pdf" download="Brosur-2026.pdf">
+   Unduh Brosur (PDF)
+</a>
 \end{webcode}
 
 \begin{catatan}
-\textbf{Pengujian Aksesibilitas Form:} Untuk memverifikasi aksesibilitas form, lakukan langkah berikut:
-\begin{enumerate}
-  \item \textbf{Uji keyboard}: pastikan semua field dapat dijangkau dan diisi hanya dengan keyboard (Tab, Shift+Tab, Enter, Space).
-  \item \textbf{Uji pembaca layar}: gunakan NVDA (gratis untuk Windows), VoiceOver (macOS/iOS), atau TalkBack (Android) untuk menelusuri form.
-  \item \textbf{Periksa fokus visible}: setiap elemen yang difokuskan harus memiliki indikator visual yang jelas (outline).
-  \item \textbf{Gunakan alat otomatis}: aXe DevTools, WAVE, atau Lighthouse Accessibility audit untuk mendeteksi masalah umum \cite{webdevAccessibility}.
-\end{enumerate}
+\textbf{Praktik Terbaik Link:}
+\begin{itemize}[leftmargin=*]
+  \item Selalu gunakan \code{rel="noopener noreferrer"} dengan \code{target="\_blank"}.
+  \item Buat teks link deskriptif yang menjelaskan tujuan tanpa konteks tambahan.
+  \item Hindari "klik di sini" - tidak informatif untuk screen reader users.
+  \item Gunakan \code{download} untuk file yang dimaksudkan untuk diunduh.
+  \item Pertimbangkan UX: link eksternal mungkin memerlukan indikator visual.
+\end{itemize}
 \end{catatan}
 

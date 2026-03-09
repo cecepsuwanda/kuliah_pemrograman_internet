@@ -1,40 +1,67 @@
-\section{Satuan dan Nilai (px, em, rem, \%, warna)}
+\section{Debugging HTML: Menemukan dan Memperbaiki Error}
 
-Satuan dan nilai menentukan ukuran, jarak, dan tampilan elemen CSS. Pemilihan satuan yang tepat sangat mempengaruhi responsivitas, aksesibilitas, dan kemudahan pemeliharaan stylesheet. Satuan CSS dibagi menjadi dua kategori utama: \textbf{absolut} (ukuran tetap terlepas dari konteks) dan \textbf{relatif} (ukuran yang dihitung berdasarkan elemen lain atau viewport). Pemahaman mendalam tentang setiap satuan membantu pengembang membuat desain yang skalabel dan konsisten di berbagai perangkat \cite{mdnCss}.
+Debugging HTML adalah proses menemukan dan memperbaiki kesalahan dalam kode markup. Berbeda dengan bahasa pemrograman yang menampilkan pesan error jelas saat terjadi kesalahan, HTML bersifat sangat permisif (``permissive'')---browser akan berusaha menampilkan halaman meskipun terdapat error dalam markup. Sifat ini, yang disebut \textbf{error recovery} oleh standar HTML, menjadikan debugging lebih menantang karena kesalahan mungkin tidak langsung terlihat secara visual namun menyebabkan masalah pada struktur DOM, aksesibilitas, atau tampilan di browser lain \cite{mdnHtmlIntro}.
+
+Kesalahan HTML yang paling umum meliputi: (1) tag yang tidak ditutup---misalnya \code{<p>} tanpa \code{</p>} yang menyebabkan paragraf ``menelan'' konten berikutnya; (2) tag yang salah urutan penutupan---misalnya \code{<b><i>teks</b></i>} yang melanggar aturan nesting; (3) atribut yang hilang tanda kutip---misalnya \code{class=nama kelas} yang hanya mengambil ``nama'' sebagai nilai; (4) elemen yang salah tempat---misalnya elemen block di dalam elemen inline; dan (5) entitas karakter khusus yang tidak di-escape seperti \code{<}, \code{>}, \code{\&} di dalam konten teks \cite{whatwgHtml}.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{1.5cm}|P{1.5cm}|P{3.5cm}|P{5cm}|}
+\begin{tabular}{|P{3.5cm}|P{4cm}|P{4.5cm}|}
 \hline
-\textbf{Satuan} & \textbf{Jenis} & \textbf{Relatif Terhadap} & \textbf{Kapan Digunakan} \\
+\textbf{Kesalahan} & \textbf{Contoh} & \textbf{Solusi} \\
 \hline
-\code{px} & Absolut & --- (titik tetap) & Border, shadow; hindari untuk font-size \\
+Tag tidak ditutup & \code{<p>Teks} & Tambahkan \code{</p>} \\
 \hline
-\code{em} & Relatif & font-size elemen saat ini & Padding/margin relatif ke teks elemen \\
+Nesting salah urutan & \code{<b><i>x</b></i>} & Perbaiki: \code{<b><i>x</i></b>} \\
 \hline
-\code{rem} & Relatif & font-size elemen \code{html} (root) & Font-size, spacing; paling direkomendasikan \\
+Atribut tanpa kutip & \code{class=nama kelas} & Gunakan \code{class="nama kelas"} \\
 \hline
-\code{\%} & Relatif & Nilai properti parent & Width/height responsif \\
+Block di dalam inline & \code{<span><div>} & Gunakan block wrapper \\
 \hline
-\code{vw} & Relatif & 1\% lebar viewport & Full-width hero; font-size fluid \\
+Karakter tidak di-escape & \code{5 < 10} di teks & Gunakan \code{5 \&lt; 10} \\
 \hline
-\code{vh} & Relatif & 1\% tinggi viewport & Full-height section \\
-\hline
-\code{ch} & Relatif & Lebar karakter ``0'' & Max-width paragraf (75ch) \\
+\code{id} duplikat & Dua elemen \code{id="menu"} & Pastikan setiap \code{id} unik \\
 \hline
 \end{tabular}
-\caption{Satuan CSS: jenis, basis perhitungan, dan rekomendasi penggunaan}
+\caption{Kesalahan HTML umum dan cara memperbaikinya}
 \end{table}
 
-\textbf{px} (piksel) adalah satuan absolut yang paling umum. Satu px tidak selalu sama dengan satu piksel fisik layar---pada layar HiDPI (Retina), satu CSS px bisa mencakup beberapa piksel fisik. Piksel cocok untuk elemen yang memerlukan ukuran tetap dan presisi, seperti border (\code{border: 1px solid}) dan box-shadow. Namun, penggunaan px untuk \code{font-size} \textbf{tidak disarankan} karena tidak akan berubah saat pengguna memperbesar teks default di pengaturan browser---mengurangi aksesibilitas bagi pengguna dengan gangguan penglihatan \cite{webdevCss}.
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[node distance=2.2cm, transform shape, every node/.style={font=\footnotesize}]
+  \node (problem) [class, fill=red!15] {Masalah\\terdeteksi};
+  \node (devtools) [class, right=of problem, fill=orange!15] {Buka DevTools\\(F12)};
+  \node (inspect) [class, right=of devtools, fill=yellow!15] {Inspect elemen\\di tab Elements};
+  \node (compare) [class, right=of inspect, fill=green!15] {Bandingkan DOM\\dengan source};
+  \node (fix) [class, below=1.5cm of compare, fill=blue!15] {Perbaiki\\kode sumber};
+  \node (validate) [class, left=of fix] {Jalankan\\validator W3C};
+  \node (test) [class, left=of validate] {Uji di\\beberapa browser};
+  \node (done) [class, left=of test, fill=green!25] {Selesai};
 
-\textbf{em} bersifat relatif terhadap \code{font-size} elemen saat ini (atau parent untuk \code{font-size} itu sendiri). Jika \code{font-size: 16px} dan \code{padding: 1.5em}, maka padding menjadi 24px. Kelemahan em: jika elemen bersarang, efek ``compound'' terjadi---em di dalam em dikalikan berulang, membuat ukuran sulit diprediksi. \textbf{rem} (root em) mengatasi masalah ini karena selalu relatif terhadap \code{font-size} elemen \code{<html>} (biasanya 16px). Ini menjadikan rem lebih mudah diprediksi dan direkomendasikan sebagai satuan utama untuk font-size dan spacing \cite{cssTricks}.
+  \draw [arrow] (problem) -- (devtools);
+  \draw [arrow] (devtools) -- (inspect);
+  \draw [arrow] (inspect) -- (compare);
+  \draw [arrow] (compare) -- (fix);
+  \draw [arrow] (fix) -- (validate);
+  \draw [arrow] (validate) -- (test);
+  \draw [arrow] (test) -- (done);
+  \draw [arrow, dashed] (validate) to[bend left=30] node[above, font=\scriptsize] {masih error} (fix);
+\end{tikzpicture}%
+}
+\caption{Alur debugging HTML: dari deteksi masalah hingga verifikasi perbaikan}
+\end{figure}
 
-Fungsi \code{calc()} memungkinkan perhitungan matematika dengan mencampur satuan yang berbeda. Misalnya, \code{width: calc(100\% - 2rem);} menghitung lebar penuh dikurangi margin. Fungsi ini sangat berguna untuk layout yang memerlukan kombinasi antara satuan relatif dan absolut. Keyword \code{auto} membiarkan browser menghitung nilai terbaik---sering dipakai pada margin untuk centering atau pada width/height untuk ukuran otomatis. Keyword \code{inherit} memaksa properti mengikuti nilai parent, dan \code{initial} me-reset ke nilai bawaan properti \cite{mdnCss}.
-
-\textbf{Contoh:} \code{font-size: 1rem}, \code{width: 25\%}, \code{calc(100\% - 300px)}, \code{max-width: 70ch}.
+Browser DevTools (dibuka dengan F12 atau Ctrl+Shift+I) adalah alat debugging HTML yang paling penting. Tab \textbf{Elements} (Chrome) atau \textbf{Inspector} (Firefox) menampilkan struktur DOM yang dihasilkan oleh browser setelah proses parsing---ini mungkin berbeda dari source code asli jika browser melakukan error recovery. Dengan membandingkan DOM yang ditampilkan DevTools dengan kode sumber, pengembang dapat menemukan di mana browser melakukan ``perbaikan'' otomatis yang mungkin tidak sesuai dengan maksud asli. Fitur ``Inspect Element'' (klik kanan pada elemen) memungkinkan navigasi langsung ke elemen yang bermasalah \cite{mdnLearn}.
 
 \begin{konsep}
-\textbf{Strategi Satuan yang Direkomendasikan:} Gunakan \code{rem} untuk font-size, \code{rem} atau \code{em} untuk padding/margin, \code{\%} untuk width responsif, \code{px} untuk border/shadow, dan \code{em} untuk media queries. Hindari \code{px} untuk \code{font-size} agar aksesibel \cite{webdevCss}.
+\textbf{Strategi Debugging HTML yang Efektif:}
+\begin{enumerate}
+  \item \textbf{Validasi dulu}: Jalankan validator W3C untuk mendapatkan daftar error dan warning---ini adalah langkah tercepat untuk menemukan kesalahan sintaks.
+  \item \textbf{Periksa DevTools}: Bandingkan DOM hasil parse dengan kode sumber untuk menemukan perbedaan.
+  \item \textbf{Isolasi masalah}: Jika halaman kompleks, komentari bagian-bagian kode hingga masalah hilang---bagian terakhir yang dikomentari berisi error.
+  \item \textbf{Periksa konsol}: Tab Console di DevTools menampilkan pesan error terkait resource yang gagal dimuat (gambar, script, stylesheet).
+  \item \textbf{Uji lintas browser}: Tampilan yang benar di satu browser tidak menjamin kebenaran---uji di Chrome, Firefox, Safari, dan Edge \cite{mdnHtmlIntro}.
+\end{enumerate}
 \end{konsep}
 

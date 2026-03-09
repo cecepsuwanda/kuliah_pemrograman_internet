@@ -1,47 +1,81 @@
-\section{Mengubah Struktur: ALTER TABLE}
+\section{Operator: Aritmetika, Perbandingan, Logika, Penugasan, dan String}
 
-Setelah tabel dibuat, kebutuhan sering berubah --- perlu kolom baru, mengubah tipe data, atau menghapus kolom yang tidak digunakan. Perintah \code{ALTER TABLE} memungkinkan modifikasi struktur tabel tanpa menghapus dan membuat ulang tabel. Ini sangat penting di lingkungan produksi karena data yang sudah ada tetap terjaga. Operasi utama: \code{ADD COLUMN} (menambah kolom), \code{MODIFY COLUMN} (mengubah tipe/constraint), \code{DROP COLUMN} (menghapus kolom), dan \code{RENAME COLUMN} (mengganti nama kolom) \cite{mysqlDocs}.
+Operator adalah simbol yang digunakan untuk melakukan operasi pada nilai dan variabel. PHP menyediakan berbagai jenis operator yang lengkap untuk kebutuhan pemrograman, mulai dari perhitungan matematika sederhana hingga operasi logika kompleks. Memahami cara kerja setiap operator dan urutan prioritasnya (\textit{operator precedence}) sangat penting untuk menulis ekspresi yang menghasilkan nilai yang benar \cite{phpManual}.
 
-\begin{webcode}[language=SQL, caption={Contoh penggunaan ALTER TABLE}]
--- Menambah kolom baru
-ALTER TABLE produk ADD COLUMN berat DECIMAL(8,2) AFTER stok;
+\textbf{Operator aritmetika} digunakan untuk operasi matematika dasar. PHP mendukung penjumlahan (\code{+}), pengurangan (\code{-}), perkalian (\code{*}), pembagian (\code{/}), modulo/sisa bagi (\code{\%}), dan pangkat (\code{**}). Operator pembagian \code{/} menghasilkan float jika hasilnya bukan bilangan bulat, sedangkan modulo selalu mengembalikan sisa pembagian. Operator pangkat \code{**} diperkenalkan di PHP 5.6 dan sangat berguna untuk perhitungan matematika \cite{w3schoolsPhp}.
 
--- Mengubah tipe data kolom
-ALTER TABLE produk MODIFY COLUMN nama VARCHAR(255) NOT NULL;
-
--- Mengganti nama kolom
-ALTER TABLE produk RENAME COLUMN dibuat TO created_at;
-
--- Menghapus kolom
-ALTER TABLE produk DROP COLUMN berat;
-
--- Menambah index
-ALTER TABLE produk ADD INDEX idx_kategori (kategori);
-
--- Menambah foreign key
-ALTER TABLE pesanan ADD CONSTRAINT fk_user
-  FOREIGN KEY (user_id) REFERENCES pengguna(id);
-\end{webcode}
+\textbf{Operator perbandingan} digunakan untuk membandingkan dua nilai dan menghasilkan boolean (\code{true} atau \code{false}). Yang paling penting untuk diingat adalah perbedaan antara \code{==} (sama nilai, dengan type juggling) dan \code{===} (identik: sama nilai \textbf{dan} sama tipe). Menggunakan \code{===} adalah praktik yang lebih aman karena menghindari konversi tipe implisit yang dapat menyebabkan bug tersembunyi.
 
 \begin{table}[ht]
 \centering
-\begin{tabular}{|P{4cm}|P{8.5cm}|}
+\begin{tabular}{|P{1.5cm}|P{3.5cm}|P{3.5cm}|P{3.5cm}|}
 \hline
-\textbf{Perintah ALTER} & \textbf{Fungsi} \\
+\textbf{Kategori} & \textbf{Operator} & \textbf{Contoh} & \textbf{Hasil} \\
 \hline
-\code{ADD COLUMN} & Menambah kolom baru \\
+\multirow{6}{*}{Aritmetika} & \code{+} Penjumlahan & \code{5 + 3} & \code{8} \\
+\cline{2-4}
+& \code{-} Pengurangan & \code{10 - 4} & \code{6} \\
+\cline{2-4}
+& \code{*} Perkalian & \code{3 * 7} & \code{21} \\
+\cline{2-4}
+& \code{/} Pembagian & \code{10 / 3} & \code{3.333...} \\
+\cline{2-4}
+& \code{\%} Modulo & \code{10 \% 3} & \code{1} \\
+\cline{2-4}
+& \code{**} Pangkat & \code{2 ** 8} & \code{256} \\
 \hline
-\code{MODIFY COLUMN} & Mengubah tipe data atau constraint \\
+\multirow{4}{*}{Perbandingan} & \code{==} Sama nilai & \code{"5" == 5} & \code{true} \\
+\cline{2-4}
+& \code{===} Identik & \code{"5" === 5} & \code{false} \\
+\cline{2-4}
+& \code{!=} atau \code{<>} & \code{5 != 3} & \code{true} \\
+\cline{2-4}
+& \code{<=>} Spaceship & \code{5 <=> 3} & \code{1} \\
 \hline
-\code{DROP COLUMN} & Menghapus kolom (dan datanya!) \\
+\multirow{3}{*}{Logika} & \code{\&\&} / \code{and} & \code{true \&\& false} & \code{false} \\
+\cline{2-4}
+& \code{||} / \code{or} & \code{true || false} & \code{true} \\
+\cline{2-4}
+& \code{!} Not & \code{!true} & \code{false} \\
 \hline
-\code{RENAME COLUMN} & Mengganti nama kolom \\
-\hline
-\code{ADD INDEX} & Menambah index untuk performa \\
-\hline
-\code{ADD CONSTRAINT} & Menambah foreign key atau constraint \\
+\multirow{3}{*}{Penugasan} & \code{=} Assign & \code{\$x = 10} & \code{10} \\
+\cline{2-4}
+& \code{+=}, \code{-=} & \code{\$x += 5} & \code{\$x = \$x + 5} \\
+\cline{2-4}
+& \code{.=} Concat & \code{\$s .= "!"} & \code{\$s = \$s . "!"} \\
 \hline
 \end{tabular}
-\caption{Ringkasan perintah ALTER TABLE}
+\caption{Rangkuman operator PHP berdasarkan kategori}
 \end{table}
+
+\textbf{Operator logika} digunakan untuk mengombinasikan kondisi boolean, sangat penting dalam percabangan dan validasi. Operator \code{\&\&} (AND) mengembalikan \code{true} hanya jika kedua operand benar; \code{||} (OR) mengembalikan \code{true} jika salah satu operand benar; \code{!} (NOT) membalik nilai boolean. PHP juga menyediakan operator \textbf{null coalescing} \code{??} yang mengembalikan operand kiri jika ada dan tidak null, sangat berguna untuk memberikan nilai default pada variabel yang mungkin belum terdefinisi \cite{phpRightWay}.
+
+\begin{webcode}[language=PHP, caption={Contoh penggunaan operator}]
+<?php
+// Aritmetika
+$total = 100 + 50;        // 150
+$sisa = 17 % 5;           // 2
+$pangkat = 2 ** 10;       // 1024
+
+// Perbandingan ketat vs longgar
+var_dump(0 == "abc");     // true (type juggling!)
+var_dump(0 === "abc");    // false (tipe berbeda)
+
+// Null coalescing
+$nama = $_GET["nama"] ?? "Anonim";  // default "Anonim"
+
+// Spaceship operator (PHP 7+)
+echo 1 <=> 2;  // -1 (kiri < kanan)
+echo 2 <=> 2;  //  0 (sama)
+echo 3 <=> 2;  //  1 (kiri > kanan)
+
+// Concatenation (penggabungan string)
+$sapaan = "Halo" . ", " . "dunia!";
+echo $sapaan;  // Halo, dunia!
+?>
+\end{webcode}
+
+\begin{konsep}
+\textbf{Operator Spaceship (\code{<=>}):} Diperkenalkan di PHP 7, operator ini membandingkan dua nilai dan mengembalikan \code{-1}, \code{0}, atau \code{1}. Sangat berguna sebagai callback dalam fungsi pengurutan seperti \code{usort()}.
+\end{konsep}
 

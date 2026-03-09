@@ -1,26 +1,32 @@
-\section{Pengenalan JavaScript dan Perannya di Web}
+\section{Normal Flow dan Positioning}
 
-JavaScript adalah bahasa pemrograman yang berjalan di sisi client (browser) dan memungkinkan halaman web menjadi interaktif. Jika HTML menyediakan struktur dan CSS mengatur tampilan, JavaScript menambahkan \textbf{perilaku}---merespons klik pengguna, memvalidasi form, memperbarui konten tanpa reload, dan membuat animasi kompleks. JavaScript diciptakan oleh Brendan Eich di Netscape pada tahun 1995 dan telah berkembang menjadi salah satu bahasa pemrograman paling populer di dunia \cite{jsInfo}.
+\textbf{Normal flow} adalah model tata letak default browser di mana elemen HTML disusun berdasarkan urutan kemunculannya di dokumen. Elemen block (seperti \code{div}, \code{p}, \code{h1}) ditumpuk secara vertikal---masing-masing memulai baris baru dan mengisi lebar penuh kontainer. Elemen inline (seperti \code{span}, \code{a}, \code{strong}) mengalir horizontal dalam baris teks. Memahami normal flow adalah prasyarat untuk memahami bagaimana positioning CSS memodifikasi perilaku ini \cite{mdnCss}.
 
-Standar resmi JavaScript disebut \textbf{ECMAScript} (dikelola oleh ECMA International). Versi penting termasuk ES5 (2009), ES6/ES2015 (penambahan besar: \code{let}/\code{const}, arrow function, class, template literal, promise), dan pembaruan tahunan setelahnya. Ekosistem JavaScript sangat luas: di browser untuk interaktivitas (client-side), di server dengan Node.js, di mobile dengan React Native, dan di desktop dengan Electron \cite{mdnJsGuide}.
+Properti \code{position} mengontrol bagaimana elemen diposisikan relatif terhadap normal flow. CSS menyediakan lima nilai positioning: \code{static} (default), \code{relative}, \code{absolute}, \code{fixed}, dan \code{sticky}. Setiap nilai memiliki konteks referensi dan perilaku yang berbeda terhadap layout elemen lain. Properti pendamping \code{top}, \code{right}, \code{bottom}, dan \code{left} menentukan offset dari posisi referensi; properti ini hanya berlaku jika \code{position} bukan \code{static} \cite{webdevCss}.
 
 \begin{table}[htbp]
 \centering
 \begin{tabular}{|P{2cm}|P{3cm}|P{3.5cm}|P{3.5cm}|}
 \hline
-\textbf{Teknologi} & \textbf{Peran} & \textbf{Analogi} & \textbf{Contoh} \\
+\textbf{Nilai} & \textbf{Referensi} & \textbf{Efek pada Flow} & \textbf{Kasus Penggunaan} \\
 \hline
-HTML & Struktur & Kerangka bangunan & Paragraf, heading, form \\
+\code{static} & Normal flow & Tetap di flow & Default; tidak perlu diset \\
 \hline
-CSS & Tampilan & Cat dan dekorasi & Warna, font, layout \\
+\code{relative} & Posisi asal sendiri & Tetap di flow; ruang asli dipertahankan & Konteks untuk \code{absolute} child \\
 \hline
-JavaScript & Perilaku & Sistem listrik/mekanik & Klik, validasi, animasi \\
+\code{absolute} & Ancestor terdekat non-static & Keluar dari flow & Tooltip, dropdown, badge \\
+\hline
+\code{fixed} & Viewport & Keluar dari flow; tetap saat scroll & Header/navbar tetap \\
+\hline
+\code{sticky} & Viewport + scroll threshold & Di flow sampai threshold & Header sticky saat scroll \\
 \hline
 \end{tabular}
-\caption{Peran tiga teknologi web utama}
+\caption{Lima nilai CSS position dan karakteristiknya}
 \end{table}
 
+Elemen \code{relative} tetap di posisi normal flow-nya, tetapi dapat digeser menggunakan \code{top}/\code{left}/\code{right}/\code{bottom} tanpa mempengaruhi elemen lain. Kegunaan utamanya adalah sebagai \textbf{containing block} untuk elemen \code{absolute} di dalamnya. Elemen \code{absolute} keluar sepenuhnya dari normal flow dan diposisikan relatif terhadap ancestor terdekat yang memiliki \code{position} non-static. Jika tidak ada ancestor seperti itu, elemen absolute merujuk ke viewport. Properti \code{z-index} mengontrol urutan tumpukan saat elemen overlap \cite{cssTricks}.
+
 \begin{konsep}
-\textbf{JavaScript Bukan Java.} Meskipun namanya mirip, JavaScript dan Java adalah bahasa yang \textbf{berbeda}. JavaScript awalnya dinamai untuk tujuan pemasaran. JavaScript bersifat dinamis (tipe data fleksibel), interpreted (dijalankan langsung di browser), dan berbasis prototipe. Java bersifat statically typed, compiled, dan berbasis class. Keduanya memiliki sintaks yang mirip C, tetapi konsep dan penggunaannya berbeda \cite{jsInfo}.
+\textbf{Stacking Context dan z-index.} Properti \code{z-index} hanya berlaku pada elemen yang memiliki \code{position} non-static (atau elemen flex/grid child). Nilai lebih tinggi ditempatkan di atas. Setiap elemen dengan \code{z-index} menciptakan \textit{stacking context} baru---elemen di dalam konteks tersebut tidak dapat ``menembus'' keluar. Ini menjelaskan mengapa kadang \code{z-index: 9999} pun tidak berhasil: elemen berada di stacking context yang lebih rendah dari elemen lain \cite{mdnCss}.
 \end{konsep}
 

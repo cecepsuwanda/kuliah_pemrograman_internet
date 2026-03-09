@@ -1,10 +1,54 @@
-\section{Instalasi MySQL dan Lingkungan (XAMPP/Standalone)}
+\section[Memulai: Instalasi PHP dan Environment]{Memulai: Instalasi PHP dan Environment (XAMPP, Server Lokal)}
 
-Cara termudah untuk memulai pengembangan web dengan PHP dan MySQL adalah menginstal paket \textbf{XAMPP} --- sebuah distribusi yang mencakup Apache (web server), MySQL/MariaDB (database server), PHP, dan Perl dalam satu instalasi. XAMPP tersedia untuk Windows, macOS, dan Linux, serta dapat diunduh gratis dari situs resmi Apache Friends. Setelah instalasi, cukup jalankan XAMPP Control Panel, aktifkan modul Apache dan MySQL, dan lingkungan pengembangan sudah siap digunakan tanpa konfigurasi rumit \cite{mysqlGettingStarted}.
+Untuk menjalankan kode PHP, Anda memerlukan sebuah lingkungan server karena PHP adalah bahasa \textit{server-side} yang membutuhkan web server dan interpreter PHP. Cara termudah bagi pemula adalah menggunakan paket \textbf{XAMPP}, yang menyediakan Apache (web server), MySQL/MariaDB (basis data), PHP, dan Perl dalam satu instalasi lengkap. XAMPP tersedia untuk Windows, Linux, dan macOS, sehingga sangat fleksibel digunakan di berbagai sistem operasi \cite{phpManual}.
 
-Alternatif lain adalah menginstal MySQL secara \textbf{standalone} (terpisah) menggunakan installer resmi dari Oracle. Pendekatan ini lebih cocok untuk lingkungan produksi atau jika membutuhkan versi MySQL terbaru. Installer MySQL menyediakan opsi konfigurasi detail: port (default 3306), password root, charset default, dan mode SQL. Untuk pengembangan, disarankan mengatur password root dan mengaktifkan karakter set \code{utf8mb4} yang mendukung emoji dan karakter Unicode penuh \cite{mysqlDocs}.
+Proses instalasi XAMPP sangat sederhana: unduh installer dari situs resmi Apache Friends, jalankan installer, lalu pilih komponen yang ingin dipasang (minimal Apache dan PHP). Setelah instalasi selesai, buka XAMPP Control Panel dan klik \textbf{Start} pada modul Apache. Jika berhasil, modul Apache akan berwarna hijau, menandakan web server sudah aktif. Semua file PHP yang ingin Anda jalankan harus disimpan di dalam folder \code{htdocs} (biasanya di \code{C:\textbackslash xampp\textbackslash htdocs} pada Windows), lalu diakses melalui browser dengan URL \code{http://localhost/nama-file.php} \cite{w3schoolsPhp}.
 
-\begin{catatan}
-Setelah instalasi XAMPP, MySQL dapat diakses melalui: (1) \textbf{phpMyAdmin} --- antarmuka web di \code{http://localhost/phpmyadmin}; (2) \textbf{Command line} --- \code{mysql -u root -p} dari terminal; (3) \textbf{MySQL Workbench} --- aplikasi GUI resmi dari Oracle. Pastikan port 3306 tidak digunakan oleh aplikasi lain. Jika XAMPP menggunakan MariaDB (fork MySQL), hampir semua perintah SQL tetap kompatibel.
-\end{catatan}
+Langkah pertama setelah instalasi adalah memverifikasi bahwa PHP berjalan dengan benar menggunakan fungsi \code{phpinfo()}. Buat file baru bernama \code{info.php} di folder \code{htdocs}, lalu isi dengan kode berikut. Halaman yang dihasilkan akan menampilkan seluruh informasi konfigurasi PHP: versi PHP, ekstensi yang aktif, pengaturan server, dan banyak lagi. Ini sangat berguna untuk memeriksa apakah lingkungan pengembangan sudah siap.
+
+\begin{webcode}[language=PHP, caption={Mengecek instalasi PHP dengan phpinfo()}]
+<?php
+// File: htdocs/info.php
+// Akses via: http://localhost/info.php
+phpinfo();
+?>
+\end{webcode}
+
+\begin{konsep}
+\textbf{Struktur Folder htdocs:} Setiap folder di dalam \code{htdocs} menjadi path di URL. Misalnya, file \code{htdocs/proyek/index.php} diakses dengan \code{http://localhost/proyek/index.php}. Memahami pemetaan folder ke URL ini penting untuk mengorganisasi proyek web Anda.
+\end{konsep}
+
+Selain XAMPP, terdapat beberapa alternatif lingkungan pengembangan PHP yang dapat digunakan sesuai preferensi dan sistem operasi. Masing-masing memiliki kelebihan dan kekurangan, namun semuanya menyediakan fungsi dasar yang sama: menjalankan web server dan interpreter PHP.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{2.5cm}|P{2.5cm}|P{4cm}|P{3cm}|}
+\hline
+\textbf{Paket} & \textbf{Platform} & \textbf{Komponen} & \textbf{Keterangan} \\
+\hline
+XAMPP & Windows, Linux, macOS & Apache, MySQL, PHP, Perl & Paling populer, lengkap \\
+\hline
+WAMP & Windows & Apache, MySQL, PHP & Khusus Windows \\
+\hline
+LAMP & Linux & Apache, MySQL, PHP & Instalasi manual via terminal \\
+\hline
+MAMP & macOS, Windows & Apache, MySQL, PHP & Populer untuk macOS \\
+\hline
+PHP Built-in Server & Semua OS & PHP saja & Ringan, tanpa Apache \\
+\hline
+\end{tabular}
+\caption{Perbandingan paket server lokal untuk pengembangan PHP}
+\end{table}
+
+PHP juga menyediakan web server bawaan yang sangat praktis untuk pengembangan dan pengujian cepat tanpa perlu menginstal Apache. Cukup buka terminal, navigasi ke folder proyek, lalu jalankan perintah \code{php -S localhost:8000}. Server bawaan ini akan melayani file di folder saat ini dan menampilkan log request di terminal. Namun, server ini \textbf{tidak} disarankan untuk lingkungan produksi karena hanya dapat menangani satu request secara bersamaan dan tidak memiliki fitur keamanan lengkap \cite{phpRightWay}.
+
+\begin{webcode}[language=Bash, caption={Menjalankan PHP built-in server}]
+# Navigasi ke folder proyek
+cd /path/to/proyek
+
+# Jalankan server di port 8000
+php -S localhost:8000
+
+# Akses via browser: http://localhost:8000
+\end{webcode}
 

@@ -1,53 +1,57 @@
-\section{Flexbox: Konsep Container dan Item}
+\section{Cara Menyisipkan CSS: Inline, Internal, dan Eksternal}
 
-Flexbox (Flexible Box Layout) adalah model layout satu dimensi yang dirancang untuk mendistribusikan ruang dan menyelaraskan item di sepanjang satu sumbu---horizontal (baris) atau vertikal (kolom). Flexbox sangat cocok untuk komponen UI seperti navbar, card row, form controls, dan alignment vertikal yang sebelumnya sulit dicapai dengan CSS tradisional. Flexbox diaktifkan dengan \code{display: flex} pada kontainer; semua anak langsung menjadi \textbf{flex items} \cite{mdnCss}.
-
-\begin{figure}[htbp]
-\centering
-\resizebox{0.85\textwidth}{!}{%
-\begin{tikzpicture}[every node/.style={font=\footnotesize}]
-  % Main axis
-  \draw[->, thick, blue!70] (0,2) -- (10,2) node[right, font=\small\bfseries] {Main Axis};
-  % Cross axis
-  \draw[->, thick, red!70] (0,4) -- (0,0) node[below, font=\small\bfseries] {Cross Axis};
-  % Container
-  \draw[thick, dashed] (0.5,0.5) rectangle (9.5,3.5);
-  \node[anchor=north west, font=\scriptsize] at (0.5,3.5) {flex container};
-  % Items
-  \fill[blue!20] (1,1) rectangle (3,3); \node at (2,2) {Item 1};
-  \fill[green!20] (3.5,1) rectangle (5.5,3); \node at (4.5,2) {Item 2};
-  \fill[orange!20] (6,1) rectangle (9,3); \node at (7.5,2) {Item 3};
-  % Labels
-  \node[font=\scriptsize, blue!70] at (5,-0.3) {justify-content (main axis)};
-  \node[font=\scriptsize, red!70, rotate=90] at (-0.8,2) {align-items (cross)};
-\end{tikzpicture}%
-}
-\caption{Sumbu Flexbox: main axis (horizontal) dan cross axis (vertikal)}
-\end{figure}
+CSS dapat disisipkan ke halaman web dengan tiga cara yang masing-masing memiliki kelebihan dan kekurangan. Pemahaman tentang kapan menggunakan metode yang tepat membantu pengembang menulis kode yang efisien dan mudah dirawat. Ketiga metode ini dapat digunakan bersamaan dalam satu halaman---browser akan menerapkan aturan cascading untuk menentukan gaya mana yang berlaku jika terjadi konflik \cite{mdnCss}.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{3.5cm}|P{4cm}|P{4.5cm}|}
+\begin{tabular}{|P{2cm}|P{3cm}|P{3.5cm}|P{3.5cm}|}
 \hline
-\textbf{Properti Container} & \textbf{Fungsi} & \textbf{Nilai Umum} \\
+\textbf{Metode} & \textbf{Cara Penulisan} & \textbf{Kelebihan} & \textbf{Kekurangan} \\
 \hline
-\code{flex-direction} & Arah main axis & \code{row}, \code{column}, \code{row-reverse} \\
+Inline & Atribut \code{style} pada elemen & Cepat untuk percobaan; specificity tinggi & Sulit dirawat; mengotori HTML \\
 \hline
-\code{justify-content} & Distribusi di main axis & \code{flex-start}, \code{center}, \code{space-between}, \code{space-around} \\
+Internal & Tag \code{<style>} di \code{<head>} & CSS dan HTML satu file; cocok untuk satu halaman & Tidak bisa di-cache terpisah; duplikasi jika multi-halaman \\
 \hline
-\code{align-items} & Alignment di cross axis & \code{stretch}, \code{center}, \code{flex-start}, \code{flex-end} \\
-\hline
-\code{flex-wrap} & Wrap ke baris baru & \code{nowrap}, \code{wrap} \\
-\hline
-\code{gap} & Jarak antar item & \code{1rem}, \code{16px} \\
+Eksternal & File \code{.css} + \code{<link>} & Satu file untuk banyak halaman; di-cache browser; kode bersih & Satu request HTTP tambahan \\
 \hline
 \end{tabular}
-\caption{Properti utama flex container}
+\caption{Perbandingan tiga metode penyisipan CSS}
 \end{table}
 
-Flex items memiliki properti sendiri yang mengontrol perilaku individual. \code{flex-grow} menentukan proporsi perluasan jika ada ruang sisa (nilai 0 berarti tidak tumbuh, 1 berarti tumbuh proporsional). \code{flex-shrink} mengontrol penyusutan jika ruang tidak cukup. \code{flex-basis} menentukan ukuran awal sebelum distribusi ruang. Shorthand \code{flex: grow shrink basis} menggabungkan ketiganya; \code{flex: 1} setara dengan \code{flex: 1 1 0\%} (tumbuh dan susut proporsional) \cite{webdevCss}.
+\textbf{CSS Inline} ditulis langsung pada atribut \code{style} elemen HTML, misalnya \code{<p style="color: red;">}. Metode ini memiliki specificity tertinggi sehingga akan mengalahkan aturan CSS lain (kecuali \code{!important}). Namun, inline CSS membuat kode HTML berantakan, sulit dirawat, dan melanggar prinsip separation of concerns. Penggunaannya sebaiknya dibatasi hanya untuk pengujian cepat atau skenario email HTML yang tidak mendukung CSS eksternal \cite{webdevCss}.
+
+\textbf{CSS Internal} ditempatkan di dalam elemen \code{<style>} pada bagian \code{<head>} dokumen HTML. Semua aturan CSS berada dalam satu file bersama HTML, sehingga cocok untuk halaman tunggal (one-page) atau prototipe. Kelemahannya adalah jika situs memiliki banyak halaman, CSS harus diduplikasi di setiap halaman, dan perubahan desain memerlukan pengeditan di banyak file \cite{mdnCss}.
+
+\textbf{CSS Eksternal} adalah praktik terbaik untuk pengembangan web profesional. File CSS terpisah (misalnya \code{style.css}) dihubungkan ke HTML menggunakan \code{<link rel="stylesheet" href="style.css">}. Keuntungan utama: satu file CSS melayani seluruh halaman situs, browser dapat meng-cache file sehingga halaman berikutnya lebih cepat dimuat, kode HTML dan CSS terpisah rapi, serta kolaborasi tim lebih mudah. Atribut \code{media} pada \code{<link>} memungkinkan memuat stylesheet berbeda untuk layar dan cetak \cite{cssTricks}.
+
+\begin{webcode}[language=HTML, caption={Tiga cara menyisipkan CSS}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <!-- CSS Eksternal (direkomendasikan) -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- CSS untuk cetak -->
+  <link rel="stylesheet" href="print.css"
+        media="print" />
+
+  <!-- CSS Internal -->
+  <style>
+    h1 { color: navy; }
+    p  { line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <h1>Judul</h1>
+  <!-- CSS Inline (hindari jika mungkin) -->
+  <p style="color: red; font-weight: bold;">
+    Teks ini menggunakan inline CSS.
+  </p>
+</body>
+</html>
+\end{webcode}
 
 \begin{catatan}
-\textbf{Flexbox vs Grid.} Flexbox bekerja di satu dimensi (baris ATAU kolom), sementara CSS Grid bekerja di dua dimensi (baris DAN kolom secara bersamaan). Gunakan Flexbox untuk komponen linear (navbar, toolbar, card row); gunakan Grid untuk layout halaman dan grid dua dimensi. Keduanya saling melengkapi dan dapat digunakan bersamaan \cite{cssTricks}.
+\textbf{Praktik Terbaik:} Gunakan CSS eksternal sebagai metode utama. CSS internal dapat digunakan untuk \textit{critical CSS}---styling minimal yang dibutuhkan untuk tampilan awal halaman (above-the-fold) agar halaman terlihat lebih cepat. Inline CSS sebaiknya dihindari kecuali pada kasus khusus seperti email HTML atau dynamic styles yang di-generate JavaScript. Jika menggunakan beberapa metode bersamaan, pahami urutan specificity: inline \textgreater\ internal/eksternal; file yang dimuat terakhir menang \cite{webdevCss}.
 \end{catatan}
 

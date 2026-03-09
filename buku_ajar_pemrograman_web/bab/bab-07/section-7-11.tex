@@ -1,50 +1,31 @@
-\section{Styling Form: Input, Button, dan Select}
+\section{Daftar (list) dan Tabel: Styling Dasar}
 
-Elemen form HTML memiliki tampilan default yang bervariasi antar browser dan sistem operasi. CSS memungkinkan penyeragaman dan peningkatan tampilan form agar konsisten dengan desain halaman. Properti \code{appearance: none} menghapus styling default browser pada input dan select, memungkinkan kontrol penuh melalui CSS. Perhatian pada aksesibilitas tetap penting: label, fokus, dan state error harus jelas \cite{mdnCss}.
+Daftar (\code{<ul>} untuk unordered, \code{<ol>} untuk ordered) dan tabel (\code{<table>}) adalah elemen HTML yang sering membutuhkan styling khusus agar sesuai dengan desain halaman. CSS menyediakan properti-properti yang mengontrol tampilan bullet/nomor pada daftar, serta border, spacing, dan background pada tabel. Styling yang tepat menjadikan konten lebih terbaca dan menarik \cite{mdnCss}.
 
-\begin{table}[htbp]
-\centering
-\begin{tabular}{|P{3.5cm}|P{4cm}|P{4.5cm}|}
-\hline
-\textbf{Elemen} & \textbf{Properti Styling Utama} & \textbf{Tips} \\
-\hline
-\code{input[type=text]} & \code{padding}, \code{border}, \code{border-radius}, \code{font-size} & Gunakan \code{box-sizing: border-box} \\
-\hline
-\code{button} & \code{background}, \code{color}, \code{border}, \code{cursor: pointer}, \code{padding} & Tambah \code{transition} untuk hover \\
-\hline
-\code{select} & \code{appearance: none}, padding, custom arrow & Gunakan background-image untuk panah \\
-\hline
-\code{textarea} & \code{resize}, \code{min-height}, font-family & Samakan font dengan input \\
-\hline
-\code{:focus} & \code{outline}, \code{box-shadow} & Wajib ada indikator fokus \\
-\hline
-\end{tabular}
-\caption{Styling elemen form dan tips praktis}
-\end{table}
+\subsection{Styling Daftar}
 
-\begin{webcode}[language=CSS, caption={Styling form yang konsisten}]
-input, select, textarea, button {
-  box-sizing: border-box;
-  font-family: inherit;
-  font-size: 1rem;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-input:focus, select:focus, textarea:focus {
-  outline: none;
-  border-color: #2a6fb0;
-  box-shadow: 0 0 0 3px rgba(42,111,176,0.2);
-}
-button {
-  background: #2a6fb0; color: white;
-  border: none; cursor: pointer;
-  transition: background 0.2s;
-}
-button:hover { background: #1a4f80; }
-\end{webcode}
+Properti \code{list-style-type} mengontrol jenis penanda: \code{disc} (lingkaran solid, default untuk \code{ul}), \code{circle}, \code{square}, \code{decimal}, \code{lower-alpha}, \code{none} (tanpa penanda). Properti \code{list-style-position} menentukan apakah penanda di luar (\code{outside}, default) atau di dalam (\code{inside}) area konten. Properti \code{list-style-image} mengganti penanda dengan gambar kustom. Menghilangkan penanda dengan \code{list-style: none} adalah teknik dasar untuk membuat menu navigasi dari daftar \cite{webdevCss}.
+
+\subsection{Styling Tabel}
+
+Properti \code{border-collapse} mengontrol bagaimana border sel berinteraksi: \code{collapse} menggabungkan border yang bersebelahan menjadi satu, \code{separate} (default) mempertahankan border terpisah dengan jarak yang diatur \code{border-spacing}. Baris bergantian (\textit{zebra striping}) dibuat dengan \code{tr:nth-child(even)} atau \code{tr:nth-child(odd)} untuk meningkatkan keterbacaan tabel yang panjang. Properti \code{text-align} dan \code{vertical-align} mengatur perataan teks di dalam sel \cite{cssTricks}.
+
+\begin{contoh}
+\textbf{Studi Kasus: Menu Navigasi Horizontal dari List}
+
+Menu navigasi web umumnya dibangun dari elemen \code{<ul>} yang di-styling dengan CSS. Langkah-langkah:
+\begin{enumerate}
+  \item Hilangkan bullet dan padding default dengan \code{list-style: none; padding: 0;}
+  \item Ubah \code{<li>} menjadi \code{display: inline-block} agar berjajar horizontal
+  \item Styling \code{<a>} di dalam menu: hapus underline, tambahkan padding untuk area klik yang besar, dan atur warna hover
+  \item Tambahkan background dan border-radius untuk tampilan tombol
+\end{enumerate}
+\end{contoh}
+
+% Webcode diganti dengan deskripsi ringkas
+\textbf{Contoh CSS:} \code{.nav-menu} dengan \code{list-style: none} dan \code{display: flex}; \code{tr:nth-child(even)} untuk zebra striping.
 
 \begin{catatan}
-\textbf{font-family: inherit pada form.} Secara default, \code{input}, \code{button}, \code{select}, dan \code{textarea} \textbf{tidak mewarisi} font dari parent---mereka menggunakan font sistem. Atur \code{font-family: inherit; font-size: inherit;} untuk menyeragamkan tipografi form dengan halaman. Ini sering terlewat dan menyebabkan inkonsistensi visual \cite{webdevCss}.
+\textbf{Aksesibilitas Menu Navigasi:} Saat mengubah \code{<ul>} menjadi menu navigasi visual, pastikan elemen semantik tetap utuh. Bungkus menu dengan \code{<nav>} dan beri \code{aria-label}. Hindari menghilangkan \code{<li>} atau mengganti \code{<ul>} dengan \code{<div>}---pembaca layar mengandalkan daftar untuk mengumumkan jumlah item menu. Fokus keyboard harus berfungsi pada setiap tautan \cite{mdnAccessibility}.
 \end{catatan}
 

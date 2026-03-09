@@ -1,36 +1,114 @@
-\section{Link dan Styling Tautan (state: hover, visited, active)}
+\section{Aksesibilitas Tabel dan Form}
 
-Tautan (\code{<a>}) adalah elemen fundamental navigasi web. CSS memungkinkan styling yang berbeda untuk setiap \textbf{state} (keadaan) tautan menggunakan \textbf{pseudo-class}. Pseudo-class adalah selector khusus yang menargetkan elemen berdasarkan keadaan atau posisi tertentu, bukan berdasarkan atribut atau nama. Untuk tautan, pseudo-class yang paling penting adalah \code{:link}, \code{:visited}, \code{:hover}, \code{:focus}, dan \code{:active} \cite{webdevCss}.
+Tabel dan form adalah dua elemen HTML yang paling sering menimbulkan masalah aksesibilitas jika tidak diimplementasikan dengan benar. Pengguna pembaca layar menavigasi tabel sel per sel dan mengandalkan header untuk memahami konteks setiap nilai data. Tanpa pengaitan header yang tepat, sebuah angka ``85'' di dalam tabel tidak memberikan informasi apakah itu nilai ujian, usia, atau harga. Demikian pula, form tanpa label yang tepat menjadikan proses pengisian sangat sulit bagi pengguna yang tidak dapat melihat tata letak visual \cite{mdnAccessibility}.
+
+\subsection{Tabel Aksesibel}
+
+Tabel yang aksesibel memerlukan beberapa komponen kunci. Pertama, setiap tabel harus memiliki \code{<caption>} yang mendeskripsikan isi tabel secara ringkas. Kedua, gunakan \code{<th>} untuk semua sel header, bukan \code{<td>} yang dicetak tebal dengan CSS. Ketiga, tambahkan atribut \code{scope="col"} atau \code{scope="row"} pada setiap \code{<th>} untuk menjelaskan arah cakupan header. Keempat, untuk tabel dengan header kompleks atau multi-level, gunakan pasangan \code{id} pada \code{<th>} dan \code{headers} pada \code{<td>}. Kelima, hindari penggunaan \code{colspan} dan \code{rowspan} yang berlebihan karena mempersulit navigasi sel \cite{webdevAccessibility}.
+
+\subsection{Form Aksesibel}
+
+Form yang aksesibel dibangun di atas tiga pilar utama: pelabelan yang tepat, pengelompokan yang logis, dan umpan balik error yang jelas. Setiap kontrol input \textbf{wajib} memiliki label yang terasosiasi---baik melalui \code{<label for="id">} secara eksplisit maupun melalui \code{aria-label} atau \code{aria-labelledby}. Grup field yang terkait (misalnya radio button untuk jenis kelamin) harus dibungkus dengan \code{<fieldset>} dan \code{<legend>} agar pembaca layar menjelaskan konteks pilihan. Pesan error harus dihubungkan dengan input yang bermasalah menggunakan \code{aria-describedby} \cite{mdnAccessibility}.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{3cm}|P{3.5cm}|P{5.5cm}|}
+\begin{tabular}{|P{3.5cm}|P{3.5cm}|P{5cm}|}
 \hline
-\textbf{Pseudo-class} & \textbf{Keadaan} & \textbf{Keterangan} \\
+\textbf{Teknik} & \textbf{Penerapan} & \textbf{Manfaat Aksesibilitas} \\
 \hline
-\code{a:link} & Belum dikunjungi & Default biru bergaris bawah \\
+\code{<label for>} & Mengaitkan label ke input & Screen reader membaca label saat input difokuskan \\
 \hline
-\code{a:visited} & Sudah dikunjungi & Default ungu; styling terbatas (keamanan) \\
+\code{<fieldset>} + \code{<legend>} & Mengelompokkan field terkait & Memberikan konteks grup pada radio/checkbox \\
 \hline
-\code{a:hover} & Kursor di atas & Aktif saat mouse hover \\
+\code{aria-required} & Menandai field wajib & Screen reader mengumumkan ``required'' \\
 \hline
-\code{a:focus} & Fokus keyboard & Tab navigation; penting untuk aksesibilitas \\
+\code{aria-invalid} & Menandai input yang salah & Screen reader mengumumkan ``invalid'' \\
 \hline
-\code{a:active} & Sedang diklik & Aktif saat mouse ditekan \\
+\code{aria-describedby} & Hubungkan pesan error & Screen reader membaca pesan error \\
 \hline
-\code{a:focus-visible} & Fokus keyboard (modern) & Hanya tampil saat navigasi keyboard, bukan saat klik mouse \\
+\code{autocomplete} & Petunjuk auto-fill & Mempercepat pengisian form \\
 \hline
 \end{tabular}
-\caption{Pseudo-class tautan dan keadaan yang ditargetkan}
+\caption{Teknik aksesibilitas form HTML}
 \end{table}
 
-Urutan penulisan pseudo-class tautan sangat penting karena mengikuti aturan cascade. Urutan yang direkomendasikan adalah \textbf{LVHA}: \code{:link}, \code{:visited}, \code{:hover}, \code{:active}. Pseudo-class \code{:focus} sebaiknya ditempatkan bersama atau setelah \code{:hover} agar fokus keyboard tetap terlihat dengan jelas. Jika urutan salah, state yang lebih umum (misalnya \code{:link}) dapat menimpa state yang lebih spesifik (misalnya \code{:hover}), membuat styling tidak berfungsi \cite{mdnCss}.
+\begin{contoh}
+\textbf{Studi Kasus: Form Pendaftaran Mahasiswa yang Aksesibel}
 
-Aksesibilitas tautan memerlukan perhatian khusus. Banyak pengguna (terutama yang menggunakan keyboard atau pembaca layar) mengandalkan indikator fokus untuk mengetahui posisi mereka di halaman. \textbf{Jangan pernah menghilangkan outline fokus} (\code{outline: none;}) tanpa menyediakan indikator pengganti yang setara. Pseudo-class \code{:focus-visible} (didukung browser modern) menampilkan indikator fokus hanya saat navigasi keyboard, bukan saat klik mouse---solusi terbaik untuk menjaga estetika tanpa mengorbankan aksesibilitas \cite{mdnAccessibility}.
+Berikut adalah contoh form pendaftaran yang menerapkan semua prinsip aksesibilitas: setiap input memiliki label, field dikelompokkan dengan fieldset/legend, radio button memiliki konteks, pesan error ditautkan dengan \code{aria-describedby}, dan field wajib ditandai secara visual maupun untuk pembaca layar.
+\end{contoh}
 
-\noindent\textbf{Contoh kode:} Gunakan \code{a:link}, \code{a:visited}, \code{a:hover}, \code{a:focus}, dan \code{a:focus-visible} dengan urutan LVHA. Warna hex misalnya \code{rgb(42,111,176)} untuk biru.
+\begin{webcode}[language=HTML, caption={Studi kasus: form pendaftaran aksesibel lengkap}]
+<form action="/daftar" method="post" novalidate>
+  <fieldset>
+    <legend>Data Diri</legend>
 
-\begin{konsep}
-\textbf{Jangan Hapus Indikator Fokus.} Hindari \code{outline: none} tanpa pengganti---pengguna keyboard bergantung pada indikator fokus. Gantilah dengan box-shadow, border, atau background-color jika outline default tidak sesuai \cite{webdevCss}.
-\end{konsep}
+    <label for="nama">Nama Lengkap
+      <span aria-hidden="true">*</span></label>
+    <input type="text" id="nama" name="nama"
+           required aria-required="true"
+           aria-describedby="err-nama"
+           autocomplete="name" />
+    <span id="err-nama" role="alert"></span>
+
+    <label for="email">Alamat Email
+      <span aria-hidden="true">*</span></label>
+    <input type="email" id="email" name="email"
+           required aria-required="true"
+           aria-describedby="err-email"
+           autocomplete="email" />
+    <span id="err-email" role="alert"></span>
+
+    <label for="pass">Password
+      <span aria-hidden="true">*</span></label>
+    <input type="password" id="pass" name="pass"
+           required minlength="8"
+           aria-required="true"
+           aria-describedby="hint-pass"
+           autocomplete="new-password" />
+    <span id="hint-pass">Minimal 8 karakter</span>
+  </fieldset>
+
+  <fieldset>
+    <legend>Jenis Kelamin</legend>
+    <label>
+      <input type="radio" name="gender"
+             value="L" required /> Laki-laki
+    </label>
+    <label>
+      <input type="radio" name="gender"
+             value="P" /> Perempuan
+    </label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Jurusan</legend>
+    <label for="jurusan">Pilih Jurusan:</label>
+    <select id="jurusan" name="jurusan" required
+            aria-required="true">
+      <option value="">-- Pilih --</option>
+      <option value="if">Teknik Informatika</option>
+      <option value="si">Sistem Informasi</option>
+    </select>
+  </fieldset>
+
+  <label>
+    <input type="checkbox" name="agree" required
+           aria-required="true" />
+    Saya menyetujui syarat dan ketentuan
+  </label>
+
+  <button type="submit">Daftar Sekarang</button>
+</form>
+\end{webcode}
+
+\begin{catatan}
+\textbf{Pengujian Aksesibilitas Form:} Untuk memverifikasi aksesibilitas form, lakukan langkah berikut:
+\begin{enumerate}
+  \item \textbf{Uji keyboard}: pastikan semua field dapat dijangkau dan diisi hanya dengan keyboard (Tab, Shift+Tab, Enter, Space).
+  \item \textbf{Uji pembaca layar}: gunakan NVDA (gratis untuk Windows), VoiceOver (macOS/iOS), atau TalkBack (Android) untuk menelusuri form.
+  \item \textbf{Periksa fokus visible}: setiap elemen yang difokuskan harus memiliki indikator visual yang jelas (outline).
+  \item \textbf{Gunakan alat otomatis}: aXe DevTools, WAVE, atau Lighthouse Accessibility audit untuk mendeteksi masalah umum \cite{webdevAccessibility}.
+\end{enumerate}
+\end{catatan}
 

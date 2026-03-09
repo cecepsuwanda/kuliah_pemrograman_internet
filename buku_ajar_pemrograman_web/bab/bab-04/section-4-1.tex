@@ -1,40 +1,47 @@
-\section{Pengenalan HTML dan Perannya di Web}
+\section{Mockup (High-Fidelity)}
 
-HTML (HyperText Markup Language) adalah bahasa markup standar yang digunakan untuk membuat dan menyusun konten halaman web. HTML pertama kali dikembangkan oleh Tim Berners-Lee di CERN pada tahun 1991 sebagai bagian dari proyek World Wide Web. Sejak saat itu, HTML telah berkembang secara signifikan dari versi sederhana yang hanya mendukung teks dasar hingga HTML5 modern yang mendukung multimedia, aplikasi interaktif, dan struktur semantik yang kaya \cite{mdnHtmlIntro}.
+Setelah wireframe divalidasi (Bab 3), langkah selanjutnya adalah mengembangkannya menjadi \textbf{mockup}---representasi visual \textit{high-fidelity} yang menunjukkan tampilan akhir halaman secara detail. Mockup mencakup warna, tipografi, gambar, ikon, dan spacing. Mockup memberikan gambaran yang sangat mirip dengan produk akhir, tetapi tanpa interaksi (tidak bisa diklik). Mockup dibuat setelah wireframe disetujui dan biasanya menggunakan alat desain seperti Figma, Adobe XD, atau Sketch \cite{figmaDocs}.
 
-Secara fundamental, HTML berfungsi sebagai kerangka tulang punggung (skeleton) dari setiap halaman web. HTML menggunakan sistem \textit{markup} berbasis \textit{tag} untuk menandai elemen-elemen konten seperti judul, paragraf, daftar, gambar, link, dan berbagai komponen lainnya. Berbeda dengan bahasa pemrograman yang memiliki logika dan algoritma, HTML adalah bahasa deklaratif yang menjelaskan struktur dan makna konten kepada browser, bukan cara menampilkannya secara visual. Untuk pengaturan tampilan visual, pengembang menggunakan CSS (Cascading Style Sheets), sedangkan untuk interaktivitas dan perilaku dinamis digunakan JavaScript \cite{webdevHtml}.
-
-Evolusi HTML mencerminkan perkembangan web itu sendiri. HTML 4.01, yang dirilis pada tahun 1999, menjadi standar yang digunakan selama bertahun-tahun. Kemudian, HTML5 muncul sebagai spesifikasi modern yang tidak hanya menambahkan elemen-elemen baru untuk multimedia (seperti \code{<video>} dan \code{<audio>}), tetapi juga memperkenalkan elemen semantik (seperti \code{<header>}, \code{<article>}, \code{<footer>}) yang memberikan makna struktural pada konten. Saat ini, HTML dikelola oleh WHATWG (Web Hypertext Application Technology Working Group) sebagai "Living Standard" yang terus diperbarui seiring dengan perkembangan teknologi web \cite{whatwgHtml}.
-
-Peran HTML dalam ekosistem web modern sangatlah sentral dan tidak dapat digantikan. Dalam triad teknologi web (HTML, CSS, JavaScript), HTML memegang posisi sebagai fondasi struktural. Tanpa HTML yang baik, CSS tidak memiliki elemen untuk ditata, dan JavaScript tidak memiliki struktur DOM (Document Object Model) untuk dimanipulasi. Pemahaman HTML yang mendalam memudahkan pengembang untuk memahami kerangka halaman web, meningkatkan aksesibilitas bagi pengguna dengan disabilitas, mengoptimalkan performa mesin pencari (SEO), serta berkolaborasi efektif dengan alat pengembang dan tim lintas fungsi \cite{mdnLearn}.
+Mockup penting karena: (1) menjadi acuan pixel-perfect bagi pengembang saat implementasi; (2) membantu stakeholder memahami tampilan akhir sebelum development dimulai; dan (3) memastikan konsistensi visual di seluruh halaman.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{3cm}|P{4cm}|P{5cm}|}
+\begin{tabular}{|P{3cm}|P{4.5cm}|P{4.5cm}|}
 \hline
-\textbf{Komponen} & \textbf{Peran Utama} & \textbf{Analogi} \\
+\textbf{Aspek} & \textbf{Wireframe (Low-Fi)} & \textbf{Mockup (High-Fi)} \\
 \hline
-HTML & Struktur dan makna konten & Kerangka bangunan \\
+Detail visual & Minimal (abu-abu, placeholder) & Lengkap (warna, font, gambar) \\
 \hline
-CSS & Tampilan visual dan layout & Cat, dekorasi interior \\
+Tujuan & Struktur dan tata letak & Tampilan akhir yang akurat \\
 \hline
-JavaScript & Interaktivitas dan perilaku & Sistem kelistrikan dan plumbing \\
+Waktu pembuatan & Cepat (menit--jam) & Lebih lama (jam--hari) \\
+\hline
+Alat & Kertas, Balsamiq, Whimsical & Figma, Adobe XD, Sketch \\
+\hline
+Kapan dibuat & Tahap awal desain & Setelah wireframe disetujui \\
+\hline
+Interaktivitas & Tidak ada & Tidak ada (statis) \\
+\hline
+Revisi & Sangat mudah dan murah & Lebih memakan waktu \\
 \hline
 \end{tabular}
-\caption{Peran HTML, CSS, dan JavaScript dalam Ekosistem Web}
-\label{tab:web-triad}
+\caption{Perbandingan wireframe (low-fidelity) dan mockup (high-fidelity)}
 \end{table}
 
-\begin{konsep}
-\textbf{Kenapa Mempelajari HTML itu Penting?}
+\subsection{Dari Wireframe ke Mockup}
 
-Mempelajari HTML adalah langkah pertama yang esensial dalam perjalanan pengembangan web. Berikut adalah alasan mengapa pemahaman HTML yang kuat sangat penting:
+Pada tahap pengembangan wireframe menjadi mockup, desainer menambahkan elemen visual: palet warna yang sesuai, tipografi yang terbaca, ikon yang konsisten, gambar atau ilustrasi sesungguhnya, dan spacing yang presisi. Mockup harus mengikuti \textbf{design system} yang telah ditetapkan (jika ada) agar konsisten dengan halaman lain \cite{figmaDocs}.
 
-\begin{itemize}[leftmargin=*]
-  \item \textbf{Aksesibilitas:} HTML semantik yang benar memungkinkan pembaca layar (screen readers) untuk membantu pengguna dengan disabilitas visual mengakses konten web.
-  \item \textbf{SEO (Search Engine Optimization):} Struktur HTML yang baik membantu mesin pencari seperti Google memahami dan mengindeks konten website Anda dengan lebih efektif.
-  \item \textbf{Performa:} HTML yang bersih dan efisien memuat lebih cepat dan menggunakan bandwidth lebih sedikit, terutama penting untuk pengguna mobile.
-  \item \textbf{Maintainability:} Kode HTML yang terstruktur dengan baik lebih mudah dipelihara, diperbarui, dan dikembangkan oleh tim pengembang.
-\end{itemize}
-\end{konsep}
+\begin{contoh}
+\textbf{Studi Kasus: Wireframe ke Mockup untuk Aplikasi Catatan}
 
+\textbf{Wireframe:} Kotak abu-abu menunjukkan posisi header, daftar catatan (kartu), dan tombol ``Tambah''. Placeholder teks ``Lorem ipsum'' digunakan.
+
+\textbf{Mockup:} Header menjadi biru tua (\code{\#1A237E}) dengan logo putih. Kartu catatan memiliki shadow halus, font Inter 14px untuk judul, warna teks \code{\#333}. Tombol FAB (Floating Action Button) berwarna hijau (\code{\#4CAF50}) dengan ikon ``+'' putih. Spacing antar kartu 12px.
+
+\textbf{Pelajaran:} Wireframe memvalidasi \textit{struktur}, mockup memvalidasi \textit{tampilan}. Keduanya harus disetujui sebelum coding dimulai.
+\end{contoh}
+
+\begin{catatan}
+Jangan langsung membuat mockup tanpa melalui wireframe terlebih dahulu. Memulai dari wire\-frame memungkinkan eksplorasi berbagai tata letak dengan cepat tanpa investasi waktu pada detail visual. Banyak pemula melakukan kesalahan ini---langsung mendesain mockup yang cantik, lalu harus mengubah seluruh strukturnya karena alur pengguna tidak tepat.
+\end{catatan}

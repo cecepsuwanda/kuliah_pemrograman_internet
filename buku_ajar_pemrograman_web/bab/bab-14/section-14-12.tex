@@ -1,26 +1,27 @@
-\section{Pemantauan Aplikasi di Produksi: Log, Error Tracking, dan Uptime}
+\section{GROUP BY dan HAVING}
 
-Setelah deployment, \textbf{pemantauan} (monitoring) memastikan aplikasi berjalan normal dan masalah terdeteksi cepat. Tiga aspek utama: (1) \textbf{log monitoring} --- periksa error log PHP, access log server, dan slow query log MySQL secara rutin; (2) \textbf{error tracking} --- alat seperti Sentry atau Bugsnag menangkap exception secara real-time dan mengirim notifikasi; (3) \textbf{uptime monitoring} --- layanan seperti UptimeRobot atau Pingdom memeriksa ketersediaan situs secara berkala dan alerting jika down \cite{mdnDeploy}.
+Klausa \code{GROUP BY} mengelompokkan baris yang memiliki nilai sama pada kolom tertentu, lalu fungsi agregat diterapkan pada setiap kelompok. Misalnya, \code{GROUP BY kategori} mengelompokkan produk berdasarkan kategori, dan \code{COUNT(*)} menghitung jumlah produk di setiap kategori. Kolom yang muncul di \code{SELECT} harus berupa kolom yang ada di \code{GROUP BY} atau hasil fungsi agregat --- jika tidak, hasilnya tidak terdefinisi dengan jelas \cite{mysqlDocs}.
 
-\begin{table}[ht]
-\centering
-\begin{tabular}{|P{3cm}|P{4.5cm}|P{5cm}|}
-\hline
-\textbf{Aspek} & \textbf{Alat} & \textbf{Fungsi} \\
-\hline
-Error log PHP & \code{error\_log} di php.ini & Catat error PHP ke file \\
-\hline
-Access log & Apache/Nginx log & Lihat request masuk \\
-\hline
-Slow query & MySQL slow\_query\_log & Deteksi query lambat \\
-\hline
-Error tracking & Sentry, Bugsnag & Tangkap exception real-time \\
-\hline
-Uptime & UptimeRobot, Pingdom & Cek ketersediaan situs \\
-\hline
-APM & New Relic, Datadog & Analisis performa mendalam \\
-\hline
-\end{tabular}
-\caption{Alat pemantauan aplikasi di produksi}
-\end{table}
+\code{HAVING} memfilter hasil setelah pengelompokan, berbeda dengan \code{WHERE} yang memfilter baris sebelum pengelompokan. Gunakan \code{HAVING} untuk kondisi yang melibatkan fungsi agregat. Misalnya, ``tampilkan kategori yang memiliki lebih dari 5 produk'' ditulis: \code{HAVING COUNT(*) > 5}. Urutan eksekusi: FROM $\to$ WHERE $\to$ GROUP BY $\to$ HAVING $\to$ SELECT $\to$ ORDER BY $\to$ LIMIT \cite{mysqlGettingStarted}.
+
+\begin{webcode}[language=SQL, caption={GROUP BY dan HAVING}]
+-- Jumlah produk per kategori
+SELECT kategori, COUNT(*) AS jumlah
+FROM produk
+GROUP BY kategori;
+
+-- Kategori dengan rata-rata harga di atas 100 ribu
+SELECT kategori, AVG(harga) AS rata_harga
+FROM produk
+GROUP BY kategori
+HAVING AVG(harga) > 100000;
+
+-- Kombinasi WHERE + GROUP BY + HAVING + ORDER BY
+SELECT kategori, COUNT(*) AS jumlah, SUM(stok) AS total_stok
+FROM produk
+WHERE aktif = TRUE
+GROUP BY kategori
+HAVING COUNT(*) >= 2
+ORDER BY total_stok DESC;
+\end{webcode}
 

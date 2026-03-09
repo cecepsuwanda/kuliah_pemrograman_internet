@@ -1,28 +1,46 @@
-\section{CI/CD Dasar: Otomasi Build dan Deploy (Konsep)}
+\section{Fungsi Agregat: COUNT, SUM, AVG, MIN, MAX}
 
-\textbf{CI/CD} (\textit{Continuous Integration / Continuous Deployment}) adalah praktik mengotomasi proses build, test, dan deploy setiap kali ada perubahan kode. \textbf{CI} memastikan kode dari berbagai developer diintegrasikan dan diuji secara otomatis. \textbf{CD} mengotomasi deployment ke staging atau produksi setelah semua tes lulus. Alat populer: \textbf{GitHub Actions}, GitLab CI, Jenkins. CI/CD mengurangi human error, mempercepat rilis, dan memberikan kepercayaan bahwa kode yang di-deploy telah teruji \cite{mdnDeploy}.
+\textbf{Fungsi agregat} mengolah sekumpulan baris dan mengembalikan satu nilai ringkasan. Fungsi ini sangat berguna untuk analisis data: menghitung jumlah record, total penjualan, rata-rata harga, nilai minimum, dan maksimum. Fungsi agregat biasanya digunakan bersama \code{GROUP BY} untuk menghasilkan ringkasan per kelompok, namun juga dapat digunakan sendiri untuk ringkasan seluruh tabel \cite{mysqlDocs}.
 
-\begin{figure}[ht]
+\begin{table}[ht]
 \centering
-\begin{tikzpicture}[
-  box/.style={draw, rounded corners, minimum width=1.8cm, minimum height=0.8cm, align=center, font=\footnotesize, fill=#1},
-  arrow/.style={-Stealth, thick},
-  node distance=0.7cm
-]
-  \node[box=blue!15] (push) {Git Push};
-  \node[box=green!15, right=0.7cm of push] (build) {Build};
-  \node[box=orange!15, right=0.7cm of build] (test) {Test};
-  \node[box=yellow!15, right=0.7cm of test] (stage) {Deploy\\Staging};
-  \node[box=red!15, right=0.7cm of stage] (prod) {Deploy\\Prod};
+\begin{tabular}{|P{2.5cm}|P{5cm}|P{5cm}|}
+\hline
+\textbf{Fungsi} & \textbf{Deskripsi} & \textbf{Contoh} \\
+\hline
+\code{COUNT()} & Jumlah baris & \code{COUNT(*)} atau \code{COUNT(kolom)} \\
+\hline
+\code{SUM()} & Total nilai & \code{SUM(harga * stok)} \\
+\hline
+\code{AVG()} & Rata-rata nilai & \code{AVG(harga)} \\
+\hline
+\code{MIN()} & Nilai terkecil & \code{MIN(harga)} \\
+\hline
+\code{MAX()} & Nilai terbesar & \code{MAX(harga)} \\
+\hline
+\end{tabular}
+\caption{Fungsi agregat utama di MySQL}
+\end{table}
 
-  \draw[arrow] (push) -- (build);
-  \draw[arrow] (build) -- (test);
-  \draw[arrow] (test) -- (stage);
-  \draw[arrow] (stage) -- (prod);
+\begin{webcode}[language=SQL, caption={Penggunaan fungsi agregat}]
+-- Jumlah total produk
+SELECT COUNT(*) AS total_produk FROM produk;
 
-  \node[above=0.3cm of build, font=\footnotesize\bfseries, blue!60] {CI};
-  \node[above=0.3cm of stage, font=\footnotesize\bfseries, red!60] {CD};
-\end{tikzpicture}
-\caption{Pipeline CI/CD: push $\to$ build $\to$ test $\to$ deploy}
-\end{figure}
+-- Total nilai inventaris
+SELECT SUM(harga * stok) AS total_inventaris FROM produk;
+
+-- Rata-rata harga produk elektronik
+SELECT AVG(harga) AS rata_harga
+  FROM produk WHERE kategori = 'elektronik';
+
+-- Produk termurah dan termahal
+SELECT MIN(harga) AS termurah, MAX(harga) AS termahal FROM produk;
+
+-- Ringkasan per kategori
+SELECT kategori,
+       COUNT(*) AS jumlah,
+       AVG(harga) AS rata_harga,
+       SUM(stok) AS total_stok
+FROM produk GROUP BY kategori;
+\end{webcode}
 

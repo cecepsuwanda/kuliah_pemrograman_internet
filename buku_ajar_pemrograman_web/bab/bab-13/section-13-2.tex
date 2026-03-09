@@ -1,26 +1,66 @@
-\section{Pengenalan Pengujian (Testing) Aplikasi Web dan Tujuannya}
+\section{Class dan Object: Properti dan Metode}
 
-\textbf{Pengujian} (\textit{testing}) adalah proses sistematis untuk memverifikasi bahwa aplikasi web berfungsi sesuai harapan, bebas bug, dan memenuhi standar kualitas. Pengujian bukan langkah terakhir --- idealnya diintegrasikan di setiap tahap pengembangan (\textit{shift-left testing}). Tanpa pengujian, bug ditemukan oleh pengguna di produksi, yang jauh lebih mahal untuk diperbaiki dibandingkan saat pengembangan \cite{mdnToolsTesting}.
+Dalam OOP PHP, \textbf{class} adalah cetak biru yang mendefinisikan struktur data (\textbf{properti}) dan perilaku (\textbf{metode}) untuk suatu entitas. Class dideklarasikan dengan kata kunci \code{class} diikuti nama class yang mengikuti konvensi PascalCase, lalu blok kode dalam kurung kurawal. Properti adalah variabel yang dideklarasikan di dalam class menggunakan kata kunci visibility (\code{public}, \code{protected}, atau \code{private}), sedangkan metode adalah fungsi yang didefinisikan di dalam class dan dapat mengakses properti melalui kata kunci \code{\$this}. Sebuah \textbf{object} adalah instance dari class yang dibuat menggunakan operator \code{new} \cite{phpManual}.
 
-Tujuan pengujian meliputi: (1) \textbf{verifikasi fungsionalitas} --- memastikan fitur bekerja sesuai spesifikasi; (2) \textbf{deteksi bug} --- menemukan kesalahan sebelum deployment; (3) \textbf{keamanan} --- memastikan tidak ada celah keamanan; (4) \textbf{performa} --- memastikan aplikasi cepat dan responsif; (5) \textbf{kompatibilitas} --- memastikan berjalan di berbagai browser dan perangkat. Pengujian yang baik memberikan kepercayaan untuk melakukan perubahan dan refactoring tanpa merusak fitur yang ada \cite{mdnToolsTesting}.
+Properti menyimpan data atau \textit{state} dari sebuah object. Misalnya, class \code{Mahasiswa} memiliki properti \code{\$nama}, \code{\$nim}, dan \code{\$jurusan} yang menyimpan informasi tentang mahasiswa tertentu. Properti dapat memiliki tipe data eksplisit sejak PHP 7.4 (\textit{typed properties}), misalnya \code{public string \$nama} atau \code{private int \$umur}. Nilai default juga dapat diberikan saat deklarasi. Tanpa inisialisasi, properti bertipe akan menghasilkan error jika diakses sebelum di-set \cite{phpRightWay}.
 
-\begin{table}[ht]
+Metode mendefinisikan perilaku atau aksi yang dapat dilakukan oleh object. Metode dapat menerima parameter, mengembalikan nilai, dan mengakses properti object menggunakan \code{\$this->namaProperti}. Kata kunci \code{\$this} merujuk ke object saat ini yang memanggil metode tersebut. Metode juga dapat memanggil metode lain dalam class yang sama menggunakan \code{\$this->namaMetode()}. Sejak PHP 7, tipe kembalian (\textit{return type}) dapat dideklarasikan setelah tanda titik dua, misalnya \code{public function getNama(): string} \cite{phpManual}.
+
+\begin{webcode}[language=PHP, caption={Deklarasi class Mahasiswa dengan properti dan metode}]
+<?php
+class Mahasiswa {
+  public string $nama;
+  public string $nim;
+  private string $jurusan;
+
+  public function __construct(string $nama, string $nim, string $jurusan) {
+    $this->nama    = $nama;
+    $this->nim     = $nim;
+    $this->jurusan = $jurusan;
+  }
+
+  public function getJurusan(): string {
+    return $this->jurusan;
+  }
+
+  public function profil(): string {
+    return "Nama: {$this->nama}, NIM: {$this->nim}, "
+         . "Jurusan: {$this->jurusan}";
+  }
+}
+
+$mhs = new Mahasiswa("Budi Santoso", "2024001", "Teknik Informatika");
+echo $mhs->profil();
+// Output: Nama: Budi Santoso, NIM: 2024001, Jurusan: Teknik Informatika
+echo $mhs->nama;         // OK - public
+// echo $mhs->jurusan;   // Error - private
+echo $mhs->getJurusan(); // OK - via getter
+?>
+\end{webcode}
+
+Berikut adalah representasi visual class \code{Mahasiswa} dalam format diagram class UML. Diagram ini menunjukkan nama class di bagian atas, properti di tengah, dan metode di bawah. Tanda \code{+} berarti public, \code{-} berarti private.
+
+\begin{figure}[ht]
 \centering
-\begin{tabular}{|P{3cm}|P{4.5cm}|P{5cm}|}
-\hline
-\textbf{Tujuan} & \textbf{Deskripsi} & \textbf{Contoh} \\
-\hline
-Verifikasi & Fitur sesuai spesifikasi & Form registrasi menyimpan data \\
-\hline
-Deteksi bug & Temukan error sebelum rilis & Tombol submit tidak merespons \\
-\hline
-Keamanan & Tidak ada celah serangan & SQL injection via form login \\
-\hline
-Performa & Aplikasi cepat dan responsif & Halaman load $<$ 3 detik \\
-\hline
-Kompatibilitas & Berjalan di semua browser & Layout benar di Chrome/Firefox \\
-\hline
-\end{tabular}
-\caption{Tujuan utama pengujian aplikasi web}
-\end{table}
+\begin{tikzpicture}
+  \node[draw, rectangle, minimum width=6cm, font=\bfseries] (classname) {Mahasiswa};
+  \node[draw, rectangle, minimum width=6cm, below=0pt of classname, align=left, font=\small\ttfamily] (props) {
+    + nama : string\\
+    + nim : string\\
+    -- jurusan : string
+  };
+  \node[draw, rectangle, minimum width=6cm, below=0pt of props, align=left, font=\small\ttfamily] (methods) {
+    + \_\_construct(nama, nim, jurusan)\\
+    + getJurusan() : string\\
+    + profil() : string
+  };
+\end{tikzpicture}
+\caption{Diagram class UML untuk class Mahasiswa}
+\end{figure}
+
+\begin{contoh}
+Saat membuat object \code{\$mhs = new Mahasiswa("Budi", "2024001", "TI")}, PHP mengalokasikan memori untuk object baru, menyalin cetak biru dari class Mahasiswa, lalu menjalankan constructor untuk menginisialisasi properti. Setiap object bersifat independen --- perubahan pada satu object tidak mempengaruhi object lain dari class yang sama.
+\end{contoh}
+
+Object dapat disimpan dalam array, dikirim sebagai parameter fungsi, dan dikembalikan dari fungsi. Ini membuat OOP sangat fleksibel untuk memodelkan koleksi data. Misalnya, daftar mahasiswa dapat direpresentasikan sebagai array of objects: \code{\$daftar = [new Mahasiswa(...), new Mahasiswa(...)]}. Kemudian, loop \code{foreach} dapat digunakan untuk iterasi dan memanggil metode pada setiap object. Pendekatan ini jauh lebih terstruktur daripada menggunakan array asosiatif biasa \cite{phpRightWay}.
 

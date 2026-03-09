@@ -1,51 +1,72 @@
-\section[Operator Perbandingan dan Logika dalam WHERE]{Operator Perbandingan dan Logika dalam WHERE}
+\section{String: Literal, Escape, Konkatenasi, dan Fungsi String Dasar}
 
-Klausa \code{WHERE} menggunakan \textbf{operator} untuk mendefinisikan kondisi penyaringan. Operator perbandingan membandingkan nilai kolom dengan nilai tertentu, sedangkan operator logika menggabungkan beberapa kondisi. Pemahaman operator ini penting karena hampir setiap query SELECT, UPDATE, dan DELETE menggunakan WHERE untuk menentukan baris mana yang terpengaruh \cite{mysqlDocs}.
+String adalah tipe data yang merepresentasikan teks dan merupakan salah satu tipe yang paling sering digunakan dalam pemrograman web. Di PHP, string dapat ditulis dengan dua cara utama: menggunakan \textbf{kutip tunggal} (\code{'...'}) atau \textbf{kutip ganda} (\code{"..."}). Perbedaan utamanya terletak pada interpretasi: kutip ganda menginterpretasikan escape sequence (seperti \code{\textbackslash n} untuk baris baru, \code{\textbackslash t} untuk tab) dan variabel di dalam string, sedangkan kutip tunggal hanya mengenali \code{\textbackslash\textbackslash} (backslash literal) dan \code{\textbackslash'} (kutip tunggal literal) \cite{phpManual}.
+
+Selain kutip tunggal dan ganda, PHP juga mendukung sintaks \textbf{heredoc} dan \textbf{nowdoc} untuk string multi-baris yang panjang. Heredoc (diawali \code{<<<LABEL}) berperilaku seperti kutip ganda (menginterpretasikan variabel dan escape), sedangkan nowdoc (diawali \code{<<<'LABEL'}) berperilaku seperti kutip tunggal. Keduanya sangat berguna untuk menulis blok HTML atau teks panjang tanpa harus meng-escape kutip \cite{phpManual}.
+
+\begin{webcode}[language=PHP, caption={Jenis-jenis string di PHP}]
+<?php
+$nama = "Ani";
+
+// Kutip ganda: interpretasi variabel dan escape
+$pesan1 = "Halo, $nama!\nSelamat belajar PHP.";
+
+// Kutip tunggal: literal, tanpa interpretasi
+$pesan2 = 'Halo, $nama!\nIni tidak diinterpretasi.';
+
+// Heredoc: seperti kutip ganda, multi-baris
+$html = <<<HTML
+<div class="card">
+  <h2>Profil $nama</h2>
+  <p>Selamat datang.</p>
+</div>
+HTML;
+
+// Nowdoc: seperti kutip tunggal, multi-baris
+$template = <<<'EOT'
+Variabel $nama tidak diinterpretasi di sini.
+\n juga tidak menjadi baris baru.
+EOT;
+?>
+\end{webcode}
+
+\textbf{Konkatenasi} (penggabungan) string dilakukan dengan operator titik (\code{.}). Operator \code{.=} menggabungkan dan mengassign sekaligus. Dalam PHP, string dan angka dapat digabungkan secara langsung karena PHP akan mengonversi angka menjadi string secara otomatis.
+
+PHP menyediakan puluhan fungsi bawaan untuk memanipulasi string. Berikut adalah fungsi-fungsi string yang paling sering digunakan dalam pengembangan web sehari-hari.
 
 \begin{table}[ht]
 \centering
-\begin{tabular}{|P{2.5cm}|P{5cm}|P{5cm}|}
+\begin{tabular}{|P{3.5cm}|P{4.5cm}|P{4cm}|}
 \hline
-\textbf{Operator} & \textbf{Fungsi} & \textbf{Contoh} \\
+\textbf{Fungsi} & \textbf{Kegunaan} & \textbf{Contoh} \\
 \hline
-\code{=} & Sama dengan & \code{WHERE status = 'aktif'} \\
+\code{strlen(\$s)} & Panjang string & \code{strlen("PHP")} $\rightarrow$ \code{3} \\
 \hline
-\code{<>} atau \code{!=} & Tidak sama dengan & \code{WHERE id <> 5} \\
+\code{strtoupper(\$s)} & Huruf besar semua & \code{strtoupper("php")} $\rightarrow$ \code{"PHP"} \\
 \hline
-\code{<}, \code{>} & Kurang / lebih dari & \code{WHERE harga > 10000} \\
+\code{strtolower(\$s)} & Huruf kecil semua & \code{strtolower("PHP")} $\rightarrow$ \code{"php"} \\
 \hline
-\code{BETWEEN} & Dalam rentang & \code{WHERE umur BETWEEN 18 AND 25} \\
+\code{trim(\$s)} & Hapus spasi awal/akhir & \code{trim("  hi  ")} $\rightarrow$ \code{"hi"} \\
 \hline
-\code{IN} & Dalam daftar nilai & \code{WHERE kota IN ('Jakarta','Bandung')} \\
+\code{substr(\$s, i, n)} & Ambil substring & \code{substr("Hello", 1, 3)} $\rightarrow$ \code{"ell"} \\
 \hline
-\code{LIKE} & Pencocokan pola & \code{WHERE nama LIKE 'A\%'} \\
+\code{strpos(\$s, \$q)} & Cari posisi substring & \code{strpos("Halo", "lo")} $\rightarrow$ \code{2} \\
 \hline
-\code{IS NULL} & Bernilai NULL & \code{WHERE email IS NULL} \\
+\code{str\_replace(a, b, s)} & Ganti substring & \code{str\_replace("X", "Y", "AXB")} $\rightarrow$ \code{"AYB"} \\
 \hline
-\code{AND} & Semua kondisi benar & \code{WHERE a > 5 AND b < 10} \\
+\code{explode(d, s)} & Pecah string $\rightarrow$ array & \code{explode(",", "a,b")} $\rightarrow$ \code{["a","b"]} \\
 \hline
-\code{OR} & Salah satu benar & \code{WHERE a = 1 OR b = 2} \\
+\code{implode(d, a)} & Gabung array $\rightarrow$ string & \code{implode("-", [1,2])} $\rightarrow$ \code{"1-2"} \\
 \hline
-\code{NOT} & Negasi kondisi & \code{WHERE NOT status = 'draft'} \\
+\code{htmlspecialchars(\$s)} & Escape karakter HTML & Mencegah XSS \\
 \hline
 \end{tabular}
-\caption{Operator perbandingan dan logika dalam SQL}
+\caption{Fungsi string PHP yang sering digunakan}
 \end{table}
 
-\begin{webcode}[language=SQL, caption={Penggunaan operator dalam WHERE}]
--- Kombinasi AND dan OR (gunakan kurung untuk prioritas)
-SELECT * FROM produk
-  WHERE (kategori = 'elektronik' OR kategori = 'pakaian')
-  AND harga < 500000
-  AND stok > 0;
+Fungsi \code{htmlspecialchars()} mendapat perhatian khusus karena perannya yang krusial dalam keamanan web. Fungsi ini mengonversi karakter-karakter khusus HTML (seperti \code{<}, \code{>}, \code{\&}, \code{"}, \code{'}) menjadi entitas HTML yang aman. Ini mencegah serangan \textit{Cross-Site Scripting} (XSS) di mana penyerang menyuntikkan kode JavaScript melalui input pengguna. Selalu gunakan \code{htmlspecialchars()} saat menampilkan data dari pengguna ke halaman web \cite{owaspXss}.
 
--- NOT IN
-SELECT * FROM produk WHERE kategori NOT IN ('makanan');
-
--- LIKE dengan wildcard
-SELECT * FROM pengguna WHERE email LIKE '%@gmail.com';
-
--- IS NOT NULL
-SELECT * FROM produk WHERE deskripsi IS NOT NULL;
-\end{webcode}
+\begin{konsep}
+\textbf{Kapan Memilih Kutip Tunggal vs Ganda?} Gunakan kutip tunggal untuk string statis (tanpa variabel atau escape) karena sedikit lebih cepat. Gunakan kutip ganda saat Anda perlu menyisipkan variabel atau karakter escape di dalam string. Gunakan heredoc/nowdoc untuk blok teks multi-baris yang panjang.
+\end{konsep}
 

@@ -1,31 +1,47 @@
-\section{DOM: Traversing, Membuat Node, dan Menghapus Elemen}
+\section{Perulangan: for, while, do...while, break, continue}
 
-\textbf{DOM traversing} memungkinkan navigasi dari satu elemen ke elemen lain melalui hubungan parent-child-sibling. Properti traversing: \code{parentElement} (naik ke parent), \code{children} (turun ke anak-anak elemen), \code{firstElementChild}, \code{lastElementChild}, \code{nextElementSibling}, \code{previousElementSibling}. Versi tanpa ``Element'' (\code{childNodes}, \code{firstChild}) juga menyertakan text nodes dan komentar \cite{jsInfo}.
+Perulangan mengeksekusi blok kode berulang kali selama kondisi terpenuhi. JavaScript menyediakan tiga jenis loop utama: \code{for} (dengan counter eksplisit), \code{while} (kondisi diperiksa sebelum eksekusi), dan \code{do...while} (kondisi diperiksa setelah eksekusi---minimal satu kali jalan). \code{for...of} (ES6) adalah cara modern untuk iterasi elemen array \cite{jsInfo}.
+
+\begin{webcode}[language=JavaScript, caption={Tiga jenis perulangan dan for...of}]
+// for: ketika jumlah iterasi diketahui
+for (let i = 0; i < 5; i++) {
+  console.log(i); // 0, 1, 2, 3, 4
+}
+
+// while: ketika kondisi berhenti belum pasti
+let input = "";
+while (input !== "quit") {
+  input = prompt("Ketik 'quit' untuk keluar");
+}
+
+// for...of: iterasi elemen array (ES6)
+const fruits = ["apel", "jeruk", "mangga"];
+for (const fruit of fruits) {
+  console.log(fruit);
+}
+\end{webcode}
 
 \begin{table}[htbp]
 \centering
-\small
-\begin{tabular}{|P{4.2cm}|P{3.2cm}|P{2.6cm}|}
+\begin{tabular}{|P{2.5cm}|P{4.5cm}|P{5cm}|}
 \hline
-\textbf{Operasi} & \textbf{Metode} & \textbf{Catatan} \\
+\textbf{Loop} & \textbf{Kapan Digunakan} & \textbf{Catatan} \\
 \hline
-Buat elemen & \raggedright\code{document.}\linebreak[0]\code{createElement(tag)} & Belum ada di DOM \\
+\code{for} & Jumlah iterasi diketahui & Counter \code{i} eksplisit \\
 \hline
-Isi teks & \code{el.textContent = "..."} & Aman dari XSS \\
+\code{while} & Kondisi berhenti dinamis & Cek sebelum eksekusi \\
 \hline
-Tambah anak & \raggedright\code{parent.}\linebreak[0]\code{appendChild(el)} & Di akhir parent \\
+\code{do...while} & Minimal 1x eksekusi & Cek setelah eksekusi \\
 \hline
-Sisip sebelum & \raggedright\code{parent.}\linebreak[0]\code{insertBefore(el, ref)} & Sebelum elemen ref \\
+\code{for...of} & Iterasi elemen iterable & Array, string, Map, Set \\
 \hline
-Hapus elemen & \code{el.remove()} & Hapus dari DOM \\
-\hline
-Clone & \code{el.cloneNode(true)} & deep clone \\
+\code{for...in} & Iterasi key objek & Hindari untuk array \\
 \hline
 \end{tabular}
-\caption{Operasi DOM untuk membuat dan menghapus elemen}
+\caption{Jenis perulangan JavaScript dan kapan menggunakannya}
 \end{table}
 
 \begin{catatan}
-\textbf{Minimalisir Manipulasi DOM.} Setiap perubahan DOM memicu layout recalculation oleh browser (reflow). Untuk menambah banyak elemen, kumpulkan di \code{DocumentFragment} terlebih dahulu lalu tambahkan sekali: \code{const frag = document.createDocumentFragment(); frag.appendChild(el1); frag.appendChild(el2); parent.appendChild(frag);}. Ini jauh lebih efisien daripada \code{appendChild()} berulang \cite{mdnJsGuide}.
+\textbf{break dan continue.} \code{break} menghentikan loop sepenuhnya; \code{continue} melewati iterasi saat ini dan lanjut ke iterasi berikutnya. Keduanya berguna untuk mengoptimalkan loop: \code{break} ketika target sudah ditemukan, \code{continue} untuk melewati elemen yang tidak memenuhi syarat. Hindari loop tak terbatas (infinite loop)---pastikan kondisi \code{while} atau counter \code{for} pasti akan terpenuhi \cite{mdnJsGuide}.
 \end{catatan}
 

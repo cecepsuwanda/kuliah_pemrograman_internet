@@ -1,86 +1,131 @@
-\section{Struktur Dokumen HTML5}
+\section{Aksesibilitas Web: WCAG, HTML Semantik, dan ARIA}
 
-Setiap dokumen HTML5 mengikuti struktur standar yang harus dipahami oleh pengembang web agar browser dapat menginterpretasikan dan menampilkan konten dengan benar. Struktur ini dimulai dengan deklarasi doctype yang memberitahu browser versi HTML yang digunakan. Untuk HTML5, deklarasi ini sangat sederhana: \code{<!DOCTYPE html>}. Deklarasi ini bersifat case-insensitive namun konvensi umum menuliskannya dengan huruf besar. Tanpa deklarasi doctype yang benar, browser mungkin akan beralih ke \textit{quirks mode} yang dapat menyebabkan inkonsistensi dalam rendering CSS dan perilaku JavaScript \cite{whatwgHtml}.
+\textbf{Aksesibilitas web} (sering disingkat \textbf{a11y}---a, 11 huruf, y) adalah praktik merancang dan membangun situs web yang dapat digunakan oleh \textbf{semua orang}, termasuk pengguna dengan disabilitas: tunanetra, tuli, gangguan motorik, dan gangguan kognitif. Aksesibilitas bukan sekadar ``fitur tambahan'' atau ``nice to have''---melainkan prasyarat etis dan sering kali legal untuk produk digital publik. Secara bisnis, situs yang aksesibel menjangkau audiens yang lebih luas dan cenderung memiliki SEO yang lebih baik \cite{mdnAccessibility}.
 
-Setelah deklarasi doctype, elemen root \code{<html>} membungkus seluruh konten dokumen. Atribut \code{lang} pada elemen \code{<html>} sangat penting untuk aksesibilitas dan SEO karena memberitahu browser dan mesin pencari bahasa utama konten halaman. Untuk konten berbahasa Indonesia, gunakan \code{<html lang="id">}. Di dalam elemen \code{<html>}, dokumen terbagi menjadi dua bagian utama: \code{<head>} dan \code{<body>}. Bagian \code{<head>} berisi metadata dokumen - informasi tentang halaman itu sendiri yang tidak ditampilkan langsung kepada pengguna, seperti judul, karakter encoding, deskripsi, dan link ke resource eksternal. Bagian \code{<body>} berisi semua konten yang akan terlihat oleh pengguna: teks, gambar, link, form, dan elemen interaktif lainnya \cite{mdnHtmlIntro}.
+Di Indonesia, populasi penyandang disabilitas mencapai sekitar 8\% dari total penduduk. Secara global, sekitar 15\% populasi dunia mengalami beberapa bentuk disabilitas. Membuat web yang aksesibel berarti membuka akses informasi dan layanan bagi jutaan orang yang selama ini mungkin terpinggirkan. Prinsip aksesibilitas juga bermanfaat bagi pengguna tanpa disabilitas---misalnya caption pada video membantu pengguna di lingkungan bising \cite{webdevAccessibility}.
 
-Struktur hierarki dokumen HTML dapat divisualisasikan sebagai pohon (tree) dengan elemen \code{<html>} sebagai akar (root). Setiap elemen di dalamnya menjadi cabang dengan anak-anak (children) yang lebih spesifik. Memahami struktur pohon ini sangat penting karena CSS selectors dan JavaScript DOM manipulation bekerja berdasarkan hubungan hierarki ini - konsep parent, child, sibling, dan ancestor. Semantik yang benar dalam struktur dokumen juga membantu mesin pencari memahami hierarki informasi dan meningkatkan aksesibilitas bagi pengguna yang mengandalkan teknologi bantu seperti pembaca layar.
+\subsection{Prinsip POUR (WCAG)}
 
-\begin{figure}[htbp]
+\textbf{WCAG} (Web Content Accessibility Guidelines) adalah standar internasional untuk aksesibilitas web yang dikembangkan oleh W3C WAI (Web Accessibility Initiative). WCAG versi 2.1 (dan draft 2.2) diorganisasikan berdasarkan empat prinsip yang disingkat \textbf{POUR} \cite{wcagW3c}:
+
+\begin{table}[htbp]
 \centering
-\begin{tikzpicture}[
-  node distance=1.2cm,
-  every node/.style={font=\small},
-  box/.style={rectangle, draw, minimum width=2.5cm, minimum height=0.6cm, align=center, fill=gray!10},
-  child box/.style={rectangle, draw, minimum width=2.2cm, minimum height=0.5cm, align=center, fill=white}
-]
+\begin{tabular}{|P{2.8cm}|P{4cm}|P{5.5cm}|}
+\hline
+\textbf{Prinsip} & \textbf{Arti} & \textbf{Contoh Implementasi} \\
+\hline
+\textbf{P}erceivable & Konten dapat dipersepsi oleh semua indera & Teks alternatif pada gambar, caption pada video, kontras warna cukup \\
+\hline
+\textbf{O}perable & Antarmuka dapat dioperasikan & Navigasi keyboard, target sentuh cukup besar, tidak ada konten yang menyebabkan kejang \\
+\hline
+\textbf{U}nderstandable & Konten dan operasi dapat dipahami & Bahasa jelas, formulir dengan label yang tepat, pesan error yang bermakna \\
+\hline
+\textbf{R}obust & Konten dapat diakses teknologi assistif & HTML valid, kompatibel dengan screen reader, ARIA yang tepat \\
+\hline
+\end{tabular}
+\caption{Empat prinsip aksesibilitas WCAG (POUR)}
+\end{table}
 
-\node[box] (html) {\code{<html>} \\ Root};
+\subsection{HTML Semantik untuk Aksesibilitas}
 
-\node[box, below left=1.5cm and 0.5cm of html] (head) {\code{<head>} \\ Metadata};
-\node[box, below right=1.5cm and 0.5cm of html] (body) {\code{<body>} \\ Konten};
+\textbf{HTML semantik} adalah penggunaan elemen HTML sesuai \textit{makna} kontennya, bukan sekadar tampilannya. Elemen semantik memberikan informasi struktur kepada browser dan \textbf{teknologi assistif} (seperti screen reader) sehingga konten dapat diinterpretasikan dengan benar. Misalnya, menggunakan \code{<nav>} untuk navigasi, \code{<main>} untuk konten utama, \code{<header>} dan \code{<footer>} untuk bagian atas dan bawah halaman \cite{mdnHtmlIntro}.
 
-\node[child box, below=0.8cm of head] (title) {\code{<title>}};
-\node[child box, left=0.1cm of title] (meta) {\code{<meta>}};
-\node[child box, right=0.1cm of title] (link) {\code{<link>}};
-
-\node[child box, below=0.8cm of body] (h1) {\code{<h1>}};
-\node[child box, left=0.1cm of h1] (nav) {\code{<nav>}};
-\node[child box, right=0.1cm of h1] (main) {\code{<main>}};
-\node[child box, below=0.5cm of main] (p) {\code{<p>}};
-\node[child box, below=0.5cm of nav] (ul) {\code{<ul>} \\ ...};
-
-\draw[->] (html) -- (head);
-\draw[->] (html) -- (body);
-\draw[->] (head) -- (meta);
-\draw[->] (head) -- (title);
-\draw[->] (head) -- (link);
-\draw[->] (body) -- (nav);
-\draw[->] (body) -- (h1);
-\draw[->] (body) -- (main);
-\draw[->] (main) -- (p);
-\draw[->] (nav) -- (ul);
-
-\end{tikzpicture}
-\caption{Struktur Hierarki Pohon Dokumen HTML5}
-\label{fig:html-tree}
-\end{figure}
-
-\begin{webcode}[language=HTML, caption={Struktur Dokumen HTML5 Minimal yang Valid}]
+\begin{webcode}[language=HTML, caption={Struktur HTML semantik yang aksesibel}]
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Deskripsi halaman untuk SEO" />
-    <title>Judul Halaman - Nama Situs</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  </head>
-  <body>
-    <header>
-      <h1>Selamat Datang</h1>
-    </header>
-    <main>
-      <p>Ini adalah konten utama halaman.</p>
-    </main>
-    <footer>
-      <p>&copy; 2026 Nama Situs</p>
-    </footer>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <title>Aplikasi Catatan Harian</title>
+</head>
+<body>
+  <header>
+    <h1>Catatan Harian</h1>
+    <nav aria-label="Navigasi utama">
+      <ul>
+        <li><a href="/">Beranda</a></li>
+        <li><a href="/catatan">Catatan Saya</a></li>
+        <li><a href="/profil">Profil</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <main>
+    <h2>Daftar Catatan</h2>
+    <article>
+      <h3>Catatan Pertama</h3>
+      <p>Isi catatan...</p>
+      <time datetime="2026-03-01">1 Maret 2026</time>
+    </article>
+  </main>
+  
+  <footer>
+    <p>&copy; 2026 Catatan Harian App</p>
+  </footer>
+</body>
 </html>
 \end{webcode}
 
-\begin{konsep}
-\textbf{Komponen Wajib dalam Dokumen HTML5:}
-\begin{enumerate}[leftmargin=*]
-  \item \textbf{DOCTYPE:} \code{<!DOCTYPE html>} - Deklarasi versi HTML.
-  \item \textbf{HTML Root:} \code{<html lang="id">} - Elemen root dengan bahasa.
-  \item \textbf{Head:} \code{<head>} - Berisi metadata dan resource.
-  \item \textbf{Charset:} \code{<meta charset="UTF-8">} - Encoding karakter.
-  \item \textbf{Viewport:} \code{<meta name="viewport">} - Responsif di mobile.
-  \item \textbf{Title:} \code{<title>} - Judul yang muncul di tab browser.
-  \item \textbf{Body:} \code{<body>} - Berisi semua konten yang terlihat.
-\end{enumerate}
-\end{konsep}
+\subsection{ARIA (Accessible Rich Internet Applications)}
 
+\textbf{ARIA} (Accessible Rich Internet Applications) adalah seperangkat atribut HTML tambahan yang memberikan informasi aksesibilitas untuk komponen yang tidak memiliki padanan semantik bawaan di HTML. ARIA digunakan ketika elemen HTML standar tidak cukup untuk menyampaikan peran, status, atau properti komponen kepada teknologi assistif---misalnya untuk tab, modal, dropdown custom, atau live region \cite{mdnAccessibility}.
+
+Aturan utama ARIA: \textbf{``Jangan gunakan ARIA jika HTML semantik sudah cukup.''} ARIA hanya diperlukan untuk komponen interaktif kustom yang dibangun dari elemen non-semantik. Penggunaan ARIA yang salah justru bisa mengurangi aksesibilitas.
+
+\begin{webcode}[language=HTML, caption={Contoh penggunaan ARIA pada form login aksesibel}]
+<form>
+  <div>
+    <label for="email">Alamat Email</label>
+    <input type="email" id="email" name="email" 
+           required
+           aria-describedby="email-help email-error"
+           aria-invalid="false">
+    <span id="email-help">Contoh: nama@email.com</span>
+    <span id="email-error" role="alert" 
+          aria-live="assertive"></span>
+  </div>
+  
+  <div>
+    <label for="password">Kata Sandi</label>
+    <input type="password" id="password" name="password"
+           required
+           aria-describedby="pwd-req">
+    <span id="pwd-req">Minimal 8 karakter</span>
+  </div>
+  
+  <button type="submit">Masuk</button>
+</form>
+\end{webcode}
+
+\subsection{Studi Kasus: Meningkatkan Aksesibilitas Form Login}
+
+\begin{contoh}
+\textbf{Studi Kasus: Before vs After Aksesibilitas Form}
+
+\textbf{Masalah (Before):}
+\begin{itemize}
+  \item Form menggunakan placeholder sebagai pengganti label---hilang saat pengguna mulai mengetik
+  \item Tidak ada \code{aria-describedby} untuk pesan error atau bantuan
+  \item Kontras warna placeholder hanya 2.1:1 (di bawah standar WCAG 4.5:1)
+  \item Tombol ``Login'' tidak dapat diakses dengan keyboard Tab
+  \item Pesan error muncul tanpa \code{role="alert"}, sehingga tidak dibacakan screen reader
+\end{itemize}
+
+\textbf{Perbaikan (After):}
+\begin{itemize}
+  \item Setiap input memiliki \code{<label>} yang terlihat dan terhubung via \code{for/id}
+  \item Pesan bantuan dan error dihubungkan dengan \code{aria-describedby}
+  \item Kontras teks ditingkatkan menjadi 7:1 (level AAA)
+  \item Semua elemen interaktif dapat diakses via keyboard dengan fokus visible
+  \item Pesan error menggunakan \code{role="alert"} dan \code{aria-live="assertive"}
+\end{itemize}
+
+\textbf{Dampak:} Screen reader (NVDA, JAWS) kini membacakan label, bantuan, dan pesan error dengan benar. Pengguna keyboard dapat menavigasi seluruh form. Pengguna low vision dapat membaca semua teks.
+\end{contoh}
+
+\subsection{Audit Aksesibilitas}
+
+Audit aksesibilitas adalah proses evaluasi situs web terhadap standar WCAG. Audit dapat dilakukan secara otomatis menggunakan alat seperti \textbf{Lighthouse} (built-in di Chrome DevTools), \textbf{axe DevTools}, atau \textbf{WAVE}, serta secara manual (navigasi keyboard, pengujian dengan screen reader). Hasil audit otomatis biasanya hanya mendeteksi sekitar 30--50\% masalah---sisanya memerlukan pengujian manual \cite{mdnToolsTesting}.
+
+\begin{catatan}
+Audit aksesibilitas otomatis (Lighthouse, axe) adalah langkah awal yang bagus, tetapi bukan satu-satunya evaluasi. Banyak masalah aksesibilitas yang hanya dapat ditemukan melalui pengujian manual---misalnya apakah urutan fokus logis, apakah konten video memiliki caption yang akurat, atau apakah screen reader membacakan konten dalam urutan yang bermakna. Idealnya, sertakan pengguna penyandang disabilitas dalam pengujian.
+\end{catatan}

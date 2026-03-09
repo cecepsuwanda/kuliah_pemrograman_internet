@@ -1,47 +1,36 @@
-\section{Perulangan: for, while, do...while, break, continue}
+\section{Mobile-First dan Breakpoint}
 
-Perulangan mengeksekusi blok kode berulang kali selama kondisi terpenuhi. JavaScript menyediakan tiga jenis loop utama: \code{for} (dengan counter eksplisit), \code{while} (kondisi diperiksa sebelum eksekusi), dan \code{do...while} (kondisi diperiksa setelah eksekusi---minimal satu kali jalan). \code{for...of} (ES6) adalah cara modern untuk iterasi elemen array \cite{jsInfo}.
+Pendekatan \textbf{mobile-first} menulis CSS dasar untuk layar kecil terlebih dahulu, kemudian menambahkan aturan untuk layar lebih besar menggunakan \code{@media (min-width: ...)}. Ini adalah kebalikan dari pendekatan desktop-first yang menggunakan \code{max-width}. Mobile-first menghasilkan CSS yang lebih ringan karena mobile hanya memuat aturan dasar, sementara aturan tambahan hanya ditambahkan untuk layar yang lebih besar \cite{webdevCss}.
 
-\begin{webcode}[language=JavaScript, caption={Tiga jenis perulangan dan for...of}]
-// for: ketika jumlah iterasi diketahui
-for (let i = 0; i < 5; i++) {
-  console.log(i); // 0, 1, 2, 3, 4
+Breakpoint adalah titik lebar viewport di mana layout berubah. Breakpoint umum: 480px (mobile), 768px (tablet), 1024px (desktop kecil), 1200px (desktop besar). Namun, breakpoint sebaiknya dipilih berdasarkan kapan konten membutuhkan penyesuaian, bukan berdasarkan perangkat tertentu. Dengan Flexbox/Grid yang responsif secara alamiah, jumlah breakpoint yang diperlukan sering lebih sedikit dari yang diperkirakan \cite{mdnCss}.
+
+\begin{webcode}[language=CSS, caption={Pendekatan mobile-first}]
+/* Mobile (base) */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1rem;
 }
 
-// while: ketika kondisi berhenti belum pasti
-let input = "";
-while (input !== "quit") {
-  input = prompt("Ketik 'quit' untuk keluar");
+/* Tablet ke atas */
+@media (min-width: 768px) {
+  .card-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-// for...of: iterasi elemen array (ES6)
-const fruits = ["apel", "jeruk", "mangga"];
-for (const fruit of fruits) {
-  console.log(fruit);
+/* Desktop ke atas */
+@media (min-width: 1024px) {
+  .card-grid { grid-template-columns: repeat(3, 1fr); }
+  .sidebar { display: block; width: 250px; }
 }
 \end{webcode}
 
-\begin{table}[htbp]
-\centering
-\begin{tabular}{|P{2.5cm}|P{4.5cm}|P{5cm}|}
-\hline
-\textbf{Loop} & \textbf{Kapan Digunakan} & \textbf{Catatan} \\
-\hline
-\code{for} & Jumlah iterasi diketahui & Counter \code{i} eksplisit \\
-\hline
-\code{while} & Kondisi berhenti dinamis & Cek sebelum eksekusi \\
-\hline
-\code{do...while} & Minimal 1x eksekusi & Cek setelah eksekusi \\
-\hline
-\code{for...of} & Iterasi elemen iterable & Array, string, Map, Set \\
-\hline
-\code{for...in} & Iterasi key objek & Hindari untuk array \\
-\hline
-\end{tabular}
-\caption{Jenis perulangan JavaScript dan kapan menggunakannya}
-\end{table}
-
-\begin{catatan}
-\textbf{break dan continue.} \code{break} menghentikan loop sepenuhnya; \code{continue} melewati iterasi saat ini dan lanjut ke iterasi berikutnya. Keduanya berguna untuk mengoptimalkan loop: \code{break} ketika target sudah ditemukan, \code{continue} untuk melewati elemen yang tidak memenuhi syarat. Hindari loop tak terbatas (infinite loop)---pastikan kondisi \code{while} atau counter \code{for} pasti akan terpenuhi \cite{mdnJsGuide}.
-\end{catatan}
+\begin{konsep}
+\textbf{Mobile-First vs Desktop-First:}
+\begin{itemize}
+  \item \textbf{Mobile-first} (\code{min-width}): CSS base untuk mobile, lalu tambah fitur di layar besar. Lebih ringan di mobile; direkomendasikan.
+  \item \textbf{Desktop-first} (\code{max-width}): CSS base untuk desktop, lalu kurangi fitur di layar kecil. Lebih intuitif saat mendesain dari mockup desktop, tapi menghasilkan CSS lebih berat di mobile.
+  \item Kedua pendekatan bisa dicampur, tetapi konsistensi meningkatkan maintainability \cite{cssTricks}.
+\end{itemize}
+\end{konsep}
 

@@ -1,0 +1,38 @@
+\section{Prepared Statement dan Parameterized Query: Mencegah SQL Injection}
+
+\textbf{SQL injection} adalah serangan paling berbahaya pada aplikasi web yang menggunakan database. Penyerang menyisipkan kode SQL melalui input pengguna, memanipulasi query untuk mengakses, mengubah, atau menghapus data yang tidak seharusnya. \textbf{Prepared statement} adalah pertahanan utama: query dikirim ke database sebagai template dengan placeholder (\code{?}), lalu data dikirim terpisah. Database memperlakukan data sebagai literal, bukan perintah SQL \cite{phpManual}.
+
+\begin{contoh}
+\textbf{Studi Kasus: SQL Injection pada Form Login}
+
+\textbf{Query rentan}: \code{"SELECT * FROM users WHERE user='\$u' AND pass='\$p'"}.
+
+Jika penyerang memasukkan \code{admin' OR '1'='1} sebagai username, query menjadi: \code{SELECT * FROM users WHERE user='admin' OR '1'='1' AND pass='...'} --- kondisi \code{'1'='1'} selalu benar, sehingga autentikasi terlewati.
+
+\textbf{Solusi}: prepared statement memisahkan template dari data, sehingga input berbahaya diperlakukan sebagai string biasa, bukan perintah SQL.
+\end{contoh}
+
+\begin{webcode}[language=PHP, caption={Prepared statement untuk login aman}]
+<?php
+$email    = $_POST['email'] ?? '';
+$password = $_POST['password'] ?? '';
+
+// AMAN: prepared statement
+$stmt = $conn->prepare("SELECT id, nama, password FROM users WHERE email = ?");
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
+$user   = $result->fetch_assoc();
+
+if ($user && password_verify($password, $user['password'])) {
+  session_regenerate_id(true);
+  $_SESSION['user_id'] = $user['id'];
+  $_SESSION['nama']    = $user['nama'];
+  header("Location: dashboard.php");
+} else {
+  echo "Email atau password salah.";
+}
+$stmt->close();
+?>
+\end{webcode}
+

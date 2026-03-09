@@ -1,30 +1,55 @@
-\section{SELECT Dasar dan WHERE}
+\section{Echo dan Print: Menampilkan Output}
 
-Perintah \code{SELECT} adalah perintah SQL yang paling sering digunakan --- berfungsi untuk mengambil (membaca) data dari satu atau lebih tabel. Sintaks dasar: \code{SELECT kolom1, kolom2 FROM tabel;} untuk memilih kolom tertentu, atau \code{SELECT * FROM tabel;} untuk mengambil semua kolom. Meskipun \code{SELECT *} praktis untuk eksplorasi, di aplikasi produksi sebaiknya disebutkan kolom secara eksplisit agar query lebih efisien dan tidak mengambil data yang tidak diperlukan \cite{mysqlDocs}.
+\textbf{Echo} dan \textbf{print} adalah dua cara utama untuk menampilkan output dari PHP ke browser. Meskipun fungsinya serupa, terdapat perbedaan teknis di antara keduanya. \code{echo} dapat menerima beberapa argumen yang dipisah koma dan tidak mengembalikan nilai (void), sedangkan \code{print} hanya menerima satu argumen dan selalu mengembalikan nilai \code{1}. Dalam praktik sehari-hari, \code{echo} lebih sering digunakan karena sedikit lebih cepat dan lebih fleksibel \cite{phpManual}.
 
-Klausa \code{WHERE} memfilter baris yang dikembalikan berdasarkan kondisi. Kondisi dapat menggunakan operator perbandingan (\code{=}, \code{<>}, \code{<}, \code{>}, \code{<=}, \code{>=}), operator logika (\code{AND}, \code{OR}, \code{NOT}), serta operator khusus seperti \code{BETWEEN}, \code{IN}, \code{LIKE}, dan \code{IS NULL}. Operator \code{LIKE} mendukung wildcard: \code{\%} untuk nol atau lebih karakter, \code{\_} untuk satu karakter. Kombinasi \code{WHERE} dengan operator ini memungkinkan pencarian data yang sangat fleksibel \cite{mysqlGettingStarted}.
+Kedua perintah dapat dipakai dengan atau tanpa tanda kurung: \code{echo "Halo";} sama dengan \code{echo("Halo");}. Untuk menampilkan string yang mengandung variabel, cara paling mudah adalah menggunakan kutip ganda (\textit{double quotes}) yang menginterpretasikan variabel secara langsung, atau menggunakan operator konkatenasi (titik). String dengan kutip tunggal (\textit{single quotes}) tidak menginterpretasikan variabel dan hanya mengenali escape \code{\textbackslash\textbackslash} dan \code{\textbackslash'} \cite{w3schoolsPhp}.
 
-\begin{webcode}[language=SQL, caption={Contoh SELECT dengan WHERE}]
--- Semua produk
-SELECT * FROM produk;
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{3cm}|P{4.5cm}|P{4.5cm}|}
+\hline
+\textbf{Aspek} & \textbf{echo} & \textbf{print} \\
+\hline
+Jumlah argumen & Banyak (dipisah koma) & Satu saja \\
+\hline
+Nilai kembalian & Tidak ada (void) & Selalu \code{1} \\
+\hline
+Kecepatan & Sedikit lebih cepat & Sedikit lebih lambat \\
+\hline
+Penggunaan di ekspresi & Tidak bisa & Bisa (karena mengembalikan nilai) \\
+\hline
+Tanda kurung & Opsional & Opsional \\
+\hline
+\end{tabular}
+\caption{Perbandingan echo dan print di PHP}
+\end{table}
 
--- Kolom tertentu
-SELECT nama, harga FROM produk;
+\begin{webcode}[language=PHP, caption={Berbagai cara menggunakan echo dan print}]
+<?php
+$nama = "Dewi";
+$umur = 22;
 
--- Filter dengan WHERE
-SELECT nama, harga FROM produk WHERE harga > 100000;
+// echo: beberapa argumen
+echo "Nama: ", $nama, ", Umur: ", $umur, "\n";
 
--- Kombinasi kondisi
-SELECT nama, harga, stok FROM produk
-  WHERE kategori = 'elektronik' AND stok > 0;
+// echo: konkatenasi
+echo "Halo, " . $nama . "!\n";
 
--- Pencarian teks dengan LIKE
-SELECT * FROM produk WHERE nama LIKE '%laptop%';
+// echo: interpolasi variabel (kutip ganda)
+echo "Hai $nama, umur Anda $umur tahun.\n";
 
--- Nilai dalam daftar
-SELECT * FROM produk WHERE kategori IN ('elektronik', 'pakaian');
+// print: satu argumen, return 1
+$hasil = print "Ini print.\n";
+echo "Return print: $hasil\n";  // 1
 
--- Rentang nilai
-SELECT * FROM produk WHERE harga BETWEEN 50000 AND 200000;
+// echo shortcut di dalam HTML
+?>
+<p>Nama: <?= $nama ?></p>  <!-- sama dengan <?php echo $nama; ?> -->
 \end{webcode}
+
+Untuk keperluan debugging, PHP menyediakan fungsi \code{var\_dump()} dan \code{print\_r()} yang menampilkan informasi lebih detail tentang variabel. Fungsi \code{var\_dump()} menampilkan tipe dan nilai variabel, sehingga sangat berguna saat mencari bug terkait tipe data. Fungsi \code{print\_r()} menampilkan nilai variabel dalam format yang lebih mudah dibaca, terutama untuk array dan objek. Kedua fungsi ini sebaiknya hanya digunakan saat pengembangan, bukan di lingkungan produksi \cite{phpRightWay}.
+
+\begin{catatan}
+\textbf{Keamanan Output:} Saat menampilkan data yang berasal dari input pengguna (misalnya dari form atau URL), \textbf{selalu} gunakan \code{htmlspecialchars(\$data, ENT\_QUOTES, 'UTF-8')} untuk mencegah serangan \textit{Cross-Site Scripting} (XSS). Tanpa sanitasi, penyerang dapat menyuntikkan kode JavaScript berbahaya melalui input form \cite{owaspXss}.
+\end{catatan}
 

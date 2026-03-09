@@ -1,0 +1,26 @@
+\section{Pengenalan Server Web (Apache/Nginx) dan Peran PHP}
+
+\textbf{Server web} bertugas menerima HTTP request dari browser dan mengembalikan response (file HTML, CSS, JS, gambar, atau output PHP). Dua server web paling populer: \textbf{Apache HTTP Server} (menggunakan \code{.htaccess} untuk konfigurasi per-direktori; modul \code{mod\_php} menjalankan PHP langsung) dan \textbf{Nginx} (event-driven, performa tinggi untuk koneksi bersamaan; menggunakan PHP-FPM sebagai proses terpisah). Apache lebih mudah dikonfigurasi untuk pemula; Nginx lebih efisien untuk traffic tinggi dan sering digunakan sebagai reverse proxy \cite{mdnDeploy}.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{3cm}|P{5cm}|P{5cm}|}
+\hline
+\textbf{Aspek} & \textbf{Apache} & \textbf{Nginx} \\
+\hline
+Arsitektur & Process/thread per request & Event-driven, async \\
+\hline
+PHP handler & mod\_php (built-in) & PHP-FPM (terpisah) \\
+\hline
+Konfigurasi & .htaccess (per-dir) & conf file (terpusat) \\
+\hline
+Performa & Baik untuk traffic sedang & Sangat baik untuk traffic tinggi \\
+\hline
+Reverse proxy & Bisa (mod\_proxy) & Built-in, sangat populer \\
+\hline
+Rewrite URL & mod\_rewrite & \code{try\_files} directive \\
+\hline
+\end{tabular}
+\caption{Perbandingan Apache dan Nginx}
+\end{table}
+

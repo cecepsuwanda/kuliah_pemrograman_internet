@@ -1,30 +1,47 @@
-\section{Tipe Data: number, string, boolean, undefined, null}
+\section{CSS Grid: Praktik Layout}
 
-JavaScript memiliki tipe data \textbf{primitif} dan \textbf{objek}. Tipe primitif menyimpan nilai tunggal dan bersifat immutable. Ada tujuh tipe primitif, lima di antaranya paling sering digunakan: \code{number}, \code{string}, \code{boolean}, \code{undefined}, dan \code{null}. Operator \code{typeof} mengembalikan string yang menunjukkan tipe data sebuah nilai \cite{jsInfo}.
+Section ini mendemonstrasikan penerapan CSS Grid untuk layout halaman dan komponen nyata. Grid sangat kuat untuk membuat layout responsif yang secara otomatis menyesuaikan jumlah kolom dan baris berdasarkan ruang yang tersedia. Kombinasi \code{repeat()}, \code{auto-fill}/\code{auto-fit}, dan \code{minmax()} menciptakan grid yang responsif tanpa media query \cite{mdnCss}.
 
-\begin{table}[htbp]
-\centering
-\begin{tabular}{|P{2cm}|P{3cm}|P{3cm}|P{4cm}|}
-\hline
-\textbf{Tipe} & \textbf{Contoh} & \textbf{typeof} & \textbf{Keterangan} \\
-\hline
-number & \code{42}, \code{3.14}, \code{NaN} & \code{"number"} & Integer dan float; termasuk NaN, Infinity \\
-\hline
-string & \code{"Hello"}, \code{`Hi`} & \code{"string"} & Teks; kutip tunggal/ganda/backtick \\
-\hline
-boolean & \code{true}, \code{false} & \code{"boolean"} & Dua nilai logika \\
-\hline
-undefined & variabel tanpa nilai & \code{"undefined"} & Default variabel yang belum diisi \\
-\hline
-null & \code{null} & \code{"object"} & Nilai ``kosong'' eksplisit (bug typeof) \\
-\hline
-\end{tabular}
-\caption{Lima tipe data primitif JavaScript yang paling umum}
-\end{table}
+\begin{webcode}[language=CSS, caption={Grid layout halaman dengan named areas}]
+.page {
+  display: grid;
+  grid-template-areas:
+    "header  header"
+    "sidebar main"
+    "footer  footer";
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  gap: 1rem;
+}
+.header  { grid-area: header;  background: #2a6fb0; }
+.sidebar { grid-area: sidebar; background: #f0f0f0; }
+.main    { grid-area: main; }
+.footer  { grid-area: footer;  background: #333; }
 
-JavaScript bersifat \textbf{dynamically typed}: tipe data variabel ditentukan oleh nilai yang disimpan, bukan oleh deklarasi. Variabel yang sama dapat menyimpan number, lalu diubah menjadi string. Meskipun fleksibel, ini dapat menyebabkan bug jika tidak berhati-hati. Template literal (backtick \code{`Hello \$\{name\}`}) memungkinkan interpolasi string yang lebih mudah dibaca dibanding konkatenasi \cite{mdnJsGuide}.
+/* Responsif: satu kolom di mobile */
+@media (max-width: 768px) {
+  .page {
+    grid-template-areas:
+      "header" "main" "sidebar" "footer";
+    grid-template-columns: 1fr;
+  }
+}
+\end{webcode}
+
+\begin{contoh}
+\textbf{Studi Kasus: Grid Kartu Produk Responsif}
+
+Galeri kartu produk yang otomatis menyesuaikan jumlah kolom:
+\begin{enumerate}
+  \item Container: \code{display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;}
+  \item Auto-fill mengisi kolom sebanyak mungkin (minimum 280px per kolom)
+  \item Di desktop lebar: 4 kolom; tablet: 2--3 kolom; mobile: 1 kolom---tanpa media query
+  \item Setiap card menggunakan Flexbox internal: \code{display: flex; flex-direction: column;} untuk menyusun gambar, judul, harga, dan tombol
+\end{enumerate}
+\end{contoh}
 
 \begin{catatan}
-\textbf{Nilai Truthy dan Falsy.} Dalam konteks boolean, beberapa nilai dianggap \textit{falsy} (dievaluasi sebagai \code{false}): \code{false}, \code{0}, \code{""} (string kosong), \code{null}, \code{undefined}, dan \code{NaN}. Semua nilai lain adalah \textit{truthy}. Ini penting untuk percabangan: \code{if (name)} akan gagal jika \code{name} adalah string kosong, null, atau undefined \cite{jsInfo}.
+\textbf{auto-fill vs auto-fit:} Keduanya mengisi kolom otomatis, tetapi berbeda saat jumlah item sedikit. \code{auto-fill} mempertahankan track kosong (ruang tetap terbagi); \code{auto-fit} meleburkan track kosong sehingga item yang ada melebar mengisi ruang. Gunakan \code{auto-fill} untuk grid dengan jumlah item dinamis, \code{auto-fit} untuk memaksimalkan ukuran item \cite{cssTricks}.
 \end{catatan}
 

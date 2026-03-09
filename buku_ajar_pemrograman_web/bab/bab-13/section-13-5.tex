@@ -1,48 +1,74 @@
-\section{Strategi Pengujian: Manual vs Otomatis, Unit vs Integrasi vs End-to-End}
+\section{Visibility: public, protected, private}
 
-Strategi pengujian menentukan \textit{bagaimana} dan \textit{kapan} pengujian dilakukan. \textbf{Pengujian manual} dilakukan oleh manusia yang berinteraksi langsung dengan aplikasi --- cocok untuk eksplorasi, usabilitas, dan kasus edge. \textbf{Pengujian otomatis} menggunakan skrip yang dijalankan secara berulang --- cocok untuk regresi dan CI/CD. Idealnya, kedua pendekatan dikombinasikan: otomatis untuk pengujian rutin, manual untuk kasus yang sulit diotomasi \cite{mdnToolsTesting}.
+\textbf{Visibility} (atau \textit{access modifier}) mengontrol siapa yang dapat mengakses properti dan metode sebuah class. PHP menyediakan tiga tingkat visibility: \code{public}, \code{protected}, dan \code{private}. Mekanisme ini merupakan implementasi dari prinsip \textbf{encapsulation} --- salah satu pilar utama OOP yang bertujuan menyembunyikan detail internal dan hanya mengekspos interface yang diperlukan. Tanpa visibility control, seluruh data internal object dapat diakses dan dimodifikasi dari mana saja, yang berpotensi menyebabkan bug dan ketidakkonsistenan data \cite{phpManual}.
 
-Berdasarkan cakupan, pengujian dibagi ke dalam tiga level yang membentuk \textbf{piramida pengujian}: \textbf{unit test} (terbanyak, menguji fungsi/class terisolasi), \textbf{integrasi test} (menguji interaksi antar komponen --- misalnya PHP + database), dan \textbf{end-to-end test} (E2E, paling sedikit, menguji seluruh alur dari perspektif pengguna --- misalnya login $\to$ tambah data $\to$ logout). Semakin tinggi level, semakin lambat dan mahal eksekusinya.
-
-\begin{figure}[ht]
-\centering
-\begin{tikzpicture}
-  \fill[green!20] (-3,0) -- (3,0) -- (0,1.5) -- cycle;
-  \fill[orange!20] (-2,1.5) -- (2,1.5) -- (0,3) -- cycle;
-  \fill[red!15] (-1,3) -- (1,3) -- (0,4) -- cycle;
-
-  \draw[thick] (-3,0) -- (3,0) -- (0,1.5) -- cycle;
-  \draw[thick] (-2,1.5) -- (2,1.5) -- (0,3) -- cycle;
-  \draw[thick] (-1,3) -- (1,3) -- (0,4) -- cycle;
-
-  \node[font=\small\bfseries] at (0,0.6) {Unit Tests};
-  \node[font=\footnotesize] at (0,0.2) {Banyak, cepat, murah};
-
-  \node[font=\small\bfseries] at (0,2) {Integrasi};
-  \node[font=\footnotesize] at (0,1.7) {Sedang};
-
-  \node[font=\small\bfseries] at (0,3.4) {E2E};
-\end{tikzpicture}
-\caption{Piramida pengujian: unit (terbanyak) $\to$ integrasi $\to$ E2E (paling sedikit)}
-\end{figure}
+\code{public} adalah tingkat akses paling terbuka: properti atau metode dapat diakses dari dalam class, dari class turunan, maupun dari luar class (kode pemanggil). \code{protected} membatasi akses hanya dari dalam class itu sendiri dan class turunan (\textit{child class}). \code{private} adalah tingkat paling ketat: hanya dapat diakses dari dalam class yang mendefinisikannya --- bahkan class turunan pun tidak dapat mengaksesnya. Jika tidak dituliskan visibility, PHP secara default memperlakukan metode sebagai \code{public} (namun untuk properti di PHP modern, visibility wajib dideklarasikan) \cite{phpRightWay}.
 
 \begin{table}[ht]
 \centering
-\begin{tabular}{|P{2.5cm}|P{5cm}|P{5cm}|}
+\begin{tabular}{|P{3.5cm}|P{2.5cm}|P{2.5cm}|P{2.5cm}|}
 \hline
-\textbf{Aspek} & \textbf{Manual} & \textbf{Otomatis} \\
+\textbf{Akses dari} & \textbf{public} & \textbf{protected} & \textbf{private} \\
 \hline
-Kecepatan & Lambat & Cepat \\
+Class itu sendiri & \checkmark & \checkmark & \checkmark \\
 \hline
-Konsistensi & Bergantung penguji & Selalu sama \\
+Class turunan (child) & \checkmark & \checkmark & \texttimes \\
 \hline
-Biaya awal & Rendah & Tinggi (tulis skrip) \\
-\hline
-Biaya jangka panjang & Tinggi (repetitif) & Rendah (dijalankan ulang) \\
-\hline
-Cocok untuk & Eksplorasi, usabilitas & Regresi, CI/CD \\
+Luar class (pemanggil) & \checkmark & \texttimes & \texttimes \\
 \hline
 \end{tabular}
-\caption{Perbandingan pengujian manual vs otomatis}
+\caption{Perbandingan tingkat visibility di PHP}
 \end{table}
+
+Praktik terbaik dalam OOP adalah menerapkan prinsip \textit{least privilege}: berikan akses sesedikit mungkin. Buat properti \code{private} atau \code{protected}, lalu sediakan metode \code{public} berupa \textbf{getter} (untuk membaca nilai) dan \textbf{setter} (untuk mengubah nilai) jika akses dari luar diperlukan. Dengan getter dan setter, developer dapat menambahkan validasi atau transformasi data sebelum nilai disimpan atau dikembalikan. Misalnya, setter untuk umur dapat menolak nilai negatif. Pendekatan ini menjaga integritas data dan memudahkan refactoring internal tanpa merusak kode pemanggil \cite{phpRightWay}.
+
+\begin{webcode}[language=PHP, caption={Demonstrasi visibility dengan getter dan setter}]
+<?php
+class Akun {
+  private string $email;
+  private float  $saldo;
+
+  public function __construct(string $email, float $saldo = 0) {
+    $this->setEmail($email);
+    $this->saldo = $saldo;
+  }
+
+  // Getter - public
+  public function getEmail(): string {
+    return $this->email;
+  }
+
+  public function getSaldo(): float {
+    return $this->saldo;
+  }
+
+  // Setter dengan validasi - public
+  public function setEmail(string $email): void {
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      throw new \InvalidArgumentException("Email tidak valid.");
+    }
+    $this->email = $email;
+  }
+
+  // Metode publik
+  public function setor(float $jumlah): void {
+    if ($jumlah <= 0) {
+      throw new \InvalidArgumentException("Jumlah harus positif.");
+    }
+    $this->saldo += $jumlah;
+    $this->catatTransaksi("setor", $jumlah);
+  }
+
+  // Metode private - hanya internal
+  private function catatTransaksi(string $tipe, float $jumlah): void {
+    echo "[LOG] {$tipe}: Rp {$jumlah} - saldo: Rp {$this->saldo}\n";
+  }
+}
+
+$akun = new Akun("budi@email.com", 100000);
+$akun->setor(50000); // OK
+echo $akun->getSaldo(); // 150000
+// $akun->catatTransaksi(...); // Error - private
+?>
+\end{webcode}
 

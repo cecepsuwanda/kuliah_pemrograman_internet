@@ -1,57 +1,93 @@
-\section{Cara Menyisipkan CSS: Inline, Internal, dan Eksternal}
+\section{Tabel: Pengelompokan, Scope, dan Aksesibilitas}
 
-CSS dapat disisipkan ke halaman web dengan tiga cara yang masing-masing memiliki kelebihan dan kekurangan. Pemahaman tentang kapan menggunakan metode yang tepat membantu pengembang menulis kode yang efisien dan mudah dirawat. Ketiga metode ini dapat digunakan bersamaan dalam satu halaman---browser akan menerapkan aturan cascading untuk menentukan gaya mana yang berlaku jika terjadi konflik \cite{mdnCss}.
+Tabel yang lebih besar dan kompleks memerlukan pengelompokan baris agar struktur data mudah dipahami, baik oleh pengguna visual maupun teknologi bantu (assistive technology). HTML menyediakan tiga elemen pengelompokan: \code{<thead>} untuk baris header, \code{<tbody>} untuk baris data utama, dan \code{<tfoot>} untuk baris ringkasan atau total. Pengelompokan ini memberikan makna semantik tambahan dan memungkinkan browser menerapkan perilaku khusus---misalnya, \code{<thead>} dapat diulang saat tabel dicetak di beberapa halaman \cite{mdnHtmlIntro}.
+
+Atribut \code{scope} pada elemen \code{<th>} menjelaskan cakupan header terhadap sel-sel data yang terkait. Nilai \code{scope="col"} menunjukkan bahwa header berlaku untuk seluruh kolom di bawahnya, sedangkan \code{scope="row"} menunjukkan header berlaku untuk seluruh baris di sebelah kanannya. Untuk tabel yang sangat kompleks---misalnya dengan header multi-level---dapat digunakan atribut \code{id} pada \code{<th>} dan \code{headers} pada \code{<td>} untuk membuat hubungan eksplisit antara sel data dan headernya \cite{mdnAccessibility}.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{2cm}|P{3cm}|P{3.5cm}|P{3.5cm}|}
+\begin{tabular}{|P{3.5cm}|P{4cm}|P{4.5cm}|}
 \hline
-\textbf{Metode} & \textbf{Cara Penulisan} & \textbf{Kelebihan} & \textbf{Kekurangan} \\
+\textbf{Mekanisme} & \textbf{Cara Kerja} & \textbf{Kapan Digunakan} \\
 \hline
-Inline & Atribut \code{style} pada elemen & Cepat untuk percobaan; specificity tinggi & Sulit dirawat; mengotori HTML \\
+\code{scope="col"} & Header berlaku untuk kolom & Tabel sederhana, header di baris pertama \\
 \hline
-Internal & Tag \code{<style>} di \code{<head>} & CSS dan HTML satu file; cocok untuk satu halaman & Tidak bisa di-cache terpisah; duplikasi jika multi-halaman \\
+\code{scope="row"} & Header berlaku untuk baris & Tabel dengan header di kolom pertama \\
 \hline
-Eksternal & File \code{.css} + \code{<link>} & Satu file untuk banyak halaman; di-cache browser; kode bersih & Satu request HTTP tambahan \\
+\code{scope="colgroup"} & Header untuk grup kolom & Tabel dengan header multi-level \\
+\hline
+\code{id} + \code{headers} & Hubungan eksplisit sel--header & Tabel sangat kompleks, header tidak beraturan \\
 \hline
 \end{tabular}
-\caption{Perbandingan tiga metode penyisipan CSS}
+\caption{Perbandingan mekanisme penghubung header dan sel data}
 \end{table}
 
-\textbf{CSS Inline} ditulis langsung pada atribut \code{style} elemen HTML, misalnya \code{<p style="color: red;">}. Metode ini memiliki specificity tertinggi sehingga akan mengalahkan aturan CSS lain (kecuali \code{!important}). Namun, inline CSS membuat kode HTML berantakan, sulit dirawat, dan melanggar prinsip separation of concerns. Penggunaannya sebaiknya dibatasi hanya untuk pengujian cepat atau skenario email HTML yang tidak mendukung CSS eksternal \cite{webdevCss}.
+Elemen \code{<caption>} memberikan judul deskriptif pada tabel dan sangat penting untuk aksesibilitas. Pembaca layar akan membacakan caption terlebih dahulu sehingga pengguna dapat memutuskan apakah tabel tersebut relevan sebelum mendengarkan seluruh isinya. Caption harus singkat namun informatif---menjelaskan apa yang disajikan tabel tanpa mengulangi data di dalamnya. Posisi visual caption dapat diatur dengan CSS menggunakan properti \code{caption-side} \cite{webdevAccessibility}.
 
-\textbf{CSS Internal} ditempatkan di dalam elemen \code{<style>} pada bagian \code{<head>} dokumen HTML. Semua aturan CSS berada dalam satu file bersama HTML, sehingga cocok untuk halaman tunggal (one-page) atau prototipe. Kelemahannya adalah jika situs memiliki banyak halaman, CSS harus diduplikasi di setiap halaman, dan perubahan desain memerlukan pengeditan di banyak file \cite{mdnCss}.
+\begin{figure}[htbp]
+\centering
+\resizebox{0.9\textwidth}{!}{%
+\begin{tikzpicture}[node distance=1.2cm, transform shape, every node/.style={font=\footnotesize}]
+  \node (table) [class, minimum width=10cm] {\code{<table>}};
+  \node (caption) [object, below=0.5cm of table, minimum width=4cm] {\code{<caption>} Judul Tabel};
+  \node (thead) [class, below=0.5cm of caption, minimum width=10cm, fill=blue!20] {\code{<thead>}};
+  \node (th1) [object, below=0.4cm of thead, xshift=-2.5cm, minimum width=2cm] {\code{<th scope="col">}};
+  \node (th2) [object, below=0.4cm of thead, xshift=0cm, minimum width=2cm] {\code{<th scope="col">}};
+  \node (th3) [object, below=0.4cm of thead, xshift=2.5cm, minimum width=2cm] {\code{<th scope="col">}};
+  \node (tbody) [class, below=1.2cm of thead, minimum width=10cm, fill=green!15] {\code{<tbody>}};
+  \node (td1) [object, below=0.4cm of tbody, xshift=-2.5cm, minimum width=2cm] {\code{<td>} Data};
+  \node (td2) [object, below=0.4cm of tbody, xshift=0cm, minimum width=2cm] {\code{<td>} Data};
+  \node (td3) [object, below=0.4cm of tbody, xshift=2.5cm, minimum width=2cm] {\code{<td>} Data};
+  \node (tfoot) [class, below=1.2cm of tbody, minimum width=10cm, fill=yellow!20] {\code{<tfoot>}};
 
-\textbf{CSS Eksternal} adalah praktik terbaik untuk pengembangan web profesional. File CSS terpisah (misalnya \code{style.css}) dihubungkan ke HTML menggunakan \code{<link rel="stylesheet" href="style.css">}. Keuntungan utama: satu file CSS melayani seluruh halaman situs, browser dapat meng-cache file sehingga halaman berikutnya lebih cepat dimuat, kode HTML dan CSS terpisah rapi, serta kolaborasi tim lebih mudah. Atribut \code{media} pada \code{<link>} memungkinkan memuat stylesheet berbeda untuk layar dan cetak \cite{cssTricks}.
+  \draw [arrow] (table) -- (caption);
+  \draw [arrow] (table.south) +(-4,0) |- (thead);
+  \draw [arrow] (thead) -- (th1);
+  \draw [arrow] (thead) -- (th2);
+  \draw [arrow] (thead) -- (th3);
+  \draw [arrow] (table.south) +(-4,0) |- (tbody);
+  \draw [arrow] (tbody) -- (td1);
+  \draw [arrow] (tbody) -- (td2);
+  \draw [arrow] (tbody) -- (td3);
+  \draw [arrow] (table.south) +(-4,0) |- (tfoot);
+\end{tikzpicture}%
+}
+\caption{Struktur tabel HTML dengan pengelompokan thead, tbody, dan tfoot}
+\end{figure}
 
-\begin{webcode}[language=HTML, caption={Tiga cara menyisipkan CSS}]
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <!-- CSS Eksternal (direkomendasikan) -->
-  <link rel="stylesheet" href="style.css" />
+Hindari penggunaan tabel bersarang (tabel di dalam tabel) karena sangat menyulitkan navigasi bagi pengguna pembaca layar. Jika data terlalu kompleks untuk satu tabel, pertimbangkan untuk memecahnya menjadi beberapa tabel yang lebih sederhana. Selalu pertimbangkan juga tampilan tabel di perangkat mobile---tabel yang lebar mungkin memerlukan scroll horizontal atau penyajian alternatif menggunakan CSS media queries \cite{mdnAccessibility}.
 
-  <!-- CSS untuk cetak -->
-  <link rel="stylesheet" href="print.css"
-        media="print" />
-
-  <!-- CSS Internal -->
-  <style>
-    h1 { color: navy; }
-    p  { line-height: 1.6; }
-  </style>
-</head>
-<body>
-  <h1>Judul</h1>
-  <!-- CSS Inline (hindari jika mungkin) -->
-  <p style="color: red; font-weight: bold;">
-    Teks ini menggunakan inline CSS.
-  </p>
-</body>
-</html>
+\begin{webcode}[language=HTML, caption={Tabel lengkap dengan thead, tbody, tfoot, scope, dan caption}]
+<table>
+  <caption>Rekap Nilai Mata Kuliah Pemrograman Web</caption>
+  <thead>
+    <tr>
+      <th scope="col">NIM</th>
+      <th scope="col">Nama</th>
+      <th scope="col">UTS</th>
+      <th scope="col">UAS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>001</td> <td>Budi</td>
+      <td>85</td>   <td>90</td>
+    </tr>
+    <tr>
+      <td>002</td> <td>Siti</td>
+      <td>78</td>   <td>88</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th scope="row" colspan="2">Rata-rata</th>
+      <td>81.5</td> <td>89</td>
+    </tr>
+  </tfoot>
+</table>
 \end{webcode}
 
 \begin{catatan}
-\textbf{Praktik Terbaik:} Gunakan CSS eksternal sebagai metode utama. CSS internal dapat digunakan untuk \textit{critical CSS}---styling minimal yang dibutuhkan untuk tampilan awal halaman (above-the-fold) agar halaman terlihat lebih cepat. Inline CSS sebaiknya dihindari kecuali pada kasus khusus seperti email HTML atau dynamic styles yang di-generate JavaScript. Jika menggunakan beberapa metode bersamaan, pahami urutan specificity: inline \textgreater\ internal/eksternal; file yang dimuat terakhir menang \cite{webdevCss}.
+Untuk memastikan tabel Anda aksesibel, lakukan pengecekan berikut: (1) setiap tabel memiliki \code{<caption>}; (2) semua header menggunakan \code{<th>} dengan \code{scope} yang tepat; (3) hindari colspan/rowspan yang berlebihan; (4) uji tabel dengan pembaca layar atau navigasi keyboard saja. Alat seperti WAVE (\url{https://wave.webaim.org/}) dan aXe DevTools dapat membantu mengidentifikasi masalah aksesibilitas tabel secara otomatis.
 \end{catatan}
 

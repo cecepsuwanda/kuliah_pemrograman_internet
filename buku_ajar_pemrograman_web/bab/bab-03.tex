@@ -2,14 +2,13 @@
 \ifSubfilesClassLoaded{\setcounter{chapter}{2}}{}
 \begin{document}
 
-\chapter{Analisis Kebutuhan dan Perancangan Antarmuka}
+\chapter{Analisis Kebutuhan, User Flow, dan Wireframe Dasar}
 
-Bab ini membahas seluruh proses analisis kebutuhan dan perancangan antarmuka untuk pengembangan web. Dimulai dari penggalian kebutuhan dan dokumentasi, dilanjutkan dengan pemahaman pengguna melalui persona dan skenario, kemudian perancangan melalui wireframe, mockup, dan user flow. Bab ini juga mencakup prinsip desain visual, UX, aksesibilitas (WCAG, HTML semantik, ARIA), prototyping, design system, hingga UX research dan usability testing.
+Bab ini membahas analisis kebutuhan (fungsional dan non-fungsional), pemahaman pengguna melalui persona dan skenario, pengenalan UI/UX, serta perancangan wireframe dan user flow. Materi ini mendukung pencapaian Sub-CPMK 1.1 dan 1.2 sesuai rencana pembelajaran pertemuan kedua. Pengembangan ke mockup, prototyping, aksesibilitas, dan prinsip UX lanjutan dibahas di Bab 4.
 
 \begin{subcpmk}
   \item Sub-CPMK 1.1: Mengidentifikasi kebutuhan fungsional dan non-fungsional pengguna untuk solusi web.
   \item Sub-CPMK 1.2: Membuat wireframe dan mockup antarmuka web yang mendukung alur pengguna (user flow).
-  \item Sub-CPMK 1.3: Menerapkan prinsip aksesibilitas (a11y) dan pengalaman pengguna (UX) dalam desain antarmuka.
 \end{subcpmk}
 
 \input{bab/bab-03/section-3-1}
@@ -18,24 +17,14 @@ Bab ini membahas seluruh proses analisis kebutuhan dan perancangan antarmuka unt
 \input{bab/bab-03/section-3-4}
 \input{bab/bab-03/section-3-5}
 \input{bab/bab-03/section-3-6}
-\input{bab/bab-03/section-3-7}
-\input{bab/bab-03/section-3-8}
-\input{bab/bab-03/section-3-9}
-\input{bab/bab-03/section-3-10}
-\input{bab/bab-03/section-3-11}
-\input{bab/bab-03/section-3-12}
 
 \begin{aktivitas}
-  \item Identifikasi tiga pemangku kepentingan (\textit{stakeholder}) untuk sebuah aplikasi web pilihan dan lakukan wawancara singkat untuk menggali kebutuhan.
-  \item Susun daftar kebutuhan fungsional dan non-fungsional dari hasil wawancara, lalu prioritaskan menggunakan metode MoSCoW.
-  \item Buat dua persona pengguna lengkap (dengan tujuan, frustrasi, dan konteks penggunaan) berdasarkan studi kasus yang diberikan.
-  \item Buat wireframe low-fidelity (kertas atau digital) untuk tiga halaman utama: beranda, form input, dan halaman detail.
-  \item Kembangkan wireframe menjadi mockup high-fidelity menggunakan Figma, termasuk palet warna, tipografi, dan spacing.
-  \item Gambar user flow lengkap untuk dua fitur utama, termasuk percabangan error handling.
-  \item Lakukan evaluasi heuristik (menggunakan 10 heuristik Nielsen) terhadap satu situs web pilihan dan dokumentasikan temuannya.
-  \item Audit aksesibilitas halaman web menggunakan Lighthouse dan perbaiki minimal tiga temuan.
-  \item Lakukan usability testing sederhana dengan 3 rekan: siapkan tugas, amati, dan buat laporan temuan.
-  \item Buat dokumen design system sederhana: design tokens (warna, font, spacing), tiga komponen (tombol, input, kartu), dan panduan penggunaan.
+  \item \textbf{Studi kasus:} Pilih sebuah aplikasi web (mis. toko online, reservasi perpustakaan). Identifikasi tiga pemangku kepentingan (\textit{stakeholder}) dan lakukan wawancara singkat untuk menggali kebutuhan.
+  \item \textbf{Praktik:} Susun daftar kebutuhan fungsional dan non-fungsional dari hasil wawancara, lalu prioritaskan menggunakan metode MoSCoW.
+  \item \textbf{Latihan:} Buat dua persona pengguna lengkap (dengan tujuan, frustrasi, dan konteks penggunaan) berdasarkan studi kasus.
+  \item \textbf{Praktik:} Buat wireframe low-fidelity (kertas atau digital) untuk tiga halaman utama: beranda, form input, dan halaman detail.
+  \item \textbf{Praktik:} Gambar user flow lengkap untuk dua fitur utama, termasuk percabangan error handling.
+  \item \textbf{Diskusi:} Presentasikan wireframe dan user flow di depan kelompok; terima umpan balik dan lakukan iterasi.
 \end{aktivitas}
 
 \begin{latihan}
@@ -44,68 +33,49 @@ Bab ini membahas seluruh proses analisis kebutuhan dan perancangan antarmuka unt
   \item Apa perbedaan UI dan UX? Berikan analogi dari kehidupan sehari-hari.
   \item Buat persona pengguna untuk aplikasi reservasi perpustakaan.
   \item Buat user flow untuk fitur ``Registrasi Akun Baru'', termasuk validasi email dan konfirmasi password.
-  \item Identifikasi tiga pelanggaran heuristik Nielsen pada halaman web yang sering Anda kunjungi.
-  \item Tuliskan kode HTML semantik untuk halaman kontak yang aksesibel (gunakan \code{<form>}, \code{<label>}, dan \code{aria-describedby}).
-  \item Jelaskan empat prinsip POUR dalam WCAG dan berikan satu contoh implementasi untuk masing-masing.
-  \item Apa itu design token? Tuliskan lima design token (variabel CSS) untuk sebuah design system sederhana.
-  \item Rancang skenario usability testing sederhana: tentukan tujuan, tiga tugas untuk partisipan, dan metrik yang diukur.
+  \item \textbf{Refleksi:} Dari materi bab ini, manakah indikator Sub-CPMK 1.1 dan 1.2 yang sudah Anda kuasai? Area mana yang masih perlu Anda tingkatkan?
 \end{latihan}
 
 \begin{asesmen}
-Asesmen Bab 3 berupa portofolio yang mencakup:
+Asesmen Bab 3 (Tugas 1) merupakan \textbf{Evaluasi Kinerja} yang mengukur Sub-CPMK 1.1 dan Sub-CPMK 1.2. Tugas berupa dokumen dan artefak yang mencakup:
 \begin{enumerate}
-  \item \textbf{Dokumen Kebutuhan} (20\%): Daftar kebutuhan fungsional (min. 5) dan non-fungsional (min. 3) dengan prioritisasi MoSCoW dan acceptance criteria.
-  \item \textbf{Persona dan User Flow} (20\%): Dua persona lengkap dan user flow untuk dua fitur utama.
-  \item \textbf{Wireframe dan Mockup} (25\%): Wireframe low-fidelity untuk tiga halaman dan mockup high-fidelity (Figma) untuk satu halaman utama.
-  \item \textbf{Laporan Aksesibilitas} (20\%): Audit WCAG menggunakan Lighthouse, identifikasi masalah, dan implementasi perbaikan (kode HTML semantik + ARIA).
-  \item \textbf{Laporan Usability Testing} (15\%): Protokol testing, temuan dari minimal 3 partisipan, dan rekomendasi perbaikan.
+  \item \textbf{Dokumen Kebutuhan} (40\%): Daftar kebutuhan fungsional (min. 5) dan non-fungsional (min. 3) dengan prioritisasi MoSCoW dan acceptance criteria. Mengukur Sub-CPMK 1.1.
+  \item \textbf{Persona dan User Flow} (30\%): Dua persona lengkap dan user flow untuk dua fitur utama. Mengukur Sub-CPMK 1.1 dan 1.2.
+  \item \textbf{Wireframe} (30\%): Wireframe low-fidelity untuk tiga halaman utama (beranda, form input, halaman detail). Mengukur Sub-CPMK 1.2.
 \end{enumerate}
 
-\textbf{Rubrik Penilaian:}
+\textbf{Rubrik Penilaian (berbasis OBE):}
 \begin{itemize}
-  \item \textbf{A (85--100)}: Seluruh komponen lengkap, kebutuhan terdokumentasi dengan jelas, wireframe dan mockup profesional, aksesibilitas terpenuhi, usability testing terdokumentasi dengan baik.
-  \item \textbf{B (70--84)}: Sebagian besar komponen lengkap, beberapa detail kurang, desain konsisten namun ada area perbaikan.
-  \item \textbf{C (55--69)}: Komponen dasar ada tetapi kurang mendalam, wireframe/mockup sederhana, aksesibilitas belum sepenuhnya diterapkan.
+  \item \textbf{A (85--100)}: Seluruh komponen lengkap, kebutuhan terdokumentasi dengan jelas, wireframe dan user flow profesional. Kompeten untuk Sub-CPMK 1.1 dan 1.2.
+  \item \textbf{B (70--84)}: Sebagian besar komponen lengkap, beberapa detail kurang.
+  \item \textbf{C (55--69)}: Komponen dasar ada tetapi kurang mendalam.
   \item \textbf{D ($<$55)}: Komponen tidak lengkap atau tidak memenuhi standar minimum.
 \end{itemize}
 \end{asesmen}
 
 \begin{checklist}
-  \item Saya dapat menjelaskan proses analisis kebutuhan dan teknik elicitation.
-  \item Saya dapat membedakan kebutuhan fungsional dan non-fungsional serta menuliskan acceptance criteria.
-  \item Saya dapat memprioritaskan kebutuhan menggunakan metode MoSCoW.
-  \item Saya dapat membuat persona pengguna dan skenario penggunaan berdasarkan data.
-  \item Saya memahami perbedaan UI dan UX serta prinsip dasar keduanya.
-  \item Saya dapat membuat wireframe low-fidelity dan mockup high-fidelity.
-  \item Saya dapat menggambar user flow dengan percabangan dan penanganan error.
-  \item Saya memahami prinsip desain visual: layout (grid), hierarki, tipografi, dan warna.
-  \item Saya dapat menerapkan 10 heuristik Nielsen untuk mengevaluasi usability antarmuka.
-  \item Saya memahami prinsip aksesibilitas WCAG (POUR) dan dapat menulis HTML semantik + ARIA.
-  \item Saya dapat melakukan audit aksesibilitas menggunakan Lighthouse atau axe.
-  \item Saya dapat membuat prototipe interaktif dan memahami proses iterasi desain.
-  \item Saya mengenal Figma dan fitur-fitur utamanya untuk desain antarmuka.
-  \item Saya memahami konsep design system, design tokens, dan konsistensi antarmuka.
-  \item Saya memahami proses handoff desain ke pengembang.
-  \item Saya dapat merancang dan melaksanakan usability testing sederhana.
+  \item \textbf{Sub-CPMK 1.1:} Saya dapat menjelaskan proses analisis kebutuhan dan teknik elicitation.
+  \item \textbf{Sub-CPMK 1.1:} Saya dapat membedakan kebutuhan fungsional dan non-fungsional serta menuliskan acceptance criteria.
+  \item \textbf{Sub-CPMK 1.1:} Saya dapat memprioritaskan kebutuhan menggunakan metode MoSCoW.
+  \item \textbf{Sub-CPMK 1.1:} Saya dapat membuat persona pengguna dan skenario penggunaan berdasarkan data.
+  \item \textbf{Sub-CPMK 1.2:} Saya memahami perbedaan UI dan UX serta prinsip dasar keduanya.
+  \item \textbf{Sub-CPMK 1.2:} Saya dapat membuat wireframe low-fidelity.
+  \item \textbf{Sub-CPMK 1.2:} Saya dapat menggambar user flow dengan percabangan dan penanganan error.
 \end{checklist}
 
 \begin{rangkuman}
-Bab ini membahas seluruh siklus analisis kebutuhan dan perancangan antarmuka untuk pengembangan web---dari penggalian kebutuhan hingga validasi desain.
+Bab ini membahas fondasi analisis kebutuhan dan perancangan awal antarmuka sebagai Unit Materi Inti berbasis Sub-CPMK 1.1 dan 1.2: penggalian kebutuhan, kebutuhan fungsional dan non-fungsional, persona dan skenario, pengenalan UI/UX, wireframe, dan user flow.
 
 \textbf{Poin Kunci:}
 \begin{itemize}
-  \item \textbf{Analisis kebutuhan} adalah fondasi pengembangan: identifikasi stakeholder, lakukan elicitation (wawancara, observasi, survei), dan dokumentasikan hasilnya secara formal.
-  \item \textbf{Kebutuhan fungsional} (apa yang dilakukan sistem) dan \textbf{non-fungsional} (seberapa baik) harus diprioritaskan (MoSCoW) dan dilengkapi acceptance criteria.
-  \item \textbf{Persona dan skenario} mewakili pengguna nyata---keputusan desain harus didasarkan pada kebutuhan mereka, bukan asumsi tim.
+  \item \textbf{Analisis kebutuhan} (Sub-CPMK 1.1): identifikasi stakeholder, lakukan elicitation (wawancara, observasi, survei), dokumentasikan kebutuhan fungsional dan non-fungsional dengan prioritisasi MoSCoW dan acceptance criteria.
+  \item \textbf{Persona dan skenario} (Sub-CPMK 1.1): mewakili pengguna nyata; keputusan desain harus didasarkan pada kebutuhan mereka, bukan asumsi tim.
   \item \textbf{UI} (tampilan) dan \textbf{UX} (pengalaman) saling melengkapi; produk terbaik unggul di keduanya.
-  \item \textbf{Wireframe} (low-fi) memvalidasi struktur, \textbf{mockup} (high-fi) memvalidasi tampilan akhir---selalu wireframe dulu sebelum mockup.
-  \item \textbf{User flow} dan \textbf{analisis tugas} memastikan alur interaksi logis dan efisien.
-  \item \textbf{Prinsip desain visual} (layout, hierarki, tipografi, warna) dan \textbf{10 heuristik Nielsen} menjadi panduan evaluasi antarmuka.
-  \item \textbf{Aksesibilitas} (WCAG/POUR, HTML semantik, ARIA) memastikan web inklusif untuk semua pengguna.
-  \item \textbf{Prototyping dan iterasi} menghasilkan desain yang terus membaik berdasarkan umpan balik pengguna.
-  \item \textbf{Design system} menjaga konsistensi; \textbf{handoff} yang baik memperlancar transisi dari desain ke kode.
-  \item \textbf{UX research dan usability testing} memvalidasi desain dengan pengguna nyata---cukup 5 partisipan untuk menemukan 85\% masalah.
+  \item \textbf{Wireframe} (Sub-CPMK 1.2): low-fi memvalidasi struktur dan tata letak sebelum detail visual; lanjutkan ke mockup dan prototipe di Bab 4.
+  \item \textbf{User flow} (Sub-CPMK 1.2): diagram alur interaksi dari entry point hingga goal, termasuk percabangan dan penanganan error.
 \end{itemize}
+
+\textbf{Refleksi:} Pastikan Anda dapat mencentang checklist di atas dan siap melanjutkan ke Bab 4 (mockup, prototyping, aksesibilitas, prinsip UX).
 \end{rangkuman}
 
 \ifSubfilesClassLoaded{

@@ -1,34 +1,53 @@
-\section{Pengenalan CSS dan Perannya dalam Styling Halaman Web}
+\section{Tabel HTML: Dasar (Baris, Sel, Header)}
 
-CSS (Cascading Style Sheets) adalah bahasa yang mengatur tampilan dan tata letak elemen HTML di halaman web. Jika HTML berfungsi sebagai kerangka struktur---mendefinisikan paragraf, heading, tabel, dan form---maka CSS berperan sebagai ``dekorator'' yang menentukan bagaimana struktur tersebut ditampilkan secara visual. Tanpa CSS, halaman web hanya menampilkan teks polos dengan format default browser: heading hitam tebal, tautan biru bergaris bawah, dan paragraf tanpa jarak yang menarik. Dengan CSS, pengembang memiliki kendali penuh atas warna, tipografi, spasi, layout, animasi, dan responsivitas halaman \cite{mdnCss}.
+Tabel merupakan salah satu elemen HTML yang paling sering digunakan untuk menyajikan data terstruktur dalam format baris dan kolom. Berbeda dengan penggunaan CSS Grid atau Flexbox yang ditujukan untuk tata letak visual, elemen \code{<table>} dirancang khusus untuk menampilkan data tabular---yaitu data yang secara alami memiliki hubungan antara baris dan kolom. Contoh data tabular meliputi jadwal kuliah, daftar nilai, perbandingan produk, dan statistik \cite{mdnHtmlIntro}. Memahami kapan menggunakan tabel dan kapan menggunakan CSS untuk layout adalah keterampilan penting bagi pengembang web.
 
-Peran CSS dalam pengembangan web modern sangat sentral karena menerapkan prinsip \textbf{separation of concerns}---pemisahan antara struktur (HTML), presentasi (CSS), dan perilaku (JavaScript). Pemisahan ini menghasilkan beberapa keuntungan penting: desain visual yang konsisten di seluruh halaman situs, kemudahan pemeliharaan karena perubahan tampilan cukup dilakukan di satu tempat, dan kemampuan membuat tampilan berbeda untuk perangkat yang berbeda tanpa mengubah HTML. Penguasaan CSS dasar menjadi fondasi mutlak sebelum mempelajari teknik layout modern seperti Flexbox dan Grid \cite{webdevCss}.
-
-\subsection{Konsep Cascading dan Specificity}
-
-Nama ``Cascading'' dalam CSS mengacu pada mekanisme penentuan gaya mana yang berlaku ketika beberapa aturan CSS menargetkan elemen yang sama. Tiga faktor utama yang menentukan prioritas aturan CSS adalah: (1) \textbf{Specificity}---selector yang lebih spesifik menang atas yang lebih umum; (2) \textbf{Source order}---jika specificity sama, aturan yang ditulis terakhir menang; dan (3) \textbf{Importance}---deklarasi dengan \code{!important} mengalahkan aturan lain (namun penggunaannya tidak disarankan). Memahami cascading adalah kunci untuk menghindari kebingungan saat styling tidak bekerja sesuai harapan \cite{webdevCss}.
+Elemen dasar pembentuk tabel HTML terdiri dari empat komponen utama. Elemen \code{<table>} berfungsi sebagai wadah keseluruhan tabel. Di dalamnya, \code{<tr>} (table row) mendefinisikan setiap baris data. Setiap baris berisi sel-sel yang dapat berupa \code{<td>} (table data) untuk sel data biasa atau \code{<th>} (table header) untuk sel header. Elemen \code{<th>} secara default ditampilkan dengan cetak tebal dan rata tengah, serta memberikan makna semantik yang membantu pembaca layar (screen reader) memahami struktur tabel \cite{webdevHtml}.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{3cm}|P{2.5cm}|P{3cm}|P{3.5cm}|}
+\begin{tabular}{|P{2.5cm}|P{4cm}|P{5.5cm}|}
 \hline
-\textbf{Selector} & \textbf{Contoh} & \textbf{Specificity} & \textbf{Keterangan} \\
+\textbf{Elemen} & \textbf{Fungsi} & \textbf{Keterangan} \\
 \hline
-Inline style & \code{style="..."} & 1-0-0-0 & Tertinggi (hindari) \\
+\code{<table>} & Wadah tabel & Membungkus seluruh struktur tabel \\
 \hline
-ID & \code{\#header} & 0-1-0-0 & Tinggi; unik per halaman \\
+\code{<tr>} & Baris tabel & Setiap \code{<tr>} berisi satu baris sel \\
 \hline
-Class / pseudo-class & \code{.card}, \code{:hover} & 0-0-1-0 & Sedang; dapat dipakai ulang \\
+\code{<td>} & Sel data & Berisi data biasa; default rata kiri \\
 \hline
-Elemen / pseudo-element & \code{p}, \code{::before} & 0-0-0-1 & Rendah; berlaku semua tag \\
+\code{<th>} & Sel header & Cetak tebal, rata tengah; penanda kolom/baris \\
 \hline
-Universal & \code{*} & 0-0-0-0 & Tidak berkontribusi \\
+\code{<caption>} & Judul tabel & Deskripsi tabel untuk aksesibilitas \\
 \hline
 \end{tabular}
-\caption{Tingkat specificity selector CSS (dari tinggi ke rendah)}
+\caption{Elemen dasar pembentuk tabel HTML}
 \end{table}
 
+Selain elemen dasar di atas, atribut \code{colspan} dan \code{rowspan} memungkinkan penggabungan sel secara horizontal dan vertikal. Atribut \code{colspan="2"} pada sebuah \code{<td>} atau \code{<th>} akan membuat sel tersebut membentang dua kolom, sedangkan \code{rowspan="3"} akan membentang tiga baris. Penggabungan sel berguna misalnya untuk membuat header yang mencakup beberapa sub-kolom, namun penggunaan berlebihan dapat mengurangi aksesibilitas tabel \cite{mdnAccessibility}.
+
+\begin{webcode}[language=HTML, caption={Tabel dasar dengan header dan caption}]
+<table>
+  <caption>Daftar Kontak Mahasiswa</caption>
+  <tr>
+    <th>Nama</th>
+    <th>Email</th>
+    <th>Jurusan</th>
+  </tr>
+  <tr>
+    <td>Budi Santoso</td>
+    <td>budi@example.com</td>
+    <td>Teknik Informatika</td>
+  </tr>
+  <tr>
+    <td>Siti Aminah</td>
+    <td>siti@example.com</td>
+    <td>Sistem Informasi</td>
+  </tr>
+</table>
+\end{webcode}
+
 \begin{konsep}
-\textbf{Sebelum dan Sesudah CSS.} Sebelum CSS diadopsi secara luas (era awal 1990-an), tampilan halaman web diatur langsung di dalam HTML menggunakan elemen seperti \code{<font>}, \code{<center>}, dan atribut \code{bgcolor}. Pendekatan ini membuat kode sulit dirawat, tidak konsisten, dan tidak responsif. Dengan CSS, satu file stylesheet dapat mengatur tampilan ratusan halaman secara konsisten, dan perubahan desain cukup dilakukan di satu tempat \cite{cssTricks}.
+\textbf{Tabel untuk Data, Bukan untuk Layout.} Sebelum era CSS modern, pengembang sering menggunakan tabel untuk mengatur tata letak halaman. Praktik ini \textbf{tidak direkomendasikan} karena: (1) menyulitkan pembaca layar yang menginterpretasi tabel sebagai data tabular; (2) membuat kode sulit dirawat dan tidak responsif; (3) melanggar prinsip pemisahan struktur (HTML) dan presentasi (CSS). Gunakan CSS Flexbox atau Grid untuk layout, dan \code{<table>} hanya untuk data tabular yang sesungguhnya \cite{webdevHtml}.
 \end{konsep}
 

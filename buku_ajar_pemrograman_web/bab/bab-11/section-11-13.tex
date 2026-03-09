@@ -1,84 +1,10 @@
-\section{Form Lanjutan: Validasi Input dan Sanitasi Dasar}
+\section{Performa: Praktik Baik dan Profiling}
 
-\textbf{Validasi} dan \textbf{sanitasi} adalah dua proses berbeda namun sama-sama penting dalam pemrosesan form. Validasi memeriksa apakah data memenuhi aturan tertentu (wajib diisi, format email valid, panjang karakter, rentang angka), sedangkan sanitasi membersihkan data dari konten berbahaya atau tidak diinginkan (menghapus tag HTML, meng-escape karakter khusus). Validasi menolak data yang tidak valid, sedangkan sanitasi mengubah data agar aman diproses. Keduanya harus dilakukan di \textbf{server-side} --- validasi di client (JavaScript) hanya untuk \textit{user experience}, bukan keamanan \cite{phpManual}.
+Performa JavaScript mempengaruhi pengalaman pengguna, terutama di perangkat mobile. Bottleneck umum: DOM manipulation berlebihan (\textit{layout thrashing}), event handler tanpa debounce/throttle, objek besar yang disalin berulang, dan blocking long tasks yang membekukan UI \cite{mdnJsGuide}.
 
-PHP menyediakan fungsi \code{filter\_var()} dengan berbagai filter bawaan untuk validasi dan sanitasi. Filter validasi (prefix \code{FILTER\_VALIDATE\_}) mengembalikan nilai yang divalidasi atau \code{false} jika tidak lolos. Filter sanitasi (prefix \code{FILTER\_SANITIZE\_}) mengembalikan string yang sudah dibersihkan. Selain filter, fungsi seperti \code{trim()}, \code{strip\_tags()}, \code{htmlspecialchars()}, dan \code{htmlentities()} sering digunakan untuk membersihkan input sebelum ditampilkan atau disimpan \cite{phpRightWay}.
+Praktik baik: (1) batch operasi DOM (gunakan \code{DocumentFragment}); (2) debounce/throttle event handler; (3) gunakan \code{requestAnimationFrame()} untuk animasi; (4) lazy load gambar dan modul; (5) profil kode dengan DevTools Performance tab untuk mengidentifikasi bottleneck; (6) gunakan \code{Web Workers} untuk komputasi berat agar tidak memblokir UI thread \cite{mdnToolsTesting}.
 
-\begin{table}[ht]
-\centering
-\small
-\begin{tabular}{|P{1.8cm}|P{3.5cm}|P{3.5cm}|}
-\hline
-\textbf{Fungsi} & \textbf{Kegunaan} & \textbf{Contoh} \\
-\hline
-\code{filter\_var()} & Validasi/sanitasi dengan filter & \code{filter\_var(\$e,}\linebreak[0]\code{FILTER\_VALIDATE\_EMAIL)} \\
-\hline
-\code{htmlspecial\-chars()} & Escape HTML \&, <, >, ', " & Mencegah XSS saat output \\
-\hline
-\code{strip\_tags()} & Menghapus tag HTML/PHP & Membersihkan input teks \\
-\hline
-\code{trim()} & Menghapus spasi di awal/akhir & Membersihkan input form \\
-\hline
-\code{intval()} & Konversi ke integer & Memastikan input numerik \\
-\hline
-\code{preg\_match()} & Validasi dengan regex & Validasi format telepon/NIM \\
-\hline
-\end{tabular}
-\caption{Fungsi validasi dan sanitasi populer di PHP}
-\end{table}
-
-Ancaman keamanan utama yang dapat dicegah melalui validasi dan sanitasi adalah \textbf{Cross-Site Scripting (XSS)} dan \textbf{Cross-Site Request Forgery (CSRF)}. XSS terjadi ketika input pengguna yang mengandung kode JavaScript ditampilkan di halaman tanpa di-escape --- memungkinkan penyerang menjalankan skrip berbahaya di browser pengguna lain. Pencegahan XSS: selalu gunakan \code{htmlspecialchars(\$input, ENT\_QUOTES, 'UTF-8')} saat menampilkan data ke HTML. CSRF terjadi ketika penyerang mengirimkan request palsu atas nama pengguna yang sedang login. Pencegahan CSRF: gunakan \textit{CSRF token} unik di setiap form dan verifikasi di server sebelum memproses \cite{owaspXss}.
-
-\begin{webcode}[language=PHP, caption={Validasi form lengkap dengan CSRF token}]
-<?php
-session_start();
-
-// Generate CSRF token
-if (empty($_SESSION['csrf_token'])) {
-  $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
-
-$errors = [];
-$data   = ['nama' => '', 'email' => '', 'umur' => '', 'pesan' => ''];
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  // Verifikasi CSRF token
-  if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'] ?? '')) {
-    die("Request tidak valid (CSRF).");
-  }
-
-  // Sanitasi
-  $data['nama']  = trim(strip_tags($_POST['nama'] ?? ''));
-  $data['email'] = trim($_POST['email'] ?? '');
-  $data['umur']  = intval($_POST['umur'] ?? 0);
-  $data['pesan'] = trim(strip_tags($_POST['pesan'] ?? ''));
-
-  // Validasi
-  if (empty($data['nama']) || strlen($data['nama']) < 3) {
-    $errors[] = "Nama wajib diisi (min. 3 karakter).";
-  }
-  if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-    $errors[] = "Format email tidak valid.";
-  }
-  if ($data['umur'] < 17 || $data['umur'] > 100) {
-    $errors[] = "Umur harus antara 17 dan 100.";
-  }
-  if (empty($data['pesan'])) {
-    $errors[] = "Pesan wajib diisi.";
-  }
-
-  if (empty($errors)) {
-    // Aman untuk disimpan atau ditampilkan
-    echo "Data valid! Nama: "
-       . htmlspecialchars($data['nama'], ENT_QUOTES, 'UTF-8');
-    // Regenerate CSRF token setelah submit berhasil
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-  }
-}
-?>
-\end{webcode}
-
-\begin{catatan}
-Menurut OWASP (\textit{Open Web Application Security Project}), validasi input dan \textit{output encoding} merupakan dua dari sepuluh praktik keamanan paling penting dalam pengembangan web. Prinsip utamanya: \textbf{jangan pernah percaya input dari client} --- seluruh data dari form, URL, cookie, atau header HTTP harus divalidasi dan disanitasi di server sebelum diproses atau ditampilkan \cite{owaspCsrf}.
-\end{catatan}
+\begin{konsep}
+\textbf{Layout Thrashing.} Membaca properti layout (\code{offsetHeight}, \code{getBoundingClientRect()}) lalu menulis ke DOM secara bergantian memaksa browser menghitung layout berulang kali (forced synchronous layout). Solusi: kumpulkan semua pembacaan, lalu lakukan semua penulisan. Library seperti \code{fastdom} membantu mengelola ini secara otomatis \cite{mdnJsGuide}.
+\end{konsep}
 

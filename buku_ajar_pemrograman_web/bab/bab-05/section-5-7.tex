@@ -1,61 +1,66 @@
-\section{Gambar Vektor (SVG) dalam HTML}
+\section{Teks: Emphasis, Importance, dan Format Dasar}
 
-SVG (Scalable Vector Graphics) adalah format gambar berbasis XML yang mendefinisikan grafik menggunakan rumus matematika---bukan piksel seperti format raster (PNG, JPG, GIF). Keunggulan utama SVG adalah skalabilitas tanpa batas: gambar SVG dapat diperbesar atau diperkecil ke ukuran berapa pun tanpa kehilangan kualitas atau menjadi buram. Ini menjadikan SVG ideal untuk ikon, logo, ilustrasi, grafik data, dan elemen antarmuka yang harus tampil tajam di berbagai resolusi layar, termasuk layar Retina/HiDPI \cite{mdnHtmlIntro}.
+HTML membedakan antara elemen yang memberikan makna semantik (semantik) dan elemen yang hanya mengubah tampilan visual (presentasional). Pemahaman perbedaan ini sangat penting untuk menciptakan konten yang aksesibel dan bermakna. Elemen \code{<em>} (emphasis) dan \code{<strong>} (strong importance) adalah contoh elemen semantik yang memberikan makna pada konten, bukan hanya instruksi visual. Elemen \code{<em>} menandakan teks yang perlu penekanan atau tekanan berbeda dalam konteks, yang biasanya ditampilkan sebagai miring (italic) oleh browser. Elemen \code{<strong>} menandakan konten dengan tingkat kepentingan tinggi, kekhawatiran, atau urgensi, yang biasanya ditampilkan sebagai tebal (bold) \cite{mdnHtmlIntro}.
+
+Perbedaan penting terletak pada elemen presentasional \code{<i>} (italic) dan \code{<b>} (bold). Meskipun secara visual identik dengan \code{<em>} dan \code{<strong>}, elemen \code{<i>} dan \code{<b>} tidak membawa makna semantik. Elemen \code{<i>} sebaiknya digunakan untuk teks yang berbeda dalam nada suara atau mood, seperti istilah asing, nama kapal, atau kata dalam bahasa lain. Elemen \code{<b>} sebaiknya digunakan untuk menarik perhatian tanpa menandakan kepentingan atau urgensi yang lebih tinggi. Untuk aksesibilitas dan SEO, elemen semantik \code{<em>} dan \code{<strong>} selalu lebih disarankan kecuali ada alasan spesifik untuk menggunakan pendekatan presentasional \cite{mdnAccessibility}.
+
+HTML5 memperkenalkan elemen-elemen format teks tambahan yang memberikan makna spesifik. Elemen \code{<mark>} digunakan untuk menyoroti teks yang relevan dalam konteks tertentu, seperti hasil pencarian atau bagian yang ditinjau. Elemen \code{<small>} merepresentasikan catatan samping atau cetakan kecil seperti disclaimer, pernyataan hak cipta, atau peringatan. Elemen \code{<del>} menandakan teks yang telah dihapus dari dokumen, sering digunakan untuk menunjukkan perubahan revisi. Elemen \code{<ins>} menandakan teks yang telah ditambahkan sebagai revisi. Elemen \code{<s>} (strikethrough) mirip dengan \code{<del>} tetapi lebih umum untuk konten yang tidak lagi akurat atau relevan, bukan perubahan dokumen.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{3cm}|P{4.5cm}|P{4.5cm}|}
+\begin{tabular}{|P{2cm}|P{2cm}|P{3.5cm}|P{4cm}|}
 \hline
-\textbf{Aspek} & \textbf{SVG (Vektor)} & \textbf{PNG/JPG (Raster)} \\
+\textbf{Elemen} & \textbf{Tampilan} & \textbf{Makna Semantik} & \textbf{Penggunaan} \\
 \hline
-Skalabilitas & Tanpa batas, selalu tajam & Pecah/blur jika diperbesar \\
+\code{<em>} & Miring & Penekanan, tekanan & Kata yang ditekankan dalam kalimat \\
 \hline
-Ukuran file & Kecil untuk grafik sederhana & Bisa besar untuk resolusi tinggi \\
+\code{<strong>} & Tebal & Kepentingan tinggi, urgensi & Peringatan, informasi kritis \\
 \hline
-Animasi & Didukung (CSS \& SMIL) & Hanya GIF (terbatas) \\
+\code{<i>} & Miring & Beda nada, istilah asing & \textit{in medias res}, nama kapal \\
 \hline
-Styling CSS & Penuh (fill, stroke, dll.) & Tidak bisa \\
+\code{<b>} & Tebal & Menarik perhatian & Kata kunci, nama produk \\
 \hline
-Interaksi JS & Penuh (klik, hover, dll.) & Terbatas \\
+\code{<mark>} & Highlight kuning & Relevan dalam konteks & Hasil pencarian, bagian ditinjau \\
 \hline
-Cocok untuk & Ikon, logo, diagram, grafik & Foto, gambar kompleks \\
+\code{<small>} & Ukuran kecil & Catatan samping & Hak cipta, disclaimer \\
+\hline
+\code{<del>} & Coret & Teks dihapus & Revisi dokumen \\
+\hline
+\code{<ins>} & Garis bawah & Teks ditambahkan & Perubahan baru \\
 \hline
 \end{tabular}
-\caption{Perbandingan SVG (vektor) vs PNG/JPG (raster)}
+\caption{Perbandingan Elemen Format Teks dalam HTML}
+\label{tab:text-formatting}
 \end{table}
 
-SVG dapat disisipkan di HTML dengan beberapa cara. Cara pertama: sebagai file eksternal melalui \code{<img src="file.svg" alt="...">}---cara paling sederhana namun SVG tidak dapat dimanipulasi dengan CSS/JS. Cara kedua: inline SVG, yaitu menuliskan kode SVG langsung di dalam dokumen HTML---cara ini memberikan kontrol penuh melalui CSS dan JavaScript. Cara ketiga: melalui CSS \code{background-image}. Cara keempat: menggunakan \code{<object>} yang memungkinkan fallback. Untuk ikon dan ilustrasi yang perlu distylish atau diinteraksi, inline SVG adalah pilihan terbaik \cite{webdevHtml}.
+\begin{webcode}[language=HTML, caption={Contoh Elemen Format Teks}]
+<!-- Elemen semantik (direkomendasikan) -->
+<p>Hasil ujian <em>sangat memuaskan</em> dan 
+   <strong>harus segera dilaporkan</strong>.</p>
 
-Elemen dasar SVG meliputi bentuk-bentuk primitif: \code{<rect>} untuk persegi panjang, \code{<circle>} untuk lingkaran, \code{<ellipse>} untuk elips, \code{<line>} untuk garis, \code{<polyline>} untuk garis bersambung, \code{<polygon>} untuk poligon tertutup, dan \code{<path>} untuk bentuk bebas yang didefinisikan dengan perintah jalur (path commands). Atribut visual utama adalah \code{fill} (warna isi), \code{stroke} (warna garis), \code{stroke-width} (ketebalan garis), dan \code{opacity} (transparansi) \cite{mdnHtmlIntro}.
+<!-- Elemen presentasional (gunakan dengan bijak) -->
+<p>Istilah <i>in medias res</i> berasal dari bahasa Latin.</p>
+<p>Produk <b>SuperPhone X</b> sekarang tersedia!</p>
 
-\begin{webcode}[language=HTML, caption={SVG inline dengan berbagai bentuk dasar}]
-<svg width="300" height="200" viewBox="0 0 300 200"
-     role="img" aria-label="Contoh bentuk SVG">
-  <!-- Persegi panjang dengan sudut membulat -->
-  <rect x="10" y="10" width="80" height="60"
-        rx="10" fill="#3498db" />
-  <!-- Lingkaran -->
-  <circle cx="160" cy="40" r="30"
-          fill="#e74c3c" opacity="0.8" />
-  <!-- Garis -->
-  <line x1="220" y1="10" x2="290" y2="70"
-        stroke="#2ecc71" stroke-width="3" />
-  <!-- Poligon (segitiga) -->
-  <polygon points="50,120 10,190 90,190"
-           fill="#f39c12" />
-  <!-- Teks SVG -->
-  <text x="130" y="160" font-size="16"
-        fill="#333">Hello SVG!</text>
-</svg>
+<!-- Elemen format tambahan -->
+<p>Cari kata <mark>HTML</mark> dalam dokumen ini.</p>
+<p>Harga: <s>Rp 1.000.000</s> Rp 800.000</p>
+<p><small>&copy; 2026 Perusahaan Contoh. 
+   Semua hak dilindungi.</small></p>
+
+<!-- Revisi dokumen -->
+<p>Jadwal rapat: <del>Senin, 3 Maret 2026</del> 
+   <ins>Selasa, 4 Maret 2026</ins></p>
 \end{webcode}
 
-\begin{konsep}
-\textbf{Aksesibilitas SVG.} Untuk memastikan SVG dapat diakses oleh semua pengguna:
-\begin{itemize}
-  \item Pada \code{<img src="file.svg">}: gunakan atribut \code{alt} yang deskriptif.
-  \item Pada inline \code{<svg>}: tambahkan \code{role="img"} dan \code{aria-label} atau gunakan elemen \code{<title>} dan \code{<desc>} di dalam SVG.
-  \item Untuk SVG dekoratif (tidak mengandung informasi penting): gunakan \code{aria-hidden="true"} agar diabaikan oleh pembaca layar.
-  \item Pastikan warna dan kontras cukup untuk pengguna dengan gangguan penglihatan warna \cite{mdnAccessibility}.
+\begin{catatan}
+\textbf{Panduan Memilih Elemen Format Teks:}
+\begin{itemize}[leftmargin=*]
+  \item Gunakan \code{<em>} untuk penekanan yang mengubah makna kalimat.
+  \item Gunakan \code{<strong>} untuk informasi yang penting atau urgensi.
+  \item Gunakan \code{<i>} untuk istilah teknis, nama asing, atau beda nada.
+  \item Gunakan \code{<b>} hanya untuk menarik perhatian tanpa makna semantik.
+  \item Prioritaskan elemen semantik untuk aksesibilitas yang lebih baik.
 \end{itemize}
-\end{konsep}
+\end{catatan}
 

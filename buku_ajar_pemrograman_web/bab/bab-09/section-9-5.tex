@@ -1,32 +1,30 @@
-\section{Number, Math, dan Pembulatan}
+\section{Tipe Data: number, string, boolean, undefined, null}
 
-Tipe \code{Number} di JavaScript menggunakan IEEE 754 double-precision float (64-bit). Ini berarti semua angka (integer dan desimal) disimpan dalam format yang sama. Konsekuensinya: \code{0.1 + 0.2 !== 0.3} (masalah floating-point). Untuk perhitungan uang, gunakan integer (sen) atau library seperti Decimal.js. \code{Number.isInteger()}, \code{Number.isFinite()}, dan \code{Number.isNaN()} memeriksa sifat angka \cite{jsInfo}.
+JavaScript memiliki tipe data \textbf{primitif} dan \textbf{objek}. Tipe primitif menyimpan nilai tunggal dan bersifat immutable. Ada tujuh tipe primitif, lima di antaranya paling sering digunakan: \code{number}, \code{string}, \code{boolean}, \code{undefined}, dan \code{null}. Operator \code{typeof} mengembalikan string yang menunjukkan tipe data sebuah nilai \cite{jsInfo}.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{3.5cm}|P{4cm}|P{4.5cm}|}
+\begin{tabular}{|P{2cm}|P{3cm}|P{3cm}|P{4cm}|}
 \hline
-\textbf{Metode/Properti} & \textbf{Fungsi} & \textbf{Contoh} \\
+\textbf{Tipe} & \textbf{Contoh} & \textbf{typeof} & \textbf{Keterangan} \\
 \hline
-\code{Math.round(x)} & Bulatkan terdekat & \code{Math.round(4.5)} $\rightarrow$ 5 \\
+number & \code{42}, \code{3.14}, \code{NaN} & \code{"number"} & Integer dan float; termasuk NaN, Infinity \\
 \hline
-\code{Math.floor(x)} & Bulatkan ke bawah & \code{Math.floor(4.9)} $\rightarrow$ 4 \\
+string & \code{"Hello"}, \code{`Hi`} & \code{"string"} & Teks; kutip tunggal/ganda/backtick \\
 \hline
-\code{Math.ceil(x)} & Bulatkan ke atas & \code{Math.ceil(4.1)} $\rightarrow$ 5 \\
+boolean & \code{true}, \code{false} & \code{"boolean"} & Dua nilai logika \\
 \hline
-\code{Math.random()} & Acak 0--1 & \code{Math.random()} \\
+undefined & variabel tanpa nilai & \code{"undefined"} & Default variabel yang belum diisi \\
 \hline
-\code{Math.max(...vals)} & Nilai terbesar & \code{Math.max(1,5,3)} $\rightarrow$ 5 \\
-\hline
-\code{Number.parseInt(s)} & Parse ke integer & \code{parseInt("42px")} $\rightarrow$ 42 \\
-\hline
-\code{.toFixed(n)} & Format desimal & \code{(3.14159).toFixed(2)} $\rightarrow$ \code{"3.14"} \\
+null & \code{null} & \code{"object"} & Nilai ``kosong'' eksplisit (bug typeof) \\
 \hline
 \end{tabular}
-\caption{Metode Math dan Number yang sering digunakan}
+\caption{Lima tipe data primitif JavaScript yang paling umum}
 \end{table}
 
-\begin{konsep}
-\textbf{Random Integer dalam Rentang.} Untuk menghasilkan integer acak antara \code{min} dan \code{max} (inklusif): \code{Math.floor(Math.random() * (max - min + 1)) + min}. \code{Math.random()} menghasilkan float 0 $\leq$ x $<$ 1; kalikan dengan rentang, bulatkan ke bawah, lalu tambahkan minimum \cite{mdnJsGuide}.
-\end{konsep}
+JavaScript bersifat \textbf{dynamically typed}: tipe data variabel ditentukan oleh nilai yang disimpan, bukan oleh deklarasi. Variabel yang sama dapat menyimpan number, lalu diubah menjadi string. Meskipun fleksibel, ini dapat menyebabkan bug jika tidak berhati-hati. Template literal (backtick \code{`Hello \$\{name\}`}) memungkinkan interpolasi string yang lebih mudah dibaca dibanding konkatenasi \cite{mdnJsGuide}.
+
+\begin{catatan}
+\textbf{Nilai Truthy dan Falsy.} Dalam konteks boolean, beberapa nilai dianggap \textit{falsy} (dievaluasi sebagai \code{false}): \code{false}, \code{0}, \code{""} (string kosong), \code{null}, \code{undefined}, dan \code{NaN}. Semua nilai lain adalah \textit{truthy}. Ini penting untuk percabangan: \code{if (name)} akan gagal jika \code{name} adalah string kosong, null, atau undefined \cite{jsInfo}.
+\end{catatan}
 

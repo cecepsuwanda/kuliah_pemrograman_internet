@@ -1,28 +1,22 @@
-\section[Referensi Standar: MDN, OWASP, web.dev, PHP The Right Way]{Referensi Standar: MDN, OWASP, web.dev, PHP The Right Way}
+\section{DISTINCT dan Alias (Kolom serta Tabel)}
 
-Sebagai web developer, penting untuk mengenal dan memanfaatkan referensi standar yang terpercaya. Sumber-sumber ini selalu diperbarui dan menjadi acuan industri. Mengerjakan proyek tanpa referensi yang benar seperti membangun rumah tanpa blueprint \cite{phpRightWay}.
+Kata kunci \code{DISTINCT} menghilangkan baris duplikat dari hasil query. Ini berguna saat Anda ingin mengetahui nilai unik dari suatu kolom --- misalnya, daftar kategori yang ada atau kota asal pengguna. Sintaks: \code{SELECT DISTINCT kolom FROM tabel;}. DISTINCT dapat diterapkan pada satu atau beberapa kolom; jika beberapa kolom dipilih, MySQL menghilangkan baris yang kombinasi seluruh kolomnya sama \cite{mysqlDocs}.
 
-\begin{table}[ht]
-\centering
-\begin{tabular}{|P{3cm}|P{4cm}|P{5.5cm}|}
-\hline
-\textbf{Sumber} & \textbf{Topik Utama} & \textbf{URL} \\
-\hline
-MDN Web Docs & HTML, CSS, JS, Web API & developer.mozilla.org \\
-\hline
-OWASP & Keamanan web, checklist & owasp.org \\
-\hline
-web.dev (Google) & Performa, Core Web Vitals & web.dev \\
-\hline
-PHP The Right Way & Best practices PHP & phptherightway.com \\
-\hline
-PHP Manual & Dokumentasi resmi PHP & php.net/manual \\
-\hline
-MySQL Docs & Dokumentasi resmi MySQL & dev.mysql.com/doc \\
-\hline
-\end{tabular}
-\caption{Referensi standar untuk web developer}
-\end{table}
+\textbf{Alias} memberikan nama sementara pada kolom atau tabel dalam query menggunakan kata kunci \code{AS}. Alias kolom berguna untuk memberi nama yang lebih deskriptif pada hasil perhitungan atau fungsi agregat --- misalnya, \code{COUNT(*) AS jumlah\_produk}. Alias tabel memperpendek nama tabel dalam query yang melibatkan JOIN, sehingga lebih mudah dibaca. Alias bersifat sementara dan hanya berlaku selama query dijalankan \cite{mysqlGettingStarted}.
 
-Manfaatkan sumber-sumber ini secara aktif: MDN untuk mempelajari API baru, OWASP untuk checklist keamanan, web.dev untuk optimasi performa, dan PHP The Right Way untuk arsitektur dan praktik terbaik PHP. Biasakan membaca dokumentasi resmi sebelum mencari tutorial pihak ketiga.
+\begin{webcode}[language=SQL, caption={DISTINCT dan alias}]
+-- Daftar kategori unik
+SELECT DISTINCT kategori FROM produk;
+
+-- Alias kolom
+SELECT nama AS nama_produk,
+       harga AS harga_satuan,
+       harga * stok AS total_nilai
+FROM produk;
+
+-- Alias tabel (berguna di JOIN)
+SELECT p.nama, p.harga, k.nama AS nama_kategori
+FROM produk AS p
+JOIN kategori AS k ON p.kategori_id = k.id;
+\end{webcode}
 

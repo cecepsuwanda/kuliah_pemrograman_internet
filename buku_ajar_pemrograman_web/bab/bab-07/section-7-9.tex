@@ -1,32 +1,26 @@
-\section{Viewport dan Unit Responsif}
+\section{Display: block, inline, dan inline-block}
 
-Viewport adalah area tampilan browser yang terlihat oleh pengguna. Meta tag \code{<meta name="viewport" content="width=device-width, initial-scale=1.0">} wajib ada di setiap halaman responsif---tanpanya, mobile browser akan merender halaman pada lebar desktop (biasanya 980px) lalu memperkecilnya, membuat teks sangat kecil. Unit viewport CSS memungkinkan ukuran elemen relatif terhadap dimensi viewport \cite{mdnCss}.
+Properti \code{display} menentukan bagaimana elemen berpartisipasi dalam \textbf{flow layout}---model tata letak default browser di mana elemen disusun secara berurutan dari atas ke bawah dan kiri ke kanan. Setiap elemen HTML memiliki nilai display default: beberapa bersifat \textbf{block} (memenuhi satu baris penuh), yang lain bersifat \textbf{inline} (mengalir di dalam baris teks). Properti \code{display} memungkinkan pengembang mengubah perilaku default ini sesuai kebutuhan desain \cite{mdnCss}.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{1.5cm}|P{4cm}|P{6.5cm}|}
+\begin{tabular}{|P{2.5cm}|P{3cm}|P{2.5cm}|P{4cm}|}
 \hline
-\textbf{Unit} & \textbf{Relatif Terhadap} & \textbf{Contoh Penggunaan} \\
+\textbf{Nilai} & \textbf{Perilaku} & \textbf{W/H} & \textbf{Contoh Elemen Default} \\
 \hline
-\code{vw} & 1\% lebar viewport & Hero section \code{font-size: calc(1rem + 2vw)} \\
+\code{block} & Satu baris penuh; mulai baris baru & Diterima & \code{<div>}, \code{<p>}, \code{<h1>}, \code{<section>} \\
 \hline
-\code{vh} & 1\% tinggi viewport & Full-height hero: \code{height: 100vh} \\
+\code{inline} & Mengalir dalam teks; sebaris & Diabaikan & \code{<span>}, \code{<a>}, \code{<strong>}, \code{<em>} \\
 \hline
-\code{vmin} & 1\% dimensi terkecil & Layout square responsif \\
+\code{inline-block} & Sebaris, dapat diberi ukuran & Diterima & Tidak ada default; harus diset \\
 \hline
-\code{vmax} & 1\% dimensi terbesar & Jarang digunakan \\
-\hline
-\code{dvh} & Dynamic viewport height & Mengatasi masalah address bar mobile \\
-\hline
-\code{svh} & Small viewport height & Tinggi tanpa address bar \\
+\code{none} & Elemen hilang dari layout & --- & Disembunyikan sepenuhnya \\
 \hline
 \end{tabular}
-\caption{Unit viewport CSS dan penggunaannya}
+\caption{Perbandingan nilai display: block, inline, inline-block, dan none}
 \end{table}
 
-Perhatian khusus pada \code{100vh} di perangkat mobile: address bar browser yang muncul/hilang menyebabkan \code{100vh} kadang lebih tinggi dari area yang benar-benar terlihat. Unit modern \code{dvh} (dynamic viewport height) dan \code{svh} (small viewport height) mengatasi masalah ini. Fungsi \code{clamp(min, preferred, max)} sangat berguna untuk \textbf{fluid typography}: \code{font-size: clamp(1rem, 2.5vw, 2rem)} membuat teks yang otomatis menyesuaikan tanpa media query \cite{webdevCss}.
+Elemen \textbf{block} secara default memakai seluruh lebar kontainer induknya dan memulai baris baru. Properti \code{width}, \code{height}, \code{margin}, dan \code{padding} berlaku sepenuhnya pada elemen block. Elemen \textbf{inline} hanya memakai ruang sebesar kontennya dan mengalir di dalam baris teks bersama konten lain. Pada elemen inline, \code{width} dan \code{height} \textbf{tidak berlaku}, dan margin/padding vertikal tidak mempengaruhi layout elemen lain. Elemen \textbf{inline-block} menggabungkan keduanya: mengalir di dalam baris seperti inline, tetapi menerima \code{width}, \code{height}, dan margin/padding penuh seperti block \cite{webdevCss}.
 
-\begin{konsep}
-\textbf{Fluid Typography dengan clamp().} Alih-alih mendefinisikan \code{font-size} berbeda di setiap breakpoint, gunakan \code{clamp()} untuk tipografi yang mulus: \code{font-size: clamp(1rem, 1rem + 1vw, 2.5rem);} --- teks tumbuh secara proporsional dari minimum 1rem ke maksimum 2.5rem berdasarkan lebar viewport. Ini mengurangi jumlah media queries dan menghasilkan transisi ukuran teks yang lebih halus \cite{cssTricks}.
-\end{konsep}
+Properti \code{display: none;} menghapus elemen dari layout sepenuhnya---elemen tidak terlihat dan tidak mengambil ruang. Berbeda dengan \code{visibility: hidden;} yang menyembunyikan elemen secara visual tetapi tetap mempertahankan ruangnya di layout. Pilihan antara keduanya tergantung pada apakah ruang kosong harus tetap ada atau tidak. Untuk aksesibilitas, \code{display: none} juga membuat elemen tidak terbaca oleh pembaca layar, sedangkan \code{visibility: hidden} masih dapat terbaca tergantung implementasi \cite{mdnCss}.
 

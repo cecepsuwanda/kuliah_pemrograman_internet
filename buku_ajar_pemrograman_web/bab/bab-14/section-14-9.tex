@@ -1,32 +1,26 @@
-\section{Hardening Server: Firewall, Updates, dan Konfigurasi Aplikasi}
+\section{ORDER BY dan LIMIT}
 
-\textbf{Server hardening} adalah proses mengamankan server dengan mengurangi \textit{attack surface} --- menutup celah yang tidak diperlukan. Langkah utama: (1) aktifkan \textbf{firewall} untuk memblokir port yang tidak digunakan; (2) lakukan \textbf{update rutin} sistem operasi dan software; (3) buat \textbf{user non-root} untuk menjalankan aplikasi; (4) nonaktifkan layanan yang tidak diperlukan; (5) batasi akses SSH (gunakan key-based auth, nonaktifkan password login) \cite{phpRightWay}.
+Klausa \code{ORDER BY} mengurutkan hasil query berdasarkan satu atau lebih kolom. Secara default, pengurutan bersifat \code{ASC} (ascending/naik); tambahkan \code{DESC} untuk urutan menurun. Anda dapat mengurutkan berdasarkan beberapa kolom: \code{ORDER BY kolom1 ASC, kolom2 DESC} --- MySQL akan mengurutkan berdasarkan kolom pertama terlebih dahulu, lalu kolom kedua untuk baris yang bernilai sama di kolom pertama \cite{mysqlDocs}.
 
-\begin{webcode}[language=PHP, caption={Perintah hardening server dasar (Ubuntu/Debian)}]
-# Update sistem
-# sudo apt update && sudo apt upgrade -y
+Klausa \code{LIMIT} membatasi jumlah baris yang dikembalikan. Ini sangat berguna untuk \textbf{pagination} (menampilkan data per halaman) di aplikasi web. Sintaks: \code{LIMIT jumlah} untuk membatasi jumlah baris, atau \code{LIMIT offset, jumlah} untuk melewati sejumlah baris pertama. Misalnya, halaman 2 dengan 10 item per halaman: \code{LIMIT 10, 10} (lewati 10, ambil 10). Kombinasi ORDER BY dan LIMIT adalah pola yang sangat umum dalam query aplikasi web \cite{mysqlGettingStarted}.
 
-# Firewall (UFW)
-# sudo ufw default deny incoming
-# sudo ufw default allow outgoing
-# sudo ufw allow ssh       # port 22
-# sudo ufw allow http      # port 80
-# sudo ufw allow https     # port 443
-# sudo ufw enable
-# sudo ufw status
+\begin{webcode}[language=SQL, caption={ORDER BY dan LIMIT untuk pengurutan dan pagination}]
+-- Urutkan berdasarkan harga (termurah dulu)
+SELECT nama, harga FROM produk ORDER BY harga ASC;
 
-# User non-root
-# sudo adduser deployer
-# sudo usermod -aG www-data deployer
+-- Urutkan berdasarkan tanggal terbaru
+SELECT * FROM produk ORDER BY created_at DESC;
 
-# SSH: nonaktifkan login root + password
-# sudo nano /etc/ssh/sshd_config
-# PermitRootLogin no
-# PasswordAuthentication no
-# sudo systemctl restart sshd
+-- Top 5 produk termahal
+SELECT nama, harga FROM produk ORDER BY harga DESC LIMIT 5;
+
+-- Pagination: halaman 1 (10 item)
+SELECT * FROM produk ORDER BY id LIMIT 0, 10;
+
+-- Pagination: halaman 2 (10 item)
+SELECT * FROM produk ORDER BY id LIMIT 10, 10;
+
+-- Pagination: halaman 3 (10 item)
+SELECT * FROM produk ORDER BY id LIMIT 20, 10;
 \end{webcode}
-
-\begin{catatan}
-Checklist hardening: (1) firewall aktif (hanya port 22, 80, 443 terbuka); (2) OS dan software ter-update; (3) root login SSH dinonaktifkan; (4) SSH key-based auth; (5) file permission benar (755 folder, 644 file); (6) \code{.env} dan \code{vendor/} tidak bisa diakses publik; (7) database port (3306) diblokir dari publik.
-\end{catatan}
 

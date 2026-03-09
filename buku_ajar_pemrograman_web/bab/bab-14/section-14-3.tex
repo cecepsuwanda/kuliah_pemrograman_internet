@@ -1,26 +1,45 @@
-\section{Pengenalan Server Web (Apache/Nginx) dan Peran PHP}
+\section{Mengakses MySQL: Command Line dan Alat GUI}
 
-\textbf{Server web} bertugas menerima HTTP request dari browser dan mengembalikan response (file HTML, CSS, JS, gambar, atau output PHP). Dua server web paling populer: \textbf{Apache HTTP Server} (menggunakan \code{.htaccess} untuk konfigurasi per-direktori; modul \code{mod\_php} menjalankan PHP langsung) dan \textbf{Nginx} (event-driven, performa tinggi untuk koneksi bersamaan; menggunakan PHP-FPM sebagai proses terpisah). Apache lebih mudah dikonfigurasi untuk pemula; Nginx lebih efisien untuk traffic tinggi dan sering digunakan sebagai reverse proxy \cite{mdnDeploy}.
+MySQL dapat diakses melalui dua cara utama: \textbf{command line interface} (CLI) dan \textbf{graphical user interface} (GUI). CLI memberikan kontrol penuh dan efisien untuk menjalankan query SQL langsung, cocok untuk administrasi server dan otomasi. GUI menyediakan tampilan visual yang lebih mudah dipahami pemula, seperti phpMyAdmin (berbasis web) atau MySQL Workbench (desktop). Pemahaman kedua cara ini penting karena di lingkungan produksi sering kali hanya tersedia CLI \cite{mysqlDocs}.
+
+Untuk mengakses MySQL via CLI, buka terminal atau command prompt, lalu ketik \code{mysql -u root -p}. Setelah memasukkan password, prompt \code{mysql>} akan muncul dan Anda dapat langsung mengetikkan perintah SQL. Untuk keluar, ketik \code{exit} atau \code{\\q}. Beberapa perintah CLI berguna: \code{SHOW DATABASES;} untuk melihat daftar database, \code{USE nama\_db;} untuk memilih database, dan \code{SHOW TABLES;} untuk melihat tabel \cite{mysqlGettingStarted}.
 
 \begin{table}[ht]
 \centering
 \begin{tabular}{|P{3cm}|P{5cm}|P{5cm}|}
 \hline
-\textbf{Aspek} & \textbf{Apache} & \textbf{Nginx} \\
+\textbf{Aspek} & \textbf{CLI (Command Line)} & \textbf{GUI (phpMyAdmin)} \\
 \hline
-Arsitektur & Process/thread per request & Event-driven, async \\
+Akses & Terminal / CMD & Browser web \\
 \hline
-PHP handler & mod\_php (built-in) & PHP-FPM (terpisah) \\
+Kecepatan & Cepat untuk query & Lebih lambat (render UI) \\
 \hline
-Konfigurasi & .htaccess (per-dir) & conf file (terpusat) \\
+Kurva belajar & Perlu hafal perintah & Visual, intuitif \\
 \hline
-Performa & Baik untuk traffic sedang & Sangat baik untuk traffic tinggi \\
+Otomasi & Mudah (skrip .sql) & Terbatas \\
 \hline
-Reverse proxy & Bisa (mod\_proxy) & Built-in, sangat populer \\
+Produksi & Sering satu-satunya opsi & Tidak selalu tersedia \\
 \hline
-Rewrite URL & mod\_rewrite & \code{try\_files} directive \\
+Fitur & Lengkap & Lengkap + visual \\
 \hline
 \end{tabular}
-\caption{Perbandingan Apache dan Nginx}
+\caption{Perbandingan akses MySQL via CLI dan GUI}
 \end{table}
+
+\begin{webcode}[language=SQL, caption={Perintah dasar di MySQL CLI}]
+-- Login ke MySQL
+-- $ mysql -u root -p
+
+-- Melihat daftar database
+SHOW DATABASES;
+
+-- Membuat database baru
+CREATE DATABASE toko_online;
+
+-- Menggunakan database
+USE toko_online;
+
+-- Melihat tabel dalam database aktif
+SHOW TABLES;
+\end{webcode}
 

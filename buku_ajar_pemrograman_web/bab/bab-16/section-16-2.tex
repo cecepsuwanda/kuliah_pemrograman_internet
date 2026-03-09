@@ -1,0 +1,28 @@
+\section{Pengenalan Deployment dan Siklus Rilis Aplikasi Web}
+
+\textbf{Deployment} adalah proses memindahkan aplikasi dari lingkungan pengembangan ke server produksi agar dapat diakses pengguna. Proses ini melibatkan beberapa tahap: persiapan kode (memastikan semua fitur telah diuji), konfigurasi server, transfer file, konfigurasi database, pengaturan keamanan, dan verifikasi. Siklus rilis modern mengikuti pola iteratif: develop $\to$ test $\to$ stage $\to$ deploy $\to$ monitor $\to$ feedback $\to$ develop kembali \cite{mdnDeploy}.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners, minimum width=1.8cm, minimum height=0.8cm, align=center, font=\footnotesize, fill=#1},
+  arrow/.style={-Stealth, thick},
+  node distance=0.8cm
+]
+  \node[box=blue!15] (dev) {Develop};
+  \node[box=green!15, right=0.8cm of dev] (test) {Test};
+  \node[box=orange!15, right=0.8cm of test] (stage) {Stage};
+  \node[box=red!15, right=0.8cm of stage] (deploy) {Deploy};
+  \node[box=purple!15, right=0.8cm of deploy] (monitor) {Monitor};
+
+  \draw[arrow] (dev) -- (test);
+  \draw[arrow] (test) -- (stage);
+  \draw[arrow] (stage) -- (deploy);
+  \draw[arrow] (deploy) -- (monitor);
+  \draw[arrow, bend right=30] (monitor) to node[below, font=\scriptsize]{Feedback} (dev);
+\end{tikzpicture}
+\caption{Siklus rilis aplikasi web}
+\end{figure}
+
+Sebelum deployment, siapkan \textbf{checklist pra-deployment}: (1) semua tes lulus; (2) database ter-migrasi; (3) environment variable dikonfigurasi; (4) \code{display\_errors} dimatikan; (5) HTTPS aktif; (6) backup database terbaru; (7) file \code{.env}, \code{.git/}, \code{vendor/} tidak bisa diakses publik.
+

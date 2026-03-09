@@ -1,56 +1,30 @@
-\section{Array: Membuat, Mengakses Indeks, dan Metode Dasar}
+\section{Transisi (transition)}
 
-Array adalah struktur data yang menyimpan kumpulan nilai dalam urutan terindeks. Indeks dimulai dari 0. Array di JavaScript bersifat dinamis---ukurannya dapat berubah dan isinya dapat berisi tipe data campuran (meskipun tidak direkomendasikan). Array dibuat dengan literal \code{[]} atau \code{new Array()} (literal lebih direkomendasikan) \cite{jsInfo}.
+\textbf{Transition} mengubah nilai properti CSS secara halus dalam jangka waktu tertentu, menciptakan efek animasi sederhana yang dipicu oleh perubahan state (misalnya \code{:hover}, \code{:focus}, penambahan class via JavaScript). Transition membuat antarmuka terasa lebih responsif dan profesional tanpa memerlukan kode JavaScript \cite{mdnCss}.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|P{3.5cm}|P{4cm}|P{4.5cm}|}
+\begin{tabular}{|P{5cm}|P{3.5cm}|P{3.5cm}|}
 \hline
-\textbf{Metode} & \textbf{Fungsi} & \textbf{Contoh} \\
+\textbf{Properti} & \textbf{Fungsi} & \textbf{Contoh Nilai} \\
 \hline
-\code{.push(item)} & Tambah di akhir & \code{arr.push(4)} \\
+\code{transition-property} & Properti yang dianimasikan & \code{background}, \code{all} \\
 \hline
-\code{.pop()} & Hapus dari akhir & \code{arr.pop()} \\
+\code{transition-duration} & Durasi animasi & \code{0.3s}, \code{200ms} \\
 \hline
-\code{.unshift(item)} & Tambah di awal & \code{arr.unshift(0)} \\
+\code{transition-timing-function} & Kurva kecepatan & \code{ease}, \code{linear} \\
 \hline
-\code{.shift()} & Hapus dari awal & \code{arr.shift()} \\
+\code{transition-delay} & Jeda sebelum mulai & \code{0s}, \code{0.1s} \\
 \hline
-\code{.indexOf(item)} & Cari posisi & \code{arr.indexOf(3)} \\
-\hline
-\code{.includes(item)} & Cek keberadaan & \code{arr.includes(2)} \\
-\hline
-\code{.slice(s, e)} & Salin bagian & \code{arr.slice(1, 3)} \\
-\hline
-\code{.splice(i, n)} & Hapus/sisip di posisi & \code{arr.splice(1, 2)} \\
-\hline
-\code{.forEach(fn)} & Iterasi setiap elemen & \code{arr.forEach(x => ...)} \\
-\hline
-\code{.map(fn)} & Transformasi ke array baru & \code{arr.map(x => x * 2)} \\
-\hline
-\code{.filter(fn)} & Filter ke array baru & \code{arr.filter(x => x > 2)} \\
+\code{transition} (shorthand) & Gabungan semua & \code{all 0.3s ease 0s} \\
 \hline
 \end{tabular}
-\caption{Metode array JavaScript yang paling sering digunakan}
+\caption{Properti transition CSS}
 \end{table}
 
-\begin{webcode}[language=JavaScript, caption={Operasi array dasar dan fungsional}]
-const numbers = [10, 20, 30, 40, 50];
-
-// Akses dan modifikasi
-console.log(numbers[0]);   // 10
-console.log(numbers.length); // 5
-numbers.push(60);  // [10, 20, 30, 40, 50, 60]
-
-// Metode fungsional (menghasilkan array baru)
-const doubled = numbers.map(n => n * 2);
-const big = numbers.filter(n => n > 30);
-const total = numbers.reduce((sum, n) => sum + n, 0);
-console.log(doubled); // [20, 40, 60, 80, 100, 120]
-console.log(total);   // 210
-\end{webcode}
+Hanya properti yang memiliki nilai \textbf{interpolable} (dapat dihitung perantaranya) yang dapat ditransisi---termasuk warna, ukuran, opacity, transform, dan padding. Properti diskret seperti \code{display} dan \code{visibility} tidak dapat ditransisi (kecuali \code{visibility} yang memiliki perilaku khusus). Untuk performa optimal, animasikan hanya \code{transform} dan \code{opacity}---keduanya dioptimalkan oleh GPU browser \cite{webdevCss}.
 
 \begin{konsep}
-\textbf{Destructuring Array (ES6).} Sintaks \code{const [a, b, ...rest] = arr;} mengekstrak elemen array ke variabel individual. Rest operator (\code{...rest}) menampung sisa elemen. Destructuring juga bekerja untuk swap nilai: \code{[a, b] = [b, a];}. Ini membuat kode lebih ringkas dan ekspresif \cite{mdnJsGuide}.
+\textbf{Performa Animasi.} Properti yang mempengaruhi layout (width, height, margin, padding) memicu \textit{reflow}---proses mahal di mana browser menghitung ulang posisi semua elemen. Properti seperti \code{transform} dan \code{opacity} hanya memicu \textit{compositing} (proses ringan). Selalu prioritaskan animasi dengan transform/opacity untuk pengalaman yang mulus, terutama di perangkat mobile \cite{cssTricks}.
 \end{konsep}
 

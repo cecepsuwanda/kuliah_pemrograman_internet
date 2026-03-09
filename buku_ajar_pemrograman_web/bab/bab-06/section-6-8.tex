@@ -1,71 +1,60 @@
-\section{Lebar, Tinggi, dan box-sizing}
+\section{Embedding: iframe, object, dan embed}
 
-Properti \code{width} dan \code{height} mengatur dimensi area content elemen. Nilai dapat berupa satuan absolut (px), relatif (em, rem, \%), atau keyword seperti \code{auto} (browser menghitung secara otomatis). Untuk layout yang fleksibel, properti \code{min-width}, \code{max-width}, \code{min-height}, dan \code{max-height} membatasi ukuran elemen agar tetap responsif---misalnya, \code{max-width: 800px;} memastikan elemen tidak melebihi 800px meskipun kontainernya lebih lebar \cite{mdnCss}.
+Embedding (penyematan) memungkinkan halaman web menyertakan konten dari sumber eksternal---seperti halaman lain, video YouTube, peta Google Maps, dokumen PDF, atau widget media sosial. HTML menyediakan tiga elemen utama untuk embedding: \code{<iframe>}, \code{<object>}, dan \code{<embed>}. Dari ketiganya, \code{<iframe>} (inline frame) adalah yang paling banyak digunakan di web modern karena kesederhanaannya dan dukungan browser yang universal \cite{mdnHtmlIntro}. Memahami kemampuan dan batasan keamanan masing-masing elemen sangat penting untuk membangun halaman web yang aman dan efisien.
 
-Properti \textbf{box-sizing} mengontrol cara browser menghitung dimensi total elemen. Terdapat dua model: \code{content-box} (default) dan \code{border-box}. Perbedaan keduanya sangat signifikan dan sering menjadi sumber kebingungan bagi pemula. Memahami box-sizing adalah langkah kritis untuk menghasilkan layout yang presisi dan mudah diprediksi \cite{webdevCss}.
-
-\begin{figure}[htbp]
+\begin{table}[htbp]
 \centering
-\resizebox{\textwidth}{!}{%
-\begin{tikzpicture}[every node/.style={font=\footnotesize}]
-  % content-box
-  \node[font=\bfseries\small, anchor=south] at (4,5.5) {content-box (default)};
-  \fill[orange!15] (0,0) rectangle (8,5);
-  \fill[green!15] (0.5,0.5) rectangle (7.5,4.5);
-  \fill[blue!15] (1.5,1.5) rectangle (6.5,3.5);
-  \node at (4,2.5) {\code{width: 300px}};
-  \draw[<->, thick] (1.5,1) -- node[below, font=\scriptsize] {300px (content)} (6.5,1);
-  \draw[<->, thick] (0,0.3) -- node[below, font=\scriptsize] {300 + 40 + 2 = 342px (total)} (8,0.3);
-  \node[font=\scriptsize] at (1,2.5) {pad 20px};
-  \node[font=\scriptsize] at (7,2.5) {pad 20px};
-  \node[font=\scriptsize, anchor=west] at (0.1,4.8) {border: 1px};
+\begin{tabular}{|P{2.2cm}|P{3.5cm}|P{3cm}|P{3cm}|}
+\hline
+\textbf{Elemen} & \textbf{Kegunaan Utama} & \textbf{Kelebihan} & \textbf{Keterbatasan} \\
+\hline
+\code{<iframe>} & Halaman web, video, peta & Paling sering digunakan; mendukung sandbox & Bisa berat; risiko clickjacking \\
+\hline
+\code{<object>} & PDF, Flash, SVG & Mendukung fallback content & Jarang dipakai di web modern \\
+\hline
+\code{<embed>} & Plugin, PDF, media & Sintaks sederhana (self-closing) & Tidak punya mekanisme fallback \\
+\hline
+\end{tabular}
+\caption{Perbandingan elemen embedding HTML}
+\end{table}
 
-  % border-box
-  \node[font=\bfseries\small, anchor=south] at (14,5.5) {border-box};
-  \fill[orange!15] (10,0) rectangle (18,5);
-  \fill[green!15] (10.5,0.5) rectangle (17.5,4.5);
-  \fill[blue!15] (11.5,1.5) rectangle (16.5,3.5);
-  \node at (14,2.5) {\code{width: 300px}};
-  \draw[<->, thick] (10,0.3) -- node[below, font=\scriptsize] {300px (total!)} (18,0.3);
-  \draw[<->, thick] (11.5,1) -- node[below, font=\scriptsize] {258px (content)} (16.5,1);
-  \node[font=\scriptsize] at (11,2.5) {pad 20px};
-  \node[font=\scriptsize] at (17,2.5) {pad 20px};
-  \node[font=\scriptsize, anchor=west] at (10.1,4.8) {border: 1px};
-\end{tikzpicture}%
-}
-\caption{Perbandingan content-box vs border-box: cara perhitungan width}
-\end{figure}
+Elemen \code{<iframe>} bekerja dengan menyematkan halaman web lain sebagai dokumen terpisah di dalam halaman Anda. Atribut \code{src} menentukan URL sumber, \code{width} dan \code{height} mengatur dimensi, dan \code{title} wajib untuk aksesibilitas---pembaca layar menggunakan nilai title untuk mendeskripsikan konten iframe kepada pengguna. Tanpa atribut \code{title}, pengguna pembaca layar tidak akan mengetahui apa yang dimuat di dalam iframe \cite{mdnAccessibility}.
 
-Pada \code{content-box}, properti \code{width} dan \code{height} hanya berlaku untuk area content. Padding dan border \textbf{ditambahkan} di luar ukuran tersebut. Artinya, jika \code{width: 300px}, \code{padding: 20px}, dan \code{border: 1px}, total lebar visual elemen menjadi $300 + 20 \times 2 + 1 \times 2 = 342$ px. Ini membuat kalkulasi layout menjadi rumit karena setiap perubahan padding atau border mengubah total dimensi elemen \cite{cssTricks}.
+Keamanan iframe adalah aspek yang sangat penting. Atribut \code{sandbox} membatasi kemampuan konten di dalam iframe---misalnya mencegah eksekusi JavaScript, pencegahan submisi form, atau pencegahan navigasi ke halaman lain. Tanpa atribut \code{sandbox}, konten iframe memiliki kemampuan penuh yang bisa dieksploitasi untuk serangan seperti clickjacking. Atribut \code{allow} mengontrol fitur-fitur spesifik seperti kamera, mikrofon, atau fullscreen. Header HTTP \code{X-Frame-Options} dan \code{Content-Security-Policy} pada sisi server juga berperan dalam mengontrol apakah halaman Anda boleh di-embed oleh situs lain \cite{whatwgHtml}.
 
-Pada \code{border-box}, properti \code{width} dan \code{height} mencakup content \textbf{plus} padding \textbf{plus} border. Jika \code{width: 300px}, maka total lebar visual elemen tetap 300px---browser secara otomatis mengurangi area content untuk mengakomodasi padding dan border. Model ini membuat layout jauh lebih mudah diprediksi dan menjadi praktik standar di hampir semua framework CSS modern. Rekomendasi: terapkan \code{border-box} secara global \cite{webdevCss}.
+\begin{webcode}[language=HTML, caption={iframe dengan atribut keamanan dan aksesibilitas}]
+<!-- Embed video YouTube dengan sandbox -->
+<iframe
+  src="https://www.youtube-nocookie.com/embed/xyz"
+  title="Video Tutorial HTML5"
+  width="560" height="315"
+  allow="accelerometer; encrypted-media"
+  sandbox="allow-scripts allow-same-origin"
+  loading="lazy">
+</iframe>
 
-Properti \code{overflow} mengontrol perilaku ketika konten melebihi dimensi elemen. Nilai \code{visible} (default) membiarkan konten meluap keluar kotak. \code{hidden} memotong konten yang meluap. \code{scroll} selalu menampilkan scrollbar. \code{auto} menampilkan scrollbar hanya jika konten meluap. Untuk layout modern, \code{overflow: hidden;} sering digunakan pada kontainer untuk mencegah tata letak yang rusak \cite{mdnCss}.
-
-\begin{webcode}[language=CSS, caption={box-sizing global dan overflow}]
-/* Reset global: border-box untuk semua elemen */
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-/* Kotak dengan kalkulasi mudah */
-.sidebar {
-  width: 25%;       /* 25% dari parent */
-  padding: 16px;    /* termasuk dalam 25% */
-  border: 1px solid #ccc;
-}
-
-/* Kontainer dengan min/max dan overflow */
-.container {
-  width: 100%;
-  max-width: 1200px;
-  min-height: 400px;
-  margin: 0 auto;
-  overflow: auto;   /* scrollbar jika konten meluap */
-}
+<!-- Embed Google Maps -->
+<iframe
+  src="https://maps.google.com/maps?q=Bandung&output=embed"
+  title="Peta Kota Bandung"
+  width="600" height="400"
+  style="border:0;"
+  allowfullscreen
+  loading="lazy">
+</iframe>
 \end{webcode}
 
-\begin{konsep}
-\textbf{Selalu Gunakan \code{border-box} Secara Global.} Praktik modern yang diadopsi oleh hampir semua framework CSS (Bootstrap, Tailwind, dll.) adalah menerapkan \code{box-sizing: border-box} pada semua elemen. Ini menghilangkan kebingungan perhitungan ukuran dan membuat layout berbasis persentase jauh lebih mudah. Selalu letakkan reset \code{*, *::before, *::after \{ box-sizing: border-box; \}} di awal stylesheet Anda \cite{cssTricks}.
-\end{konsep}
+Atribut \code{loading="lazy"} menunda pemuatan iframe hingga pengguna menggulir mendekati posisinya di halaman. Ini sangat berguna untuk performa---iframe yang memuat halaman eksternal dapat menambah waktu muat halaman secara signifikan. Selain lazy loading, pertimbangkan juga untuk memberikan dimensi eksplisit (\code{width} dan \code{height}) pada iframe agar browser dapat mengalokasikan ruang sebelum konten dimuat, menghindari pergeseran tata letak (layout shift) yang mengganggu pengalaman pengguna \cite{webdevHtml}.
+
+\begin{catatan}
+\textbf{Nilai Atribut \code{sandbox} pada iframe:}
+\begin{itemize}
+  \item \code{sandbox} (tanpa nilai): mode paling restriktif---semua kemampuan diblokir.
+  \item \code{allow-scripts}: mengizinkan eksekusi JavaScript.
+  \item \code{allow-same-origin}: memperlakukan konten sebagai satu origin (diperlukan agar cookie dan storage berfungsi).
+  \item \code{allow-forms}: mengizinkan submisi form.
+  \item \code{allow-popups}: mengizinkan popup (misalnya \code{window.open}).
+  \item \textbf{Peringatan}: Jangan gunakan \code{allow-scripts} dan \code{allow-same-origin} bersamaan pada konten yang tidak dipercaya, karena kombinasi ini dapat memungkinkan konten untuk menghapus atribut sandbox itu sendiri \cite{whatwgHtml}.
+\end{itemize}
+\end{catatan}
 

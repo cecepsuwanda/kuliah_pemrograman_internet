@@ -1,74 +1,32 @@
-\section{Visibility: public, protected, private}
+\section{Regular Expression (RegExp) Dasar}
 
-\textbf{Visibility} (atau \textit{access modifier}) mengontrol siapa yang dapat mengakses properti dan metode sebuah class. PHP menyediakan tiga tingkat visibility: \code{public}, \code{protected}, dan \code{private}. Mekanisme ini merupakan implementasi dari prinsip \textbf{encapsulation} --- salah satu pilar utama OOP yang bertujuan menyembunyikan detail internal dan hanya mengekspos interface yang diperlukan. Tanpa visibility control, seluruh data internal object dapat diakses dan dimodifikasi dari mana saja, yang berpotensi menyebabkan bug dan ketidakkonsistenan data \cite{phpManual}.
+\textbf{Regular expression} (regex) mendeskripsikan pola teks untuk pencarian, validasi, dan penggantian. Dibuat dengan literal \code{/pola/flags} atau \code{new RegExp("pola", "flags")}. Metode utama: \code{regex.test(str)} (true/false), \code{str.match(regex)} (hasil cocok), \code{str.replace(regex, replacement)} \cite{jsInfo}.
 
-\code{public} adalah tingkat akses paling terbuka: properti atau metode dapat diakses dari dalam class, dari class turunan, maupun dari luar class (kode pemanggil). \code{protected} membatasi akses hanya dari dalam class itu sendiri dan class turunan (\textit{child class}). \code{private} adalah tingkat paling ketat: hanya dapat diakses dari dalam class yang mendefinisikannya --- bahkan class turunan pun tidak dapat mengaksesnya. Jika tidak dituliskan visibility, PHP secara default memperlakukan metode sebagai \code{public} (namun untuk properti di PHP modern, visibility wajib dideklarasikan) \cite{phpRightWay}.
-
-\begin{table}[ht]
+\begin{table}[htbp]
 \centering
-\begin{tabular}{|P{3.5cm}|P{2.5cm}|P{2.5cm}|P{2.5cm}|}
+\begin{tabular}{|P{2cm}|P{4cm}|P{6cm}|}
 \hline
-\textbf{Akses dari} & \textbf{public} & \textbf{protected} & \textbf{private} \\
+\textbf{Pola} & \textbf{Arti} & \textbf{Contoh} \\
 \hline
-Class itu sendiri & \checkmark & \checkmark & \checkmark \\
+\code{.} & Karakter apapun & \code{/a.c/} cocok \code{"abc"}, \code{"a1c"} \\
 \hline
-Class turunan (child) & \checkmark & \checkmark & \texttimes \\
+\texttt{\textbackslash d} & Digit (0--9) & \texttt{/\textbackslash d+/} cocok \code{"123"} \\
 \hline
-Luar class (pemanggil) & \checkmark & \texttimes & \texttimes \\
+\texttt{\textbackslash w} & Word char (a--z, 0--9, \_) & \texttt{/\textbackslash w+/} cocok \code{"hello"} \\
+\hline
+\code{+} & 1 atau lebih & \code{/a+/} cocok \code{"aaa"} \\
+\hline
+\code{*} & 0 atau lebih & \code{/bo*/} cocok \code{"b"}, \code{"booo"} \\
+\hline
+\code{\^{}} \code{\$} & Awal/akhir string & \texttt{/\^{}hello\$/} hanya \code{"hello"} \\
+\hline
+\code{[abc]} & Salah satu karakter & \code{/[aeiou]/} cocok vokal \\
 \hline
 \end{tabular}
-\caption{Perbandingan tingkat visibility di PHP}
+\caption{Pola regex dasar dan contohnya}
 \end{table}
 
-Praktik terbaik dalam OOP adalah menerapkan prinsip \textit{least privilege}: berikan akses sesedikit mungkin. Buat properti \code{private} atau \code{protected}, lalu sediakan metode \code{public} berupa \textbf{getter} (untuk membaca nilai) dan \textbf{setter} (untuk mengubah nilai) jika akses dari luar diperlukan. Dengan getter dan setter, developer dapat menambahkan validasi atau transformasi data sebelum nilai disimpan atau dikembalikan. Misalnya, setter untuk umur dapat menolak nilai negatif. Pendekatan ini menjaga integritas data dan memudahkan refactoring internal tanpa merusak kode pemanggil \cite{phpRightWay}.
-
-\begin{webcode}[language=PHP, caption={Demonstrasi visibility dengan getter dan setter}]
-<?php
-class Akun {
-  private string $email;
-  private float  $saldo;
-
-  public function __construct(string $email, float $saldo = 0) {
-    $this->setEmail($email);
-    $this->saldo = $saldo;
-  }
-
-  // Getter - public
-  public function getEmail(): string {
-    return $this->email;
-  }
-
-  public function getSaldo(): float {
-    return $this->saldo;
-  }
-
-  // Setter dengan validasi - public
-  public function setEmail(string $email): void {
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      throw new \InvalidArgumentException("Email tidak valid.");
-    }
-    $this->email = $email;
-  }
-
-  // Metode publik
-  public function setor(float $jumlah): void {
-    if ($jumlah <= 0) {
-      throw new \InvalidArgumentException("Jumlah harus positif.");
-    }
-    $this->saldo += $jumlah;
-    $this->catatTransaksi("setor", $jumlah);
-  }
-
-  // Metode private - hanya internal
-  private function catatTransaksi(string $tipe, float $jumlah): void {
-    echo "[LOG] {$tipe}: Rp {$jumlah} - saldo: Rp {$this->saldo}\n";
-  }
-}
-
-$akun = new Akun("budi@email.com", 100000);
-$akun->setor(50000); // OK
-echo $akun->getSaldo(); // 150000
-// $akun->catatTransaksi(...); // Error - private
-?>
-\end{webcode}
+\begin{konsep}
+\textbf{Regex untuk Validasi.} Contoh pola umum: email (mengandung \texttt{@} dan domain), telepon Indonesia (\texttt{+62} atau \texttt{0} diikuti 9--12 digit), password kuat (minimal 8 karakter dengan huruf besar, huruf kecil, dan angka menggunakan \textit{lookahead} \texttt{(?=...)}). Regex validasi sebaiknya hanya digunakan untuk format dasar---validasi email yang benar-benar lengkap sangat kompleks; server-side check diperlukan \cite{mdnJsGuide}.
+\end{konsep}
 

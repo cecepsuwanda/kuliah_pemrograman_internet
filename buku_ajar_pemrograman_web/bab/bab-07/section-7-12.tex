@@ -1,33 +1,40 @@
-\section{Navigasi dan Menu CSS}
+\section{Satuan dan Nilai (px, em, rem, \%, warna)}
 
-Menu navigasi adalah komponen UI yang hampir selalu ada di situs web. CSS modern menyediakan Flexbox untuk menyusun menu horizontal, dan media queries untuk mengubahnya menjadi menu vertikal pada layar kecil. Menu dapat berupa navigasi utama (horizontal di header), sidebar (vertikal), atau dropdown (submenu yang muncul saat hover/klik) \cite{mdnCss}.
+Satuan dan nilai menentukan ukuran, jarak, dan tampilan elemen CSS. Pemilihan satuan yang tepat sangat mempengaruhi responsivitas, aksesibilitas, dan kemudahan pemeliharaan stylesheet. Satuan CSS dibagi menjadi dua kategori utama: \textbf{absolut} (ukuran tetap terlepas dari konteks) dan \textbf{relatif} (ukuran yang dihitung berdasarkan elemen lain atau viewport). Pemahaman mendalam tentang setiap satuan membantu pengembang membuat desain yang skalabel dan konsisten di berbagai perangkat \cite{mdnCss}.
 
-Dropdown menu dibuat menggunakan kombinasi HTML semantik (\code{<nav>}, \code{<ul>}, \code{<li>} bersarang) dan CSS (\code{position: absolute} pada submenu, \code{display: none/block} pada hover). Pseudo-class \code{:hover} pada \code{<li>} parent memunculkan submenu child. Untuk aksesibilitas, tambahkan \code{:focus-within} agar submenu juga terbuka saat navigasi keyboard \cite{webdevCss}.
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{1.5cm}|P{1.5cm}|P{3.5cm}|P{5cm}|}
+\hline
+\textbf{Satuan} & \textbf{Jenis} & \textbf{Relatif Terhadap} & \textbf{Kapan Digunakan} \\
+\hline
+\code{px} & Absolut & --- (titik tetap) & Border, shadow; hindari untuk font-size \\
+\hline
+\code{em} & Relatif & font-size elemen saat ini & Padding/margin relatif ke teks elemen \\
+\hline
+\code{rem} & Relatif & font-size elemen \code{html} (root) & Font-size, spacing; paling direkomendasikan \\
+\hline
+\code{\%} & Relatif & Nilai properti parent & Width/height responsif \\
+\hline
+\code{vw} & Relatif & 1\% lebar viewport & Full-width hero; font-size fluid \\
+\hline
+\code{vh} & Relatif & 1\% tinggi viewport & Full-height section \\
+\hline
+\code{ch} & Relatif & Lebar karakter ``0'' & Max-width paragraf (75ch) \\
+\hline
+\end{tabular}
+\caption{Satuan CSS: jenis, basis perhitungan, dan rekomendasi penggunaan}
+\end{table}
 
-\begin{webcode}[language=CSS, caption={Dropdown menu dengan Flexbox}]
-.nav { display: flex; list-style: none; gap: 0; }
-.nav > li { position: relative; }
-.nav a {
-  display: block; padding: 12px 16px;
-  color: white; text-decoration: none;
-  background: #2a6fb0;
-}
-.nav a:hover { background: #1a4f80; }
+\textbf{px} (piksel) adalah satuan absolut yang paling umum. Satu px tidak selalu sama dengan satu piksel fisik layar---pada layar HiDPI (Retina), satu CSS px bisa mencakup beberapa piksel fisik. Piksel cocok untuk elemen yang memerlukan ukuran tetap dan presisi, seperti border (\code{border: 1px solid}) dan box-shadow. Namun, penggunaan px untuk \code{font-size} \textbf{tidak disarankan} karena tidak akan berubah saat pengguna memperbesar teks default di pengaturan browser---mengurangi aksesibilitas bagi pengguna dengan gangguan penglihatan \cite{webdevCss}.
 
-/* Submenu (dropdown) */
-.nav .submenu {
-  display: none;
-  position: absolute; top: 100%; left: 0;
-  min-width: 180px;
-  list-style: none; padding: 0;
-}
-.nav li:hover > .submenu,
-.nav li:focus-within > .submenu {
-  display: block;  /* tampil saat hover/focus */
-}
-\end{webcode}
+\textbf{em} bersifat relatif terhadap \code{font-size} elemen saat ini (atau parent untuk \code{font-size} itu sendiri). Jika \code{font-size: 16px} dan \code{padding: 1.5em}, maka padding menjadi 24px. Kelemahan em: jika elemen bersarang, efek ``compound'' terjadi---em di dalam em dikalikan berulang, membuat ukuran sulit diprediksi. \textbf{rem} (root em) mengatasi masalah ini karena selalu relatif terhadap \code{font-size} elemen \code{<html>} (biasanya 16px). Ini menjadikan rem lebih mudah diprediksi dan direkomendasikan sebagai satuan utama untuk font-size dan spacing \cite{cssTricks}.
 
-\begin{catatan}
-\textbf{Aksesibilitas Menu:} Bungkus menu dengan \code{<nav aria-label="Main">}. Gunakan \code{:focus-within} agar dropdown terbuka saat navigasi keyboard. Jangan hanya mengandalkan \code{:hover}---pengguna keyboard dan touch device tidak bisa hover. Pastikan setiap tautan dapat diklik dan memiliki \code{:focus} yang terlihat \cite{mdnAccessibility}.
-\end{catatan}
+Fungsi \code{calc()} memungkinkan perhitungan matematika dengan mencampur satuan yang berbeda. Misalnya, \code{width: calc(100\% - 2rem);} menghitung lebar penuh dikurangi margin. Fungsi ini sangat berguna untuk layout yang memerlukan kombinasi antara satuan relatif dan absolut. Keyword \code{auto} membiarkan browser menghitung nilai terbaik---sering dipakai pada margin untuk centering atau pada width/height untuk ukuran otomatis. Keyword \code{inherit} memaksa properti mengikuti nilai parent, dan \code{initial} me-reset ke nilai bawaan properti \cite{mdnCss}.
+
+\textbf{Contoh:} \code{font-size: 1rem}, \code{width: 25\%}, \code{calc(100\% - 300px)}, \code{max-width: 70ch}.
+
+\begin{konsep}
+\textbf{Strategi Satuan yang Direkomendasikan:} Gunakan \code{rem} untuk font-size, \code{rem} atau \code{em} untuk padding/margin, \code{\%} untuk width responsif, \code{px} untuk border/shadow, dan \code{em} untuk media queries. Hindari \code{px} untuk \code{font-size} agar aksesibel \cite{webdevCss}.
+\end{konsep}
 

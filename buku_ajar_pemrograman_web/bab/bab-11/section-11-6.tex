@@ -1,42 +1,44 @@
-\section{Static Properti dan Metode}
+\section{Promise dan async/await}
 
-Properti dan metode \textbf{static} dimiliki oleh class itu sendiri, bukan oleh instance (object) tertentu. Artinya, properti static berbagi nilai yang sama di antara semua object dari class tersebut, dan metode static dapat dipanggil tanpa membuat object terlebih dahulu. Akses dari luar class menggunakan sintaks \code{NamaClass::\$properti} atau \code{NamaClass::metode()}, sedangkan dari dalam class menggunakan \code{self::} atau \code{static::}. Di dalam metode static, kata kunci \code{\$this} \textbf{tidak tersedia} karena tidak ada object yang terikat \cite{phpManual}.
+\textbf{Promise} merepresentasikan nilai yang mungkin tersedia di masa depan. Promise memiliki tiga state: \textit{pending} (menunggu), \textit{fulfilled} (berhasil, dengan nilai), dan \textit{rejected} (gagal, dengan error). \code{.then()} menangani fulfillment; \code{.catch()} menangani rejection; \code{.finally()} dijalankan di kedua kasus. Promise dapat di-chain untuk operasi berurutan \cite{jsInfo}.
 
-Static sangat berguna untuk beberapa skenario: (1) \textbf{counter} global yang menghitung jumlah object yang dibuat; (2) \textbf{konfigurasi bersama} yang berlaku untuk seluruh class; (3) \textbf{factory method} yang membuat dan mengembalikan instance baru; (4) \textbf{utility function} yang tidak bergantung pada state object. Misalnya, class \code{Database} dapat memiliki metode static \code{Database::getConnection()} yang mengembalikan koneksi tunggal (\textit{singleton pattern}) untuk menghindari membuka banyak koneksi \cite{phpRightWay}.
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3cm}|P{4.5cm}|P{4.5cm}|}
+\hline
+\textbf{Pola} & \textbf{Sintaks} & \textbf{Kelebihan} \\
+\hline
+Callback & \code{fn(data, callback)} & Sederhana; tapi nesting \\
+\hline
+Promise & \code{fn().then().catch()} & Chain-able; error propagation \\
+\hline
+async/await & \code{const r = await fn()} & Linier seperti sinkron \\
+\hline
+\end{tabular}
+\caption{Evolusi penanganan asinkron di JavaScript}
+\end{table}
 
-\begin{webcode}[language=PHP, caption={Static properti dan metode}]
-<?php
-class Pengunjung {
-  private static int $jumlah = 0;
+\begin{webcode}[language=JavaScript, caption={Promise dan async/await}]
+// Promise
+function fetchUser(id) {
+  return fetch(`/api/users/${id}`)
+    .then(res => res.json());
+}
+fetchUser(1).then(user => console.log(user.name));
 
-  public function __construct(
-    private string $nama
-  ) {
-    self::$jumlah++;
-  }
-
-  public static function getJumlah(): int {
-    return self::$jumlah;
-  }
-
-  // Factory method - membuat instance dengan cara alternatif
-  public static function fromArray(array $data): self {
-    return new self($data['nama']);
+// async/await (cara modern, lebih mudah dibaca)
+async function getUser(id) {
+  try {
+    const res = await fetch(`/api/users/${id}`);
+    const user = await res.json();
+    console.log(user.name);
+  } catch (err) {
+    console.error("Gagal:", err.message);
   }
 }
-
-$a = new Pengunjung("Andi");
-$b = new Pengunjung("Budi");
-$c = Pengunjung::fromArray(['nama' => 'Citra']);
-
-echo Pengunjung::getJumlah(); // 3
-// echo Pengunjung::$jumlah;  // Error - private
-?>
 \end{webcode}
 
-\begin{catatan}
-Gunakan \code{static} secara bijak. Penggunaan berlebihan metode dan properti static dapat menyulitkan pengujian unit (\textit{unit testing}) karena state global sulit direset antar test. Static juga menciptakan \textit{tight coupling} antar class. Sebagai aturan umum: gunakan static hanya jika data atau perilaku benar-benar milik class secara keseluruhan, bukan milik instance tertentu.
-\end{catatan}
-
-Perbedaan utama antara \code{self::} dan \code{static::} muncul dalam konteks inheritance. \code{self::} selalu merujuk ke class di mana kode tersebut ditulis, sedangkan \code{static::} merujuk ke class yang sebenarnya memanggil metode (\textit{late static binding}). Late static binding penting saat membuat factory method di class induk yang digunakan oleh class anak. Tanpa \code{static::}, method factory akan selalu menghasilkan instance class induk, bukan class anak. Fitur ini diperkenalkan di PHP 5.3 \cite{phpManual}.
+\begin{konsep}
+\textbf{async/await = Sugar untuk Promise.} \code{async function} selalu mengembalikan Promise. \code{await} menunggu Promise selesai dan mengembalikan nilainya. Error ditangkap dengan \code{try/catch} biasa (bukan \code{.catch()}). Ini membuat kode asinkron terlihat dan berperilaku seperti kode sinkron---jauh lebih mudah dibaca dan di-debug dibanding \code{.then()} chain \cite{mdnJsGuide}.
+\end{konsep}
 

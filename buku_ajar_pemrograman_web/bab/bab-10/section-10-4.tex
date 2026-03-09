@@ -1,72 +1,10 @@
-\section{Variabel: Penamaan, Tipe Dinamis, dan Scope Dasar}
+\section{String Lanjutan dan Template Literal}
 
-Variabel di PHP merupakan wadah untuk menyimpan data yang dapat berubah selama eksekusi program. Setiap variabel diawali dengan tanda dolar (\code{\$}) diikuti nama variabel yang harus dimulai dengan huruf atau underscore (tidak boleh angka di awal). Nama variabel bersifat \textbf{case-sensitive}, artinya \code{\$nama}, \code{\$Nama}, dan \code{\$NAMA} adalah tiga variabel yang berbeda. Variabel di PHP tidak perlu dideklarasikan tipenya terlebih dahulu --- cukup langsung diisi nilai \cite{phpManual}.
+Selain metode dasar (Bab 8), string JavaScript memiliki metode lanjutan untuk pencarian, pemeriksaan, dan transformasi. \code{startsWith()}, \code{endsWith()}, dan \code{includes()} mengembalikan boolean; \code{repeat(n)} mengulang string; \code{padStart()} dan \code{padEnd()} menambah padding. Metode-metode ini membuat pemrosesan teks lebih ekspresif tanpa RegExp \cite{jsInfo}.
 
-PHP bersifat \textbf{tipe dinamis} (\textit{dynamically typed}), yang berarti satu variabel dapat menampung nilai dengan tipe apa pun dan tipenya dapat berubah kapan saja selama eksekusi. Misalnya, variabel \code{\$x} dapat diisi integer \code{10}, lalu diubah menjadi string \code{"sepuluh"} tanpa error. Meskipun fleksibel, sifat ini dapat menyebabkan bug yang sulit dilacak jika programmer tidak berhati-hati. Oleh karena itu, PHP 7 dan versi lebih baru mendukung \textit{type hinting} untuk parameter fungsi dan nilai kembalian sebagai langkah preventif \cite{phpRightWay}.
+\textbf{Tagged template literal} adalah fitur ES6+ lanjutan di mana fungsi memproses template literal: \code{tag`Hello \$\{name\}`}. Fungsi tag menerima array string statis dan array ekspresi interpolasi. Ini digunakan oleh library seperti \code{styled-components} (CSS-in-JS) dan \code{html} (lit-html) untuk membangun DSL (Domain-Specific Language) \cite{mdnJsGuide}.
 
-\begin{webcode}[language=PHP, caption={Variabel, tipe dinamis, dan type juggling}]
-<?php
-$nama = "Siti";        // string
-$umur = 21;             // integer
-$ipk = 3.85;            // float
-$aktif = true;          // boolean
-
-// Tipe dinamis: variabel berubah tipe
-$x = 100;              // integer
-echo gettype($x);      // output: integer
-$x = "seratus";        // sekarang string
-echo gettype($x);      // output: string
-
-// Type juggling (konversi implisit)
-$hasil = "10" + 5;     // "10" dikonversi ke integer
-echo $hasil;            // output: 15
-?>
-\end{webcode}
-
-\textbf{Scope} (lingkup) variabel menentukan di mana variabel dapat diakses. PHP memiliki tiga jenis scope utama yang harus dipahami untuk menghindari bug akibat variabel yang tidak terdefinisi atau tidak dapat diakses di tempat yang diharapkan.
-
-\begin{table}[ht]
-\centering
-\begin{tabular}{|P{2.5cm}|P{4cm}|P{5.5cm}|}
-\hline
-\textbf{Scope} & \textbf{Aksesibilitas} & \textbf{Cara Akses di Fungsi} \\
-\hline
-Lokal & Hanya di dalam fungsi tempat dideklarasikan & Langsung (default) \\
-\hline
-Global & Di luar semua fungsi & Gunakan \code{global \$var;} atau \code{\$GLOBALS['var']} \\
-\hline
-Statik & Lokal, tetapi nilai bertahan antar pemanggilan & Deklarasi \code{static \$var = 0;} \\
-\hline
-\end{tabular}
-\caption{Jenis scope variabel di PHP}
-\end{table}
-
-Variabel global dideklarasikan di luar fungsi dan secara default \textbf{tidak} dapat diakses dari dalam fungsi. Untuk mengaksesnya, gunakan kata kunci \code{global} atau array superglobal \code{\$GLOBALS}. Variabel \textbf{statik} adalah variabel lokal yang nilainya tidak hilang setelah fungsi selesai dieksekusi; ia tetap menyimpan nilai dari pemanggilan sebelumnya. Ini berguna misalnya untuk membuat penghitung (\textit{counter}) sederhana.
-
-\begin{webcode}[language=PHP, caption={Scope: global dan static}]
-<?php
-$pesan = "Halo dari global";  // variabel global
-
-function tampilkan() {
-    // $pesan tidak bisa diakses langsung di sini
-    global $pesan;  // sekarang bisa diakses
-    echo $pesan;
-}
-
-function hitung() {
-    static $counter = 0;  // nilai bertahan antar pemanggilan
-    $counter++;
-    echo "Pemanggilan ke-$counter\n";
-}
-
-tampilkan();   // output: Halo dari global
-hitung();      // output: Pemanggilan ke-1
-hitung();      // output: Pemanggilan ke-2
-hitung();      // output: Pemanggilan ke-3
-?>
-\end{webcode}
-
-\begin{konsep}
-\textbf{Praktik Terbaik:} Hindari penggunaan variabel global secara berlebihan karena membuat kode sulit dipelihara dan di-debug. Lebih baik kirimkan data sebagai \textbf{parameter fungsi} dan kembalikan hasilnya dengan \code{return}. Pola ini membuat fungsi lebih mandiri dan mudah diuji \cite{phpRightWay}.
-\end{konsep}
+\begin{catatan}
+\textbf{String Immutability.} String di JavaScript bersifat \textbf{immutable}---setiap operasi string menghasilkan string baru. \code{str.toUpperCase()} tidak mengubah \code{str} asli. Untuk membangun string besar secara efisien (misalnya dalam loop), kumpulkan bagian-bagian di array lalu gabungkan dengan \code{.join("")} alih-alih konkatenasi berulang \cite{jsInfo}.
+\end{catatan}
 

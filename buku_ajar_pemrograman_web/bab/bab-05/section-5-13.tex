@@ -1,94 +1,132 @@
-\section{Best Practices HTML dan Standar (WHATWG / W3C)}
+\section{Studi Kasus: Membangun Halaman Profil dengan HTML5}
 
-Standar HTML saat ini dikelola oleh dua organisasi utama. \textbf{WHATWG} (Web Hypertext Application Technology Working Group), yang terdiri dari vendor browser besar (Apple, Google, Mozilla, Microsoft), mengembangkan \textbf{HTML Living Standard}---dokumen tunggal yang terus diperbarui tanpa nomor versi. Sementara itu, \textbf{W3C} (World Wide Web Consortium) secara historis menerbitkan spesifikasi HTML sebagai rekomendasi berversi (HTML 4.01, XHTML 1.0, HTML5). Sejak 2019, W3C dan WHATWG sepakat bahwa HTML Living Standard oleh WHATWG adalah satu-satunya standar HTML resmi, mengakhiri duplikasi spesifikasi \cite{whatwgHtml}.
+Studi kasus ini mengintegrasikan seluruh konsep HTML yang telah dipelajari dalam bab ini untuk membangun halaman profil personal yang lengkap dan semantik. Halaman profil adalah jenis halaman web umum yang menampilkan informasi tentang individu, termasuk nama, foto, biografi singkat, daftar keahlian, dan link ke media sosial. Melalui studi kasus ini, Anda akan melihat bagaimana elemen-elemen HTML seperti struktur dokumen, heading, paragraf, daftar, gambar, link, dan elemen semantik bekerja bersama untuk menciptakan halaman web yang bermakna, aksesibel, dan terstruktur dengan baik.
 
-Memahami standar penting karena menjadi acuan bagi vendor browser dalam mengimplementasikan fitur, bagi pengembang dalam menulis kode yang interoperable (berfungsi di semua browser), dan bagi alat validator dalam memeriksa kebenaran dokumen. Kode yang mengikuti standar memiliki probabilitas lebih tinggi untuk berfungsi dengan benar hari ini dan di masa depan, serta lebih mudah dirawat oleh tim pengembang yang berbeda \cite{mdnHtmlIntro}.
+Perencanaan struktur halaman profil dimulai dengan mengidentifikasi bagian-bagian utama yang perlu ditampilkan. Bagian \code{<header>} akan berisi nama lengkap sebagai \code{<h1>} dan tagline singkat. Navigasi dalam \code{<nav>} menyediakan link internal ke bagian-bagian halaman. Bagian \code{<main>} berisi konten utama: foto profil dalam \code{<figure>} dengan \code{<figcaption>}, biografi dalam beberapa \code{<p>}, daftar keahlian dalam \code{<ul>}, dan riwayat pendidikan dalam \code{<dl>}. Bagian \code{<footer>} menutup halaman dengan informasi kontak dan copyright. Pendekatan ini mengikuti pola HTML5 semantik yang meningkatkan aksesibilitas dan SEO.
 
-\begin{table}[htbp]
-\centering
-\begin{tabular}{|P{3cm}|P{4.5cm}|P{4.5cm}|}
-\hline
-\textbf{Aspek} & \textbf{WHATWG} & \textbf{W3C} \\
-\hline
-Dokumen & HTML Living Standard & HTML Recommendation (historis) \\
-\hline
-Pendekatan & Living document (terus diperbarui) & Snapshot berversi \\
-\hline
-Anggota utama & Vendor browser & Komunitas web luas \\
-\hline
-Status saat ini & Standar resmi tunggal & Mengacu ke WHATWG sejak 2019 \\
-\hline
-URL & \url{https://html.spec.whatwg.org/} & \url{https://www.w3.org/TR/html/} \\
-\hline
-\end{tabular}
-\caption{Perbandingan WHATWG dan W3C dalam konteks standar HTML}
-\end{table}
+Implementasi memperhatikan praktik terbaik yang telah dibahas. Atribut \code{alt} pada gambar memberikan deskripsi yang berguna bagi pengguna pembaca layar. Link eksternal ke media sosial menggunakan \code{target="\_blank"} dengan \code{rel="noopener noreferrer"} untuk keamanan. Hierarki heading \code{h1} ke \code{h2} ke \code{h3} mengikuti struktur logis tanpa melompati level. Meta viewport dalam \code{<head>} memastikan halaman responsif di perangkat mobile. Charset UTF-8 menangani karakter internasional dengan benar.
 
-Best practices HTML mencakup serangkaian konvensi dan kebiasaan yang menghasilkan kode berkualitas tinggi. Berikut adalah praktik-praktik penting yang harus diterapkan oleh setiap pengembang web profesional \cite{webdevHtml}:
+\begin{contoh}
+\textbf{Langkah-langkah Membangun Halaman Profil:}
 
-\begin{enumerate}
-  \item \textbf{Struktur dokumen lengkap}: Selalu sertakan \code{<!DOCTYPE html>}, \code{<html lang="...">}, \code{<head>} dengan \code{<meta charset>} dan \code{<title>}, serta \code{<body>}.
-  \item \textbf{Gunakan elemen semantik}: Pilih elemen berdasarkan maknanya (\code{<nav>}, \code{<main>}, \code{<article>}), bukan tampilannya.
-  \item \textbf{Pisahkan concerns}: HTML untuk struktur, CSS untuk presentasi, JavaScript untuk perilaku. Hindari inline style dan inline event handler.
-  \item \textbf{Aksesibilitas sejak awal}: Sertakan \code{alt} pada gambar, \code{label} pada form, \code{lang} pada elemen HTML, dan heading yang terstruktur.
-  \item \textbf{Validasi rutin}: Jalankan validator W3C secara berkala untuk mendeteksi error dan warning.
-  \item \textbf{Hindari elemen deprecated}: Jangan gunakan \code{<center>}, \code{<font>}, \code{<marquee>}, atau atribut presentasional seperti \code{bgcolor} dan \code{align}.
-  \item \textbf{Tulis kode yang bersih}: Gunakan indentasi konsisten, penamaan \code{id}/\code{class} yang deskriptif, dan komentar HTML yang membantu.
-  \item \textbf{Uji lintas browser dan perangkat}: Pastikan halaman berfungsi di Chrome, Firefox, Safari, Edge, serta perangkat mobile.
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Setup Dokumen:} Buat struktur HTML5 dengan \code{doctype}, \code{html lang="id"}, \code{head} (berisi charset, viewport, title, meta description), dan \code{body}.
+  
+  \item \textbf{Header:} Tambahkan \code{<header>} dengan \code{<h1>} untuk nama dan \code{<p>} untuk tagline profesional.
+  
+  \item \textbf{Navigasi:} Buat \code{<nav>} dengan unordered list berisi link anchor ke bagian \code{\#tentang}, \code{\#keahlian}, dan \code{\#kontak}.
+  
+  \item \textbf{Konten Utama:} Gunakan \code{<main>} sebagai container. Di dalamnya:
+  \begin{itemize}
+    \item \code{<section id="tentang">} dengan \code{<h2>} dan \code{<figure>} berisi foto dengan \code{<figcaption>}, diikuti paragraf biografi.
+    \item \code{<section id="keahlian">} dengan \code{<h2>} dan \code{<ul>} daftar keahlian teknis.
+    \item \code{<section id="pendidikan">} dengan \code{<h2>} dan \code{<dl>} untuk riwayat pendidikan.
+  \end{itemize}
+  
+  \item \textbf{Sidebar (Opsional):} Tambahkan \code{<aside>} dengan link media sosial menggunakan ikon atau teks dengan atribut keamanan yang benar.
+  
+  \item \textbf{Footer:} Tutup dengan \code{<footer>} berisi email (\code{mailto:}), telepon (\code{tel:}), dan copyright.
 \end{enumerate}
+\end{contoh}
 
-\begin{webcode}[language=HTML, caption={Template HTML5 yang mengikuti best practices}]
+\begin{webcode}[language=HTML, caption={Kode Lengkap Halaman Profil HTML5}]
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0" />
-  <meta name="description"
-    content="Deskripsi halaman untuk SEO" />
-  <title>Judul Halaman | Nama Situs</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta name="viewport" 
+        content="width=device-width, initial-scale=1.0" />
+  <meta name="description" 
+        content="Profil profesional Andi Wijaya - 
+                 Web Developer dan Desainer UI/UX" />
+  <title>Andi Wijaya - Web Developer</title>
 </head>
 <body>
   <header>
-    <nav aria-label="Menu Utama">
+    <h1>Andi Wijaya</h1>
+    <p>Web Developer & Desainer UI/UX</p>
+    <nav>
       <ul>
-        <li><a href="/">Beranda</a></li>
-        <li><a href="/tentang">Tentang</a></li>
+        <li><a href="#tentang">Tentang</a></li>
+        <li><a href="#keahlian">Keahlian</a></li>
+        <li><a href="#kontak">Kontak</a></li>
       </ul>
     </nav>
   </header>
-
+  
   <main>
-    <h1>Judul Utama Halaman</h1>
-    <section>
-      <h2>Sub-judul Section</h2>
-      <p>Konten utama di sini.</p>
-      <img src="gambar.jpg"
-           alt="Deskripsi gambar yang informatif" />
+    <section id="tentang">
+      <h2>Tentang Saya</h2>
+      <figure>
+        <img src="images/profil.jpg" 
+             alt="Foto profil Andi Wijaya" 
+             width="200" height="200" />
+        <figcaption>Andi Wijaya - Web Developer</figcaption>
+      </figure>
+      <p>Saya adalah web developer dengan pengalaman 5 tahun 
+         dalam membangun aplikasi web modern. Spesialisasi 
+         saya meliputi <strong>front-end development</strong> 
+         dengan HTML, CSS, dan JavaScript.</p>
+      <p>Saya percaya bahwa <em>user experience</em> adalah 
+         inti dari setiap produk digital yang sukses.</p>
+    </section>
+    
+    <section id="keahlian">
+      <h2>Keahlian Teknis</h2>
+      <ul>
+        <li>HTML5 & CSS3</li>
+        <li>JavaScript (ES6+)</li>
+        <li>React & Vue.js</li>
+        <li>Responsive Web Design</li>
+        <li>Git & Version Control</li>
+      </ul>
+    </section>
+    
+    <section id="pendidikan">
+      <h2>Riwayat Pendidikan</h2>
+      <dl>
+        <dt>S1 Teknik Informatika</dt>
+        <dd>Universitas Indonesia, 2018-2022</dd>
+        <dt>Bootcamp Web Development</dt>
+        <dd>Codecademy Pro, 2023</dd>
+      </dl>
     </section>
   </main>
-
-  <footer>
-    <p>&copy; 2026 Nama Organisasi</p>
+  
+  <aside>
+    <h3>Media Sosial</h3>
+    <ul>
+      <li>
+        <a href="https://linkedin.com/in/andiwijaya" 
+           target="_blank" 
+           rel="noopener noreferrer">LinkedIn</a>
+      </li>
+      <li>
+        <a href="https://github.com/andiwijaya" 
+           target="_blank" 
+           rel="noopener noreferrer">GitHub</a>
+      </li>
+    </ul>
+  </aside>
+  
+  <footer id="kontak">
+    <h2>Kontak</h2>
+    <p>Email: <a href="mailto:andi@example.com">andi@example.com</a></p>
+    <p>Telp: <a href="tel:+628123456789">0812-3456-789</a></p>
+    <p><small>&copy; 2026 Andi Wijaya. Hak Cipta Dilindungi.</small></p>
   </footer>
-
-  <script src="js/app.js"></script>
 </body>
 </html>
 \end{webcode}
 
-\begin{konsep}
-\textbf{Checklist Kualitas HTML:} Sebelum mempublikasikan halaman web, verifikasi poin-poin berikut:
-\begin{itemize}
-  \item[$\square$] Dokumen memiliki \code{<!DOCTYPE html>} dan \code{<html lang="...">}
-  \item[$\square$] \code{<head>} berisi \code{<meta charset>}, \code{<meta viewport>}, dan \code{<title>}
-  \item[$\square$] Semua gambar memiliki atribut \code{alt} yang deskriptif
-  \item[$\square$] Semua form control memiliki \code{<label>} yang terasosiasi
-  \item[$\square$] Heading terstruktur berurutan (\code{h1} $\rightarrow$ \code{h2} $\rightarrow$ \code{h3}, tanpa lompatan)
-  \item[$\square$] Tidak ada elemen atau atribut deprecated
-  \item[$\square$] Validator W3C tidak melaporkan error
-  \item[$\square$] Halaman dapat dinavigasi sepenuhnya dengan keyboard \cite{webdevAccessibility}
+\begin{catatan}
+\textbf{Poin Kunci dari Studi Kasus:}
+\begin{itemize}[leftmargin=*]
+  \item Struktur semantik HTML5 meningkatkan aksesibilitas dan SEO.
+  \item Atribut \code{alt} pada gambar wajib ada untuk screen reader.
+  \item Link eksternal selalu gunakan \code{rel="noopener noreferrer"}.
+  \item Anchor links (\code{\#id}) memudahkan navigasi dalam halaman.
+  \item Meta viewport dan charset adalah elemen wajib untuk web modern.
 \end{itemize}
-\end{konsep}
+\end{catatan}
 

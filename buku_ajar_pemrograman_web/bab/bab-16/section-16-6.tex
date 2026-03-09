@@ -1,0 +1,54 @@
+\section{Konfigurasi PHP untuk Produksi}
+
+Konfigurasi PHP di produksi berbeda signifikan dari development. File \code{php.ini} mengontrol perilaku PHP secara global. Pengaturan kritis: matikan \code{display\_errors} agar error tidak terekspos ke pengguna; aktifkan \code{log\_errors} dan tentukan \code{error\_log} ke file; aktifkan \code{OPcache} untuk caching bytecode (meningkatkan performa 2-3x); atur \code{session.cookie\_httponly}, \code{session.cookie\_secure}, dan \code{session.cookie\_samesite} untuk keamanan session \cite{phpManual}.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{4cm}|P{3cm}|P{3cm}|P{2.5cm}|}
+\hline
+\textbf{Direktif} & \textbf{Dev} & \textbf{Prod} & \textbf{Alasan} \\
+\hline
+\code{display\_errors} & On & \textbf{Off} & Sembunyikan detail \\
+\hline
+\code{log\_errors} & Off & \textbf{On} & Catat di file \\
+\hline
+\code{error\_reporting} & E\_ALL & E\_ALL & Log semua level \\
+\hline
+\code{opcache.enable} & 0 & \textbf{1} & Performa \\
+\hline
+\code{expose\_php} & On & \textbf{Off} & Sembunyikan versi \\
+\hline
+\code{session.cookie\_httponly} & 0 & \textbf{1} & Cegah XSS \\
+\hline
+\code{session.cookie\_secure} & 0 & \textbf{1} & Hanya HTTPS \\
+\hline
+\end{tabular}
+\caption{Checklist konfigurasi php.ini untuk produksi}
+\end{table}
+
+\begin{webcode}[language=PHP, caption={Pengaturan php.ini untuk produksi}]
+; === Error Handling ===
+display_errors = Off
+log_errors = On
+error_log = /var/log/php/error.log
+error_reporting = E_ALL
+
+; === OPcache (performa) ===
+opcache.enable = 1
+opcache.memory_consumption = 128
+opcache.max_accelerated_files = 10000
+opcache.validate_timestamps = 0
+
+; === Session Security ===
+session.cookie_httponly = 1
+session.cookie_secure = 1
+session.cookie_samesite = Strict
+session.use_strict_mode = 1
+
+; === Lain-lain ===
+expose_php = Off
+upload_max_filesize = 10M
+post_max_size = 12M
+max_execution_time = 30
+\end{webcode}
+

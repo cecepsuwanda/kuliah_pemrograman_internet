@@ -1,62 +1,45 @@
-\section{Fungsi: Deklarasi, Parameter, Return, dan Nilai Default}
+\section{Event: addEventListener, Objek Event, dan Propagation}
 
-Fungsi adalah blok kode yang dapat digunakan kembali (\textit{reusable}) untuk melakukan tugas tertentu. Dengan mendefinisikan fungsi, Anda menghindari pengulangan kode yang sama di banyak tempat. Fungsi di PHP dideklarasikan menggunakan kata kunci \code{function}, diikuti nama fungsi, daftar parameter dalam tanda kurung, dan blok kode dalam kurung kurawal. Nama fungsi bersifat \textbf{case-insensitive} (meskipun disarankan konsisten) dan mengikuti aturan penamaan yang sama dengan variabel (huruf/underscore di awal) \cite{phpManual}.
+\code{addEventListener(type, handler)} mendaftarkan fungsi yang dipanggil saat event tertentu terjadi pada elemen. Berbeda dari atribut HTML (\code{onclick="..."}), \code{addEventListener} memungkinkan \textbf{multiple handlers} pada satu elemen dan mendukung phase capturing. Parameter ketiga opsional: \code{true} untuk capturing phase, atau objek opsi \code{\{capture, once, passive\}} \cite{jsInfo}.
 
-Parameter adalah variabel yang diterima fungsi sebagai input. PHP mendukung \textbf{nilai default} untuk parameter, yang digunakan jika argumen tidak diberikan saat pemanggilan. Parameter dengan nilai default harus diletakkan di akhir daftar parameter. Kata kunci \code{return} mengembalikan nilai dari fungsi dan menghentikan eksekusinya; fungsi tanpa \code{return} mengembalikan \code{null} secara implisit \cite{phpRightWay}.
-
-\begin{webcode}[language=PHP, caption={Fungsi dengan parameter, default, dan return}]
-<?php
-// Fungsi sederhana tanpa parameter
-function salam() {
-    return "Selamat datang di PHP!";
-}
-
-// Fungsi dengan parameter dan nilai default
-function hitungLuas($panjang, $lebar = 10) {
-    return $panjang * $lebar;
-}
-
-// Fungsi dengan type hinting (PHP 7+)
-function tambah(int $a, int $b): int {
-    return $a + $b;
-}
-
-echo salam() . "\n";           // Selamat datang di PHP!
-echo hitungLuas(5) . "\n";     // 50 (lebar default 10)
-echo hitungLuas(5, 3) . "\n";  // 15
-echo tambah(10, 20) . "\n";    // 30
-?>
-\end{webcode}
-
-PHP 7 dan versi lebih baru mendukung \textbf{type hinting} (deklarasi tipe) untuk parameter dan nilai kembalian fungsi. Ini membantu memastikan bahwa fungsi menerima dan mengembalikan tipe data yang diharapkan. Jika tipe tidak sesuai, PHP akan melemparkan TypeError. Fitur ini sangat berguna untuk mencegah bug dan membuat kode lebih terdokumentasi secara mandiri (\textit{self-documenting}).
-
-PHP juga mendukung \textbf{variadic functions} dengan sintaks \code{...\$args}, yang memungkinkan fungsi menerima jumlah argumen yang tidak tetap. Semua argumen tambahan dikumpulkan ke dalam array \code{\$args}. Ini berguna untuk fungsi seperti penjumlahan atau penggabungan string yang jumlah inputnya bervariasi.
-
-\begin{table}[ht]
+\begin{figure}[htbp]
 \centering
-\begin{tabular}{|P{3.5cm}|P{4cm}|P{4.5cm}|}
+\resizebox{0.7\textwidth}{!}{%
+\begin{tikzpicture}[every node/.style={font=\footnotesize}]
+  % Phases
+  \draw[thick, blue!70, ->] (0,4) -- (0,0.5) node[midway, left, font=\small] {Capturing};
+  \node[draw, fill=blue!10, minimum width=6cm, minimum height=1cm] at (3,4) {document};
+  \node[draw, fill=green!10, minimum width=4cm, minimum height=1cm] at (3,2.5) {parent};
+  \node[draw, fill=orange!10, minimum width=2cm, minimum height=1cm] at (3,1) {target};
+  \draw[thick, red!70, ->] (6,0.5) -- (6,4) node[midway, right, font=\small] {Bubbling};
+  \node[font=\small\bfseries] at (3,0) {Target Phase};
+\end{tikzpicture}%
+}
+\caption{Event propagation: capturing (turun) $\rightarrow$ target $\rightarrow$ bubbling (naik)}
+\end{figure}
+
+\begin{table}[htbp]
+\centering
+\scriptsize
+\begin{tabular}{|P{3.5cm}|P{2.4cm}|P{2.6cm}|}
 \hline
-\textbf{Fitur} & \textbf{Sintaks} & \textbf{Keterangan} \\
+\textbf{Properti Event} & \textbf{Tipe} & \textbf{Kegunaan} \\
 \hline
-Deklarasi dasar & \code{function nama() \{\}} & Tanpa parameter \\
+\code{event.target} & Elemen asal & Elemen yang diklik \\
 \hline
-Parameter & \code{function f(\$a, \$b)} & Dua parameter wajib \\
+\code{event.current\-Target} & Elemen listener & Elemen yang punya handler \\
 \hline
-Nilai default & \code{function f(\$a, \$b = 0)} & \code{\$b} opsional \\
+\code{event.type} & String & Jenis event (\code{"click"}) \\
 \hline
-Type hinting & \code{function f(int \$a): string} & Tipe parameter dan return \\
+\code{event.}\linebreak[0]\code{preventDefault()} & Method & Batalkan aksi default \\
 \hline
-Variadic & \code{function f(...\$args)} & Argumen tidak tetap \\
-\hline
-Nullable type & \code{function f(?int \$a)} & Boleh null atau int \\
-\hline
-Arrow function & \code{fn(\$x) => \$x * 2} & Fungsi singkat (PHP 7.4+) \\
+\code{event.stop}\linebreak[0]\code{Propagation()} & Method & Hentikan bubbling \\
 \hline
 \end{tabular}
-\caption{Fitur-fitur fungsi di PHP}
+\caption{Properti objek Event yang sering digunakan}
 \end{table}
 
 \begin{konsep}
-\textbf{Fungsi Bawaan PHP:} PHP menyediakan ribuan fungsi bawaan (\textit{built-in functions}) yang siap pakai. Anda sudah melihat beberapa di antaranya: \code{strlen()}, \code{strtoupper()}, \code{array\_push()}, \code{var\_dump()}, \code{htmlspecialchars()}, dan lain-lain. Sebelum membuat fungsi sendiri, periksa apakah PHP sudah menyediakan fungsi yang sesuai --- ini menghemat waktu dan biasanya lebih optimal \cite{phpManual}.
+\textbf{Event Delegation.} Alih-alih memasang listener di setiap item, pasang satu listener di parent dan periksa \code{event.target}: \code{list.addEventListener("click", e => \{ if (e.target.matches("li")) handleClick(e.target); \})}. Ini efisien untuk daftar dinamis (item yang ditambah/hapus) dan mengurangi jumlah listener \cite{mdnJsGuide}.
 \end{konsep}
 

@@ -1,0 +1,32 @@
+\section{Pengenalan Lingkungan Development vs Produksi}
+
+Dalam pengembangan aplikasi web, terdapat beberapa \textbf{lingkungan} (\textit{environment}) yang masing-masing memiliki tujuan dan konfigurasi berbeda. \textbf{Development} (lokal) adalah tempat developer menulis dan menguji kode --- error ditampilkan, debugging aktif, data bersifat dummy. \textbf{Staging} adalah replika produksi untuk pengujian akhir sebelum rilis. \textbf{Production} (produksi) adalah lingkungan yang diakses pengguna nyata --- prioritas utama adalah keamanan, stabilitas, dan performa. Kesalahan konfigurasi di produksi dapat mengakibatkan kebocoran data atau downtime \cite{mdnDeploy}.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|P{3cm}|P{4cm}|P{4cm}|}
+\hline
+\textbf{Aspek} & \textbf{Development} & \textbf{Production} \\
+\hline
+\code{display\_errors} & On (tampilkan error) & Off (sembunyikan) \\
+\hline
+\code{error\allowbreak\_reporting} & E\_ALL & E\_ALL (log saja) \\
+\hline
+Database & Lokal, data dummy & Server terpisah, data asli \\
+\hline
+HTTPS & Tidak wajib & Wajib \\
+\hline
+Debug tools & Aktif & Nonaktif \\
+\hline
+Password & Sederhana (root/root) & Kuat dan unik \\
+\hline
+Backup & Tidak perlu & Rutin dan otomatis \\
+\hline
+\end{tabular}
+\caption{Perbedaan lingkungan development dan production}
+\end{table}
+
+\begin{catatan}
+Jangan pernah menggunakan konfigurasi development di produksi. Kesalahan umum: lupa mematikan \code{display\_errors}, menggunakan password database default, atau meninggalkan file debug (phpinfo.php) di server. Gunakan environment variable untuk membedakan konfigurasi per lingkungan.
+\end{catatan}
+

@@ -1,10 +1,37 @@
-\section{Strict Mode dan Praktik Penulisan yang Baik}
+\section{Percabangan: if, else if, else, dan switch}
 
-\code{"use strict";} di awal skrip atau fungsi mengaktifkan mode ketat yang melarang praktik rawan error. Dalam strict mode, menggunakan variabel tanpa deklarasi menjadi error (mencegah global leak), assignment ke properti read-only gagal, parameter duplikat tidak diizinkan, dan beberapa kata kunci reserved dilindungi. ES6 modules otomatis berjalan di strict mode \cite{jsInfo}.
+Percabangan memungkinkan program mengeksekusi kode yang berbeda berdasarkan kondisi. Statement \code{if} mengevaluasi ekspresi boolean; jika \code{true}, blok kode di dalamnya dieksekusi. \code{else if} menambahkan kondisi tambahan, dan \code{else} menangani kasus selain semua kondisi di atasnya. JavaScript juga menyediakan \code{switch} untuk membandingkan satu nilai dengan banyak kemungkinan \cite{jsInfo}.
 
-Praktik penulisan JavaScript yang baik meliputi: (1) selalu deklarasikan variabel dengan \code{const}/\code{let}; (2) gunakan \code{===} dan \code{!==}; (3) beri nama bermakna (camelCase untuk variabel/fungsi, PascalCase untuk class); (4) batasi panjang fungsi (satu fungsi = satu tugas); (5) hindari magic numbers (gunakan konstanta bernama); (6) tulis komentar untuk ``mengapa'', bukan ``apa''; (7) gunakan linter (ESLint) untuk menegakkan konsistensi otomatis \cite{mdnJsGuide}.
+\begin{webcode}[language=JavaScript, caption={if/else if/else dan switch}]
+// if/else if/else
+const score = 85;
+let grade;
+if (score >= 90) {
+  grade = "A";
+} else if (score >= 80) {
+  grade = "B";
+} else if (score >= 70) {
+  grade = "C";
+} else {
+  grade = "D";
+}
+console.log(grade); // "B"
+
+// switch (gunakan === untuk perbandingan)
+const day = "Senin";
+switch (day) {
+  case "Senin": case "Selasa":
+    console.log("Kerja"); break;
+  case "Sabtu": case "Minggu":
+    console.log("Libur"); break;
+  default:
+    console.log("Kerja juga");
+}
+\end{webcode}
+
+Operator ternary (\code{kondisi ? nilaiTrue : nilaiFalse}) adalah shorthand untuk \code{if/else} sederhana: \code{const status = age >= 17 ? "dewasa" : "anak";}. Cocok untuk satu ekspresi; hindari nesting ternary yang membuat kode sulit dibaca \cite{mdnJsGuide}.
 
 \begin{konsep}
-\textbf{ESLint: Linter untuk JavaScript.} ESLint menganalisis kode dan melaporkan masalah: variabel tidak terpakai, \code{==} alih-alih \code{===}, \code{var} alih-alih \code{let}/\code{const}, dan banyak lagi. Konfigurasi populer: \code{eslint:recommended}, atau preset seperti Airbnb Style Guide. Integrasikan ESLint dengan editor (VS Code extension) agar error terdeteksi saat menulis kode, bukan saat runtime \cite{mdnToolsTesting}.
+\textbf{switch vs if/else.} Gunakan \code{switch} untuk membandingkan satu variabel dengan banyak nilai konstan (kasus diskret). Gunakan \code{if/else} untuk kondisi rentang, perbandingan kompleks, atau kondisi yang tidak terkait dengan satu variabel. Jangan lupa \code{break} setelah setiap \code{case}---tanpanya, eksekusi ``jatuh'' ke case berikutnya (fall-through), yang kadang disengaja tetapi sering menjadi bug \cite{jsInfo}.
 \end{konsep}
 

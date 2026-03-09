@@ -1,37 +1,42 @@
-\section{Pengujian Fungsional Aplikasi Web (Form, Alur, Respons)}
+\section{Static Properti dan Metode}
 
-Pengujian fungsional memverifikasi bahwa setiap fitur bekerja sesuai spesifikasi. Untuk form, uji \textbf{skenario positif} (input valid menghasilkan output yang benar) dan \textbf{skenario negatif} (input tidak valid ditolak dengan pesan error yang jelas). Uji juga \textbf{boundary values} --- nilai di batas minimum dan maksimum. Untuk alur multi-langkah (misalnya registrasi $\to$ login $\to$ dashboard), pastikan setiap langkah berfungsi dan data mengalir dengan benar \cite{mdnToolsTesting}.
+Properti dan metode \textbf{static} dimiliki oleh class itu sendiri, bukan oleh instance (object) tertentu. Artinya, properti static berbagi nilai yang sama di antara semua object dari class tersebut, dan metode static dapat dipanggil tanpa membuat object terlebih dahulu. Akses dari luar class menggunakan sintaks \code{NamaClass::\$properti} atau \code{NamaClass::metode()}, sedangkan dari dalam class menggunakan \code{self::} atau \code{static::}. Di dalam metode static, kata kunci \code{\$this} \textbf{tidak tersedia} karena tidak ada object yang terikat \cite{phpManual}.
 
-\begin{contoh}
-\textbf{Skenario Pengujian Form Registrasi:}
-\begin{itemize}
-  \item \textbf{Positif}: isi semua field valid $\to$ data tersimpan, redirect ke login.
-  \item \textbf{Negatif}: email tidak valid $\to$ pesan error ``Format email salah''.
-  \item \textbf{Negatif}: password kurang dari 8 karakter $\to$ pesan error muncul.
-  \item \textbf{Boundary}: nama tepat 1 karakter $\to$ apakah diterima atau ditolak?
-  \item \textbf{Duplikasi}: email yang sudah terdaftar $\to$ pesan ``Email sudah digunakan''.
-\end{itemize}
-\end{contoh}
+Static sangat berguna untuk beberapa skenario: (1) \textbf{counter} global yang menghitung jumlah object yang dibuat; (2) \textbf{konfigurasi bersama} yang berlaku untuk seluruh class; (3) \textbf{factory method} yang membuat dan mengembalikan instance baru; (4) \textbf{utility function} yang tidak bergantung pada state object. Misalnya, class \code{Database} dapat memiliki metode static \code{Database::getConnection()} yang mengembalikan koneksi tunggal (\textit{singleton pattern}) untuk menghindari membuka banyak koneksi \cite{phpRightWay}.
 
-\begin{webcode}[language=PHP, caption={Validasi form registrasi untuk pengujian}]
+\begin{webcode}[language=PHP, caption={Static properti dan metode}]
 <?php
-$errors = [];
-$nama  = trim($_POST['nama'] ?? '');
-$email = trim($_POST['email'] ?? '');
-$pass  = $_POST['password'] ?? '';
+class Pengunjung {
+  private static int $jumlah = 0;
 
-if (strlen($nama) < 3) $errors[] = "Nama minimal 3 karakter.";
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-  $errors[] = "Format email tidak valid.";
-}
-if (strlen($pass) < 8) $errors[] = "Password minimal 8 karakter.";
+  public function __construct(
+    private string $nama
+  ) {
+    self::$jumlah++;
+  }
 
-if (empty($errors)) {
-  // Simpan ke database dengan prepared statement
-  echo "Registrasi berhasil.";
-} else {
-  foreach ($errors as $e) echo htmlspecialchars($e) . "\n";
+  public static function getJumlah(): int {
+    return self::$jumlah;
+  }
+
+  // Factory method - membuat instance dengan cara alternatif
+  public static function fromArray(array $data): self {
+    return new self($data['nama']);
+  }
 }
+
+$a = new Pengunjung("Andi");
+$b = new Pengunjung("Budi");
+$c = Pengunjung::fromArray(['nama' => 'Citra']);
+
+echo Pengunjung::getJumlah(); // 3
+// echo Pengunjung::$jumlah;  // Error - private
 ?>
 \end{webcode}
+
+\begin{catatan}
+Gunakan \code{static} secara bijak. Penggunaan berlebihan metode dan properti static dapat menyulitkan pengujian unit (\textit{unit testing}) karena state global sulit direset antar test. Static juga menciptakan \textit{tight coupling} antar class. Sebagai aturan umum: gunakan static hanya jika data atau perilaku benar-benar milik class secara keseluruhan, bukan milik instance tertentu.
+\end{catatan}
+
+Perbedaan utama antara \code{self::} dan \code{static::} muncul dalam konteks inheritance. \code{self::} selalu merujuk ke class di mana kode tersebut ditulis, sedangkan \code{static::} merujuk ke class yang sebenarnya memanggil metode (\textit{late static binding}). Late static binding penting saat membuat factory method di class induk yang digunakan oleh class anak. Tanpa \code{static::}, method factory akan selalu menghasilkan instance class induk, bukan class anak. Fitur ini diperkenalkan di PHP 5.3 \cite{phpManual}.
 

@@ -1,0 +1,94 @@
+\section{Best Practices HTML dan Standar (WHATWG / W3C)}
+
+Standar HTML saat ini dikelola oleh dua organisasi utama. \textbf{WHATWG} (Web Hypertext Application Technology Working Group), yang terdiri dari vendor browser besar (Apple, Google, Mozilla, Microsoft), mengembangkan \textbf{HTML Living Standard}---dokumen tunggal yang terus diperbarui tanpa nomor versi. Sementara itu, \textbf{W3C} (World Wide Web Consortium) secara historis menerbitkan spesifikasi HTML sebagai rekomendasi berversi (HTML 4.01, XHTML 1.0, HTML5). Sejak 2019, W3C dan WHATWG sepakat bahwa HTML Living Standard oleh WHATWG adalah satu-satunya standar HTML resmi, mengakhiri duplikasi spesifikasi \cite{whatwgHtml}.
+
+Memahami standar penting karena menjadi acuan bagi vendor browser dalam mengimplementasikan fitur, bagi pengembang dalam menulis kode yang interoperable (berfungsi di semua browser), dan bagi alat validator dalam memeriksa kebenaran dokumen. Kode yang mengikuti standar memiliki probabilitas lebih tinggi untuk berfungsi dengan benar hari ini dan di masa depan, serta lebih mudah dirawat oleh tim pengembang yang berbeda \cite{mdnHtmlIntro}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|P{3cm}|P{4.5cm}|P{4.5cm}|}
+\hline
+\textbf{Aspek} & \textbf{WHATWG} & \textbf{W3C} \\
+\hline
+Dokumen & HTML Living Standard & HTML Recommendation (historis) \\
+\hline
+Pendekatan & Living document (terus diperbarui) & Snapshot berversi \\
+\hline
+Anggota utama & Vendor browser & Komunitas web luas \\
+\hline
+Status saat ini & Standar resmi tunggal & Mengacu ke WHATWG sejak 2019 \\
+\hline
+URL & \url{https://html.spec.whatwg.org/} & \url{https://www.w3.org/TR/html/} \\
+\hline
+\end{tabular}
+\caption{Perbandingan WHATWG dan W3C dalam konteks standar HTML}
+\end{table}
+
+Best practices HTML mencakup serangkaian konvensi dan kebiasaan yang menghasilkan kode berkualitas tinggi. Berikut adalah praktik-praktik penting yang harus diterapkan oleh setiap pengembang web profesional \cite{webdevHtml}:
+
+\begin{enumerate}
+  \item \textbf{Struktur dokumen lengkap}: Selalu sertakan \code{<!DOCTYPE html>}, \code{<html lang="...">}, \code{<head>} dengan \code{<meta charset>} dan \code{<title>}, serta \code{<body>}.
+  \item \textbf{Gunakan elemen semantik}: Pilih elemen berdasarkan maknanya (\code{<nav>}, \code{<main>}, \code{<article>}), bukan tampilannya.
+  \item \textbf{Pisahkan concerns}: HTML untuk struktur, CSS untuk presentasi, JavaScript untuk perilaku. Hindari inline style dan inline event handler.
+  \item \textbf{Aksesibilitas sejak awal}: Sertakan \code{alt} pada gambar, \code{label} pada form, \code{lang} pada elemen HTML, dan heading yang terstruktur.
+  \item \textbf{Validasi rutin}: Jalankan validator W3C secara berkala untuk mendeteksi error dan warning.
+  \item \textbf{Hindari elemen deprecated}: Jangan gunakan \code{<center>}, \code{<font>}, \code{<marquee>}, atau atribut presentasional seperti \code{bgcolor} dan \code{align}.
+  \item \textbf{Tulis kode yang bersih}: Gunakan indentasi konsisten, penamaan \code{id}/\code{class} yang deskriptif, dan komentar HTML yang membantu.
+  \item \textbf{Uji lintas browser dan perangkat}: Pastikan halaman berfungsi di Chrome, Firefox, Safari, Edge, serta perangkat mobile.
+\end{enumerate}
+
+\begin{webcode}[language=HTML, caption={Template HTML5 yang mengikuti best practices}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Deskripsi halaman untuk SEO" />
+  <title>Judul Halaman | Nama Situs</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <nav aria-label="Menu Utama">
+      <ul>
+        <li><a href="/">Beranda</a></li>
+        <li><a href="/tentang">Tentang</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Judul Utama Halaman</h1>
+    <section>
+      <h2>Sub-judul Section</h2>
+      <p>Konten utama di sini.</p>
+      <img src="gambar.jpg"
+           alt="Deskripsi gambar yang informatif" />
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Nama Organisasi</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
+\end{webcode}
+
+\begin{konsep}
+\textbf{Checklist Kualitas HTML:} Sebelum mempublikasikan halaman web, verifikasi poin-poin berikut:
+\begin{itemize}
+  \item[$\square$] Dokumen memiliki \code{<!DOCTYPE html>} dan \code{<html lang="...">}
+  \item[$\square$] \code{<head>} berisi \code{<meta charset>}, \code{<meta viewport>}, dan \code{<title>}
+  \item[$\square$] Semua gambar memiliki atribut \code{alt} yang deskriptif
+  \item[$\square$] Semua form control memiliki \code{<label>} yang terasosiasi
+  \item[$\square$] Heading terstruktur berurutan (\code{h1} $\rightarrow$ \code{h2} $\rightarrow$ \code{h3}, tanpa lompatan)
+  \item[$\square$] Tidak ada elemen atau atribut deprecated
+  \item[$\square$] Validator W3C tidak melaporkan error
+  \item[$\square$] Halaman dapat dinavigasi sepenuhnya dengan keyboard \cite{webdevAccessibility}
+\end{itemize}
+\end{konsep}
+
