@@ -1,0 +1,295 @@
+\documentclass[handout]{beamer}
+\mode<presentation>
+\usetheme[secheader]{Boadilla}
+\usecolortheme{whale}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[indonesian]{babel}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{bookmark}
+
+\setbeamertemplate{footline}
+{
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+			\usebeamerfont{author in head/foot}\insertshortauthor%
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.433333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+			\usebeamerfont{title in head/foot}\insertshorttitle
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.233333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+			\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em} \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+	\end{beamercolorbox}}%
+	\vskip0pt%
+}
+
+\title[Bab 12 -- PHP Dasar]{Pemrograman Web}
+\subtitle{Bab 12: PHP Dasar, Pemrosesan Form, dan Include/Require}
+\author{Cecep Suwanda, S.Si., M.Kom.}
+\institute{Universitas Bale Bandung}
+\date{\today}
+
+\begin{document}
+
+% Slide Judul
+\begin{frame}
+	\titlepage
+\end{frame}
+
+% Outline dan CPMK
+\begin{frame}{Outline Bab 12}
+	\begin{block}{Sub-CPMK 3.1}
+		Mengimplementasikan logika server-side dengan PHP (pemrosesan form, struktur dasar, OOP).
+	\end{block}
+	\begin{itemize}
+		\item Pengenalan PHP dan Peran Server-Side
+		\item Instalasi PHP dan Environment (XAMPP)
+		\item Sintaks Dasar: Tag, Komentar, Aturan Penulisan
+		\item Variabel: Penamaan, Tipe Dinamis, Scope
+		\item Tipe Data
+		\item Operator
+		\item Echo dan Print; Keamanan Output
+		\item String: Literal, Konkatenasi, Fungsi String
+		\item Percabangan: if, elseif, else, switch
+		\item Perulangan: for, while, do-while, foreach
+		\item Fungsi: Parameter, Return, Type Hinting
+		\item Array: Terindeks, Asosiatif, Fungsi Array
+		\item Superglobal: \texttt{\$\_GET}, \texttt{\$\_POST}, \texttt{\$\_SERVER}
+		\item Form HTML dan Pemrosesan Form dengan PHP
+		\item Include dan Require: Organisasi Kode
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 12-1: Pengenalan PHP ==========
+\begin{frame}{Pengenalan PHP}
+	\begin{itemize}
+		\item PHP = bahasa \textbf{server-side}; dieksekusi di server, hasil (HTML) dikirim ke browser.
+		\item Dapat mengakses basis data, mengolah form, mengelola file, menghasilkan halaman dinamis.
+		\item \textbf{Request-response cycle}: browser $\to$ request $\to$ server (PHP) $\to$ response (HTML).
+		\item Dipakai $>$75\% situs server-side (WordPress, Wikipedia, dll.); komunitas besar, dokumentasi lengkap.
+	\end{itemize}
+	\begin{block}{Arsitektur}
+		Browser $\to$ Web Server (Apache/Nginx) $\to$ Mesin PHP $\to$ MySQL. File \texttt{.php} diproses oleh interpreter PHP.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 12-2: Instalasi ==========
+\begin{frame}{Instalasi PHP dan Environment}
+	\begin{itemize}
+		\item \textbf{XAMPP}: Apache + MySQL + PHP (+ Perl); unduh dari Apache Friends, Start Apache.
+		\item File PHP di folder \texttt{htdocs}; akses \texttt{http://localhost/nama-file.php}.
+		\item Verifikasi: buat \texttt{info.php} berisi \texttt{<?php phpinfo(); ?>}.
+		\item Alternatif: WAMP (Windows), MAMP (macOS), LAMP (Linux); atau \textbf{PHP built-in}: \texttt{php -S localhost:8000} (untuk development saja).
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 12-3: Sintaks Dasar ==========
+\begin{frame}{Sintaks Dasar PHP}
+	\begin{itemize}
+		\item Tag: \texttt{<?php} ... \texttt{?>}; setiap statement diakhiri \texttt{;} (titik koma).
+		\item Komentar: \texttt{//} atau \texttt{\#} (satu baris); \texttt{/* */} (blok).
+		\item Variabel: diawali \texttt{\$}; nama case-sensitive; konvensi camelCase atau snake\_case.
+		\item File PHP murni: disarankan \textbf{tidak} pakai tag penutup \texttt{?>} untuk hindari ``Headers already sent''.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 12-4: Variabel ==========
+\begin{frame}{Variabel: Tipe Dinamis dan Scope}
+	\begin{itemize}
+		\item PHP \textbf{tipe dinamis}: satu variabel bisa ganti tipe (integer $\to$ string).
+		\item \textbf{Type juggling}: konversi implisit, misalnya \texttt{"10"+5} $\to$ 15.
+		\item Scope: \textbf{lokal} (di dalam fungsi); \textbf{global} (pakai \texttt{global \$var;} atau \texttt{\$GLOBALS}); \textbf{static} (nilai bertahan antar pemanggilan).
+	\end{itemize}
+	\begin{block}{Praktik baik}
+		Hindari variabel global berlebihan; lebih baik parameter fungsi dan \texttt{return}.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 12-5: Tipe Data ==========
+\begin{frame}{Tipe Data PHP}
+	\begin{itemize}
+		\item \textbf{Skalar}: string, int, float, bool.
+		\item \textbf{Komposit}: array, object.
+		\item \textbf{Khusus}: null, resource.
+		\item \texttt{gettype(\$x)}, \texttt{var\_dump(\$x)}, \texttt{is\_string()}, \texttt{is\_int()}, dll.; type casting \texttt{(int)}, \texttt{(string)}.
+		\item \textbf{\texttt{==} vs \texttt{===}}: \texttt{==} sama nilai (dengan type juggling); \texttt{===} identik (nilai dan tipe). Gunakan \texttt{===} untuk perbandingan aman.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 12-6: Operator ==========
+\begin{frame}{Operator PHP}
+	\begin{itemize}
+		\item \textbf{Aritmetika}: \texttt{+ - * / \% **}.
+		\item \textbf{Perbandingan}: \texttt{==}, \texttt{===}, \texttt{!=}, \texttt{<=>} (spaceship, PHP 7+).
+		\item \textbf{Logika}: \texttt{\&\&}, \texttt{||}, \texttt{!}; \textbf{null coalescing}: \texttt{\$x = \$a ?? "default";}.
+		\item \textbf{Penugasan}: \texttt{=}, \texttt{+=}, \texttt{.=} (concat).
+		\item \textbf{String}: \texttt{.} (konkatenasi).
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 12-7: Echo/Print ==========
+\begin{frame}{Echo, Print, dan Keamanan Output}
+	\begin{itemize}
+		\item \texttt{echo}: banyak argumen (dipisah koma), tidak return; \texttt{print}: satu argumen, return 1.
+		\item \texttt{echo} lebih sering dipakai; shortcut \texttt{<?= \$var ?>} sama dengan \texttt{<?php echo \$var; ?>}.
+		\item Debug: \texttt{var\_dump()}, \texttt{print\_r()} (development saja).
+	\end{itemize}
+	\begin{block}{XSS}
+		Selalu \texttt{htmlspecialchars(\$data, ENT\_QUOTES, 'UTF-8')} saat menampilkan data dari pengguna (form/URL).
+	\end{block}
+\end{frame}
+
+% ========== SECTION 12-8: String ==========
+\begin{frame}{String di PHP}
+	\begin{itemize}
+		\item Kutip tunggal \texttt{'...'}: literal, tidak interpretasi variabel.
+		\item Kutip ganda \texttt{"..."}: interpretasi variabel dan escape (\texttt{\textbackslash n}, \texttt{\textbackslash t}).
+		\item \textbf{Heredoc} \texttt{<<<LABEL}, \textbf{nowdoc} \texttt{<<<'LABEL'} untuk string multi-baris.
+		\item Konkatenasi: \texttt{.} dan \texttt{.=}.
+		\item Fungsi: \texttt{strlen}, \texttt{trim}, \texttt{substr}, \texttt{strpos}, \texttt{str\_replace}, \texttt{explode}, \texttt{implode}, \texttt{htmlspecialchars}.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 12-9: Percabangan ==========
+\begin{frame}{Percabangan: if, elseif, else, switch}
+	\begin{itemize}
+		\item \texttt{if (kondisi) \{ ... \}} \texttt{elseif} \texttt{else}.
+		\item \texttt{switch (\$var) \{ case "a": ... break; default: ... \}} — wajib \texttt{break} untuk hindari fall-through.
+		\item \textbf{Ternary}: \texttt{kondisi ? nilai\_true : nilai\_false}.
+		\item \textbf{match} (PHP 8): perbandingan ketat (\texttt{===}), tidak perlu \texttt{break}.
+		\item Sintaks alternatif untuk template: \texttt{if (): ... elseif (): ... else: ... endif;}
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 12-10: Perulangan ==========
+\begin{frame}{Perulangan}
+	\begin{itemize}
+		\item \texttt{for (init; kondisi; increment)}: jumlah iterasi diketahui.
+		\item \texttt{while (kondisi)}: kondisi di awal.
+		\item \texttt{do \{ ... \} while (kondisi)}: blok dieksekusi minimal 1 kali.
+		\item \texttt{foreach (\$arr as \$nilai)} atau \texttt{foreach (\$arr as \$kunci => \$nilai)}: iterasi array (paling idiomatik).
+		\item \texttt{break}: keluar loop; \texttt{continue}: loncat ke iterasi berikutnya.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 12-11: Fungsi ==========
+\begin{frame}{Fungsi}
+	\begin{itemize}
+		\item \texttt{function nama(\$param1, \$param2 = default) \{ return ... \}}.
+		\item Parameter dengan nilai default di akhir; \texttt{return} menghentikan eksekusi dan mengembalikan nilai.
+		\item \textbf{Type hinting} (PHP 7+): tipe parameter dan return, mis. \texttt{function f(int \$a): string}.
+		\item \textbf{Variadic}: \texttt{...\$args} mengumpulkan argumen tambahan ke array.
+		\item Arrow function (PHP 7.4+): \texttt{fn(\$x) => \$x * 2}.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 12-12: Array ==========
+\begin{frame}{Array}
+	\begin{itemize}
+		\item \textbf{Terindeks}: \texttt{[\$a, \$b]} atau \texttt{array(\$a, \$b)}; indeks dari 0.
+		\item \textbf{Asosiatif}: \texttt{["nama" => "Budi", "nim" => "001"]}.
+		\item \textbf{Bersarang}: array di dalam array.
+		\item Fungsi: \texttt{count}, \texttt{array\_push}, \texttt{array\_pop}, \texttt{in\_array}, \texttt{array\_merge}, \texttt{sort}, \texttt{array\_map}, \texttt{array\_filter}.
+		\item Iterasi: \texttt{foreach}.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 12-13: Superglobal ==========
+\begin{frame}{Superglobal: \texttt{\$\_GET}, \texttt{\$\_POST}, \texttt{\$\_SERVER}}
+	\begin{itemize}
+		\item \texttt{\$\_GET}: parameter dari query string URL (\texttt{?nama=Budi}); terlihat di URL; cocok untuk pencarian, filter.
+		\item \texttt{\$\_POST}: data dari form \texttt{method="post"} (body request); tidak terlihat di URL; cocok untuk login, registrasi, data sensitif.
+		\item \texttt{\$\_SERVER}: \texttt{REQUEST\_METHOD}, \texttt{PHP\_SELF}, \texttt{HTTP\_HOST}, \texttt{REMOTE\_ADDR}.
+		\item Nilai default aman: \texttt{\$\_GET["x"] ?? ""}.
+	\end{itemize}
+	\begin{block}{Keamanan}
+		Jangan pakai data superglobal tanpa validasi dan sanitasi; \texttt{htmlspecialchars()} untuk output; prepared statement untuk database.
+	\end{block}
+\end{frame}
+
+\begin{frame}{GET vs POST}
+	\small
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{Aspek} & \textbf{\$\_GET} & \textbf{\$\_POST} \\
+		\hline
+		Sumber & Query string URL & Body HTTP \\
+		\hline
+		Visibilitas & Terlihat di URL & Tidak terlihat \\
+		\hline
+		Batas ukuran & Terbatas ($\sim$2048 char) & Besar \\
+		\hline
+		Bookmark & Ya & Tidak \\
+		\hline
+		Contoh & Pencarian, filter, hal=2 & Form login, registrasi \\
+		\hline
+	\end{tabular}
+\end{frame}
+
+% ========== SECTION 12-14: Form ==========
+\begin{frame}{Form HTML dan Pemrosesan dengan PHP}
+	\begin{itemize}
+		\item Form: \texttt{action} (URL tujuan), \texttt{method} (GET/POST), elemen dengan \texttt{name} $\to$ kunci di \texttt{\$\_GET}/\texttt{\$\_POST}.
+		\item Alur: User isi form $\to$ Submit $\to$ PHP terima \texttt{\$\_POST}/\texttt{\$\_GET} $\to$ Validasi $\to$ Proses atau tampilkan error.
+		\item \textbf{Validasi server-side wajib} (validasi klien bisa dilewati).
+		\item \texttt{filter\_var(\$email, FILTER\_VALIDATE\_EMAIL)}; \texttt{trim()}, cek kosong, panjang.
+		\item \textbf{Sticky form}: isi \texttt{value} dengan data yang sudah diinput (pakai \texttt{htmlspecialchars()}) agar jika validasi gagal data tidak hilang.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 12-15: Include/Require ==========
+\begin{frame}{Include dan Require}
+	\begin{itemize}
+		\item \texttt{include}: file tidak ada $\to$ warning, eksekusi lanjut.
+		\item \texttt{require}: file tidak ada $\to$ fatal error, berhenti.
+		\item \texttt{include\_once} / \texttt{require\_once}: file hanya disisipkan sekali (hindari duplikasi definisi).
+		\item \texttt{require\_once} untuk config, fungsi, class; \texttt{include} untuk template (header, footer).
+	\end{itemize}
+	\begin{block}{DRY}
+		Don't Repeat Yourself: ekstrak kode yang dipakai ulang ke file terpisah, sisipkan dengan include/require.
+	\end{block}
+\end{frame}
+
+\begin{frame}{Include vs Require (ringkasan)}
+	\small
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\textbf{Pernyataan} & \textbf{File tidak ada} & \textbf{Duplikasi} & \textbf{Penggunaan} \\
+		\hline
+		\texttt{include} & Warning, lanjut & Boleh & Template HTML \\
+		\hline
+		\texttt{require} & Fatal, berhenti & Boleh & File kritis \\
+		\hline
+		\texttt{include\_once} & Warning & Sekali saja & Library opsional \\
+		\hline
+		\texttt{require\_once} & Fatal & Sekali saja & Config, class \\
+		\hline
+	\end{tabular}
+	\vspace{0.5em}
+	Struktur folder: \texttt{config.php}, \texttt{functions.php}, \texttt{templates/header.php}, \texttt{templates/footer.php}, \texttt{pages/}.
+\end{frame}
+
+% ========== Rangkuman dan Penutup ==========
+\begin{frame}{Rangkuman Bab 12}
+	\begin{itemize}
+		\item PHP server-side; request-response cycle; XAMPP, htdocs, \texttt{phpinfo()}.
+		\item Sintaks: tag \texttt{<?php ?>}, variabel \texttt{\$}, tipe dinamis; scope lokal/global/static.
+		\item Tipe data; \texttt{==} vs \texttt{===}; operator; echo/print; string dan fungsi string.
+		\item Percabangan (if, switch, ternary, match); perulangan (for, while, foreach); fungsi (parameter, return, type hinting); array.
+		\item Superglobal \texttt{\$\_GET}, \texttt{\$\_POST}, \texttt{\$\_SERVER}; GET vs POST.
+		\item Form: validasi server-side \textbf{wajib}; \texttt{filter\_var}; sticky form; \texttt{htmlspecialchars()} untuk cegah XSS.
+		\item Include/require/once; organisasi kode; prinsip DRY.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{}
+	\centering
+	\vfill
+	\textbf{\Large Pertanyaan?}
+	\vfill
+\end{frame}
+
+\end{document}

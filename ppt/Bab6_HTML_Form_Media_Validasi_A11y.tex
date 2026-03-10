@@ -1,0 +1,255 @@
+\documentclass[handout]{beamer}
+\mode<presentation>
+\usetheme[secheader]{Boadilla}
+\usecolortheme{whale}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[indonesian]{babel}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{bookmark}
+
+\setbeamertemplate{footline}
+{
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+			\usebeamerfont{author in head/foot}\insertshortauthor%
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.433333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+			\usebeamerfont{title in head/foot}\insertshorttitle
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.233333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+			\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em} \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+	\end{beamercolorbox}}%
+	\vskip0pt%
+}
+
+\title[Bab 6 -- Form \& Media]{Pemrograman Web}
+\subtitle{Bab 6: HTML Form, Media, Validasi Dasar, dan Aksesibilitas Form}
+\author{Cecep Suwanda, S.Si., M.Kom.}
+\institute{Universitas Bale Bandung}
+\date{\today}
+
+\begin{document}
+
+% Slide Judul
+\begin{frame}
+	\titlepage
+\end{frame}
+
+% Outline dan CPMK
+\begin{frame}{Outline Bab 6}
+	\begin{block}{Sub-CPMK 2.1}
+		Membuat halaman web dengan HTML5 (struktur, elemen semantik, form, media).
+	\end{block}
+	\begin{block}{Sub-CPMK 1.3}
+		Menerapkan prinsip aksesibilitas (a11y) dan pengalaman pengguna (UX) dalam desain antarmuka.
+	\end{block}
+	\begin{itemize}
+		\item Tabel HTML: Dasar (Baris, Sel, Header)
+		\item Tabel: Pengelompokan, Scope, dan Aksesibilitas
+		\item Form HTML: Elemen form, input, label, dan button
+		\item Form: Tipe input, select, textarea, dan validasi dasar
+		\item Struktur Halaman dengan Elemen Semantik
+		\item Media: Audio dan Video
+		\item Gambar Vektor (SVG) dalam HTML
+		\item Embedding: iframe, object, dan embed
+		\item Aksesibilitas (a11y): Prinsip dan Praktik
+		\item Aksesibilitas Tabel dan Form
+		\item Validasi HTML dan Alat Validator
+		\item Debugging HTML: Menemukan dan Memperbaiki Error
+		\item Best Practices HTML dan Standar (WHATWG / W3C)
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 6-1: Tabel Dasar ==========
+\begin{frame}{Tabel HTML: Dasar (Baris, Sel, Header)}
+	\begin{itemize}
+		\item Elemen \texttt{<table>}: wadah tabel untuk data terstruktur (baris-kolom).
+		\item \texttt{<tr>}: baris tabel; \texttt{<td>}: sel data; \texttt{<th>}: sel header (tebal, semantik).
+		\item \texttt{<caption>}: judul tabel untuk aksesibilitas.
+		\item \texttt{colspan} dan \texttt{rowspan}: menggabungkan sel horizontal/vertikal.
+	\end{itemize}
+	\begin{block}{Kapan tabel?}
+		Data tabular (jadwal, daftar nilai, statistik). Bukan untuk layout halaman---gunakan CSS Flexbox/Grid.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 6-2: Tabel Pengelompokan ==========
+\begin{frame}{Tabel: Pengelompokan, Scope, dan Aksesibilitas}
+	\begin{itemize}
+		\item \texttt{<thead>}: baris header; \texttt{<tbody>}: baris data utama; \texttt{<tfoot>}: ringkasan/total.
+		\item \texttt{scope="col"}: header untuk kolom; \texttt{scope="row"}: header untuk baris.
+		\item \texttt{id} + \texttt{headers}: hubungan eksplisit sel--header (tabel kompleks).
+		\item \texttt{<caption>}: pembaca layar bacakan caption dahulu; singkat dan informatif.
+	\end{itemize}
+	\begin{block}{Hindari}
+		Tabel bersarang; tabel lebar di mobile tanpa alternatif.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 6-3: Form Dasar ==========
+\begin{frame}{Form HTML: Elemen form, input, label, dan button}
+	\begin{itemize}
+		\item \texttt{<form>}: wadah; \texttt{action} (URL tujuan), \texttt{method} (GET/POST).
+		\item GET: data via URL query (pencarian); POST: data di body request (data sensitif).
+		\item \texttt{<label>}: pasangan input; \texttt{for} pada label = \texttt{id} pada input.
+		\item \texttt{<button>}: \texttt{type="submit"} (kirim), \texttt{type="reset"} (kosongkan), \texttt{type="button"} (JS).
+	\end{itemize}
+	\begin{block}{Label}
+		Klik label $\to$ fokus/aktifkan input; penting untuk a11y dan UX (area klik lebih besar).
+	\end{block}
+\end{frame}
+
+% ========== SECTION 6-4: Tipe Input dan Validasi ==========
+\begin{frame}{Form: Tipe input, select, textarea, dan validasi}
+	\begin{itemize}
+		\item Tipe HTML5: \texttt{text}, \texttt{email}, \texttt{password}, \texttt{number}, \texttt{date}, \texttt{range}, \texttt{checkbox}, \texttt{radio}, \texttt{file}.
+		\item \texttt{<select>}, \texttt{<option>}, \texttt{<optgroup>}; \texttt{<textarea>} untuk teks panjang.
+		\item Validasi: \texttt{required}, \texttt{minlength}/\texttt{maxlength}, \texttt{pattern}, \texttt{min}/\texttt{max}.
+		\item \texttt{<fieldset>} dan \texttt{<legend>}: pengelompokan field; penting untuk radio/checkbox.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Validasi Client-side vs Server-side}
+	\begin{block}{Client-side (HTML/JS)}
+		Umpan balik instan; mengurangi request gagal; \textbf{dapat dilewati} oleh pengguna.
+	\end{block}
+	\begin{block}{Server-side (PHP/dll.)}
+		Menjamin keamanan; \textbf{tidak dapat dilewati}; \textbf{wajib} untuk semua form publik.
+	\end{block}
+	Gunakan keduanya: client-side untuk UX, server-side untuk keamanan.
+\end{frame}
+
+% ========== SECTION 6-5: Elemen Semantik ==========
+\begin{frame}{Struktur Halaman dengan Elemen Semantik}
+	\begin{itemize}
+		\item \texttt{<header>}: kepala halaman/section; \texttt{<nav>}: navigasi utama.
+		\item \texttt{<main>}: konten utama (\textbf{satu per halaman}).
+		\item \texttt{<article>}: konten mandiri; \texttt{<section>}: grup tematik; \texttt{<aside>}: konten pendukung.
+		\item \texttt{<footer>}: penutup halaman.
+	\end{itemize}
+	\begin{block}{Manfaat}
+		Makna semantik $\to$ SEO lebih baik, pembaca layar navigasi otomatis, kode lebih mudah dirawat.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 6-6: Media ==========
+\begin{frame}{Media: Audio dan Video}
+	\begin{itemize}
+		\item \texttt{<audio>}, \texttt{<video>}: native HTML5 tanpa plugin.
+		\item Atribut: \texttt{controls}, \texttt{autoplay}, \texttt{loop}, \texttt{muted}; \texttt{poster} (video thumbnail).
+		\item \texttt{<source>}: beberapa format fallback (MP3/WAV, MP4/WebM).
+		\item \texttt{<track>}: subtitle (\texttt{kind="subtitles"}), caption (\texttt{kind="captions"}); format WebVTT (\texttt{.vtt}).
+	\end{itemize}
+	\begin{block}{Aksesibilitas media}
+		Teks alternatif, transkrip, subtitle untuk pengguna tuli/tuna rungu.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 6-7: SVG ==========
+\begin{frame}{Gambar Vektor (SVG) dalam HTML}
+	\begin{itemize}
+		\item \textbf{SVG} vs raster: vektor skalabel tanpa kehilangan kualitas.
+		\item SVG inline: sisipkan \texttt{<svg>} langsung di HTML.
+		\item Aksesibilitas: \texttt{<title>}, \texttt{<desc>}, \texttt{aria-label}, \texttt{role="img"}.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 6-8: Embedding ==========
+\begin{frame}{Embedding: iframe, object, dan embed}
+	\begin{itemize}
+		\item \texttt{<iframe>}: menyematkan halaman/konten eksternal.
+		\item \texttt{sandbox}: membatasi aksi (script, form, dll.) untuk keamanan.
+		\item \texttt{allow}: izinkan fitur (camera, geolocation, dll.).
+		\item \texttt{title}: deskripsi untuk aksesibilitas.
+	\end{itemize}
+	\begin{block}{Keamanan}
+		Gunakan \texttt{sandbox} dengan pembatasan yang tepat; jangan embed sumber tidak tepercaya.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 6-9: Aksesibilitas Prinsip ==========
+\begin{frame}{Aksesibilitas (a11y): Prinsip dan Praktik}
+	\begin{itemize}
+		\item Web dapat digunakan \textbf{semua orang} (disabilitas visual, auditori, motorik, kognitif).
+		\item Standar \textbf{WCAG} (W3C); prinsip \textbf{POUR}:
+		\item \textbf{Perceivable}: konten dapat dipersepsi (teks alt, kontras warna).
+		\item \textbf{Operable}: antarmuka dapat dioperasikan (keyboard, fokus).
+		\item \textbf{Understandable}: informasi dapat dipahami (bahasa, error jelas).
+		\item \textbf{Robust}: kompatibel berbagai teknologi (HTML semantik, ARIA).
+	\end{itemize}
+	Level: A (minimum), AA (direkomendasikan), AAA (optimal).
+\end{frame}
+
+\begin{frame}{ARIA: Pelengkap Semantik HTML}
+	\begin{itemize}
+		\item \textbf{ARIA} (Accessible Rich Internet Applications): bila HTML semantik tidak cukup.
+		\item \texttt{role}: peran elemen (\texttt{role="dialog"}), \texttt{aria-label}, \texttt{aria-describedby}.
+		\item \texttt{aria-expanded}, \texttt{aria-hidden}, \texttt{aria-live}, dll.
+	\end{itemize}
+	\begin{block}{Aturan pertama ARIA}
+		Jangan gunakan ARIA jika elemen HTML semantik sudah cukup (\texttt{<button>}, \texttt{<nav>}, dll.).
+	\end{block}
+\end{frame}
+
+% ========== SECTION 6-10: Aksesibilitas Tabel dan Form ==========
+\begin{frame}{Aksesibilitas Tabel dan Form}
+	\begin{itemize}
+		\item \textbf{Tabel}: \texttt{<caption>}, \texttt{scope}, \texttt{headers}; hindari sel kosong tanpa konteks.
+		\item \textbf{Form}: \texttt{<label for="...">}, \texttt{<fieldset>}/\texttt{<legend>}, \texttt{aria-describedby} untuk pesan error.
+		\item Semua elemen interaktif dapat diakses via \textbf{keyboard}; urutan tab logis.
+		\item Uji dengan pembaca layar (NVDA, VoiceOver) atau navigasi keyboard saja.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 6-11: Validasi HTML ==========
+\begin{frame}{Validasi HTML dan Alat Validator}
+	\begin{itemize}
+		\item \textbf{W3C Markup Validation Service}: \texttt{https://validator.w3.org/}
+		\item \textbf{Error}: harus diperbaiki (struktur tidak valid).
+		\item \textbf{Warning}: perbaikan disarankan (deprecated, best practice).
+		\item Dokumen valid $\to$ interoperabilitas, aksesibilitas, perawatan lebih mudah.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 6-12: Debugging ==========
+\begin{frame}{Debugging HTML: Menemukan dan Memperbaiki Error}
+	\begin{itemize}
+		\item \textbf{DevTools} (F12): tab \textbf{Elements} (inspeksi HTML/CSS), \textbf{Console} (error JS).
+		\item Periksa struktur DOM, atribut hilang, tag tidak tertutup.
+		\item Validasi W3C untuk error markup; Lighthouse untuk skor aksesibilitas.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 6-13: Best Practices ==========
+\begin{frame}{Best Practices HTML dan Standar (WHATWG / W3C)}
+	\begin{itemize}
+		\item Ikuti standar \textbf{WHATWG} (HTML Living Standard) dan \textbf{W3C}.
+		\item Dokumen valid, elemen semantik tepat, atribut aksesibilitas lengkap.
+		\item Interoperabilitas lintas browser; kode profesional dan dapat dirawat.
+	\end{itemize}
+\end{frame}
+
+% ========== Rangkuman dan Penutup ==========
+\begin{frame}{Rangkuman Bab 6}
+	\begin{itemize}
+		\item Tabel: \texttt{thead}/\texttt{tbody}/\texttt{tfoot}, \texttt{scope}, \texttt{caption}; aksesibilitas.
+		\item Form: \texttt{form}, \texttt{input}, \texttt{label}, \texttt{button}; tipe HTML5; validasi client + server; \texttt{fieldset}/\texttt{legend}.
+		\item Elemen semantik: \texttt{header}, \texttt{nav}, \texttt{main}, \texttt{article}, \texttt{section}, \texttt{aside}, \texttt{footer}.
+		\item Media: \texttt{audio}/\texttt{video}, \texttt{<track>} subtitle; SVG inline; iframe dengan sandbox.
+		\item Aksesibilitas: POUR (WCAG), ARIA bila perlu; label, caption, keyboard.
+		\item Validasi W3C; debugging DevTools; best practices WHATWG/W3C.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{}
+	\centering
+	\vfill
+	\textbf{\Large Pertanyaan?}
+	\vfill
+\end{frame}
+
+\end{document}

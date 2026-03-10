@@ -1,0 +1,273 @@
+\documentclass[handout]{beamer}
+\mode<presentation>
+\usetheme[secheader]{Boadilla}
+\usecolortheme{whale}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[indonesian]{babel}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{bookmark}
+
+\setbeamertemplate{footline}
+{
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+			\usebeamerfont{author in head/foot}\insertshortauthor%
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.433333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+			\usebeamerfont{title in head/foot}\insertshorttitle
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.233333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+			\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em} \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+	\end{beamercolorbox}}%
+	\vskip0pt%
+}
+
+\title[Bab 14 -- MySQL]{Pemrograman Web}
+\subtitle{Bab 14: MySQL Dasar, CRUD, dan Koneksi PHP-MySQL (MySQLi/PDO)}
+\author{Cecep Suwanda, S.Si., M.Kom.}
+\institute{Universitas Bale Bandung}
+\date{\today}
+
+\begin{document}
+
+% Slide Judul
+\begin{frame}
+	\titlepage
+\end{frame}
+
+% Outline dan CPMK
+\begin{frame}{Outline Bab 14}
+	\begin{block}{Sub-CPMK 3.2}
+		Mengelola basis data dan mengimplementasikan operasi CRUD dengan MySQL serta koneksi dari PHP.
+	\end{block}
+	\begin{itemize}
+		\item \textbf{Area 1:} MySQL Dasar (DB, SQL, DDL, DML, agregat, NULL)
+		\item \textbf{Area 2:} Relasi dan Lanjut (PK, FK, JOIN, normalisasi, index, backup)
+		\item \textbf{Area 3:} Integrasi PHP--MySQL (MySQLi, CRUD, prepared statement, PDO)
+		\item \textbf{Area 4:} MySQL Advanced \& PHP Lanjut (VIEW, trigger, transaksi, REST API, deployment)
+	\end{itemize}
+\end{frame}
+
+% ========== AREA 1: MySQL Dasar ==========
+\begin{frame}{Pengenalan Database dan SQL}
+	\begin{itemize}
+		\item \textbf{Database}: kumpulan data terorganisasi; tanpa DB, aplikasi hanya tampil konten statis.
+		\item \textbf{DBMS}: sistem pengelola database; RDBMS menyimpan data dalam tabel (baris \& kolom).
+		\item \textbf{SQL}: bahasa standar komunikasi dengan RDBMS; deklaratif.
+		\item \textbf{DDL} (Data Definition): CREATE, ALTER, DROP.
+		\item \textbf{DML} (Data Manipulation): SELECT, INSERT, UPDATE, DELETE.
+		\item \textbf{DCL} (Data Control): GRANT, REVOKE.
+		\item MySQL populer untuk web: cepat, open-source, terintegrasi dengan PHP/XAMPP.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Instalasi MySQL dan Lingkungan}
+	\begin{itemize}
+		\item \textbf{XAMPP}: paket Apache + MySQL + PHP; MySQL di \texttt{xampp/mysql}.
+		\item \textbf{Akses CLI}: \texttt{mysql -u root -p} di terminal.
+		\item \textbf{Akses GUI}: phpMyAdmin di \texttt{http://localhost/phpmyadmin/}.
+		\item Setelah XAMPP dijalankan, layanan MySQL aktif pada port 3306.
+		\item Perintah dasar: \texttt{SHOW DATABASES;}, \texttt{USE nama\_db;}, \texttt{SHOW TABLES;}.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{CREATE DATABASE, CREATE TABLE, dan Tipe Data}
+	\begin{itemize}
+		\item \texttt{CREATE DATABASE toko\_online;} lalu \texttt{USE toko\_online;}
+		\item \texttt{CREATE TABLE produk ( id INT, nama VARCHAR(100), harga DECIMAL(10,2), ... );}
+		\item \textbf{Tipe data umum}: INT, BIGINT, VARCHAR(n), TEXT, DATE, DATETIME, DECIMAL(p,s), BOOLEAN.
+		\item \texttt{ALTER TABLE}: menambah/mengubah/ menghapus kolom atau constraint.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{SELECT, WHERE, ORDER BY, LIMIT}
+	\begin{itemize}
+		\item \texttt{SELECT * FROM produk;}
+		\item \texttt{SELECT nama, harga FROM produk WHERE harga > 10000;}
+		\item Operator: \texttt{=}, \texttt{!=}, \texttt{>}, \texttt{<}, \texttt{BETWEEN}, \texttt{LIKE}, \texttt{IN}, \texttt{IS NULL}.
+		\item \texttt{ORDER BY nama ASC;} atau \texttt{DESC}
+		\item \texttt{LIMIT 10 OFFSET 0;} untuk paginasi
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{INSERT, UPDATE, DELETE}
+	\begin{itemize}
+		\item \texttt{INSERT INTO produk (nama, harga) VALUES ('Buku', 50000);}
+		\item \texttt{UPDATE produk SET harga = 55000 WHERE id = 1;}
+		\item \texttt{DELETE FROM produk WHERE id = 1;}
+		\item Selalu gunakan \texttt{WHERE} pada UPDATE dan DELETE untuk menghindari perubahan massal yang salah.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Fungsi Agregat, GROUP BY, HAVING, DISTINCT, NULL}
+	\begin{itemize}
+		\item \textbf{Agregat}: COUNT, SUM, AVG, MIN, MAX.
+		\item \texttt{SELECT kategori, COUNT(*) FROM produk GROUP BY kategori;}
+		\item \texttt{HAVING COUNT(*) > 5;} (filter setelah agregasi).
+		\item \texttt{DISTINCT}: menghilangkan duplikat.
+		\item Alias: \texttt{AS total}, \texttt{AS harga\_rata}.
+		\item \textbf{NULL}: gunakan \texttt{IS NULL}, \texttt{IS NOT NULL}; COALESCE untuk nilai default.
+	\end{itemize}
+\end{frame}
+
+% ========== AREA 2: Relasi dan Lanjut ==========
+\begin{frame}{Relasi Tabel: Primary Key, UNIQUE, Foreign Key}
+	\begin{itemize}
+		\item \textbf{Primary Key}: identifier unik; satu per tabel; tidak boleh NULL.
+		\item \textbf{UNIQUE}: nilai unik per kolom; bisa NULL.
+		\item \textbf{Foreign Key}: referensi ke Primary Key tabel lain; menjaga \textit{referential integrity}.
+		\item \texttt{FOREIGN KEY (id\_kategori) REFERENCES kategori(id)} dengan ON DELETE CASCADE/ SET NULL.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{INNER JOIN, LEFT JOIN, RIGHT JOIN; Subquery}
+	\begin{itemize}
+		\item \texttt{INNER JOIN}: hanya baris yang cocok di kedua tabel.
+		\item \texttt{LEFT JOIN}: semua baris dari tabel kiri; kanan bisa NULL.
+		\item \texttt{RIGHT JOIN}: semua baris dari tabel kanan; kiri bisa NULL.
+		\item \textbf{Subquery}: query di dalam query; \texttt{WHERE id IN (SELECT ...)}.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Normalisasi: 1NF, 2NF, 3NF}
+	\begin{itemize}
+		\item \textbf{1NF}: setiap sel atomic (tidak ada nilai ganda); kolom homogen.
+		\item \textbf{2NF}: 1NF + tidak ada dependensi parsial (semua non-key tergantung seluruh PK).
+		\item \textbf{3NF}: 2NF + tidak ada dependensi transitif.
+		\item Normalisasi mengurangi redundansi dan anomali (insert/update/delete).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Index dan Backup/Restore}
+	\begin{itemize}
+		\item \textbf{Index}: mempercepat pencarian; buat pada kolom yang sering di-WHERE atau JOIN.
+		\item \texttt{CREATE INDEX idx\_nama ON produk(nama);}
+		\item \texttt{EXPLAIN SELECT ...;} untuk analisis performa query.
+		\item \textbf{Backup}: \texttt{mysqldump -u root -p toko\_online > backup.sql}
+		\item \textbf{Restore}: \texttt{mysql -u root -p toko\_online < backup.sql}
+	\end{itemize}
+\end{frame}
+
+% ========== AREA 3: Integrasi PHP--MySQL ==========
+\begin{frame}{Koneksi MySQLi (OOP) dan Metode Fetch}
+	\begin{itemize}
+		\item \texttt{\$conn = new mysqli(host, user, pass, db);}
+		\item \texttt{\$conn->connect\_error} untuk cek error.
+		\item \texttt{\$conn->set\_charset("utf8mb4");}
+		\item \texttt{\$result = \$conn->query(\$sql);}
+		\item Fetch: \texttt{fetch\_assoc()}, \texttt{fetch\_all()}, \texttt{fetch\_row()}.
+		\item \texttt{\$conn->close();}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{CRUD Aplikasi Web dengan PHP dan MySQL}
+	\begin{itemize}
+		\item \textbf{Create}: form input $\to$ \texttt{INSERT} via PHP.
+		\item \textbf{Read}: \texttt{SELECT} $\to$ tampilkan di HTML.
+		\item \textbf{Update}: form edit $\to$ \texttt{UPDATE} via PHP.
+		\item \textbf{Delete}: konfirmasi $\to$ \texttt{DELETE} via PHP.
+		\item Gunakan \texttt{\$\_POST}, \texttt{\$\_GET}; validasi input di server.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Prepared Statement dan Pencegahan SQL Injection}
+	\begin{block}{SQL Injection}
+		Input pengguna disisipkan ke query; penyerang bisa memanipulasi query.
+	\end{block}
+	\begin{block}{Pencegahan: Prepared Statement}
+		Pisahkan struktur query dari data; placeholder \texttt{?}; bind parameter.
+	\end{block}
+	\begin{itemize}
+		\item MySQLi: \texttt{prepare()}, \texttt{bind\_param()}, \texttt{execute()}
+		\item PDO: \texttt{prepare()}, \texttt{execute([...])}
+		\item \textbf{Jangan pernah} gabungkan input langsung ke query.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{PDO: Koneksi dan Perbandingan dengan MySQLi}
+	\begin{itemize}
+		\item \textbf{PDO}: PHP Data Objects; mendukung banyak DBMS (portable).
+		\item \texttt{new PDO("mysql:host=...;dbname=...", user, pass);}
+		\item PDO: named placeholder \texttt{:nama}; fetch mode (ASSOC, OBJ).
+		\item \textbf{MySQLi vs PDO}: MySQLi spesifik MySQL; PDO portabel. Keduanya mendukung prepared statement.
+	\end{itemize}
+\end{frame}
+
+% ========== AREA 4: MySQL Advanced & PHP Lanjut ==========
+\begin{frame}{VIEW, Stored Procedure, Trigger, Transaksi}
+	\begin{itemize}
+		\item \textbf{VIEW}: query tersimpan sebagai "tabel virtual"; menyederhanakan akses.
+		\item \textbf{Stored Procedure}: prosedur SQL yang bisa dipanggil dari PHP.
+		\item \textbf{Trigger}: otomatis dijalankan sebelum/sesudah INSERT/UPDATE/DELETE.
+		\item \textbf{Transaksi}: BEGIN; ... COMMIT; atau ROLLBACK; (ACID: Atomicity, Consistency, Isolation, Durability).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Optimasi Query (EXPLAIN) dan Keamanan User MySQL}
+	\begin{itemize}
+		\item \texttt{EXPLAIN SELECT ...;} menampilkan rencana eksekusi; perhatikan \textit{type}, \textit{rows}, \textit{Extra}.
+		\item Index yang tepat mempercepat query; hindari full table scan untuk data besar.
+		\item \textbf{Keamanan user}: buat user terpisah per aplikasi; GRANT hanya hak yang diperlukan; batasi host.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Perancangan Database dan Keamanan Web}
+	\begin{itemize}
+		\item Perancangan: diagram ER, normalisasi, penentuan PK/FK.
+		\item \textbf{Validasi input}: cek tipe, panjang, format di server (PHP).
+		\item \textbf{Sanitasi output}: \texttt{htmlspecialchars()} untuk mencegah XSS.
+		\item \textbf{CSRF token}: token unik di form; verifikasi di server.
+		\item Password: hash dengan \texttt{password\_hash()} (bcrypt).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Exception, Namespace, Composer, PSR}
+	\begin{itemize}
+		\item \textbf{Exception}: \texttt{try \{ ... \} catch (Exception \$e) \{ ... \}}; tangani error dengan rapi.
+		\item \textbf{Namespace}: mengorganisasi class; menghindari konflik nama.
+		\item \textbf{Composer}: dependency manager PHP; \texttt{composer.json}, autoload.
+		\item \textbf{PSR}: standar penulisan PHP (PSR-1, PSR-4); PHP The Right Way.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{REST API dengan PHP dan Integrasi Fetch API}
+	\begin{itemize}
+		\item \textbf{REST API}: endpoint mengembalikan JSON; metode HTTP (GET, POST, PUT, DELETE).
+		\item PHP: \texttt{header('Content-Type: application/json');} lalu \texttt{echo json\_encode(\$data);}
+		\item \textbf{Fetch API} (JavaScript): \texttt{fetch(url).then(r => r.json()).then(data => ...);}
+		\item Front-end request ke back-end; response JSON; render tanpa reload penuh.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Pengujian (PHPUnit) dan Deployment}
+	\begin{itemize}
+		\item \textbf{PHPUnit}: framework unit test untuk PHP; \texttt{phpunit} di terminal.
+		\item Test: fungsi CRUD, validasi, prepared statement.
+		\item \textbf{Deployment}: upload ke server (FTP/SSH); konfigurasi Apache/Nginx; set database produksi; SSL; backup rutin.
+		\item Checklist: environment (dev/staging/prod), error reporting mati di prod, kredensial aman.
+	\end{itemize}
+\end{frame}
+
+% ========== Rangkuman dan Penutup ==========
+\begin{frame}{Rangkuman Bab 14}
+	\begin{itemize}
+		\item \textbf{MySQL Dasar}: DDL/DML, SELECT/INSERT/UPDATE/DELETE, agregat, GROUP BY, NULL.
+		\item \textbf{Relasi}: PK, FK, JOIN, normalisasi (1NF--3NF), index, backup/restore.
+		\item \textbf{PHP--MySQL}: MySQLi/PDO, CRUD, \textbf{prepared statement} (wajib untuk keamanan).
+		\item \textbf{Lanjut}: VIEW, trigger, transaksi, REST API, Fetch API, PHPUnit, deployment.
+		\item \textbf{Keamanan}: validasi input, sanitasi output, CSRF token, password hashing.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{}
+	\centering
+	\vfill
+	\textbf{\Large Pertanyaan?}
+	\vfill
+\end{frame}
+
+\end{document}

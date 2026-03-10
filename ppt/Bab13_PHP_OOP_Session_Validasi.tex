@@ -1,0 +1,279 @@
+\documentclass[handout]{beamer}
+\mode<presentation>
+\usetheme[secheader]{Boadilla}
+\usecolortheme{whale}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[indonesian]{babel}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{bookmark}
+
+\setbeamertemplate{footline}
+{
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+			\usebeamerfont{author in head/foot}\insertshortauthor%
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.433333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+			\usebeamerfont{title in head/foot}\insertshorttitle
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.233333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+			\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em} \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+	\end{beamercolorbox}}%
+	\vskip0pt%
+}
+
+\title[Bab 13 -- PHP OOP]{Pemrograman Web}
+\subtitle{Bab 13: PHP OOP Dasar, Session/Cookie, dan Validasi Input}
+\author{Cecep Suwanda, S.Si., M.Kom.}
+\institute{Universitas Bale Bandung}
+\date{\today}
+
+\begin{document}
+
+% Slide Judul
+\begin{frame}
+	\titlepage
+\end{frame}
+
+% Outline dan CPMK
+\begin{frame}{Outline Bab 13}
+	\begin{block}{Sub-CPMK 3.1}
+		Mengimplementasikan logika server-side dengan PHP (pemrosesan form, struktur dasar, OOP).
+	\end{block}
+	\begin{block}{Sub-CPMK 4.2}
+		Menerapkan prinsip keamanan web: validasi input, prepared statement, session, mitigasi XSS dan CSRF.
+	\end{block}
+	\begin{itemize}
+		\item Pengenalan OOP di PHP
+		\item Class dan Object: Properti dan Metode
+		\item Constructor dan Destructor
+		\item Pewarisan (Inheritance) dan Overriding
+		\item Visibility: public, protected, private
+		\item Static Properti dan Metode
+		\item Session
+		\item Cookie
+		\item Unggah File (File Upload) dan Validasi
+		\item Penanganan Error dan Exception
+		\item Koneksi Database MySQLi
+		\item Query Dasar: SELECT, INSERT, UPDATE, DELETE
+		\item Form Lanjutan: Validasi Input dan Sanitasi
+		\item Praktik: Aplikasi Web CRUD Dasar
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 13-1: OOP ==========
+\begin{frame}{Pengenalan OOP di PHP}
+	\begin{itemize}
+		\item \textbf{OOP} (Object-Oriented Programming): paradigma yang mengorganisasi kode ke dalam \textbf{class} (cetak biru) dan \textbf{object} (instance).
+		\item Data dan fungsi digabung dalam satu unit (encapsulation).
+		\item PHP mendukung OOP penuh sejak versi 5; PHP 8: constructor promotion, named arguments, union types.
+		\item Sebelum OOP: pendekatan \textbf{prosedural} (fungsi terpisah).
+	\end{itemize}
+	\begin{block}{Empat Pilar OOP}
+		\textbf{Encapsulation}: data \& metode dalam class; visibility. \textbf{Inheritance}: pewarisan. \textbf{Polymorphism}: satu interface, perilaku berbeda. \textbf{Abstraction}: sembunyikan detail implementasi.
+	\end{block}
+\end{frame}
+
+\begin{frame}{Prosedural vs OOP}
+	\small
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{Aspek} & \textbf{Prosedural} & \textbf{OOP} \\
+		\hline
+		Organisasi & Fungsi terpisah & Dikelompokkan dalam class \\
+		\hline
+		Data \& fungsi & Terpisah & Digabung (encapsulation) \\
+		\hline
+		Reusabilitas & Copy-paste & Inheritance \& komposisi \\
+		\hline
+		Skalabilitas & Sulit untuk proyek besar & Mudah di-scale \\
+		\hline
+		Contoh PHP & \texttt{mysqli\_connect()} & \texttt{new mysqli()} \\
+		\hline
+	\end{tabular}
+\end{frame}
+
+% ========== SECTION 13-2: Class dan Object ==========
+\begin{frame}{Class dan Object: Properti dan Metode}
+	\begin{itemize}
+		\item \textbf{Class}: cetak biru; mendefinisikan properti (data) dan metode (perilaku).
+		\item \textbf{Object}: instance dari class; dibuat dengan \texttt{new}.
+		\item \textbf{Properti}: variabel dalam class; typed properties (PHP 7.4+): \texttt{public string \$nama}.
+		\item \textbf{Metode}: fungsi dalam class; akses properti via \texttt{\$this}.
+		\item \texttt{\$this}: merujuk ke object saat ini.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 13-3: Constructor dan Destructor ==========
+\begin{frame}{Constructor dan Destructor}
+	\begin{block}{Constructor}
+		Metode \texttt{\_\_construct()} dipanggil saat object dibuat. Inisialisasi properti. \textbf{Constructor promotion} (PHP 8): deklarasi properti di parameter, mis. \texttt{public function \_\_construct(public string \$nama)}.
+	\end{block}
+	\begin{block}{Destructor}
+		Metode \texttt{\_\_destruct()} dipanggil saat object dihancurkan. Berguna untuk cleanup (tutup koneksi, file). Di aplikasi web (request singkat), jarang dibutuhkan.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 13-4: Inheritance ==========
+\begin{frame}{Pewarisan (Inheritance) dan Overriding}
+	\begin{itemize}
+		\item \textbf{Inheritance}: class anak (\texttt{extends}) mewarisi properti dan metode dari class induk.
+		\item Model hubungan ``is-a'': Kucing adalah Hewan.
+		\item \textbf{Method overriding}: class anak mendefinisikan ulang metode induk.
+		\item \texttt{parent::namaMetode()}: memanggil versi induk.
+		\item \texttt{final}: class atau method tidak dapat di-override/di-extend.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 13-5: Visibility ==========
+\begin{frame}{Visibility: public, protected, private}
+	\begin{itemize}
+		\item \textbf{public}: akses dari mana saja (dalam class, turunan, luar).
+		\item \textbf{protected}: akses dari dalam class dan class turunan.
+		\item \textbf{private}: akses hanya dari dalam class itu sendiri.
+		\item Encapsulation: properti \texttt{private}/\texttt{protected} + getter/setter.
+	\end{itemize}
+	\begin{block}{Prinsip}
+		\textit{Least privilege}: berikan akses sesedikit mungkin.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 13-6: Static ==========
+\begin{frame}{Static Properti dan Metode}
+	\begin{itemize}
+		\item Properti dan metode \textbf{static} dimiliki oleh class, bukan instance.
+		\item Dipanggil tanpa object: \texttt{NamaClass::metode()}.
+		\item Dari dalam class: \texttt{self::} atau \texttt{static::}.
+		\item \texttt{\$this} tidak tersedia dalam metode static.
+		\item \textbf{Factory method}: static method yang membuat instance baru.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 13-7: Session ==========
+\begin{frame}{Session: Memulai, Menyimpan, Menghapus}
+	\begin{itemize}
+		\item \textbf{Session}: menyimpan data di \textbf{server}; menjembatani HTTP stateless.
+		\item Session ID dikirim ke browser sebagai cookie (\texttt{PHPSESSID}).
+		\item \texttt{session\_start()} di awal skrip (sebelum output).
+		\item Data: \texttt{\$\_SESSION['key'] = value}; baca: \texttt{\$\_SESSION['key']}.
+		\item Hapus satu: \texttt{unset(\$\_SESSION['key'])}.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Session: Keamanan dan Logout}
+	\begin{block}{Keamanan Session}
+		\texttt{session\_regenerate\_id(true)} setelah login (cegah session fixation). Atur cookie: \texttt{HttpOnly}, \texttt{Secure}, \texttt{SameSite=Strict}.
+	\end{block}
+	\begin{block}{Logout (3 langkah)}
+		(1) \texttt{session\_start()}; (2) \texttt{\$\_SESSION = []} atau \texttt{session\_unset()}; (3) \texttt{session\_destroy()}. Password: gunakan \texttt{password\_hash()} dan \texttt{password\_verify()}.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 13-8: Cookie ==========
+\begin{frame}{Cookie: Membuat dan Membaca}
+	\begin{itemize}
+		\item \textbf{Cookie}: menyimpan data di \textbf{client} (browser).
+		\item Dibuat dengan \texttt{setcookie()}; sebelum output.
+		\item Dibaca: \texttt{\$\_COOKIE['nama']}.
+		\item Atribut: \texttt{expires}, \texttt{path}, \texttt{Secure}, \texttt{HttpOnly}, \texttt{SameSite}.
+		\item Hapus: \texttt{setcookie()} dengan \texttt{expires} di masa lalu.
+	\end{itemize}
+	\begin{block}{Session vs Cookie}
+		Session di server (aman); cookie di client (ringan, preferensi, ``ingat saya'').
+	\end{block}
+\end{frame}
+
+% ========== SECTION 13-9: File Upload ==========
+\begin{frame}{Unggah File (File Upload) dan Validasi}
+	\begin{itemize}
+		\item Form: \texttt{method="POST"}, \texttt{enctype="multipart/form-data"}, \texttt{<input type="file">}.
+		\item Data: \texttt{\$\_FILES}; pindah: \texttt{move\_uploaded\_file()}.
+		\item Validasi: (1) error code \texttt{UPLOAD\_ERR\_OK}; (2) ukuran; (3) whitelist ekstensi; (4) MIME type di server (\texttt{finfo\_file()}); (5) nama file baru (\texttt{uniqid()}).
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 13-10: Error ==========
+\begin{frame}{Penanganan Error dan Exception}
+	\begin{itemize}
+		\item Error level: \texttt{error\_reporting(E\_ALL)}; \texttt{ini\_set('display\_errors', 1)} (development).
+		\item \textbf{try-catch}: kode berpotensi gagal di \texttt{try}; tangkap di \texttt{catch}.
+		\item \texttt{finally}: selalu dijalankan (cleanup).
+		\item Custom exception: \texttt{extends Exception}.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 13-11: MySQLi ==========
+\begin{frame}{Koneksi Database: MySQLi}
+	\begin{itemize}
+		\item \textbf{MySQLi}: ekstensi PHP untuk MySQL; gaya OOP: \texttt{new mysqli()}.
+		\item \texttt{\$conn = new mysqli(host, user, pass, db)}.
+		\item Cek: \texttt{\$conn->connect\_error}.
+		\item Charset: \texttt{\$conn->set\_charset("utf8mb4")}.
+		\item Tutup: \texttt{\$conn->close()}.
+		\item \textbf{Prepared statement}: mencegah SQL injection; \texttt{prepare()}, \texttt{bind\_param()}, \texttt{execute()}.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 13-12: CRUD ==========
+\begin{frame}{Query Dasar: SELECT, INSERT, UPDATE, DELETE}
+	\begin{itemize}
+		\item \textbf{CRUD}: Create (INSERT), Read (SELECT), Update (UPDATE), Delete (DELETE).
+		\item SELECT: \texttt{\$result = \$conn->query()}; \texttt{fetch\_assoc()}, \texttt{num\_rows}.
+		\item INSERT/UPDATE/DELETE: \texttt{affected\_rows}; INSERT $\to$ \texttt{insert\_id}.
+		\item Prepared statement: placeholder \texttt{?}; \texttt{bind\_param("si", \$a, \$b)} (s=string, i=int, d=double, b=blob).
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 13-13: Validasi dan Sanitasi ==========
+\begin{frame}{Form Lanjutan: Validasi dan Sanitasi}
+	\begin{block}{Validasi vs Sanitasi}
+		\textbf{Validasi}: memeriksa apakah data memenuhi aturan; tolak jika tidak valid. \textbf{Sanitasi}: membersihkan data (hapus tag, escape); ubah agar aman.
+	\end{block}
+	\begin{itemize}
+		\item \texttt{filter\_var()} dengan FILTER\_VALIDATE\_*, FILTER\_SANITIZE\_*.
+		\item \texttt{trim()}, \texttt{strip\_tags()}, \texttt{htmlspecialchars()} (mencegah XSS).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Validasi, XSS, dan CSRF}
+	\begin{block}{XSS}
+		Input berisi skrip berbahaya ditampilkan tanpa escape. \textbf{Pencegahan}: \texttt{htmlspecialchars(\$input, ENT\_QUOTES, 'UTF-8')} saat output.
+	\end{block}
+	\begin{block}{CSRF}
+		Request palsu atas nama pengguna login. \textbf{Pencegahan}: \textbf{CSRF token} unik per form; verifikasi di server. \texttt{hash\_equals()} untuk perbandingan aman.
+	\end{block}
+	\textbf{Prinsip}: \textit{Never trust user input}; validasi \& sanitasi di server.
+\end{frame}
+
+% ========== SECTION 13-14: Praktik CRUD ==========
+\begin{frame}{Praktik: Aplikasi Web CRUD Dasar}
+	\begin{itemize}
+		\item Integrasi: \textbf{login} (session, \texttt{password\_hash/verify}) + \textbf{CRUD} (prepared statement) + \textbf{validasi} (\texttt{filter\_var}, \texttt{htmlspecialchars}) + \textbf{CSRF token}.
+		\item File: \texttt{koneksi.php}, \texttt{login.php}, \texttt{dashboard.php}, \texttt{proses.php}, \texttt{logout.php}.
+		\item Tabel: \texttt{users}, \texttt{tugas}. Operasi: SELECT, INSERT, UPDATE, DELETE dengan prepared statement.
+	\end{itemize}
+\end{frame}
+
+% ========== Rangkuman dan Penutup ==========
+\begin{frame}{Rangkuman Bab 13}
+	\begin{itemize}
+		\item OOP: empat pilar; class, object, properti, metode; constructor/destructor; inheritance; visibility; static.
+		\item Session: \texttt{session\_start()}, \texttt{\$\_SESSION}, keamanan; Cookie: \texttt{setcookie()}, \texttt{\$\_COOKIE}.
+		\item File upload: \texttt{\$\_FILES}, \texttt{move\_uploaded\_file()}; validasi ketat.
+		\item Error: try-catch, exception. MySQLi: koneksi OOP; CRUD dengan prepared statement.
+		\item Validasi \& sanitasi: \texttt{filter\_var()}, \texttt{htmlspecialchars()}; XSS, CSRF; \textit{never trust user input}.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{}
+	\centering
+	\vfill
+	\textbf{\Large Pertanyaan?}
+	\vfill
+\end{frame}
+
+\end{document}

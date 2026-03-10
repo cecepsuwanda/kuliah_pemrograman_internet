@@ -1,0 +1,393 @@
+\documentclass[handout]{beamer}
+\mode<presentation>
+\usetheme[secheader]{Boadilla}
+\usecolortheme{whale}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[indonesian]{babel}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{bookmark}
+
+\setbeamertemplate{footline}
+{
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+			\usebeamerfont{author in head/foot}\insertshortauthor%
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.433333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+			\usebeamerfont{title in head/foot}\insertshorttitle
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.233333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+			\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em} \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+	\end{beamercolorbox}}%
+	\vskip0pt%
+}
+
+\title[Bab 15 -- Integrasi \& Deployment]{Pemrograman Web}
+\subtitle{Bab 15: Integrasi API, Pengujian, Keamanan, Deployment Dasar, Administrasi Web}
+\author{Cecep Suwanda, S.Si., M.Kom.}
+\institute{Universitas Bale Bandung}
+\date{\today}
+
+\begin{document}
+
+% Slide Judul
+\begin{frame}
+	\titlepage
+\end{frame}
+
+% Outline dan CPMK
+\begin{frame}{Outline Bab 15}
+	\begin{block}{Sub-CPMK}
+		\begin{itemize}
+			\item \textbf{3.3}: Mengintegrasikan API, front-end $\leftrightarrow$ back-end
+			\item \textbf{4.1}: Pengujian dan evaluasi performa
+			\item \textbf{4.2}: Keamanan web (validasi, prepared statement, XSS, CSRF)
+			\item \textbf{4.3}: Deployment ke produksi dan administrasi
+		\end{itemize}
+	\end{block}
+	\begin{itemize}
+		\item Integrasi API dan Fetch
+		\item Pengujian (fungsional, kompatibilitas, performa)
+		\item Keamanan (validasi, SQL injection, XSS, CSRF, session)
+		\item Deployment dan Administrasi (dev vs prod, php.ini, backup, CI/CD)
+		\item Referensi Standar
+	\end{itemize}
+\end{frame}
+
+% ========== INTEGRASI API ==========
+\begin{frame}{Integrasi API dan Pertukaran Data}
+	\begin{itemize}
+		\item \textbf{API}: antarmuka untuk pertukaran data; arsitektur \textbf{REST}; format \textbf{JSON}.
+		\item \textbf{Fetch API}: HTTP request dari JavaScript; berbasis Promise; async/await; tidak reload halaman (AJAX).
+		\item Alur: Front-End (JS) $\to$ HTTP Request $\to$ API Endpoint (PHP) $\to$ SQL $\to$ MySQL $\to$ JSON Response $\to$ Front-End.
+		\item Memisahkan front-end dan back-end; mendukung multi-platform (web, mobile).
+	\end{itemize}
+\end{frame}
+
+% ========== PENGUJIAN ==========
+\begin{frame}{Pengujian Aplikasi Web}
+	\begin{itemize}
+		\item Memverifikasi aplikasi berfungsi sesuai harapan, bebas bug, memenuhi standar.
+		\item \textbf{Shift-left}: pengujian diintegrasikan di setiap tahap, bukan hanya di akhir.
+	\end{itemize}
+	\begin{block}{Tujuan}
+		Verifikasi fungsionalitas, deteksi bug, keamanan, performa, kompatibilitas browser.
+	\end{block}
+\end{frame}
+
+\begin{frame}{Jenis Pengujian}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{Jenis} & \textbf{Fokus} & \textbf{Alat} \\
+		\hline
+		Fungsional & Fitur sesuai spesifikasi & Selenium, Cypress \\
+		\hline
+		Kompatibilitas & Browser, OS, device & BrowserStack \\
+		\hline
+		Performa & Kecepatan, responsivitas & Lighthouse, k6 \\
+		\hline
+		Keamanan & Celah kerentanan & OWASP ZAP \\
+		\hline
+	\end{tabular}
+\end{frame}
+
+\begin{frame}{DevTools: Elements, Console, Network, Lighthouse}
+	\begin{itemize}
+		\item \textbf{Elements}: inspeksi HTML/CSS, cek layout
+		\item \textbf{Console}: log, error JS, eksekusi kode
+		\item \textbf{Network}: HTTP request/response, status, waktu; penting untuk debug API
+		\item \textbf{Lighthouse}: audit performa, aksesibilitas, SEO, best practices
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Strategi Pengujian}
+	\begin{block}{Manual vs Otomatis}
+		Manual: eksplorasi, usabilitas. Otomatis: regresi, CI/CD.
+	\end{block}
+	\begin{block}{Piramida: Unit $\to$ Integrasi $\to$ E2E}
+		Unit (banyak, cepat) $\to$ Integrasi (sedang) $\to$ E2E (sedikit, lambat).
+	\end{block}
+\end{frame}
+
+\begin{frame}{Pengujian Fungsional}
+	\begin{itemize}
+		\item \textbf{Skenario positif}: input valid $\to$ output benar
+		\item \textbf{Skenario negatif}: input tidak valid $\to$ pesan error jelas
+		\item \textbf{Boundary}: nilai di batas min/max
+		\item Validasi form di server (PHP) wajib; validasi client (JS) hanya untuk UX.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Metrik Performa: Core Web Vitals}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{Metrik} & \textbf{Target baik} & \textbf{Deskripsi} \\
+		\hline
+		FCP & $\leq$ 1,8 s & Konten pertama muncul \\
+		\hline
+		LCP & $\leq$ 2,5 s & Elemen terbesar dirender \\
+		\hline
+		INP & $\leq$ 200 ms & Respons interaksi \\
+		\hline
+		CLS & $\leq$ 0,1 & Stabilitas layout \\
+		\hline
+	\end{tabular}
+	\vspace{0.5em}
+	Alat: \textbf{Lighthouse} (DevTools), PageSpeed Insights, WebPageTest.
+\end{frame}
+
+% ========== KEAMANAN ==========
+\begin{frame}{Keamanan Aplikasi Web}
+	\begin{block}{Prinsip}
+		\textit{Jangan pernah percaya input dari client}. Semua data dari browser harus divalidasi.
+	\end{block}
+	\begin{itemize}
+		\item \textbf{CIA Triad}: Confidentiality, Integrity, Availability
+		\item Ancaman umum: SQL Injection, XSS, CSRF, Session Hijacking, Brute Force
+		\item \textbf{Defence in depth}: keamanan berlapis, bukan satu titik
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Validasi vs Sanitasi}
+	\begin{block}{Validasi}
+		Memeriksa format, panjang, rentang. Tolak data tidak valid. Wajib di server.
+	\end{block}
+	\begin{block}{Sanitasi}
+		Membersihkan karakter berbahaya (\texttt{htmlspecialchars}, \texttt{trim}). Sebelum simpan/tampilkan.
+	\end{block}
+	Validasi client (JS) hanya untuk UX; validasi server (PHP) adalah pertahanan utama.
+\end{frame}
+
+\begin{frame}{Prepared Statement: Mencegah SQL Injection}
+	\begin{itemize}
+		\item Query template dengan placeholder \texttt{?}; data dikirim terpisah.
+		\item Database memperlakukan data sebagai literal, bukan perintah SQL.
+		\item Contoh: \texttt{prepare("SELECT * FROM users WHERE email = ?")}, \texttt{bind\_param("s", \$email)}.
+		\item Jangan gabungkan input langsung ke query string.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Session: Pengelolaan Aman}
+	\begin{itemize}
+		\item \texttt{session\_start()}; simpan data di \texttt{\$\_SESSION}.
+		\item \textbf{Regenerasi ID} setelah login: \texttt{session\_regenerate\_id(true)} (cegah session fixation).
+		\item Logout: hapus \texttt{\$\_SESSION}, hancurkan cookie.
+		\item Konfigurasi: \texttt{cookie\_httponly}, \texttt{cookie\_secure}, \texttt{cookie\_samesite}, \texttt{use\_strict\_mode}.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Cookie: HttpOnly, Secure, SameSite}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{Atribut} & \textbf{Fungsi} & \textbf{Melindungi} \\
+		\hline
+		HttpOnly & Cookie tidak bisa diakses JS & XSS (pencurian cookie) \\
+		\hline
+		Secure & Hanya via HTTPS & Penyadapan \\
+		\hline
+		SameSite=Strict & Tidak dikirim lintas situs & CSRF \\
+		\hline
+	\end{tabular}
+\end{frame}
+
+\begin{frame}{Pencegahan XSS: Output Encoding}
+	\begin{itemize}
+		\item XSS: penyerang sisipkan skrip JS yang dieksekusi di browser korban.
+		\item Tipe: Stored (di DB), Reflected (dari URL), DOM-based.
+		\item \textbf{Pencegahan}: \texttt{htmlspecialchars(\$data, ENT\_QUOTES, 'UTF-8')} setiap output dari input pengguna.
+		\item Prinsip: sanitasi saat output, bukan saat input.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Pencegahan CSRF: Token}
+	\begin{itemize}
+		\item CSRF: pengguna login tanpa sadar mengirim request berbahaya dari situs penyerang.
+		\item \textbf{CSRF token}: nilai unik di form; divalidasi di server.
+		\item Generate: \texttt{bin2hex(random\_bytes(32))}; validasi: \texttt{hash\_equals()}.
+		\item Cookie \texttt{SameSite=Strict} juga membantu cegah CSRF.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Load Testing dan Optimasi Performa}
+	\begin{itemize}
+		\item \textbf{Load testing}: mengukur perilaku di bawah beban; alat: JMeter, Locust, k6.
+		\item \textbf{Optimasi}: caching (browser, server, opcode), minifikasi CSS/JS, lazy loading gambar.
+		\item \texttt{loading="lazy"} pada \texttt{<img>}; gzip/brotli; Cache-Control; WebP.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{OWASP Top 10}
+	\small
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{Ancaman} & \textbf{Mitigasi} \\
+		\hline
+		Injection (SQL, dll.) & Prepared statement \\
+		\hline
+		Broken Access Control & Cek izin di server \\
+		\hline
+		Cryptographic Failures & HTTPS, \texttt{password\_hash} \\
+		\hline
+		Security Misconfig & Hardening, non-default password \\
+		\hline
+		XSS & Output encoding \\
+		\hline
+		... & Lakukan audit berkala \\
+		\hline
+	\end{tabular}
+\end{frame}
+
+\begin{frame}{Session Fixation dan Hijacking}
+	\begin{block}{Session Fixation}
+		Penyerang paksa korban pakai session ID penyerang. \textbf{Mitigasi}: \texttt{session\_regenerate\_id(true)} setelah login.
+	\end{block}
+	\begin{block}{Session Hijacking}
+		Pencurian session ID (via XSS, penyadapan). \textbf{Mitigasi}: HttpOnly, Secure, SameSite, timeout session.
+	\end{block}
+\end{frame}
+
+% ========== DEPLOYMENT ==========
+\begin{frame}{Development vs Production}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{Aspek} & \textbf{Dev} & \textbf{Prod} \\
+		\hline
+		\texttt{display\_errors} & On & Off \\
+		\hline
+		\texttt{log\_errors} & Off & On \\
+		\hline
+		Database & Lokal, dummy & Server, data asli \\
+		\hline
+		HTTPS & Tidak wajib & Wajib \\
+		\hline
+		Password & Sederhana & Kuat dan unik \\
+		\hline
+		Backup & Tidak perlu & Rutin, otomatis \\
+		\hline
+	\end{tabular}
+\end{frame}
+
+\begin{frame}{Deployment dan Siklus Rilis}
+	\begin{enumerate}
+		\item Develop $\to$ Test $\to$ Stage $\to$ Deploy $\to$ Monitor $\to$ Feedback
+	\end{enumerate}
+	\begin{block}{Checklist pra-deploy}
+		Tes lulus; database migrasi; env var; \texttt{display\_errors} off; HTTPS; backup; \texttt{.env}, \texttt{.git/}, \texttt{vendor/} tidak bisa diakses publik.
+	\end{block}
+\end{frame}
+
+\begin{frame}{Server Web: Apache vs Nginx}
+	\begin{itemize}
+		\item \textbf{Apache}: mod\_php, .htaccess; mudah konfigurasi.
+		\item \textbf{Nginx}: event-driven, PHP-FPM; performa tinggi; populer sebagai reverse proxy.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Environment Variable dan .env}
+	\begin{itemize}
+		\item Simpan konfigurasi (DB, API key, mode debug) di luar kode.
+		\item File \texttt{.env}: \textbf{jangan commit ke Git}; tambah ke \texttt{.gitignore}.
+		\item Library \texttt{vlucas/phpdotenv} membaca \texttt{.env} $\to$ \texttt{\$\_ENV}.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Konfigurasi PHP untuk Produksi}
+	\begin{itemize}
+		\item \texttt{display\_errors = Off}; \texttt{log\_errors = On}
+		\item \texttt{opcache.enable = 1} (performa)
+		\item \texttt{expose\_php = Off}
+		\item \texttt{session.cookie\_httponly}, \texttt{session.cookie\_secure}, \texttt{session.cookie\_samesite}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Upload, Permissions, Deploy}
+	\begin{itemize}
+		\item Metode: Git (\texttt{git clone}/\texttt{pull}) atau SFTP/SCP.
+		\item Permission: folder \texttt{755}, file \texttt{644}, upload/cache \texttt{775}.
+		\item Langkah: SSH, install stack, clone, \texttt{composer install}, buat \texttt{.env}, import DB, \texttt{chown www-data}, virtual host, HTTPS (Let's Encrypt).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Reverse Proxy dan HTTPS}
+	\begin{itemize}
+		\item \textbf{Reverse proxy} (Nginx): SSL termination, load balancing, caching, keamanan.
+		\item \textbf{HTTPS}: enkripsi TLS; Let's Encrypt (sertifikat gratis); \texttt{certbot}.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Hardening Server}
+	\begin{itemize}
+		\item Firewall (UFW): hanya port 22, 80, 443
+		\item Update rutin (OS, software)
+		\item User non-root untuk aplikasi
+		\item SSH: nonaktifkan root login; key-based auth
+		\item Port 3306 (MySQL) diblokir dari publik
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Backup dan Restore Database}
+	\begin{itemize}
+		\item \texttt{mysqldump} untuk backup; jadwalkan dengan \texttt{cron} (harian).
+		\item Simpan di lokasi terpisah; uji restore secara berkala.
+		\item Contoh cron: \texttt{0 2 * * *} (setiap hari jam 02:00).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{CI/CD: Otomasi Build dan Deploy}
+	\begin{itemize}
+		\item \textbf{CI}: integrasi kode, tes otomatis (setiap push).
+		\item \textbf{CD}: deploy otomatis setelah tes lulus.
+		\item Alat: GitHub Actions, GitLab CI, Jenkins.
+		\item Pipeline: Push $\to$ Build $\to$ Test $\to$ Deploy Staging $\to$ Deploy Prod
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Pemantauan di Produksi}
+	\begin{itemize}
+		\item \textbf{Log}: error log PHP, access log server, slow query MySQL
+		\item \textbf{Error tracking}: Sentry, Bugsnag (exception real-time)
+		\item \textbf{Uptime}: UptimeRobot, Pingdom
+	\end{itemize}
+\end{frame}
+
+% ========== REFERENSI ==========
+\begin{frame}{Referensi Standar}
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{Sumber} & \textbf{Topik} \\
+		\hline
+		MDN Web Docs & HTML, CSS, JS, Web API \\
+		\hline
+		OWASP & Keamanan web, checklist \\
+		\hline
+		web.dev & Performa, Core Web Vitals \\
+		\hline
+		PHP The Right Way & Best practices PHP \\
+		\hline
+		PHP Manual & Dokumentasi resmi \\
+		\hline
+	\end{tabular}
+\end{frame}
+
+% ========== RANGKUMAN ==========
+\begin{frame}{Rangkuman Bab 15}
+	\begin{itemize}
+		\item \textbf{Sub-CPMK 3.3}: API REST, Fetch API, JSON; front-end $\leftrightarrow$ back-end.
+		\item \textbf{Sub-CPMK 4.1}: Pengujian fungsional, performa (FCP, LCP, INP, CLS); Lighthouse; load testing.
+		\item \textbf{Sub-CPMK 4.2}: Validasi di server; prepared statement; output encoding (XSS); CSRF token; session/cookie aman; OWASP Top 10.
+		\item \textbf{Sub-CPMK 4.3}: Dev vs prod; .env; php.ini; reverse proxy; HTTPS; hardening; backup; CI/CD; monitoring.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{}
+	\centering
+	\vfill
+	\textbf{\Large Pertanyaan?}
+	\vfill
+\end{frame}
+
+\end{document}

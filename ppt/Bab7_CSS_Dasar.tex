@@ -1,0 +1,297 @@
+\documentclass[handout]{beamer}
+\mode<presentation>
+\usetheme[secheader]{Boadilla}
+\usecolortheme{whale}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[indonesian]{babel}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{bookmark}
+
+\setbeamertemplate{footline}
+{
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+			\usebeamerfont{author in head/foot}\insertshortauthor%
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.433333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+			\usebeamerfont{title in head/foot}\insertshorttitle
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.233333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+			\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em} \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+	\end{beamercolorbox}}%
+	\vskip0pt%
+}
+
+\title[Bab 7 -- CSS Dasar]{Pemrograman Web}
+\subtitle{Bab 7: CSS Dasar, Selector, Box Model, dan Tipografi}
+\author{Cecep Suwanda, S.Si., M.Kom.}
+\institute{Universitas Bale Bandung}
+\date{\today}
+
+\begin{document}
+
+% Slide Judul
+\begin{frame}
+	\titlepage
+\end{frame}
+
+% Outline dan CPMK
+\begin{frame}{Outline Bab 7}
+	\begin{block}{Sub-CPMK 2.2}
+		Menerapkan CSS3 untuk styling, layout (Flexbox/Grid), dan desain responsif.
+	\end{block}
+	\begin{itemize}
+		\item Pengenalan CSS dan Perannya dalam Styling
+		\item Cara Menyisipkan CSS: Inline, Internal, Eksternal
+		\item Sintaks Dasar CSS: Selector, Properti, Nilai
+		\item Selector Dasar: Elemen, Class, dan Id
+		\item Warna dan Background
+		\item Teks dan Tipografi
+		\item Box Model: Margin, Padding, Border
+		\item Lebar, Tinggi, dan box-sizing
+		\item Display: block, inline, inline-block
+		\item Link dan Styling Tautan (LVHA)
+		\item Daftar dan Tabel: Styling Dasar
+		\item Satuan dan Nilai
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 7-1: Pengenalan CSS ==========
+\begin{frame}{Pengenalan CSS}
+	\begin{itemize}
+		\item \textbf{CSS} (Cascading Style Sheets): mengatur tampilan dan tata letak elemen HTML.
+		\item HTML = kerangka struktur; CSS = ``dekorator'' (warna, tipografi, spasi, layout).
+		\item \textbf{Separation of concerns}: struktur (HTML), presentasi (CSS), perilaku (JS).
+		\item Fondasi sebelum Flexbox dan Grid.
+	\end{itemize}
+	\begin{block}{Cascading dan Specificity}
+		Tiga faktor prioritas: (1) \textbf{Specificity}---selector lebih spesifik menang; (2) \textbf{Source order}---aturan terakhir menang jika sama; (3) \textbf{Importance}---\texttt{!important} (hindari).
+	\end{block}
+\end{frame}
+
+\begin{frame}{Tingkat Specificity Selector CSS}
+	\small
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\textbf{Selector} & \textbf{Contoh} & \textbf{Specificity} & \textbf{Keterangan} \\
+		\hline
+		Inline style & \texttt{style="..."} & 1-0-0-0 & Tertinggi (hindari) \\
+		\hline
+		ID & \texttt{\#header} & 0-1-0-0 & Tinggi; unik per halaman \\
+		\hline
+		Class / pseudo-class & \texttt{.card}, \texttt{:hover} & 0-0-1-0 & Sedang; dapat dipakai ulang \\
+		\hline
+		Elemen / pseudo-element & \texttt{p}, \texttt{::before} & 0-0-0-1 & Rendah; berlaku semua tag \\
+		\hline
+		Universal & \texttt{*} & 0-0-0-0 & Tidak berkontribusi \\
+		\hline
+	\end{tabular}
+\end{frame}
+
+% ========== SECTION 7-2: Cara Menyisipkan CSS ==========
+\begin{frame}{Cara Menyisipkan CSS}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\textbf{Metode} & \textbf{Cara} & \textbf{Kelebihan} & \textbf{Kekurangan} \\
+		\hline
+		Inline & Atribut \texttt{style} & Cepat; specificity tinggi & Sulit dirawat \\
+		\hline
+		Internal & \texttt{<style>} di \texttt{<head>} & Satu file; satu halaman & Tidak di-cache; duplikasi \\
+		\hline
+		Eksternal & File \texttt{.css} + \texttt{<link>} & Banyak halaman; di-cache & Satu request HTTP tambahan \\
+		\hline
+	\end{tabular}
+	\vspace{0.5em}
+	\begin{block}{Praktik Terbaik}
+		Gunakan \textbf{CSS eksternal}. Inline hindari kecuali kasus khusus (email HTML, dynamic styles).
+	\end{block}
+\end{frame}
+
+% ========== SECTION 7-3: Sintaks Dasar CSS ==========
+\begin{frame}{Sintaks Dasar CSS}
+	\begin{itemize}
+		\item Blok aturan: \textbf{selector} \texttt{\{} \textbf{properti}: \textbf{nilai}; \texttt{\}}
+		\item Komentar: \texttt{/* ... */}
+		\item \textbf{Shorthand}: menggabungkan properti terkait. Contoh:
+		\item \texttt{margin: 10px 20px;} (vertikal, horizontal; searah jarum jam: top right bottom left)
+		\item \texttt{padding}, \texttt{border}, \texttt{font}, \texttt{background}
+	\end{itemize}
+	\begin{block}{CSS Forgiving}
+		Properti/nilai tidak valid diabaikan; browser melanjutkan. Gunakan DevTools untuk debug.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 7-4: Selector ==========
+\begin{frame}{Selector Dasar: Elemen, Class, Id}
+	\begin{itemize}
+		\item \textbf{Elemen}: \texttt{p}, \texttt{h1} --- semua tag; specificity rendah; base style.
+		\item \textbf{Class}: \texttt{.card} --- banyak elemen; \textbf{direkomendasikan} untuk styling.
+		\item \textbf{Id}: \texttt{\#header} --- unik; specificity tinggi; gunakan untuk anchor/JS, hindari styling.
+	\end{itemize}
+	\begin{block}{Selector Gabungan}
+		\texttt{nav a} (descendant); \texttt{ul > li} (child); \texttt{h1, h2, h3} (grouping); \texttt{p.highlight} (gabungan).
+	\end{block}
+\end{frame}
+
+% ========== SECTION 7-5: Warna dan Background ==========
+\begin{frame}{Warna dan Background}
+	\begin{itemize}
+		\item Format: nama (\texttt{red}), hex (\texttt{\#2a6fb0}), \texttt{rgb()}, \texttt{rgba()} (transparan), \texttt{hsl()}, \texttt{hsla()}.
+		\item \texttt{background-image}, \texttt{background-repeat}, \texttt{background-position}, \texttt{background-size}.
+		\item \textbf{Gradient}: \texttt{linear-gradient()}, \texttt{radial-gradient()}.
+	\end{itemize}
+	\begin{block}{Aksesibilitas Warna}
+		Kontras WCAG: minimal \textbf{4.5:1} teks normal, \textbf{3:1} teks besar. Jangan andalkan warna saja untuk informasi.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 7-6: Tipografi ==========
+\begin{frame}{Teks dan Tipografi}
+	\begin{itemize}
+		\item \texttt{font-family} (font stack), \texttt{font-size}, \texttt{font-weight}, \texttt{font-style}.
+		\item \texttt{line-height} (1.4--1.8 untuk paragraf), \texttt{text-align}, \texttt{text-decoration}, \texttt{text-transform}.
+		\item \textbf{Web fonts}: Google Fonts, \texttt{@import} atau \texttt{<link>}; \texttt{font-display: swap}.
+	\end{itemize}
+	\begin{block}{Tips Keterbacaan}
+		Batasi lebar teks 50--75 karakter; hindari \texttt{text-align: justify} tanpa \texttt{hyphens}.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 7-7: Box Model ==========
+\begin{frame}{Box Model: Empat Lapisan}
+	\begin{itemize}
+		\item Setiap elemen HTML = kotak dengan empat lapisan konsentris:
+		\item \textbf{Content}: \texttt{width}, \texttt{height} --- area isi.
+		\item \textbf{Padding}: ruang dalam antara content dan border.
+		\item \textbf{Border}: \texttt{border}, \texttt{border-radius}.
+		\item \textbf{Margin}: ruang luar; \texttt{margin: 0 auto} untuk centering horizontal.
+	\end{itemize}
+	Shorthand: searah jarum jam (top, right, bottom, left); dua nilai = vertikal, horizontal.
+\end{frame}
+
+\begin{frame}{Margin Collapse dan DevTools}
+	\begin{block}{Margin Collapse}
+		Margin vertikal dua elemen bersebelahan ``bergabung''---nilai terbesar menang. Hanya berlaku margin vertikal block; padding/border tidak collapse.
+	\end{block}
+	\begin{block}{DevTools}
+		Tab \textbf{Computed}: visualisasi box model interaktif (content, padding, border, margin).
+	\end{block}
+\end{frame}
+
+% ========== SECTION 7-8: box-sizing ==========
+\begin{frame}{box-sizing: content-box vs border-box}
+	\begin{block}{content-box (default)}
+		\texttt{width}/\texttt{height} hanya untuk content. Padding dan border \textbf{ditambahkan} di luar. Total = width + padding + border.
+	\end{block}
+	\begin{block}{border-box}
+		\texttt{width}/\texttt{height} mencakup content + padding + border. Total = width. \textbf{Gunakan secara global}.
+	\end{block}
+	\texttt{overflow}: \texttt{visible}, \texttt{hidden}, \texttt{scroll}, \texttt{auto}.
+\end{frame}
+
+\begin{frame}{Praktik: border-box Global}
+	\begin{block}{Reset Global}
+		\texttt{*, *::before, *::after \{ box-sizing: border-box; \}}
+	\end{block}
+	Letakkan di awal stylesheet. Membuat layout berbasis persentase lebih mudah; standar Bootstrap, Tailwind.
+\end{frame}
+
+% ========== SECTION 7-9: Display ==========
+\begin{frame}{Display: block, inline, inline-block}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\textbf{Nilai} & \textbf{Perilaku} & \textbf{width/height} & \textbf{Contoh} \\
+		\hline
+		block & Satu baris penuh; baris baru & Diterima & \texttt{<div>}, \texttt{<p>}, \texttt{<section>} \\
+		\hline
+		inline & Mengalir dalam teks; sebaris & Diabaikan & \texttt{<span>}, \texttt{<a>}, \texttt{<strong>} \\
+		\hline
+		inline-block & Sebaris, dapat diberi ukuran & Diterima & Harus diset manual \\
+		\hline
+		none & Hilang dari layout & --- & Disembunyikan sepenuhnya \\
+		\hline
+	\end{tabular}
+	\vspace{0.5em}
+	\texttt{display: none} vs \texttt{visibility: hidden}: none tidak ambil ruang; hidden tetap ambil ruang.
+\end{frame}
+
+% ========== SECTION 7-10: Link LVHA ==========
+\begin{frame}{Link dan Styling Tautan (LVHA)}
+	\begin{itemize}
+		\item Pseudo-class: \texttt{:link}, \texttt{:visited}, \texttt{:hover}, \texttt{:focus}, \texttt{:active}.
+		\item Urutan \textbf{LVHA}: \texttt{:link} $\to$ \texttt{:visited} $\to$ \texttt{:hover} $\to$ \texttt{:active}. \texttt{:focus} bersama/setelah \texttt{:hover}.
+		\item \texttt{:focus-visible}: indikator fokus hanya saat navigasi keyboard (aksesibilitas).
+	\end{itemize}
+	\begin{block}{Aksesibilitas}
+		\textbf{Jangan hapus} \texttt{outline} tanpa pengganti (box-shadow, border). Pengguna keyboard bergantung pada indikator fokus.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 7-11: Daftar dan Tabel ==========
+\begin{frame}{Daftar dan Tabel}
+	\begin{itemize}
+		\item \textbf{Daftar}: \texttt{list-style-type}, \texttt{list-style-position}, \texttt{list-style: none} untuk menu nav.
+		\item \textbf{Tabel}: \texttt{border-collapse}, \texttt{border-spacing}; \texttt{text-align}, \texttt{vertical-align}.
+		\item \textbf{Zebra striping}: \texttt{tr:nth-child(even)} atau \texttt{tr:nth-child(odd)}.
+	\end{itemize}
+	\begin{block}{Menu Nav dari List}
+		\texttt{list-style: none}; \texttt{display: inline-block} atau Flexbox; styling \texttt{<a>} dengan LVHA.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 7-12: Satuan ==========
+\begin{frame}{Satuan dan Nilai}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\textbf{Satuan} & \textbf{Jenis} & \textbf{Relatif} & \textbf{Kapan} \\
+		\hline
+		px & Absolut & --- & Border, shadow; hindari font-size \\
+		\hline
+		em & Relatif & font-size elemen & Padding/margin relatif teks \\
+		\hline
+		rem & Relatif & font-size root & Font-size, spacing; \textbf{direkomendasikan} \\
+		\hline
+		\% & Relatif & parent & Width/height responsif \\
+		\hline
+		vw/vh & Relatif & viewport & Full-width hero, font fluid \\
+		\hline
+	\end{tabular}
+	\texttt{calc(100\% - 2rem)}; \texttt{auto}, \texttt{inherit}, \texttt{initial}.
+\end{frame}
+
+\begin{frame}{Strategi Satuan yang Direkomendasikan}
+	\begin{itemize}
+		\item \texttt{rem} untuk font-size (aksesibel).
+		\item \texttt{rem} atau \texttt{em} untuk padding/margin.
+		\item \texttt{\%} untuk width responsif.
+		\item \texttt{px} untuk border, shadow.
+		\item \texttt{em} untuk media queries.
+		\item Hindari \texttt{px} untuk font-size.
+	\end{itemize}
+\end{frame}
+
+% ========== Rangkuman dan Penutup ==========
+\begin{frame}{Rangkuman Bab 7}
+	\begin{itemize}
+		\item Cascading \& specificity; inline/internal/eksternal; CSS eksternal praktik terbaik.
+		\item Selector: elemen, class, id; descendant, child, grouping; class untuk styling.
+		\item Warna (hex, rgb, hsl); gradient; aksesibilitas kontras 4.5:1.
+		\item Tipografi: font-family, line-height, web fonts.
+		\item Box model: content, padding, border, margin; margin collapse; border-box global.
+		\item Display: block, inline, inline-block; LVHA untuk tautan; fokus keyboard.
+		\item Daftar \& tabel: zebra striping; satuan rem untuk font-size.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{}
+	\centering
+	\vfill
+	\textbf{\Large Pertanyaan?}
+	\vfill
+\end{frame}
+
+\end{document}

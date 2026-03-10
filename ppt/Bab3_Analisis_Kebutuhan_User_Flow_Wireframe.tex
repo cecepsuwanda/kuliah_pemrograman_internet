@@ -1,0 +1,242 @@
+\documentclass[handout]{beamer}
+\mode<presentation>
+\usetheme[secheader]{Boadilla}
+\usecolortheme{whale}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[indonesian]{babel}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{bookmark}
+
+\setbeamertemplate{footline}
+{
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+			\usebeamerfont{author in head/foot}\insertshortauthor%
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.433333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+			\usebeamerfont{title in head/foot}\insertshorttitle
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.233333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+			\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em} \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+	\end{beamercolorbox}}%
+	\vskip0pt%
+}
+
+\title[Bab 3 -- Analisis \& Wireframe]{Pemrograman Web}
+\subtitle{Bab 3: Analisis Kebutuhan, User Flow, dan Wireframe Dasar}
+\author{Cecep Suwanda, S.Si., M.Kom.}
+\institute{Universitas Bale Bandung}
+\date{\today}
+
+\begin{document}
+
+% Slide Judul
+\begin{frame}
+	\titlepage
+\end{frame}
+
+% Outline dan CPMK
+\begin{frame}{Outline Bab 3}
+	\begin{block}{Sub-CPMK}
+		\begin{itemize}
+			\item \textbf{1.1:} Mengidentifikasi kebutuhan fungsional dan non-fungsional pengguna untuk solusi web.
+			\item \textbf{1.2:} Membuat wireframe dan mockup antarmuka web yang mendukung alur pengguna (user flow).
+		\end{itemize}
+	\end{block}
+	\begin{itemize}
+		\item Pengenalan Analisis Kebutuhan dalam Pengembangan Web
+		\item Kebutuhan Fungsional dan Non-Fungsional
+		\item Memahami Pengguna: Persona, Skenario, dan Konteks
+		\item Pengenalan UI (User Interface) dan UX (User Experience)
+		\item Wireframe (Low-Fidelity)
+		\item User Flow dan Analisis Tugas
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 3-1: Pengenalan Analisis Kebutuhan ==========
+\begin{frame}{Pengenalan Analisis Kebutuhan}
+	\begin{itemize}
+		\item Tahap fundamental: memahami \textbf{masalah}, \textbf{siapa pengguna}, \textbf{apa yang dibangun}.
+		\item Tanpa analisis yang cermat: produk tidak sesuai harapan, fitur tidak terpakai, tujuan bisnis gagal.
+		\item Mendukung \textbf{Sub-CPMK 1.1}: mengidentifikasi kebutuhan fungsional dan non-fungsional.
+		\item Aktivitas: identifikasi stakeholder $\to$ pengumpulan informasi $\to$ analisis \& dokumentasi $\to$ validasi.
+		\item Hasil: \textbf{dokumen kebutuhan} sebagai acuan desain, implementasi, dan pengujian.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Teknik Penggalian Kebutuhan (Elicitation)}
+	\begin{itemize}
+		\item \textbf{Wawancara}: tanya jawab langsung; terstruktur / semi-terstruktur / tidak terstruktur (semi-terstruktur direkomendasikan).
+		\item \textbf{Observasi}: mengamati pengguna saat bekerja.
+		\item \textbf{Kuesioner/Survei}: data kuantitatif dari banyak responden.
+		\item \textbf{Workshop}: diskusi kelompok dengan stakeholder.
+		\item \textbf{Analisis dokumen}: SOP, sistem yang sudah ada.
+		\item \textbf{Studi kompetitor}: benchmark fitur dan UX.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Proses Analisis Kebutuhan (Iteratif)}
+	\begin{enumerate}
+		\item \textbf{Identifikasi stakeholder}: pengguna akhir, pemilik produk, tim teknis.
+		\item \textbf{Penggalian kebutuhan}: wawancara, observasi, survei.
+		\item \textbf{Analisis \& klasifikasi}: fungsional vs non-fungsional, prioritas, konflik.
+		\item \textbf{Dokumentasi}: dokumen kebutuhan formal (SRS, user story).
+		\item \textbf{Validasi \& negosiasi}: pastikan kebutuhan mencerminkan harapan pengguna.
+	\end{enumerate}
+	\begin{block}{Prinsip CCUVT}
+		Kebutuhan yang baik: \textbf{C}omplete, \textbf{C}onsistent, \textbf{U}nambiguous, \textbf{V}erifiable, \textbf{T}raceable.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 3-2: Kebutuhan Fungsional dan Non-Fungsional ==========
+\begin{frame}{Kebutuhan Fungsional vs Non-Fungsional}
+	\begin{block}{Kebutuhan Fungsional}
+		Perilaku dan fitur sistem: ``pengguna dapat mendaftar'', ``sistem mengirim notifikasi''. \textit{Apa} yang dilakukan sistem.
+	\end{block}
+	\begin{block}{Kebutuhan Non-Fungsional}
+		Atribut kualitas: keamanan, performa ($<$ 3 detik), ketersediaan, responsivitas, aksesibilitas. \textit{Seberapa baik} sistem bekerja.
+	\end{block}
+	Dokumentasi: \textbf{SRS}, user story; setiap kebutuhan punya ID (FR-01, NFR-01) dan dapat diuji.
+\end{frame}
+
+\begin{frame}{Prioritisasi: Metode MoSCoW}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{Kategori} & \textbf{Arti} & \textbf{Contoh} \\
+		\hline
+		\textbf{M}ust have & Wajib; tanpa ini produk gagal & CRUD, autentikasi \\
+		\hline
+		\textbf{S}hould have & Penting, bisa ditunda & Pencarian, kategori \\
+		\hline
+		\textbf{C}ould have & Bagus jika ada & Tema gelap, ekspor PDF \\
+		\hline
+		\textbf{W}on't have & Tidak di rilis ini & Kolaborasi real-time \\
+		\hline
+	\end{tabular}
+\end{frame}
+
+\begin{frame}{Acceptance Criteria (Given--When--Then)}
+	\begin{itemize}
+		\item Kondisi spesifik agar kebutuhan dianggap selesai; format \textbf{testable}, mengurangi ambiguitas.
+		\item \textbf{Given}: konteks awal (pengguna di halaman X).
+		\item \textbf{When}: tindakan pengguna (klik ``Tambah'', isi form).
+		\item \textbf{Then}: hasil yang diharapkan (catatan baru muncul di daftar).
+	\end{itemize}
+	\begin{block}{Manfaat}
+		Definisi selesai (\textit{definition of done}); dasar untuk test case (unit test, E2E).
+	\end{block}
+\end{frame}
+
+% ========== SECTION 3-3: Persona, Skenario, Konteks ==========
+\begin{frame}{Memahami Pengguna: Persona}
+	\begin{itemize}
+		\item \textbf{Persona}: representasi fiktif pengguna tipikal berdasarkan data riset (bukan asal karangan).
+		\item Elemen: nama \& foto, demografi, \textbf{tujuan} (goals), \textbf{frustrasi} (pain points), perilaku digital, konteks penggunaan, kutipan.
+		\item Membantu tim fokus pada kebutuhan pengguna nyata, bukan asumsi tim.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Skenario dan Konteks Penggunaan}
+	\begin{block}{Skenario penggunaan}
+		Cerita naratif: bagaimana persona menggunakan produk dalam situasi nyata. Fokus pada \textit{konteks dan motivasi} (``mengapa'').
+	\end{block}
+	\begin{block}{Konteks penggunaan}
+		Perangkat (mobile/desktop), koneksi (cepat/lambat/offline), lingkungan (terang/gelap), kondisi pengguna (terburu-buru/santai). Memengaruhi keputusan desain (ukuran target sentuh, mode offline).
+	\end{block}
+\end{frame}
+
+% ========== SECTION 3-4: UI dan UX ==========
+\begin{frame}{Pengenalan UI dan UX}
+	\begin{block}{UI (User Interface)}
+		Yang \textit{terlihat dan dapat diinteraksi}: tombol, menu, form, ikon, tipografi, warna, tata letak. ``Wajah'' produk.
+	\end{block}
+	\begin{block}{UX (User Experience)}
+		Keseluruhan \textit{pengalaman} pengguna: kemudahan penggunaan, kecepatan, aksesibilitas, alur navigasi, emosi. Lebih luas dari UI.
+	\end{block}
+	UI bagus + UX buruk = bungkus cantik, tugas tidak selesai. UX bagus + UI jelek = tugas selesai tetapi tidak nyaman. Produk terbaik: keduanya seimbang.
+\end{frame}
+
+\begin{frame}{Prinsip Dasar UI/UX untuk Web}
+	\begin{itemize}
+		\item \textbf{Konsistensi}: elemen sama berperilaku dan tampil sama di seluruh halaman.
+		\item \textbf{Umpan balik}: respons jelas atas setiap tindakan (tombol berubah saat diklik).
+		\item \textbf{Hierarki visual}: elemen terpenting paling menonjol.
+		\item \textbf{Kesederhanaan}: jangan membebani dengan terlalu banyak pilihan di satu layar.
+		\item \textbf{Aksesibilitas}: dapat digunakan semua orang, termasuk penyandang disabilitas.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 3-5: Wireframe ==========
+\begin{frame}{Wireframe (Low-Fidelity)}
+	\begin{itemize}
+		\item Sketsa kasar yang menunjukkan \textbf{struktur dan tata letak} tanpa detail visual. Fokus: \textit{apa} ada di halaman dan \textit{di mana} letaknya.
+		\item Biasanya abu-abu/hitam-putih, placeholder untuk teks dan gambar. Alat: kertas \& pensil, Balsamiq, Whimsical, Figma.
+		\item Lebih murah dan cepat diubah daripada langsung coding atau mockup.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Manfaat dan Langkah Wireframe}
+	\begin{block}{Manfaat}
+		Cepat dibuat dan diubah; diskusi struktur tanpa distraksi visual; uji sejak dini (paper prototyping); dasar untuk mockup (Bab 4).
+	\end{block}
+	\begin{enumerate}
+		\item Tentukan halaman berdasarkan user flow.
+		\item Identifikasi elemen utama (header, nav, konten, sidebar, footer).
+		\item Gambar tata letak (kotak, garis).
+		\item Tambah placeholder teks/gambar.
+		\item Review dengan tim dan pengguna, iterasi.
+	\end{enumerate}
+\end{frame}
+
+% ========== SECTION 3-6: User Flow ==========
+\begin{frame}{User Flow dan Analisis Tugas}
+	\begin{itemize}
+		\item \textbf{User flow}: diagram langkah pengguna dari \textbf{entry point} hingga \textbf{goal}; memvisualisasikan jalur interaksi.
+		\item Berbeda dari \textbf{site map} (hierarki halaman) dan \textbf{skenario} (naratif). User flow = diagramatis, dengan percabangan.
+		\item \textbf{Analisis tugas}: memecah tugas besar menjadi sub-tugas (mis. HTA: Hierarchical Task Analysis).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Notasi User Flow}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{Simbol} & \textbf{Nama} & \textbf{Fungsi} \\
+		\hline
+		Persegi panjang & Proses / Halaman & Halaman atau tindakan \\
+		\hline
+		Belah ketupat & Keputusan & Percabangan kondisi \\
+		\hline
+		Oval / rounded & Mulai / Selesai & Titik awal dan akhir \\
+		\hline
+		Panah & Alur & Arah perjalanan \\
+		\hline
+	\end{tabular}
+	\vspace{0.5em}
+	\begin{block}{Happy path \& Unhappy path}
+		Gambar user flow untuk jalur sukses dan minimal satu jalur error; pikirkan penanganan error sejak desain.
+	\end{block}
+\end{frame}
+
+% ========== Rangkuman dan Penutup ==========
+\begin{frame}{Rangkuman Bab 3}
+	\begin{itemize}
+		\item \textbf{Analisis kebutuhan} (Sub-CPMK 1.1): elicitation (wawancara, observasi, survei), dokumentasi SRS, MoSCoW, acceptance criteria Given--When--Then.
+		\item \textbf{Persona \& skenario}: representasi pengguna dan konteks; dasar keputusan desain.
+		\item \textbf{UI} (tampilan) vs \textbf{UX} (pengalaman); prinsip konsistensi, feedback, hierarki, kesederhanaan, aksesibilitas.
+		\item \textbf{Wireframe} (Sub-CPMK 1.2): low-fi untuk struktur dan tata letak; validasi sebelum mockup.
+		\item \textbf{User flow}: diagram entry $\to$ goal; notasi proses, keputusan, mulai/selesai; happy path \& error handling.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{}
+	\centering
+	\vfill
+	\textbf{\Large Pertanyaan?}
+	\vfill
+\end{frame}
+
+\end{document}

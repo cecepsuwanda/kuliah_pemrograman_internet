@@ -1,0 +1,248 @@
+\documentclass[handout]{beamer}
+\mode<presentation>
+\usetheme[secheader]{Boadilla}
+\usecolortheme{whale}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[indonesian]{babel}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{bookmark}
+
+\setbeamertemplate{footline}
+{
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+			\usebeamerfont{author in head/foot}\insertshortauthor%
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.433333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+			\usebeamerfont{title in head/foot}\insertshorttitle
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.233333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+			\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em} \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+	\end{beamercolorbox}}%
+	\vskip0pt%
+}
+
+\title[Bab 10 -- Event \& Validasi]{Pemrograman Web}
+\subtitle{Bab 10: Event Handling, Validasi Form, dan Error Handling}
+\author{Cecep Suwanda, S.Si., M.Kom.}
+\institute{Universitas Bale Bandung}
+\date{\today}
+
+\begin{document}
+
+% Slide Judul
+\begin{frame}
+	\titlepage
+\end{frame}
+
+% Outline dan CPMK
+\begin{frame}{Outline Bab 10}
+	\begin{block}{Sub-CPMK 2.3}
+		Mengimplementasikan interaktivitas dengan JavaScript (DOM, event handling, validasi form).
+	\end{block}
+	\begin{itemize}
+		\item Fungsi Lanjutan: Expression, Arrow, Default, Rest
+		\item Array Lanjutan: map, filter, reduce
+		\item Objek Lanjutan: this, Constructor, Iterasi
+		\item String Lanjutan dan Template Literal
+		\item Number, Math, dan Pembulatan
+		\item Date dan Penanganan Waktu
+		\item JSON: parse dan stringify
+		\item Penanganan Error: try, catch, throw
+		\item Strict Mode dan Praktik Penulisan
+		\item DOM: Traversing, Membuat Node, Menghapus Elemen
+		\item Event: addEventListener, Propagation
+		\item Form: Validasi di Client
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 10-1: Fungsi Lanjutan ==========
+\begin{frame}{Fungsi Lanjutan: ES6+}
+	\begin{itemize}
+		\item \textbf{Function expression}: \texttt{const greet = function(name) \{...\}}
+		\item \textbf{Arrow function}: \texttt{(x) => x * 2}; \texttt{this} leksikal (warisi dari scope luar)
+		\item \textbf{Default parameter}: \texttt{function f(x = 10)}
+		\item \textbf{Rest parameter}: \texttt{function f(...args)} (sisa argumen $\to$ array)
+		\item \textbf{Spread}: \texttt{f(...arr)} (bongkar array jadi argumen)
+		\item \textbf{IIFE}: \texttt{(() => \{...\})()} (langsung dieksekusi, isolasi scope)
+	\end{itemize}
+	\begin{block}{Higher-Order Function}
+		Fungsi yang menerima/mengembalikan fungsi lain. Contoh: \texttt{arr.map(fn)}, \texttt{arr.filter(fn)}, \texttt{setTimeout(fn, ms)}.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 10-2: Array Lanjutan ==========
+\begin{frame}{Array Lanjutan: map, filter, reduce}
+	\begin{itemize}
+		\item \textbf{map(fn)}: transformasi setiap elemen; \texttt{[1,2,3].map(x => x*2)} $\to$ \texttt{[2,4,6]}
+		\item \textbf{filter(fn)}: saring berdasarkan kondisi; \texttt{[1,2,3].filter(x => x>1)} $\to$ \texttt{[2,3]}
+		\item \textbf{reduce(fn, init)}: akumulasi ke satu nilai
+		\item \textbf{find}, \textbf{some}, \textbf{every}: pencarian/pengecekan
+		\item \textbf{sort(fn)}: urutkan---\textbf{bermutasi!} Gunakan \texttt{[...arr].sort(fn)} untuk immutable
+		\item \textbf{flat(depth)}: ratakan array bersarang
+		\item Immutable pattern: \texttt{map}/\texttt{filter}/\texttt{reduce} tidak mengubah array asli
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Chaining Array}
+	Chaining: \texttt{products.filter(p => p.stock > 0).map(p => (\{...p, tax: p.price*0.1\})).sort((a,b) => a.price - b.price)}
+	\vspace{0.5em}
+	\begin{block}{Catatan}
+		\texttt{sort()} tanpa komparator mengurutkan alfabetis: \texttt{[10,2,1].sort()} $\to$ \texttt{[1,10,2]}. Untuk angka: \texttt{(a,b) => a-b}.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 10-3: Objek Lanjutan ==========
+\begin{frame}{Objek Lanjutan: this}
+	\begin{itemize}
+		\item \texttt{this} = objek yang ``memiliki'' konteks eksekusi
+		\item \textbf{Metode objek}: \texttt{this} = objek pemilik
+		\item \textbf{Fungsi biasa}: \texttt{this} = window (atau undefined di strict mode)
+		\item \textbf{Arrow function}: \texttt{this} dari scope luar (leksikal)
+		\item \textbf{Constructor}: \texttt{this} = objek baru (\texttt{new MyObj()})
+		\item \textbf{Event handler}: \texttt{this} = elemen target
+	\end{itemize}
+	\begin{block}{bind, call, apply}
+		\texttt{fn.call(obj, arg1, arg2)}, \texttt{fn.apply(obj, [args])}, \texttt{fn.bind(obj)} untuk kontrol \texttt{this} eksplisit.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 10-4: String Lanjutan ==========
+\begin{frame}{String Lanjutan}
+	\begin{itemize}
+		\item \texttt{startsWith()}, \texttt{endsWith()}, \texttt{includes()}: boolean
+		\item \texttt{repeat(n)}, \texttt{padStart()}, \texttt{padEnd()}
+		\item \textbf{Tagged template literal}: \texttt{tag`Hello \$\{name\}`}---fungsi memproses template
+	\end{itemize}
+	\begin{block}{String Immutable}
+		Operasi string menghasilkan string baru; \texttt{str.toUpperCase()} tidak mengubah \texttt{str}. Untuk string besar: kumpulkan di array, gabung dengan \texttt{.join("")}.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 10-5: Number & Math ==========
+\begin{frame}{Number dan Math}
+	\begin{itemize}
+		\item \texttt{Number}: IEEE 754 double-precision; \texttt{0.1 + 0.2 !== 0.3}
+		\item Untuk uang: integer (sen) atau Decimal.js
+		\item \texttt{Math.round}, \texttt{Math.floor}, \texttt{Math.ceil}
+		\item \texttt{Math.random()}: 0--1; \texttt{Math.max(...vals)}
+		\item \texttt{parseInt}, \texttt{toFixed(n)}
+	\end{itemize}
+	\begin{block}{Random Integer (min--max inklusif)}
+		\texttt{Math.floor(Math.random() * (max - min + 1)) + min}
+	\end{block}
+\end{frame}
+
+% ========== SECTION 10-6: Date ==========
+\begin{frame}{Date dan Penanganan Waktu}
+	\begin{itemize}
+		\item \texttt{new Date()}: waktu sekarang; \texttt{new Date("2024-01-15")}: dari string ISO 8601
+		\item \texttt{Date.now()}: timestamp (ms sejak epoch)
+		\item Getter: \texttt{getFullYear()}, \texttt{getMonth()} (0--11!), \texttt{getDate()}, \texttt{getHours()}
+		\item \texttt{toLocaleDateString()}, \texttt{toLocaleTimeString()}
+	\end{itemize}
+	\begin{block}{Bulan Dimulai dari 0}
+		\texttt{new Date(2024, 0, 1)} = 1 Januari. \texttt{getMonth()} mengembalikan 0--11.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 10-7: JSON ==========
+\begin{frame}{JSON: parse dan stringify}
+	\begin{itemize}
+		\item \texttt{JSON.stringify(obj)}: objek JS $\to$ string JSON
+		\item \texttt{JSON.parse(str)}: string JSON $\to$ objek JS
+		\item \texttt{JSON.stringify(obj, null, 2)}: pretty print
+		\item Reviver function: transformasi saat parse (mis. string $\to$ Date)
+	\end{itemize}
+	\begin{block}{Deep Clone}
+		\texttt{JSON.parse(JSON.stringify(obj))} untuk objek sederhana. Gagal untuk Date, undefined, fungsi. Lebih handal: \texttt{structuredClone(obj)}.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 10-8: Error Handling ==========
+\begin{frame}{Penanganan Error: try, catch, throw}
+	\begin{itemize}
+		\item \texttt{try \{ ... \} catch (err) \{ ... \} finally \{ ... \}}
+		\item \texttt{throw new Error("pesan")}; properti \texttt{message}, \texttt{stack}
+		\item Tipe: \texttt{TypeError}, \texttt{ReferenceError}, \texttt{SyntaxError}, \texttt{RangeError}
+	\end{itemize}
+	\begin{block}{Praktik Baik}
+		Jangan \texttt{catch (err) \{\}} diam-diam. Selalu log (\texttt{console.error}) atau tampilkan pesan. Gunakan try/catch hanya untuk kode yang memang bisa gagal (parsing, network).
+	\end{block}
+\end{frame}
+
+% ========== SECTION 10-9: Strict Mode ==========
+\begin{frame}{Strict Mode dan Praktik Penulisan}
+	\begin{itemize}
+		\item \texttt{"use strict";}: variabel tanpa deklarasi = error; parameter duplikat dilarang
+		\item Praktik: \texttt{const}/\texttt{let}; \texttt{===}/\texttt{!==}; camelCase/PascalCase
+		\item Satu fungsi = satu tugas; hindari magic numbers
+		\item \textbf{ESLint}: analisis kode, deteksi masalah (variabel tidak terpakai, \texttt{var} vs \texttt{let})
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 10-10: DOM ==========
+\begin{frame}{DOM: Traversing, Membuat, Menghapus}
+	\begin{itemize}
+		\item Traversing: \texttt{parentElement}, \texttt{children}, \texttt{firstElementChild}, \texttt{nextElementSibling}
+		\item \texttt{document.createElement(tag)}, \texttt{el.textContent = "..."}
+		\item \texttt{parent.appendChild(el)}, \texttt{parent.insertBefore(el, ref)}
+		\item \texttt{el.remove()}; \texttt{el.cloneNode(true)}
+	\end{itemize}
+	\begin{block}{DocumentFragment}
+		Kumpulkan elemen di \texttt{DocumentFragment}, lalu \texttt{parent.appendChild(frag)} sekali---lebih efisien daripada \texttt{appendChild} berulang.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 10-11: Event ==========
+\begin{frame}{Event: addEventListener dan Propagation}
+	\begin{itemize}
+		\item \texttt{el.addEventListener(type, handler)}: multiple handlers; opsi \texttt{\{capture, once, passive\}}
+		\item \textbf{Capturing}: document $\to$ parent $\to$ target
+		\item \textbf{Bubbling}: target $\to$ parent $\to$ document
+		\item \texttt{event.target} (elemen diklik) vs \texttt{event.currentTarget} (elemen dengan handler)
+		\item \texttt{event.preventDefault()}, \texttt{event.stopPropagation()}
+	\end{itemize}
+	\begin{block}{Event Delegation}
+		Satu listener di parent; periksa \texttt{event.target.matches("li")}. Efisien untuk daftar dinamis.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 10-12: Form & Validasi ==========
+\begin{frame}{Form: Nilai Input dan Validasi Client}
+	\begin{itemize}
+		\item Nilai: \texttt{.value} (teks), \texttt{.checked} (checkbox/radio), \texttt{.selectedIndex}/\texttt{.value} (select)
+		\item Event: \texttt{input} (real-time), \texttt{change} (setelah blur), \texttt{submit}
+		\item Validasi real-time: \texttt{addEventListener("input", validate)}; tampilkan error di \texttt{<span>}
+		\item Pada submit: periksa ulang; \texttt{preventDefault()} jika gagal
+	\end{itemize}
+	\begin{block}{Client vs Server}
+		Validasi client meningkatkan UX tapi \textbf{tidak menggantikan} validasi server. HTML5: \texttt{required}, \texttt{type="email"}, \texttt{pattern}.
+	\end{block}
+\end{frame}
+
+% ========== Rangkuman dan Penutup ==========
+\begin{frame}{Rangkuman Bab 10}
+	\begin{itemize}
+		\item Fungsi lanjutan: arrow, default, rest; Higher-Order Function
+		\item Array: map, filter, reduce, chaining; sort bermutasi
+		\item Objek: this (metode, arrow, constructor); bind, call, apply
+		\item JSON: stringify, parse; try/catch untuk operasi berisiko
+		\item DOM: traversing, createElement, appendChild, remove; DocumentFragment
+		\item Event: addEventListener, propagation, delegation
+		\item Validasi form real-time; client melengkapi (bukan menggantikan) server
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{}
+	\centering
+	\vfill
+	\textbf{\Large Pertanyaan?}
+	\vfill
+\end{frame}
+
+\end{document}

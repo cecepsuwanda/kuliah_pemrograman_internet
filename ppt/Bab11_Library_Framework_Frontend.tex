@@ -1,0 +1,254 @@
+\documentclass[handout]{beamer}
+\mode<presentation>
+\usetheme[secheader]{Boadilla}
+\usecolortheme{whale}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[indonesian]{babel}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{bookmark}
+
+\setbeamertemplate{footline}
+{
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+			\usebeamerfont{author in head/foot}\insertshortauthor%
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.433333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+			\usebeamerfont{title in head/foot}\insertshorttitle
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.233333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+			\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em} \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+	\end{beamercolorbox}}%
+	\vskip0pt%
+}
+
+\title[Bab 11 -- Library/Framework]{Pemrograman Web}
+\subtitle{Bab 11: Library/Framework Front-End (jQuery/Bootstrap/Vue/React) untuk UI Dinamis}
+\author{Cecep Suwanda, S.Si., M.Kom.}
+\institute{Universitas Bale Bandung}
+\date{\today}
+
+\begin{document}
+
+% Slide Judul
+\begin{frame}
+	\titlepage
+\end{frame}
+
+% Outline dan CPMK
+\begin{frame}{Outline Bab 11}
+	\begin{block}{Sub-CPMK 2.4}
+		Menggunakan library atau framework front-end untuk antarmuka dinamis.
+	\end{block}
+	\begin{itemize}
+		\item Timer: setTimeout, setInterval
+		\item Asynchronous: Callback, Promise, async/await
+		\item ES6+: Destructuring, Spread, Modul
+		\item Class dan Pewarisan
+		\item RegExp, Fetch API
+		\item Closure, Prototype, Pola Desain
+		\item Debugging, Unit Test, Performa
+		\item Keamanan: XSS dan Sanitasi
+		\item Library \& Framework Front-End
+		\item Tooling: Bundler
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 11-1: Timer ==========
+\begin{frame}{Timer: setTimeout dan setInterval}
+	\begin{itemize}
+		\item \texttt{setTimeout(callback, ms)}: jalankan callback \textbf{sekali} setelah jeda.
+		\item \texttt{setInterval(callback, ms)}: jalankan callback \textbf{berulang} setiap interval.
+		\item Pembatalan: \texttt{clearTimeout(id)}, \texttt{clearInterval(id)}.
+		\item \texttt{requestAnimationFrame(fn)}: sebelum repaint (60fps).
+		\item Timer bersifat \textbf{asinkron}---kode setelah \texttt{setTimeout} dieksekusi tanpa menunggu.
+	\end{itemize}
+	\begin{block}{Debounce \& Throttle}
+		\textbf{Debounce}: tunggu event berhenti, jalankan sekali (search-as-you-type). \textbf{Throttle}: maksimal sekali per interval (scroll handler).
+	\end{block}
+\end{frame}
+
+% ========== SECTION 11-2: Asynchronous ==========
+\begin{frame}{Pengenalan Asynchronous: Callback}
+	\begin{itemize}
+		\item Kode \textbf{asinkron} tidak menunggu operasi selesai; hasil ditangani lewat \textbf{callback}.
+		\item JavaScript \textit{single-threaded}: satu operasi per waktu.
+		\item Masalah: \textbf{callback hell} (pyramid of doom)---callback bersarang sulit dibaca.
+		\item Solusi: Promise dan async/await (sintaks lebih linier).
+	\end{itemize}
+	\begin{block}{Event Loop}
+		Call stack + task queue. \texttt{setTimeout(fn, 0)} masuk antrian, menunggu call stack kosong.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 11-3: ES6+ ==========
+\begin{frame}{ES6+: Destructuring, Spread, Modul}
+	\begin{itemize}
+		\item \textbf{Destructuring}: \texttt{const [a,b]=[1,2]; const \{name\}=user;}
+		\item \textbf{Spread}: \texttt{[...arr]}, \texttt{\{...obj\}}; \textbf{Rest}: \texttt{...args} di parameter.
+		\item \textbf{ES6 Modules}: \texttt{import}/\texttt{export}; scope sendiri, strict mode; \texttt{<script type="module">}.
+		\item Named export vs default export; gunakan named untuk utility, default untuk komponen utama.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 11-4: Class ==========
+\begin{frame}{Class dan Pewarisan (ES6)}
+	\begin{itemize}
+		\item \texttt{class} mendefinisikan constructor dan method; \texttt{constructor()} dipanggil saat \texttt{new}.
+		\item Pewarisan: \texttt{extends} dan \texttt{super()} untuk memanggil parent.
+		\item \texttt{class} = syntactic sugar di atas prototype-based inheritance.
+		\item \texttt{static} membuat method milik class (bukan instance).
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 11-5: RegExp ==========
+\begin{frame}{Regular Expression (RegExp) Dasar}
+	\begin{itemize}
+		\item Regex: pola teks untuk pencarian, validasi, penggantian.
+		\item Metode: \texttt{regex.test(str)}, \texttt{str.match(regex)}, \texttt{str.replace(regex, repl)}.
+		\item Pola: \texttt{.} (karakter apapun), \texttt{\textbackslash d} (digit), \texttt{\textbackslash w} (word), \texttt{+}/\texttt{*}, \texttt{\^{}}/\texttt{\$}, \texttt{[abc]}.
+		\item Validasi format (email, telepon, password); server-side check tetap wajib.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 11-6: Promise ==========
+\begin{frame}{Promise dan async/await}
+	\begin{itemize}
+		\item \textbf{Promise}: nilai di masa depan; state: pending, fulfilled, rejected.
+		\item \texttt{.then()}, \texttt{.catch()}, \texttt{.finally()}; chain-able.
+		\item \textbf{async/await}: sintaks linier; \texttt{await} menunggu Promise; error dengan \texttt{try/catch}.
+		\item async/await direkomendasikan---lebih mudah dibaca daripada chain \texttt{.then()}.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 11-7: Fetch ==========
+\begin{frame}{Fetch API}
+	\begin{itemize}
+		\item \texttt{fetch(url)} mengembalikan Promise; \texttt{res.json()} juga Promise.
+		\item Mendukung GET, POST, PUT, DELETE via objek opsi.
+		\item \textbf{Penting}: \texttt{fetch()} hanya reject pada network error; 404/500 tetap resolve---periksa \texttt{res.ok} atau \texttt{res.status}.
+		\item Alur: loading indicator $\to$ fetch $\to$ parse JSON $\to$ render DOM $\to$ error handling.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 11-8: Closure ==========
+\begin{frame}{Closure dan Lexical Scope}
+	\begin{itemize}
+		\item \textbf{Closure}: fungsi ``mengingat'' variabel dari scope luar setelah fungsi luar selesai.
+		\item \textbf{Lexical scoping}: scope ditentukan posisi kode saat ditulis.
+		\item Pola: factory function, data privacy (counter privat), event handler.
+		\item Hati-hati loop + \texttt{var} + closure; gunakan \texttt{let} (block-scoped).
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 11-9: Prototype ==========
+\begin{frame}{Prototype dan Pewarisan}
+	\begin{itemize}
+		\item Setiap objek punya \textbf{prototype}; pewarisan lewat \textbf{prototype chain}.
+		\item \texttt{\_\_proto\_\_} / \texttt{Object.getPrototypeOf()}; \texttt{F.prototype} untuk constructor.
+		\item Pencarian: objek $\to$ prototype $\to$ ... $\to$ \texttt{Object.prototype} $\to$ null.
+		\item \texttt{class extends} adalah sugar di atas prototype chain.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 11-10: Pola Desain ==========
+\begin{frame}{Pola Desain: Module \& Singleton}
+	\begin{itemize}
+		\item \textbf{Module pattern}: IIFE atau closure untuk scope privat; hanya API publik di-return.
+		\item ES6 modules sudah native; IIFE masih relevan untuk konsep.
+		\item \textbf{Singleton}: hanya satu instance (konfigurasi, state global).
+		\item Pola desain = solusi terbukti, bukan aturan wajib; gunakan jika masalah sesuai.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 11-11: Debugging ==========
+\begin{frame}{Debugging dan DevTools}
+	\begin{itemize}
+		\item Panel: \textbf{Console} (log, error), \textbf{Sources} (breakpoint, step-through), \textbf{Network}, \textbf{Elements}.
+		\item Teknik: \texttt{console.log}, \texttt{console.table}, \texttt{debugger;}, breakpoint, watch expression.
+		\item \textbf{Breakpoint > console.log}: lihat call stack, variabel, step-by-step.
+		\item Conditional breakpoint untuk loop besar.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 11-12: Unit Test ==========
+\begin{frame}{Pengujian Dasar: Unit Test}
+	\begin{itemize}
+		\item Unit test: periksa fungsi/modul secara terisolasi; otomatis, repeatable.
+		\item Framework: Jest, Vitest, Mocha.
+		\item Pola AAA: Arrange-Act-Assert.
+		\item Fokus: happy path, edge cases, error cases. 100\% coverage bukan jaminan.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 11-13: Performa ==========
+\begin{frame}{Performa: Praktik Baik}
+	\begin{itemize}
+		\item Bottleneck: DOM manipulation berlebihan (layout thrashing), event tanpa debounce/throttle.
+		\item Praktik: batch DOM (\texttt{DocumentFragment}), debounce/throttle, \texttt{requestAnimationFrame}, lazy load, profiling.
+		\item \textbf{Layout thrashing}: baca layout, tulis DOM bergantian $\to$ forced sync layout. Solusi: kumpulkan baca dulu, lalu tulis.
+		\item Web Workers untuk komputasi berat.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 11-14: Keamanan ==========
+\begin{frame}{Keamanan: XSS dan Sanitasi}
+	\begin{itemize}
+		\item \textbf{XSS}: input berisi script disisipkan tanpa sanitasi $\to$ dieksekusi di browser korban.
+		\item Pencegahan: gunakan \texttt{textContent} (bukan \texttt{innerHTML}); escape output; CSP header; validasi server-side.
+		\item \textbf{Prinsip}: jangan percaya input pengguna. Validasi dan sanitasi di client dan server.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 11-15: Library/Framework ==========
+\begin{frame}{Library dan Framework Front-End}
+	\begin{itemize}
+		\item \textbf{Library}: Anda memanggil; \textbf{Framework}: framework memanggil Anda (inversion of control).
+		\item React (komponen, virtual DOM), Vue (mudah, reaktif), Angular (TypeScript, enterprise).
+		\item jQuery (legacy; hindari untuk proyek baru).
+		\item Component-based architecture: UI dipecah komponen kecil.
+		\item \textbf{Kuasai JavaScript dulu} sebelum framework.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 11-16: Tooling ==========
+\begin{frame}{Alat Modern: Bundler \& Tooling}
+	\begin{itemize}
+		\item \textbf{Bundler}: gabung file JS/CSS/gambar $\to$ optimal untuk produksi. Vite, webpack, Parcel.
+		\item \textbf{Vite}: \texttt{npm create vite@latest}; cepat, HMR, ES modules; pilihan standar proyek baru.
+		\item npm/pnpm, ESLint, Prettier, TypeScript, Git.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 11-17: Praktik Proyek ==========
+\begin{frame}{Praktik Proyek}
+	\begin{itemize}
+		\item Ide: Todo List, Weather App, Quiz App, Form Registrasi, Dashboard.
+		\item Metodologi: user stories $\to$ wireframe $\to$ struktur data $\to$ implementasi bertahap $\to$ testing $\to$ refactoring.
+		\item Konsep: DOM, event, Fetch, validasi, (opsional) library.
+	\end{itemize}
+\end{frame}
+
+% ========== Rangkuman dan Penutup ==========
+\begin{frame}{Rangkuman Bab 11}
+	\begin{itemize}
+		\item Timer, async (callback, Promise, async/await), Fetch API.
+		\item ES6+ (destructuring, spread, modules), class, RegExp, closure, prototype.
+		\item Debugging, unit test, performa, keamanan XSS.
+		\item Library/framework: jQuery, Bootstrap, Vue, React.
+		\item Kuasai JavaScript dasar dulu; framework adalah abstraksi.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{}
+	\centering
+	\vfill
+	\textbf{\Large Pertanyaan?}
+	\vfill
+\end{frame}
+
+\end{document}

@@ -1,0 +1,228 @@
+\documentclass[handout]{beamer}
+\mode<presentation>
+\usetheme[secheader]{Boadilla}
+\usecolortheme{whale}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[indonesian]{babel}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{bookmark}
+
+\setbeamertemplate{footline}
+{
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+			\usebeamerfont{author in head/foot}\insertshortauthor%
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.433333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+			\usebeamerfont{title in head/foot}\insertshorttitle
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.233333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+			\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em} \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+	\end{beamercolorbox}}%
+	\vskip0pt%
+}
+
+\title[Bab 5 -- HTML Dasar]{Pemrograman Web}
+\subtitle{Bab 5: HTML Dasar, Struktur Dokumen, dan Elemen Semantik}
+\author{Cecep Suwanda, S.Si., M.Kom.}
+\institute{Universitas Bale Bandung}
+\date{\today}
+
+\begin{document}
+
+% Slide Judul
+\begin{frame}
+	\titlepage
+\end{frame}
+
+% Outline dan CPMK
+\begin{frame}{Outline Bab 5}
+	\begin{block}{Sub-CPMK 2.1}
+		Membuat halaman web dengan HTML5 (struktur, elemen semantik, form, media).
+	\end{block}
+	\begin{itemize}
+		\item Pengenalan HTML dan Perannya di Web
+		\item Memulai: Editor, Browser, dan File HTML
+		\item Sintaks Dasar HTML: Tag, Elemen, dan Atribut
+		\item Struktur Dokumen HTML5
+		\item Bagian Head dan Metadata Halaman
+		\item Heading dan Paragraf
+		\item Teks: Emphasis, Importance, dan Format Dasar
+		\item Daftar: Unordered, Ordered, dan Description List
+		\item Fitur Teks Lanjutan: Kutipan, Kode, Subscript, Superscript
+		\item Membuat Link (Hyperlink) dan Praktik Terbaik
+		\item Gambar: Elemen img dan figure
+		\item Elemen Semantik dan Struktur Halaman
+		\item Studi Kasus: Membangun Halaman Profil dengan HTML5
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 5-1: Pengenalan HTML ==========
+\begin{frame}{Pengenalan HTML dan Perannya di Web}
+	\begin{itemize}
+		\item \textbf{HTML} (HyperText Markup Language): bahasa markup untuk struktur dan makna konten.
+		\item \textbf{Deklaratif} (bukan pemrograman): menjelaskan struktur, bukan logika.
+		\item Evolusi: HTML 4.01 (1999) $\to$ HTML5 (elemen multimedia, semantik); WHATWG Living Standard.
+		\item Triad: HTML (struktur), CSS (tampilan), JavaScript (interaktivitas).
+	\end{itemize}
+	\begin{block}{Pentingnya HTML}
+		Aksesibilitas (screen readers), SEO, performa, maintainability.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 5-2: Memulai ==========
+\begin{frame}{Memulai: Editor, Browser, dan File HTML}
+	\begin{itemize}
+		\item \textbf{Editor}: VS Code, Notepad++, Sublime Text; syntax highlighting, auto-complete.
+		\item \textbf{Browser}: Chrome, Firefox, Edge, Safari; DevTools (F12) untuk debugging.
+		\item \textbf{File HTML}: ekstensi \texttt{.html} atau \texttt{.htm}; folder proyek terorganisir.
+		\item \textbf{Workflow}: edit $\to$ save (Ctrl+S) $\to$ refresh (F5) di browser.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 5-3: Sintaks Dasar ==========
+\begin{frame}{Sintaks Dasar HTML: Tag, Elemen, dan Atribut}
+	\begin{block}{Tag vs Elemen vs Atribut}
+		\begin{itemize}
+			\item \textbf{Tag}: penanda dalam \texttt{<p>}, \texttt{</p>}; opening dan closing.
+			\item \textbf{Elemen}: tag pembuka + konten + tag penutup; contoh \texttt{<p>Teks</p>}.
+			\item \textbf{Atribut}: \texttt{nama="nilai"} di tag pembuka; contoh \texttt{class="intro"}.
+			\item \textbf{Void element}: \texttt{<img>}, \texttt{<br>}, \texttt{<meta>} (tanpa penutup).
+		\end{itemize}
+	\end{block}
+	Nesting: LIFO; tag ditutup urutan terbalik dari pembukaan.
+\end{frame}
+
+% ========== SECTION 5-4: Struktur Dokumen ==========
+\begin{frame}{Struktur Dokumen HTML5}
+	\begin{itemize}
+		\item \texttt{<!DOCTYPE html>}: deklarasi doctype; tanpa ini $\to$ quirks mode.
+		\item \texttt{<html lang="id">}: elemen root; \texttt{lang} untuk aksesibilitas \& SEO.
+		\item \texttt{<head>}: metadata (tidak tampil); \texttt{<body>}: konten tampil.
+		\item Hierarki pohon: html $\to$ head/body $\to$ anak-anak (title, meta, nav, main, dll).
+	\end{itemize}
+	\begin{block}{Struktur Minimal}
+		\texttt{<!DOCTYPE html>}, \texttt{<html lang="id">}, \texttt{<head>}, \texttt{<body>}.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 5-5: Head dan Metadata ==========
+\begin{frame}{Bagian Head dan Metadata Halaman}
+	\begin{itemize}
+		\item \texttt{<meta charset="UTF-8">}: encoding karakter (wajib).
+		\item \texttt{<meta name="viewport" content="width=device-width, initial-scale=1.0">}: responsif mobile.
+		\item \texttt{<title>}: judul tab browser, hasil pencarian; $\leq$ 60 karakter.
+		\item \texttt{<meta name="description">}: ringkasan untuk SEO; \texttt{<link>}: CSS, favicon.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 5-6: Heading dan Paragraf ==========
+\begin{frame}{Heading dan Paragraf}
+	\begin{itemize}
+		\item \texttt{<h1>}--\texttt{<h6>}: hierarki heading; \texttt{<h1>} satu kali per halaman.
+		\item Jangan melompat level: setelah \texttt{<h2>} gunakan \texttt{<h3>}, bukan \texttt{<h4>}.
+		\item \texttt{<p>}: paragraf; margin vertikal otomatis; HTML mengabaikan spasi berlebih.
+		\item Pola: \texttt{<h1>} $\to$ \texttt{<p>} pengantar $\to$ \texttt{<h2>} $\to$ \texttt{<p>} $\to$ \texttt{<h3>} $\to$ \ldots
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 5-7: Teks Emphasis ==========
+\begin{frame}{Teks: Emphasis, Importance, dan Format Dasar}
+	\begin{block}{Semantik vs Presentasional}
+		\begin{itemize}
+			\item \texttt{<em>} (miring): penekanan; \texttt{<strong>} (tebal): kepentingan tinggi.
+			\item \texttt{<i>}: beda nada, istilah asing; \texttt{<b>}: menarik perhatian tanpa urgensi.
+			\item Prefer \texttt{<em>} dan \texttt{<strong>} untuk aksesibilitas \& SEO.
+		\end{itemize}
+	\end{block}
+	\texttt{<mark>}: highlight; \texttt{<small>}: disclaimer; \texttt{<del>}/\texttt{<ins>}: revisi.
+\end{frame}
+
+% ========== SECTION 5-8: Daftar ==========
+\begin{frame}{Daftar: ul, ol, dl}
+	\begin{itemize}
+		\item \texttt{<ul>} + \texttt{<li>}: unordered list (bullet).
+		\item \texttt{<ol>} + \texttt{<li>}: ordered list (nomor); atribut \texttt{type}, \texttt{start}, \texttt{reversed}.
+		\item \texttt{<dl>} + \texttt{<dt>} + \texttt{<dd>}: description list (glosarium).
+		\item Nested list: \texttt{<ul>}/\texttt{<ol>} di dalam \texttt{<li>}.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 5-9: Teks Lanjutan ==========
+\begin{frame}{Fitur Teks Lanjutan}
+	\begin{itemize}
+		\item \texttt{<blockquote>}: kutipan panjang; \texttt{<q>}: kutipan inline.
+		\item \texttt{<code>}: inline code; \texttt{<pre><code>...</code></pre>}: blok kode (pertahankan spasi).
+		\item \texttt{<sub>}: subscript (H$_2$O); \texttt{<sup>}: superscript (x$^2$, 1$^\mathrm{st}$).
+		\item HTML entities: \texttt{\&lt;}, \texttt{\&gt;}, \texttt{\&amp;}, \texttt{\&nbsp;}, \texttt{\&copy;}.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 5-10: Link ==========
+\begin{frame}{Membuat Link (Hyperlink)}
+	\begin{itemize}
+		\item \texttt{<a href="...">}: link; \texttt{href} = URL absolut, relatif, atau anchor (\texttt{\#id}).
+		\item Link internal: path relatif; eksternal: URL lengkap; anchor: \texttt{\#bagian-bawah}.
+		\item \texttt{target="\_blank"} + \texttt{rel="noopener noreferrer"}: keamanan (tabnabbing).
+		\item Teks link deskriptif; hindari ``klik di sini''.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 5-11: Gambar ==========
+\begin{frame}{Gambar: Elemen img dan figure}
+	\begin{itemize}
+		\item \texttt{<img src alt width height>}: \texttt{src} wajib; \texttt{alt} untuk aksesibilitas (rekomendasi kuat).
+		\item \texttt{width}/\texttt{height}: mencegah layout shift (Core Web Vitals).
+		\item \texttt{<figure>} + \texttt{<figcaption>}: gambar dengan keterangan; semantik jelas.
+		\item Format: JPEG (foto), PNG (transparansi), SVG (vektor), WebP (modern).
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 5-12: Elemen Semantik ==========
+\begin{frame}{Elemen Semantik dan Struktur Halaman}
+	\begin{itemize}
+		\item \texttt{<header>}: pengantar/navigasi awal; \texttt{<nav>}: blok link navigasi mayor.
+		\item \texttt{<main>}: konten utama (satu per halaman); \texttt{<article>}: konten mandiri.
+		\item \texttt{<section>}: bagian thematis; \texttt{<aside>}: sidebar, call-out.
+		\item \texttt{<footer>}: copyright, link legal, kontak.
+	\end{itemize}
+	\begin{block}{Manfaat}
+		SEO, aksesibilitas (landmark), maintainability, konsistensi.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 5-13: Studi Kasus ==========
+\begin{frame}{Studi Kasus: Halaman Profil HTML5}
+	\begin{enumerate}
+		\item Setup: doctype, html lang, head (charset, viewport, title), body.
+		\item Header: \texttt{<h1>} nama, \texttt{<p>} tagline.
+		\item Nav: link anchor ke \texttt{\#tentang}, \texttt{\#keahlian}, \texttt{\#kontak}.
+		\item Main: section tentang (figure+figcaption, paragraf), keahlian (ul), pendidikan (dl).
+		\item Aside (opsional): link media sosial; \texttt{rel="noopener noreferrer"}.
+		\item Footer: email (\texttt{mailto:}), telepon (\texttt{tel:}), copyright.
+	\end{enumerate}
+\end{frame}
+
+% ========== Rangkuman dan Penutup ==========
+\begin{frame}{Rangkuman Bab 5}
+	\begin{itemize}
+		\item HTML: struktur dan makna; sintaks tag, elemen, atribut; void elements; nesting LIFO.
+		\item Struktur dokumen: doctype, html, head, body; meta charset, viewport, title.
+		\item Heading hierarki benar; paragraf; em/strong vs i/b; daftar (ul, ol, dl).
+		\item Link: internal, eksternal, anchor; \texttt{rel="noopener noreferrer"}.
+		\item Gambar: alt, width/height, figure/figcaption; elemen semantik (header, nav, main, article, section, aside, footer).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{}
+	\centering
+	\vfill
+	\textbf{\Large Pertanyaan?}
+	\vfill
+\end{frame}
+
+\end{document}

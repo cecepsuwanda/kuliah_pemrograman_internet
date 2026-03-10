@@ -1,0 +1,250 @@
+\documentclass[handout]{beamer}
+\mode<presentation>
+\usetheme[secheader]{Boadilla}
+\usecolortheme{whale}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[indonesian]{babel}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{bookmark}
+
+\setbeamertemplate{footline}
+{
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+			\usebeamerfont{author in head/foot}\insertshortauthor%
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.433333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+			\usebeamerfont{title in head/foot}\insertshorttitle
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.233333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+			\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em} \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+	\end{beamercolorbox}}%
+	\vskip0pt%
+}
+
+\title[Bab 8 -- Flexbox Grid]{Pemrograman Web}
+\subtitle{Bab 8: Flexbox, Grid, dan Desain Responsif}
+\author{Cecep Suwanda, S.Si., M.Kom.}
+\institute{Universitas Bale Bandung}
+\date{\today}
+
+\begin{document}
+
+% Slide Judul
+\begin{frame}
+	\titlepage
+\end{frame}
+
+% Outline dan CPMK
+\begin{frame}{Outline Bab 8}
+	\begin{block}{Sub-CPMK 2.2}
+		Menerapkan CSS3 untuk styling, layout (Flexbox/Grid), dan desain responsif.
+	\end{block}
+	\begin{columns}[T]
+		\begin{column}{0.5\textwidth}
+			\begin{itemize}
+				\item Normal Flow dan Positioning
+				\item Flexbox: Konsep \& Praktik
+				\item CSS Grid: Konsep \& Praktik
+				\item Float dan Clear
+				\item Overflow
+				\item Media Queries
+				\item Viewport dan Unit Responsif
+				\item Mobile-First dan Breakpoint
+				\item Styling Form
+				\item Navigasi dan Menu
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{itemize}
+				\item Transisi
+				\item Animasi dan Keyframes
+				\item Transform
+				\item CSS Custom Properties
+				\item Spesifisitas dan Cascade
+				\item Pseudo-class/element
+				\item Aksesibilitas CSS
+				\item BEM
+				\item Best Practices Performa
+				\item Referensi Standar
+			\end{itemize}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+% ========== SECTION 1: Normal Flow dan Positioning ==========
+\begin{frame}{Normal Flow dan Positioning}
+	\begin{itemize}
+		\item \textbf{Normal flow}: elemen block vertikal, inline horizontal.
+		\item Lima nilai \texttt{position}: \texttt{static}, \texttt{relative}, \texttt{absolute}, \texttt{fixed}, \texttt{sticky}.
+	\end{itemize}
+	\begin{block}{Karakteristik}
+		\texttt{static} = default; \texttt{relative} = konteks untuk absolute; \texttt{absolute} = keluar flow (tooltip, dropdown); \texttt{fixed} = relatif viewport; \texttt{sticky} = hybrid.
+	\end{block}
+	\textbf{z-index} dan \textbf{stacking context}: hanya berlaku pada position non-static; nilai lebih tinggi di atas.
+\end{frame}
+
+% ========== SECTION 2-3: Flexbox ==========
+\begin{frame}{Flexbox: Konsep Container dan Item}
+	\begin{itemize}
+		\item Layout \textbf{satu dimensi} (baris ATAU kolom).
+		\item \texttt{display: flex} pada kontainer; anak menjadi \textbf{flex items}.
+		\item \textbf{Main axis} (horizontal default) dan \textbf{cross axis}.
+	\end{itemize}
+	\begin{block}{Properti container}
+		\texttt{flex-direction}, \texttt{justify-content}, \texttt{align-items}, \texttt{flex-wrap}, \texttt{gap}.
+	\end{block}
+	\textbf{Flex items}: \texttt{flex-grow}, \texttt{flex-shrink}, \texttt{flex-basis}; shorthand \texttt{flex: 1} = \texttt{1 1 0\%}.
+\end{frame}
+
+\begin{frame}{Flexbox: Praktik Layout}
+	\begin{itemize}
+		\item \textbf{Navbar responsif}: \texttt{justify-content: space-between}; mobile: \texttt{flex-direction: column}.
+		\item \textbf{Pattern}: Centering (\texttt{justify-content + align-items: center}); Equal columns (\texttt{flex: 1}); Sticky footer (body flex column, main \texttt{flex: 1}).
+	\end{itemize}
+	\begin{block}{Flexbox vs Grid}
+		Flexbox 1D (navbar, toolbar); Grid 2D (layout halaman). Keduanya saling melengkapi.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 4-5: CSS Grid ==========
+\begin{frame}{CSS Grid: Konsep}
+	\begin{itemize}
+		\item Layout \textbf{dua dimensi} (baris DAN kolom).
+		\item \texttt{display: grid}; \texttt{grid-template-columns}, \texttt{grid-template-rows}, \texttt{grid-template-areas}.
+		\item Satuan \texttt{fr} (fraction); \texttt{repeat(n, ukuran)}; \texttt{minmax(min, max)}.
+	\end{itemize}
+	\begin{block}{Grid responsif tanpa media query}
+		\texttt{grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));} --- kolom menyesuaikan otomatis.
+	\end{block}
+	\textbf{Grid areas}: \texttt{grid-area: nama}; \texttt{grid-template-areas: "header header" "side main";}
+\end{frame}
+
+\begin{frame}{CSS Grid: Praktik Layout}
+	\begin{itemize}
+		\item Layout halaman: \texttt{grid-template-areas} dengan header, sidebar, main, footer.
+		\item Kartu produk: \texttt{repeat(auto-fill, minmax(280px, 1fr))}.
+		\item \texttt{auto-fill} vs \texttt{auto-fit}: auto-fill pertahankan track kosong; auto-fit melebur track kosong.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 6-7: Float dan Overflow ==========
+\begin{frame}{Float, Clear, dan Overflow}
+	\begin{block}{Float}
+		\texttt{float: left/right}; \texttt{clear: both}; \texttt{display: flow-root} untuk BFC. Sudah usang untuk layout --- gunakan Flexbox/Grid.
+	\end{block}
+	\begin{block}{Overflow}
+		\texttt{visible}, \texttt{hidden}, \texttt{scroll}, \texttt{auto}, \texttt{clip}. \texttt{overflow-x/y} terpisah. \texttt{text-overflow: ellipsis} dengan \texttt{white-space: nowrap}. Overflow $\neq$ visible menciptakan BFC.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 8-10: Media Queries dan Responsif ==========
+\begin{frame}{Media Queries}
+	\begin{itemize}
+		\item \texttt{@media (kondisi) \{ CSS \}}; kondisi: \texttt{min-width}, \texttt{max-width}.
+		\item Breakpoint umum: 480px, 768px, 1024px, 1200px.
+		\item \texttt{prefers-color-scheme: dark}; \texttt{prefers-reduced-motion: reduce} (aksesibilitas).
+		\item Breakpoint berdasarkan konten, bukan perangkat.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Viewport dan Mobile-First}
+	\begin{itemize}
+		\item Meta viewport: \texttt{<meta name="viewport" content="width=device-width, initial-scale=1.0">}.
+		\item Unit: \texttt{vw}, \texttt{vh}, \texttt{dvh}, \texttt{svh} (mobile address bar).
+		\item \textbf{Fluid typography}: \texttt{font-size: clamp(1rem, 2.5vw, 2rem);}
+	\end{itemize}
+	\begin{block}{Mobile-First}
+		CSS base untuk mobile; tambah \texttt{@media (min-width: ...)} untuk layar besar. Lebih ringan; direkomendasikan.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 11-12: Form dan Navigasi ==========
+\begin{frame}{Styling Form dan Navigasi}
+	\begin{itemize}
+		\item Form: \texttt{appearance: none}; \texttt{font-family: inherit} (form tidak mewarisi font!); indikator fokus wajib.
+		\item Dropdown: \texttt{position: absolute} pada submenu; \texttt{:hover} dan \texttt{:focus-within} untuk aksesibilitas keyboard.
+		\item Jangan hanya \texttt{:hover} --- pengguna keyboard tidak bisa hover.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 13-15: Transisi, Animasi, Transform ==========
+\begin{frame}{Transisi, Animasi, dan Transform}
+	\begin{block}{Transition}
+		Perubahan halus dipicu state; \texttt{transition: property duration timing delay}. Properti interpolable saja.
+	\end{block}
+	\begin{block}{Animation}
+		\texttt{@keyframes}; berjalan otomatis/berulang; cocok efek dekoratif. Transition vs Animation: pemicu vs otomatis.
+	\end{block}
+	\textbf{Transform}: \texttt{translate}, \texttt{scale}, \texttt{rotate}, \texttt{skew}; tidak mempengaruhi layout; centering: \texttt{transform: translate(-50\%, -50\%);}
+\end{frame}
+
+\begin{frame}{Performa Animasi}
+	\begin{block}{GPU-friendly}
+		Animasikan hanya \texttt{transform} dan \texttt{opacity} --- dioptimalkan GPU. Hindari \texttt{width}, \texttt{height}, \texttt{margin} (reflow mahal).
+	\end{block}
+	\texttt{prefers-reduced-motion: reduce} --- kurangi/matikan animasi untuk pengguna sensitif.
+\end{frame}
+
+% ========== SECTION 16-18: Custom Properties, Cascade, Pseudo ==========
+\begin{frame}{CSS Custom Properties}
+	\begin{itemize}
+		\item \texttt{--nama: nilai;} di \texttt{:root}; akses \texttt{var(--nama)}.
+		\item Runtime (ubah via JS/media query); cascade; fallback \texttt{var(--warna, blue)}.
+		\item Design system: warna, spacing, radius di \texttt{:root}. Dark mode: override di \texttt{[data-theme="dark"]} atau \texttt{@media (prefers-color-scheme: dark)}.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Spesifisitas dan Pseudo}
+	\begin{itemize}
+		\item Specificity: inline $>$ ID $>$ class $>$ element; hindari \texttt{!important}. \texttt{@layer base, components, utilities} untuk prioritas eksplisit.
+		\item Pseudo-class: \texttt{:nth-child}, \texttt{:has} (parent selector), \texttt{:is} (matches list).
+		\item Pseudo-element: \texttt{::before}, \texttt{::after} (perlu \texttt{content}); tidak terbaca screen reader.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 19-21: Aksesibilitas, BEM, Performa ==========
+\begin{frame}{Aksesibilitas, BEM, dan Performa}
+	\begin{block}{Aksesibilitas CSS}
+		Indikator fokus (\texttt{:focus-visible}); \texttt{prefers-reduced-motion}; kontras $\geq$ 4.5:1; \texttt{.sr-only} untuk skip link. Jangan \texttt{outline: none} tanpa pengganti!
+	\end{block}
+	\begin{block}{BEM}
+		Block (\texttt{.card}), Element (\texttt{.card\_\_title}), Modifier (\texttt{.card--featured}).
+	\end{block}
+	Best practices: GPU-friendly; hindari \texttt{@import}; critical CSS; minifikasi; \texttt{will-change} dengan bijak.
+\end{frame}
+
+% ========== SECTION 22: Referensi ==========
+\begin{frame}{Referensi Standar}
+	\begin{itemize}
+		\item \textbf{W3C}: spesifikasi resmi CSS.
+		\item \textbf{MDN}: dokumentasi praktis, kompatibilitas.
+		\item \textbf{web.dev}: tutorial, best practices.
+		\item \textbf{CSS-Tricks}: panduan visual, tips layout.
+		\item \textbf{Can I Use}: kompatibilitas browser.
+	\end{itemize}
+\end{frame}
+
+% ========== Rangkuman dan Penutup ==========
+\begin{frame}{Rangkuman Bab 8}
+	\begin{itemize}
+		\item Flexbox (1D) dan Grid (2D) fondasi layout modern; keduanya saling melengkapi.
+		\item Mobile-first (\texttt{min-width}) menghasilkan CSS lebih ringan.
+		\item Animasikan hanya \texttt{transform}/\texttt{opacity} untuk performa optimal.
+		\item Custom properties untuk design system dan dark mode.
+		\item Aksesibilitas wajib: indikator fokus, reduced motion, kontras warna.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{}
+	\centering
+	\vfill
+	\textbf{\Large Pertanyaan?}
+	\vfill
+\end{frame}
+
+\end{document}

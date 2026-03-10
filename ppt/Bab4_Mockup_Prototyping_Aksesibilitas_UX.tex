@@ -1,0 +1,272 @@
+\documentclass[handout]{beamer}
+\mode<presentation>
+\usetheme[secheader]{Boadilla}
+\usecolortheme{whale}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[indonesian]{babel}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{bookmark}
+
+\setbeamertemplate{footline}
+{
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+			\usebeamerfont{author in head/foot}\insertshortauthor%
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.433333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+			\usebeamerfont{title in head/foot}\insertshorttitle
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.233333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+			\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em} \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+	\end{beamercolorbox}}%
+	\vskip0pt%
+}
+
+\title[Bab 4 -- Mockup \& UX]{Pemrograman Web}
+\subtitle{Bab 4: Mockup, Prototyping, Aksesibilitas, dan Prinsip UX}
+\author{Cecep Suwanda, S.Si., M.Kom.}
+\institute{Universitas Bale Bandung}
+\date{\today}
+
+\begin{document}
+
+% Slide Judul
+\begin{frame}
+	\titlepage
+\end{frame}
+
+% Outline dan CPMK
+\begin{frame}{Outline Bab 4}
+	\begin{block}{Sub-CPMK 1.2}
+		Membuat wireframe dan mockup antarmuka web yang mendukung alur pengguna (user flow).
+	\end{block}
+	\begin{block}{Sub-CPMK 1.3}
+		Menerapkan prinsip aksesibilitas (a11y) dan pengalaman pengguna (UX) dalam desain antarmuka.
+	\end{block}
+	\begin{itemize}
+		\item Mockup (High-Fidelity)
+		\item Prinsip Desain Visual: Layout, Hierarki, Tipografi, Warna
+		\item Prinsip UX: Usability, Learnability, 10 Heuristik Nielsen
+		\item Aksesibilitas Web: WCAG, HTML Semantik, ARIA
+		\item Prototyping, Iterasi, dan Alat Desain (Figma)
+		\item Design System, Handoff, dan Konsistensi Antarmuka
+		\item UX Research, Usability Testing, dan Praktik Terbaik
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 4-1: Mockup ==========
+\begin{frame}{Mockup (High-Fidelity)}
+	\begin{itemize}
+		\item \textbf{Mockup}: representasi visual high-fidelity; tampilan akhir (warna, tipografi, gambar, ikon, spacing) \textbf{tanpa interaksi}.
+		\item Dibuat \textbf{setelah wireframe disetujui}; alat: Figma, Adobe XD, Sketch.
+		\item Penting: acuan pixel-perfect untuk pengembang; stakeholder paham tampilan akhir; konsistensi visual.
+	\end{itemize}
+	\begin{block}{Catatan}
+		Jangan langsung mockup tanpa wireframe. Wireframe validasi \textit{struktur}; mockup validasi \textit{tampilan}.
+	\end{block}
+\end{frame}
+
+\begin{frame}{Wireframe vs Mockup}
+	\small
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{Aspek} & \textbf{Wireframe (Low-Fi)} & \textbf{Mockup (High-Fi)} \\
+		\hline
+		Detail visual & Minimal (abu-abu) & Lengkap (warna, font, gambar) \\
+		\hline
+		Tujuan & Struktur \& tata letak & Tampilan akhir akurat \\
+		\hline
+		Waktu & Cepat (menit--jam) & Lebih lama (jam--hari) \\
+		\hline
+		Alat & Kertas, Balsamiq & Figma, Adobe XD, Sketch \\
+		\hline
+		Kapan & Tahap awal & Setelah wireframe disetujui \\
+		\hline
+	\end{tabular}
+\end{frame}
+
+% ========== SECTION 4-2: Prinsip Desain Visual ==========
+\begin{frame}{Prinsip Desain Visual}
+	Empat pilar: \textbf{layout}, \textbf{hierarki visual}, \textbf{tipografi}, \textbf{warna}.
+	\begin{itemize}
+		\item \textbf{Layout}: grid system (12 kolom); Flexbox (satu dimensi), CSS Grid (dua dimensi).
+		\item \textbf{Hierarki}: ukuran, warna, kontras, posisi, whitespace. Pola F/Z (eye-tracking).
+		\item \textbf{Tipografi}: readability; 2--3 font; body $\geq$ 16px; line-height 1.4--1.6; kontras 4.5:1.
+		\item \textbf{Warna}: psikologi warna; aksesibilitas (WCAG); konsistensi (design system).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Tipografi dan Warna (Panduan)}
+	\small
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{Prinsip} & \textbf{Panduan} \\
+		\hline
+		Ukuran font & Body minimal 16px (\texttt{1rem}) \\
+		\hline
+		Line height & 1.4--1.6$\times$ (\texttt{line-height: 1.5}) \\
+		\hline
+		Jumlah font & Maksimal 2--3 jenis \\
+		\hline
+		Kontras teks & Rasio minimal 4.5:1 (WCAG) \\
+		\hline
+		Panjang baris & 45--75 karakter (\texttt{max-width: 65ch}) \\
+		\hline
+	\end{tabular}
+	\vspace{0.5em}
+	Uji kontras: WebAIM Contrast Checker, Chrome DevTools. Jangan andalkan warna saja---tambah ikon/teks.
+\end{frame}
+
+% ========== SECTION 4-3: Prinsip UX \& Heuristik Nielsen ==========
+\begin{frame}{Usability dan Learnability}
+	\begin{block}{Usability}
+		Seberapa mudah dan efisien pengguna menyelesaikan tugas: sedikit usaha, sedikit error, waktu wajar.
+	\end{block}
+	\textbf{Lima dimensi} (Nielsen): Learnability, Efficiency, Memorability, Errors, Satisfaction.
+	\begin{block}{Learnability}
+		Paling kritis di web. Dicapai dengan konvensi (logo kiri atas, keranjang kanan atas), label jelas, alur predictable.
+	\end{block}
+\end{frame}
+
+\begin{frame}{10 Heuristik Nielsen (1--5)}
+	\small
+	\begin{enumerate}
+		\item \textbf{Visibility of system status}: loading spinner, progress bar.
+		\item \textbf{Match system \& real world}: bahasa/konsep sesuai pengguna (ikon keranjang).
+		\item \textbf{User control \& freedom}: undo, tombol Batalkan.
+		\item \textbf{Consistency \& standards}: elemen sama $\to$ perilaku sama.
+		\item \textbf{Error prevention}: validasi real-time pada form.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{10 Heuristik Nielsen (6--10)}
+	\small
+	\begin{enumerate}
+		\setcounter{enumi}{5}
+		\item \textbf{Recognition rather than recall}: tampilkan opsi (dropdown), jangan suruh ingat.
+		\item \textbf{Flexibility \& efficiency}: shortcut (Ctrl+S), autocomplete.
+		\item \textbf{Aesthetic \& minimalist design}: hanya informasi relevan.
+		\item \textbf{Help recognize, diagnose errors}: pesan error jelas + solusi.
+		\item \textbf{Help \& documentation}: tooltip, FAQ, panduan.
+	\end{enumerate}
+	Evaluasi heuristik: 3--5 evaluator; severity 0--4. Relatif murah vs usability testing.
+\end{frame}
+
+% ========== SECTION 4-4: Aksesibilitas ==========
+\begin{frame}{Aksesibilitas Web (a11y)}
+	\begin{itemize}
+		\item Web dapat digunakan \textbf{semua orang} (tunanetra, tuli, motorik, kognitif). Bukan ``nice to have''---etis dan sering legal.
+		\item Indonesia $\approx$ 8\%; global $\approx$ 15\% penyandang disabilitas.
+		\item \textbf{WCAG} (W3C WAI): standar aksesibilitas; prinsip \textbf{POUR}.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Prinsip POUR (WCAG)}
+	\small
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{Prinsip} & \textbf{Arti} & \textbf{Contoh} \\
+		\hline
+		\textbf{P}erceivable & Konten dapat dipersepsi & Alt text, caption, kontras \\
+		\hline
+		\textbf{O}perable & Dapat dioperasikan & Navigasi keyboard, target sentuh besar \\
+		\hline
+		\textbf{U}nderstandable & Dapat dipahami & Label form, pesan error bermakna \\
+		\hline
+		\textbf{R}obust & Teknologi assistif & HTML valid, ARIA tepat \\
+		\hline
+	\end{tabular}
+\end{frame}
+
+\begin{frame}{HTML Semantik dan ARIA}
+	\begin{itemize}
+		\item \textbf{HTML semantik}: \texttt{<nav>}, \texttt{<main>}, \texttt{<header>}, \texttt{<footer>}, \texttt{<article>} $\to$ struktur bermakna untuk screen reader.
+		\item \textbf{ARIA}: atribut untuk komponen kustom (tab, modal, dropdown). \textbf{Jangan gunakan ARIA jika HTML semantik sudah cukup.}
+		\item Form aksesibel: \texttt{<label for>}, \texttt{aria-describedby}, \texttt{aria-invalid}, \texttt{role="alert"} untuk error.
+	\end{itemize}
+	Audit: Lighthouse, axe DevTools, WAVE. Otomatis $\approx$ 30--50\% masalah; sisanya manual (keyboard, screen reader).
+\end{frame}
+
+% ========== SECTION 4-5: Prototyping \& Figma ==========
+\begin{frame}{Prototyping dan Iterasi}
+	\begin{itemize}
+		\item \textbf{Prototipe}: versi interaktif yang bisa ``diklik''; jembatan mockup $\to$ kode.
+		\item Low-fi: wireframe kertas/simulasi. High-fi: transisi, animasi (Figma, XD, InVision).
+		\item \textbf{Iterasi}: Desain $\to$ Prototipe $\to$ Uji $\to$ Analisis $\to$ Perbaiki $\to$ ulang. Tentukan tujuan tiap siklus dan \textit{exit criteria}.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Figma}
+	\begin{itemize}
+		\item Berbasis web; kolaborasi real-time; gratis untuk pelajar; prototyping built-in.
+		\item Fitur: \textbf{Frame}, \textbf{Components}, \textbf{Auto Layout}, \textbf{Prototyping} (klik antar frame), \textbf{Inspect} (spesifikasi CSS).
+		\item Alternatif: Adobe XD (desktop), Sketch (Mac). Figma unggul di kolaborasi dan akses lintas OS.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 4-6: Design System \& Handoff ==========
+\begin{frame}{Design System}
+	\begin{itemize}
+		\item Kumpulan komponen reusable, panduan gaya, standar $\to$ konsistensi antarmuka.
+		\item Lapisan: \textbf{Design Tokens} (warna, font, spacing) $\to$ \textbf{Foundation} $\to$ \textbf{Components} (Button, Input, Card) $\to$ \textbf{Patterns} $\to$ \textbf{Templates} $\to$ \textbf{Dokumentasi}.
+		\item \textbf{Design tokens}: variabel CSS (\texttt{--color-primary}, \texttt{--space-md}); single source of truth.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Handoff Desain ke Pengembang}
+	\begin{itemize}
+		\item Penyerahan desain $\to$ pengembang untuk implementasi kode.
+		\item Handoff baik: design tokens, spesifikasi komponen (ukuran, padding, margin), aset (SVG, gambar), perilaku (hover, focus), responsif.
+		\item Figma \textbf{Inspect}: pengembang lihat spesifikasi langsung dari file.
+		\item Bukan satu arah: feedback teknis dari pengembang (animasi berat, responsif sulit) $\to$ komunikasi dua arah.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 4-7: UX Research \& Usability Testing ==========
+\begin{frame}{UX Research}
+	\begin{itemize}
+		\item Memahami pengguna, kebutuhan, konteks; keputusan berdasarkan data, bukan asumsi.
+		\item \textbf{Kualitatif}: mengapa/bagaimana; wawancara, observasi, usability test; sedikit partisipan (5--15).
+		\item \textbf{Kuantitatif}: berapa banyak; survei, analytics, A/B test; banyak partisipan (100+).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Usability Testing}
+	\begin{itemize}
+		\item Pengguna nyata menyelesaikan tugas; peneliti amati kesulitan, error, komentar. ``Standar emas'' UX research.
+		\item \textbf{5 partisipan} $\approx$ 85\% masalah usability (Nielsen).
+		\item Proses: perencanaan (tujuan, tugas, kriteria peserta) $\to$ rekrutmen $\to$ pelaksanaan (think aloud) $\to$ analisis $\to$ rekomendasi.
+		\item Metrik: task completion rate, time on task, error rate, satisfaction.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Metode UX Lain \& Referensi}
+	Card sorting, tree testing, A/B testing, diary study, eye tracking.
+	\vspace{0.5em}
+	\textbf{Referensi}: W3C WAI, web.dev/accessibility, MDN Accessibility, Nielsen Norman Group, Interaction Design Foundation, Figma Community.
+	\begin{block}{Praktik Terbaik}
+		Desain yang baik = desain yang teruji. Integrasikan usability testing sejak dini, bukan hanya di akhir.
+	\end{block}
+\end{frame}
+
+% ========== Rangkuman dan Penutup ==========
+\begin{frame}{Rangkuman Bab 4}
+	\begin{itemize}
+		\item \textbf{Sub-CPMK 1.2}: Mockup high-fi dari wireframe; prinsip desain visual (layout, hierarki, tipografi, warna); 10 heuristik Nielsen; prototipe interaktif; Figma.
+		\item \textbf{Sub-CPMK 1.3}: WCAG/POUR; HTML semantik + ARIA; audit (Lighthouse, axe); design system \& tokens; handoff; usability testing.
+		\item Iterasi desain dan UX research memvalidasi desain dengan pengguna nyata.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{}
+	\centering
+	\vfill
+	\textbf{\Large Pertanyaan?}
+	\vfill
+\end{frame}
+
+\end{document}

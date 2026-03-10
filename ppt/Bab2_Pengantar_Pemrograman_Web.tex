@@ -1,0 +1,310 @@
+\documentclass[handout]{beamer}
+\mode<presentation>
+\usetheme[secheader]{Boadilla}
+\usecolortheme{whale}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[indonesian]{babel}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{bookmark}
+
+\setbeamertemplate{footline}
+{
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+			\usebeamerfont{author in head/foot}\insertshortauthor%
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.433333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+			\usebeamerfont{title in head/foot}\insertshorttitle
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.233333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+			\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em} \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+	\end{beamercolorbox}}%
+	\vskip0pt%
+}
+
+\title[Bab 2 -- Pengantar Web]{Pemrograman Web}
+\subtitle{Bab 2: Pengantar Pemrograman Web, Arsitektur Client-Server, Ruang Lingkup Kebutuhan Pengguna}
+\author{Cecep Suwanda, S.Si., M.Kom.}
+\institute{Universitas Bale Bandung}
+\date{\today}
+
+\begin{document}
+
+% Slide Judul
+\begin{frame}
+	\titlepage
+\end{frame}
+
+% Outline dan CPMK
+\begin{frame}{Outline Bab 2}
+	\begin{block}{Sub-CPMK 1.1}
+		Mengidentifikasi kebutuhan fungsional dan non-fungsional pengguna untuk solusi web.
+	\end{block}
+	\begin{itemize}
+		\item Arsitektur Web: Client-Server dan Komunikasi HTTP
+		\item Protokol HTTP: Metode, Status Code, dan Header
+		\item Ruang Lingkup Kebutuhan Pengguna
+		\item Teknologi Front-End: HTML, CSS, dan JavaScript
+		\item Teknologi Back-End: PHP, MySQL, API
+		\item Siklus Pengembangan Web (SDLC)
+		\item Alat Pengembangan Web
+		\item Standar Web dan Organisasi Terkait
+		\item Peta Konsep: Hubungan Antar Teknologi Web
+		\item Keamanan Web: Konsep Dasar
+		\item Aksesibilitas dan Performa
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 2-1: Arsitektur Web ==========
+\begin{frame}{Arsitektur Web: Client-Server}
+	\begin{itemize}
+		\item \textbf{Client} (browser) mengirim permintaan; \textbf{server} menyimpan dan memproses data.
+		\item Server mengembalikan respons: HTML, JSON, gambar, dll.
+		\item \textbf{Analogi}: Client = pelanggan di restoran, Server = dapur, HTTP = pelayan.
+		\item Komunikasi melalui \textbf{protokol HTTP}; transport \textbf{TCP}.
+		\item \textbf{TCP three-way handshake}: SYN $\to$ SYN-ACK $\to$ ACK.
+		\item Port \textbf{80} (HTTP), \textbf{443} (HTTPS).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{DNS dan URL}
+	\begin{itemize}
+		\item \textbf{DNS}: menerjemahkan nama domain (\texttt{www.example.com}) ke alamat IP.
+		\item \textbf{URL} (Uniform Resource Locator): alamat sumber daya di web.
+	\end{itemize}
+	\begin{block}{Komponen URL}
+		\begin{itemize}
+			\item \textbf{Skema}: \texttt{https} (protokol)
+			\item \textbf{Host}: \texttt{www.example.com}
+			\item \textbf{Port}: \texttt{:443} (opsional)
+			\item \textbf{Path}: \texttt{/halaman/artikel}
+			\item \textbf{Query}: \texttt{?id=42\&lang=id}
+			\item \textbf{Fragment}: \texttt{\#bagian} (diproses di client)
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+% ========== SECTION 2-2: Protokol HTTP ==========
+\begin{frame}{Protokol HTTP: Metode dan Status Code}
+	\begin{itemize}
+		\item HTTP \textbf{stateless}; cookie/session untuk state.
+		\item \textbf{Metode}: GET (ambil), POST (kirim), PUT (update penuh), PATCH (update sebagian), DELETE (hapus).
+		\item \textbf{Idempotent}: GET, PUT, DELETE (hasil sama jika diulang).
+	\end{itemize}
+	\begin{block}{Status Code}
+		\textbf{2xx} Sukses (200 OK, 201 Created) \\
+		\textbf{3xx} Redirect (301, 302) \\
+		\textbf{4xx} Error client (400, 401, 403, 404) \\
+		\textbf{5xx} Error server (500, 503)
+	\end{block}
+\end{frame}
+
+\begin{frame}{Header HTTP dan HTTPS}
+	\begin{itemize}
+		\item \textbf{Request header}: Host, User-Agent, Accept, Content-Type.
+		\item \textbf{Response header}: Content-Type, Content-Length, Set-Cookie, Cache-Control.
+		\item \textbf{HTTPS}: HTTP + enkripsi TLS/SSL; melindungi privasi dan integritas data.
+		\item Membaca header: DevTools $\to$ tab \textbf{Network} $\to$ pilih request $\to$ Headers.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 2-1b: Kebutuhan Pengguna ==========
+\begin{frame}{Ruang Lingkup Kebutuhan Pengguna}
+	\begin{block}{Kebutuhan Fungsional}
+		\textit{Apa} yang harus dilakukan sistem. Contoh: login, lihat produk, keranjang, checkout. \textbf{Wajib}.
+	\end{block}
+	\begin{block}{Kebutuhan Non-Fungsional}
+		\textit{Bagaimana} sistem berperilaku. Contoh: load $<$ 3 detik, password di-hash, responsif. \textbf{Direkomendasikan}.
+	\end{block}
+	Identifikasi kebutuhan $\to$ tahap \textbf{analisis kebutuhan}; didokumentasikan dalam \textbf{SRS} (Software Requirements Specification).
+\end{frame}
+
+\begin{frame}{Perbandingan Kebutuhan Fungsional vs Non-Fungsional}
+	\small
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{Aspek} & \textbf{Fungsional} & \textbf{Non-Fungsional} \\
+		\hline
+		Definisi & Apa yang dilakukan sistem & Bagaimana sistem berperilaku \\
+		\hline
+		Esensialitas & Wajib & Direkomendasikan \\
+		\hline
+		Hasil & Fitur aplikasi & Sifat/kualitas aplikasi \\
+		\hline
+		Fokus & Tuntutan pengguna & Harapan pengguna \\
+		\hline
+	\end{tabular}
+\end{frame}
+
+% ========== SECTION 2-3: Front-End ==========
+\begin{frame}{Teknologi Front-End: HTML, CSS, JavaScript}
+	\begin{itemize}
+		\item \textbf{HTML}: struktur dan konten (kerangka rumah).
+		\item \textbf{CSS}: presentasi visual (cat, dekorasi).
+		\item \textbf{JavaScript}: interaktivitas (sistem listrik).
+		\item Disebut \textit{holy trinity} pengembangan web.
+	\end{itemize}
+	\begin{block}{Peran}
+		HTML = struktur \& konten; CSS = warna, font, layout; JS = validasi form, DOM, Fetch API.
+	\end{block}
+\end{frame}
+
+\begin{frame}{HTML, CSS, JavaScript (lanjutan)}
+	\begin{itemize}
+		\item \textbf{HTML5}: elemen semantik (\texttt{<header>}, \texttt{<main>}, \texttt{<article>}), \texttt{<video>}, \texttt{<audio>}, \texttt{<canvas>}, tipe input baru.
+		\item \textbf{CSS}: Box Model (content, padding, border, margin); \textbf{Flexbox} (satu dimensi); \textbf{Grid} (dua dimensi).
+		\item \textbf{JavaScript}: DOM, event, ES6+ (let/const, arrow function, Promise, Fetch).
+	\end{itemize}
+	\begin{block}{Separation of Concerns}
+		Struktur (HTML) $|$ Presentasi (CSS) $|$ Perilaku (JS). Simpan CSS dan JS di file terpisah.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 2-4: Back-End ==========
+\begin{frame}{Teknologi Back-End}
+	\begin{itemize}
+		\item \textbf{PHP}: skrip sisi server; tag \texttt{<?php ... ?>}; dieksekusi di server, hasil (HTML) dikirim ke browser.
+		\item \textbf{MySQL}: RDBMS; data dalam tabel; operasi \textbf{CRUD} dengan SQL (SELECT, INSERT, UPDATE, DELETE).
+		\item \textbf{Web server}: Apache/Nginx menerima request, meneruskan ke PHP.
+		\item \textbf{API/REST}: URL = sumber daya; metode HTTP = operasi. Format data: \textbf{JSON}.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Alur Request: Browser $\to$ Database}
+	\begin{enumerate}
+		\item DNS lookup (domain $\to$ IP)
+		\item TCP handshake (port 443)
+		\item HTTP Request (GET/POST, header)
+		\item Web server $\to$ file PHP
+		\item PHP $\to$ query SQL $\to$ MySQL
+		\item MySQL $\to$ data $\to$ PHP
+		\item PHP $\to$ HTML/JSON $\to$ HTTP Response
+		\item Browser render (HTML + CSS + JS)
+	\end{enumerate}
+\end{frame}
+
+% ========== SECTION 2-5: SDLC ==========
+\begin{frame}{Siklus Pengembangan Web (SDLC)}
+	\begin{enumerate}
+		\item \textbf{Analisis kebutuhan}: kebutuhan fungsional \& non-fungsional $\to$ dokumen SRS.
+		\item \textbf{Perancangan}: wireframe, mockup, user flow, arsitektur sistem.
+		\item \textbf{Implementasi}: kode (HTML, CSS, JS, PHP); version control (Git).
+		\item \textbf{Pengujian}: unit, integrasi, end-to-end; kompatibilitas browser.
+		\item \textbf{Deployment}: server produksi, domain, DNS, SSL.
+		\item \textbf{Pemeliharaan}: bug fix, update, monitoring, backup.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{Waterfall vs Agile}
+	\begin{block}{Waterfall}
+		Tahap berurutan dari awal sampai akhir. Cocok jika kebutuhan sudah jelas dan stabil.
+	\end{block}
+	\begin{block}{Agile}
+		Iterasi pendek (\textbf{sprint}, 1--2 minggu); setiap sprint hasilkan fitur yang bisa diuji. Adaptif terhadap perubahan; populer di industri web.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 2-6: Alat ==========
+\begin{frame}{Alat Pengembangan Web}
+	\begin{itemize}
+		\item \textbf{Editor}: VS Code (IntelliSense, terminal, Live Server, Prettier, PHP Intelephense, ESLint).
+		\item \textbf{DevTools}: Elements (HTML/CSS), Console (JS), Network (request/response), Sources (debug).
+		\item \textbf{Server lokal}: XAMPP (Apache + MySQL + PHP); proyek di \texttt{htdocs}; \texttt{http://localhost/}; phpMyAdmin.
+		\item \textbf{Git}: \texttt{git init}, \texttt{git add}, \texttt{git commit}, \texttt{git push}; GitHub/GitLab.
+		\item \textbf{Terminal}: perintah Git, server, npm/Composer.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 2-7: Standar Web ==========
+\begin{frame}{Standar Web dan Organisasi}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{Organisasi} & \textbf{Standar} & \textbf{Contoh} \\
+		\hline
+		W3C & CSS, SVG, ARIA & Flexbox, Grid, WCAG \\
+		\hline
+		WHATWG & HTML & HTML Living Standard \\
+		\hline
+		ECMA & JavaScript & ES2015 (ES6), ES2024 \\
+		\hline
+		IETF & Protokol & HTTP/1.1, HTTP/2, HTTP/3, TLS \\
+		\hline
+	\end{tabular}
+	\vspace{0.5em}
+	\begin{block}{Mengapa penting?}
+		Interoperabilitas (konsisten di semua browser), aksesibilitas, masa depan kode. Validasi: \texttt{https://validator.w3.org/}
+	\end{block}
+\end{frame}
+
+% ========== SECTION 2-8: Peta Konsep ==========
+\begin{frame}{Peta Konsep: Hubungan Antar Teknologi}
+	\begin{itemize}
+		\item \textbf{Front-end}: Browser memuat HTML (struktur), CSS (tampilan), JavaScript (interaksi).
+		\item \textbf{Back-end}: Web server $\to$ PHP $\to$ MySQL; response HTML/JSON.
+		\item \textbf{Traditional}: setiap aksi = full page reload.
+		\item \textbf{AJAX/Fetch}: JavaScript request data di latar belakang; hanya bagian yang berubah di-update; pengalaman lebih responsif.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 2-9: Keamanan ==========
+\begin{frame}{Keamanan Web: Tiga Ancaman Utama}
+	\begin{block}{SQL Injection}
+		Input pengguna disisipkan ke query SQL. \textbf{Pencegahan}: \textbf{prepared statement}.
+	\end{block}
+	\begin{block}{XSS (Cross-Site Scripting)}
+		Skrip berbahaya disisipkan ke halaman. \textbf{Pencegahan}: \textbf{output encoding} (\texttt{htmlspecialchars()}).
+	\end{block}
+	\begin{block}{CSRF (Cross-Site Request Forgery)}
+		Request palsu memaksa aksi atas nama korban. \textbf{Pencegahan}: \textbf{CSRF token}, cookie \texttt{SameSite=Strict}.
+	\end{block}
+	\textbf{Prinsip}: \textit{Never trust user input}; validasi \& sanitasi di server.
+\end{frame}
+
+% ========== SECTION 2-10: Aksesibilitas dan Performa ==========
+\begin{frame}{Aksesibilitas Web (a11y)}
+	\begin{itemize}
+		\item Web dapat digunakan semua orang (termasuk penyandang disabilitas).
+		\item Standar \textbf{WCAG} (W3C WAI); prinsip \textbf{POUR}:
+		\item \textbf{Perceivable}: konten dapat diakses (mis. teks alternatif gambar).
+		\item \textbf{Operable}: antarmuka dapat dioperasikan (mis. keyboard).
+		\item \textbf{Understandable}: informasi dan operasi dapat dipahami.
+		\item \textbf{Robust}: konten dapat diinterpretasikan berbagai teknologi (HTML semantik, ARIA).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Performa: Core Web Vitals}
+	\begin{itemize}
+		\item \textbf{LCP} (Largest Contentful Paint): waktu hingga elemen terbesar selesai dirender. Target: $<$ 2,5 s.
+		\item \textbf{INP} (Interaction to Next Paint): responsivitas interaksi pertama. Target: $<$ 200 ms.
+		\item \textbf{CLS} (Cumulative Layout Shift): stabilitas visual (sedikit pergeseran). Target: $<$ 0,1.
+		\item Optimasi: kompres gambar (WebP), \texttt{width/height} pada \texttt{<img>}, minifikasi CSS/JS, caching, lazy loading.
+		\item \textbf{Lighthouse} (Chrome DevTools): audit Performance, Accessibility, Best Practices, SEO.
+	\end{itemize}
+\end{frame}
+
+% ========== Rangkuman dan Penutup ==========
+\begin{frame}{Rangkuman Bab 2}
+	\begin{itemize}
+		\item Kebutuhan fungsional vs non-fungsional (Sub-CPMK 1.1).
+		\item Arsitektur client-server; HTTP; DNS; komponen URL; metode \& status code.
+		\item Front-end: HTML, CSS, JavaScript; back-end: PHP, MySQL, API/REST.
+		\item SDLC: analisis, perancangan, implementasi, pengujian, deployment, pemeliharaan; Agile vs Waterfall.
+		\item Alat: VS Code, DevTools, XAMPP, Git.
+		\item Standar: W3C, WHATWG, ECMA, IETF.
+		\item Keamanan: SQL Injection, XSS, CSRF; defense in depth.
+		\item Aksesibilitas (WCAG/POUR) dan performa (Core Web Vitals).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{}
+	\centering
+	\vfill
+	\textbf{\Large Pertanyaan?}
+	\vfill
+\end{frame}
+
+\end{document}

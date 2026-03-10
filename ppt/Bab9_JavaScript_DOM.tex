@@ -1,0 +1,214 @@
+\documentclass[handout]{beamer}
+\mode<presentation>
+\usetheme[secheader]{Boadilla}
+\usecolortheme{whale}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[indonesian]{babel}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{bookmark}
+
+\setbeamertemplate{footline}
+{
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+			\usebeamerfont{author in head/foot}\insertshortauthor%
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.433333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+			\usebeamerfont{title in head/foot}\insertshorttitle
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.233333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+			\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em} \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+	\end{beamercolorbox}}%
+	\vskip0pt%
+}
+
+\title[Bab 9 -- JavaScript \& DOM]{Pemrograman Web}
+\subtitle{Bab 9: JavaScript Dasar, DOM, dan Manipulasi Elemen}
+\author{Cecep Suwanda, S.Si., M.Kom.}
+\institute{Universitas Bale Bandung}
+\date{\today}
+
+\begin{document}
+
+% Slide Judul
+\begin{frame}
+	\titlepage
+\end{frame}
+
+% Outline dan CPMK
+\begin{frame}{Outline Bab 9}
+	\begin{block}{Sub-CPMK 2.3}
+		Mengimplementasikan interaktivitas dengan JavaScript (DOM, event handling, validasi form).
+	\end{block}
+	\begin{itemize}
+		\item Pengenalan JavaScript dan Perannya di Web
+		\item Menjalankan JavaScript di Browser
+		\item Sintaks Dasar dan Variabel (var, let, const)
+		\item Tipe Data dan Operator
+		\item Konversi Tipe, String
+		\item Percabangan dan Perulangan
+		\item Fungsi, Scope, Closure
+		\item Array dan Objek
+		\item Pengenalan DOM
+		\item Mengakses Elemen dan Mengubah Konten
+		\item Event Handling dan Validasi Form
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 9-1: Pengenalan JavaScript ==========
+\begin{frame}{Pengenalan JavaScript}
+	\begin{itemize}
+		\item JavaScript: bahasa pemrograman di sisi \textbf{client} (browser); menambah \textbf{perilaku}---interaktivitas.
+		\item HTML = struktur, CSS = tampilan, JavaScript = perilaku (sistem listrik).
+		\item Diciptakan Brendan Eich (Netscape, 1995); standar \textbf{ECMAScript}.
+		\item ES6/ES2015: \texttt{let}/\texttt{const}, arrow function, class, template literal, Promise.
+		\item Ekosistem: browser, Node.js (server), React Native (mobile), Electron (desktop).
+	\end{itemize}
+	\begin{block}{Catatan}
+		JavaScript $\neq$ Java. JS dinamis, interpreted, prototipe; Java statically typed, compiled, berbasis class.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 9-2: Menjalankan JavaScript ==========
+\begin{frame}{Menjalankan JavaScript di Browser}
+	\begin{itemize}
+		\item \textbf{Inline}: \texttt{onclick="alert('Hi')"} --- hindari.
+		\item \textbf{Internal}: \texttt{<script>} di HTML --- untuk demo kecil.
+		\item \textbf{Eksternal}: \texttt{<script src="app.js">} --- \textbf{direkomendasikan}.
+		\item \textbf{DevTools Console}: F12 atau Ctrl+Shift+I; \texttt{console.log()}, \texttt{console.error()}, \texttt{console.table()}.
+		\item Atribut \texttt{defer}: tunda eksekusi sampai HTML selesai di-parse (urutan terjaga).
+		\item Atribut \texttt{async}: jalankan segera setelah diunduh (urutan tidak dijamin). Untuk DOM: gunakan \texttt{defer}.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 9-3, 9-4: Sintaks dan Variabel ==========
+\begin{frame}{Sintaks Dasar dan Variabel}
+	\begin{itemize}
+		\item Statement diakhiri \texttt{;} (ASI ada, tapi tulis eksplisit).
+		\item Case-sensitive; camelCase, PascalCase, UPPER\_SNAKE\_CASE.
+		\item \texttt{"use strict";} --- mode ketat, lebih aman.
+	\end{itemize}
+	\begin{block}{var vs let vs const}
+		\texttt{var}: function scope, hoisted, re-declare OK. \\
+		\texttt{let}: block scope, re-assign OK. \texttt{const}: block scope, tidak re-assign. \\
+		\textbf{Rekomendasi}: default \texttt{const}; \texttt{let} jika perlu ubah; hindari \texttt{var}.
+	\end{block}
+\end{frame}
+
+% ========== SECTION 9-5, 9-6: Tipe Data dan Operator ==========
+\begin{frame}{Tipe Data dan Operator}
+	\begin{itemize}
+		\item \textbf{Primitif}: number, string, boolean, undefined, null. \texttt{typeof} untuk cek tipe.
+		\item \textbf{Truthy/Falsy}: falsy = false, 0, "", null, undefined, NaN.
+		\item \textbf{Operator}: aritmetika (+, -, *, /, \%, **), perbandingan (===, !==), logika (\&\&, ||, !).
+		\item \textbf{Selalu gunakan \texttt{===}} (strict equality); hindari \texttt{==} (type coercion).
+		\item \texttt{??} (nullish coalescing): ganti hanya jika null/undefined.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 9-7, 9-8: Konversi dan String ==========
+\begin{frame}{Konversi Tipe dan String}
+	\begin{itemize}
+		\item \textbf{Type coercion}: \texttt{"5" + 3} $\to$ \texttt{"53"}; \texttt{"5" - 3} $\to$ 2.
+		\item \texttt{Number(x)}, \texttt{parseInt()}, \texttt{parseFloat()}; \texttt{String(x)}; \texttt{Boolean(x)}.
+		\item \texttt{NaN !== NaN}; gunakan \texttt{Number.isNaN(x)}.
+		\item \textbf{String}: \texttt{.length}, \texttt{.toUpperCase()}, \texttt{.includes()}, \texttt{.slice()}, \texttt{.split()}, \texttt{.trim()}.
+		\item \textbf{Template literal}: \texttt{`Hello \$\{name\}!`} --- interpolasi, multi-baris.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 9-9, 9-10: Percabangan dan Perulangan ==========
+\begin{frame}{Percabangan dan Perulangan}
+	\begin{itemize}
+		\item \texttt{if}, \texttt{else if}, \texttt{else}; \texttt{switch} (jangan lupa \texttt{break}).
+		\item Ternary: \texttt{kondisi ? nilaiTrue : nilaiFalse}.
+		\item \texttt{for}, \texttt{while}, \texttt{do...while}; \texttt{break}, \texttt{continue}.
+		\item \texttt{for...of}: iterasi elemen array; \texttt{for...in}: iterasi key objek (hindari untuk array).
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 9-11, 9-12: Fungsi dan Scope ==========
+\begin{frame}{Fungsi dan Scope}
+	\begin{itemize}
+		\item \textbf{Tiga cara}: function declaration (hoisted), function expression, arrow function.
+		\item Default parameter: \texttt{function f(a, b = 2) \{\}}.
+		\item Arrow function: lexical \texttt{this}; cocok untuk callback; tidak untuk method objek.
+		\item \textbf{Scope}: global, function (\texttt{var}), block (\texttt{let}/\texttt{const}).
+		\item \textbf{Closure}: fungsi ``mengingat'' variabel scope luar. Hindari variabel global.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 9-13, 9-14: Array dan Objek ==========
+\begin{frame}{Array}
+	\begin{itemize}
+		\item Indeks dari 0; dinamis; literal \texttt{[]}.
+		\item \texttt{push}, \texttt{pop}, \texttt{unshift}, \texttt{shift}, \texttt{slice}, \texttt{splice}.
+		\item \texttt{map}, \texttt{filter}, \texttt{reduce} --- metode fungsional.
+		\item Destructuring: \texttt{const [a, b, ...rest] = arr;}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Objek}
+	\begin{itemize}
+		\item Literal \texttt{\{\}}; key-value; dot notation \texttt{obj.key} atau bracket \texttt{obj["key"]}.
+		\item Properti + metode (fungsi di dalam objek).
+		\item \texttt{Object.keys(obj)}; \texttt{"key" in obj}; spread \texttt{\{...obj\}}.
+		\item Destructuring: \texttt{const \{nama, nim\} = mahasiswa;}
+		\item Array untuk koleksi terurut; Objek untuk entitas dengan properti bernama.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 9-15: DOM ==========
+\begin{frame}{Pengenalan DOM}
+	\begin{itemize}
+		\item \textbf{DOM} (Document Object Model): representasi HTML sebagai pohon objek.
+		\item Setiap elemen = \textbf{node}; \texttt{document} = titik masuk.
+		\item DOM adalah \textit{live} --- mencerminkan keadaan saat ini, bukan file HTML asli.
+		\item Metode akses: \texttt{getElementById()}, \texttt{querySelector()}, \texttt{querySelectorAll()}.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 9-16: Mengakses dan Mengubah DOM ==========
+\begin{frame}{Mengakses Elemen dan Mengubah Konten}
+	\begin{itemize}
+		\item \texttt{querySelector(".css")} --- 1 elemen; \texttt{querySelectorAll("p")} --- NodeList.
+		\item \texttt{textContent}: teks (aman XSS); \texttt{innerHTML}: HTML (risiko XSS dari input pengguna).
+		\item \texttt{setAttribute()}, \texttt{el.style}, \texttt{el.classList.add/toggle/remove}.
+		\item Untuk input pengguna: gunakan \texttt{textContent} atau \texttt{createElement()}+\texttt{appendChild()}.
+	\end{itemize}
+\end{frame}
+
+% ========== SECTION 9-17: Event ==========
+\begin{frame}{Event Handling}
+	\begin{itemize}
+		\item \texttt{addEventListener("event", handler)} --- click, submit, load, input, keydown, change.
+		\item \texttt{event.preventDefault()} --- cegah perilaku default (mis. submit form).
+		\item Validasi form: event \texttt{submit} + \texttt{preventDefault()} jika gagal.
+		\item \textbf{Event bubbling}: event naik dari target ke parent; \texttt{event.target} vs \texttt{event.currentTarget}.
+		\item \textbf{Event delegation}: satu listener di parent untuk banyak child --- efisien untuk daftar dinamis.
+	\end{itemize}
+\end{frame}
+
+% ========== Rangkuman dan Penutup ==========
+\begin{frame}{Rangkuman Bab 9}
+	\begin{itemize}
+		\item \texttt{const} default; \texttt{let} jika re-assign; hindari \texttt{var}.
+		\item Selalu \texttt{===}; waspadai type coercion.
+		\item Arrow function untuk callback; function declaration untuk method.
+		\item DOM: \texttt{querySelector}, \texttt{textContent} (bukan \texttt{innerHTML}) untuk keamanan.
+		\item Event: \texttt{addEventListener}; event delegation untuk efisiensi.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{}
+	\centering
+	\vfill
+	\textbf{\Large Pertanyaan?}
+	\vfill
+\end{frame}
+
+\end{document}
