@@ -1,0 +1,9 @@
+---
+description: Actionable skill to compile PPT (presentation slides)
+globs: ppt/*.tex
+---
+# Skill: Compile Presentations
+When asked to compile presentation slides, utilize the automated script:
+
+- Execute `ppt\compile_all.bat` to iteratively compile all `Bab*.tex` presentation slides.
+- The script runs all necessary `pdflatex` passes and automatically transfers the output `.pdf` and `.log` files to the `output/` directory at the project root.

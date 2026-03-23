@@ -1,0 +1,11 @@
+---
+description: Actionable skill to compile syllabus and course contracts
+globs: silabus/*.tex, kontrak_kuliah/*.tex
+---
+# Skill: Compile Administration Documents
+When modifying or compiling the syllabus or course contract:
+
+- Execute `silabus\compile_silabus.bat` for any syllabus documentation compilations.
+- Execute `kontrak_kuliah\compile_kontrak.bat` for contract compilations.
+
+Both scripts naturally move the resulting compiled PDFs to the `output/` folder to maintain directory hygiene.

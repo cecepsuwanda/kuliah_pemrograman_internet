@@ -1,0 +1,11 @@
+---
+description: Actionable skill to compile the main textbook and individual chapters
+globs: buku_ajar_pemrograman_web/**/*.tex
+---
+# Skill: Compile Book
+When asked to compile a chapter or the entire book, use the provided batch scripts instead of raw `pdflatex` commands.
+
+- **Entire book**: Execute `buku_ajar_pemrograman_web\compile_main.bat`
+- **Individual chapters**: Execute `buku_ajar_pemrograman_web\compile_bab.bat`
+
+Do not manually manage reference citations or multiple compilation steps. The scripts will automatically handle `bibtex`, purge auxiliary artifacts, and place the finished `PDF` into the root `output/` directory.

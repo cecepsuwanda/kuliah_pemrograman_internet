@@ -1,0 +1,33 @@
+# Project Context
+This is a standard LaTeX documentation project for a university course textbook titled "Pemrograman Web". It contains the main textbook, presentation slide decks, syllabus, and course contract. 
+
+# Project Structure
+- `buku_ajar/buku_ajar_pemrograman_web/`: Core directory for the textbook LaTeX source code (divided into chapters inside `bab/`).
+- `ppt/`: Contains LaTeX Beamer source files for the presentation slides.
+- `silabus/`: Contains LaTeX source for the syllabus documentation.
+- `kontrak_kuliah/`: Contains LaTeX source for the course contract.
+- `docs/`: Reference markdown files, old prompts, and topic structures.
+- `archive/`: Old folders or abandoned textbook scaffolding.
+- `output/`: The centralized destination directory where all compiled PDF and Log files are placed.
+
+# Automated Compilation Skills (Batch Scripts)
+Do NOT compile LaTeX files manually using raw `pdflatex` commands. Always use the provided batch scripts, which are already configured to compile correctly, clean temporary artifacts, and transfer the final `.pdf` and `.log` outputs into the `output/` directory.
+
+1. **Main Textbook:** Run `compile_main.bat` located inside `buku_ajar/buku_ajar_pemrograman_web/`.
+2. **Individual Chapters:** Run `compile_bab.bat` inside `buku_ajar/buku_ajar_pemrograman_web/`.
+3. **Presentations (PPT):** Run `compile_all.bat` located inside `ppt/`.
+4. **Syllabus:** Run `compile_silabus.bat` located inside `silabus/`.
+5. **Course Contract:** Run `compile_kontrak.bat` located inside `kontrak_kuliah/`.
+6. **Cleaning Up:** If needed, run `clean_all.bat` in the project root to delete auxiliary files across the project. (Output PDFs will not be harmed).
+
+# LaTeX Coding Guidelines
+- **Encoding**: Always use `UTF-8` character encoding.
+- **Language**: The textbook and all documents are written in `Bahasa Indonesia`. Keep AI generation strictly in academic Indonesian.
+- **Modularization**: Keep the main files (`main.tex`) clean. Use `\subfile` or `\input` for chapters, and define complex styles or packages within the `preamble.tex`.
+- **Images**: Place image assets inside the `images/` directory within their respective main topics.
+- **References**: Use `bibtex` using the `references.bib` file.
+
+# AI Assistant Guidelines
+1. When modifying content inside chapters (`bab-*.tex`), ensure to match the visual and structural templates consistently using the predefined LaTeX macros.
+2. If asked to write new materials or PPT slides, read the structures defined in `docs/` such as `docs/judul_materi/` to ensure the curriculum aligns properly. 
+3. Always verify changes by running the appropriate `.bat` script from the specific target directory and verifying the PDF success in `output/`.
