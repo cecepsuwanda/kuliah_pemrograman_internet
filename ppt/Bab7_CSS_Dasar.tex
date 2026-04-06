@@ -40,7 +40,7 @@
 \end{frame}
 
 % Outline dan CPMK
-\begin{frame}{Outline Bab 7}
+\begin{frame}[shrink=15]{Outline Bab 7}
 	\begin{block}{Sub-CPMK 2.2}
 		Menerapkan CSS3 untuk styling, layout (Flexbox/Grid), dan desain responsif.
 	\end{block}
@@ -74,7 +74,7 @@
 \end{frame}
 
 \begin{frame}{Tingkat Specificity Selector CSS}
-	\small
+	\resizebox{\linewidth}{!}{%
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\textbf{Selector} & \textbf{Contoh} & \textbf{Specificity} & \textbf{Keterangan} \\
@@ -89,11 +89,13 @@
 		\hline
 		Universal & \texttt{*} & 0-0-0-0 & Tidak berkontribusi \\
 		\hline
-	\end{tabular}
+	\end{tabular}%
+	}
 \end{frame}
 
 % ========== SECTION 7-2: Cara Menyisipkan CSS ==========
 \begin{frame}{Cara Menyisipkan CSS}
+	\resizebox{\linewidth}{!}{%
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\textbf{Metode} & \textbf{Cara} & \textbf{Kelebihan} & \textbf{Kekurangan} \\
@@ -104,7 +106,8 @@
 		\hline
 		Eksternal & File \texttt{.css} + \texttt{<link>} & Banyak halaman; di-cache & Satu request HTTP tambahan \\
 		\hline
-	\end{tabular}
+	\end{tabular}%
+	}
 	\vspace{0.5em}
 	\begin{block}{Praktik Terbaik}
 		Gunakan \textbf{CSS eksternal}. Inline hindari kecuali kasus khusus (email HTML, dynamic styles).
@@ -202,6 +205,7 @@
 
 % ========== SECTION 7-9: Display ==========
 \begin{frame}{Display: block, inline, inline-block}
+	\resizebox{\linewidth}{!}{%
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\textbf{Nilai} & \textbf{Perilaku} & \textbf{width/height} & \textbf{Contoh} \\
@@ -214,9 +218,12 @@
 		\hline
 		none & Hilang dari layout & --- & Disembunyikan sepenuhnya \\
 		\hline
-	\end{tabular}
+	\end{tabular}%
+	}
 	\vspace{0.5em}
-	\texttt{display: none} vs \texttt{visibility: hidden}: none tidak ambil ruang; hidden tetap ambil ruang.
+	\raggedright
+	\texttt{display: none}: elemen tidak mengambil ruang.\\
+	\texttt{visibility: hidden}: elemen tetap mengambil ruang.
 \end{frame}
 
 % ========== SECTION 7-10: Link LVHA ==========
@@ -245,6 +252,7 @@
 
 % ========== SECTION 7-12: Satuan ==========
 \begin{frame}{Satuan dan Nilai}
+	\resizebox{\linewidth}{!}{%
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\textbf{Satuan} & \textbf{Jenis} & \textbf{Relatif} & \textbf{Kapan} \\
@@ -259,8 +267,13 @@
 		\hline
 		vw/vh & Relatif & viewport & Full-width hero, font fluid \\
 		\hline
-	\end{tabular}
-	\texttt{calc(100\% - 2rem)}; \texttt{auto}, \texttt{inherit}, \texttt{initial}.
+	\end{tabular}%
+	}
+	\vspace{0.35em}
+	\begin{itemize}
+		\item \texttt{calc(100\% - 2rem)} untuk hitungan panjang--lebar
+		\item Nilai khusus: \texttt{auto}, \texttt{inherit}, \texttt{initial}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Strategi Satuan yang Direkomendasikan}

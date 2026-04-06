@@ -40,7 +40,7 @@
 \end{frame}
 
 % Outline dan CPMK
-\begin{frame}{Outline Bab 15}
+\begin{frame}[shrink=15]{Outline Bab 15}
 	\begin{block}{Sub-CPMK}
 		\begin{itemize}
 			\item \textbf{3.3}: Mengintegrasikan API, front-end $\leftrightarrow$ back-end
@@ -181,6 +181,7 @@
 \end{frame}
 
 \begin{frame}{Cookie: HttpOnly, Secure, SameSite}
+	\resizebox{\linewidth}{!}{%
 	\begin{tabular}{|l|l|l|}
 		\hline
 		\textbf{Atribut} & \textbf{Fungsi} & \textbf{Melindungi} \\
@@ -191,7 +192,8 @@
 		\hline
 		SameSite=Strict & Tidak dikirim lintas situs & CSRF \\
 		\hline
-	\end{tabular}
+	\end{tabular}%
+	}
 \end{frame}
 
 \begin{frame}{Pencegahan XSS: Output Encoding}
