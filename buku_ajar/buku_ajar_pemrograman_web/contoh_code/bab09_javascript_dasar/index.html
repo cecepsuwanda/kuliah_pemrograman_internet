@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipulasi DOM JavaScript</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; }
+        .kotak {
+            width: 200px; height: 100px;
+            background-color: lightgrey;
+            display: flex; justify-content: center; align-items: center;
+            margin: 20px 0; border: 2px solid #333;
+            transition: 0.3s;
+        }
+        .highlight {
+            background-color: #f1c40f; /* Kuning */
+            color: #d35400; font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 id="judul">Pelajaran JS DOM Sederhana</h1>
+    
+    <div id="kotak1" class="kotak">Kotak Target</div>
+
+    <!-- Tombol yang dipasangkan dengan ID untuk dipilih via Javascript -->
+    <button id="btnUbahText">Ubah Teks Judul</button>
+    <button id="btnUbahWarna">Ubah Warna Kotak</button>
+    <button id="btnTambahElemen">Tambah Paragraf Baru</button>
+    
+    <div id="container-baru"></div>
+
+    <!-- Menjalankan JS setelah elemen HTML termuat (Bottom inclusion) -->
+    <script src="app.js"></script>
+</body>
+</html>

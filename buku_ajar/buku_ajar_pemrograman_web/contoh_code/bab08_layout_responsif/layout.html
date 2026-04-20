@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout Responsif: Flexbox & Grid</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- FLEXBOX: Biasanya digunakan untuk tata letak linear (1 dimensi), misal Navbar -->
+    <nav class="navbar-flex">
+        <div class="logo">BrandKu</div>
+        <ul class="nav-links">
+            <li><a href="#">Beranda</a></li>
+            <li><a href="#">Produk</a></li>
+            <li><a href="#">Tentang Kami</a></li>
+            <li><a href="#">Kontak</a></li>
+        </ul>
+    </nav>
+
+    <!-- GRID: Biasanya digunakan untuk 2 dimensi (kolom dan baris), misal Galeri -->
+    <main>
+        <h1 class="pusat">Galeri Produk (CSS Grid)</h1>
+        <p class="pusat">Ubah ukuran layar (Mengecil) untuk melihat efek *Responsive* dengan Media Queries.</p>
+        
+        <section class="grid-galeri">
+            <article class="grid-item">
+                <img src="https://via.placeholder.com/400x300?text=Produk+1" alt="Produk 1">
+                <h3>Produk Satu</h3>
+            </article>
+            <article class="grid-item">
+                <img src="https://via.placeholder.com/400x300?text=Produk+2" alt="Produk 2">
+                <h3>Produk Dua</h3>
+            </article>
+            <article class="grid-item">
+                <img src="https://via.placeholder.com/400x300?text=Produk+3" alt="Produk 3">
+                <h3>Produk Tiga</h3>
+            </article>
+            <article class="grid-item">
+                <img src="https://via.placeholder.com/400x300?text=Produk+4" alt="Produk 4">
+                <h3>Produk Empat</h3>
+            </article>
+            <article class="grid-item">
+                <img src="https://via.placeholder.com/400x300?text=Produk+5" alt="Produk 5">
+                <h3>Produk Lima</h3>
+            </article>
+            <article class="grid-item">
+                <img src="https://via.placeholder.com/400x300?text=Produk+6" alt="Produk 6">
+                <h3>Produk Enam</h3>
+            </article>
+        </section>
+    </main>
+
+</body>
+</html>

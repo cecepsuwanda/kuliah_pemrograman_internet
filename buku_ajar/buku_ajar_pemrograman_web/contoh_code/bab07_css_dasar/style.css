@@ -1,0 +1,89 @@
+/* CSS Reset Sederhana */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Sangat krusial agar padding dan border tidak menambah ukuran lebar */
+}
+
+/* Tipografi Dasar */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+/* Selektor Element / Tag */
+h1, h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+/* Selektor Class */
+.header-utama {
+    background-color: #34495e;
+    color: #fff;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+/* Keturunan (Descendant Selector) */
+.header-utama h1 {
+    color: #ecf0f1;
+}
+
+.subtitle {
+    font-style: italic;
+    color: #bdc3c7;
+}
+
+.kontainer {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* Demonstrasi BOX MODEL */
+.kartu {
+    background-color: #fff;
+    /* PADDING: Jarak konten ke border */
+    padding: 25px;
+    /* BORDER: Garis pembatas luar padding */
+    border: 2px solid #ecf0f1;
+    /* MARGIN: Jarak border elemen ini ke elemen lain */
+    margin-bottom: 30px;
+    border-radius: 8px; /* Tepi membulat */
+}
+
+/* Mengesampingkan style bawaan kartu */
+.kartu-khusus {
+    border-color: #e74c3c;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tombol {
+    display: inline-block;
+    background-color: #e74c3c;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
+
+/* Pseudo-class untuk hover state */
+.tombol:hover {
+    background-color: #c0392b;
+}
+
+/* Visualisasi Jelas mengenai Box Model */
+.box-model-demo {
+    width: 300px;
+    margin: 50px auto;        /* Area Luar (Bening) */
+    border: 10px solid #2980b9; /* Area Border (Biru) */
+    padding: 30px;            /* Area Dalam/Lantai (Abu) */
+    background-color: #ecf0f1;
+    text-align: center;
+    font-weight: bold;
+}

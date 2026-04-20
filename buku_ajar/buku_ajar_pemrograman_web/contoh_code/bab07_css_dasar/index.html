@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dasar-dasar CSS</title>
+    <!-- Menghubungkan CSS eksternal -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header-utama">
+        <h1 id="judul-halaman">Perkenalan CSS &amp; Box Model</h1>
+        <p class="subtitle">Memahami Margin, Border, dan Padding</p>
+    </header>
+
+    <main class="kontainer">
+        <!-- Contoh sebuah selektor ID vs Class -->
+        <section class="kartu">
+            <h2>Kartu Pertama</h2>
+            <p>Ini adalah contoh kartu. Teks ini menggunakan font yang diatur melalui CSS eksternal. Perhatikan jaraknya dari teks lain.</p>
+            <a href="#" class="tombol">Baca Selengkapnya</a>
+        </section>
+
+        <section class="kartu kartu-khusus">
+            <h2>Kartu Spesial</h2>
+            <p>Kartu ini memilki bayangan (shadow) dan warna latar yang berbeda yang di-override dari kartu biasa menggunakan kelas <code style="color:red">.kartu-khusus</code>.</p>
+            <a href="#" class="tombol">Baca Selengkapnya</a>
+        </section>
+        
+        <div class="box-model-demo">
+            Ini adalah Demo CSS Box Model
+        </div>
+    </main>
+
+</body>
+</html>

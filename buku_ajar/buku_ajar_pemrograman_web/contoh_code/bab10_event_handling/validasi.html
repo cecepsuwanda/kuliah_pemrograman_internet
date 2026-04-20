@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Validasi dan Event Handling JS</title>
+    <style>
+        body { font-family: sans-serif; }
+        .error-message { color: red; font-size: 0.9em; display: none; }
+        .input-error { border: 2px solid red; }
+    </style>
+</head>
+<body>
+
+    <h2>Login Form Validasi</h2>
+    <form id="loginForm">
+        <p>
+            <label>Username:</label><br>
+            <input type="text" id="username">
+            <span id="errUser" class="error-message">Username wajib diisi (Min. 3 karakter).</span>
+        </p>
+        <p>
+            <label>Password:</label><br>
+            <input type="password" id="password">
+            <span id="errPass" class="error-message">Password minimal 6 karakter.</span>
+        </p>
+        <button type="submit">Login</button>
+    </form>
+    
+    <!-- Area untuk menampilkan hasil try-catch manual -->
+    <div id="hasilError"></div>
+
+    <script>
+        const form = document.getElementById("loginForm");
+        const inpUser = document.getElementById("username");
+        const inpPass = document.getElementById("password");
+        const errUser = document.getElementById("errUser");
+        const errPass = document.getElementById("errPass");
+
+        // Event ON CHANGE (validasi saat user selesai mengetik & keluar dari input)
+        inpUser.addEventListener("blur", function() {
+            if(inpUser.value.length < 3) {
+                inpUser.classList.add("input-error");
+                errUser.style.display = "block";
+            } else {
+                inpUser.classList.remove("input-error");
+                errUser.style.display = "none";
+            }
+        });
+
+        // Event ON SUBMIT (Pencegahan form dikirim jika belum valid)
+        form.addEventListener("submit", function(event) {
+            // event.preventDefault() menghentikan proses reload halaman / submit bawaan HTML
+            event.preventDefault(); 
+            
+            let valid = true;
+
+            if(inpUser.value.length < 3) valid = false;
+            if(inpPass.value.length < 6) {
+                valid = false;
+                inpPass.classList.add("input-error");
+                errPass.style.display = "block";
+            } else {
+                inpPass.classList.remove("input-error");
+                errPass.style.display = "none";
+            }
+
+            if(valid) {
+                alert("Login berhasil di sisi Klien!");
+                // Contoh Try-Catch memanggil variabel tak terdefinisi
+                try {
+                    // Ini akan sengaja menciptakan Error karena `variabelGaib` tidak ada
+                    console.log(variabelGaib);
+                } catch(e) {
+                    document.getElementById("hasilError").innerHTML = "<b>Tertangkap Error:</b> " + e.message;
+                    document.getElementById("hasilError").style.color = "red";
+                }
+            } else {
+                alert("Harap perbaiki form yang berwarna merah.");
+            }
+        });
+    </script>
+</body>
+</html>

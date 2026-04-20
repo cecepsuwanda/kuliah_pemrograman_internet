@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Pendaftaran dan Media</title>
+</head>
+<body>
+    <h1>Pendaftaran Bootcamp Web</h1>
+    
+    <!-- Contoh Integrasi Media Audio dan Video -->
+    <section>
+        <h2>Perkenalan Kursus</h2>
+        <!-- Menampilkan Video -->
+        <video width="480" controls>
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            Video tidak didukung oleh browser Anda.
+        </video>
+        <p>Atau dengarkan versi audionya:</p>
+        <!-- Menampilkan Audio -->
+        <audio controls>
+            <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+            Audio tidak didukung.
+        </audio>
+    </section>
+    
+    <hr>
+
+    <!-- Contoh Form Input Modern dengan Validasi Dasar -->
+    <section>
+        <h2>Formulir Pendaftaran</h2>
+        <!-- Menggunakan method POST dan pengiriman dummy (kosong) untuk tujuan contoh -->
+        <form action="#" method="POST">
+            
+            <!-- Pengelompokan input form dengan fieldset -->
+            <fieldset>
+                <legend>Informasi Pribadi</legend>
+                
+                <p>
+                    <label for="namaLengkap">Nama Lengkap:</label>
+                    <input type="text" id="namaLengkap" name="namaLengkap" required minlength="3" placeholder="Masukkan nama..." />
+                </p>
+                
+                <p>
+                    <label for="email">Alamat Email:</label>
+                    <input type="email" id="email" name="email" required placeholder="email@contoh.com" />
+                </p>
+                
+                <p>
+                    <label for="url">Website Pribadi (Opsional):</label>
+                    <input type="url" id="url" name="url" placeholder="https://" />
+                </p>
+                
+                <p>
+                    <label for="tanggalLahir">Tanggal Lahir:</label>
+                    <!-- Tipe date otomatis memunculkan datepicker di browser modern -->
+                    <input type="date" id="tanggalLahir" name="tanggalLahir" required />
+                </p>
+
+                <p>
+                    <label for="usia">Usia:</label>
+                    <input type="number" id="usia" name="usia" min="15" max="50" required />
+                </p>
+            </fieldset>
+
+            <fieldset>
+                <legend>Data Keahlian</legend>
+                
+                <p>Jalur Pembelajaran yang Diminati:</p>
+                <!-- Input Radio: Pengguna hanya dapat memilih satu -->
+                <p>
+                    <input type="radio" id="jalurFrontend" name="jalur" value="frontend" required>
+                    <label for="jalurFrontend">Front-End Developer</label><br>
+                    <input type="radio" id="jalurBackend" name="jalur" value="backend">
+                    <label for="jalurBackend">Back-End Developer</label>
+                </p>
+
+                <p>
+                    <label for="level">Tingkat Pengalaman:</label>
+                    <select id="level" name="level">
+                        <option value="pemula">Pemula (Tidak ada pengalaman)</option>
+                        <option value="menengah">Menengah (Pernah coding)</option>
+                        <option value="lanjut">Lanjut (Siap kerja)</option>
+                    </select>
+                </p>
+
+                <p>Keahlian yang Sudah Dimiliki:</p>
+                <!-- Input Checkbox: Pengguna bisa memilih beberapa -->
+                <p>
+                    <input type="checkbox" id="skillHtml" name="skills[]" value="html">
+                    <label for="skillHtml">HTML/CSS</label><br>
+                    <input type="checkbox" id="skillJs" name="skills[]" value="js">
+                    <label for="skillJs">JavaScript</label><br>
+                    <input type="checkbox" id="skillPhp" name="skills[]" value="php">
+                    <label for="skillPhp">PHP</label>
+                </p>
+
+                <p>
+                    <label for="alasan">Alasan Mengikuti Kursus:</label><br>
+                    <textarea id="alasan" name="alasan" rows="4" cols="50" required placeholder="Ceritakan motivasi Anda..."></textarea>
+                </p>
+            </fieldset>
+
+            <p>
+                <!-- Tombol Submit Form -->
+                <button type="submit">Daftar Sekarang</button>
+                <button type="reset">Bersihkan Isian</button>
+            </p>
+
+        </form>
+    </section>
+</body>
+</html>
