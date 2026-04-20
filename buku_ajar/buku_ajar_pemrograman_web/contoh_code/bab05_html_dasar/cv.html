@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curriculum Vitae — Contoh HTML Statis</title>
+</head>
+<body>
+    <header>
+        <h1>Curriculum Vitae</h1>
+        <p><strong>Nama:</strong> Cecep Maulana</p>
+        <p><strong>Posisi:</strong> Web Developer (Junior)</p>
+        <p><strong>Domisili:</strong> Bandung, Indonesia</p>
+    </header>
+
+    <nav aria-label="Navigasi CV">
+        <ol>
+            <li><a href="#ringkasan">Ringkasan</a></li>
+            <li><a href="#data-diri">Data Diri</a></li>
+            <li><a href="#pengalaman">Pengalaman</a></li>
+            <li><a href="#pendidikan">Pendidikan</a></li>
+            <li><a href="#keterampilan">Keterampilan</a></li>
+            <li><a href="#portofolio">Portofolio</a></li>
+            <li><a href="#sertifikasi">Sertifikasi</a></li>
+            <li><a href="#organisasi">Organisasi</a></li>
+            <li><a href="#kontak">Kontak</a></li>
+        </ol>
+    </nav>
+
+    <main>
+        <section id="ringkasan" aria-labelledby="judul-ringkasan">
+            <h2 id="judul-ringkasan">Ringkasan</h2>
+            <p>
+                Mahasiswa yang tertarik pada pengembangan web, khususnya membangun halaman yang rapi,
+                semantik, dan mudah diakses. Terbiasa menggunakan HTML, CSS dasar, dan JavaScript dasar
+                untuk membuat tampilan dan interaksi sederhana.
+            </p>
+        </section>
+
+        <section id="data-diri" aria-labelledby="judul-data-diri">
+            <h2 id="judul-data-diri">Data Diri</h2>
+            <dl>
+                <dt>Nama lengkap</dt>
+                <dd>Cecep Maulana</dd>
+
+                <dt>Email</dt>
+                <dd><a href="mailto:cecep.maulana@example.com">cecep.maulana@example.com</a></dd>
+
+                <dt>Telepon</dt>
+                <dd><a href="tel:+6281234567890">+62 812-3456-7890</a></dd>
+
+                <dt>Alamat</dt>
+                <dd>Jl. Contoh No. 10, Bandung</dd>
+
+                <dt>Website</dt>
+                <dd><a href="https://example.com">https://example.com</a></dd>
+            </dl>
+        </section>
+
+        <section id="pengalaman" aria-labelledby="judul-pengalaman">
+            <h2 id="judul-pengalaman">Pengalaman</h2>
+
+            <article aria-labelledby="judul-pengalaman-1">
+                <h3 id="judul-pengalaman-1">Proyek Praktikum — Website Profil Sederhana</h3>
+                <p><strong>Peran:</strong> Pengembang Frontend</p>
+                <p><strong>Periode:</strong> Feb 2026 – Mar 2026</p>
+                <ul>
+                    <li>Menyusun struktur halaman menggunakan elemen HTML semantik.</li>
+                    <li>Membuat formulir kontak sederhana dengan validasi dasar (required, type).</li>
+                    <li>Mengorganisasi konten menjadi beberapa bagian dengan navigasi anchor.</li>
+                </ul>
+            </article>
+
+            <article aria-labelledby="judul-pengalaman-2">
+                <h3 id="judul-pengalaman-2">Asisten Kelas (Volunteer) — Pemrograman Web Dasar</h3>
+                <p><strong>Peran:</strong> Pendamping Praktikum</p>
+                <p><strong>Periode:</strong> Sep 2025 – Des 2025</p>
+                <ul>
+                    <li>Membantu peserta memahami struktur dokumen HTML dan praktik elemen umum.</li>
+                    <li>Memberi umpan balik terkait kerapihan markup dan aksesibilitas dasar.</li>
+                </ul>
+            </article>
+        </section>
+
+        <section id="pendidikan" aria-labelledby="judul-pendidikan">
+            <h2 id="judul-pendidikan">Pendidikan</h2>
+            <ul>
+                <li>
+                    <strong>S1 — Teknik Informatika</strong><br>
+                    Universitas Contoh, 2024 – Sekarang
+                </li>
+                <li>
+                    <strong>SMA — IPA</strong><br>
+                    SMA Contoh, 2021 – 2024
+                </li>
+            </ul>
+        </section>
+
+        <section id="keterampilan" aria-labelledby="judul-keterampilan">
+            <h2 id="judul-keterampilan">Keterampilan</h2>
+            <ul>
+                <li><strong>HTML</strong>: struktur semantik, tautan, tabel sederhana, formulir</li>
+                <li><strong>CSS</strong>: selektor dasar, layout sederhana (flex dasar), tipografi</li>
+                <li><strong>JavaScript</strong>: DOM dasar, event handler sederhana</li>
+                <li><strong>Tools</strong>: VS Code/Cursor, Git dasar</li>
+            </ul>
+        </section>
+
+        <section id="portofolio" aria-labelledby="judul-portofolio">
+            <h2 id="judul-portofolio">Portofolio</h2>
+            <ul>
+                <li>
+                    <strong>Halaman CV Statis (HTML)</strong><br>
+                    <a href="cv.html">Buka halaman ini</a>
+                </li>
+                <li>
+                    <strong>Contoh Landing Page</strong><br>
+                    <a href="https://example.com/landing">https://example.com/landing</a>
+                </li>
+            </ul>
+        </section>
+
+        <section id="sertifikasi" aria-labelledby="judul-sertifikasi">
+            <h2 id="judul-sertifikasi">Sertifikasi</h2>
+            <ul>
+                <li>Dasar-Dasar Web (Contoh) — 2025</li>
+                <li>Git Fundamentals (Contoh) — 2025</li>
+            </ul>
+        </section>
+
+        <section id="organisasi" aria-labelledby="judul-organisasi">
+            <h2 id="judul-organisasi">Organisasi</h2>
+            <ul>
+                <li>Himpunan Mahasiswa Informatika — Anggota (2024 – Sekarang)</li>
+                <li>Komunitas Web Kampus — Anggota (2025 – Sekarang)</li>
+            </ul>
+        </section>
+
+        <section id="kontak" aria-labelledby="judul-kontak">
+            <h2 id="judul-kontak">Kontak</h2>
+            <p>
+                Untuk kerja sama atau pertanyaan, silakan hubungi melalui email
+                <a href="mailto:cecep.maulana@example.com">cecep.maulana@example.com</a>.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Cecep Maulana. Halaman statis hanya HTML.</p>
+    </footer>
+</body>
+</html>
