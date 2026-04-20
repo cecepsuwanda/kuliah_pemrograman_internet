@@ -53,5 +53,7 @@ $conn->close();
 ?>
 \end{webcode}
 
+{\sloppy
 Beberapa praktik terbaik dalam mengelola koneksi database: (1) simpan kredensial database di file konfigurasi terpisah yang tidak dapat diakses dari web (misalnya di luar \code{public\_html/}); (2) selalu set charset ke \code{utf8mb4} untuk mendukung karakter Unicode penuh; (3) cek \code{connect\_error} setelah koneksi dan berikan pesan error yang informatif; (4) tutup koneksi dengan \code{\$conn->close()} setelah selesai (meskipun PHP menutupnya otomatis di akhir skrip); (5) di lingkungan produksi, gunakan \textit{connection pooling} atau \textit{persistent connections} untuk performa yang lebih baik. Jangan pernah menampilkan detail koneksi database (host, username) ke pengguna jika koneksi gagal \cite{phpRightWay}.
+\par}
 

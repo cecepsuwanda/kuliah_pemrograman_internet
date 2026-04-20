@@ -13,14 +13,16 @@
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}[
-  box/.style={draw, rounded corners, minimum width=3cm, minimum height=1cm, align=center, font=\footnotesize, fill=#1},
+  scale=0.88,
+  transform shape,
+  box/.style={draw, rounded corners, minimum width=2.75cm, minimum height=0.9cm, align=center, font=\footnotesize, fill=#1},
   arrow/.style={-Stealth, thick},
-  node distance=1cm
+  node distance=0.85cm
 ]
   \node[box=blue!15] (prep) {1. Prepare\\template query};
-  \node[box=green!15, right=1.5cm of prep] (bind) {2. Bind\\parameter};
-  \node[box=orange!20, right=1.5cm of bind] (exec) {3. Execute};
-  \node[box=purple!15, right=1.5cm of exec] (fetch) {4. Fetch\\hasil};
+  \node[box=green!15, right=1.15cm of prep] (bind) {2. Bind\\parameter};
+  \node[box=orange!20, right=1.15cm of bind] (exec) {3. Execute};
+  \node[box=purple!15, right=1.15cm of exec] (fetch) {4. Fetch\\hasil};
 
   \draw[arrow] (prep) -- (bind);
   \draw[arrow] (bind) -- (exec);

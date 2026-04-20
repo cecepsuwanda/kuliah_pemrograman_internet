@@ -4,7 +4,9 @@
 
 \begin{table}[H]
 \centering
-\begin{tabular}{|P{2cm}|P{5cm}|P{5.5cm}|}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{|P{2.1cm}|P{4.95cm}|P{5.35cm}|}
 \hline
 \textbf{Aspek} & \textbf{Validasi} & \textbf{Sanitasi} \\
 \hline
@@ -14,7 +16,7 @@ Aksi & Tolak data tidak valid & Ubah/hapus karakter berbahaya \\
 \hline
 Kapan & Sebelum proses & Sebelum simpan/tampilkan \\
 \hline
-Contoh & \code{filter\_var(VALIDATE\_EMAIL)} & \code{htmlspecialchars()}, \code{trim()} \\
+Contoh & \parbox[t]{4.95cm}{\raggedright\ttfamily\scriptsize filter\_var(FILTER\_VALIDATE\_EMAIL)} & \code{htmlspecialchars()}, \code{trim()} \\
 \hline
 Lokasi & Server (wajib), client (UX) & Server \\
 \hline

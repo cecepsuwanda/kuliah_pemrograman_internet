@@ -22,8 +22,11 @@ for %%F in (bab-*.tex) do (
     
     pdflatex -interaction=nonstopmode -halt-on-error "%%F"
     if !errorlevel! equ 0 (
-        set "BIBINPUTS=%SOURCE_DIR%;"
-        bibtex "!FILE_NAME!"
+        findstr /l /c:"\citation{" "!FILE_NAME!.aux" >nul 2>&1
+        if not errorlevel 1 (
+            set "BIBINPUTS=%SOURCE_DIR%;"
+            bibtex "!FILE_NAME!"
+        )
         pdflatex -interaction=nonstopmode -halt-on-error "%%F"
         pdflatex -interaction=nonstopmode -halt-on-error "%%F"
         

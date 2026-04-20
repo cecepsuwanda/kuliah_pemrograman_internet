@@ -2,7 +2,7 @@
 
 Validasi di server memastikan data yang masuk aman sebelum diproses. PHP menyediakan \code{filter\_var()} dengan filter bawaan: \code{FILTER\_VALIDATE\_EMAIL} (cek format email), \code{FILTER\_VALIDATE\_INT} (cek bilangan bulat), \code{FILTER\_VALIDATE\_URL} (cek format URL). Strategi \textbf{whitelist}: hanya terima nilai yang eksplisit diizinkan --- misalnya status hanya boleh ``aktif'' atau ``nonaktif''. Tolak input tidak valid dengan pesan error yang jelas tanpa mengungkap detail teknis \cite{phpRightWay}.
 
-\begin{webcode}[language=PHP, caption={Validasi input lengkap di server}]
+\begin{webcode}[language=PHP, basicstyle=\ttfamily\footnotesize, caption={Validasi input lengkap di server}]
 <?php
 function sanitize(string $s): string {
   return htmlspecialchars(trim($s), ENT_QUOTES, 'UTF-8');

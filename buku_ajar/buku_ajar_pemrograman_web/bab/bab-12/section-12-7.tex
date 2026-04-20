@@ -50,6 +50,6 @@ echo "Return print: $hasil\n";  // 1
 Untuk keperluan debugging, PHP menyediakan fungsi \code{var\_dump()} dan \code{print\_r()} yang menampilkan informasi lebih detail tentang variabel. Fungsi \code{var\_dump()} menampilkan tipe dan nilai variabel, sehingga sangat berguna saat mencari bug terkait tipe data. Fungsi \code{print\_r()} menampilkan nilai variabel dalam format yang lebih mudah dibaca, terutama untuk array dan objek. Kedua fungsi ini sebaiknya hanya digunakan saat pengembangan, bukan di lingkungan produksi \cite{phpRightWay}.
 
 \begin{catatan}
-\textbf{Keamanan Output:} Saat menampilkan data yang berasal dari input pengguna (misalnya dari form atau URL), \textbf{selalu} gunakan \code{htmlspecialchars(\$data, ENT\_QUOTES, 'UTF-8')} untuk mencegah serangan \textit{Cross-Site Scripting} (XSS). Tanpa sanitasi, penyerang dapat menyuntikkan kode JavaScript berbahaya melalui input form \cite{owaspXss}.
+\textbf{Keamanan Output:} Saat menampilkan data yang berasal dari input pengguna (misalnya dari form atau URL), \textbf{selalu} gunakan \texttt{htmlspecialchars(\$data,\allowbreak ENT\_QUOTES,\allowbreak 'UTF-8')} untuk mencegah serangan \textit{Cross-Site Scripting} (XSS). Tanpa sanitasi, penyerang dapat menyuntikkan kode JavaScript berbahaya melalui input form \cite{owaspXss}.
 \end{catatan}
 
