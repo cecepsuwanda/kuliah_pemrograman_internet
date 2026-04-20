@@ -1,4 +1,4 @@
-\section{Aksesibilitas dan Performa: Prinsip Dasar}
+﻿\section{Aksesibilitas dan Performa: Prinsip Dasar}
 \textbf{Aksesibilitas web} (sering disingkat \textbf{a11y}) berarti memastikan bahwa situs web dapat digunakan oleh semua orang, termasuk penyandang disabilitas. Sekitar 15\% populasi dunia memiliki beberapa bentuk disabilitas yang dapat memengaruhi cara mereka mengakses web: gangguan penglihatan, pendengaran, motorik, atau kognitif. Aksesibilitas bukan hanya tentang penyandang disabilitas---pengguna dengan koneksi lambat, layar kecil, atau yang menggunakan browser teks juga diuntungkan. Selain alasan kemanusiaan, aksesibilitas juga meningkatkan kualitas kode, memperluas jangkauan pengguna, dan di beberapa negara merupakan kewajiban hukum \cite{mdnAccessibility}.
 
 Standar utama aksesibilitas web adalah \textbf{WCAG} (Web Content Accessibility Guidelines) yang dikembangkan oleh W3C WAI. WCAG didasarkan pada empat prinsip yang disingkat \textbf{POUR}:
@@ -63,7 +63,7 @@ Praktik aksesibilitas dasar yang perlu diterapkan sejak awal meliputi: menggunak
 
 Optimasi performa dimulai dari hal-hal dasar: mengompres gambar ke format modern (WebP), menentukan dimensi \code{width} dan \code{height} pada elemen \code{<img>} untuk mencegah layout shift, meminifikasi file CSS dan JavaScript, memanfaatkan caching browser dengan header \code{Cache-Control}, dan menempatkan skrip JavaScript di akhir \code{<body>} atau menggunakan atribut \code{defer} agar tidak menghalangi rendering halaman. Teknik \textit{lazy loading} memuat gambar hanya saat mereka mendekati area pandang pengguna, mengurangi waktu pemuatan awal \cite{mdnToolsTesting}.
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \begin{tabular}{|P{2.5cm}|P{4.5cm}|P{4.5cm}|}
 \hline

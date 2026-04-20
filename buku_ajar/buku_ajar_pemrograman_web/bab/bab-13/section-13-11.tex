@@ -1,10 +1,10 @@
-\section{Koneksi Database: Pengenalan MySQL dan MySQLi}
+﻿\section{Koneksi Database: Pengenalan MySQL dan MySQLi}
 
 \textbf{MySQL} adalah sistem manajemen basis data relasional (\textit{RDBMS}) open-source yang paling banyak digunakan bersama PHP. MySQL menggunakan bahasa SQL (\textit{Structured Query Language}) untuk operasi data dan mendukung fitur seperti \textit{stored procedures}, \textit{triggers}, \textit{views}, dan \textit{transactions}. Kombinasi PHP dan MySQL (sering disebut sebagai bagian dari stack \textbf{LAMP} --- Linux, Apache, MySQL, PHP) telah menjadi fondasi ribuan aplikasi web, dari blog sederhana hingga platform e-commerce berskala besar \cite{mysqlDocs}.
 
 PHP menyediakan ekstensi \textbf{MySQLi} (MySQL Improved) sebagai pengganti ekstensi \code{mysql\_*} yang sudah dihapus sejak PHP 7.0. MySQLi menawarkan dua gaya pemrograman: \textbf{prosedural} (mirip fungsi lama) dan \textbf{OOP} (menggunakan class dan object). Gaya OOP lebih direkomendasikan karena lebih bersih, konsisten, dan sejalan dengan paradigma OOP yang dipelajari di bab ini. MySQLi mendukung \textit{prepared statements}, \textit{multiple statements}, dan \textit{transactions} --- fitur yang tidak ada di ekstensi lama \cite{phpManual}.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[
   box/.style={draw, rounded corners, minimum width=3.2cm, minimum height=1.2cm, align=center, font=\small, fill=#1},

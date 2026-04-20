@@ -1,10 +1,10 @@
-\section{Form HTML: Elemen form, input, label, dan button}
+﻿\section{Form HTML: Elemen form, input, label, dan button}
 
 Formulir (form) HTML merupakan mekanisme utama untuk mengumpulkan masukan pengguna di web. Setiap kali pengguna mendaftar akun, mengirim pesan kontak, melakukan pencarian, atau mengisi survei, di balik antarmuka tersebut terdapat elemen \code{<form>}. Form memungkinkan data dari browser dikirim ke server untuk diproses, disimpan, atau ditanggapi. Pemahaman menyeluruh tentang elemen-elemen form adalah keterampilan fundamental yang dibutuhkan setiap pengembang web \cite{mdnHtmlIntro}.
 
 Elemen \code{<form>} berfungsi sebagai wadah yang membungkus semua kontrol input. Dua atribut penting pada \code{<form>} adalah \code{action} yang menentukan URL tujuan pengiriman data, dan \code{method} yang menentukan metode HTTP yang digunakan. Metode \code{GET} mengirim data melalui URL query string (cocok untuk pencarian), sedangkan \code{POST} mengirim data di body request (lebih aman untuk data sensitif). Atribut tambahan seperti \code{enctype} diperlukan saat form mengirim file \cite{webdevHtml}.
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \begin{tabular}{|P{2.5cm}|P{4cm}|P{5.5cm}|}
 \hline
@@ -28,7 +28,7 @@ Elemen \code{<form>} berfungsi sebagai wadah yang membungkus semua kontrol input
 
 Elemen \code{<label>} adalah pasangan wajib untuk setiap kontrol input. Label memberikan teks deskriptif yang menjelaskan apa yang harus diisi pengguna. Pengaitan label dengan input dilakukan melalui atribut \code{for} pada label yang nilainya sama dengan \code{id} pada input. Pengaitan ini penting bukan hanya untuk aksesibilitas (pembaca layar membacakan label saat input difokuskan), tetapi juga untuk kemudahan penggunaan---klik pada label akan memfokuskan atau mengaktifkan input terkait, memperbesar area klik terutama untuk checkbox dan radio button \cite{mdnAccessibility}.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \resizebox{\textwidth}{!}{%
 \begin{tikzpicture}[node distance=2cm, transform shape, every node/.style={font=\footnotesize}]

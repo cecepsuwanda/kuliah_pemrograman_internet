@@ -1,4 +1,4 @@
-\section{Unggah File (File Upload) dan Validasi}
+﻿\section{Unggah File (File Upload) dan Validasi}
 
 Fitur \textbf{file upload} memungkinkan pengguna mengirimkan file dari browser ke server melalui form HTML. Ini digunakan dalam banyak aplikasi: mengunggah foto profil, lampiran dokumen, bukti pembayaran, atau impor data CSV. Form upload memerlukan dua syarat khusus: metode \code{POST} dan atribut \code{enctype="multipart/form-data"} pada elemen \code{<form>}. Elemen input menggunakan tipe \code{file}: \code{<input type="file" name="berkas">}. Tanpa \code{enctype} yang benar, file tidak akan terkirim ke server \cite{phpManual}.
 
@@ -6,7 +6,7 @@ Di sisi server, data file yang diunggah tersedia di superglobal \code{\$\_FILES}
 
 Validasi file upload sangat krusial untuk keamanan. Beberapa langkah validasi yang wajib dilakukan: (1) periksa kode error: \code{\$\_FILES['berkas']['error'] === UPLOAD\_ERR\_OK}; (2) batasi ukuran file (misalnya maks. 2 MB); (3) validasi tipe file menggunakan \textit{whitelist} ekstensi yang diizinkan; (4) jangan percaya \code{\$\_FILES['type']} dari client --- validasi MIME di server menggunakan \code{finfo\_file()} atau \code{mime\_content\_type()}; (5) buat nama file baru (misalnya dengan \code{uniqid()}) untuk mencegah overwrite atau path traversal. Kegagalan validasi upload dapat membuat server rentan terhadap serangan \textit{file inclusion} atau \textit{remote code execution} \cite{owaspXss}.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[
   box/.style={draw, rounded corners, minimum width=2.8cm, minimum height=0.9cm, align=center, font=\footnotesize, fill=#1},

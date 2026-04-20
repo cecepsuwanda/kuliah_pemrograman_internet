@@ -1,8 +1,8 @@
-\section{Reverse Proxy dan HTTPS (Konsep Dasar)}
+﻿\section{Reverse Proxy dan HTTPS (Konsep Dasar)}
 
 \textbf{Reverse proxy} adalah server yang berada di depan web server aplikasi, menerima semua request dari client, lalu meneruskannya ke server backend. Manfaat: (1) \textbf{SSL termination} --- HTTPS ditangani di proxy, backend cukup HTTP; (2) \textbf{load balancing} --- mendistribusikan traffic ke beberapa backend; (3) \textbf{caching} --- menyimpan response untuk request identik; (4) \textbf{keamanan} --- menyembunyikan detail server backend. Nginx sangat populer sebagai reverse proxy \cite{mdnDeploy}.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[
   box/.style={draw, rounded corners, minimum width=2cm, minimum height=0.9cm, align=center, font=\footnotesize, fill=#1},

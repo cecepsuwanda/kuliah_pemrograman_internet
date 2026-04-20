@@ -1,10 +1,10 @@
-\section{Normal Flow dan Positioning}
+﻿\section{Normal Flow dan Positioning}
 
 \textbf{Normal flow} adalah model tata letak default browser di mana elemen HTML disusun berdasarkan urutan kemunculannya di dokumen. Elemen block (seperti \code{div}, \code{p}, \code{h1}) ditumpuk secara vertikal---masing-masing memulai baris baru dan mengisi lebar penuh kontainer. Elemen inline (seperti \code{span}, \code{a}, \code{strong}) mengalir horizontal dalam baris teks. Memahami normal flow adalah prasyarat untuk memahami bagaimana positioning CSS memodifikasi perilaku ini \cite{mdnCss}.
 
 Properti \code{position} mengontrol bagaimana elemen diposisikan relatif terhadap normal flow. CSS menyediakan lima nilai positioning: \code{static} (default), \code{relative}, \code{absolute}, \code{fixed}, dan \code{sticky}. Setiap nilai memiliki konteks referensi dan perilaku yang berbeda terhadap layout elemen lain. Properti pendamping \code{top}, \code{right}, \code{bottom}, dan \code{left} menentukan offset dari posisi referensi; properti ini hanya berlaku jika \code{position} bukan \code{static} \cite{webdevCss}.
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \begin{tabular}{|P{2cm}|P{3cm}|P{3.5cm}|P{3.5cm}|}
 \hline

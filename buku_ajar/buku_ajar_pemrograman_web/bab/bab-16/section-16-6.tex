@@ -1,8 +1,8 @@
-\section{Konfigurasi PHP untuk Produksi}
+﻿\section{Konfigurasi PHP untuk Produksi}
 
 Konfigurasi PHP di produksi berbeda signifikan dari development. File \code{php.ini} mengontrol perilaku PHP secara global. Pengaturan kritis: matikan \code{display\_errors} agar error tidak terekspos ke pengguna; aktifkan \code{log\_errors} dan tentukan \code{error\_log} ke file; aktifkan \code{OPcache} untuk caching bytecode (meningkatkan performa 2-3x); atur \code{session.cookie\_httponly}, \code{session.cookie\_secure}, dan \code{session.cookie\_samesite} untuk keamanan session \cite{phpManual}.
 
-\begin{table}[ht]
+\begin{table}[H]
 \centering
 \begin{tabular}{|P{4cm}|P{3cm}|P{3cm}|P{2.5cm}|}
 \hline

@@ -1,10 +1,10 @@
-\section{Validasi HTML dan Alat Validator}
+﻿\section{Validasi HTML dan Alat Validator}
 
 Validasi HTML adalah proses memeriksa apakah dokumen HTML mengikuti aturan sintaks dan semantik yang ditetapkan oleh standar (WHATWG HTML Living Standard atau rekomendasi W3C). Dokumen yang valid cenderung berperilaku lebih konsisten di berbagai browser, lebih mudah dirawat, dan lebih aksesibel. Meskipun browser modern sangat toleran terhadap kesalahan HTML (mereka mencoba ``memperbaiki'' markup secara otomatis), ketergantungan pada toleransi ini dapat menghasilkan perilaku yang tidak terduga dan sulit dideteksi \cite{w3cValidator}.
 
 Terdapat beberapa jenis kesalahan yang dideteksi validator. Kesalahan sintaks meliputi tag yang tidak ditutup, atribut tanpa tanda kutip, dan karakter khusus yang tidak di-escape. Kesalahan struktural termasuk elemen yang ditempatkan di lokasi yang tidak diizinkan (misalnya \code{<p>} di dalam \code{<p>}), atau elemen yang hilang (misalnya \code{<title>} di dalam \code{<head>}). Peringatan (warnings) biasanya terkait praktik yang kurang optimal namun tidak melanggar standar secara teknis \cite{whatwgHtml}.
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \begin{tabular}{|P{2.5cm}|P{4cm}|P{5.5cm}|}
 \hline

@@ -1,8 +1,8 @@
-\section[Mengambil Hasil Query (Fetch) dengan MySQLi]{Mengambil Hasil Query (Fetch) dengan MySQLi}
+﻿\section[Mengambil Hasil Query (Fetch) dengan MySQLi]{Mengambil Hasil Query (Fetch) dengan MySQLi}
 
 Setelah menjalankan query SELECT, hasilnya berupa object \code{mysqli\_result} yang berisi baris-baris data. Untuk mengakses data, gunakan metode \textit{fetch}: \code{fetch\_assoc()} mengembalikan satu baris sebagai array asosiatif (key = nama kolom), \code{fetch\_row()} sebagai array numerik, \code{fetch\_object()} sebagai object, dan \code{fetch\_all()} mengembalikan semua baris sekaligus. Setelah selesai, bebaskan memori dengan \code{\$result->free()} \cite{phpManual}.
 
-\begin{table}[ht]
+\begin{table}[H]
 \centering
 \begin{tabular}{|P{3.5cm}|P{4cm}|P{5cm}|}
 \hline

@@ -1,4 +1,4 @@
-\section{Cookie: Membuat dan Membaca Cookie}
+﻿\section{Cookie: Membuat dan Membaca Cookie}
 
 \textbf{Cookie} adalah mekanisme penyimpanan data kecil di sisi \textbf{client} (browser). Berbeda dengan session yang menyimpan data di server, cookie menyimpan data langsung di komputer pengguna dalam bentuk pasangan \textit{key-value}. Cookie dikirim oleh server ke browser melalui header HTTP \code{Set-Cookie}, dan browser secara otomatis mengirimkan cookie kembali ke server pada setiap request berikutnya yang sesuai dengan domain dan path cookie. Cookie umumnya digunakan untuk fitur ``ingat saya'' pada login, menyimpan preferensi tampilan, atau tracking pengguna \cite{phpManual}.
 
@@ -29,7 +29,7 @@ setcookie("tema", "", time() - 3600, '/');
 
 Keamanan cookie sangat penting karena data tersimpan di sisi client dan dapat dimodifikasi atau dicuri. Atribut keamanan yang harus diperhatikan: \code{Secure} memastikan cookie hanya dikirim melalui HTTPS; \code{HttpOnly} mencegah akses cookie melalui JavaScript (mitigasi XSS); \code{SameSite} mengontrol pengiriman cookie pada request lintas situs (\code{Strict}, \code{Lax}, atau \code{None}). Jangan simpan data sensitif (password, token rahasia) langsung di cookie; jika perlu, enkripsi terlebih dahulu \cite{owaspXss}.
 
-\begin{table}[ht]
+\begin{table}[H]
 \centering
 \begin{tabular}{|P{3cm}|P{5cm}|P{5cm}|}
 \hline

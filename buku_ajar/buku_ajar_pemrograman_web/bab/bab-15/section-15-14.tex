@@ -1,8 +1,8 @@
-\section{Pencegahan XSS: Output Encoding dan Sanitasi Output}
+﻿\section{Pencegahan XSS: Output Encoding dan Sanitasi Output}
 
 \textbf{Cross-Site Scripting (XSS)} terjadi saat penyerang menyisipkan kode JavaScript melalui input yang kemudian ditampilkan di halaman tanpa di-escape. Kode tersebut dieksekusi di browser korban, memungkinkan pencurian cookie/session, redirect ke situs phishing, atau defacement. Ada tiga tipe: \textbf{Stored XSS} (disimpan di database), \textbf{Reflected XSS} (dipantulkan dari URL/parameter), dan \textbf{DOM-based XSS} (dimanipulasi di client-side) \cite{owaspXss}.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[
   box/.style={draw, rounded corners, minimum width=2cm, minimum height=0.8cm, align=center, font=\footnotesize, fill=#1},

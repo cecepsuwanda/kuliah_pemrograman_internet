@@ -1,4 +1,4 @@
-\section{Keamanan Web: Pengenalan Konsep Dasar}
+﻿\section{Keamanan Web: Pengenalan Konsep Dasar}
 Keamanan adalah aspek kritis dalam pengembangan web yang tidak boleh diabaikan sejak tahap awal. Aplikasi web yang terhubung ke internet menghadapi berbagai ancaman: pencurian data pengguna, manipulasi konten, penyalahgunaan akses, dan perusakan layanan. Statistik menunjukkan bahwa sebagian besar insiden keamanan web disebabkan oleh kerentanan yang sebenarnya dapat dicegah dengan praktik coding yang baik. Memahami konsep keamanan dasar membantu Anda membangun kebiasaan yang aman dan mencegah kerentanan sebelum terjadi \cite{owaspXss}.
 
 \textbf{OWASP} (Open Web Application Security Project) adalah komunitas global yang secara rutin menerbitkan \textbf{OWASP Top 10}---daftar sepuluh risiko keamanan aplikasi web yang paling kritis. Daftar ini menjadi acuan industri untuk memprioritaskan upaya keamanan. Tiga ancaman yang paling sering dijumpai oleh pemula---dan yang paling relevan untuk pembahasan di buku ini---adalah SQL Injection, Cross-Site Scripting (XSS), dan Cross-Site Request Forgery (CSRF). Pemahaman ketiga ancaman ini menjadi fondasi keamanan web yang akan Anda kembangkan di bab-bab selanjutnya \cite{owaspXss}.
@@ -32,7 +32,7 @@ $result = $stmt->get_result();
 
 Prinsip keamanan yang perlu dipegang sejak awal adalah \textbf{defense in depth}: jangan bergantung pada satu lapisan keamanan saja. Validasi input di client (JavaScript) meningkatkan UX dengan memberikan umpan balik cepat, tetapi validasi di server (PHP) adalah pertahanan utama karena validasi di client dapat dilewati. Selalu asumsikan bahwa \textit{semua input dari pengguna berpotensi berbahaya} dan harus divalidasi serta disanitasi sebelum diproses, disimpan, atau ditampilkan \cite{phpRightWay}.
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \begin{tabular}{|P{2.5cm}|P{3.5cm}|P{2.5cm}|P{3.8cm}|}
 \hline

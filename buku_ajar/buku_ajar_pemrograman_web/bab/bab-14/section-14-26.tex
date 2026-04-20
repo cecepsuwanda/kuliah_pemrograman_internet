@@ -1,4 +1,4 @@
-\section{Prepared Statement dengan MySQLi: Mencegah SQL Injection}
+﻿\section{Prepared Statement dengan MySQLi: Mencegah SQL Injection}
 
 \textbf{SQL injection} adalah serangan di mana penyerang menyisipkan kode SQL berbahaya melalui input pengguna. Misalnya, input \code{' OR 1=1 --} pada form login dapat melewati autentikasi jika query dibangun dengan penggabungan string. \textbf{Prepared statement} mencegah serangan ini dengan memisahkan template query dari data: MySQL memperlakukan data sebagai literal (nilai), bukan sebagai bagian dari perintah SQL \cite{phpRightWay}.
 
@@ -10,7 +10,7 @@
 \textbf{Dengan prepared statement}: \code{\$stmt = \$conn->prepare("SELECT * FROM users WHERE user=? AND pass=?")}. Input \code{"admin' --"} diperlakukan sebagai string literal, bukan perintah SQL. Serangan gagal.
 \end{contoh}
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[
   box/.style={draw, rounded corners, minimum width=3cm, minimum height=1cm, align=center, font=\footnotesize, fill=#1},

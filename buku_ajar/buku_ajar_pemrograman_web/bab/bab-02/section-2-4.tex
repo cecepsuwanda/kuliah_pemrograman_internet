@@ -1,4 +1,4 @@
-\section{Teknologi Back-End: Server-Side Scripting dan Basis Data}
+﻿\section{Teknologi Back-End: Server-Side Scripting dan Basis Data}
 \textbf{Back-end} (sisi server) adalah bagian aplikasi web yang berjalan di server dan tidak terlihat langsung oleh pengguna. Back-end bertanggung jawab untuk memproses logika bisnis, mengelola data, mengautentikasi pengguna, dan mengirimkan respons ke client. Bahasa pemrograman sisi server yang populer antara lain PHP, Python, Node.js, Ruby, dan Java. Dalam buku ini, kita menggunakan PHP sebagai bahasa utama sisi server karena kemudahannya untuk pemula dan integrasinya yang erat dengan web server Apache \cite{phpManual}.
 
 \textbf{PHP} (PHP: Hypertext Preprocessor) adalah bahasa skrip sisi server yang dirancang khusus untuk pengembangan web. Kode PHP dieksekusi di server; hasilnya (biasanya HTML) dikirim ke browser. PHP dapat disisipkan langsung ke dalam file HTML menggunakan tag \code{<?php ... ?>}, membuatnya mudah dipelajari oleh pemula. Saat browser meminta file \code{.php}, web server meneruskan file tersebut ke interpreter PHP. PHP mengeksekusi kode, menghasilkan output HTML, lalu web server mengirimkan hasilnya ke browser. Browser hanya menerima HTML murni---kode PHP tidak pernah terlihat oleh pengguna \cite{phpRightWay}.
@@ -44,7 +44,7 @@ $conn->close();
 
 Konsep \textbf{API} (Application Programming Interface) menghubungkan front-end dan back-end. Dalam konteks web, API memungkinkan front-end mengirim request ke back-end untuk mengambil atau mengubah data, biasanya dalam format \textbf{JSON} (JavaScript Object Notation). Pola arsitektur \textbf{REST} (Representational State Transfer) mendefinisikan konvensi untuk merancang API yang konsisten: setiap URL merepresentasikan sumber daya, dan metode HTTP menentukan operasi yang dilakukan. Misalnya, \code{GET /api/produk} mengambil daftar produk, sedangkan \code{POST /api/produk} menambahkan produk baru \cite{mdnLearn}.
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \begin{tabular}{|P{3cm}|P{4cm}|P{4.5cm}|}
 \hline
@@ -86,7 +86,7 @@ Seorang pengguna membuka halaman daftar produk di toko online \code{https://toko
 Seluruh proses ini terjadi dalam hitungan milidetik, memberikan pengalaman yang mulus bagi pengguna.
 \end{contoh}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \resizebox{\textwidth}{!}{%
 \begin{tikzpicture}[node distance=1.5cm, every node/.style={font=\footnotesize}, transform shape]

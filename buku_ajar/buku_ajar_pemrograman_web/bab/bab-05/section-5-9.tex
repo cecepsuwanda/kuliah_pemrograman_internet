@@ -1,6 +1,6 @@
-\section{Fitur Teks Lanjutan: Kutipan, Kode, Subscript, Superscript}
+﻿\section{Fitur Teks Lanjutan: Kutipan, Kode, Subscript, Superscript}
 
-HTML menyediakan elemen khusus untuk menandai berbagai jenis konten khusus seperti kutipan, blok kode, dan notasi matematika. Elemen \code{<blockquote>} digunakan untuk kutipan panjang yang mencakup satu atau lebih paragraf, biasanya ditampilkan browser dengan indentasi di kedua sisi. Atribut opsional \code{cite} pada \code{<blockquote>} dapat berisi URL yang menunjuk ke sumber kutipan tersebut. Untuk kutipan inline yang lebih pendek dan berada dalam aliran teks paragraf, gunakan elemen \code{<q>}. Browser biasanya secara otomatis menambahkan tanda kutip yang sesuai dengan bahasa dokumen (misalnya "..." untuk Inggris, «...» untuk beberapa bahasa Eropa) di sekitar konten \code{<q>}, menghindari kebutuhan menulis tanda kutip secara manual dalam markup \cite{mdnHtmlIntro}.
+HTML menyediakan elemen khusus untuk menandai berbagai jenis konten khusus seperti kutipan, blok kode, dan notasi matematika. Elemen \code{<blockquote>} digunakan untuk kutipan panjang yang mencakup satu atau lebih paragraf, biasanya ditampilkan browser dengan indentasi di kedua sisi. Atribut opsional \code{cite} pada \code{<blockquote>} dapat berisi URL yang menunjuk ke sumber kutipan tersebut. Untuk kutipan inline yang lebih pendek dan berada dalam aliran teks paragraf, gunakan elemen \code{<q>}. Browser biasanya secara otomatis menambahkan tanda kutip yang sesuai dengan bahasa dokumen (misalnya "..." untuk Inggris, Â«...Â» untuk beberapa bahasa Eropa) di sekitar konten \code{<q>}, menghindari kebutuhan menulis tanda kutip secara manual dalam markup \cite{mdnHtmlIntro}.
 
 Teks kode sumber dan output komputer ditandai menggunakan elemen \code{<code>} untuk inline code dan kombinasi \code{<pre>} dengan \code{<code>} untuk blok kode. Elemen \code{<code>} memberikan semantik bahwa konten adalah fragmen kode sumber atau output komputer, yang biasanya ditampilkan dengan font monospaced. Elemen \code{<pre>} (preformatted text) sangat penting untuk blok kode karena mempertahankan spasi, indentasi, dan jeda baris persis seperti dalam source code. Tanpa \code{<pre>}, browser akan mengabaikan spasi berlebih dan menjadikan kode sulit dibaca. Kombinasi \code{<pre><code>...</code></pre>} adalah pola standar untuk menampilkan blok kode dengan formatting terjaga.
 
@@ -8,7 +8,7 @@ Notasi matematika dan kimia sering memerlukan karakter yang diposisikan di atas 
 
 \textbf{HTML entities} adalah kode khusus untuk menampilkan karakter yang memiliki makna khusus dalam HTML atau karakter yang tidak mudah diketik. Karena karakter \code{<}, \code{>}, dan \code{\char38} memiliki makna khusus dalam HTML (membuka tag, menutup tag, dan memulai entity), mereka harus ditulis sebagai entity \code{\char38lt;}, \code{\char38gt;}, dan \code{\char38amp;} ketika ingin menampilkannya sebagai teks biasa. Entity \code{\char38nbsp;} (non-breaking space) membuat spasi yang tidak akan dipisahkan oleh pemisah baris, berguna untuk mencegah "janda" (kata tunggal di akhir paragraf) atau memisahkan angka dan satuan. Entity \code{\char38copy;} menghasilkan simbol copyright \textcopyright, dan \code{\char38reg;} menghasilkan trademark \textregistered.
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \begin{tabular}{|P{3cm}|P{3cm}|P{5cm}|}
 \hline

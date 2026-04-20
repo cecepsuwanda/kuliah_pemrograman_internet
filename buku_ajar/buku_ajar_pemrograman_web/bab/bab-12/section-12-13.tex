@@ -1,10 +1,10 @@
-\section{Superglobal: \$\_GET, \$\_POST, dan \$\_SERVER}
+﻿\section{Superglobal: \$\_GET, \$\_POST, dan \$\_SERVER}
 
 Variabel \textbf{superglobal} adalah variabel bawaan PHP yang tersedia di seluruh scope --- baik di luar maupun di dalam fungsi --- tanpa perlu menggunakan kata kunci \code{global}. Superglobal berisi informasi penting tentang permintaan HTTP, data form, session, cookie, dan lingkungan server. Tiga superglobal yang paling sering digunakan dalam pemrosesan form adalah \code{\$\_GET}, \code{\$\_POST}, dan \code{\$\_SERVER}. Memahami cara kerja dan cara mengamankan superglobal ini adalah kunci untuk membangun aplikasi web yang fungsional dan aman \cite{phpManual}.
 
 \code{\$\_GET} adalah array asosiatif yang berisi parameter dari query string URL. Ketika pengguna mengakses URL seperti \code{halaman.php?nama=Budi\&umur=20}, maka \code{\$\_GET["nama"]} berisi \code{"Budi"} dan \code{\$\_GET["umur"]} berisi \code{"20"}. Data GET terlihat di URL, sehingga cocok untuk parameter pencarian atau navigasi yang tidak sensitif. \code{\$\_POST} berisi data yang dikirim melalui form HTML dengan \code{method="post"}; data tidak terlihat di URL dan cocok untuk data sensitif atau jumlah data yang besar \cite{w3schoolsPhp}.
 
-\begin{table}[ht]
+\begin{table}[H]
 \centering
 \begin{tabular}{|P{2.5cm}|P{4.5cm}|P{4.5cm}|}
 \hline

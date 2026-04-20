@@ -1,4 +1,4 @@
-\section{Class dan Object: Properti dan Metode}
+﻿\section{Class dan Object: Properti dan Metode}
 
 Dalam OOP PHP, \textbf{class} adalah cetak biru yang mendefinisikan struktur data (\textbf{properti}) dan perilaku (\textbf{metode}) untuk suatu entitas. Class dideklarasikan dengan kata kunci \code{class} diikuti nama class yang mengikuti konvensi PascalCase, lalu blok kode dalam kurung kurawal. Properti adalah variabel yang dideklarasikan di dalam class menggunakan kata kunci visibility (\code{public}, \code{protected}, atau \code{private}), sedangkan metode adalah fungsi yang didefinisikan di dalam class dan dapat mengakses properti melalui kata kunci \code{\$this}. Sebuah \textbf{object} adalah instance dari class yang dibuat menggunakan operator \code{new} \cite{phpManual}.
 
@@ -40,7 +40,7 @@ echo $mhs->getJurusan(); // OK - via getter
 
 Berikut adalah representasi visual class \code{Mahasiswa} dalam format diagram class UML. Diagram ini menunjukkan nama class di bagian atas, properti di tengah, dan metode di bawah. Tanda \code{+} berarti public, \code{-} berarti private.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}
   \node[draw, rectangle, minimum width=6cm, font=\bfseries] (classname) {Mahasiswa};

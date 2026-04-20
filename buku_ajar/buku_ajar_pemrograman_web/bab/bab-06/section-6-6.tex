@@ -1,10 +1,10 @@
-\section{Media: Audio dan Video}
+﻿\section{Media: Audio dan Video}
 
 HTML5 menghadirkan dukungan native untuk media audio dan video melalui elemen \code{<audio>} dan \code{<video>}, menghilangkan ketergantungan pada plugin pihak ketiga seperti Flash yang dahulu mendominasi pemutaran media di web. Kemampuan memutar media langsung di browser merupakan salah satu fitur terpenting HTML5, memungkinkan pengembang membuat pengalaman multimedia yang konsisten di berbagai platform tanpa risiko keamanan dan performa yang terkait dengan plugin \cite{mdnHtmlIntro}. Elemen-elemen ini didukung oleh semua browser modern dan menyediakan API JavaScript untuk kontrol terprogram.
 
 Atribut \code{controls} pada elemen media menampilkan antarmuka kontrol bawaan browser (putar, jeda, volume, progress bar). Atribut \code{autoplay} memulai pemutaran otomatis saat halaman dimuat---namun sebagian besar browser modern memblokir autoplay audio/video kecuali media di-mute, demi kenyamanan pengguna. Atribut \code{loop} memutar ulang media secara terus-menerus, dan \code{muted} memulai media tanpa suara. Elemen \code{<source>} di dalam \code{<audio>} atau \code{<video>} memungkinkan penyediaan beberapa format fallback---browser akan memilih format pertama yang didukung \cite{webdevHtml}.
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \begin{tabular}{|P{2cm}|P{2cm}|P{2.5cm}|P{2cm}|P{2.5cm}|}
 \hline

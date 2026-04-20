@@ -1,9 +1,9 @@
-\section{Protokol HTTP: Metode, Status Code, dan Header}
+﻿\section{Protokol HTTP: Metode, Status Code, dan Header}
 \textbf{HTTP} (Hypertext Transfer Protocol) adalah protokol lapisan aplikasi yang menjadi bahasa komunikasi antara browser dan server web. HTTP bersifat \textbf{stateless}, artinya setiap request berdiri sendiri tanpa mengingat request sebelumnya. Untuk mengelola keadaan (misalnya login pengguna), digunakan mekanisme tambahan seperti cookie dan session. Versi HTTP yang umum digunakan saat ini adalah HTTP/1.1 dan HTTP/2, dengan HTTP/3 yang mulai diadopsi \cite{mdnLearn}. HTTP/2 memperkenalkan fitur \textit{multiplexing} yang memungkinkan pengiriman beberapa request secara bersamaan dalam satu koneksi, meningkatkan kecepatan pemuatan halaman secara signifikan.
 
 Setiap request HTTP memiliki \textbf{metode} yang menunjukkan aksi yang diinginkan terhadap sumber daya. Metode yang paling sering digunakan adalah \code{GET} untuk mengambil data dan \code{POST} untuk mengirim data. Selain itu terdapat \code{PUT} untuk memperbarui data secara keseluruhan, \code{DELETE} untuk menghapus, serta \code{PATCH} untuk pembaruan parsial. Pemilihan metode yang tepat sesuai prinsip RESTful membuat API lebih mudah dipahami dan dikelola \cite{webdevLearn}. Tabel berikut merangkum metode HTTP yang umum digunakan beserta karakteristiknya.
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \begin{tabular}{|P{2cm}|P{4cm}|P{2cm}|P{3.5cm}|}
 \hline
@@ -30,7 +30,7 @@ OPTIONS & Menanyakan metode yang didukung server & Tidak & Ya \\
 \textbf{Status code} dalam HTTP response memberi tahu client tentang hasil pemrosesan request. Kode terdiri dari tiga digit dan dikelompokkan berdasarkan kategori: 1xx (informasi), 2xx (sukses), 3xx (redirect), 4xx (error dari client), dan 5xx (error dari server). Mengenali status code membantu Anda men-debug masalah saat halaman tidak tampil atau data gagal dikirim. Berikut adalah status code yang paling sering dijumpai dalam pengembangan web \cite{mdnLearn}.
 
 \vspace{0.5cm}
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \begin{tabular}{|P{1.5cm}|P{3cm}|P{7cm}|}
 \hline

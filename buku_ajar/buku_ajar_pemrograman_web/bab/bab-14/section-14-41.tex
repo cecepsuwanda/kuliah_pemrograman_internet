@@ -1,8 +1,8 @@
-\section{Praktik Terbaik: Struktur Proyek dan Standar Penulisan (PHP The Right Way)}
+﻿\section{Praktik Terbaik: Struktur Proyek dan Standar Penulisan (PHP The Right Way)}
 
 Proyek PHP yang terstruktur baik mudah dipahami dan dipelihara. Struktur yang direkomendasikan memisahkan \textit{public files} (yang diakses browser: \code{index.php}, CSS, JS) dari \textit{application logic} (class, konfigurasi, template). File \code{index.php} di folder \code{public/} menjadi satu-satunya entry point --- pattern ini disebut \textit{front controller} dan meningkatkan keamanan karena file internal tidak bisa diakses langsung via URL \cite{phpRightWay}.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[
   folder/.style={draw, rounded corners, minimum width=2cm, minimum height=0.6cm, font=\footnotesize\ttfamily, fill=#1, align=left},

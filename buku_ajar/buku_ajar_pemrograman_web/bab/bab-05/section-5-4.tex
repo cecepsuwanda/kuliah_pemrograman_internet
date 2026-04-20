@@ -1,4 +1,4 @@
-\section{Struktur Dokumen HTML5}
+﻿\section{Struktur Dokumen HTML5}
 
 Setiap dokumen HTML5 mengikuti struktur standar yang harus dipahami oleh pengembang web agar browser dapat menginterpretasikan dan menampilkan konten dengan benar. Struktur ini dimulai dengan deklarasi doctype yang memberitahu browser versi HTML yang digunakan. Untuk HTML5, deklarasi ini sangat sederhana: \code{<!DOCTYPE html>}. Deklarasi ini bersifat case-insensitive namun konvensi umum menuliskannya dengan huruf besar. Tanpa deklarasi doctype yang benar, browser mungkin akan beralih ke \textit{quirks mode} yang dapat menyebabkan inkonsistensi dalam rendering CSS dan perilaku JavaScript \cite{whatwgHtml}.
 
@@ -6,7 +6,7 @@ Setelah deklarasi doctype, elemen root \code{<html>} membungkus seluruh konten d
 
 Struktur hierarki dokumen HTML dapat divisualisasikan sebagai pohon (tree) dengan elemen \code{<html>} sebagai akar (root). Setiap elemen di dalamnya menjadi cabang dengan anak-anak (children) yang lebih spesifik. Memahami struktur pohon ini sangat penting karena CSS selectors dan JavaScript DOM manipulation bekerja berdasarkan hubungan hierarki ini - konsep parent, child, sibling, dan ancestor. Semantik yang benar dalam struktur dokumen juga membantu mesin pencari memahami hierarki informasi dan meningkatkan aksesibilitas bagi pengguna yang mengandalkan teknologi bantu seperti pembaca layar.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[
   node distance=1.2cm,

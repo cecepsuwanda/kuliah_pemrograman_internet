@@ -1,8 +1,8 @@
-\section{Event: addEventListener, Objek Event, dan Propagation}
+﻿\section{Event: addEventListener, Objek Event, dan Propagation}
 
 \code{addEventListener(type, handler)} mendaftarkan fungsi yang dipanggil saat event tertentu terjadi pada elemen. Berbeda dari atribut HTML (\code{onclick="..."}), \code{addEventListener} memungkinkan \textbf{multiple handlers} pada satu elemen dan mendukung phase capturing. Parameter ketiga opsional: \code{true} untuk capturing phase, atau objek opsi \code{\{capture, once, passive\}} \cite{jsInfo}.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \resizebox{0.7\textwidth}{!}{%
 \begin{tikzpicture}[every node/.style={font=\footnotesize}]
@@ -18,7 +18,7 @@
 \caption{Event propagation: capturing (turun) $\rightarrow$ target $\rightarrow$ bubbling (naik)}
 \end{figure}
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \scriptsize
 \begin{tabular}{|P{3.5cm}|P{2.4cm}|P{2.6cm}|}

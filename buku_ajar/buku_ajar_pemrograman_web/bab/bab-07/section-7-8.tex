@@ -1,10 +1,10 @@
-\section{Lebar, Tinggi, dan box-sizing}
+﻿\section{Lebar, Tinggi, dan box-sizing}
 
 Properti \code{width} dan \code{height} mengatur dimensi area content elemen. Nilai dapat berupa satuan absolut (px), relatif (em, rem, \%), atau keyword seperti \code{auto} (browser menghitung secara otomatis). Untuk layout yang fleksibel, properti \code{min-width}, \code{max-width}, \code{min-height}, dan \code{max-height} membatasi ukuran elemen agar tetap responsif---misalnya, \code{max-width: 800px;} memastikan elemen tidak melebihi 800px meskipun kontainernya lebih lebar \cite{mdnCss}.
 
 Properti \textbf{box-sizing} mengontrol cara browser menghitung dimensi total elemen. Terdapat dua model: \code{content-box} (default) dan \code{border-box}. Perbedaan keduanya sangat signifikan dan sering menjadi sumber kebingungan bagi pemula. Memahami box-sizing adalah langkah kritis untuk menghasilkan layout yang presisi dan mudah diprediksi \cite{webdevCss}.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \resizebox{\textwidth}{!}{%
 \begin{tikzpicture}[every node/.style={font=\footnotesize}]

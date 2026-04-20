@@ -1,4 +1,4 @@
-\section{Siklus Pengembangan Web (SDLC untuk Web)}
+﻿\section{Siklus Pengembangan Web (SDLC untuk Web)}
 Pengembangan aplikasi web mengikuti tahapan yang terstruktur, mirip dengan \textbf{SDLC} (Software Development Life Cycle) pada rekayasa perangkat lunak umumnya. Tujuan siklus ini adalah menghasilkan aplikasi yang memenuhi kebutuhan pengguna, berkualitas, dan dapat dipelihara. Setiap tahapan memiliki output yang menjadi input bagi tahapan berikutnya, sehingga proses berjalan sistematis. Tanpa pendekatan yang terstruktur, proyek web berisiko mengalami keterlambatan, pembengkakan biaya, dan hasil yang tidak sesuai harapan \cite{mdnLearn}.
 
 Tahap pertama adalah \textbf{analisis kebutuhan}: mengidentifikasi apa yang harus dilakukan aplikasi (\textbf{kebutuhan fungsional}) dan standar kualitas yang harus dipenuhi (\textbf{kebutuhan non-fungsional}). Kebutuhan fungsional mendeskripsikan fitur-fitur yang akan dimiliki aplikasi, misalnya: pengguna dapat mendaftar, login, dan melihat daftar produk. Kebutuhan non-fungsional mencakup aspek seperti kecepatan respons di bawah 2 detik, keamanan data pengguna, dan ketersediaan 99,9\%. Hasil tahap ini berupa dokumen kebutuhan yang menjadi acuan seluruh tim \cite{webdevLearn}.
@@ -11,7 +11,7 @@ Tahap keempat adalah \textbf{pengujian} (testing), yang memastikan aplikasi berf
 
 Tahap kelima adalah \textbf{deployment}, yaitu memasang aplikasi di server produksi agar dapat diakses oleh pengguna melalui internet. Proses ini meliputi konfigurasi web server, pengaturan domain dan DNS, pemasangan sertifikat SSL, dan migrasi basis data. Setelah deployment, tahap \textbf{pemeliharaan} dimulai: memperbaiki bug yang ditemukan pengguna, memperbarui fitur berdasarkan umpan balik, memantau performa dan keamanan, serta melakukan backup data secara berkala. Siklus ini bersifat iteratif---hasil pemeliharaan sering memunculkan kebutuhan baru yang memulai siklus kembali \cite{mdnDeploy}.
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \begin{tabular}{|P{2.5cm}|P{4cm}|P{5cm}|}
 \hline
@@ -57,7 +57,7 @@ Untuk proyek \textit{Toko Online Sederhana}, berikut contoh kebutuhan yang terid
 \end{itemize}
 \end{contoh}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \begin{adjustbox}{max width=\textwidth, max totalheight=0.5\textheight}
 \begin{tikzpicture}[node distance=1.8cm, every node/.style={font=\footnotesize}, transform shape]

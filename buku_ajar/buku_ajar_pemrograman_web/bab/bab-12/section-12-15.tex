@@ -1,10 +1,10 @@
-\section{Include dan Require: Mengorganisasi Kode dalam Banyak File}
+﻿\section{Include dan Require: Mengorganisasi Kode dalam Banyak File}
 
 Seiring bertambahnya kompleksitas proyek web, menulis seluruh kode dalam satu file menjadi tidak praktis dan sulit dipelihara. PHP menyediakan empat pernyataan untuk menyisipkan kode dari file lain: \code{include}, \code{require}, \code{include\_once}, dan \code{require\_once}. Keempat pernyataan ini memungkinkan Anda memecah kode menjadi file-file terpisah sesuai fungsinya --- misalnya file konfigurasi, file fungsi utilitas, file header, dan file footer --- sehingga kode lebih terorganisir dan mudah digunakan ulang \cite{phpManual}.
 
 Perbedaan utama antara \code{include} dan \code{require} terletak pada penanganan error ketika file yang disisipkan tidak ditemukan. \code{include} hanya menghasilkan \textit{warning} (E\_WARNING) dan eksekusi skrip tetap berlanjut; \code{require} menghasilkan \textit{fatal error} (E\_COMPILE\_ERROR) dan menghentikan eksekusi. Versi \code{\_once} memastikan file hanya disisipkan satu kali meskipun pernyataan dipanggil berkali-kali, mencegah duplikasi definisi fungsi atau kelas yang menyebabkan error \cite{phpRightWay}.
 
-\begin{table}[ht]
+\begin{table}[H]
 \centering
 \begin{tabular}{|P{3cm}|P{3.5cm}|P{3cm}|P{2.5cm}|}
 \hline
@@ -56,7 +56,7 @@ include 'templates/header.php';
 
 Mengorganisasi kode ke dalam file terpisah memiliki banyak keuntungan: kode lebih mudah dibaca, perubahan pada satu komponen tidak memengaruhi file lain, dan komponen yang sama (seperti header/footer) dapat digunakan ulang di banyak halaman tanpa duplikasi. Berikut diagram struktur folder proyek web PHP yang terorganisir dengan baik.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[
   every node/.style={font=\small\ttfamily},

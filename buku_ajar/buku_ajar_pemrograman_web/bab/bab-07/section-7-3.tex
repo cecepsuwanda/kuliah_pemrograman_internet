@@ -1,8 +1,8 @@
-\section{Sintaks Dasar CSS: Selector, Properti, dan Nilai}
+﻿\section{Sintaks Dasar CSS: Selector, Properti, dan Nilai}
 
 Sintaks CSS memiliki struktur yang sederhana dan konsisten. Setiap \textbf{blok aturan} (rule block) terdiri dari sebuah \textbf{selector} yang menentukan elemen target, diikuti oleh kurung kurawal \code{\{\}} yang membungkus satu atau lebih \textbf{deklarasi}. Setiap deklarasi berisi pasangan \textbf{properti} dan \textbf{nilai} yang dipisahkan oleh titik dua (\code{:}), dan diakhiri dengan titik koma (\code{;}). Meskipun titik koma pada deklarasi terakhir bersifat opsional, praktik terbaik adalah selalu menulisnya untuk menghindari error saat menambah deklarasi baru \cite{mdnCss}.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \resizebox{0.85\textwidth}{!}{%
 \begin{tikzpicture}[node distance=0.8cm, transform shape, every node/.style={font=\footnotesize}]
@@ -27,7 +27,7 @@ Komentar dalam CSS ditulis menggunakan \code{/* ... */} dan dapat membentang beb
 
 Beberapa properti CSS mendukung penulisan \textbf{shorthand}---menggabungkan beberapa properti terkait dalam satu deklarasi. Misalnya, \code{margin: 10px 20px 10px 20px;} adalah shorthand untuk \code{margin-top}, \code{margin-right}, \code{margin-bottom}, \code{margin-left} (searah jarum jam dari atas). Shorthand mempercepat penulisan namun perlu dipahami agar tidak secara tidak sengaja me-reset nilai yang tidak dimaksud. Jika hanya dua nilai diberikan (\code{margin: 10px 20px;}), nilai pertama berlaku vertikal dan kedua berlaku horizontal \cite{cssTricks}.
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \begin{tabular}{|P{3cm}|P{4.5cm}|P{4.5cm}|}
 \hline

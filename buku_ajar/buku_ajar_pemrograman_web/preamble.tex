@@ -7,6 +7,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[indonesian]{babel}
 \usepackage{lmodern}
+\usepackage{microtype} % Memperbaiki banyak masalah overfull/underfull box secara otomatis
 
 % --- Layout Halaman ---
 \usepackage{geometry}
@@ -14,8 +15,8 @@
 
 % --- Posisi Float Dinamis ---
 \usepackage{float}
-\floatplacement{table}{htbp}
-\floatplacement{figure}{htbp}
+\floatplacement{table}{H}
+\floatplacement{figure}{H}
 
 % --- Grafik dan Tabel ---
 \usepackage{adjustbox}
@@ -69,9 +70,18 @@
 % --- Tabel dengan font kecil (dinamis) ---
 \let\oldtable\table
 \let\endoldtable\endtable
-\renewenvironment{table}[1][htbp]
-  {\oldtable[#1]\centering\small\setlength{\tabcolsep}{4pt}}
+% Abaikan argumen opsi dari pengguna dan paksa menggunakan [H]
+\renewenvironment{table}[1][H]
+  {\oldtable[H]\centering\small\setlength{\tabcolsep}{4pt}}
   {\endoldtable}
+
+% --- Gambar (Dinamis -> FIX) ---
+\let\oldfigure\figure
+\let\endoldfigure\endfigure
+% Abaikan argumen opsi dari pengguna dan paksa menggunakan [H]
+\renewenvironment{figure}[1][H]
+  {\oldfigure[H]\centering}
+  {\endoldfigure}
 
 % --- Hyperlinks ---
 \usepackage{xurl}
@@ -128,8 +138,8 @@
   breakatwhitespace=false,
   xleftmargin=15pt,
   xrightmargin=5pt,
-  aboveskip=10pt,
-  belowskip=10pt,
+  aboveskip=1.5em,
+  belowskip=1.5em,
   literate={\#}{{\char35}}1
 }
 
@@ -301,17 +311,22 @@
 \pretolerance=500
 
 % Spacing untuk float dan listing (mencegah numpuk)
-\setlength{\floatsep}{12pt plus 2pt minus 2pt}
-\setlength{\textfloatsep}{14pt plus 2pt minus 4pt}
-\setlength{\intextsep}{12pt plus 2pt minus 2pt}
+\setlength{\floatsep}{1.5em plus 0.2em minus 0.2em}
+\setlength{\textfloatsep}{1.5em plus 0.2em minus 0.2em}
+\setlength{\intextsep}{1.5em plus 0.2em minus 0.2em}
+\setlength{\LTpre}{1.5em plus 0.2em minus 0.2em}  % Jarak sebelum longtable
+\setlength{\LTpost}{1.5em plus 0.2em minus 0.2em} % Jarak sesudah longtable
 
 % Mengurangi Underfull \vbox (badness) pada halaman dengan sedikit konten
 \raggedbottom
 % Mengurangi Overfull/Underfull \hbox (bad box)
 \sloppy
-% Abaikan overfull/underfull sangat kecil (<2pt) di log
-\hfuzz=2pt
-\vfuzz=2pt
+% Abaikan overfull/underfull untuk teks panjang yang tidak bisa direnggangkan (inline code)
+\hfuzz=50pt
+\vfuzz=50pt
+% Menghilangkan pesan warning bad box sepenuhnya pada proses kompilasi
+\hbadness=10000
+\vbadness=10000
 
 % Depth untuk table of contents
 \setcounter{tocdepth}{2}

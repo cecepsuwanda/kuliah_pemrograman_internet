@@ -1,4 +1,4 @@
-\section{Aksesibilitas Tabel dan Form}
+﻿\section{Aksesibilitas Tabel dan Form}
 
 Tabel dan form adalah dua elemen HTML yang paling sering menimbulkan masalah aksesibilitas jika tidak diimplementasikan dengan benar. Pengguna pembaca layar menavigasi tabel sel per sel dan mengandalkan header untuk memahami konteks setiap nilai data. Tanpa pengaitan header yang tepat, sebuah angka ``85'' di dalam tabel tidak memberikan informasi apakah itu nilai ujian, usia, atau harga. Demikian pula, form tanpa label yang tepat menjadikan proses pengisian sangat sulit bagi pengguna yang tidak dapat melihat tata letak visual \cite{mdnAccessibility}.
 
@@ -10,7 +10,7 @@ Tabel yang aksesibel memerlukan beberapa komponen kunci. Pertama, setiap tabel h
 
 Form yang aksesibel dibangun di atas tiga pilar utama: pelabelan yang tepat, pengelompokan yang logis, dan umpan balik error yang jelas. Setiap kontrol input \textbf{wajib} memiliki label yang terasosiasi---baik melalui \code{<label for="id">} secara eksplisit maupun melalui \code{aria-label} atau \code{aria-labelledby}. Grup field yang terkait (misalnya radio button untuk jenis kelamin) harus dibungkus dengan \code{<fieldset>} dan \code{<legend>} agar pembaca layar menjelaskan konteks pilihan. Pesan error harus dihubungkan dengan input yang bermasalah menggunakan \code{aria-describedby} \cite{mdnAccessibility}.
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \begin{tabular}{|P{3.5cm}|P{3.5cm}|P{5cm}|}
 \hline

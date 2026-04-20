@@ -1,8 +1,8 @@
-\section{Session Management Lanjutan: Fixation, Hijacking, dan Mitigasi}
+﻿\section{Session Management Lanjutan: Fixation, Hijacking, dan Mitigasi}
 
 \textbf{Session fixation} terjadi saat penyerang memaksa korban menggunakan session ID yang sudah diketahui penyerang --- setelah korban login, penyerang menggunakan session ID tersebut untuk mengakses akun korban. Mitigasi: selalu panggil \code{session\_regenerate\_id(true)} setelah login berhasil. \textbf{Session hijacking} terjadi saat penyerang mencuri session ID aktif (melalui XSS, penyadapan jaringan, atau malware). Mitigasi: (1) cookie HttpOnly (cegah XSS); (2) cookie Secure (cegah penyadapan); (3) SameSite (cegah CSRF); (4) timeout session \cite{phpRightWay}.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[
   box/.style={draw, rounded corners, minimum width=2.2cm, minimum height=0.8cm, align=center, font=\footnotesize, fill=#1},

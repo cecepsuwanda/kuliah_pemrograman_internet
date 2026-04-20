@@ -1,4 +1,4 @@
-\section{Pewarisan (Inheritance) dan Overriding}
+﻿\section{Pewarisan (Inheritance) dan Overriding}
 
 \textbf{Inheritance} (pewarisan) adalah mekanisme OOP yang memungkinkan sebuah class (\textit{child class} atau \textit{subclass}) mewarisi seluruh properti dan metode dari class lain (\textit{parent class} atau \textit{superclass}). Dengan pewarisan, kode yang sudah ditulis di class induk tidak perlu ditulis ulang di class anak --- cukup diwariskan dan digunakan langsung. Di PHP, pewarisan dideklarasikan menggunakan kata kunci \code{extends}. Satu class hanya dapat mewarisi dari satu class induk (\textit{single inheritance}), berbeda dengan bahasa seperti C++ yang mendukung multiple inheritance \cite{phpManual}.
 
@@ -59,7 +59,7 @@ echo $kucing->info()  . "\n"; // Kitty (umur 3 tahun), warna: putih
 
 Diagram berikut mengilustrasikan hierarki inheritance antara class \code{Hewan}, \code{Kucing}, dan \code{Anjing}. Panah mengarah dari class anak ke class induk, menunjukkan hubungan pewarisan.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[
   classbox/.style={draw, rectangle, rounded corners, minimum width=3.5cm, minimum height=1.2cm, align=center, font=\small\bfseries, fill=#1},

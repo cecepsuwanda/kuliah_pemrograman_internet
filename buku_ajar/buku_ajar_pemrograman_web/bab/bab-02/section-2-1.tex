@@ -1,4 +1,4 @@
-\section{Arsitektur Web: Client-Server dan Komunikasi HTTP}
+﻿\section{Arsitektur Web: Client-Server dan Komunikasi HTTP}
 Pemrograman web berjalan di atas \textbf{arsitektur client-server}. Dalam model ini, \textbf{client} (biasanya browser seperti Chrome, Firefox, atau Edge) mengirimkan permintaan kepada \textbf{server} yang menyimpan dan memproses data. Server kemudian mengembalikan respons berupa halaman HTML, data JSON, gambar, atau sumber daya lain yang diminta. Arsitektur ini memisahkan tanggung jawab: client bertugas menampilkan antarmuka, sedangkan server menangani logika bisnis dan penyimpanan data \cite{mdnLearn}. Dengan pemisahan ini, pengembang dapat bekerja secara paralel pada sisi client dan server tanpa saling mengganggu.
 
 Untuk memudahkan pemahaman, bayangkan analogi berikut: client adalah \textbf{pelanggan di restoran} yang memesan makanan, sedangkan server adalah \textbf{dapur} yang menyiapkan pesanan. Pelayan (protokol HTTP) menjadi perantara yang membawa pesanan dari meja ke dapur dan mengantarkan makanan kembali ke meja. Pelanggan tidak perlu tahu cara memasak; demikian pula, browser tidak perlu mengetahui detail pemrosesan data di server. Analogi ini menggambarkan prinsip \textit{separation of concerns} yang menjadi fondasi arsitektur web modern \cite{webdevLearn}.
@@ -11,7 +11,7 @@ Sebelum request dikirim, browser perlu mengetahui alamat IP server tujuan. Prose
 
 \textbf{URL} (Uniform Resource Locator) adalah alamat yang digunakan untuk mengidentifikasi sumber daya di web. Sebuah URL terdiri dari beberapa komponen yang masing-masing memiliki fungsi spesifik. Memahami struktur URL penting karena Anda akan sering memanipulasi URL saat membuat tautan, formulir, dan API. Tabel berikut menjelaskan setiap komponen URL secara detail \cite{webdevLearn}.
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \begin{tabular}{|P{2.5cm}|P{3.5cm}|P{5.5cm}|}
 \hline
@@ -51,7 +51,7 @@ Dari URL tersebut dapat diidentifikasi:
 \end{itemize}
 \end{contoh}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \resizebox{\textwidth}{!}{%
 \begin{tikzpicture}[node distance=3.5cm, transform shape]

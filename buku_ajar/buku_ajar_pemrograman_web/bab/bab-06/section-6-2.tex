@@ -1,10 +1,10 @@
-\section{Tabel: Pengelompokan, Scope, dan Aksesibilitas}
+﻿\section{Tabel: Pengelompokan, Scope, dan Aksesibilitas}
 
 Tabel yang lebih besar dan kompleks memerlukan pengelompokan baris agar struktur data mudah dipahami, baik oleh pengguna visual maupun teknologi bantu (assistive technology). HTML menyediakan tiga elemen pengelompokan: \code{<thead>} untuk baris header, \code{<tbody>} untuk baris data utama, dan \code{<tfoot>} untuk baris ringkasan atau total. Pengelompokan ini memberikan makna semantik tambahan dan memungkinkan browser menerapkan perilaku khusus---misalnya, \code{<thead>} dapat diulang saat tabel dicetak di beberapa halaman \cite{mdnHtmlIntro}.
 
 Atribut \code{scope} pada elemen \code{<th>} menjelaskan cakupan header terhadap sel-sel data yang terkait. Nilai \code{scope="col"} menunjukkan bahwa header berlaku untuk seluruh kolom di bawahnya, sedangkan \code{scope="row"} menunjukkan header berlaku untuk seluruh baris di sebelah kanannya. Untuk tabel yang sangat kompleks---misalnya dengan header multi-level---dapat digunakan atribut \code{id} pada \code{<th>} dan \code{headers} pada \code{<td>} untuk membuat hubungan eksplisit antara sel data dan headernya \cite{mdnAccessibility}.
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \begin{tabular}{|P{3.5cm}|P{4cm}|P{4.5cm}|}
 \hline
@@ -24,7 +24,7 @@ Atribut \code{scope} pada elemen \code{<th>} menjelaskan cakupan header terhadap
 
 Elemen \code{<caption>} memberikan judul deskriptif pada tabel dan sangat penting untuk aksesibilitas. Pembaca layar akan membacakan caption terlebih dahulu sehingga pengguna dapat memutuskan apakah tabel tersebut relevan sebelum mendengarkan seluruh isinya. Caption harus singkat namun informatif---menjelaskan apa yang disajikan tabel tanpa mengulangi data di dalamnya. Posisi visual caption dapat diatur dengan CSS menggunakan properti \code{caption-side} \cite{webdevAccessibility}.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \resizebox{0.9\textwidth}{!}{%
 \begin{tikzpicture}[node distance=1.2cm, transform shape, every node/.style={font=\footnotesize}]

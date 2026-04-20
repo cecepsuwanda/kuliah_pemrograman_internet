@@ -1,4 +1,4 @@
-\section{Peta Konsep: Hubungan Antar Teknologi Web}
+﻿\section{Peta Konsep: Hubungan Antar Teknologi Web}
 Untuk memahami bagaimana seluruh komponen web saling terhubung, kita perlu melihat gambaran besar (\textit{big picture}) terlebih dahulu sebelum mendalami setiap komponen satu per satu. Pengguna membuka browser (client) dan mengetik URL. Browser mengirim HTTP request ke web server. Jika halaman memerlukan data dinamis, web server menjalankan skrip PHP yang berkomunikasi dengan basis data MySQL. Hasil pemrosesan dikembalikan sebagai HTML, yang kemudian di-render oleh browser bersama file CSS dan JavaScript. Peta konsep ini membantu Anda melihat konteks setiap topik yang akan dipelajari di bab-bab selanjutnya \cite{mdnLearn}.
 
 Di sisi \textbf{front-end}, tiga teknologi utama bekerja bersama di dalam browser. \textbf{HTML} membentuk struktur dokumen---elemen-elemen seperti judul, paragraf, daftar, dan formulir yang membentuk kerangka halaman. \textbf{CSS} mengatur presentasi visual---warna, ukuran, tata letak, dan animasi yang membuat halaman menarik secara visual. \textbf{JavaScript} menambahkan interaktivitas---merespons aksi pengguna, memvalidasi input, dan memanipulasi DOM untuk mengubah halaman secara dinamis. Ketiga teknologi ini diunduh dari server sebagai bagian dari HTTP response dan diproses seluruhnya di browser pengguna \cite{mdnJsGuide}.
@@ -32,7 +32,7 @@ fetch("https://toko.com/api/produk")
   });
 \end{webcode}
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \begin{tabular}{|P{3cm}|P{4cm}|P{4.5cm}|}
 \hline
@@ -54,7 +54,7 @@ Contoh & Klik link tradisional & Gmail, Google Maps, Instagram \\
 
 Diagram berikut menggambarkan hubungan lengkap antar teknologi web yang akan dipelajari dalam buku ini. Panah menunjukkan alur komunikasi dan ketergantungan antar komponen. Setiap bab dalam buku ini membahas satu atau beberapa komponen dari peta konsep ini secara mendalam \cite{webdevLearn}.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \resizebox{\textwidth}{!}{%
 \begin{tikzpicture}[node distance=2cm, every node/.style={font=\footnotesize}, transform shape]

@@ -1,10 +1,10 @@
-\section{Form Lanjutan: Validasi Input dan Sanitasi Dasar}
+﻿\section{Form Lanjutan: Validasi Input dan Sanitasi Dasar}
 
 \textbf{Validasi} dan \textbf{sanitasi} adalah dua proses berbeda namun sama-sama penting dalam pemrosesan form. Validasi memeriksa apakah data memenuhi aturan tertentu (wajib diisi, format email valid, panjang karakter, rentang angka), sedangkan sanitasi membersihkan data dari konten berbahaya atau tidak diinginkan (menghapus tag HTML, meng-escape karakter khusus). Validasi menolak data yang tidak valid, sedangkan sanitasi mengubah data agar aman diproses. Keduanya harus dilakukan di \textbf{server-side} --- validasi di client (JavaScript) hanya untuk \textit{user experience}, bukan keamanan \cite{phpManual}.
 
 PHP menyediakan fungsi \code{filter\_var()} dengan berbagai filter bawaan untuk validasi dan sanitasi. Filter validasi (prefix \code{FILTER\_VALIDATE\_}) mengembalikan nilai yang divalidasi atau \code{false} jika tidak lolos. Filter sanitasi (prefix \code{FILTER\_SANITIZE\_}) mengembalikan string yang sudah dibersihkan. Selain filter, fungsi seperti \code{trim()}, \code{strip\_tags()}, \code{htmlspecialchars()}, dan \code{htmlentities()} sering digunakan untuk membersihkan input sebelum ditampilkan atau disimpan \cite{phpRightWay}.
 
-\begin{table}[ht]
+\begin{table}[H]
 \centering
 \small
 \begin{tabular}{|P{1.8cm}|P{3.5cm}|P{3.5cm}|}

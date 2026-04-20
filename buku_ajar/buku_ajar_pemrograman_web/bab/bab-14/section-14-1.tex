@@ -1,4 +1,4 @@
-\section{Pengenalan Database dan SQL}
+﻿\section{Pengenalan Database dan SQL}
 
 \textbf{Basis data} (\textit{database}) adalah kumpulan data yang terorganisasi secara sistematis sehingga dapat disimpan, dikelola, dan diambil kembali secara efisien. Dalam konteks aplikasi web, basis data menyimpan informasi seperti data pengguna, produk, transaksi, dan konten halaman. Tanpa basis data, aplikasi web hanya dapat menampilkan konten statis --- tidak dapat mengingat pengguna, menyimpan formulir, atau menampilkan data yang berubah. Sistem yang mengelola basis data disebut \textbf{DBMS} (\textit{Database Management System}), dan yang paling umum digunakan di web adalah DBMS relasional (RDBMS) yang mengorganisasi data dalam bentuk tabel dengan baris dan kolom \cite{mysqlDocs}.
 
@@ -8,7 +8,7 @@
 \textbf{Database Relasional} menyimpan data dalam \textit{tabel} (relasi) yang terdiri dari \textit{baris} (record/tuple) dan \textit{kolom} (field/attribute). Hubungan antar tabel dibangun melalui \textit{kunci} (primary key dan foreign key), memungkinkan data yang saling terkait disimpan secara terpisah namun dapat digabungkan kembali dengan operasi JOIN.
 \end{konsep}
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[
   box/.style={draw, rounded corners, minimum width=2.8cm, minimum height=1.2cm, align=center, font=\small, fill=#1},
@@ -29,7 +29,7 @@
 \caption{Arsitektur interaksi aplikasi web dengan database melalui SQL}
 \end{figure}
 
-\begin{table}[ht]
+\begin{table}[H]
 \centering
 \begin{tabular}{|P{2.5cm}|P{2cm}|P{2.5cm}|P{2.5cm}|P{2.5cm}|}
 \hline

@@ -1,10 +1,10 @@
-\section{Form HTML dan Pemrosesan Form dengan PHP}
+﻿\section{Form HTML dan Pemrosesan Form dengan PHP}
 
 Form HTML adalah mekanisme utama bagi pengguna untuk mengirimkan data ke server web. Setiap form memiliki atribut \code{action} (URL tujuan pengiriman) dan \code{method} (metode HTTP: GET atau POST). Elemen-elemen form seperti \code{<input>}, \code{<textarea>}, dan \code{<select>} memiliki atribut \code{name} yang menjadi kunci di array \code{\$\_GET} atau \code{\$\_POST} saat data diterima oleh PHP. Pemahaman alur pengiriman dan pemrosesan form ini menjadi dasar dari hampir semua aplikasi web interaktif \cite{phpManual}.
 
 Alur pemrosesan form dimulai ketika pengguna mengisi form dan menekan tombol \textit{submit}. Browser mengemas data form dan mengirimkannya ke server sesuai metode yang ditentukan. PHP menerima data tersebut melalui superglobal \code{\$\_GET} atau \code{\$\_POST}, memvalidasinya, dan menghasilkan respons. Validasi server-side (\textit{server-side validation}) \textbf{wajib} dilakukan meskipun sudah ada validasi di sisi klien (HTML5 atau JavaScript), karena validasi klien dapat dengan mudah dilewati oleh pengguna yang mahir \cite{phpRightWay}.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[
   node distance=0.8cm,

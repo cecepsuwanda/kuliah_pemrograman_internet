@@ -1,8 +1,8 @@
-\section{Penanganan Error: Error Reporting dan Exception}
+﻿\section{Penanganan Error: Error Reporting dan Exception}
 
 PHP memiliki sistem penanganan error yang fleksibel untuk mendeteksi, melaporkan, dan menangani masalah yang terjadi saat eksekusi. Tingkat error yang ditampilkan diatur melalui konfigurasi \code{error\_reporting} di \code{php.ini} atau secara runtime dengan fungsi \code{error\_reporting()}. Nilai umum: \code{E\_ALL} menampilkan semua error, \code{E\_ERROR} hanya error fatal, \code{E\_WARNING} untuk peringatan. Selama pengembangan (\textit{development}), aktifkan semua error: \code{error\_reporting(E\_ALL)} dan \code{ini\_set('display\_errors', 1)}. Di lingkungan produksi, matikan tampilan error dan arahkan ke file log untuk mencegah bocornya informasi sensitif \cite{phpManual}.
 
-\begin{table}[ht]
+\begin{table}[H]
 \centering
 \begin{tabular}{|P{3cm}|P{2cm}|P{7cm}|}
 \hline

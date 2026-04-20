@@ -1,4 +1,4 @@
-\section{INSERT, UPDATE, DELETE}
+﻿\section{INSERT, UPDATE, DELETE}
 
 Tiga perintah DML utama selain SELECT adalah \code{INSERT} (menambah data), \code{UPDATE} (mengubah data), dan \code{DELETE} (menghapus data). Ketiganya merupakan inti dari operasi \textbf{CRUD} (\textit{Create, Read, Update, Delete}) yang menjadi fondasi hampir semua aplikasi berbasis database. Setiap operasi harus dilakukan dengan hati-hati --- terutama UPDATE dan DELETE --- karena dapat mempengaruhi banyak baris sekaligus jika klausa WHERE tidak spesifik \cite{mysqlDocs}.
 
@@ -26,7 +26,7 @@ DELETE FROM produk WHERE id = 4;
 -- DELETE FROM produk;  -- JANGAN lakukan ini!
 \end{webcode}
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[
   box/.style={draw, rounded corners, minimum width=2cm, minimum height=0.9cm, align=center, font=\small, fill=#1},

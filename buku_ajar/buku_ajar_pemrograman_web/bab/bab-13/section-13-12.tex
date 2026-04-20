@@ -1,4 +1,4 @@
-\section{Query Dasar: SELECT, INSERT, UPDATE, DELETE}
+﻿\section{Query Dasar: SELECT, INSERT, UPDATE, DELETE}
 
 Setelah koneksi MySQLi terbentuk, operasi data pada database dilakukan melalui \textbf{query SQL}. Empat operasi dasar yang dikenal sebagai \textbf{CRUD} (\textit{Create, Read, Update, Delete}) dipetakan ke perintah SQL: \code{INSERT} (create), \code{SELECT} (read), \code{UPDATE} (update), dan \code{DELETE} (delete). Query dijalankan menggunakan metode \code{\$conn->query(\$sql)} untuk query tanpa parameter, atau menggunakan \textit{prepared statement} untuk query yang melibatkan input pengguna --- ini penting untuk mencegah \textbf{SQL injection} \cite{phpManual}.
 
@@ -46,7 +46,7 @@ $conn->close();
 ?>
 \end{webcode}
 
-\begin{table}[ht]
+\begin{table}[H]
 \centering
 \begin{tabular}{|P{2cm}|P{3cm}|P{3cm}|P{4cm}|}
 \hline

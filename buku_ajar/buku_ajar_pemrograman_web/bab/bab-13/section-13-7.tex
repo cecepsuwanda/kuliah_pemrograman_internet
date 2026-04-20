@@ -1,10 +1,10 @@
-\section{Session: Memulai, Menyimpan, dan Menghapus Session}
+﻿\section{Session: Memulai, Menyimpan, dan Menghapus Session}
 
 \textbf{Session} adalah mekanisme server-side untuk menyimpan data pengguna selama interaksi dengan aplikasi web. Karena HTTP bersifat \textit{stateless} (setiap request independen), session menjembatani kebutuhan untuk ``mengingat'' pengguna antar halaman. Saat session dimulai, PHP menghasilkan \textbf{Session ID} unik yang dikirim ke browser sebagai cookie (biasanya bernama \code{PHPSESSID}). Pada request berikutnya, browser mengirimkan cookie ini kembali sehingga PHP dapat mengidentifikasi pengguna dan mengakses data session yang disimpan di server \cite{phpManual}.
 
 Untuk menggunakan session, panggil \code{session\_start()} di awal skrip --- \textbf{sebelum} output apa pun (termasuk spasi atau baris kosong sebelum tag \code{<?php}). Data disimpan dalam superglobal \code{\$\_SESSION} sebagai array asosiatif. Menyimpan: \code{\$\_SESSION['user'] = 'cecep'}; membaca: \code{echo \$\_SESSION['user']}; menghapus satu key: \code{unset(\$\_SESSION['user'])}. Untuk mengakhiri session secara penuh (logout), gunakan kombinasi \code{session\_unset()} dan \code{session\_destroy()} \cite{phpRightWay}.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[
   box/.style={draw, rounded corners, minimum width=3cm, minimum height=1cm, align=center, font=\small, fill=#1},
