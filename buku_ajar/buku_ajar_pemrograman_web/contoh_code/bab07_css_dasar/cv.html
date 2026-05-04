@@ -9,40 +9,45 @@
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="Cecep Maulana — Curriculum Vitae">
-    <meta property="og:description" content="Halaman CV satu file menggunakan HTML semantik; siap diberi gaya CSS di bab berikutnya.">
+    <meta property="og:description" content="Contoh CV satu halaman: HTML semantik dengan gaya layout dua kolom lewat CSS (bab CSS dasar).">
     <meta property="og:url" content="https://example.com/cv.html">
     <meta property="og:locale" content="id_ID">
 
     <title>Cecep Maulana — Curriculum Vitae</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%231a365d'/%3E%3Ctext x='16' y='22' font-size='14' fill='white' text-anchor='middle' font-family='system-ui,sans-serif'%3ECV%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+    <link rel="stylesheet" href="cv.css">
 </head>
-<body>
-    <header>
-        <h1>Cecep Maulana</h1>
-        <p><strong>Web Developer (Junior)</strong></p>
-        <p>Bandung, Indonesia</p>
-        <address>
-            Email: <a href="mailto:cecep.maulana@example.com">cecep.maulana@example.com</a><br>
-            Telepon: <a href="tel:+6281234567890">+62 812-3456-7890</a><br>
-            Situs: <a href="https://example.com">https://example.com</a><br>
-            Alamat: Jl. Contoh No. 10, Bandung
-        </address>
-    </header>
+<body class="halaman-cv">
+    <div class="cv-shell">
+        <aside class="cv-sidebar" aria-label="Profil dan navigasi">
+            <header>
+                <h1>Cecep Maulana</h1>
+                <p><strong>Web Developer (Junior)</strong></p>
+                <p>Bandung, Indonesia</p>
+                <address>
+                    Email: <a href="mailto:cecep.maulana@example.com">cecep.maulana@example.com</a><br>
+                    Telepon: <a href="tel:+6281234567890">+62 812-3456-7890</a><br>
+                    Situs: <a href="https://example.com">https://example.com</a><br>
+                    Alamat: Jl. Contoh No. 10, Bandung
+                </address>
+            </header>
 
-    <nav aria-label="Navigasi CV">
-        <p><strong>Isi halaman</strong></p>
-        <ol>
-            <li><a href="#ringkasan">Ringkasan</a></li>
-            <li><a href="#keterampilan">Keterampilan</a></li>
-            <li><a href="#pengalaman">Pengalaman</a></li>
-            <li><a href="#pendidikan">Pendidikan</a></li>
-            <li><a href="#portofolio">Portofolio</a></li>
-            <li><a href="#sertifikasi">Sertifikasi</a></li>
-            <li><a href="#organisasi">Organisasi</a></li>
-            <li><a href="#kontak">Kontak</a></li>
-        </ol>
-    </nav>
+            <nav class="cv-nav" aria-label="Navigasi CV">
+                <p>Isi halaman</p>
+                <ol>
+                    <li><a href="#ringkasan">Ringkasan</a></li>
+                    <li><a href="#keterampilan">Keterampilan</a></li>
+                    <li><a href="#pengalaman">Pengalaman</a></li>
+                    <li><a href="#pendidikan">Pendidikan</a></li>
+                    <li><a href="#portofolio">Portofolio</a></li>
+                    <li><a href="#sertifikasi">Sertifikasi</a></li>
+                    <li><a href="#organisasi">Organisasi</a></li>
+                    <li><a href="#kontak">Kontak</a></li>
+                </ol>
+            </nav>
+        </aside>
 
+        <div class="cv-konten">
     <main>
         <section id="ringkasan" aria-labelledby="judul-ringkasan">
             <h2 id="judul-ringkasan">Ringkasan profesional</h2>
@@ -98,7 +103,7 @@
 
         <section id="pendidikan" aria-labelledby="judul-pendidikan">
             <h2 id="judul-pendidikan">Pendidikan</h2>
-            <table border="1" cellpadding="6" cellspacing="0">
+            <table>
                 <caption>Riwayat pendidikan formal</caption>
                 <thead>
                     <tr>
@@ -164,8 +169,10 @@
         </section>
     </main>
 
-    <footer>
-        <p>&copy; <time datetime="2026">2026</time> Cecep Maulana. Halaman statis hanya HTML (tanpa file CSS terpisah).</p>
-    </footer>
+            <footer class="cv-footer">
+                <p>&copy; <time datetime="2026">2026</time> Cecep Maulana. Contoh CV dengan HTML dan CSS eksternal (<code>cv.css</code>).</p>
+            </footer>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="keywords" content="CV, Curriculum Vitae, Web Developer, HTML, Mahasiswa, JSON, JavaScript">
+    <meta name="author" content="Cecep Maulana">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Cecep Maulana — Curriculum Vitae">
+    <meta property="og:description" content="Contoh CV: data dari berkas JSON, diisi ke halaman dengan JavaScript.">
+    <meta property="og:url" content="https://example.com/cv.html">
+    <meta property="og:locale" content="id_ID">
+
+    <title>Memuat CV…</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%231a365d'/%3E%3Ctext x='16' y='22' font-size='14' fill='white' text-anchor='middle' font-family='system-ui,sans-serif'%3ECV%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+    <link rel="stylesheet" href="cv.css">
+</head>
+<body class="halaman-cv">
+    <noscript>
+        <p style="padding:1rem;background:#fef3c7;color:#92400e;font-family:system-ui,sans-serif;">
+            Aktifkan JavaScript untuk memuat data CV dari <code>cv-data.json</code>.
+        </p>
+    </noscript>
+
+    <div class="cv-shell">
+        <aside class="cv-sidebar" aria-label="Profil dan navigasi">
+            <header>
+                <h1 id="cv-name"></h1>
+                <p><strong id="cv-role"></strong></p>
+                <p id="cv-location"></p>
+                <address id="cv-address"></address>
+            </header>
+
+            <nav class="cv-nav" aria-label="Navigasi CV">
+                <p>Isi halaman</p>
+                <ol id="cv-nav-list"></ol>
+            </nav>
+        </aside>
+
+        <div class="cv-konten">
+            <main>
+                <section id="ringkasan" aria-labelledby="judul-ringkasan">
+                    <h2 id="judul-ringkasan"></h2>
+                    <p id="cv-ringkasan-text"></p>
+                </section>
+
+                <section id="keterampilan" aria-labelledby="judul-keterampilan">
+                    <h2 id="judul-keterampilan"></h2>
+                    <dl id="cv-skills"></dl>
+                </section>
+
+                <section id="pengalaman" aria-labelledby="judul-pengalaman">
+                    <h2 id="judul-pengalaman"></h2>
+                    <div id="cv-experience"></div>
+                </section>
+
+                <section id="pendidikan" aria-labelledby="judul-pendidikan">
+                    <h2 id="judul-pendidikan"></h2>
+                    <table>
+                        <caption id="cv-education-caption"></caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Jenjang</th>
+                                <th scope="col">Institusi</th>
+                                <th scope="col">Program/Jurusan</th>
+                                <th scope="col">Periode</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cv-education-body"></tbody>
+                    </table>
+                </section>
+
+                <section id="portofolio" aria-labelledby="judul-portofolio">
+                    <h2 id="judul-portofolio"></h2>
+                    <ul id="cv-portfolio-list"></ul>
+                </section>
+
+                <section id="sertifikasi" aria-labelledby="judul-sertifikasi">
+                    <h2 id="judul-sertifikasi"></h2>
+                    <ul id="cv-sertifikasi-list"></ul>
+                </section>
+
+                <section id="organisasi" aria-labelledby="judul-organisasi">
+                    <h2 id="judul-organisasi"></h2>
+                    <ul id="cv-organisasi-list"></ul>
+                </section>
+
+                <section id="kontak" aria-labelledby="judul-kontak">
+                    <h2 id="judul-kontak"></h2>
+                    <p id="cv-kontak-text"></p>
+                </section>
+            </main>
+
+            <footer class="cv-footer">
+                <p id="cv-footer-text"></p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Salinan isi cv-data.json: dipakai saat fetch("cv-data.json") tidak jalan (mis. file://). Jika hanya mengedit cv-data.json dan membuka lewat server, blok ini boleh disamakan manual atau diabaikan. -->
+    <script type="application/json" id="cv-data-embedded">
+{
+  "documentTitle": "Cecep Maulana — Curriculum Vitae",
+  "metaDescription": "Curriculum Vitae Cecep Maulana — Web Developer Junior. Ringkasan profil, pengalaman, pendidikan, dan kontak.",
+  "person": {
+    "name": "Cecep Maulana",
+    "role": "Web Developer (Junior)",
+    "location": "Bandung, Indonesia",
+    "email": "cecep.maulana@example.com",
+    "phoneE164": "+6281234567890",
+    "phoneDisplay": "+62 812-3456-7890",
+    "website": "https://example.com",
+    "address": "Jl. Contoh No. 10, Bandung"
+  },
+  "navItems": [
+    { "hash": "ringkasan", "label": "Ringkasan" },
+    { "hash": "keterampilan", "label": "Keterampilan" },
+    { "hash": "pengalaman", "label": "Pengalaman" },
+    { "hash": "pendidikan", "label": "Pendidikan" },
+    { "hash": "portofolio", "label": "Portofolio" },
+    { "hash": "sertifikasi", "label": "Sertifikasi" },
+    { "hash": "organisasi", "label": "Organisasi" },
+    { "hash": "kontak", "label": "Kontak" }
+  ],
+  "ringkasan": {
+    "heading": "Ringkasan profesional",
+    "text": "Mahasiswa yang tertarik pada pengembangan web, khususnya membangun halaman yang rapi, semantik, dan mudah diakses. Terbiasa menggunakan HTML, CSS dasar, dan JavaScript dasar untuk membuat tampilan dan interaksi sederhana."
+  },
+  "keterampilan": {
+    "heading": "Keterampilan",
+    "items": [
+      { "judul": "HTML", "deskripsi": "Struktur semantik, tautan, tabel sederhana, formulir" },
+      { "judul": "CSS", "deskripsi": "Selektor dasar, layout sederhana, tipografi" },
+      { "judul": "JavaScript", "deskripsi": "DOM dasar, event handler sederhana" },
+      { "judul": "Perkakas", "deskripsi": "VS Code/Cursor, Git dasar" }
+    ]
+  },
+  "pengalaman": {
+    "heading": "Pengalaman",
+    "items": [
+      {
+        "judul": "Pengembang Frontend — Proyek Praktikum Website Profil",
+        "mulai": { "datetime": "2026-02", "label": "Februari 2026" },
+        "selesai": { "datetime": "2026-03", "label": "Maret 2026" },
+        "poin": [
+          "Menyusun struktur halaman menggunakan elemen HTML semantik.",
+          "Membuat formulir kontak sederhana dengan validasi dasar (atribut required dan type).",
+          "Mengorganisasi konten menjadi beberapa bagian dengan navigasi anchor."
+        ]
+      },
+      {
+        "judul": "Pendamping Praktikum — Asisten Kelas Pemrograman Web Dasar",
+        "mulai": { "datetime": "2025-09", "label": "September 2025" },
+        "selesai": { "datetime": "2025-12", "label": "Desember 2025" },
+        "poin": [
+          "Membantu peserta memahami struktur dokumen HTML dan praktik elemen umum.",
+          "Memberi umpan balik terkait kerapihan markup dan aksesibilitas dasar."
+        ]
+      }
+    ]
+  },
+  "pendidikan": {
+    "heading": "Pendidikan",
+    "caption": "Riwayat pendidikan formal",
+    "rows": [
+      {
+        "jenjang": "S1",
+        "institusi": "Universitas Contoh",
+        "program": "Teknik Informatika",
+        "periodeSegments": [
+          { "type": "time", "datetime": "2024", "label": "2024" },
+          { "type": "text", "value": " – Sekarang" }
+        ]
+      },
+      {
+        "jenjang": "SMA",
+        "institusi": "SMA Contoh",
+        "program": "IPA",
+        "periodeSegments": [
+          { "type": "time", "datetime": "2021", "label": "2021" },
+          { "type": "text", "value": " – " },
+          { "type": "time", "datetime": "2024", "label": "2024" }
+        ]
+      }
+    ]
+  },
+  "portofolio": {
+    "heading": "Portofolio",
+    "items": [
+      {
+        "judul": "Halaman CV statis (HTML)",
+        "linkHref": "cv.html",
+        "linkText": "Buka halaman ini"
+      },
+      {
+        "judul": "Contoh landing page",
+        "linkHref": "https://example.com/landing",
+        "linkText": "https://example.com/landing"
+      }
+    ]
+  },
+  "sertifikasi": {
+    "heading": "Sertifikasi",
+    "items": [
+      { "nama": "Dasar-Dasar Web (Contoh)", "tahun": "2025", "datetime": "2025" },
+      { "nama": "Git Fundamentals (Contoh)", "tahun": "2025", "datetime": "2025" }
+    ]
+  },
+  "organisasi": {
+    "heading": "Organisasi",
+    "items": [
+      {
+        "teks": "Himpunan Mahasiswa Informatika — Anggota",
+        "periodeSegments": [
+          { "type": "text", "value": "(" },
+          { "type": "time", "datetime": "2024", "label": "2024" },
+          { "type": "text", "value": " – Sekarang)" }
+        ]
+      },
+      {
+        "teks": "Komunitas Web Kampus — Anggota",
+        "periodeSegments": [
+          { "type": "text", "value": "(" },
+          { "type": "time", "datetime": "2025", "label": "2025" },
+          { "type": "text", "value": " – Sekarang)" }
+        ]
+      }
+    ]
+  },
+  "kontak": {
+    "heading": "Kontak",
+    "intro": "Untuk kerja sama atau pertanyaan, silakan hubungi melalui email"
+  },
+  "footer": {
+    "year": 2026,
+    "text": "Cecep Maulana. Data CV diambil dari berkas JSON dan ditampilkan dengan JavaScript."
+  }
+}
+    </script>
+
+    <script src="cv.js" defer></script>
+</body>
+</html>

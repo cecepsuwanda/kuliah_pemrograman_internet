@@ -1,0 +1,327 @@
+/* Contoh gaya CV satu halaman — layout dua kolom (sidebar + konten), mirip template resume HTML/CSS populer */
+
+:root {
+    --cv-sidebar: #0c2340;
+    --cv-sidebar-muted: #94a3b8;
+    --cv-accent: #38bdf8;
+    --cv-accent-soft: rgba(56, 189, 248, 0.15);
+    --cv-main-bg: #f1f5f9;
+    --cv-card: #ffffff;
+    --cv-text: #1e293b;
+    --cv-text-soft: #64748b;
+    --cv-border: #e2e8f0;
+    --cv-shadow: 0 10px 40px rgba(15, 23, 42, 0.08);
+    --cv-radius: 12px;
+    --cv-max: 960px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body.halaman-cv {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--cv-text);
+    background: var(--cv-main-bg);
+}
+
+.cv-shell {
+    max-width: var(--cv-max);
+    margin: 0 auto;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: minmax(220px, 260px) 1fr;
+    box-shadow: var(--cv-shadow);
+}
+
+/* --- Sidebar (kolom kiri, gaya resume “dark rail”) --- */
+.cv-sidebar {
+    background: linear-gradient(180deg, var(--cv-sidebar) 0%, #0a1628 100%);
+    color: #e2e8f0;
+    padding: 2rem 1.35rem;
+}
+
+.cv-sidebar header {
+    border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.cv-sidebar h1 {
+    margin: 0 0 0.35rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #fff;
+}
+
+.cv-sidebar header > p {
+    margin: 0.2rem 0;
+    font-size: 0.9rem;
+    color: var(--cv-sidebar-muted);
+}
+
+.cv-sidebar header > p strong {
+    color: var(--cv-accent);
+    font-weight: 600;
+}
+
+.cv-sidebar address {
+    margin: 0;
+    font-size: 0.82rem;
+    font-style: normal;
+    line-height: 1.65;
+    color: var(--cv-sidebar-muted);
+}
+
+.cv-sidebar a {
+    color: #e0f2fe;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.cv-sidebar a:hover {
+    color: var(--cv-accent);
+    border-bottom-color: var(--cv-accent);
+}
+
+/* Navigasi anchor di sidebar */
+.cv-nav {
+    margin-top: 0.5rem;
+}
+
+.cv-nav > p {
+    margin: 0 0 0.65rem;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--cv-sidebar-muted);
+}
+
+.cv-nav ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.cv-nav a {
+    display: block;
+    padding: 0.4rem 0.5rem;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    color: #cbd5e1;
+    border-bottom: none;
+}
+
+.cv-nav a:hover {
+    background: var(--cv-accent-soft);
+    color: #fff;
+}
+
+/* --- Konten utama --- */
+.cv-konten {
+    background: var(--cv-main-bg);
+    padding: 1.75rem 1.75rem 2rem;
+}
+
+.cv-konten main > section {
+    background: var(--cv-card);
+    border: 1px solid var(--cv-border);
+    border-radius: var(--cv-radius);
+    padding: 1.25rem 1.35rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+}
+
+.cv-konten h2 {
+    margin: 0 0 0.85rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--cv-sidebar);
+    letter-spacing: -0.01em;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--cv-accent);
+    display: inline-block;
+    min-width: 40%;
+}
+
+.cv-konten h3 {
+    margin: 1rem 0 0.25rem;
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.cv-konten h3:first-of-type {
+    margin-top: 0;
+}
+
+.cv-konten main > section > p {
+    margin: 0 0 0.75rem;
+    color: var(--cv-text-soft);
+}
+
+.cv-konten article > p {
+    margin: 0 0 0.5rem;
+    font-size: 0.85rem;
+    color: var(--cv-text-soft);
+}
+
+.cv-konten time {
+    font-weight: 500;
+    color: var(--cv-text-soft);
+}
+
+.cv-konten ul {
+    margin: 0.35rem 0 0;
+    padding-left: 1.2rem;
+}
+
+.cv-konten li {
+    margin-bottom: 0.35rem;
+    color: var(--cv-text);
+}
+
+.cv-konten code {
+    font-size: 0.88em;
+    background: #f1f5f9;
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
+}
+
+/* Daftar definisi keterampilan */
+.cv-konten dl {
+    margin: 0;
+}
+
+.cv-konten dt {
+    margin-top: 0.75rem;
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--cv-accent);
+}
+
+.cv-konten dt:first-child {
+    margin-top: 0;
+}
+
+.cv-konten dd {
+    margin: 0.2rem 0 0;
+    padding-left: 0;
+    color: var(--cv-text-soft);
+    font-size: 0.92rem;
+}
+
+/* Tabel pendidikan */
+.cv-konten table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    margin-top: 0.25rem;
+}
+
+.cv-konten caption {
+    caption-side: bottom;
+    text-align: left;
+    font-size: 0.78rem;
+    color: var(--cv-text-soft);
+    padding-top: 0.5rem;
+}
+
+.cv-konten th,
+.cv-konten td {
+    border: 1px solid var(--cv-border);
+    padding: 0.55rem 0.65rem;
+    text-align: left;
+}
+
+.cv-konten thead th {
+    background: var(--cv-sidebar);
+    color: #f8fafc;
+    font-weight: 600;
+    font-size: 0.82rem;
+}
+
+.cv-konten tbody tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+/* Tautan di area utama */
+.cv-konten a {
+    color: #0369a1;
+    font-weight: 500;
+}
+
+.cv-konten a:hover {
+    color: var(--cv-accent);
+}
+
+.cv-footer {
+    margin-top: 0.5rem;
+    padding: 1rem 1.35rem;
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--cv-text-soft);
+    border-top: 1px solid var(--cv-border);
+    background: var(--cv-card);
+    border-radius: var(--cv-radius);
+}
+
+/* Responsif: satu kolom di layar sempit */
+@media (max-width: 720px) {
+    .cv-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .cv-sidebar {
+        padding: 1.5rem 1.25rem;
+    }
+
+    .cv-nav ol {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .cv-nav a {
+        padding: 0.35rem 0.55rem;
+    }
+
+    .cv-konten {
+        padding: 1.25rem 1rem 1.5rem;
+    }
+
+    .cv-konten table {
+        display: block;
+        overflow-x: auto;
+    }
+}
+
+/* Cetak: kurangi bayangan, hemat tinta */
+@media print {
+    body.halaman-cv {
+        background: #fff;
+    }
+
+    .cv-shell {
+        box-shadow: none;
+        max-width: none;
+    }
+
+    .cv-konten main > section {
+        box-shadow: none;
+        break-inside: avoid;
+    }
+
+    .cv-nav a {
+        color: #000;
+    }
+}
