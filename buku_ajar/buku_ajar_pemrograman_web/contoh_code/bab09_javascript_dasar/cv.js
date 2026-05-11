@@ -1,9 +1,10 @@
 /**
- * Memuat data CV lalu mengisi elemen di halaman.
- * Urutan: (1) fetch("cv-data.json") jika di http(s) / server lokal;
- * (2) elemen <script type="application/json" id="cv-data-embedded"> di cv.html
- * agar tetap jalan saat membuka file:// (fetch ke berkas .json biasanya diblokir).
+ * Memuat data CV dari JSON di GitHub lalu mengisi elemen di halaman.
+ * URL halaman blob: github.com/.../blob/versi1/.../cv-data.json —
+ * untuk fetch dipakai URL raw.githubusercontent.com yang mengembalikan isi berkas mentah (JSON).
  */
+const CV_JSON_URL =
+    "https://raw.githubusercontent.com/cecepsuwanda/kuliah_pemrograman_internet/versi1/buku_ajar/buku_ajar_pemrograman_web/contoh_code/bab09_javascript_dasar/cv-data.json";
 
 function setText(id, text) {
     const el = document.getElementById(id);
@@ -228,17 +229,11 @@ function showLoadError(message) {
 }
 
 async function loadCvData() {
-    try {
-        const res = await fetch("cv-data.json", { cache: "no-store" });
-        if (res.ok) return await res.json();
-    } catch (_) {
-        /* file://, offline, atau CORS */
+    const res = await fetch(CV_JSON_URL, { cache: "no-store" });
+    if (!res.ok) {
+        throw new Error("HTTP " + res.status + " saat mengambil " + CV_JSON_URL);
     }
-    const embedded = document.getElementById("cv-data-embedded");
-    if (embedded && embedded.textContent.trim()) {
-        return JSON.parse(embedded.textContent);
-    }
-    throw new Error("Tidak ada sumber data (cv-data.json atau #cv-data-embedded).");
+    return await res.json();
 }
 
 async function loadCv() {
@@ -247,7 +242,7 @@ async function loadCv() {
         data = await loadCvData();
     } catch (e) {
         showLoadError(
-            "Tidak dapat memuat data CV. Pastikan berkas cv-data.json ada di folder yang sama, atau sisipkan data di elemen #cv-data-embedded pada cv.html."
+            "Tidak dapat memuat data CV dari GitHub (periksa koneksi internet dan URL JSON di cv.js)."
         );
         return;
     }
