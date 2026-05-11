@@ -71,86 +71,205 @@
             <section class="content">
                 <div class="container-fluid">
                     <main id="cv-main">
-                        <section id="ringkasan" class="card card-primary card-outline mb-3" aria-labelledby="judul-ringkasan">
+                        <section id="cv-storage-panel" class="card card-secondary card-outline mb-3" aria-labelledby="judul-storage-panel">
                             <div class="card-header">
-                                <h2 class="card-title h5 mb-0" id="judul-ringkasan"></h2>
+                                <h2 class="card-title h5 mb-0" id="judul-storage-panel">Data &amp; localStorage</h2>
                             </div>
                             <div class="card-body">
-                                <p id="cv-ringkasan-text" class="mb-0"></p>
+                                <div id="cv-load-error" class="alert alert-danger d-none mb-3" role="alert"></div>
+                                <div id="cv-json-feedback" class="alert d-none mb-3" role="status"></div>
+                                <p class="text-muted small mb-3">
+                                    Data CV disimpan di <code>localStorage</code> browser. Ubah tiap bagian lewat tombol <strong>Edit</strong> pada kartu di bawah, lalu <strong>Simpan</strong>. Gunakan tombol di sini untuk memuat ulang dari berkas / jaringan atau menghapus cache lokal.
+                                </p>
+                                <div class="mb-0">
+                                    <button type="button" id="cv-btn-reload-json" class="btn btn-outline-primary mr-2 mb-2">
+                                        <i class="fas fa-sync-alt mr-1" aria-hidden="true"></i> Muat ulang dari JSON
+                                    </button>
+                                    <button type="button" id="cv-btn-clear-ls" class="btn btn-outline-warning mb-2">
+                                        <i class="fas fa-trash-alt mr-1" aria-hidden="true"></i> Hapus penyimpanan lokal
+                                    </button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="ringkasan" class="card card-primary card-outline mb-3" aria-labelledby="judul-ringkasan">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h2 class="card-title h5 mb-0" id="judul-ringkasan"></h2>
+                                <button type="button" class="btn btn-sm btn-outline-light" data-cv-action="edit" data-cv-section="ringkasan">Edit</button>
+                            </div>
+                            <div class="card-body">
+                                <div class="cv-section-view" data-cv-section="ringkasan">
+                                    <p id="cv-ringkasan-text" class="mb-0"></p>
+                                </div>
+                                <div class="cv-section-editor d-none" data-cv-section="ringkasan" aria-hidden="true">
+                                    <div class="cv-section-edit-feedback alert d-none py-2 px-3 small mb-2" role="alert"></div>
+                                    <label class="small font-weight-bold d-block mb-1" for="cv-json-ringkasan">JSON bagian ringkasan</label>
+                                    <textarea id="cv-json-ringkasan" class="form-control cv-section-json text-monospace small" rows="10" spellcheck="false" data-cv-section="ringkasan"></textarea>
+                                    <div class="mt-2">
+                                        <button type="button" class="btn btn-primary btn-sm" data-cv-action="save" data-cv-section="ringkasan">Simpan</button>
+                                        <button type="button" class="btn btn-secondary btn-sm" data-cv-action="cancel" data-cv-section="ringkasan">Batal</button>
+                                    </div>
+                                </div>
                             </div>
                         </section>
 
                         <section id="keterampilan" class="card card-primary card-outline mb-3" aria-labelledby="judul-keterampilan">
-                            <div class="card-header">
+                            <div class="card-header d-flex justify-content-between align-items-center">
                                 <h2 class="card-title h5 mb-0" id="judul-keterampilan"></h2>
+                                <button type="button" class="btn btn-sm btn-outline-light" data-cv-action="edit" data-cv-section="keterampilan">Edit</button>
                             </div>
                             <div class="card-body">
-                                <dl id="cv-skills" class="mb-0"></dl>
+                                <div class="cv-section-view" data-cv-section="keterampilan">
+                                    <dl id="cv-skills" class="mb-0"></dl>
+                                </div>
+                                <div class="cv-section-editor d-none" data-cv-section="keterampilan" aria-hidden="true">
+                                    <div class="cv-section-edit-feedback alert d-none py-2 px-3 small mb-2" role="alert"></div>
+                                    <label class="small font-weight-bold d-block mb-1" for="cv-json-keterampilan">JSON bagian keterampilan</label>
+                                    <textarea id="cv-json-keterampilan" class="form-control cv-section-json text-monospace small" rows="12" spellcheck="false" data-cv-section="keterampilan"></textarea>
+                                    <div class="mt-2">
+                                        <button type="button" class="btn btn-primary btn-sm" data-cv-action="save" data-cv-section="keterampilan">Simpan</button>
+                                        <button type="button" class="btn btn-secondary btn-sm" data-cv-action="cancel" data-cv-section="keterampilan">Batal</button>
+                                    </div>
+                                </div>
                             </div>
                         </section>
 
                         <section id="pengalaman" class="card card-primary card-outline mb-3" aria-labelledby="judul-pengalaman">
-                            <div class="card-header">
+                            <div class="card-header d-flex justify-content-between align-items-center">
                                 <h2 class="card-title h5 mb-0" id="judul-pengalaman"></h2>
+                                <button type="button" class="btn btn-sm btn-outline-light" data-cv-action="edit" data-cv-section="pengalaman">Edit</button>
                             </div>
                             <div class="card-body">
-                                <div id="cv-experience"></div>
+                                <div class="cv-section-view" data-cv-section="pengalaman">
+                                    <div id="cv-experience"></div>
+                                </div>
+                                <div class="cv-section-editor d-none" data-cv-section="pengalaman" aria-hidden="true">
+                                    <div class="cv-section-edit-feedback alert d-none py-2 px-3 small mb-2" role="alert"></div>
+                                    <label class="small font-weight-bold d-block mb-1" for="cv-json-pengalaman">JSON bagian pengalaman</label>
+                                    <textarea id="cv-json-pengalaman" class="form-control cv-section-json text-monospace small" rows="14" spellcheck="false" data-cv-section="pengalaman"></textarea>
+                                    <div class="mt-2">
+                                        <button type="button" class="btn btn-primary btn-sm" data-cv-action="save" data-cv-section="pengalaman">Simpan</button>
+                                        <button type="button" class="btn btn-secondary btn-sm" data-cv-action="cancel" data-cv-section="pengalaman">Batal</button>
+                                    </div>
+                                </div>
                             </div>
                         </section>
 
                         <section id="pendidikan" class="card card-primary card-outline mb-3" aria-labelledby="judul-pendidikan">
-                            <div class="card-header">
+                            <div class="card-header d-flex justify-content-between align-items-center">
                                 <h2 class="card-title h5 mb-0" id="judul-pendidikan"></h2>
+                                <button type="button" class="btn btn-sm btn-outline-light" data-cv-action="edit" data-cv-section="pendidikan">Edit</button>
                             </div>
-                            <div class="card-body table-responsive p-0">
-                                <table class="table table-hover table-striped table-bordered mb-0">
-                                    <caption id="cv-education-caption" class="px-3 pt-2"></caption>
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th scope="col">Jenjang</th>
-                                            <th scope="col">Institusi</th>
-                                            <th scope="col">Program/Jurusan</th>
-                                            <th scope="col">Periode</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="cv-education-body"></tbody>
-                                </table>
+                            <div class="card-body p-0">
+                                <div class="cv-section-view" data-cv-section="pendidikan">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-striped table-bordered mb-0">
+                                            <caption id="cv-education-caption" class="px-3 pt-2"></caption>
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th scope="col">Jenjang</th>
+                                                    <th scope="col">Institusi</th>
+                                                    <th scope="col">Program/Jurusan</th>
+                                                    <th scope="col">Periode</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="cv-education-body"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="cv-section-editor d-none p-3" data-cv-section="pendidikan" aria-hidden="true">
+                                    <div class="cv-section-edit-feedback alert d-none py-2 px-3 small mb-2" role="alert"></div>
+                                    <label class="small font-weight-bold d-block mb-1" for="cv-json-pendidikan">JSON bagian pendidikan</label>
+                                    <textarea id="cv-json-pendidikan" class="form-control cv-section-json text-monospace small" rows="12" spellcheck="false" data-cv-section="pendidikan"></textarea>
+                                    <div class="mt-2">
+                                        <button type="button" class="btn btn-primary btn-sm" data-cv-action="save" data-cv-section="pendidikan">Simpan</button>
+                                        <button type="button" class="btn btn-secondary btn-sm" data-cv-action="cancel" data-cv-section="pendidikan">Batal</button>
+                                    </div>
+                                </div>
                             </div>
                         </section>
 
                         <section id="portofolio" class="card card-primary card-outline mb-3" aria-labelledby="judul-portofolio">
-                            <div class="card-header">
+                            <div class="card-header d-flex justify-content-between align-items-center">
                                 <h2 class="card-title h5 mb-0" id="judul-portofolio"></h2>
+                                <button type="button" class="btn btn-sm btn-outline-light" data-cv-action="edit" data-cv-section="portofolio">Edit</button>
                             </div>
                             <div class="card-body">
-                                <ul id="cv-portfolio-list" class="mb-0"></ul>
+                                <div class="cv-section-view" data-cv-section="portofolio">
+                                    <ul id="cv-portfolio-list" class="mb-0"></ul>
+                                </div>
+                                <div class="cv-section-editor d-none" data-cv-section="portofolio" aria-hidden="true">
+                                    <div class="cv-section-edit-feedback alert d-none py-2 px-3 small mb-2" role="alert"></div>
+                                    <label class="small font-weight-bold d-block mb-1" for="cv-json-portofolio">JSON bagian portofolio</label>
+                                    <textarea id="cv-json-portofolio" class="form-control cv-section-json text-monospace small" rows="10" spellcheck="false" data-cv-section="portofolio"></textarea>
+                                    <div class="mt-2">
+                                        <button type="button" class="btn btn-primary btn-sm" data-cv-action="save" data-cv-section="portofolio">Simpan</button>
+                                        <button type="button" class="btn btn-secondary btn-sm" data-cv-action="cancel" data-cv-section="portofolio">Batal</button>
+                                    </div>
+                                </div>
                             </div>
                         </section>
 
                         <section id="sertifikasi" class="card card-primary card-outline mb-3" aria-labelledby="judul-sertifikasi">
-                            <div class="card-header">
+                            <div class="card-header d-flex justify-content-between align-items-center">
                                 <h2 class="card-title h5 mb-0" id="judul-sertifikasi"></h2>
+                                <button type="button" class="btn btn-sm btn-outline-light" data-cv-action="edit" data-cv-section="sertifikasi">Edit</button>
                             </div>
                             <div class="card-body">
-                                <ul id="cv-sertifikasi-list" class="mb-0"></ul>
+                                <div class="cv-section-view" data-cv-section="sertifikasi">
+                                    <ul id="cv-sertifikasi-list" class="mb-0"></ul>
+                                </div>
+                                <div class="cv-section-editor d-none" data-cv-section="sertifikasi" aria-hidden="true">
+                                    <div class="cv-section-edit-feedback alert d-none py-2 px-3 small mb-2" role="alert"></div>
+                                    <label class="small font-weight-bold d-block mb-1" for="cv-json-sertifikasi">JSON bagian sertifikasi</label>
+                                    <textarea id="cv-json-sertifikasi" class="form-control cv-section-json text-monospace small" rows="10" spellcheck="false" data-cv-section="sertifikasi"></textarea>
+                                    <div class="mt-2">
+                                        <button type="button" class="btn btn-primary btn-sm" data-cv-action="save" data-cv-section="sertifikasi">Simpan</button>
+                                        <button type="button" class="btn btn-secondary btn-sm" data-cv-action="cancel" data-cv-section="sertifikasi">Batal</button>
+                                    </div>
+                                </div>
                             </div>
                         </section>
 
                         <section id="organisasi" class="card card-primary card-outline mb-3" aria-labelledby="judul-organisasi">
-                            <div class="card-header">
+                            <div class="card-header d-flex justify-content-between align-items-center">
                                 <h2 class="card-title h5 mb-0" id="judul-organisasi"></h2>
+                                <button type="button" class="btn btn-sm btn-outline-light" data-cv-action="edit" data-cv-section="organisasi">Edit</button>
                             </div>
                             <div class="card-body">
-                                <ul id="cv-organisasi-list" class="mb-0"></ul>
+                                <div class="cv-section-view" data-cv-section="organisasi">
+                                    <ul id="cv-organisasi-list" class="mb-0"></ul>
+                                </div>
+                                <div class="cv-section-editor d-none" data-cv-section="organisasi" aria-hidden="true">
+                                    <div class="cv-section-edit-feedback alert d-none py-2 px-3 small mb-2" role="alert"></div>
+                                    <label class="small font-weight-bold d-block mb-1" for="cv-json-organisasi">JSON bagian organisasi</label>
+                                    <textarea id="cv-json-organisasi" class="form-control cv-section-json text-monospace small" rows="12" spellcheck="false" data-cv-section="organisasi"></textarea>
+                                    <div class="mt-2">
+                                        <button type="button" class="btn btn-primary btn-sm" data-cv-action="save" data-cv-section="organisasi">Simpan</button>
+                                        <button type="button" class="btn btn-secondary btn-sm" data-cv-action="cancel" data-cv-section="organisasi">Batal</button>
+                                    </div>
+                                </div>
                             </div>
                         </section>
 
                         <section id="kontak" class="card card-primary card-outline mb-3" aria-labelledby="judul-kontak">
-                            <div class="card-header">
+                            <div class="card-header d-flex justify-content-between align-items-center">
                                 <h2 class="card-title h5 mb-0" id="judul-kontak"></h2>
+                                <button type="button" class="btn btn-sm btn-outline-light" data-cv-action="edit" data-cv-section="kontak">Edit</button>
                             </div>
                             <div class="card-body">
-                                <p id="cv-kontak-text" class="mb-0"></p>
+                                <div class="cv-section-view" data-cv-section="kontak">
+                                    <p id="cv-kontak-text" class="mb-0"></p>
+                                </div>
+                                <div class="cv-section-editor d-none" data-cv-section="kontak" aria-hidden="true">
+                                    <div class="cv-section-edit-feedback alert d-none py-2 px-3 small mb-2" role="alert"></div>
+                                    <label class="small font-weight-bold d-block mb-1" for="cv-json-kontak">JSON bagian kontak</label>
+                                    <textarea id="cv-json-kontak" class="form-control cv-section-json text-monospace small" rows="8" spellcheck="false" data-cv-section="kontak"></textarea>
+                                    <div class="mt-2">
+                                        <button type="button" class="btn btn-primary btn-sm" data-cv-action="save" data-cv-section="kontak">Simpan</button>
+                                        <button type="button" class="btn btn-secondary btn-sm" data-cv-action="cancel" data-cv-section="kontak">Batal</button>
+                                    </div>
+                                </div>
                             </div>
                         </section>
                     </main>

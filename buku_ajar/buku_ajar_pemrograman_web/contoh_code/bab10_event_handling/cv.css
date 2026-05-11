@@ -1,5 +1,11 @@
 /* Penyesuaian tipis di atas AdminLTE 3 + Bootstrap 4 untuk contoh CV bab 10 */
 
+textarea.cv-section-json {
+    min-height: 200px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.8125rem;
+}
+
 .cv-address-plain {
     font-style: normal;
 }
@@ -46,6 +52,15 @@
 }
 
 @media print {
+    #cv-storage-panel,
+    .cv-section-editor {
+        display: none !important;
+    }
+
+    .cv-section-view {
+        display: block !important;
+    }
+
     .main-header,
     .main-sidebar,
     .content-header {

@@ -1,10 +1,27 @@
 /**
- * Memuat data CV dari JSON di GitHub lalu mengisi elemen di halaman.
- * URL halaman blob: github.com/.../blob/versi1/.../cv-data.json —
- * untuk fetch dipakai URL raw.githubusercontent.com yang mengembalikan isi berkas mentah (JSON).
+ * CV: render dari objek data, muat awal dari localStorage (jika valid) atau JSON (cv-data.json lalu GitHub).
+ * Penyimpanan lokal: CV_LOCAL_STORAGE_KEY. Edit per bagian: tombol Edit → JSON potongan → Simpan.
  */
 const CV_JSON_URL =
     "https://raw.githubusercontent.com/cecepsuwanda/kuliah_pemrograman_internet/versi1/buku_ajar/buku_ajar_pemrograman_web/contoh_code/bab10_event_handling/cv-data.json";
+
+/** Kunci penyimpanan data CV di localStorage (bab 10). */
+const CV_LOCAL_STORAGE_KEY = "bab10_cv_data";
+
+/** Kartu konten yang punya editor JSON tersendiri (id section = kunci di objek CV). */
+const CV_SECTION_KEYS = [
+    "ringkasan",
+    "keterampilan",
+    "pengalaman",
+    "pendidikan",
+    "portofolio",
+    "sertifikasi",
+    "organisasi",
+    "kontak",
+];
+
+/** Objek CV penuh di memori; disinkronkan ke localStorage setelah simpan / muat. */
+let appCvData = null;
 
 function setText(id, text) {
     const el = document.getElementById(id);
@@ -222,14 +239,229 @@ function renderFooter(p, data) {
     appendText(p, ".");
 }
 
+function isValidCvData(obj) {
+    return (
+        obj !== null &&
+        typeof obj === "object" &&
+        typeof obj.documentTitle === "string" &&
+        obj.person !== null &&
+        typeof obj.person === "object" &&
+        typeof obj.person.name === "string"
+    );
+}
+
+function readCvFromLocalStorage() {
+    try {
+        const raw = localStorage.getItem(CV_LOCAL_STORAGE_KEY);
+        if (!raw || !raw.trim()) return null;
+        const data = JSON.parse(raw);
+        return isValidCvData(data) ? data : null;
+    } catch (_) {
+        return null;
+    }
+}
+
+function writeCvToLocalStorage(data) {
+    localStorage.setItem(CV_LOCAL_STORAGE_KEY, JSON.stringify(data));
+}
+
+function clearCvLocalStorage() {
+    localStorage.removeItem(CV_LOCAL_STORAGE_KEY);
+}
+
+function dismissLoadError() {
+    const el = document.getElementById("cv-load-error");
+    if (!el) return;
+    el.textContent = "";
+    el.classList.add("d-none");
+}
+
 function showLoadError(message) {
-    const main = document.getElementById("cv-main");
+    const el = document.getElementById("cv-load-error");
+    if (!el) return;
+    el.textContent = message;
+    el.classList.remove("d-none");
+}
+
+function setJsonFeedback(kind, message) {
+    const el = document.getElementById("cv-json-feedback");
+    if (!el) return;
+    if (!message) {
+        el.textContent = "";
+        el.className = "alert d-none mb-3";
+        el.setAttribute("role", "status");
+        return;
+    }
+    el.textContent = message;
+    el.className = "alert mb-3 alert-" + (kind === "success" ? "success" : "danger");
+    el.setAttribute("role", kind === "success" ? "status" : "alert");
+}
+
+function validateSectionSlice(sectionKey, obj) {
+    if (obj === null || typeof obj !== "object") {
+        return "Data harus berupa objek JSON.";
+    }
+    if (sectionKey === "ringkasan") {
+        if (typeof obj.heading !== "string" || typeof obj.text !== "string") {
+            return "ringkasan: properti heading dan text wajib berupa string.";
+        }
+        return null;
+    }
+    if (sectionKey === "keterampilan") {
+        if (typeof obj.heading !== "string" || !Array.isArray(obj.items)) {
+            return "keterampilan: heading (string) dan items (array) wajib ada.";
+        }
+        return null;
+    }
+    if (sectionKey === "pengalaman") {
+        if (typeof obj.heading !== "string" || !Array.isArray(obj.items)) {
+            return "pengalaman: heading (string) dan items (array) wajib ada.";
+        }
+        for (var i = 0; i < obj.items.length; i++) {
+            var it = obj.items[i];
+            if (!it || typeof it.judul !== "string") {
+                return "pengalaman.items[" + i + "]: judul wajib string.";
+            }
+            if (!it.mulai || typeof it.mulai.datetime !== "string" || typeof it.mulai.label !== "string") {
+                return "pengalaman.items[" + i + "]: mulai.datetime dan mulai.label wajib string.";
+            }
+            if (!it.selesai || typeof it.selesai.datetime !== "string" || typeof it.selesai.label !== "string") {
+                return "pengalaman.items[" + i + "]: selesai.datetime dan selesai.label wajib string.";
+            }
+            if (!Array.isArray(it.poin)) {
+                return "pengalaman.items[" + i + "]: poin wajib array.";
+            }
+        }
+        return null;
+    }
+    if (sectionKey === "pendidikan") {
+        if (typeof obj.heading !== "string" || typeof obj.caption !== "string" || !Array.isArray(obj.rows)) {
+            return "pendidikan: heading, caption (string), dan rows (array) wajib ada.";
+        }
+        return null;
+    }
+    if (sectionKey === "portofolio" || sectionKey === "sertifikasi" || sectionKey === "organisasi") {
+        if (typeof obj.heading !== "string" || !Array.isArray(obj.items)) {
+            return sectionKey + ": heading (string) dan items (array) wajib ada.";
+        }
+        return null;
+    }
+    if (sectionKey === "kontak") {
+        if (typeof obj.heading !== "string" || typeof obj.intro !== "string") {
+            return "kontak: heading dan intro wajib string.";
+        }
+        return null;
+    }
+    return "Bagian tidak dikenal.";
+}
+
+function hideSectionEditFeedback(sectionKey) {
+    var root = document.getElementById(sectionKey);
+    if (!root) return;
+    var fb = root.querySelector(".cv-section-editor .cv-section-edit-feedback");
+    if (!fb) return;
+    fb.textContent = "";
+    fb.className = "cv-section-edit-feedback alert d-none py-2 px-3 small mb-2";
+    fb.setAttribute("role", "alert");
+}
+
+function setSectionEditFeedback(sectionKey, kind, message) {
+    var root = document.getElementById(sectionKey);
+    if (!root) return;
+    var fb = root.querySelector(".cv-section-editor .cv-section-edit-feedback");
+    if (!fb) return;
+    if (!message) {
+        hideSectionEditFeedback(sectionKey);
+        return;
+    }
+    fb.textContent = message;
+    fb.className =
+        "cv-section-edit-feedback alert py-2 px-3 small mb-2 alert-" + (kind === "success" ? "success" : "danger");
+    fb.setAttribute("role", kind === "success" ? "status" : "alert");
+    fb.classList.remove("d-none");
+}
+
+function closeSectionEditorUI(sectionKey) {
+    var root = document.getElementById(sectionKey);
+    if (!root) return;
+    var view = root.querySelector(".cv-section-view");
+    var editor = root.querySelector(".cv-section-editor");
+    if (!view || !editor) return;
+    view.classList.remove("d-none");
+    editor.classList.add("d-none");
+    editor.setAttribute("aria-hidden", "true");
+    hideSectionEditFeedback(sectionKey);
+}
+
+function closeAllSectionEditors() {
+    CV_SECTION_KEYS.forEach(closeSectionEditorUI);
+}
+
+function openSectionEditor(sectionKey) {
+    if (!appCvData || !appCvData[sectionKey]) return;
+    closeAllSectionEditors();
+    var root = document.getElementById(sectionKey);
+    if (!root) return;
+    var view = root.querySelector(".cv-section-view");
+    var editor = root.querySelector(".cv-section-editor");
+    var ta = root.querySelector("textarea.cv-section-json");
+    if (!view || !editor || !ta) return;
+    ta.value = JSON.stringify(appCvData[sectionKey], null, 2);
+    view.classList.add("d-none");
+    editor.classList.remove("d-none");
+    editor.setAttribute("aria-hidden", "false");
+    hideSectionEditFeedback(sectionKey);
+}
+
+function wireMainSectionDelegation() {
+    var main = document.getElementById("cv-main");
     if (!main) return;
-    const div = document.createElement("div");
-    div.className = "alert alert-danger mb-3";
-    div.setAttribute("role", "alert");
-    div.textContent = message;
-    main.insertBefore(div, main.firstChild);
+    main.addEventListener("click", function (ev) {
+        var btn = ev.target.closest("[data-cv-action][data-cv-section]");
+        if (!btn) return;
+        var action = btn.getAttribute("data-cv-action");
+        var sectionKey = btn.getAttribute("data-cv-section");
+        if (!sectionKey || CV_SECTION_KEYS.indexOf(sectionKey) === -1) return;
+
+        if (action === "edit") {
+            openSectionEditor(sectionKey);
+            return;
+        }
+        if (action === "cancel") {
+            closeSectionEditorUI(sectionKey);
+            return;
+        }
+        if (action !== "save") return;
+
+        var root = document.getElementById(sectionKey);
+        var ta = root ? root.querySelector("textarea.cv-section-json") : null;
+        if (!ta) return;
+
+        var parsed;
+        try {
+            parsed = JSON.parse(ta.value);
+        } catch (e) {
+            setSectionEditFeedback(
+                sectionKey,
+                "error",
+                "JSON tidak valid: " + (e && e.message ? e.message : String(e))
+            );
+            return;
+        }
+
+        var err = validateSectionSlice(sectionKey, parsed);
+        if (err) {
+            setSectionEditFeedback(sectionKey, "error", err);
+            return;
+        }
+
+        appCvData[sectionKey] = parsed;
+        writeCvToLocalStorage(appCvData);
+        dismissLoadError();
+        setJsonFeedback("success", "Bagian \"" + sectionKey + "\" tersimpan ke localStorage.");
+        renderCv(appCvData);
+        closeSectionEditorUI(sectionKey);
+    });
 }
 
 async function loadCvData() {
@@ -246,17 +478,7 @@ async function loadCvData() {
     return await res.json();
 }
 
-async function loadCv() {
-    let data;
-    try {
-        data = await loadCvData();
-    } catch (e) {
-        showLoadError(
-            "Tidak dapat memuat data CV dari GitHub (periksa koneksi internet dan URL JSON di cv.js)."
-        );
-        return;
-    }
-
+function renderCv(data) {
     document.title = data.documentTitle;
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) metaDesc.setAttribute("content", data.metaDescription);
@@ -300,4 +522,61 @@ async function loadCv() {
     renderFooter(document.getElementById("cv-footer-text"), data.footer);
 }
 
-document.addEventListener("DOMContentLoaded", loadCv);
+async function fetchAndPersistCv() {
+    closeAllSectionEditors();
+    const data = await loadCvData();
+    appCvData = data;
+    writeCvToLocalStorage(appCvData);
+    dismissLoadError();
+    setJsonFeedback("", "");
+    renderCv(appCvData);
+}
+
+function wireStoragePanel() {
+    document.getElementById("cv-btn-reload-json").addEventListener("click", function () {
+        setJsonFeedback("", "");
+        dismissLoadError();
+        fetchAndPersistCv().catch(function () {
+            showLoadError(
+                "Tidak dapat memuat data CV dari jaringan (periksa koneksi dan URL di cv.js)."
+            );
+        });
+    });
+
+    document.getElementById("cv-btn-clear-ls").addEventListener("click", function () {
+        setJsonFeedback("", "");
+        dismissLoadError();
+        closeAllSectionEditors();
+        clearCvLocalStorage();
+        fetchAndPersistCv().catch(function () {
+            showLoadError(
+                "Penyimpanan lokal dihapus tetapi data tidak dapat dimuat ulang dari jaringan."
+            );
+        });
+    });
+}
+
+async function initCv() {
+    dismissLoadError();
+    setJsonFeedback("", "");
+    wireStoragePanel();
+    wireMainSectionDelegation();
+
+    const fromLs = readCvFromLocalStorage();
+    if (fromLs) {
+        appCvData = fromLs;
+        renderCv(appCvData);
+        return;
+    }
+
+    try {
+        await fetchAndPersistCv();
+    } catch (e) {
+        appCvData = null;
+        showLoadError(
+            "Tidak dapat memuat data CV (periksa koneksi, cv-data.json di folder yang sama, atau URL di cv.js)."
+        );
+    }
+}
+
+document.addEventListener("DOMContentLoaded", initCv);
