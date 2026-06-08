@@ -1,0 +1,138 @@
+{
+  "documentTitle": "Cecep Maulana — Curriculum Vitae",
+  "metaDescription": "Curriculum Vitae Cecep Maulana — Web Developer Junior. Ringkasan profil, pengalaman, pendidikan, dan kontak.",
+  "person": {
+    "name": "Cecep Maulana",
+    "role": "Web Developer (Junior)",
+    "location": "Bandung, Indonesia",
+    "email": "cecep.maulana@example.com",
+    "phoneE164": "+6281234567890",
+    "phoneDisplay": "+62 812-3456-7890",
+    "website": "https://example.com",
+    "address": "Jl. Contoh No. 10, Bandung"
+  },
+  "navItems": [
+    { "hash": "ringkasan", "label": "Ringkasan" },
+    { "hash": "keterampilan", "label": "Keterampilan" },
+    { "hash": "pengalaman", "label": "Pengalaman" },
+    { "hash": "pendidikan", "label": "Pendidikan" },
+    { "hash": "portofolio", "label": "Portofolio" },
+    { "hash": "sertifikasi", "label": "Sertifikasi" },
+    { "hash": "organisasi", "label": "Organisasi" },
+    { "hash": "kontak", "label": "Kontak" }
+  ],
+  "ringkasan": {
+    "heading": "Ringkasan profesional",
+    "text": "Mahasiswa yang tertarik pada pengembangan web, khususnya membangun halaman yang rapi, semantik, dan mudah diakses. Terbiasa menggunakan HTML, CSS dasar, dan JavaScript dasar untuk membuat tampilan dan interaksi sederhana."
+  },
+  "keterampilan": {
+    "heading": "Keterampilan",
+    "items": [
+      { "judul": "HTML", "deskripsi": "Struktur semantik, tautan, tabel sederhana, formulir" },
+      { "judul": "CSS", "deskripsi": "Selektor dasar, layout sederhana, tipografi" },
+      { "judul": "JavaScript", "deskripsi": "DOM, event handler, jQuery untuk manipulasi elemen" },
+      { "judul": "AdminLTE", "deskripsi": "Layout admin, sidebar, komponen card Bootstrap 4" },
+      { "judul": "Perkakas", "deskripsi": "VS Code/Cursor, Git dasar" }
+    ]
+  },
+  "pengalaman": {
+    "heading": "Pengalaman",
+    "items": [
+      {
+        "judul": "Pengembang Frontend — Proyek Praktikum Website Profil",
+        "mulai": { "datetime": "2026-02", "label": "Februari 2026" },
+        "selesai": { "datetime": "2026-03", "label": "Maret 2026" },
+        "poin": [
+          "Menyusun struktur halaman menggunakan elemen HTML semantik.",
+          "Membuat formulir kontak sederhana dengan validasi dasar (atribut required dan type).",
+          "Mengorganisasi konten menjadi beberapa bagian dengan navigasi anchor."
+        ]
+      },
+      {
+        "judul": "Pendamping Praktikum — Asisten Kelas Pemrograman Web Dasar",
+        "mulai": { "datetime": "2025-09", "label": "September 2025" },
+        "selesai": { "datetime": "2025-12", "label": "Desember 2025" },
+        "poin": [
+          "Membantu peserta memahami struktur dokumen HTML dan praktik elemen umum.",
+          "Memberi umpan balik terkait kerapihan markup dan aksesibilitas dasar."
+        ]
+      }
+    ]
+  },
+  "pendidikan": {
+    "heading": "Pendidikan",
+    "caption": "Riwayat pendidikan formal",
+    "rows": [
+      {
+        "jenjang": "S1",
+        "institusi": "Universitas Contoh",
+        "program": "Teknik Informatika",
+        "periodeSegments": [
+          { "type": "time", "datetime": "2024", "label": "2024" },
+          { "type": "text", "value": " – Sekarang" }
+        ]
+      },
+      {
+        "jenjang": "SMA",
+        "institusi": "SMA Contoh",
+        "program": "IPA",
+        "periodeSegments": [
+          { "type": "time", "datetime": "2021", "label": "2021" },
+          { "type": "text", "value": " – " },
+          { "type": "time", "datetime": "2024", "label": "2024" }
+        ]
+      }
+    ]
+  },
+  "portofolio": {
+    "heading": "Portofolio",
+    "items": [
+      {
+        "judul": "Halaman CV statis (HTML)",
+        "linkHref": "cv.html",
+        "linkText": "Buka halaman ini"
+      },
+      {
+        "judul": "Contoh landing page",
+        "linkHref": "https://example.com/landing",
+        "linkText": "https://example.com/landing"
+      }
+    ]
+  },
+  "sertifikasi": {
+    "heading": "Sertifikasi",
+    "items": [
+      { "nama": "Dasar-Dasar Web (Contoh)", "tahun": "2025", "datetime": "2025" },
+      { "nama": "Git Fundamentals (Contoh)", "tahun": "2025", "datetime": "2025" }
+    ]
+  },
+  "organisasi": {
+    "heading": "Organisasi",
+    "items": [
+      {
+        "teks": "Himpunan Mahasiswa Informatika — Anggota",
+        "periodeSegments": [
+          { "type": "text", "value": "(" },
+          { "type": "time", "datetime": "2024", "label": "2024" },
+          { "type": "text", "value": " – Sekarang)" }
+        ]
+      },
+      {
+        "teks": "Komunitas Web Kampus — Anggota",
+        "periodeSegments": [
+          { "type": "text", "value": "(" },
+          { "type": "time", "datetime": "2025", "label": "2025" },
+          { "type": "text", "value": " – Sekarang)" }
+        ]
+      }
+    ]
+  },
+  "kontak": {
+    "heading": "Kontak",
+    "intro": "Untuk kerja sama atau pertanyaan, silakan hubungi melalui email"
+  },
+  "footer": {
+    "year": 2026,
+    "text": "Cecep Maulana. Data CV diambil dari berkas JSON dan ditampilkan dengan jQuery + AdminLTE."
+  }
+}
