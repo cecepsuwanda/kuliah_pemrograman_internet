@@ -1,0 +1,79 @@
+/* Penyesuaian tipis di atas AdminLTE 3 + Bootstrap 4 untuk contoh CV bab 12 (PHP) */
+
+.cv-address-plain {
+    font-style: normal;
+}
+
+.sidebar-dark-primary .cv-address-plain a {
+    color: #7dd3fc;
+}
+
+.sidebar-dark-primary .cv-address-plain a:hover {
+    color: #fff;
+}
+
+#cv-skills dt {
+    margin-top: 0.65rem;
+    font-weight: 600;
+    color: #007bff;
+}
+
+#cv-skills dt:first-child {
+    margin-top: 0;
+}
+
+#cv-skills dd {
+    margin-bottom: 0;
+}
+
+#cv-experience article h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+#cv-portfolio-list,
+#cv-sertifikasi-list,
+#cv-organisasi-list {
+    padding-left: 1.25rem;
+    margin-bottom: 0;
+}
+
+#cv-experience ul {
+    margin-bottom: 0;
+}
+
+@media print {
+    .main-header,
+    .main-sidebar,
+    .content-header {
+        display: none !important;
+    }
+
+    .content-wrapper {
+        margin-left: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .main-footer {
+        border-top: 1px solid #dee2e6;
+        margin-left: 0 !important;
+    }
+
+    .card {
+        border: 1px solid #dee2e6 !important;
+        box-shadow: none !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .card-header {
+        background: #f8f9fa !important;
+        color: #000 !important;
+        border-bottom: 1px solid #dee2e6 !important;
+    }
+
+    body,
+    .wrapper {
+        background: #fff !important;
+    }
+}
